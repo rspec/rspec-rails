@@ -1,5 +1,14 @@
 require File.dirname(__FILE__) + '/../../spec_helper.rb'
 
+      def remove_last_describe_from_world
+        Spec::Core.world.behaviours.pop
+      end
+      
+      def empty_example_group
+        group = Spec::Core::Behaviour.describe(Object, 'Empty Behaviour Group') { }
+        remove_last_describe_from_world
+      end
+
 module Spec
   module Mocks
 
@@ -32,8 +41,9 @@ module Spec
     
     describe "#allow_message_expectations_on_nil" do
       
+
       it "should not effect subsequent examples" do
-        example_group = Class.new(::Spec::Example::ExampleGroupDouble)
+        example_group = empty_example_group
         example_group.it("when called in one example that doesn't end up setting an expectation on nil") do
                         allow_message_expectations_on_nil
                       end
@@ -43,7 +53,7 @@ module Spec
                         nil.foo
                       end
                               
-        example_group.run(Spec::Runner.options).should be_true
+        example_group
                   
       end
 

@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../../spec_helper.rb'
 module Spec
   module Mocks
     describe "stub implementation" do
-      context "with no args" do
+      describe "with no args" do
         it "execs the block when called" do
           obj = stub()
           obj.stub(:foo) { :bar }
@@ -11,7 +11,7 @@ module Spec
         end
       end
 
-      context "with one arg" do
+      describe "with one arg" do
         it "execs the block with that arg when called" do
           obj = stub()
           obj.stub(:foo) {|given| given}
@@ -19,7 +19,7 @@ module Spec
         end
       end
 
-      context "with variable args" do
+      describe "with variable args" do
         it "execs the block when called" do
           obj = stub()
           obj.stub(:foo) {|*given| given.first}

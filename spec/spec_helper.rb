@@ -1,22 +1,18 @@
-require 'spec/deprecation'
-require 'spec/ruby'
-require 'spec/matchers'
-require 'spec/expectations'
-require 'spec/example'
-require 'spec/runner'
-require 'spec/version'
-require 'spec/dsl'
-$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '/../../core/lib'))
+require 'spec/core'
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '/../lib'))
 require 'spec/mocks'
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '/../../expectations/lib'))
+require 'spec/expectations'
 
 module Macros
   def treats_method_missing_as_private(options = {:noop => true, :subject => nil})
     it "should have method_missing as private" do
       with_ruby 1.8 do
-        described_class.private_instance_methods.should include("method_missing")
+        self.class.describes.private_instance_methods.should include("method_missing")
       end
       with_ruby 1.9 do
-        described_class.private_instance_methods.should include(:method_missing)
+        self.class.describes.private_instance_methods.should include(:method_missing)
       end
     end
 
@@ -73,22 +69,9 @@ module Spec
   end
 end
 
-module Spec
-  module Example
-    class ExampleGroupDouble < ExampleGroup
-      ::Spec::Runner.options.remove_example_group self
-      def register_example_group(klass)
-        #ignore
-      end
-      def initialize(proxy=nil, &block)
-        super(proxy || ExampleProxy.new, &block)
-      end
-    end
-  end
-end
-
-
-Spec::Runner.configure do |config|
+Spec::Core.configure do |config|
+  config.mock_with :rspec
   config.extend(Macros)
   config.include(Spec::Matchers)
+  config.include(Spec::Mocks::Methods)
 end

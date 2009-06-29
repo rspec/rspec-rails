@@ -1,20 +1,20 @@
 require File.dirname(__FILE__) + '/../../spec_helper.rb'
 
+def include_mock_argument_matchers
+  before(:each) do
+    @mock = Spec::Mocks::Mock.new("test mock")
+    Kernel.stub!(:warn)
+  end
+  
+  after(:each) do
+    @mock.rspec_verify
+  end
+end
 module Spec
   module Mocks
-    describe "mock argument matchers", :shared => true do
-      before(:each) do
-        @mock = Mock.new("test mock")
-        Kernel.stub!(:warn)
-      end
-      
-      after(:each) do
-        @mock.rspec_verify
-      end
-    end
     
     describe Methods, "handling argument matchers" do
-      it_should_behave_like "mock argument matchers"
+      include_mock_argument_matchers
 
       it "should accept true as boolean()" do
         @mock.should_receive(:random_call).with(boolean())
@@ -89,7 +89,7 @@ module Spec
     end
 
     describe Methods, "handling block matchers" do
-      it_should_behave_like "mock argument matchers"
+      include_mock_argument_matchers
       
       it "should match arguments against RSpec expectations" do
         @mock.should_receive(:random_call).with {|arg1, arg2, arr, *rest|

@@ -13,8 +13,7 @@ module Spec
         m.bar("message") # allows the spec to pass
       end
 
-      it "should tell you when it receives the right message with the wrong args if you stub the method" do
-        pending("fix bug 15719")
+      pending "should tell you when it receives the right message with the wrong args if you stub the method (fix bug 15719)" do
         # NOTE - for whatever reason, if you use a the block style of pending here,
         # rcov gets unhappy. Don't know why yet.
         m = mock("foo")
