@@ -45,6 +45,7 @@ end
 
 Spec::Core.configure do |config|
   config.mock_with :rspec
+  config.color_enabled = true
   config.extend(Macros)
   config.include(Spec::Matchers)
   config.include(Spec::Mocks::Methods)
