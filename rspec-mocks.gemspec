@@ -19,6 +19,7 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "lib/rspec-expectations.rb",
+     "rspec-mocks.gemspec",
      "spec/rspec-expectations_spec.rb",
      "spec/spec_helper.rb"
   ]
