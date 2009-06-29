@@ -1,5 +1,5 @@
 require File.dirname(__FILE__) + '/../../spec_helper.rb'
-require 'spec/mocks'
+require 'rspec/mocks'
 
 module Rspec
   module Mocks

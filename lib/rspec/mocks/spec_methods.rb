@@ -26,22 +26,6 @@ module Rspec
 
       alias :stub :mock
 
-      # DEPRECATED - use mock('name').as_null_object instead
-      #
-      # Shortcut for creating a mock object that will return itself in response
-      # to any message it receives that it hasn't been explicitly instructed
-      # to respond to.
-      def stub_everything(name = 'stub')
-        Spec.warn(<<-WARNING)
-
-DEPRECATION: stub_everything('#{name}') is deprecated and will be removed
-from a future version of rspec. Please use mock('#{name}').as_null_object
-or stub('#{name}').as_null_object instead.
-
-WARNING
-        mock(name, :null_object => true)
-      end
-
       # Disables warning messages about expectations being set on nil.
       #
       # By default warning messages are issued when expectations are set on nil.  This is to
