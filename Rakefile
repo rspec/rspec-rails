@@ -5,7 +5,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "rspec-mocks"
-    gem.summary = %Q{TODO.markdown License.txt README.markdown}
+    gem.summary = "rspec-mocks"
     gem.email = "dchelimsky@gmail.com;chad.humphries@gmail.com"
     gem.homepage = "http://github.com/rspec/mocks"
     gem.authors = ["David Chelimsky", "Chad Humphries"]    
