@@ -1,4 +1,4 @@
-module Spec
+module Rspec
   module Mocks
     class Mock
       include Methods

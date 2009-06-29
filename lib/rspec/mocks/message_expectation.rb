@@ -1,4 +1,4 @@
-module Spec
+module Rspec
   module Mocks
 
     class BaseExpectation
@@ -191,7 +191,7 @@ module Spec
         return if expected_messages_received? || failed_fast?
     
         generate_error
-      rescue Spec::Mocks::MockExpectationError => error
+      rescue Rspec::Mocks::MockExpectationError => error
         error.backtrace.insert(0, @expected_from)
         Kernel::raise error
       end

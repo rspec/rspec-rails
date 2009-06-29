@@ -1,4 +1,4 @@
-module Spec
+module Rspec
   module Mocks
     class ErrorGenerator
       attr_writer :opts
@@ -50,7 +50,7 @@ module Spec
       
       def __raise(message)
         message = opts[:message] unless opts[:message].nil?
-        Kernel::raise(Spec::Mocks::MockExpectationError, message)
+        Kernel::raise(Rspec::Mocks::MockExpectationError, message)
       end
       
       def arg_message(*args)

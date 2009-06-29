@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-module Spec
+module Rspec
   module Mocks
     describe "a Mock expectation with multiple return values and no specified count" do
       before(:each) do

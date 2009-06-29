@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper.rb'
 
-module Spec
+module Rspec
   module Mocks
     describe "mock failure" do
       
@@ -9,7 +9,7 @@ module Spec
         m.should_receive(:bar).with("message")
         lambda {
           m.bar("different message")
-        }.should raise_error(Spec::Mocks::MockExpectationError, %Q{Mock 'foo' expected :bar with ("message") but received it with ("different message")})
+        }.should raise_error(Rspec::Mocks::MockExpectationError, %Q{Mock 'foo' expected :bar with ("message") but received it with ("different message")})
         m.bar("message") # allows the spec to pass
       end
 
@@ -21,7 +21,7 @@ module Spec
         m.should_receive(:bar).with("message")
         lambda {
           m.bar("different message")
-        }.should raise_error(Spec::Mocks::MockExpectationError, %Q{Mock 'foo' expected :bar with ("message") but received it with ("different message")})
+        }.should raise_error(Rspec::Mocks::MockExpectationError, %Q{Mock 'foo' expected :bar with ("message") but received it with ("different message")})
         m.bar("message") # allows the spec to pass
       end
     end

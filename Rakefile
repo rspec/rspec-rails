@@ -17,12 +17,12 @@ rescue LoadError
 end
 
 $:.unshift File.join(File.dirname(__FILE__), "/../core/lib")
-require 'spec/core/rake_task'
-Spec::Core::RakeTask.new(:spec) do |spec|
+require 'rspec/core/rake_task'
+Rspec::Core::RakeTask.new(:spec) do |spec|
   spec.pattern = 'spec/**/*_spec.rb'
 end
 
-Spec::Core::RakeTask.new(:rcov) do |spec|
+Rspec::Core::RakeTask.new(:rcov) do |spec|
   spec.pattern = 'spec/**/*_spec.rb'
   spec.rcov = true
   spec.rcov_opts = %[--exclude "core,expectations,gems/*,spec/resources,spec/spec,spec/spec_helper.rb,db/*,/Library/Ruby/*,config/*" --text-summary  --sort coverage]

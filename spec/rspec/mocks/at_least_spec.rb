@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper.rb'
 
-module Spec
+module Rspec
   module Mocks
     describe "at_least" do
       before(:each) do

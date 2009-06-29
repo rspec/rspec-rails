@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper.rb'
 
-module Spec
+module Rspec
   module Mocks
     describe "using a Partial Mock," do
       before(:each) do
@@ -11,14 +11,14 @@ module Spec
         @object.should_receive(:foo)
         lambda do
           @object.rspec_verify
-        end.should raise_error(Spec::Mocks::MockExpectationError, /<Object:.*> expected/)
+        end.should raise_error(Rspec::Mocks::MockExpectationError, /<Object:.*> expected/)
       end
     
       it "should name the class in the failure message when expectation is on class" do
         Object.should_receive(:foo)
         lambda do
           Object.rspec_verify
-        end.should raise_error(Spec::Mocks::MockExpectationError, /<Object \(class\)>/)
+        end.should raise_error(Rspec::Mocks::MockExpectationError, /<Object \(class\)>/)
       end
     
       it "should not conflict with @options in the object" do
@@ -63,7 +63,7 @@ module Spec
         @object.should_receive(:foobar).with(:test_param).and_return(1)
         lambda do
           @object.rspec_verify
-        end.should raise_error(Spec::Mocks::MockExpectationError)
+        end.should raise_error(Rspec::Mocks::MockExpectationError)
       end
     
       it "should_receive should also take a String argument" do
@@ -75,7 +75,7 @@ module Spec
         @object.should_not_receive('foobar')
         lambda do
           @object.foobar   
-        end.should raise_error(Spec::Mocks::MockExpectationError)
+        end.should raise_error(Rspec::Mocks::MockExpectationError)
       end
       
       it "should use report nil in the error message" do
@@ -84,7 +84,7 @@ module Spec
         @this_will_resolve_to_nil.should_receive(:foobar)
         lambda do
           @this_will_resolve_to_nil.rspec_verify
-        end.should raise_error(Spec::Mocks::MockExpectationError, /nil expected :foobar with/)
+        end.should raise_error(Rspec::Mocks::MockExpectationError, /nil expected :foobar with/)
       end
     end
     

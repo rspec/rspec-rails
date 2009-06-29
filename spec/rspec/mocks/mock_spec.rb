@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
-module Spec
+module Rspec
   module Mocks
     describe Mock do
       treats_method_missing_as_private :subject => Mock.new, :noop => false

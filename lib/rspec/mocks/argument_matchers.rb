@@ -1,4 +1,4 @@
-module Spec
+module Rspec
   module Mocks
 
     # ArgumentMatchers are messages that you can include in message

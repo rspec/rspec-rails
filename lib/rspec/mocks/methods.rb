@@ -1,4 +1,4 @@
-module Spec
+module Rspec
   module Mocks
     module Methods
       def should_receive(sym, opts={}, &block)

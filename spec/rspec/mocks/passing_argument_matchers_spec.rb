@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../../spec_helper.rb'
 
 def include_mock_argument_matchers
   before(:each) do
-    @mock = Spec::Mocks::Mock.new("test mock")
+    @mock = Rspec::Mocks::Mock.new("test mock")
     Kernel.stub!(:warn)
   end
   
@@ -10,7 +10,7 @@ def include_mock_argument_matchers
     @mock.rspec_verify
   end
 end
-module Spec
+module Rspec
   module Mocks
     
     describe Methods, "handling argument matchers" do

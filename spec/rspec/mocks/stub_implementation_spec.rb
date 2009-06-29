@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../spec_helper.rb'
 
-module Spec
+module Rspec
   module Mocks
     describe "stub implementation" do
       describe "with no args" do

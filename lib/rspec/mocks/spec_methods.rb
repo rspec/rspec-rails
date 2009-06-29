@@ -1,9 +1,9 @@
-module Spec
+module Rspec
   module Mocks
     module ExampleMethods
-      include Spec::Mocks::ArgumentMatchers
+      include Rspec::Mocks::ArgumentMatchers
 
-      # Shortcut for creating an instance of Spec::Mocks::Mock.
+      # Shortcut for creating an instance of Rspec::Mocks::Mock.
       #
       # +name+ is used for failure reporting, so you should use the
       # role that the mock is playing in the example.
@@ -21,7 +21,7 @@ module Spec
       #   stub_person.name => "Joe"
       #   stub_person.email => "joe@domain.com"
       def mock(*args)
-        Spec::Mocks::Mock.new(*args)
+        Rspec::Mocks::Mock.new(*args)
       end
 
       alias :stub :mock

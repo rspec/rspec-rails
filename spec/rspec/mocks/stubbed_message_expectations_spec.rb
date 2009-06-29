@@ -1,13 +1,13 @@
 require File.dirname(__FILE__) + '/../../spec_helper.rb'
 
-module Spec
+module Rspec
   module Mocks
     describe "Example with stubbed and then called message" do
       it "fails if the message is expected and then subsequently not called again" do
         mock_obj = mock("mock", :msg => nil)
         mock_obj.msg
         mock_obj.should_receive(:msg)
-        lambda { mock_obj.rspec_verify }.should raise_error(Spec::Mocks::MockExpectationError)
+        lambda { mock_obj.rspec_verify }.should raise_error(Rspec::Mocks::MockExpectationError)
       end
 
       it "outputs arguments of all similar calls" do

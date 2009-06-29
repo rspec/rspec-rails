@@ -1,15 +1,15 @@
 require File.dirname(__FILE__) + '/../../spec_helper.rb'
 
       def remove_last_describe_from_world
-        Spec::Core.world.behaviours.pop
+        Rspec::Core.world.behaviours.pop
       end
       
       def empty_example_group
-        group = Spec::Core::Behaviour.describe(Object, 'Empty Behaviour Group') { }
+        group = Rspec::Core::Behaviour.describe(Object, 'Empty Behaviour Group') { }
         remove_last_describe_from_world
       end
 
-module Spec
+module Rspec
   module Mocks
 
     describe "an expectation set on nil" do

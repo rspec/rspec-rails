@@ -1,5 +1,5 @@
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '/../../core/lib'))
-require 'spec/core'
+require 'rspec/core'
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '/../lib'))
 require 'rspec/mocks'
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '/../../expectations/lib'))
@@ -43,10 +43,10 @@ module Spec
   end
 end
 
-Spec::Core.configure do |config|
+Rspec::Core.configure do |config|
   config.mock_with :rspec
   config.color_enabled = true
   config.extend(Macros)
   config.include(Spec::Matchers)
-  config.include(Spec::Mocks::Methods)
+  config.include(Rspec::Mocks::Methods)
 end

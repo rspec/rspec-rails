@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../../spec_helper.rb'
 require 'spec/mocks'
 
-module Spec
+module Rspec
   module Mocks
     describe Space do
       before :each do

@@ -1,4 +1,4 @@
-module Spec
+module Rspec
   module Mocks
     class OrderGroup
       def initialize error_generator

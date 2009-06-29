@@ -1,1 +1,1 @@
-require 'spec/mocks/extensions/object'
+require 'rspec/mocks/extensions/object'
