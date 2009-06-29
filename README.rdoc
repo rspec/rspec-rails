@@ -1,7 +1,0 @@
-= rspec-expectations
-
-Description goes here.
-
-== Copyright
-
-Copyright (c) 2009 Chad Humphries. See LICENSE for details.

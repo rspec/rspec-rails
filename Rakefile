@@ -5,10 +5,10 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "rspec-expectations"
-    gem.summary = %Q{TODO}
-    gem.email = "chad@spicycode.com"
-    gem.homepage = "http://github.com/spicycode/rspec-expectations"
-    gem.authors = ["Chad Humphries"]
+    gem.summary = %Q{TODO.markdown License.txt README.markdown}
+    gem.email = "dchelimsky@gmail.com;chad.humphries@gmail.com"
+    gem.homepage = "http://github.com/rspec/expectations"
+    gem.authors = ["David Chelimsky", "Chad Humphries"]    
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
 
