@@ -3,7 +3,7 @@ require 'rspec/core'
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '/../lib'))
 require 'rspec/mocks'
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '/../../expectations/lib'))
-require 'spec/expectations'
+require 'rspec/expectations'
 
 module Macros
   def treats_method_missing_as_private(options = {:noop => true, :subject => nil})
@@ -35,7 +35,7 @@ module Macros
   end
 end
 
-module Spec  
+module Rspec  
   module Matchers
     def with_ruby(version)
       yield if RUBY_VERSION =~ Regexp.compile("^#{version.to_s}")
@@ -47,6 +47,6 @@ Rspec::Core.configure do |config|
   config.mock_with :rspec
   config.color_enabled = true
   config.extend(Macros)
-  config.include(Spec::Matchers)
+  config.include(Rspec::Matchers)
   config.include(Rspec::Mocks::Methods)
 end

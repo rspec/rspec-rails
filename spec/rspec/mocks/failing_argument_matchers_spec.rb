@@ -87,7 +87,7 @@ module Rspec
         lambda do
           @mock.should_receive(:msg).with {|arg| arg.should == :received }
           @mock.msg :no_msg_for_you
-        end.should raise_error(Spec::Expectations::ExpectationNotMetError, /expected: :received.*\s*.*got: :no_msg_for_you/)
+        end.should raise_error(Rspec::Expectations::ExpectationNotMetError, /expected: :received.*\s*.*got: :no_msg_for_you/)
       end
             
     end
