@@ -1,2 +1,2 @@
-# RSpec Expectations
+# RSpec Mocks
 

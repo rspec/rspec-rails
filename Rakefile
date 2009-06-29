@@ -4,10 +4,10 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "rspec-expectations"
+    gem.name = "rspec-mocks"
     gem.summary = %Q{TODO.markdown License.txt README.markdown}
     gem.email = "dchelimsky@gmail.com;chad.humphries@gmail.com"
-    gem.homepage = "http://github.com/rspec/expectations"
+    gem.homepage = "http://github.com/rspec/mocks"
     gem.authors = ["David Chelimsky", "Chad Humphries"]    
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
@@ -41,7 +41,7 @@ Rake::RDocTask.new do |rdoc|
   end
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "rspec-expectations #{version}"
+  rdoc.title = "rspec-mocks #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
