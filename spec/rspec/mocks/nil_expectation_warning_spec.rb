@@ -5,7 +5,7 @@ require File.dirname(__FILE__) + '/../../spec_helper.rb'
       end
       
       def empty_example_group
-        group = Rspec::Core::Behaviour.describe(Object, 'Empty Behaviour Group') { }
+        group = Rspec::Core::ExampleGroup.describe(Object, 'Empty Behaviour Group') { }
         remove_last_describe_from_world
       end
 
