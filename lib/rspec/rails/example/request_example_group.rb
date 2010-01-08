@@ -1,21 +1,11 @@
-RAILS_ENV = "test"
-require 'config/environment'
-require 'rspec'
-require 'action_controller'
-require 'action_controller/url_rewriter'
+require 'rspec/rails/core/example/request_example_group'
 require 'webrat'
 
-
 module RequestExampleGroupBehaviour
-  include ActionDispatch::Assertions
-  include ActionDispatch::Integration::Runner
   include Webrat::Matchers
   include Webrat::Methods
-  Rails.application.routes.install_helpers(self)
 
-  def app
-    Rails.application
-  end
+  # add factory_girl
 
   Webrat.configure do |config|
     config.mode = :rack
@@ -23,11 +13,6 @@ module RequestExampleGroupBehaviour
 
   def last_response
     response
-  end
-  
-  Rspec::Core.configure do |c|
-    c.include self
-   # , :behaviour => { :describes => /^\// }
   end
 end
 
