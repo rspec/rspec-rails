@@ -1,10 +1,10 @@
 desc 'checkout rails'
 task :get_rails do
-  if File.directory?('./tmp/rails')
-    sh "cd ./tmp/rails && git pull"
+  if File.directory?('./rails')
+    sh "cd ./rails && git pull"
   else
     mkdir_p "tmp"
-    sh "cd ./tmp && git clone git://github.com/rails/rails --depth 0"
+    sh "git clone git://github.com/rails/rails --depth 0"
   end
 end
 
