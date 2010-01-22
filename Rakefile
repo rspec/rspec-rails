@@ -41,6 +41,11 @@ task :create_app => [:build] do
   ruby "rails/railties/bin/rails tmp/example_app --dev -m example_app_template.rb"
 end
 
+desc 'run controller generator'
+task :generate_controller do
+  sh "cd ./tmp/example_app && script/generate controller things new"
+end
+
 desc 'generate rspec'
 task :generate_rspec do
   sh "cd ./rails && script/generate rspec"
