@@ -33,6 +33,7 @@ task :get_rails do
       system "git pull origin master"
     end
   else
+    mkdir_p 'tmp'
     FileUtils.cd('tmp') do 
       sh "git clone git://github.com/rails/rails --depth 0"
     end
