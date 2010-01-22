@@ -28,19 +28,21 @@ end
 
 desc 'checkout rails'
 task :get_rails do
-  if File.directory?('./rails')
-    FileUtils.cd('rails') do 
+  if File.directory?('./tmp/rails')
+    FileUtils.cd('tmp/rails') do 
       system "git pull origin master"
     end
   else
-    sh "git clone git://github.com/rails/rails --depth 0"
+    FileUtils.cd('tmp') do 
+      sh "git clone git://github.com/rails/rails --depth 0"
+    end
   end
 end
 
 desc 'create app'
 task :create_app do
   rm_rf "tmp/example_app"
-  ruby "./rails/railties/bin/rails tmp/example_app --dev -m example_app_template.rb"
+  ruby "./tmp/rails/railties/bin/rails tmp/example_app --dev -m example_app_template.rb"
 end
 
 desc 'run controller generator'
