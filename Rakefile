@@ -11,7 +11,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "rspec-rails"
-    gem.summary = "RSpec for Rails"
+    gem.summary = "RSpec Rails"
     gem.description = 'RSpec Rails'
     gem.email = "dchelimsky@gmail.com;chad.humphries@gmail.com"
     gem.homepage = "http://github.com/rspec/rspec-rails"
@@ -19,7 +19,6 @@ begin
     gem.version = Rspec::Rails::Version::STRING
     gem.add_dependency "rspec", ">= #{Rspec::Rails::Version::STRING}"
     gem.add_dependency "webrat", "0.7.0"
-    gem.add_development_dependency('cucumber', '>= 0.5.3')
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
@@ -35,9 +34,7 @@ task :get_rails do
     end
   else
     mkdir_p 'tmp'
-    FileUtils.cd('tmp') do 
-      sh "git clone git://github.com/rails/rails --depth 0"
-    end
+    system "git clone git://github.com/rails/rails tmp/rails"
   end
 end
 
@@ -51,3 +48,5 @@ desc 'clobber generated files'
 task :clobber do
   rm_rf "pkg"
 end
+
+task :default => [:get_rails, :create_app]
