@@ -25,14 +25,3 @@ module ControllerExampleGroupBehaviour
     c.include self, :behaviour => { :describes => lambda {|c| c < ::ActionController::Base} }
   end
 end
-
-
-# describe WidgetsController do
-  # context "GET index" do
-    # it "does something" do
-      # get :index
-      # response.body.should == "this text"
-    # end
-  # end
-# end
-
