@@ -9,12 +9,13 @@ require 'rspec/rails'
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
 Rspec::Core.configure do |config|
+  config.include Rspec::Matchers
   # If you're not using ActiveRecord you should remove these
   # lines, delete config/database.yml and disable :active_record
   # in your config/boot.rb
-  config.use_transactional_fixtures = true
-  config.use_instantiated_fixtures  = false
-  config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
+  # config.use_transactional_fixtures = true
+  # config.use_instantiated_fixtures  = false
+  # config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
 
   # == Fixtures
   #
@@ -46,5 +47,5 @@ Rspec::Core.configure do |config|
   #
   # == Notes
   #
-  # For more information take a look at Spec::Runner::Configuration and Spec::Runner
+  # For more information take a look at Rspec::Core::Configuration
 end
