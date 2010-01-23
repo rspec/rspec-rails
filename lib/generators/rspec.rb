@@ -1,4 +1,4 @@
-require 'generators/named_base'
+require 'rails/generators/named_base'
 
 module Rspec
   module Generators

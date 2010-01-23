@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
      "VERSION",
      "VERSION.yml",
      "example_app_template.rb",
-     "lib/generators/rspec-rails.rb",
+     "lib/generators/rspec.rb",
      "lib/generators/rspec/controller/controller_generator.rb",
      "lib/generators/rspec/controller/templates/controller_spec.rb",
      "lib/generators/rspec/controller/templates/view_spec.rb",
