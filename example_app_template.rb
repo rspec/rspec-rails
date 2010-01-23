@@ -20,3 +20,12 @@ module ExampleApp
 end
 CODE
 
+run('gem bundle')
+
+generate('rspec:install')
+generate('model', 'thing', 'name:string')
+generate('controller', 'widgets', 'index', 'new')
+
+run('rake db:migrate')
+run('rake db:test:prepare')
+run('rspec spec')
