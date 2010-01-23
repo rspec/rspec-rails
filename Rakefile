@@ -38,7 +38,7 @@ task :get_rails do
   end
 end
 
-desc 'create app'
+desc 'create app, generate a bunch of stuff, and run rake spec'
 task :create_app do
   rm_rf "tmp/example_app"
   ruby "./tmp/rails/railties/bin/rails tmp/example_app --dev -m example_app_template.rb"
