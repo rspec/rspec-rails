@@ -18,6 +18,7 @@ begin
     gem.authors = ["David Chelimsky", "Chad Humphries"]
     gem.version = Rspec::Rails::Version::STRING
     gem.add_dependency "rspec", ">= #{Rspec::Rails::Version::STRING}"
+    gem.add_dependency "webrat", "0.7.0"
     gem.add_development_dependency('cucumber', '>= 0.5.3')
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
