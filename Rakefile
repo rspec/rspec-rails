@@ -47,11 +47,6 @@ task :create_app do
   ruby "./tmp/rails/railties/bin/rails tmp/example_app --dev -m example_app_template.rb"
 end
 
-desc 'run controller generator'
-task :generate_controller do
-  sh "cd ./tmp/example_app && script/generate controller things new"
-end
-
 desc 'clobber generated files'
 task :clobber do
   rm_rf "pkg"
