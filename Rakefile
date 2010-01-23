@@ -26,22 +26,26 @@ rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
-desc 'checkout rails'
-task :get_rails do
-  if File.directory?('./tmp/rails')
-    FileUtils.cd('tmp/rails') do 
-      system "git pull origin master"
-    end
-  else
-    mkdir_p 'tmp'
-    system "git clone git://github.com/rails/rails tmp/rails"
-  end
-end
 
 desc 'create app, generate a bunch of stuff, and run rake spec'
-task :create_app do
-  rm_rf "tmp/example_app"
-  ruby "./tmp/rails/railties/bin/rails tmp/example_app --dev -m example_app_template.rb"
+task :create_app do |t|
+  if File.directory?('./tmp/rails')
+    rm_rf "tmp/example_app"
+    ruby "./tmp/rails/railties/bin/rails tmp/example_app --dev -m example_app_template.rb"
+  else
+    puts <<-MESSAGE
+
+You need to install rails in ./tmp/rails before you can run the 
+#{task_name} task:
+  
+  git clone git://github.com/rails/rails tmp/rails
+
+(We'll automate this eventually, but running 'git clone' from rake in this
+project is mysteriously full of fail)
+
+MESSAGE
+    puts silly_git_clone_message(t.name)
+  end
 end
 
 desc 'clobber generated files'
@@ -49,4 +53,5 @@ task :clobber do
   rm_rf "pkg"
 end
 
-task :default => [:get_rails, :create_app]
+task :default => :create_app
+
