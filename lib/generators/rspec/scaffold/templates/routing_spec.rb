@@ -1,67 +1,37 @@
 require 'spec_helper'
 
 describe <%= controller_class_name %>Controller do
-  describe "route generation" do
+  describe "routing" do
+
     <% unless options[:singleton] -%>
-    it "maps #index" do
-      route_for(:controller => "<%= table_name %>", :action => "index").should == "/<%= table_name %>"
+    it "recognizes and generates #index" do
+      { :get => "/<%= table_name %>" }.should route_to(:controller => "<%= table_name %>", :action => "index")
     end
+
     <% end -%>
-
-    it "maps #new" do
-      route_for(:controller => "<%= table_name %>", :action => "new").should == "/<%= table_name %>/new"
+    it "recognizes and generates #new" do
+      { :get => "/<%= table_name %>/new" }.should route_to(:controller => "<%= table_name %>", :action => "new")
     end
 
-    it "maps #show" do
-      route_for(:controller => "<%= table_name %>", :action => "show", :id => "1").should == "/<%= table_name %>/1"
+    it "recognizes and generates #show" do
+      { :get => "/<%= table_name %>/1" }.should route_to(:controller => "<%= table_name %>", :action => "show", :id => "1")
     end
 
-    it "maps #edit" do
-      route_for(:controller => "<%= table_name %>", :action => "edit", :id => "1").should == "/<%= table_name %>/1/edit"
+    it "recognizes and generates #edit" do
+      { :get => "/<%= table_name %>/1/edit" }.should route_to(:controller => "<%= table_name %>", :action => "edit", :id => "1")
     end
 
-    it "maps #create" do
-      route_for(:controller => "<%= table_name %>", :action => "create").should == {:path => "/<%= table_name %>", :method => :post}
+    it "recognizes and generates #create" do
+      { :post => "/<%= table_name %>" }.should route_to(:controller => "<%= table_name %>", :action => "create") 
     end
 
-    it "maps #update" do
-      route_for(:controller => "<%= table_name %>", :action => "update", :id => "1").should == {:path =>"/<%= table_name %>/1", :method => :put}
+    it "recognizes and generates #update" do
+      { :put => "/<%= table_name %>/1" }.should route_to(:controller => "<%= table_name %>", :action => "update", :id => "1") 
     end
 
-    it "maps #destroy" do
-      route_for(:controller => "<%= table_name %>", :action => "destroy", :id => "1").should == {:path =>"/<%= table_name %>/1", :method => :delete}
-    end
-  end
-
-  describe "route recognition" do
-    <% unless options[:singleton] -%>
-    it "generates params for #index" do
-      params_from(:get, "/<%= table_name %>").should == {:controller => "<%= table_name %>", :action => "index"}
-    end
-    <% end -%>
-
-    it "generates params for #new" do
-      params_from(:get, "/<%= table_name %>/new").should == {:controller => "<%= table_name %>", :action => "new"}
+    it "recognizes and generates #destroy" do
+      { :delete => "/<%= table_name %>/1" }.should route_to(:controller => "<%= table_name %>", :action => "destroy", :id => "1") 
     end
 
-    it "generates params for #create" do
-      params_from(:post, "/<%= table_name %>").should == {:controller => "<%= table_name %>", :action => "create"}
-    end
-
-    it "generates params for #show" do
-      params_from(:get, "/<%= table_name %>/1").should == {:controller => "<%= table_name %>", :action => "show", :id => "1"}
-    end
-
-    it "generates params for #edit" do
-      params_from(:get, "/<%= table_name %>/1/edit").should == {:controller => "<%= table_name %>", :action => "edit", :id => "1"}
-    end
-
-    it "generates params for #update" do
-      params_from(:put, "/<%= table_name %>/1").should == {:controller => "<%= table_name %>", :action => "update", :id => "1"}
-    end
-
-    it "generates params for #destroy" do
-      params_from(:delete, "/<%= table_name %>/1").should == {:controller => "<%= table_name %>", :action => "destroy", :id => "1"}
-    end
   end
 end
