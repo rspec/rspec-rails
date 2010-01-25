@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   ]
   s.files = [
     ".gitignore",
+     "README.markdown",
      "Rakefile",
      "VERSION",
      "VERSION.yml",
@@ -34,6 +35,7 @@ Gem::Specification.new do |s|
      "lib/generators/rspec/install/templates/spec/spec.opts",
      "lib/generators/rspec/install/templates/spec/spec_helper.rb",
      "lib/generators/rspec/integration/integration_generator.rb",
+     "lib/generators/rspec/integration/templates/request_spec.rb",
      "lib/generators/rspec/mailer/mailer_generator.rb",
      "lib/generators/rspec/mailer/templates/fixture",
      "lib/generators/rspec/mailer/templates/mailer_spec.rb",
