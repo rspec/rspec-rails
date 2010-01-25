@@ -36,7 +36,7 @@ task :create_app do |t|
     puts <<-MESSAGE
 
 You need to install rails in ./tmp/rails before you can run the 
-#{task_name} task:
+#{t.name} task:
   
   git clone git://github.com/rails/rails tmp/rails
 
@@ -44,7 +44,6 @@ You need to install rails in ./tmp/rails before you can run the
 project is mysteriously full of fail)
 
 MESSAGE
-    puts silly_git_clone_message(t.name)
   end
 end
 
