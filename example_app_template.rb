@@ -24,9 +24,10 @@ run('gem bundle')
 
 generate('rspec:install')
 generate('model', 'thing', 'name:string')
-generate('controller', 'widgets', 'index', 'new')
+generate('controller', 'widgets', 'index')
+generate('integration_test', 'widgets')
 
 run('rake db:migrate')
 run('rake db:test:prepare')
-run('rspec spec')
+run('script/rspec spec')
 run('rake spec')
