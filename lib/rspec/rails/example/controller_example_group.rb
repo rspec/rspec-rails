@@ -1,8 +1,11 @@
 require 'action_dispatch'
+require 'webrat'
 
 module ControllerExampleGroupBehaviour
   include ActionDispatch::Assertions
   include ActionDispatch::Integration::Runner
+  include Webrat::Matchers
+  include Webrat::Methods
 
   def self.included(mod)
     mod.before { @_result = Struct.new(:add_assertion).new }
