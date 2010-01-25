@@ -1,4 +1,5 @@
 require 'rubygems'
+gem 'jeweler', '>= 1.4.0'
 require 'rake'
 require 'yaml'
 
@@ -11,12 +12,11 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "rspec-rails"
-    gem.summary = "RSpec Rails"
-    gem.description = 'RSpec Rails'
+    gem.version = Rspec::Rails::Version::STRING
+    gem.summary = "Rspec-2 for Rails-3"
     gem.email = "dchelimsky@gmail.com;chad.humphries@gmail.com"
     gem.homepage = "http://github.com/rspec/rspec-rails"
     gem.authors = ["David Chelimsky", "Chad Humphries"]
-    gem.version = Rspec::Rails::Version::STRING
     gem.add_dependency "rspec", ">= #{Rspec::Rails::Version::STRING}"
     gem.add_dependency "webrat", "0.7.0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
