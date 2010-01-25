@@ -22,6 +22,6 @@ module ControllerExampleGroupBehaviour
   end
 
   Rspec::Core.configure do |c|
-    c.include self, :behaviour => { :describes => lambda {|c| c < ::ActionController::Base} }
+    c.include self, :behaviour => { :file_path => /\/spec\/controllers\// }
   end
 end
