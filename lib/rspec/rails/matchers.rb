@@ -1,3 +1,5 @@
+require 'rspec/matchers'
+
 module Rspec
   module Rails
     module Matchers
