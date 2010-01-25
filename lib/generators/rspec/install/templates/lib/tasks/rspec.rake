@@ -1,19 +1,3 @@
-# rspec_gem_dir = nil
-# Dir["#{Rails.root}/vendor/gems/*"].each do |subdir|
-  # rspec_gem_dir = subdir if subdir.gsub("#{Rails.root}/vendor/gems/","") =~ /^(\w+-)?rspec-(\d+)/ && File.exist?("#{subdir}/lib/spec/rake/spectask.rb")
-# end
-# rspec_plugin_dir = File.expand_path(File.dirname(__FILE__) + '/../../vendor/plugins/rspec')
-
-# if rspec_gem_dir && (test ?d, rspec_plugin_dir)
-  # raise "\n#{'*'*50}\nYou have rspec installed in both vendor/gems and vendor/plugins\nPlease pick one and dispose of the other.\n#{'*'*50}\n\n"
-# end
-
-# if rspec_gem_dir
-  # $LOAD_PATH.unshift("#{rspec_gem_dir}/lib")
-# elsif File.exist?(rspec_plugin_dir)
-  # $LOAD_PATH.unshift("#{rspec_plugin_dir}/lib")
-# end
-
 begin
   require 'rspec/core'
   require 'rspec/core/rake_task'
@@ -99,7 +83,6 @@ Rspec::Core::RakeTask.new(:spec => spec_prereq)
     # end
   # end
 
-  # Setup specs for stats
   # task :statsetup do
     # require 'code_statistics'
     # ::STATS_DIRECTORIES << %w(Model\ specs spec/models) if File.exist?('spec/models')
