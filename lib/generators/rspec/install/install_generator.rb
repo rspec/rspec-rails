@@ -17,7 +17,8 @@ DESC
       end
 
       def copy_script_files
-        directory 'script'
+        directory "script"
+        chmod "script/rspec", 0755, :verbose => false
       end
 
       def copy_spec_files

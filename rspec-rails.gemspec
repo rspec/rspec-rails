@@ -13,11 +13,10 @@ Gem::Specification.new do |s|
   s.description = %q{RSpec Rails}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
-    "README"
+    "README.markdown"
   ]
   s.files = [
     ".gitignore",
-     "README",
      "Rakefile",
      "VERSION",
      "VERSION.yml",
@@ -35,7 +34,6 @@ Gem::Specification.new do |s|
      "lib/generators/rspec/install/templates/spec/spec.opts",
      "lib/generators/rspec/install/templates/spec/spec_helper.rb",
      "lib/generators/rspec/integration/integration_generator.rb",
-     "lib/generators/rspec/integration/templates/integration_spec.rb",
      "lib/generators/rspec/mailer/mailer_generator.rb",
      "lib/generators/rspec/mailer/templates/fixture",
      "lib/generators/rspec/mailer/templates/mailer_spec.rb",
