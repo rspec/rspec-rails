@@ -6,6 +6,7 @@ module ControllerExampleGroupBehaviour
   include ActionDispatch::Integration::Runner
   include Webrat::Matchers
   include Webrat::Methods
+  include Rspec::Rails::Matchers
 
   def self.included(mod)
     mod.before { @_result = Struct.new(:add_assertion).new }
