@@ -10,11 +10,8 @@ module ExampleApp
     config.generators do |g|
       g.test_framework   :rspec,
                          :fixtures => false,
-                         :integration_tool => false,
-                         :routes => true,
+                         :routes => false,
                          :views => false
-   
-      g.integration_tool :rspec
     end
   end
 end
