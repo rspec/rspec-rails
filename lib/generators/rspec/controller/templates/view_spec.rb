@@ -1,4 +1,4 @@
-require File.expand_path(File.dirname(__FILE__) + '<%= '/..' * class_nesting_depth %>/../../spec_helper')
+require 'spec_helper'
 
 describe "/<%= file_name %>/<%= @action %>.html.<%= options[:template_engine] %>" do
   before(:each) do
