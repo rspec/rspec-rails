@@ -26,5 +26,5 @@ generate('integration_test', 'widgets')
 
 run('rake db:migrate')
 run('rake db:test:prepare')
-run('script/rspec spec')
+run('bin/rspec spec')
 run('rake spec')
