@@ -17,7 +17,7 @@ module ExampleApp
 end
 CODE
 
-run('gem bundle')
+run('bundle install')
 
 generate('rspec:install')
 generate('model', 'thing', 'name:string')
