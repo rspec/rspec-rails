@@ -26,5 +26,5 @@ run('script/rails g integration_test widgets')
 
 run('rake db:migrate')
 run('rake db:test:prepare')
-run('bin/rspec spec')
+run('rspec spec')
 run('rake spec')
