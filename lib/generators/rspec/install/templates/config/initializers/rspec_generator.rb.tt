@@ -8,6 +8,7 @@
                        :fixture     => false,
                        :controllers => false,
                        :views       => false,
+                       :helpers     => false,
                        :routes      => false,
                        :integration => true
 
