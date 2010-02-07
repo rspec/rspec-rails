@@ -12,11 +12,13 @@ Currently in super-pre-alpha state - explore at your own risk!
 
 Install:
 
+    gem install rspec-rails --pre
+
+Build from source and install:
+
     git clone git://github.com/rspec/rspec-dev
     cd rspec-dev
-    rake git:clone
-    rake gem:build
-    rake gem:install
+    rake
 
 This installs the following gems:
 
@@ -30,29 +32,19 @@ This installs the following gems:
 
 Currently supported:
 
-* controller specs in spec/controllers
-  * no view isolation yet
+* each example runs in its own transaction
+  * not yet configurable
 * model specs in spec/models
 * request specs in spec/requests
   * these wrap rails integration tests
 * rails assertions
 * webrat matchers
-* rails-specific matchers
-  * response.should redirect_to(...)
-    * wraps assert_redirected_to
-    * only works with should (not should_not)
 * generators
-  * borrowed from José Valim's third_rails repo on github
-  * the generators work, but not all the generated specs
-    work yet :(
 
 ### Known issues
 
-None (or very little) of the following are supported yet (but will be soon):
+* no controller specs
+* no view specs
+* no helper specs
+* no routing specs
 
-* rails-specific matchers
-  * only supports "response.should redirect_to(..)"
-* isolation from views in controller specs
-* view specs
-* helper specs
-* routing specs
