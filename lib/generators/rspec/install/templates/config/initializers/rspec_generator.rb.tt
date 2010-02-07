@@ -1,0 +1,11 @@
+<%= app_name %>.configure do
+  config.generators do |g|
+    g.integration_tool :rspec
+    g.test_framework   :rspec,
+                       :fixture     => false,
+                       :views       => false,
+                       :routes      => false,
+                       :integration => true
+
+  end
+end

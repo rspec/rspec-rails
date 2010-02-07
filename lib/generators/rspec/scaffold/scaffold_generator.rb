@@ -1,5 +1,5 @@
 require 'generators/rspec'
-require 'generators/resource_helpers'
+require 'rails/generators/resource_helpers'
 
 module Rspec
   module Generators
@@ -11,8 +11,8 @@ module Rspec
       class_option :template_engine, :desc => "Template engine to generate view files"
       class_option :singleton, :type => :boolean, :desc => "Supply to create a singleton controller"
 
-      class_option :views,  :type => :boolean, :default => true
-      class_option :routes, :type => :boolean, :default => true
+      class_option :views,  :type => :boolean, :default => false
+      class_option :routes, :type => :boolean, :default => false
 
       def copy_controller_files
         template 'controller_spec.rb',
