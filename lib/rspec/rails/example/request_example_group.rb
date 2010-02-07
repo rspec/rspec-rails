@@ -21,6 +21,6 @@ module RequestExampleGroupBehaviour
   end
   
   Rspec::Core.configure do |c|
-    c.include self, :behaviour => { :describes => /^\// }
+    c.include self, :example_group => { :file_path => /\/spec\/requests\// }
   end
 end

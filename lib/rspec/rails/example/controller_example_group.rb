@@ -18,14 +18,14 @@ module ControllerExampleGroupBehaviour
 
   %w[get post put delete head].map do |method|
     eval <<-CODE
-      def #{method}(action)
-        @_action = action
+      def #{method}(*args)
+        @_action = args.shift
         super '/'
       end
     CODE
   end
 
   Rspec::Core.configure do |c|
-    c.include self, :behaviour => { :describes => lambda {|c| c < ::ActionController::Base} }
+    c.include self, :example_group => { :file_path => /\/spec\/controllers\// }
   end
 end

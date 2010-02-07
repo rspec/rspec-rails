@@ -11,10 +11,13 @@ module Rspec
       class_option :template_engine, :desc => "Template engine to generate view files"
       class_option :singleton, :type => :boolean, :desc => "Supply to create a singleton controller"
 
-      class_option :views,  :type => :boolean, :default => false
-      class_option :routes, :type => :boolean, :default => false
+      class_option :controllers, :type => :boolean, :default => false
+      class_option :views,       :type => :boolean, :default => false
+      class_option :routes,      :type => :boolean, :default => false
 
       def copy_controller_files
+        return unless options[:controllers]
+
         template 'controller_spec.rb',
                  File.join('spec/controllers', controller_class_path, "#{controller_file_name}_controller_spec.rb")
       end
@@ -80,7 +83,7 @@ module Rspec
         #   should! orm_class.find(User, "37")
         #   #=> User.should_receive(:get).with(37)
         #
-        def should!(chain)
+        def should_receive!(chain)
           stub_or_should_chain(:should_receive, chain)
         end
 
@@ -95,7 +98,7 @@ module Rspec
         #   #=> User.stub!(:get).with(37)
         #
         def stub!(chain)
-          stub_or_should_chain(:stub!, chain)
+          stub_or_should_chain(:stub, chain)
         end
 
         def stub_or_should_chain(mode, chain)

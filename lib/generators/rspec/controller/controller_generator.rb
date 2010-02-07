@@ -6,14 +6,19 @@ module Rspec
       argument :actions, :type => :array, :default => [], :banner => "action action"
 
       class_option :template_engine, :desc => "Template engine to generate view files"
-      class_option :views,  :type => :boolean, :default => false
+      class_option :controllers, :type => :boolean, :default => false
+      class_option :views,       :type => :boolean, :default => false
 
       def create_controller_files
+        return unless options[:controllers]
+
         template 'controller_spec.rb',
                  File.join('spec/controllers', class_path, "#{file_name}_controller_spec.rb")
       end
 
       def create_view_files
+        return unless options[:views]
+
         empty_directory File.join("spec", "views", file_path)
 
         actions.each do |action|

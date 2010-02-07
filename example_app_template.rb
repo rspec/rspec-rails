@@ -7,9 +7,10 @@ gem 'rspec-rails', :version => "'#{Rspec::Rails::Version::STRING}'"
 run('bundle install')
 
 run('script/rails g rspec:install')
-run('script/rails g model thing name:string')
-run('script/rails g controller widgets index')
-run('script/rails g integration_test widgets')
+# run('script/rails g model thing name:string')
+run('script/rails g scaffold wombats name:string')
+# run('script/rails g controller widgets index')
+# run('script/rails g integration_test widgets')
 
 run('rake db:migrate')
 run('rake db:test:prepare')
