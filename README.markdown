@@ -28,7 +28,7 @@ This installs the following gems:
 * rspec-mocks
 * rspec-rails
 
-### What works
+### What works (and what doesn't)
 
 Currently supported:
 
@@ -37,9 +37,14 @@ Currently supported:
     * i.e. no way to turn this off
 * model specs in spec/models
 * controller specs in spec/controllers
+  * no view isolation yet
 * request specs in spec/requests
   * these wrap rails integration tests
 * rails assertions
+* assertion-wrapping matchers
+  * redirect_to
+  * render_template
+    * template must exist (unlike rspec-rails-1.x)
 * webrat matchers
 * generators
 
@@ -48,4 +53,5 @@ Currently supported:
 * no view specs
 * no helper specs
 * no routing specs
+* only works with ActiveRecord
 
