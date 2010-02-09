@@ -34,7 +34,9 @@ Currently supported:
 
 * each example runs in its own transaction
   * not yet configurable
+    * i.e. no way to turn this off
 * model specs in spec/models
+* controller specs in spec/controllers
 * request specs in spec/requests
   * these wrap rails integration tests
 * rails assertions
@@ -43,7 +45,6 @@ Currently supported:
 
 ### Known issues
 
-* no controller specs
 * no view specs
 * no helper specs
 * no routing specs
