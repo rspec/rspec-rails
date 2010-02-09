@@ -11,7 +11,7 @@ module Rspec
       class_option :template_engine, :desc => "Template engine to generate view files"
       class_option :singleton, :type => :boolean, :desc => "Supply to create a singleton controller"
 
-      class_option :controllers, :type => :boolean, :default => false
+      class_option :controllers, :type => :boolean, :default => true
       class_option :views,       :type => :boolean, :default => false
       class_option :routes,      :type => :boolean, :default => false
 

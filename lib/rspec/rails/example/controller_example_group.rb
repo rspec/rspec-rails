@@ -20,12 +20,12 @@ module ControllerExampleGroupBehaviour
     eval <<-CODE
       def #{method}(*args)
         @_action = args.shift
-        super '/'
+        super '/', *args
       end
     CODE
   end
 
   Rspec::Core.configure do |c|
-    c.include self, :example_group => { :file_path => /\/spec\/controllers\// }
+    c.include self, :example_group => { :file_path => /\bspec\/controllers\// }
   end
 end
