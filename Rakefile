@@ -17,7 +17,7 @@ begin
     gem.email = "dchelimsky@gmail.com;chad.humphries@gmail.com"
     gem.homepage = "http://github.com/rspec/rspec-rails"
     gem.authors = ["David Chelimsky", "Chad Humphries"]
-    gem.add_dependency "rspec", ">= 2.0.0.a5"
+    gem.add_dependency "rspec", ">= 2.0.0.a6"
     gem.add_dependency "webrat", ">= 0.7.0"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end

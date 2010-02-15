@@ -126,6 +126,6 @@ module Rspec
   end
 end
 
-Rspec::Core.configure do |c|
+Rspec.configure do |c|
   c.include Rspec::Rails::Mocks
 end
