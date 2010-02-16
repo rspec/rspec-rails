@@ -27,7 +27,7 @@ Configure:
 
 Add this line to the Gemfile:
 
-    gem "rspec-rails", ">= 2.0.0.a6"
+    gem "rspec-rails", ">= 2.0.0.a7"
 
 This will expose generators, including rspec:install. Once you run that:
 
