@@ -12,7 +12,7 @@ module Rspec
       class_option :singleton, :type => :boolean, :desc => "Supply to create a singleton controller"
 
       class_option :controllers, :type => :boolean, :default => true
-      class_option :views,       :type => :boolean, :default => false
+      class_option :views,       :type => :boolean, :default => true
       class_option :routes,      :type => :boolean, :default => false
 
       def copy_controller_files

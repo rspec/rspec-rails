@@ -7,7 +7,7 @@ module Rspec
 
       class_option :template_engine, :desc => "Template engine to generate view files"
       class_option :controllers, :type => :boolean, :default => true
-      class_option :views,       :type => :boolean, :default => false
+      class_option :views,       :type => :boolean, :default => true
 
       def create_controller_files
         return unless options[:controllers]

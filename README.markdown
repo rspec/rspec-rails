@@ -8,17 +8,12 @@ either rspec or rails.
 
 ### Current state
 
-Currently in super-pre-alpha state - explore at your own risk!
+Currently in alpha - some things work, some not so much - see Known Issues,
+below
 
 Install:
 
     gem install rspec-rails --pre
-
-Build from source and install:
-
-    git clone git://github.com/rspec/rspec-dev
-    cd rspec-dev
-    rake
 
 This installs the following gems:
 
@@ -27,6 +22,21 @@ This installs the following gems:
 * rspec-expectations
 * rspec-mocks
 * rspec-rails
+
+Configure:
+
+Add this line to the Gemfile:
+
+    gem "rspec-rails", ">= 2.0.0.a6"
+
+This will expose generators, including rspec:install. Once you run that:
+
+    script/rails g rspec:install
+
+... you'll have the spec task added to your rake tasks.
+
+Note that things are in flux, so some generators generate code that
+doesn't work all that well yet.
 
 ### What works (and what doesn't)
 

@@ -6,7 +6,6 @@
     g.integration_tool :rspec
     g.test_framework   :rspec,
                        :fixture     => false,
-                       :views       => false,
                        :helpers     => false,
                        :routes      => false,
                        :integration => true
