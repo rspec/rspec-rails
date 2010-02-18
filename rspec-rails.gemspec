@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-02-15}
+  s.date = %q{2010-02-17}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
     "README.markdown"
@@ -55,6 +55,7 @@ Gem::Specification.new do |s|
      "lib/rspec/rails/example.rb",
      "lib/rspec/rails/example/controller_example_group.rb",
      "lib/rspec/rails/example/request_example_group.rb",
+     "lib/rspec/rails/example/view_example_group.rb",
      "lib/rspec/rails/matchers.rb",
      "lib/rspec/rails/mocks.rb",
      "lib/rspec/rails/transactional_database_support.rb",
