@@ -29,11 +29,12 @@ Add this line to the Gemfile:
 
     gem "rspec-rails", ">= 2.0.0.a7"
 
-This will expose generators, including rspec:install. Once you run that:
+This will expose generators, including rspec:install. Now you can run: 
 
     script/rails g rspec:install
 
-... you'll have the spec task added to your rake tasks.
+This adds the spec directory and some skeleton files, including
+the "rake spec" task.
 
 Note that things are in flux, so some generators generate code that
 doesn't work all that well yet.
@@ -58,27 +59,7 @@ Currently supported:
     * template must exist (unlike rspec-rails-1.x)
 * webrat matchers
 * generators
-
-### Rails 3 generators
-
-To see list of available generators, run this from your rails app root directory
-
-  rails g 
-  
-The RSpec generators are available under the RSpec namespace
-
-* rspec:controller [name] [actions]
-* rspec:helper
-  * generates spec_helper file
-* rspec:install 
-  * generates skeleton file structure for using rspec with rails 3 app
-* rspec:integration [name]
-* rspec:mailer [name]
-* rspec:model [name] [attributes]
-* rspec:observer [name]
-* rspec:plugin
-* rspec:scaffold [name] [attributes]
-* rspec:view [name]
+  * run "script/rails g" to see the list of available generators
 
 ### Known issues
 
