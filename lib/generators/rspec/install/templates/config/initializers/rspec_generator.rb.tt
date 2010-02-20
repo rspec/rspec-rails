@@ -1,14 +1,6 @@
 <%= app_name %>.configure do
-  # We're still in alpha, so we're only generating model specs
-  # and request (integration) specs. We'll change these defaults
-  # as we add support for controller specs, etc.
   config.generators do |g|
     g.integration_tool :rspec
-    g.test_framework   :rspec,
-                       :fixture     => false,
-                       :helpers     => false,
-                       :routes      => false,
-                       :integration => true
-
+    g.test_framework   :rspec
   end
 end
