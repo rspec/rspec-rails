@@ -5,7 +5,7 @@ describe "/<%= table_name %>/index.html.<%= options[:template_engine] %>" do
   include <%= controller_class_name %>Helper
 
   before(:each) do
-    assigns[:<%= table_name %>] = [
+    assign(:<%= table_name %>, [
 <% [1,2].each_with_index do |id, model_index| -%>
       stub_model(<%= class_name %><%= output_attributes.empty? ? (model_index == 1 ? ')' : '),') : ',' %>
 <% output_attributes.each_with_index do |attribute, attribute_index| -%>
@@ -15,13 +15,13 @@ describe "/<%= table_name %>/index.html.<%= options[:template_engine] %>" do
       <%= model_index == 1 ? ')' : '),' %>
 <% end -%>
 <% end -%>
-    ]
+    ])
   end
 
   it "renders a list of <%= table_name %>" do
     render
 <% for attribute in output_attributes -%>
-    response.should have_tag("tr>td", <%= attribute.default.inspect %>.to_s, 2)
+    response.should have_selector("tr>td", :content => <%= attribute.default.inspect %>.to_s, :count => 2)
 <% end -%>
   end
 end
