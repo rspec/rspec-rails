@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-02-17}
+  s.date = %q{2010-02-20}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
     "README.markdown"
@@ -50,6 +50,8 @@ Gem::Specification.new do |s|
      "lib/generators/rspec/scaffold/templates/new_spec.rb",
      "lib/generators/rspec/scaffold/templates/routing_spec.rb",
      "lib/generators/rspec/scaffold/templates/show_spec.rb",
+     "lib/generators/rspec/view/templates/view_spec.rb",
+     "lib/generators/rspec/view/view_generator.rb",
      "lib/rspec-rails.rb",
      "lib/rspec/rails.rb",
      "lib/rspec/rails/example.rb",
