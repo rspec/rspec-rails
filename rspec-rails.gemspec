@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rspec-rails}
-  s.version = "2.0.0.a7"
+  s.version = "2.0.0.a8"
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
     ".gitignore",
      "README.markdown",
      "Rakefile",
+     "VERSION",
      "example_app_template.rb",
      "lib/generators/rspec.rb",
      "lib/generators/rspec/controller/controller_generator.rb",

@@ -1,16 +1,7 @@
 module Rspec # :nodoc:
   module Rails # :nodoc:
     module Version # :nodoc:
-      unless defined?(MAJOR)
-        MAJOR  = 2
-        MINOR  = 0
-        TINY   = 0
-        PRE    = 'a7'
-
-        STRING = [MAJOR, MINOR, TINY, PRE].compact.join('.')
-
-        SUMMARY = "rspec-core " + STRING
-      end
+      STRING = File.read(File.expand_path('../../../../VERSION', __FILE__))
     end
   end
 end
