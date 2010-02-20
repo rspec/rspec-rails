@@ -48,6 +48,7 @@ Currently supported:
 * model specs in spec/models
 * controller specs in spec/controllers
   * no view isolation yet
+* view specs in spec/views
 * request specs in spec/requests
   * these wrap rails integration tests
 * rails assertions
@@ -58,9 +59,29 @@ Currently supported:
 * webrat matchers
 * generators
 
+### Rails 3 generators
+
+To see list of available generators, run this from your rails app root directory
+
+  rails g 
+  
+The RSpec generators are available under the RSpec namespace
+
+* rspec:controller [name] [actions]
+* rspec:helper
+  * generates spec_helper file
+* rspec:install 
+  * generates skeleton file structure for using rspec with rails 3 app
+* rspec:integration [name]
+* rspec:mailer [name]
+* rspec:model [name] [attributes]
+* rspec:observer [name]
+* rspec:plugin
+* rspec:scaffold [name] [attributes]
+* rspec:view [name]
+
 ### Known issues
 
-* no view specs
 * no helper specs
 * no routing specs
 * only works with ActiveRecord
