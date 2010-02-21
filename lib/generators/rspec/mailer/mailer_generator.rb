@@ -5,9 +5,8 @@ module Rspec
     class MailerGenerator < Base
       argument :actions, :type => :array, :default => [], :banner => "method method"
 
-      def create_mailer_files
-        template "mailer_spec.rb",
-                 File.join('spec', 'models', class_path, "#{file_name}_spec.rb")
+      def create_spec_files
+        template "mailer_spec.rb", File.join('spec/mailers', class_path, "#{file_name}_spec.rb")
       end
 
       def create_fixtures_files
