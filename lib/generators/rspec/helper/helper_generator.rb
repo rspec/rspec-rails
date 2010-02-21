@@ -3,7 +3,7 @@ require 'generators/rspec'
 module Rspec
   module Generators
     class HelperGenerator < Base
-      class_option :helpers, :type => :boolean, :default => false
+      class_option :helpers, :type => :boolean, :default => true
 
       def create_helper_files
         return unless options[:helpers]
