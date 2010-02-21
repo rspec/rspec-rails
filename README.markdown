@@ -27,7 +27,7 @@ Configure:
 
 Add this line to the Gemfile:
 
-    gem "rspec-rails", ">= 2.0.0.a7"
+    gem "rspec-rails", ">= 2.0.0.a9"
 
 This will expose generators, including rspec:install. Now you can run: 
 
@@ -50,6 +50,8 @@ Currently supported:
 * controller specs in spec/controllers
   * no view isolation yet
 * view specs in spec/views
+* mailer specs in spec/mailers
+* observer specs in spec/models
 * request specs in spec/requests
   * these wrap rails integration tests
 * rails assertions
