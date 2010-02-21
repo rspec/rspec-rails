@@ -11,6 +11,7 @@ run('script/rails g model thing name:string')
 run('script/rails g scaffold widgets name:string')
 run('script/rails g controller wombats index')
 run('script/rails g integration_test widgets')
+run('script/rails g mailer Notifications signup')
 
 run('rake db:migrate')
 run('rake db:test:prepare')

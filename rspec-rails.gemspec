@@ -57,6 +57,7 @@ Gem::Specification.new do |s|
      "lib/rspec/rails.rb",
      "lib/rspec/rails/example.rb",
      "lib/rspec/rails/example/controller_example_group.rb",
+     "lib/rspec/rails/example/mailer_example_group.rb",
      "lib/rspec/rails/example/request_example_group.rb",
      "lib/rspec/rails/example/view_example_group.rb",
      "lib/rspec/rails/matchers.rb",
