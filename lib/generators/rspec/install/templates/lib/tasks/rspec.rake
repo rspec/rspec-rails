@@ -39,18 +39,13 @@ desc "Run all specs in spec directory (excluding plugin specs)"
 Rspec::Core::RakeTask.new(:spec => spec_prereq)
 
 namespace :spec do
-  [:requests, :models, :controllers, :views, :helpers, :mailers, :lib].each do |sub|
+  # TODO - reinstate spec:views when it works correctly
+  [:requests, :models, :controllers, :helpers, :mailers, :lib].each do |sub|
     desc "Run the code examples in spec/#{sub}"
     Rspec::Core::RakeTask.new(sub => spec_prereq) do |t|
       t.pattern = "./spec/#{sub}/**/*_spec.rb"
     end
   end
-
-  # desc "Run the code examples in vendor/plugins (except RRspec's own)"
-  # Rspec::Core::RakeTask.new(:plugins => spec_prereq) do |t|
-    # t.spec_opts = ['--options', "\"#{Rails.root}/spec/spec.opts\""]
-    # t.spec_files = FileList['vendor/plugins/**/spec/**/*_spec.rb'].exclude('vendor/plugins/rspec/*').exclude("vendor/plugins/rspec-rails/*")
-  # end
 
   task :statsetup do
     require 'rails/code_statistics'
