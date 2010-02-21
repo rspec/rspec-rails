@@ -11,5 +11,5 @@ require 'spec_helper'
 #   end
 # end
 describe <%= class_name %>Helper do
-  pending "add some specs to spec/helper/<%= file_name %>_helper_spec.rb"
+  pending "add some examples to (or delete) #{__FILE__}"
 end
