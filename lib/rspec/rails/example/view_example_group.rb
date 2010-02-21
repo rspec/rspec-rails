@@ -3,7 +3,9 @@ require 'webrat'
 module ViewExampleGroupBehaviour
   include Webrat::Matchers
 
-  class ViewExampleController < ActionController::Base; end
+  class ViewExampleController < ActionController::Base
+    attr_accessor :controller_path
+  end
 
   module ViewExtensions
     def protect_against_forgery?; end
@@ -29,8 +31,18 @@ module ViewExampleGroupBehaviour
     @response
   end
 
+  def file_to_render
+    running_example.metadata[:example_group][:description]
+  end
+
+  def controller_path
+    parts = file_to_render.split('/')
+    parts.pop
+    parts.join('/')
+  end
+
   def render
-    @response = view.render :file => running_example.metadata[:example_group][:description]
+    @response = view.render :file => file_to_render
   end
 
   def method_missing(selector, *args)
@@ -48,7 +60,11 @@ module ViewExampleGroupBehaviour
 private
 
   def controller
-    @controller ||= ViewExampleController.new
+    @controller ||= begin
+                      controller = ViewExampleController.new
+                      controller.controller_path = controller_path
+                      controller
+                    end
   end
 
 end
