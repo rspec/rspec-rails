@@ -65,6 +65,19 @@ Gem::Specification.new do |s|
      "rspec-rails.gemspec"
   ]
   s.homepage = %q{http://github.com/rspec/rspec-rails}
+  s.post_install_message = %q{**************************************************
+
+  Thank you for installing rspec-rails-2.0.0.a9
+
+  This version of rspec-rails only works with versions
+  of rails >= 3.0.0.pre.
+
+  The 'a' in 2.0.0.a9 means this is alpha software.
+  If you are looking for a supported production release,
+  please "gem install rspec-rails" (without --pre).
+
+**************************************************
+}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{rspec}

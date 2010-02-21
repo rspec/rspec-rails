@@ -21,9 +21,21 @@ begin
     gem.rubyforge_project = "rspec"
     gem.add_dependency "rspec", ">= 2.0.0.a7"
     gem.add_dependency "webrat", ">= 0.7.0"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    gem.post_install_message = <<-EOM
+#{"*"*50}
+
+  Thank you for installing #{gem.summary}
+
+  This version of rspec-rails only works with versions
+  of rails >= 3.0.0.pre.
+
+  The 'a' in #{gem.version} means this is alpha software.
+  If you are looking for a supported production release,
+  please "gem install rspec-rails" (without --pre).
+
+#{"*"*50}
+EOM
   end
-  Jeweler::GemcutterTasks.new
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
