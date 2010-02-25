@@ -80,5 +80,5 @@ format for a request is:
 
 This works for `get`, `post`, `put`, `delete`, `head`.
 
-After a request is made, you set expecttations on the `request` and `response`
+After a request is made, you set expectations on the `request` and `response`
 objects.
