@@ -69,3 +69,11 @@ Currently supported:
 * no routing specs
 * only works with ActiveRecord
 
+## Controller Specs
+
+Controller specs live in spec/controllers, and include
+behavior from ActionDispatch::Integration::Runner. The
+format for a request is:
+
+    # get action, params, headers
+    get :show, {:id => '37'}, {'HTTP_ACCEPT' => Mime::JS}
