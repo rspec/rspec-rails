@@ -77,3 +77,8 @@ format for a request is:
 
     # get action, params, headers
     get :show, {:id => '37'}, {'HTTP_ACCEPT' => Mime::JS}
+
+This works for `get`, `post`, `put`, `delete`, `head`.
+
+After a request is made, you set expecttations on the `request` and `response`
+objects.
