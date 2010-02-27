@@ -6,7 +6,7 @@ describe <%= controller_class_name %>Controller do
     @<%= mock_file_name %> ||= mock_model(<%= class_name %>, stubs).as_null_object
   end
 
-  <% unless options[:singleton] -%>
+<% unless options[:singleton] -%>
   describe "GET index" do
     it "assigns all <%= table_name.pluralize %> as @<%= table_name.pluralize %>" do
       <%= stub! orm_class.all(class_name) %>.and_return([<%= mock_file_name %>])
@@ -14,8 +14,8 @@ describe <%= controller_class_name %>Controller do
       assigns(:<%= table_name %>).should == [<%= mock_file_name %>]
     end
   end
-  <% end -%>
 
+<% end -%>
   describe "GET show" do
     it "assigns the requested <%= file_name %> as @<%= file_name %>" do
       <%= stub! orm_class.find(class_name, "37".inspect) %>.and_return(<%= mock_file_name %>)
