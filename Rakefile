@@ -24,14 +24,17 @@ begin
     gem.post_install_message = <<-EOM
 #{"*"*50}
 
-  Thank you for installing #{gem.summary}
+  Thank you for installing #{gem.summary}!
 
-  This version of rspec-rails only works with versions
-  of rails >= 3.0.0.pre.
+  This version of rspec-rails only works with versions of rails >= 3.0.0.pre.
 
-  The 'a' in #{gem.version} means this is alpha software.
-  If you are looking for a supported production release,
-  please "gem install rspec-rails" (without --pre).
+  This version also depends on rspec-2.0.0.a10 or greater.  Due to the fact
+  that Rubygems thinks that rspec-2.0.0.a9 is greater than rspec-2.0.0.a10, be
+  sure to uninstall any of rspec-2.0.0.a1 through rspec-2.0.0.a9.
+
+  Lastly, the 'a' in #{gem.version} means this is alpha software.  If you are
+  looking for a supported production release, please "gem install rspec-rails"
+  (without --pre).
 
 #{"*"*50}
 EOM
