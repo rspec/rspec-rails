@@ -40,24 +40,38 @@ rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
+namespace :generate do
+  desc "generate a fresh app with rspec installed"
+  task :app => :clobber_app do |t|
+    if File.directory?('./tmp/rails')
+      ruby "./tmp/rails/railties/bin/rails tmp/example_app --dev -m example_app_template.rb"
+    else
+      puts <<-MESSAGE
 
-desc 'create app, generate a bunch of stuff, and run rake spec'
-task :create_app do |t|
-  if File.directory?('./tmp/rails')
-    rm_rf "tmp/example_app"
-    ruby "./tmp/rails/railties/bin/rails tmp/example_app --dev -m example_app_template.rb"
-  else
-    puts <<-MESSAGE
+  You need to install rails in ./tmp/rails before you can run the 
+  #{t.name} task:
+    
+    git clone git://github.com/rails/rails tmp/rails
 
-You need to install rails in ./tmp/rails before you can run the 
-#{t.name} task:
-  
-  git clone git://github.com/rails/rails tmp/rails
+  (We'll automate this eventually, but running 'git clone' from rake in this
+  project is mysteriously full of fail)
 
-(We'll automate this eventually, but running 'git clone' from rake in this
-project is mysteriously full of fail)
+  MESSAGE
+    end
+  end
 
-MESSAGE
+  desc "generate a bunch of stuff with generators"
+  task :stuff do
+    Dir.chdir("./tmp/example_app/") do
+      sh "rake rails:template LOCATION='../../templates/generate_stuff.rb'"
+    end
+  end
+end
+
+desc "run a variety of specs against the generated app"
+task :run_specs do
+  Dir.chdir("./tmp/example_app/") do
+    sh "rake rails:template LOCATION='../../templates/run_specs.rb'"
   end
 end
 
@@ -66,5 +80,9 @@ task :clobber do
   rm_rf "pkg"
 end
 
-task :default => :create_app
+task :clobber_app do
+  rm_rf "tmp/example_app"
+end
+
+task :default => ["generate:app", "generate:stuff", :run_specs]
 
