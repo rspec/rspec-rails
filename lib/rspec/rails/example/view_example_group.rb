@@ -2,6 +2,7 @@ require 'webrat'
 
 module ViewExampleGroupBehaviour
   include Webrat::Matchers
+  include Rspec::Matchers
 
   class ViewExampleController < ActionController::Base
     attr_accessor :controller_path

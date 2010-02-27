@@ -7,8 +7,14 @@ module RequestExampleGroupBehaviour
   include Webrat::Matchers
   include Webrat::Methods
   include Rspec::Rails::Matchers
-  Rails.application.routes.install_helpers(self)
 
+  def self.included(mod)
+    mod.before do
+      @_result = Struct.new(:add_assertion).new
+      @router = Rails.application.routes
+    end
+  end
+  
   def app
     Rails.application
   end
@@ -21,13 +27,6 @@ module RequestExampleGroupBehaviour
     response
   end
 
-  def self.included(mod)
-    mod.before do
-      @_result = Struct.new(:add_assertion).new
-      @router = Rails.application.routes
-    end
-  end
-  
   Rspec.configure do |c|
     c.include self, :example_group => { :file_path => /\bspec\/requests\// }
   end

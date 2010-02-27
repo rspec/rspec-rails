@@ -1,4 +1,8 @@
+require 'webrat'
+
 module MailerExampleGroupBehavior
+  include Webrat::Matchers
+  include Rspec::Matchers
 
   def read_fixture(action)
     IO.readlines(File.join(Rails.root, 'spec', 'fixtures', self.described_class.name.underscore, action))
