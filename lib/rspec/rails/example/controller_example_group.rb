@@ -6,6 +6,7 @@ module ControllerExampleGroupBehaviour
   include ActionDispatch::Integration::Runner
   include Webrat::Matchers
   include Webrat::Methods
+  include Rspec::Matchers
   include Rspec::Rails::Matchers
 
   def self.included(mod)
@@ -13,7 +14,11 @@ module ControllerExampleGroupBehaviour
   end
 
   def app 
-    self.class.described_class.action(@_action)
+    self.class.described_class.action(@_action).tap do |endpoint|
+      def endpoint.routes
+        Rails.application.routes
+      end
+    end
   end
 
   %w[get post put delete head].map do |method|

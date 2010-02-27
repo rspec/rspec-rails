@@ -46,7 +46,7 @@ module ViewExampleGroupBehaviour
   end
 
   def method_missing(selector, *args)
-    if ActionController::Routing::Routes.named_routes.helpers.include?(selector)
+    if Rails.application.routes.named_routes.helpers.include?(selector)
       controller.__send__(selector, *args)
     else
       super
@@ -63,6 +63,7 @@ private
     @controller ||= begin
                       controller = ViewExampleController.new
                       controller.controller_path = controller_path
+                      controller.request = ActionDispatch::Request.new(Rack::MockRequest.env_for("/url"))
                       controller
                     end
   end
