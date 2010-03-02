@@ -26,11 +26,12 @@ begin
 
   Thank you for installing #{gem.summary}!
 
-  This version of rspec-rails only works with versions of rails >= 3.0.0.pre.
+  This version of rspec-rails only works with 
+  versions of rails >= 3.0.0.pre.
 
-  The 'b' in #{gem.version} means this is beta software.  If you are looking
-  for a supported production release, please "gem install rspec-rails" (without
-  --pre).
+  This is beta software. If you are looking
+  for a supported production release, please
+  "gem install rspec-rails" (without --pre).
 
 #{"*"*50}
 EOM
