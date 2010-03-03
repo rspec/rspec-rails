@@ -1,5 +1,16 @@
 require 'rspec/matchers'
-require 'test/unit/assertionfailederror'
+
+#try to fix load error for ruby1.9.1
+begin
+  require 'test/unit/assertionfailederror'
+rescue LoadError
+  module Test
+    module Unit
+      class AssertionFailedError < StandardError
+      end
+    end
+  end
+end
 
 module Rspec
   module Rails
