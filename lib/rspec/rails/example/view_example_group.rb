@@ -8,14 +8,10 @@ module ViewExampleGroupBehaviour
     attr_accessor :controller_path
   end
 
-  module ViewExtensions
-    def protect_against_forgery?; end
-  end
-
   def view
     @view ||= begin
                 view = ActionView::Base.new(ActionController::Base.view_paths, assigns, controller)
-                view.extend ViewExtensions
+                view.extend(Module.new { def protect_against_forgery?; end })
                 view
               end
   end
@@ -33,7 +29,7 @@ module ViewExampleGroupBehaviour
   end
 
   def file_to_render
-    running_example.metadata[:example_group][:description]
+    running_example.example_group.description
   end
 
   def controller_path
