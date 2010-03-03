@@ -2,7 +2,6 @@ require 'spec_helper'
 
 <% output_attributes = attributes.reject{|attribute| [:datetime, :timestamp, :time, :date].index(attribute.type) } -%>
 describe "<%= table_name %>/show.html.<%= options[:template_engine] %>" do
-  include <%= controller_class_name %>Helper
   before(:each) do
     assign(:<%= file_name %>, @<%= file_name %> = stub_model(<%= class_name %><%= output_attributes.empty? ? ')' : ',' %>
 <% output_attributes.each_with_index do |attribute, attribute_index| -%>
