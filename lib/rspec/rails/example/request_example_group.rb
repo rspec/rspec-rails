@@ -11,12 +11,12 @@ module RequestExampleGroupBehaviour
   def self.included(mod)
     mod.before do
       @_result = Struct.new(:add_assertion).new
-      @router = Rails.application.routes
+      @router = ::Rails.application.routes
     end
   end
   
   def app
-    Rails.application
+    ::Rails.application
   end
 
   Webrat.configure do |config|

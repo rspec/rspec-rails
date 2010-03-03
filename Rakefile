@@ -48,15 +48,15 @@ namespace :generate do
     else
       puts <<-MESSAGE
 
-  You need to install rails in ./tmp/rails before you can run the 
-  #{t.name} task:
-    
-    git clone git://github.com/rails/rails tmp/rails
+You need to install rails in ./tmp/rails before you can run the 
+#{t.name} task:
+  
+  git clone git://github.com/rails/rails tmp/rails
 
-  (We'll automate this eventually, but running 'git clone' from rake in this
-  project is mysteriously full of fail)
+(We'll automate this eventually, but running 'git clone' from rake in this
+project is mysteriously full of fail)
 
-  MESSAGE
+MESSAGE
     end
   end
 
