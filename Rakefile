@@ -40,6 +40,13 @@ rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
 end
 
+namespace :gem do
+  desc "push to gemcutter"
+  task :push => :build do
+    system "gem push pkg/rspec-rails-#{Rspec::Rails::Version::STRING}.gem"
+  end
+end
+
 namespace :generate do
   desc "generate a fresh app with rspec installed"
   task :app => :clobber_app do |t|
