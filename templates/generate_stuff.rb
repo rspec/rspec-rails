@@ -1,3 +1,4 @@
+generate('rspec:install')
 generate('controller wombats index')
 generate('integration_test widgets')
 generate('mailer Notifications signup')
