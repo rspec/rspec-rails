@@ -19,7 +19,7 @@ module ControllerExampleGroupBehaviour
   def self.included(mod)
     mod.before do
       @_result = Struct.new(:add_assertion).new
-    ActionController::Base.allow_forgery_protection = false
+      ActionController::Base.allow_forgery_protection = false
     end
   end
 
