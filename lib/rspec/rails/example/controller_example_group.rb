@@ -1,6 +1,14 @@
 require 'action_dispatch'
 require 'webrat'
 
+# Preliminary documentation (more to come ....):
+#
+#   allow_forgery_protection is set to false
+#   - you can set it to true in a before(:each) block
+#     if you have a specific example that needs it, but
+#     be sure to restore it to false (or supply tokens
+#     to all of your example requests)
+
 module ControllerExampleGroupBehaviour
   include ActionDispatch::Assertions
   include ActionDispatch::Integration::Runner
@@ -11,6 +19,7 @@ module ControllerExampleGroupBehaviour
   def self.included(mod)
     mod.before do
       @_result = Struct.new(:add_assertion).new
+    ActionController::Base.allow_forgery_protection = false
     end
   end
 
