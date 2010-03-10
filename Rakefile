@@ -55,9 +55,11 @@ namespace :generate do
     else
       puts <<-MESSAGE
 
-You need to install rails in ./tmp/rails before you can run the 
+You need to install rails in tmp/rails (in the rspec-rails 
+directory in rspec-dev/repos/) before you can run the 
 #{t.name} task:
-  
+
+  cd repos/rspec-rails # unless you're already there
   git clone git://github.com/rails/rails tmp/rails
 
 (We'll automate this eventually, but running 'git clone' from rake in this
