@@ -45,26 +45,22 @@ namespace :gem do
   end
 end
 
+namespace :rails do
+  desc "clone the rails repo"
+  task :clone do
+    mkdir 'tmp' unless File.directory?('tmp')
+    unless File.directory?('tmp/rails')
+      Dir.chdir('tmp') do
+        sh "git clone git://github.com/rails/rails"
+      end
+    end
+  end
+end
+
 namespace :generate do
   desc "generate a fresh app with rspec installed"
-  task :app => :clobber_app do |t|
-    if File.directory?('./tmp/rails')
-      ruby "./tmp/rails/railties/bin/rails tmp/example_app --dev -m example_app_template.rb"
-    else
-      puts <<-MESSAGE
-
-You need to install rails in tmp/rails (in the rspec-rails 
-directory in rspec-dev/repos/) before you can run the 
-#{t.name} task:
-
-  cd repos/rspec-rails # unless you're already there
-  git clone git://github.com/rails/rails tmp/rails
-
-(We'll automate this eventually, but running 'git clone' from rake in this
-project is mysteriously full of fail)
-
-MESSAGE
-    end
+  task :app => ["rails:clone", :clobber_app] do |t|
+    ruby "./tmp/rails/railties/bin/rails tmp/example_app --dev -m example_app_template.rb"
   end
 
   desc "generate a bunch of stuff with generators"
