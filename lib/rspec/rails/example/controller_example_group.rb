@@ -14,7 +14,7 @@ module ControllerExampleGroupBehaviour
   include ActionDispatch::Integration::Runner
   include Webrat::Matchers
   include Webrat::Methods
-  include Rspec::Rails::Matchers
+  include Rspec::Matchers
 
   def self.setup(*args); end
   def self.teardown(*args); end

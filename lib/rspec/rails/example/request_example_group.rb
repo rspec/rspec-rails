@@ -6,7 +6,7 @@ module RequestExampleGroupBehaviour
   include ActionDispatch::Integration::Runner
   include Webrat::Matchers
   include Webrat::Methods
-  include Rspec::Rails::Matchers
+  include Rspec::Matchers
 
   def self.included(mod)
     mod.before do

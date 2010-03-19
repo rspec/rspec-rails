@@ -11,30 +11,15 @@ rescue LoadError
   end
 end
 
-module Rspec
-  module Rails
-    module Matchers
-      include Rspec::Matchers
+Rspec::Matchers.define :redirect_to do |destination|
+  match_unless_raises Test::Unit::AssertionFailedError do |_|
+    assert_redirected_to destination
+  end
+end
 
-      def redirect_to(destination)
-        running_example = self
-        Matcher.new :redirect_to, destination do |destination_|
-          match_unless_raises Test::Unit::AssertionFailedError do |_|
-            running_example.assert_redirected_to destination_
-          end
-        end
-      end
-
-      def render_template(options={}, message=nil)
-        running_example = self
-        Matcher.new :render_template, options, message do |options_, message_|
-          match_unless_raises Test::Unit::AssertionFailedError do |_|
-            running_example.assert_template options_, message_
-          end
-        end
-      end
-
-    end
+Rspec::Matchers.define :render_template do |options, message|
+  match_unless_raises Test::Unit::AssertionFailedError do |_|
+    assert_template options, message
   end
 end
 
