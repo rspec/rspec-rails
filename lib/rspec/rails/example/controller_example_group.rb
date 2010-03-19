@@ -16,6 +16,11 @@ module ControllerExampleGroupBehaviour
   include Webrat::Methods
   include Rspec::Rails::Matchers
 
+  def self.setup(*args); end
+  def self.teardown(*args); end
+
+  include ActionController::TemplateAssertions
+
   def self.included(mod)
     mod.before do
       @_result = Struct.new(:add_assertion).new

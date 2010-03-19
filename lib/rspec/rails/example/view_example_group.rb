@@ -8,10 +8,22 @@ module ViewExampleGroupBehaviour
     attr_accessor :controller_path
   end
 
+  module ViewExtension
+    def protect_against_forgery?; end
+    def method_missing(selector, *args)
+      if Rails.application.routes.named_routes.helpers.include?(selector)
+        controller.__send__(selector, *args)
+      else
+        super
+      end
+    end
+  end
+
   def view
     @view ||= begin
                 view = ActionView::Base.new(ActionController::Base.view_paths, assigns, controller)
-                view.extend(Module.new { def protect_against_forgery?; end })
+                view.extend(ActionController::PolymorphicRoutes)
+                view.extend(ViewExtension)
                 view
               end
   end
