@@ -20,25 +20,25 @@ module Rspec
         derived_name = "#{model_class.name}_#{id}"
         m = mock(derived_name, options_and_stubs)
         m.__send__(:__mock_proxy).instance_eval <<-CODE
-          def @target.as_new_record
+          def @object.as_new_record
             self.stub(:id) { nil }
             self.stub(:to_param) { nil }
             self.stub(:new_record?) { true }
             self
           end
-          def @target.is_a?(other)
+          def @object.is_a?(other)
             #{model_class}.ancestors.include?(other)
           end
-          def @target.kind_of?(other)
+          def @object.kind_of?(other)
             #{model_class}.ancestors.include?(other)
           end
-          def @target.instance_of?(other)
+          def @object.instance_of?(other)
             other == #{model_class}
           end
-          def @target.class
+          def @object.class
             #{model_class}
           end
-          def @target.to_s
+          def @object.to_s
             "#{model_class.name}_#{id}"
           end
         CODE
