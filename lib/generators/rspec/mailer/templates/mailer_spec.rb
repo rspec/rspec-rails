@@ -7,8 +7,6 @@ describe <%= class_name %> do
     @expected.to      = "to@example.org"
     @expected.from    = "from@example.com"
     @expected.body    = read_fixture("<%= action %>")
-
-    @expected.should == <%= class_name %>.<%= action %>
   end
 
 <% end -%>
