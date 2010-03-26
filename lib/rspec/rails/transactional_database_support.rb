@@ -9,19 +9,17 @@ module Rspec
       end
 
       def use_transactional_examples?
-        Rspec.configuration.use_transactional_examples?
+        active_record_configured? && Rspec.configuration.use_transactional_examples?
       end
 
-      def transactional_protection_start
-        return unless active_record_configured?
+      def setup_transactional_examples
         return unless use_transactional_examples?
 
         ::ActiveRecord::Base.connection.increment_open_transactions
         ::ActiveRecord::Base.connection.begin_db_transaction
       end
 
-      def transactional_protection_cleanup
-        return unless active_record_configured?
+      def teardown_transactional_examples
         return unless use_transactional_examples?
 
         if ::ActiveRecord::Base.connection.open_transactions != 0
@@ -38,7 +36,7 @@ end
 
 Rspec.configure do |c|
   c.include Rspec::Rails::TransactionalDatabaseSupport
-  c.before { transactional_protection_start }
-  c.after { transactional_protection_cleanup }
+  c.before { setup_transactional_examples }
+  c.after  { teardown_transactional_examples }
 end
 

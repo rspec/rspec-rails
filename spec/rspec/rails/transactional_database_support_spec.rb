@@ -1,61 +1,53 @@
 require 'spec_helper'
 
 describe Rspec::Rails::TransactionalDatabaseSupport do
-  class TestBed
-    include Rspec::Rails::TransactionalDatabaseSupport
+
+  let(:connection) { double('connection', :open_transactions => 1) }
+  let(:test_bed) do
+    Class.new do
+      include Rspec::Rails::TransactionalDatabaseSupport
+      def active_record_configured?; true; end
+    end.new
   end
 
-  let(:test_bed) { TestBed.new }
-  let(:connection) { stub() }
+  before { ::ActiveRecord::Base.stub(:connection) { connection } }
 
-  describe "#transactional_protection_start" do
-    before do
-      test_bed.stub(:active_record_configured?).and_return(true)
-      ::ActiveRecord::Base.stub(:connection).and_return(connection)
-    end
-
+  describe "#setup_transactional_examples" do
     context 'when running with examples with transactions' do
       it "opens a new transaction" do
-        test_bed.stub(:use_transactional_examples?).and_return true
+        test_bed.stub(:use_transactional_examples?) { true }
         connection.should_receive(:increment_open_transactions)
         connection.should_receive(:begin_db_transaction)
-        test_bed.transactional_protection_start
+        test_bed.setup_transactional_examples
       end
     end
 
     context 'with transactionless examples' do
-
       it "doesn't open a transaction" do
-        test_bed.stub(:use_transactional_examples?).and_return false
+        test_bed.stub(:use_transactional_examples?) { false }
         connection.should_not_receive(:increment_open_transactions)
         connection.should_not_receive(:begin_db_transaction)
-        test_bed.transactional_protection_start
+        test_bed.setup_transactional_examples
       end
     end
   end
 
-  describe "#transactional_protection_cleanup" do
-    before do
-      test_bed.stub(:active_record_configured?).and_return(true)
-      connection.stub(:open_transactions).and_return(1)
-      ::ActiveRecord::Base.stub(:connection).and_return(connection)
-    end
-
+  describe "#teardown_transactional_examples" do
     context 'when running with examples with transactions' do
       it "opens a new transaction" do
-        test_bed.stub(:use_transactional_examples?).and_return(true)
+        test_bed.stub(:use_transactional_examples?) { true }
         connection.should_receive(:rollback_db_transaction)
         connection.should_receive(:decrement_open_transactions)
-        test_bed.transactional_protection_cleanup
+        test_bed.teardown_transactional_examples
       end
     end
 
     context 'with transactionless examples' do
       it "doesn't close an open transaction" do
-        test_bed.stub(:use_transactional_examples?).and_return(false)
+        test_bed.stub(:use_transactional_examples?) { false }
         connection.should_not_receive(:decrement_open_transactions)
         connection.should_not_receive(:rollback_db_transaction)
-        test_bed.transactional_protection_cleanup
+        test_bed.teardown_transactional_examples
       end
     end
   end
