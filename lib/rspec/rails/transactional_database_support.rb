@@ -8,8 +8,13 @@ module Rspec
         defined?(::ActiveRecord) && !::ActiveRecord::Base.configurations.blank?
       end
 
+      def use_transactional_examples?
+        Rspec.configuration.use_transactional_examples?
+      end
+
       def transactional_protection_start
         return unless active_record_configured?
+        return unless use_transactional_examples?
 
         ::ActiveRecord::Base.connection.increment_open_transactions
         ::ActiveRecord::Base.connection.begin_db_transaction
@@ -17,6 +22,7 @@ module Rspec
 
       def transactional_protection_cleanup
         return unless active_record_configured?
+        return unless use_transactional_examples?
 
         if ::ActiveRecord::Base.connection.open_transactions != 0
           ::ActiveRecord::Base.connection.rollback_db_transaction

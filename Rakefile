@@ -5,6 +5,10 @@ $:.unshift File.expand_path(File.join(File.dirname(__FILE__),'lib'))
 
 require 'rake/rdoctask'
 require 'rspec/rails/version'
+require 'rspec'
+require 'rspec/core/rake_task'
+
+Rspec::Core::RakeTask.new(:spec)
 
 begin
   require 'jeweler'
@@ -87,5 +91,5 @@ task :clobber_app do
   rm_rf "tmp/example_app"
 end
 
-task :default => ["generate:app", "generate:stuff", :run_specs]
+task :default => [:spec, "generate:app", "generate:stuff", :run_specs]
 

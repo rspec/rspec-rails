@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-03-15}
+  s.date = %q{2010-03-23}
   s.description = %q{Rspec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -63,6 +63,8 @@ Gem::Specification.new do |s|
      "lib/rspec/rails/transactional_database_support.rb",
      "lib/rspec/rails/version.rb",
      "rspec-rails.gemspec",
+     "spec/lib/rspec/rails/transactional_database_support_spec.rb",
+     "spec/spec_helper.rb",
      "templates/generate_stuff.rb",
      "templates/run_specs.rb"
   ]
@@ -85,6 +87,10 @@ Gem::Specification.new do |s|
   s.rubyforge_project = %q{rspec}
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{rspec-rails-2.0.0.beta.4}
+  s.test_files = [
+    "spec/lib/rspec/rails/transactional_database_support_spec.rb",
+     "spec/spec_helper.rb"
+  ]
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
