@@ -1,5 +1,3 @@
-run('rake db:migrate')
-run('rake db:test:prepare')
 run('rspec spec -cfdoc')
 run('rake spec')
 run('rake spec:requests')

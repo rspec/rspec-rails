@@ -6,3 +6,5 @@ generate('model thing name:string')
 generate('observer widget')
 generate('scaffold widget name:string')
 
+run('rake db:migrate')
+run('rake db:test:prepare')
