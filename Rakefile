@@ -63,8 +63,10 @@ end
 
 namespace :generate do
   desc "generate a fresh app with rspec installed"
-  task :app => ["rails:clone", :clobber_app] do |t|
-    ruby "./tmp/rails/railties/bin/rails tmp/example_app --dev -m example_app_template.rb"
+  task :app => ["rails:clone"] do |t|
+    unless File.directory?('./tmp/example_app')
+      ruby "./tmp/rails/railties/bin/rails tmp/example_app --dev -m example_app_template.rb"
+    end
   end
 
   desc "generate a bunch of stuff with generators"
@@ -76,7 +78,7 @@ namespace :generate do
 end
 
 desc "run a variety of specs against the generated app"
-task :run_specs do
+task :smoke do
   Dir.chdir("./tmp/example_app/") do
     sh "rake rails:template LOCATION='../../templates/run_specs.rb'"
   end
@@ -91,5 +93,5 @@ task :clobber_app do
   rm_rf "tmp/example_app"
 end
 
-task :default => [:spec, "generate:app", "generate:stuff", :run_specs]
+task :default => [:spec, :clobber_app, "generate:app", "generate:stuff", :smoke]
 
