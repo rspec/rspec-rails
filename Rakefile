@@ -7,8 +7,12 @@ require 'rake/rdoctask'
 require 'rspec/rails/version'
 require 'rspec'
 require 'rspec/core/rake_task'
+require 'cucumber/rake/task'
 
 Rspec::Core::RakeTask.new(:spec)
+Cucumber::Rake::Task.new(:cucumber) do |t|
+  t.cucumber_opts = %w{--format progress}
+end
 
 begin
   require 'jeweler'
@@ -77,6 +81,24 @@ namespace :generate do
   end
 end
 
+namespace :db do
+  task :migrate do
+    Dir.chdir("./tmp/example_app/") do
+      sh "rake db:migrate"
+    end
+  end
+
+  namespace :test do
+    task :prepare do
+      Dir.chdir("./tmp/example_app/") do
+        sh "rake db:test:prepare"
+      end
+    end
+  end
+end
+
+
+
 desc "run a variety of specs against the generated app"
 task :smoke do
   Dir.chdir("./tmp/example_app/") do
@@ -93,5 +115,5 @@ task :clobber_app do
   rm_rf "tmp/example_app"
 end
 
-task :default => [:clobber_app, "generate:app", "generate:stuff", :smoke, :spec]
+task :default => [:clobber_app, "generate:app", "generate:stuff", :spec, :cucumber, :smoke]
 
