@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-03-23}
+  s.date = %q{2010-03-29}
   s.description = %q{Rspec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -21,6 +21,10 @@ Gem::Specification.new do |s|
      "Rakefile",
      "VERSION",
      "example_app_template.rb",
+     "features/matchers/new_record_matcher.feature",
+     "features/model_specs/transactional_examples.feature",
+     "features/step_definitions/model_steps.rb",
+     "features/support/env.rb",
      "lib/generators/rspec.rb",
      "lib/generators/rspec/controller/controller_generator.rb",
      "lib/generators/rspec/controller/templates/controller_spec.rb",
@@ -63,8 +67,12 @@ Gem::Specification.new do |s|
      "lib/rspec/rails/transactional_database_support.rb",
      "lib/rspec/rails/version.rb",
      "rspec-rails.gemspec",
-     "spec/lib/rspec/rails/transactional_database_support_spec.rb",
+     "spec/rspec/rails/matchers/be_a_new_spec.rb",
+     "spec/rspec/rails/matchers/redirect_to_spec.rb",
+     "spec/rspec/rails/matchers/render_template_spec.rb",
+     "spec/rspec/rails/transactional_database_support_spec.rb",
      "spec/spec_helper.rb",
+     "specs.watchr",
      "templates/generate_stuff.rb",
      "templates/run_specs.rb"
   ]
@@ -88,7 +96,10 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{rspec-rails-2.0.0.beta.4}
   s.test_files = [
-    "spec/lib/rspec/rails/transactional_database_support_spec.rb",
+    "spec/rspec/rails/matchers/be_a_new_spec.rb",
+     "spec/rspec/rails/matchers/redirect_to_spec.rb",
+     "spec/rspec/rails/matchers/render_template_spec.rb",
+     "spec/rspec/rails/transactional_database_support_spec.rb",
      "spec/spec_helper.rb"
   ]
 
