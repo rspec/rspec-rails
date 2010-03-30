@@ -1,8 +1,8 @@
 require "spec_helper"
 
-describe "redirect_to" do
-  it "delegates to assert_redirected_to" do
-    self.should_receive(:assert_redirected_to).with("destination")
-    "response".should redirect_to("destination")
+describe "render_template" do
+  it "delegates to assert_template" do
+    self.should_receive(:assert_template).with({:this => "hash"}, "this message")
+    "response".should render_template({:this => "hash"}, "this message")
   end
 end
