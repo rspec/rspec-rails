@@ -93,5 +93,5 @@ task :clobber_app do
   rm_rf "tmp/example_app"
 end
 
-task :default => [:spec, :clobber_app, "generate:app", "generate:stuff", :smoke]
+task :default => [:clobber_app, "generate:app", "generate:stuff", :smoke, :spec]
 
