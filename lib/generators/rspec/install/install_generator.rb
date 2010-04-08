@@ -25,6 +25,10 @@ DESC
         directory 'spec'
       end
 
+      def copy_autotest_discover_file
+        directory 'autotest'
+      end
+
       def app_name
         Rails.application.class.name
       end

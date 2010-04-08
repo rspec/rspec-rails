@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-04-04}
+  s.date = %q{2010-04-07}
   s.description = %q{Rspec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
      "features/model_specs/transactional_examples.feature",
      "features/step_definitions/model_steps.rb",
      "features/support/env.rb",
+     "lib/autotest/rails_rspec2.rb",
      "lib/generators/rspec.rb",
      "lib/generators/rspec/controller/controller_generator.rb",
      "lib/generators/rspec/controller/templates/controller_spec.rb",
@@ -32,9 +33,9 @@ Gem::Specification.new do |s|
      "lib/generators/rspec/helper/helper_generator.rb",
      "lib/generators/rspec/helper/templates/helper_spec.rb",
      "lib/generators/rspec/install/install_generator.rb",
+     "lib/generators/rspec/install/templates/autotest/discover.rb",
      "lib/generators/rspec/install/templates/config/initializers/rspec_generator.rb.tt",
      "lib/generators/rspec/install/templates/lib/tasks/rspec.rake",
-     "lib/generators/rspec/install/templates/spec/spec.opts",
      "lib/generators/rspec/install/templates/spec/spec_helper.rb",
      "lib/generators/rspec/integration/integration_generator.rb",
      "lib/generators/rspec/integration/templates/request_spec.rb",
