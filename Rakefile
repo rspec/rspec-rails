@@ -63,6 +63,14 @@ namespace :rails do
       end
     end
   end
+
+  desc "update the rails repo"
+  task :update => :clone do
+    Dir.chdir('tmp/rails') do
+      sh "git checkout master"
+      sh "git pull"
+    end
+  end
 end
 
 namespace :generate do
@@ -97,8 +105,6 @@ namespace :db do
   end
 end
 
-
-
 desc "run a variety of specs against the generated app"
 task :smoke do
   Dir.chdir("./tmp/example_app/") do
@@ -111,9 +117,12 @@ task :clobber do
   rm_rf "pkg"
 end
 
-task :clobber_app do
-  rm_rf "tmp/example_app"
+namespace :clobber do
+  desc "clobber the generated app"
+  task :app do
+    rm_rf "tmp/example_app"
+  end
 end
 
-task :default => [:clobber_app, "generate:app", "generate:stuff", :spec, :cucumber, :smoke]
+task :default => ["clobber:app", "generate:app", "generate:stuff", :spec, :cucumber, :smoke]
 
