@@ -1,7 +1,7 @@
 require 'spec_helper'
 require File.dirname(__FILE__) + '/ar_classes'
 
-describe "stub_model", :wip => true do
+describe "stub_model" do
   describe "defaults" do
     it "should have an id" do
       stub_model(MockableModel).id.should be > 0
@@ -38,11 +38,11 @@ describe "stub_model", :wip => true do
     end
   end
   
-  it "should raise when hitting the db" do
+  pending "should raise when hitting the db" do
     lambda do
       model = stub_model(MockableModel, :changed => true, :attributes_with_quotes => {'this' => 'that'})
       model.save
-    end.should raise_error(Spec::Rails::IllegalDataAccessException, /stubbed models are not allowed to access the database/)
+    end.should raise_error(Rspec::Rails::IllegalDataAccessException, /stubbed models are not allowed to access the database/)
   end
   
   it "should increment the id" do

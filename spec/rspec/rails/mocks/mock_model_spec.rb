@@ -52,7 +52,7 @@ describe "mock_model" do
     end
   end
 
-  describe "as association", :type => :view, :wip => true do
+  describe "as association", :type => :view do
     before(:each) do
       @real = AssociatedModel.create!
       @mock_model = mock_model(MockableModel)
