@@ -19,6 +19,15 @@ end
 
 Rspec.configure do |c|
   c.color_enabled = !in_editor?
-  c.exclusion_filter = {:wip => true}
+  c.exclusion_filter = {:wip => lambda {|val|
+    if val
+      $wip_count ||= 0
+      $wip_count += 1
+      puts "wip count: #{$wip_count}"
+      true
+    else
+      false
+    end
+  }}
 end
 
