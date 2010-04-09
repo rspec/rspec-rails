@@ -19,5 +19,6 @@ end
 
 Rspec.configure do |c|
   c.color_enabled = !in_editor?
+  c.exclusion_filter = {:wip => true}
 end
 

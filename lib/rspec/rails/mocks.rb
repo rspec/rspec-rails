@@ -15,11 +15,12 @@ module Rspec
           :to_param => id.to_s,
           :new_record? => false,
           :destroyed? => false,
+          :marked_for_destruction? => false,
           :errors => stub("errors", :count => 0)
         })
         derived_name = "#{model_class.name}_#{id}"
         m = mock(derived_name, options_and_stubs)
-        m.__send__(:__mock_proxy).instance_eval <<-CODE
+        m.__send__(:__mock_proxy).instance_eval(<<-CODE, __FILE__, __LINE__)
           def @object.as_new_record
             self.stub(:id) { nil }
             self.stub(:to_param) { nil }
