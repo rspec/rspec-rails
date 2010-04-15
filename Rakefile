@@ -77,7 +77,7 @@ namespace :generate do
   desc "generate a fresh app with rspec installed"
   task :app => ["rails:clone"] do |t|
     unless File.directory?('./tmp/example_app')
-      ruby "./tmp/rails/railties/bin/rails tmp/example_app --dev -m example_app_template.rb"
+      ruby "./tmp/rails/bin/rails tmp/example_app --dev -m example_app_template.rb"
     end
   end
 
