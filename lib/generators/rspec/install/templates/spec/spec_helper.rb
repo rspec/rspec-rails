@@ -1,7 +1,3 @@
-# This is only necessary intermittently - will hopefully be gone by the time we release rspec-rails-2.0.0 final.
-require 'bundler'
-Bundler.setup
-
 # This file is copied to ~/spec when you run 'ruby script/generate rspec'
 # from the project root directory.
 ENV["RAILS_ENV"] ||= 'test'
