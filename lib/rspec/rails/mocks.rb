@@ -16,7 +16,7 @@ module Rspec
           :new_record? => false,
           :destroyed? => false,
           :marked_for_destruction? => false,
-          :errors => stub("errors", :count => 0)
+          :errors => stub("errors", :count => 0, :any? => false)
         })
         derived_name = "#{model_class.name}_#{id}"
         m = mock(derived_name, options_and_stubs)
