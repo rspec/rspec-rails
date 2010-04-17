@@ -1,3 +1,5 @@
+require 'active_support/core_ext/class/attribute_accessors'
+require 'action_controller'
 require 'action_dispatch'
 require 'webrat'
 

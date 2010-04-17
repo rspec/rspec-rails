@@ -11,6 +11,12 @@ rescue LoadError
   end
 end
 
+begin
+  require "active_record"
+rescue
+
+end
+
 Rspec::Matchers.define :redirect_to do |destination|
   match_unless_raises Test::Unit::AssertionFailedError do |_|
     assert_redirected_to destination
