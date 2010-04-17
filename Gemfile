@@ -1,6 +1,8 @@
 source "http://rubygems.org"
 gem 'rails', :path => "./tmp/rails"
-gem 'rspec-core'
-gem 'rspec-expectations'
-gem 'rspec-mocks'
+gem 'rspec', '>= 2.0.0.beta'
+gem 'cucumber'
+gem 'aruba'
+gem 'jeweler'
 gem 'webrat'
+
