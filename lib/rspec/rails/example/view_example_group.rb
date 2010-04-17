@@ -10,11 +10,11 @@ module ViewExampleGroupBehaviour
 
   module ViewExtension
     def protect_against_forgery?; end
-    def method_missing(selector, *args)
-      if Rails.application.routes.named_routes.helpers.include?(selector)
-        controller.__send__(selector, *args)
+    def method_missing(name, *args)
+      if controller.respond_to?(name) || Rails.application.routes.named_routes.helpers.include?(name)
+        controller.__send__(name, *args)
       else
-        super
+        super(name, *args)
       end
     end
   end
