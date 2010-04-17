@@ -124,5 +124,11 @@ namespace :clobber do
   end
 end
 
-task :default => ["clobber:app", "generate:app", "generate:stuff", :spec, :cucumber, :smoke]
+namespace :bundle do
+  task :install do
+    sh "bundle install"
+  end
+end
+
+task :default => ["bundle:install", "clobber:app", "generate:app", "generate:stuff", :spec, :cucumber, :smoke]
 
