@@ -25,6 +25,7 @@ end
 
 Rspec::Matchers.define :render_template do |options, message|
   match_unless_raises Test::Unit::AssertionFailedError do |_|
+    options = options.to_s if Symbol === options
     assert_template options, message
   end
 end
