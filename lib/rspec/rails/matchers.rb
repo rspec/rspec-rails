@@ -13,7 +13,7 @@ end
 
 begin
   require "active_record"
-rescue
+rescue LoadError
 
 end
 
