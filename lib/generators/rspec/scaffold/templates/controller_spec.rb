@@ -66,7 +66,7 @@ describe <%= controller_class_name %>Controller do
       it "re-renders the 'new' template" do
         <%= stub! orm_class.build(class_name) %> { <%= mock_file_name(:save => false) %> }
         post :create, :<%= file_name %> => {}
-        response.should render_template(:new)
+        response.should render_template("new")
       end
     end
 
@@ -104,7 +104,7 @@ describe <%= controller_class_name %>Controller do
       it "re-renders the 'edit' template" do
         <%= stub! orm_class.find(class_name) %> { <%= mock_file_name(:update_attributes => false) %> }
         put :update, :id => "1"
-        response.should render_template(:edit)
+        response.should render_template("edit")
       end
     end
 

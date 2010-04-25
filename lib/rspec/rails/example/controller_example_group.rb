@@ -3,6 +3,37 @@ require 'action_controller'
 require 'action_dispatch'
 require 'webrat'
 
+# BEGIN PATCH
+#
+# The following monkey patches to rails can be removed if/when
+# https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/4433
+# is resolved.
+require 'active_support/notifications/fanout'
+class ActiveSupport::Notifications::Fanout
+  def unsubscribe(subscriber_or_name)
+    @listeners_for.clear
+    @subscribers.reject! do |s|
+      s.instance_eval do
+        case subscriber_or_name
+        when String
+          @pattern && @pattern =~ subscriber_or_name
+        when self
+          true
+        end
+      end
+    end
+  end
+end
+
+require 'action_controller/test_case'
+module ActionController::TemplateAssertions
+  def teardown_subscriptions
+    ActiveSupport::Notifications.unsubscribe("action_view.render_template")
+    ActiveSupport::Notifications.unsubscribe("action_view.render_template!")
+  end
+end
+# END PATCH
+
 # Preliminary documentation (more to come ....):
 #
 #   allow_forgery_protection is set to false
@@ -18,12 +49,19 @@ module ControllerExampleGroupBehaviour
   include Webrat::Methods
   include Rspec::Matchers
 
-  def self.setup(*args); end
-  def self.teardown(*args); end
+  module ActiveSupportConcernAdapter
+    def setup(*methods)
+      methods.each {|method| before { send method } }
+    end
 
-  include ActionController::TemplateAssertions
+    def teardown(*methods)
+      methods.each {|method| after { send method } }
+    end
+  end
 
   def self.included(mod)
+    mod.extend ActiveSupportConcernAdapter
+
     mod.before do
       @_result = Struct.new(:add_assertion).new
       ActionController::Base.allow_forgery_protection = false
@@ -46,8 +84,10 @@ module ControllerExampleGroupBehaviour
       end
     CODE
   end
+end
 
-  Rspec.configure do |c|
-    c.include self, :example_group => { :file_path => /\bspec\/controllers\// }
+Rspec.configure do |c|
+  [ControllerExampleGroupBehaviour, ActionController::TemplateAssertions].each do |mod|
+    c.include mod, :example_group => { :file_path => /\bspec\/controllers\// }
   end
 end
