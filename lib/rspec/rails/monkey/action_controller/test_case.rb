@@ -1,3 +1,4 @@
+require 'action_controller'
 require 'action_controller/test_case'
 
 module ActionController
