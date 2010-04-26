@@ -41,7 +41,10 @@ module ViewExampleGroupBehaviour
   end
 
   def file_to_render
-    running_example.example_group.description
+    # TODO - this seems a bit invasive - need a better API from Rspec::Core
+    # to expose the top level description that is not a class (which is what
+    # comes from describes()).
+    running_example.example_group.before_ancestors.first.description
   end
 
   def controller_path
