@@ -2,15 +2,17 @@ require 'action_dispatch'
 require 'webrat'
 
 module RequestExampleGroupBehaviour
-  include ActionDispatch::Assertions
+  extend ActiveSupport::Concern
   include ActionDispatch::Integration::Runner
-  include Webrat::Matchers
-  include Webrat::Methods
-  include Rspec::Matchers
 
-  def self.included(mod)
-    mod.before do
-      @_result = Struct.new(:add_assertion).new
+  included do
+    include Rspec::Rails::TestUnitAssertionAdapter
+    include ActionDispatch::Assertions
+    include Webrat::Matchers
+    include Webrat::Methods
+    include Rspec::Matchers
+
+    before do
       @router = ::Rails.application.routes
     end
   end
@@ -19,12 +21,12 @@ module RequestExampleGroupBehaviour
     ::Rails.application
   end
 
-  Webrat.configure do |config|
-    config.mode = :rack
-  end
-
   def last_response
     response
+  end
+
+  Webrat.configure do |config|
+    config.mode = :rack
   end
 
   Rspec.configure do |c|

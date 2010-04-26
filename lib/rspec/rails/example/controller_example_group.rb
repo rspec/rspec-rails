@@ -1,4 +1,3 @@
-require 'active_support/core_ext/class/attribute_accessors'
 require 'action_controller'
 require 'webrat'
 
@@ -20,7 +19,7 @@ module ControllerExampleGroupBehaviour
     include Webrat::Methods
     include Rspec::Matchers
     before do
-      @routes = Rails.application.routes
+      @routes = ::Rails.application.routes
       ActionController::Base.allow_forgery_protection = false
     end
   end
