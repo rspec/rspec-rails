@@ -4,29 +4,42 @@ module Rspec
     class IllegalDataAccessException < StandardError; end
 
     module Mocks
+
+      module InstanceMethods
+        def valid?
+          true
+        end
+
+        def as_new_record
+          self.stub(:id) { nil }
+          self
+        end
+
+        def new_record?
+          !persisted?
+        end
+
+        def persisted?
+          !!id
+        end
+      end
       
       # Creates a mock object instance for a +model_class+ with common
       # methods stubbed out. Additional methods may be easily stubbed (via
       # add_stubs) if +stubs+ is passed.
       def mock_model(model_class, options_and_stubs = {})
-        id = options_and_stubs[:id] || next_id
+        id = options_and_stubs.has_key?(:id) ? options_and_stubs[:id] : next_id
         options_and_stubs = options_and_stubs.reverse_merge({
           :id => id,
-          :to_param => id.to_s,
-          :new_record? => false,
           :destroyed? => false,
-          :marked_for_destruction? => false,
-          :errors => stub("errors", :count => 0, :any? => false)
+          :marked_for_destruction? => false
         })
         derived_name = "#{model_class.name}_#{id}"
         m = mock(derived_name, options_and_stubs)
+        m.extend InstanceMethods
+        m.extend ActiveModel::Conversion
+        m.stub(:errors) { ActiveModel::Errors.new(m) }
         m.__send__(:__mock_proxy).instance_eval(<<-CODE, __FILE__, __LINE__)
-          def @object.as_new_record
-            self.stub(:id) { nil }
-            self.stub(:to_param) { nil }
-            self.stub(:new_record?) { true }
-            self
-          end
           def @object.is_a?(other)
             #{model_class}.ancestors.include?(other)
           end
