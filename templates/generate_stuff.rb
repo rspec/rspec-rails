@@ -5,6 +5,7 @@ generate('mailer Notifications signup')
 generate('model thing name:string')
 generate('observer widget')
 generate('scaffold widget name:string')
+generate('scaffold widget2 ')
 
 run('rake db:migrate')
 run('rake db:test:prepare')
