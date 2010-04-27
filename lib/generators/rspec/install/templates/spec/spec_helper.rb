@@ -20,5 +20,5 @@ Rspec.configure do |config|
 
   # If you'd prefer not to run each of your examples within a transaction,
   # uncomment the following line.
-  # config.use_transactional_examples false
+  # config.use_transactional_examples = false
 end
