@@ -27,7 +27,7 @@ Configure:
 
 Add this line to the Gemfile:
 
-    gem "rspec-rails", ">= 2.0.0.beta.1"
+    gem "rspec-rails", ">= 2.0.0.beta.8"
 
 This will expose generators, including rspec:install. Now you can run: 
 
@@ -44,8 +44,8 @@ doesn't work all that well yet.
 Currently supported:
 
 * each example runs in its own transaction
-  * not yet configurable
-    * i.e. no way to turn this off
+  * configurable in Rspec.configure
+    * see generated spec/spec_helper.rb
 * model specs in spec/models
 * controller specs in spec/controllers
   * no view isolation yet
@@ -71,14 +71,26 @@ Currently supported:
 
 ## Controller Specs
 
-Controller specs live in spec/controllers, and include
-behavior from ActionDispatch::Integration::Runner. The
-format for a request is:
+Controller specs live in spec/controllers, and mix in
+ActionController::TestCase::Behavior. See the documentation
+for ActionController::TestCase to see what facilities are
+available from Rails.
 
-    # get action, params, headers
-    get :show, {:id => '37'}, {'HTTP_ACCEPT' => Mime::JS}
+You can use RSpec expectations/matchers or Test::Unit assertions.
 
-This works for `get`, `post`, `put`, `delete`, `head`.
+In addition to what Rails offers, controller specs provide all
+of rspec-core's matchers and the rspec-rails' specific matchers
+as well.
 
-After a request is made, you set expectations on the `request` and `response`
-objects.
+## Matchers
+
+### render_template
+Delegates to Rails' assert_template:
+
+    response.should render_template("new")
+
+### redirect_to
+Delegates to assert_redirect
+
+    response.should redirect_to(widgets_path)
+
