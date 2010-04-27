@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-04-17}
+  s.date = %q{2010-04-27}
   s.description = %q{Rspec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
      "features/model_specs/transactional_examples.feature",
      "features/step_definitions/model_steps.rb",
      "features/support/env.rb",
+     "features/view_specs/view_spec.feature",
      "lib/autotest/rails_rspec2.rb",
      "lib/generators/rspec.rb",
      "lib/generators/rspec/controller/controller_generator.rb",
@@ -59,6 +60,7 @@ Gem::Specification.new do |s|
      "lib/generators/rspec/view/view_generator.rb",
      "lib/rspec-rails.rb",
      "lib/rspec/rails.rb",
+     "lib/rspec/rails/adapters.rb",
      "lib/rspec/rails/example.rb",
      "lib/rspec/rails/example/controller_example_group.rb",
      "lib/rspec/rails/example/mailer_example_group.rb",
@@ -66,6 +68,9 @@ Gem::Specification.new do |s|
      "lib/rspec/rails/example/view_example_group.rb",
      "lib/rspec/rails/matchers.rb",
      "lib/rspec/rails/mocks.rb",
+     "lib/rspec/rails/monkey.rb",
+     "lib/rspec/rails/monkey/action_controller/test_case.rb",
+     "lib/rspec/rails/monkey/active_support/notifications/fanout.rb",
      "lib/rspec/rails/transactional_database_support.rb",
      "lib/rspec/rails/version.rb",
      "rspec-rails.gemspec",
