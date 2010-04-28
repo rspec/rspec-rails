@@ -55,7 +55,7 @@ module ViewExampleGroupBehaviour
   end
 
   def method_missing(selector, *args)
-    if Rails.application.routes.named_routes.helpers.include?(selector)
+    if ::Rails.application.routes.named_routes.helpers.include?(selector)
       controller.__send__(selector, *args)
     else
       super
