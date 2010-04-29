@@ -1,7 +1,7 @@
 begin
   require 'rspec/core'
   require 'rspec/core/rake_task'
-rescue MissingSourceFile 
+rescue MissingSourceFile
   module Rspec
     module Core
       class RakeTask
@@ -66,4 +66,3 @@ namespace :spec do
     ::CodeStatistics::TEST_TYPES << "Request specs" if File.exist?('spec/requests')
   end
 end
-

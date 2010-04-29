@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-04-27}
+  s.date = %q{2010-04-29}
   s.description = %q{Rspec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -21,8 +21,12 @@ Gem::Specification.new do |s|
      "README.markdown",
      "Rakefile",
      "VERSION",
+     "autotest/discover.rb",
+     "cucumber.yml",
      "example_app_template.rb",
+     "features/controller_specs/readers.feature",
      "features/matchers/new_record_matcher.feature",
+     "features/model_specs/errors_on.feature",
      "features/model_specs/transactional_examples.feature",
      "features/step_definitions/model_steps.rb",
      "features/support/env.rb",
@@ -66,6 +70,8 @@ Gem::Specification.new do |s|
      "lib/rspec/rails/example/mailer_example_group.rb",
      "lib/rspec/rails/example/request_example_group.rb",
      "lib/rspec/rails/example/view_example_group.rb",
+     "lib/rspec/rails/extensions.rb",
+     "lib/rspec/rails/extensions/active_record/base.rb",
      "lib/rspec/rails/matchers.rb",
      "lib/rspec/rails/mocks.rb",
      "lib/rspec/rails/monkey.rb",
@@ -75,6 +81,7 @@ Gem::Specification.new do |s|
      "lib/rspec/rails/version.rb",
      "rspec-rails.gemspec",
      "spec/rspec/rails/matchers/be_a_new_spec.rb",
+     "spec/rspec/rails/matchers/errors_on_spec.rb",
      "spec/rspec/rails/matchers/redirect_to_spec.rb",
      "spec/rspec/rails/matchers/render_template_spec.rb",
      "spec/rspec/rails/mocks/ar_classes.rb",
@@ -107,6 +114,7 @@ Gem::Specification.new do |s|
   s.summary = %q{rspec-rails-2.0.0.beta.8}
   s.test_files = [
     "spec/rspec/rails/matchers/be_a_new_spec.rb",
+     "spec/rspec/rails/matchers/errors_on_spec.rb",
      "spec/rspec/rails/matchers/redirect_to_spec.rb",
      "spec/rspec/rails/matchers/render_template_spec.rb",
      "spec/rspec/rails/mocks/ar_classes.rb",
