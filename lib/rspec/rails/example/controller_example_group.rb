@@ -4,22 +4,23 @@ require 'webrat'
 module ControllerExampleGroupBehaviour
   extend ActiveSupport::Concern
 
-  module ClassAttributeReaders
-    def controller_class
-      describes
-    end
-  end
-
   module AttributeReaders
+    extend ActiveSupport::Concern
     attr_reader :controller
+
+    module ClassMethods
+      def controller_class
+        describes
+      end
+    end
   end
 
   included do
     extend  Rspec::Rails::SetupAndTeardownAdapter
     include Rspec::Rails::TestUnitAssertionAdapter
     include ActionController::TestCase::Behavior
-    extend  ClassAttributeReaders
     include AttributeReaders
+    include Rspec::Rails::ViewRendering
     include Webrat::Matchers
     include Webrat::Methods
     include Rspec::Matchers
