@@ -12,7 +12,7 @@ DESC
       end
 
       def create_config_files
-        inside "config" do
+        inside "config", :verbose => false do
           directory "initializers"
         end
       end
