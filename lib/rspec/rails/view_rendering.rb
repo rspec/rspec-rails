@@ -5,11 +5,11 @@ module Rspec
 
       module ClassMethods
         def render_views
-          @render_views = true
+          metadata[:render_views] = true
         end
 
         def render_views?
-          @render_views ||= false
+          !!metadata[:render_views]
         end
       end
 
