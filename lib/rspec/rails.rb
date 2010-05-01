@@ -1,5 +1,6 @@
 require 'rspec/rails/monkey'
 require 'rspec/rails/extensions'
+require 'rspec/rails/null_resolver'
 require 'rspec/rails/adapters'
 require 'rspec/rails/transactional_database_support'
 require 'rspec/rails/matchers'

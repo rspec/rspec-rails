@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-04-30}
+  s.date = %q{2010-05-01}
   s.description = %q{Rspec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
      "cucumber.yml",
      "example_app_template.rb",
      "features/controller_specs/readers.feature",
+     "features/controller_specs/render_views.feature",
      "features/matchers/new_record_matcher.feature",
      "features/model_specs/errors_on.feature",
      "features/model_specs/transactional_examples.feature",
@@ -76,6 +77,7 @@ Gem::Specification.new do |s|
      "lib/rspec/rails/monkey.rb",
      "lib/rspec/rails/monkey/action_controller/test_case.rb",
      "lib/rspec/rails/monkey/active_support/notifications/fanout.rb",
+     "lib/rspec/rails/null_resolver.rb",
      "lib/rspec/rails/tasks/rspec.rake",
      "lib/rspec/rails/transactional_database_support.rb",
      "lib/rspec/rails/version.rb",

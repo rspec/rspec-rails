@@ -25,7 +25,12 @@ module ControllerExampleGroupBehaviour
     include Rspec::Matchers
     before do
       @routes = ::Rails.application.routes
+      @_view_paths = controller.class.view_paths
+      controller.class.view_paths = [ActionView::NullResolver.new()]
       ActionController::Base.allow_forgery_protection = false
+    end
+    after do
+      controller.class.view_paths = @_view_paths
     end
   end
 
