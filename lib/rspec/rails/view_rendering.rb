@@ -4,19 +4,23 @@ module Rspec
       extend ActiveSupport::Concern
 
       module ClassMethods
+        def metadata_for_rspec_rails
+          metadata[:rspec_rails] ||= {}
+        end
+
         def render_views
-          metadata[:render_views] = true
+          metadata_for_rspec_rails[:render_views] = true
         end
 
         def render_views?
-          !!metadata[:render_views]
+          metadata_for_rspec_rails[:render_views]
         end
       end
 
       included do
         before do
           @_view_paths = controller.class.view_paths
-          controller.class.view_paths = [ActionView::NullResolver.new()] unless
+          controller.class.view_paths = [Rspec::Rails::NullResolver.new()] unless
             self.class.render_views?
         end
 
