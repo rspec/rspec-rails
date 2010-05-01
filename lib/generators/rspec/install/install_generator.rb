@@ -11,7 +11,7 @@ DESC
         @source_root ||= File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
       end
 
-      def create_config_files
+      def copy_initializer_files
         inside "config" do
           directory "initializers", :verbose => false
         end
@@ -21,7 +21,7 @@ DESC
         directory 'spec'
       end
 
-      def copy_autotest_discover_file
+      def copy_autotest_files
         directory 'autotest'
       end
 
