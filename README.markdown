@@ -1,17 +1,12 @@
 RSpec-2 for Rails-3
 
-### Backwards compatibility
+## Backwards compatibility
 
 None. This is a rewrite of the rspec-rails extension designed to work
 with rails-3.x and rspec-2.x. It will not work with older versions of
 either rspec or rails.
 
-### Current state
-
-Currently in alpha - some things work, some not so much - see Known Issues,
-below
-
-Install:
+## Install
 
     gem install rspec-rails --pre
 
@@ -39,16 +34,15 @@ the "rake spec" task.
 Note that things are in flux, so some generators generate code that
 doesn't work all that well yet.
 
-### What works (and what doesn't)
+## What works (and what doesn't)
 
-Currently supported:
+rspec-rails is currently in beta. Here is what is working as of now:
 
 * each example runs in its own transaction
   * configurable in Rspec.configure
     * see generated spec/spec_helper.rb
 * model specs in spec/models
 * controller specs in spec/controllers
-  * no view isolation yet
 * view specs in spec/views
 * mailer specs in spec/mailers
 * observer specs in spec/models
@@ -58,18 +52,17 @@ Currently supported:
 * assertion-wrapping matchers
   * redirect_to
   * render_template
-    * template must exist (unlike rspec-rails-1.x)
 * webrat matchers
 * generators
   * run "script/rails g" to see the list of available generators
 
-### Known issues
+## Known issues
 
 * no helper specs
 * no routing specs
 * only works with ActiveRecord
 
-## Controller Specs
+# Controller Specs
 
 Controller specs live in spec/controllers, and mix in
 ActionController::TestCase::Behavior. See the documentation
@@ -78,11 +71,21 @@ available from Rails.
 
 You can use RSpec expectations/matchers or Test::Unit assertions.
 
+## rendering views
+By default, controller specs do not render views (as of beta.9).
+This supports specifying controllers without concern for whether
+the views they render work correctly or even exist. If you prefer
+to render the views (a la Rails' functional tests), you can use the
+`render_views` declaration in each example group:
+
+    describe SomeController do
+      render_views
+      ...
+
+## Matchers
 In addition to what Rails offers, controller specs provide all
 of rspec-core's matchers and the rspec-rails' specific matchers
 as well.
-
-## Matchers
 
 ### render_template
 Delegates to Rails' assert_template:
@@ -93,4 +96,3 @@ Delegates to Rails' assert_template:
 Delegates to assert_redirect
 
     response.should redirect_to(widgets_path)
-
