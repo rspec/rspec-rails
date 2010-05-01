@@ -11,16 +11,6 @@ DESC
         @source_root ||= File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
       end
 
-      def copy_lib_files
-        directory 'lib'
-      end
-
-      def create_config_files
-        inside "config" do
-          directory "initializers"
-        end
-      end
-
       def copy_spec_files
         directory 'spec'
       end
