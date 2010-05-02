@@ -1,12 +1,9 @@
-RSpec-2 for Rails-3
+# rspec-rails-2
 
-## Backwards compatibility
+## RSpec-2 for Rails-3
 
-This is a complete rewrite of the rspec-rails extension designed to work with
-rails-3.x and rspec-2.x. It will not work with older versions of either rspec
-or rails.  Many of the APIs from rspec-rails-1 have been carried forward,
-however, so upgrading an app from rspec-1/rails-2, while not pain-free, should
-not send you to the doctor with a migraine.
+rspec-rails-2 brings rspec-2 to rails-3 with lightweight extensions to both
+libraries.
 
 ## Install
 
@@ -20,7 +17,7 @@ This installs the following gems:
 * rspec-mocks
 * rspec-rails
 
-Configure:
+## Configure:
 
 Add this line to the Gemfile:
 
@@ -36,13 +33,19 @@ the "rake spec" task.
 Note that things are in flux, so some generators generate code that
 doesn't work all that well yet.
 
-## What works (and what doesn't)
+## Backwards compatibility
 
-rspec-rails is currently in beta. Here is what is working as of now:
+This is a complete rewrite of the rspec-rails extension designed to work with
+rails-3.x and rspec-2.x. It will not work with older versions of either rspec
+or rails.  Many of the APIs from rspec-rails-1 have been carried forward,
+however, so upgrading an app from rspec-1/rails-2, while not pain-free, should
+not send you to the doctor with a migraine.
+
+## Synopsis
 
 * each example runs in its own transaction
   * configurable in Rspec.configure
-    * see generated spec/spec_helper.rb
+    * see generated spec/spec\_helper.rb
 * model specs in spec/models
 * controller specs in spec/controllers
 * view specs in spec/views
@@ -52,17 +55,17 @@ rspec-rails is currently in beta. Here is what is working as of now:
   * these wrap rails integration tests
 * rails assertions
 * assertion-wrapping matchers
-  * redirect_to
-  * render_template
+  * redirect\_to
+  * render\_template
 * webrat matchers
 * generators
   * run "script/rails g" to see the list of available generators
 
 ## Known issues
 
-* no helper specs
-* no routing specs
-* only works with ActiveRecord
+* no helper specs (yet)
+* no routing specs (yet)
+* only works with ActiveRecord (for now)
 
 # Controller Specs
 
