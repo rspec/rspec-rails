@@ -2,9 +2,11 @@ RSpec-2 for Rails-3
 
 ## Backwards compatibility
 
-None. This is a rewrite of the rspec-rails extension designed to work
-with rails-3.x and rspec-2.x. It will not work with older versions of
-either rspec or rails.
+This is a complete rewrite of the rspec-rails extension designed to work with
+rails-3.x and rspec-2.x. It will not work with older versions of either rspec
+or rails.  Many of the APIs from rspec-rails-1 have been carried forward,
+however, so upgrading an app from rspec-1/rails-2, while not pain-free, should
+not send you to the doctor with a migraine.
 
 ## Install
 
