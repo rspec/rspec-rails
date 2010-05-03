@@ -22,7 +22,7 @@
 
 $:.push(*Dir["vendor/rails/*/lib"])
 
-require 'active_support'
+require 'active_support/core_ext'
 require 'autotest/rspec2'
 
 Autotest.add_hook :initialize do |at|

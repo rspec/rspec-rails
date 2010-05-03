@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-05-01}
+  s.date = %q{2010-05-03}
   s.description = %q{Rspec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -24,6 +24,7 @@ Gem::Specification.new do |s|
      "autotest/discover.rb",
      "cucumber.yml",
      "example_app_template.rb",
+     "features/controller_specs/do_not_render_views.feature",
      "features/controller_specs/readers.feature",
      "features/controller_specs/render_views.feature",
      "features/matchers/new_record_matcher.feature",
@@ -81,7 +82,9 @@ Gem::Specification.new do |s|
      "lib/rspec/rails/tasks/rspec.rake",
      "lib/rspec/rails/transactional_database_support.rb",
      "lib/rspec/rails/version.rb",
+     "lib/rspec/rails/view_rendering.rb",
      "rspec-rails.gemspec",
+     "spec/rspec/rails/example/view_rendering_spec.rb",
      "spec/rspec/rails/matchers/be_a_new_spec.rb",
      "spec/rspec/rails/matchers/errors_on_spec.rb",
      "spec/rspec/rails/matchers/redirect_to_spec.rb",
@@ -115,7 +118,8 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{rspec-rails-2.0.0.beta.8}
   s.test_files = [
-    "spec/rspec/rails/matchers/be_a_new_spec.rb",
+    "spec/rspec/rails/example/view_rendering_spec.rb",
+     "spec/rspec/rails/matchers/be_a_new_spec.rb",
      "spec/rspec/rails/matchers/errors_on_spec.rb",
      "spec/rspec/rails/matchers/redirect_to_spec.rb",
      "spec/rspec/rails/matchers/render_template_spec.rb",
