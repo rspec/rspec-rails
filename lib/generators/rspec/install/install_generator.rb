@@ -13,7 +13,11 @@ DESC
 
       def copy_initializer_files
         inside "config" do
-          directory "initializers", :verbose => false
+          empty_directory "initializers", :verbose => false
+
+          inside "initializers" do
+            template "rspec_generator.rb.tt", "rspec_generator.rb"
+          end
         end
       end
 
