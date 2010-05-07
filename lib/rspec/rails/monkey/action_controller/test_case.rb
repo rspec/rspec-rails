@@ -7,8 +7,13 @@ module ActionController
   # Once 3.0.0.rc.1 comes out, we can remove it.
   module TemplateAssertions
     def teardown_subscriptions
+      # rails-3.0.0.beta.3
       ActiveSupport::Notifications.unsubscribe("action_view.render_template")
       ActiveSupport::Notifications.unsubscribe("action_view.render_template!")
+
+      # as of 731d4392e478ff5526b595074d9caa999da8bd0c
+      ActiveSupport::Notifications.unsubscribe("render_template.action_view")
+      ActiveSupport::Notifications.unsubscribe("!render_template.action_view")
     end
   end
 
