@@ -1,6 +1,6 @@
 require 'webrat'
 
-module MailerExampleGroupBehavior
+module MailerExampleGroupBehaviour
   include Webrat::Matchers
   include Rspec::Matchers
 
@@ -9,8 +9,8 @@ module MailerExampleGroupBehavior
   end
 
   Rspec.configure do |c|
-    c.include self, :example_group => { :describes => lambda {|k| k < ActionMailer::Base }}
-    c.before :each, :example_group => { :describes => lambda {|k| k < ActionMailer::Base }} do
+    c.include self, :example_group => { :file_path => /\bspec\/mailers\// }
+    c.before :each, :example_group => { :file_path => /\bspec\/mailers\// } do
       ActionMailer::Base.delivery_method = :test
       ActionMailer::Base.perform_deliveries = true
       ActionMailer::Base.deliveries.clear

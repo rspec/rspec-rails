@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-05-03}
+  s.date = %q{2010-05-11}
   s.description = %q{Rspec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -84,6 +84,8 @@ Gem::Specification.new do |s|
      "lib/rspec/rails/version.rb",
      "lib/rspec/rails/view_rendering.rb",
      "rspec-rails.gemspec",
+     "spec/rspec/rails/example/controller_example_group_spec.rb",
+     "spec/rspec/rails/example/request_example_group_spec.rb",
      "spec/rspec/rails/example/view_rendering_spec.rb",
      "spec/rspec/rails/matchers/be_a_new_spec.rb",
      "spec/rspec/rails/matchers/errors_on_spec.rb",
@@ -94,6 +96,7 @@ Gem::Specification.new do |s|
      "spec/rspec/rails/mocks/stub_model_spec.rb",
      "spec/rspec/rails/transactional_database_support_spec.rb",
      "spec/spec_helper.rb",
+     "spec/support/helpers.rb",
      "specs.watchr",
      "templates/generate_stuff.rb",
      "templates/run_specs.rb"
@@ -118,7 +121,9 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.6}
   s.summary = %q{rspec-rails-2.0.0.beta.8}
   s.test_files = [
-    "spec/rspec/rails/example/view_rendering_spec.rb",
+    "spec/rspec/rails/example/controller_example_group_spec.rb",
+     "spec/rspec/rails/example/request_example_group_spec.rb",
+     "spec/rspec/rails/example/view_rendering_spec.rb",
      "spec/rspec/rails/matchers/be_a_new_spec.rb",
      "spec/rspec/rails/matchers/errors_on_spec.rb",
      "spec/rspec/rails/matchers/redirect_to_spec.rb",
@@ -127,7 +132,8 @@ Gem::Specification.new do |s|
      "spec/rspec/rails/mocks/mock_model_spec.rb",
      "spec/rspec/rails/mocks/stub_model_spec.rb",
      "spec/rspec/rails/transactional_database_support_spec.rb",
-     "spec/spec_helper.rb"
+     "spec/spec_helper.rb",
+     "spec/support/helpers.rb"
   ]
 
   if s.respond_to? :specification_version then
