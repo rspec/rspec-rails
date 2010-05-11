@@ -64,9 +64,5 @@ describe Rspec::Rails::ViewRendering do
     group.run(double.as_null_object)
     rendering_views.should be_true
   end
-
-  after do
-    Rspec::Core::world.example_groups.pop
-  end
 end
 
