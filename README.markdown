@@ -33,6 +33,21 @@ the "rake spec" task.
 Note that things are in flux, so some generators generate code that
 doesn't work all that well yet.
 
+## Living on edge
+
+If you prefer to exploit bundler's support for pointing a gem at a github repo,
+be sure to do so for all five of the relevant rspec gems:
+
+    gem "rspec-rails",        :git => "git://github.com/rspec/rspec-rails.git"
+    gem "rspec",              :git => "git://github.com/rspec/rspec.git"
+    gem "rspec-core",         :git => "git://github.com/rspec/rspec-core.git"
+    gem "rspec-expectations", :git => "git://github.com/rspec/rspec-expectations.git"
+    gem "rspec-mocks",        :git => "git://github.com/rspec/rspec-mocks.git"
+
+Keep in mind that each of these repos is under active development, which means
+that its very likely that you'll pull from these repos and they won't play nice
+together. If playing nice is important to you, stick to the published gems.
+
 ## Backwards compatibility
 
 This is a complete rewrite of the rspec-rails extension designed to work with
