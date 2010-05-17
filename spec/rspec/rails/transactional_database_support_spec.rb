@@ -1,11 +1,11 @@
 require 'spec_helper'
 
-describe Rspec::Rails::TransactionalDatabaseSupport do
+describe RSpec::Rails::TransactionalDatabaseSupport do
 
   let(:connection) { double('connection', :open_transactions => 1) }
   let(:test_bed) do
     Class.new do
-      include Rspec::Rails::TransactionalDatabaseSupport
+      include RSpec::Rails::TransactionalDatabaseSupport
       def active_record_configured?; true; end
     end.new
   end

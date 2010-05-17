@@ -1,4 +1,4 @@
-module Rspec
+module RSpec
   module Rails
 
     class IllegalDataAccessException < StandardError; end
@@ -140,6 +140,6 @@ module Rspec
   end
 end
 
-Rspec.configure do |c|
-  c.include Rspec::Rails::Mocks
+RSpec.configure do |c|
+  c.include RSpec::Rails::Mocks
 end

@@ -6,7 +6,7 @@ module NoConnections
       end
 
       def connection
-        Rspec::Mocks::Mock.new.as_null_object
+        RSpec::Mocks::Mock.new.as_null_object
       end
     end
   end

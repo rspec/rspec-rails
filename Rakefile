@@ -1,7 +1,7 @@
 require 'rake'
 require 'yaml'
 
-$:.unshift File.expand_path(File.join(File.dirname(__FILE__),'lib'))
+$LOAD_PATH.unshift File.expand_path('../lib', __FILE__)
 
 require 'rake/rdoctask'
 require 'rspec/rails/version'
@@ -9,7 +9,7 @@ require 'rspec'
 require 'rspec/core/rake_task'
 require 'cucumber/rake/task'
 
-Rspec::Core::RakeTask.new(:spec)
+RSpec::Core::RakeTask.new(:spec)
 Cucumber::Rake::Task.new(:cucumber) do |t|
   t.cucumber_opts = %w{--format progress}
 end
@@ -18,9 +18,9 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "rspec-rails"
-    gem.version = Rspec::Rails::Version::STRING
-    gem.summary = "rspec-rails-#{Rspec::Rails::Version::STRING}"
-    gem.description = "Rspec-2 for Rails-3"
+    gem.version = RSpec::Rails::Version::STRING
+    gem.summary = "rspec-rails-#{RSpec::Rails::Version::STRING}"
+    gem.description = "RSpec-2 for Rails-3"
     gem.email = "dchelimsky@gmail.com;chad.humphries@gmail.com"
     gem.homepage = "http://github.com/rspec/rspec-rails"
     gem.authors = ["David Chelimsky", "Chad Humphries"]
@@ -49,7 +49,7 @@ end
 namespace :gem do
   desc "push to gemcutter"
   task :push => :build do
-    system "gem push pkg/rspec-rails-#{Rspec::Rails::Version::STRING}.gem"
+    system "gem push pkg/rspec-rails-#{RSpec::Rails::Version::STRING}.gem"
   end
 end
 

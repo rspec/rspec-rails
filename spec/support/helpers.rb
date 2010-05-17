@@ -1,11 +1,11 @@
 module Helpers
   def stub_metadata(additional_metadata)
     stub_metadata = metadata_with(additional_metadata)
-    Rspec::Core::ExampleGroup.stub(:metadata) { stub_metadata }
+    RSpec::Core::ExampleGroup.stub(:metadata) { stub_metadata }
   end
 
   def metadata_with(additional_metadata)
-    m = Rspec::Core::Metadata.new
+    m = RSpec::Core::Metadata.new
     m.process("example group")
 
     group_metadata = additional_metadata.delete(:example_group)
@@ -16,5 +16,5 @@ module Helpers
     m
   end
 
-  Rspec.configure {|c| c.include self}
+  RSpec.configure {|c| c.include self}
 end

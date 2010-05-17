@@ -1,4 +1,4 @@
-module Rspec
+module RSpec
   module Rails
     class NullResolver < ActionView::PathResolver
       def query(path, exts, formats)

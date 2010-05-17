@@ -28,7 +28,7 @@ Feature: transactional examples
       """
       require "spec_helper"
 
-      Rspec.configure do |c|
+      RSpec.configure do |c|
         c.use_transactional_examples = true
       end
 
@@ -55,7 +55,7 @@ Feature: transactional examples
       """
       require "spec_helper"
 
-      Rspec.configure do |c|
+      RSpec.configure do |c|
         c.use_transactional_examples = false
       end
 

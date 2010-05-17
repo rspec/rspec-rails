@@ -6,11 +6,11 @@ module RequestExampleGroupBehaviour
   include ActionDispatch::Integration::Runner
 
   included do
-    include Rspec::Rails::TestUnitAssertionAdapter
+    include RSpec::Rails::TestUnitAssertionAdapter
     include ActionDispatch::Assertions
     include Webrat::Matchers
     include Webrat::Methods
-    include Rspec::Matchers
+    include RSpec::Matchers
 
     before do
       @router = ::Rails.application.routes
@@ -29,7 +29,7 @@ module RequestExampleGroupBehaviour
     config.mode = :rack
   end
 
-  Rspec.configure do |c|
+  RSpec.configure do |c|
     c.include self, :example_group => { :file_path => /\bspec\/requests\// }
   end
 end

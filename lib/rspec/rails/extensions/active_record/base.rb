@@ -1,5 +1,5 @@
 if defined?(ActiveRecord::Base)
-  module Rspec
+  module RSpec
     module Rails
       module Extensions
         module ActiveRecord
@@ -38,8 +38,8 @@ if defined?(ActiveRecord::Base)
   
   module ActiveRecord #:nodoc:
     class Base
-      extend  Rspec::Rails::Extensions::ActiveRecord::ClassMethods
-      include Rspec::Rails::Extensions::ActiveRecord::InstanceMethods
+      extend  RSpec::Rails::Extensions::ActiveRecord::ClassMethods
+      include RSpec::Rails::Extensions::ActiveRecord::InstanceMethods
     end
   end
 end

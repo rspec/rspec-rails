@@ -1,7 +1,7 @@
 require 'active_support/concern'
 require 'test/unit/assertions'
 
-module Rspec
+module RSpec
   module Rails
     module SetupAndTeardownAdapter
       def setup(*methods)

@@ -4,7 +4,7 @@ module MailerExampleGroupBehaviour
   extend ActiveSupport::Concern
 
   include Webrat::Matchers
-  include Rspec::Matchers
+  include RSpec::Matchers
 
   def read_fixture(action)
     IO.readlines(File.join(Rails.root, 'spec', 'fixtures', self.described_class.name.underscore, action))
@@ -21,7 +21,7 @@ module MailerExampleGroupBehaviour
     end
   end
 
-  Rspec.configure do |c|
+  RSpec.configure do |c|
     c.include self, :example_group => { :file_path => /\bspec\/mailers\// }
   end
 end

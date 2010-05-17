@@ -8,6 +8,6 @@ require 'rspec/rails/matchers'
 require 'rspec/rails/example'
 require 'rspec/rails/mocks'
 
-Rspec.configure do |c|
+RSpec.configure do |c|
   c.add_option :use_transactional_examples, :type => :boolean, :default => true
 end

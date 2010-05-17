@@ -44,7 +44,7 @@ not send you to the doctor with a migraine.
 ## Synopsis
 
 * each example runs in its own transaction
-  * configurable in Rspec.configure
+  * configurable in RSpec.configure
     * see generated spec/spec\_helper.rb
 * model specs in spec/models
 * controller specs in spec/controllers

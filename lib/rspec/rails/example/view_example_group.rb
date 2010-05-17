@@ -2,7 +2,7 @@ require 'webrat'
 
 module ViewExampleGroupBehaviour
   include Webrat::Matchers
-  include Rspec::Matchers
+  include RSpec::Matchers
 
   class ViewExampleController < ActionController::Base
     attr_accessor :controller_path
@@ -62,7 +62,7 @@ module ViewExampleGroupBehaviour
     end
   end
 
-  Rspec.configure do |c|
+  RSpec.configure do |c|
     c.include self, :example_group => { :file_path => /\bspec\/views\// }
   end
 

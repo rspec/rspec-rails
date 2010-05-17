@@ -42,7 +42,7 @@ describe "stub_model" do
     lambda do
       model = stub_model(MockableModel, :changed => true, :attributes_with_quotes => {'this' => 'that'})
       model.save
-    end.should raise_error(Rspec::Rails::IllegalDataAccessException, /stubbed models are not allowed to access the database/)
+    end.should raise_error(RSpec::Rails::IllegalDataAccessException, /stubbed models are not allowed to access the database/)
   end
   
   it "should increment the id" do

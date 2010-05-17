@@ -1,4 +1,4 @@
-module Rspec
+module RSpec
   module Rails
     module ViewRendering
       extend ActiveSupport::Concern
@@ -20,7 +20,7 @@ module Rspec
       included do
         before do
           @_view_paths = controller.class.view_paths
-          controller.class.view_paths = [Rspec::Rails::NullResolver.new()] unless
+          controller.class.view_paths = [RSpec::Rails::NullResolver.new()] unless
             self.class.render_views?
         end
 

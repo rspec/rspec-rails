@@ -1,9 +1,9 @@
 require "spec_helper"
 
-describe Rspec::Rails::ViewRendering do
+describe RSpec::Rails::ViewRendering do
   it "doesn't render views by default" do
     rendering_views = nil
-    group = Rspec::Core::ExampleGroup.describe do
+    group = RSpec::Core::ExampleGroup.describe do
       include ControllerExampleGroupBehaviour
       rendering_views = render_views?
       it("does something") {}
@@ -14,7 +14,7 @@ describe Rspec::Rails::ViewRendering do
 
   it "doesn't render views by default in a nested group" do
     rendering_views = nil
-    group = Rspec::Core::ExampleGroup.describe do
+    group = RSpec::Core::ExampleGroup.describe do
       include ControllerExampleGroupBehaviour
       describe "nested" do
         rendering_views = render_views?
@@ -27,7 +27,7 @@ describe Rspec::Rails::ViewRendering do
 
   it "renders views if told to" do
     rendering_views = false
-    group = Rspec::Core::ExampleGroup.describe do
+    group = RSpec::Core::ExampleGroup.describe do
       include ControllerExampleGroupBehaviour
       render_views
       rendering_views = render_views?
@@ -39,7 +39,7 @@ describe Rspec::Rails::ViewRendering do
 
   it "renders views if told to in a nested group" do
     rendering_views = nil
-    group = Rspec::Core::ExampleGroup.describe do
+    group = RSpec::Core::ExampleGroup.describe do
       include ControllerExampleGroupBehaviour
       describe "nested" do
         render_views
@@ -53,7 +53,7 @@ describe Rspec::Rails::ViewRendering do
 
   it "renders views in a nested group if told to in an outer group" do
     rendering_views = nil
-    group = Rspec::Core::ExampleGroup.describe do
+    group = RSpec::Core::ExampleGroup.describe do
       include ControllerExampleGroupBehaviour
       render_views
       describe "nested" do

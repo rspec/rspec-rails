@@ -17,20 +17,20 @@ rescue LoadError
 
 end
 
-Rspec::Matchers.define :redirect_to do |destination|
+RSpec::Matchers.define :redirect_to do |destination|
   match_unless_raises Test::Unit::AssertionFailedError do |_|
     assert_redirected_to destination
   end
 end
 
-Rspec::Matchers.define :render_template do |options, message|
+RSpec::Matchers.define :render_template do |options, message|
   match_unless_raises Test::Unit::AssertionFailedError do |_|
     options = options.to_s if Symbol === options
     assert_template options, message
   end
 end
 
-Rspec::Matchers.define :be_a_new do |model_klass|
+RSpec::Matchers.define :be_a_new do |model_klass|
   match do |actual|
     model_klass === actual && actual.new_record?
   end
@@ -38,7 +38,7 @@ end
 
 require 'rspec/matchers/have'
 
-module Rspec #:nodoc:
+module RSpec #:nodoc:
   module Matchers #:nodoc:
     class Have #:nodoc:
 

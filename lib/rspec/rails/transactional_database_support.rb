@@ -1,6 +1,6 @@
 require 'rspec/core'
 
-module Rspec
+module RSpec
   module Rails
     module TransactionalDatabaseSupport
 
@@ -9,7 +9,7 @@ module Rspec
       end
 
       def use_transactional_examples?
-        active_record_configured? && Rspec.configuration.use_transactional_examples?
+        active_record_configured? && RSpec.configuration.use_transactional_examples?
       end
 
       def setup_transactional_examples
@@ -34,8 +34,8 @@ module Rspec
   end
 end
 
-Rspec.configure do |c|
-  c.include Rspec::Rails::TransactionalDatabaseSupport
+RSpec.configure do |c|
+  c.include RSpec::Rails::TransactionalDatabaseSupport
   c.before { setup_transactional_examples }
   c.after  { teardown_transactional_examples }
 end
