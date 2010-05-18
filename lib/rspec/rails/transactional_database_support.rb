@@ -1,5 +1,3 @@
-require 'rspec/core'
-
 module RSpec
   module Rails
     module TransactionalDatabaseSupport

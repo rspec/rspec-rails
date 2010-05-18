@@ -1,3 +1,4 @@
+require 'rspec/core'
 require 'rspec/rails/monkey'
 require 'rspec/rails/extensions'
 require 'rspec/rails/null_resolver'
