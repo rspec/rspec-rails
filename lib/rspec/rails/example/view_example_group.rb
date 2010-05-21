@@ -50,8 +50,9 @@ module ViewExampleGroupBehaviour
     parts.join('/')
   end
 
-  def render
-    @response = view.render :file => file_to_render
+  def render(options = nil, locals = {}, &block)
+    options ||= {:file => file_to_render}
+    @response = view.render(options, locals, &block)
   end
 
   def method_missing(selector, *args)
