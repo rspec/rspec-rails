@@ -35,9 +35,9 @@ describe ViewExampleGroupBehaviour do
     end
 
     context "given a string" do
-      it "sends :file => string as the first arg to render" do
+      it "sends string as the first arg to render" do
         view_spec.view.should_receive(:render).
-          with({:file => 'arbitrary/path'}, {})
+          with('arbitrary/path', {})
         view_spec.render('arbitrary/path')
       end
     end

@@ -52,23 +52,25 @@ module ViewExampleGroupBehaviour
 
   # :callseq:
   #   render 
-  #   render("some/path") 
-  #   render(:template => "some/path")
-  #   render({:partial => "some/path"}, {... locals ...})
-  #   render({:partial => "some/path"}, {... locals ...}) do ... end
+  #   render(:template => "widgets/new.html.erb")
+  #   render({:partial => "widgets/widget.html.erb"}, {... locals ...})
+  #   render({:partial => "widgets/widget.html.erb"}, {... locals ...}) do ... end
+  #
+  # Delegates to ActionView::Base#render, so see documentation on that for more
+  # info.
+  #
+  # The only addition is that you can call render with no arguments, and RSpec
+  # will pass the top level description to render:
+  #
+  #   describe "widgets/new.html.erb" do
+  #     it "shows all the widgets" do
+  #       render # => view.render(:file => "widgets/new.html.erb")
+  #       ...
+  #     end
+  #   end
   def render(options = nil, locals = {}, &block)
-    @response = view.render(prepare(options), locals, &block)
-  end
-
-  def prepare(options) # :nodoc:
-    case options
-    when String
-      {:file => options}
-    when nil
-      {:file => file_to_render}
-    else
-      options
-    end
+    options ||= {:file => file_to_render}
+    @response = view.render(options, locals, &block)
   end
 
   def helpers
