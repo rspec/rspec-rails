@@ -11,7 +11,7 @@ module ViewExampleGroupBehaviour
   module ViewExtension
     def protect_against_forgery?; end
     def method_missing(name, *args)
-      if controller.respond_to?(name) || Rails.application.routes.named_routes.helpers.include?(name)
+      if controller.respond_to?(name) || helpers.include?(name)
         controller.__send__(name, *args)
       else
         super(name, *args)
@@ -50,13 +50,33 @@ module ViewExampleGroupBehaviour
     parts.join('/')
   end
 
+  # :callseq:
+  #   render 
+  #   render("some/path") 
+  #   render(:template => "some/path")
+  #   render({:partial => "some/path"}, {... locals ...})
+  #   render({:partial => "some/path"}, {... locals ...}) do ... end
   def render(options = nil, locals = {}, &block)
-    options ||= {:file => file_to_render}
-    @response = view.render(options, locals, &block)
+    @response = view.render(prepare(options), locals, &block)
+  end
+
+  def prepare(options) # :nodoc:
+    case options
+    when String
+      {:file => options}
+    when nil
+      {:file => file_to_render}
+    else
+      options
+    end
+  end
+
+  def helpers
+    ::Rails.application.routes.named_routes.helpers
   end
 
   def method_missing(selector, *args)
-    if ::Rails.application.routes.named_routes.helpers.include?(selector)
+    if helpers.include?(selector)
       controller.__send__(selector, *args)
     else
       super
