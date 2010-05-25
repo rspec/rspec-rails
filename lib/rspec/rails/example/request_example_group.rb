@@ -3,15 +3,15 @@ require 'webrat'
 
 module RequestExampleGroupBehaviour
   extend ActiveSupport::Concern
+
   include ActionDispatch::Integration::Runner
+  include RSpec::Rails::TestUnitAssertionAdapter
+  include ActionDispatch::Assertions
+  include Webrat::Matchers
+  include Webrat::Methods
+  include RSpec::Matchers
 
   included do
-    include RSpec::Rails::TestUnitAssertionAdapter
-    include ActionDispatch::Assertions
-    include Webrat::Matchers
-    include Webrat::Methods
-    include RSpec::Matchers
-
     before do
       @router = ::Rails.application.routes
     end

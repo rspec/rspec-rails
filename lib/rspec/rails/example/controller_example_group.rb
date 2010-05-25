@@ -4,26 +4,23 @@ require 'webrat'
 module ControllerExampleGroupBehaviour
   extend ActiveSupport::Concern
 
-  module AttributeReaders
-    extend ActiveSupport::Concern
-    attr_reader :controller
+  include RSpec::Rails::SetupAndTeardownAdapter
+  include RSpec::Rails::TestUnitAssertionAdapter
+  include ActionController::TestCase::Behavior
+  include RSpec::Rails::ViewRendering
+  include Webrat::Matchers
+  include Webrat::Methods
+  include RSpec::Matchers
 
-    module ClassMethods
-      def controller_class
-        describes
-      end
+  attr_reader :controller
+
+  module ClassMethods
+    def controller_class
+      describes
     end
   end
 
   included do
-    extend  RSpec::Rails::SetupAndTeardownAdapter
-    include RSpec::Rails::TestUnitAssertionAdapter
-    include ActionController::TestCase::Behavior
-    include AttributeReaders
-    include RSpec::Rails::ViewRendering
-    include Webrat::Matchers
-    include Webrat::Methods
-    include RSpec::Matchers
     before do
       @routes = ::Rails.application.routes
       ActionController::Base.allow_forgery_protection = false
