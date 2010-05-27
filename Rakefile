@@ -25,7 +25,7 @@ begin
     gem.homepage = "http://github.com/rspec/rspec-rails"
     gem.authors = ["David Chelimsky", "Chad Humphries"]
     gem.rubyforge_project = "rspec"
-    gem.add_dependency "rspec", gem.version
+    gem.add_dependency "rspec", "2.0.0.beta.9" # gem.version
     gem.add_dependency "webrat", ">= 0.7.0"
     gem.post_install_message = <<-EOM
 #{"*"*50}
