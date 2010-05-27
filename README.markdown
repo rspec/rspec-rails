@@ -72,15 +72,19 @@ not send you to the doctor with a migraine.
 * assertion-wrapping matchers
   * redirect\_to
   * render\_template
+* helper specs
 * webrat matchers
 * generators
   * run "script/rails g" to see the list of available generators
 
 ## Known issues
 
-* no helper specs (yet)
-* no routing specs (yet)
-* only works with ActiveRecord (for now)
+See http://github.com/rspec/rspec-rails/issues
+
+# Request Specs
+
+Request specs live in spec/requests, and mix in behavior
+from Rails' integration tests.
 
 # Controller Specs
 
@@ -116,3 +120,32 @@ Delegates to Rails' assert_template:
 Delegates to assert_redirect
 
     response.should redirect_to(widgets_path)
+
+# View specs
+
+View specs live in spec/views, and mix in ActionView::TestCase::Behavior.
+
+    describe "events/show.html.erb" do
+      it "displays the event location" do
+        assign(:event, stub_model(Event,
+          :location => "Chicago"
+        )
+        render
+        rendered.should contain("Chicago")
+      end
+    end
+
+# Helper specs
+
+Helper specs live in spec/helpers, and mix in ActionView::TestCase::Behavior.
+
+    describe EventsHelper do
+      describe "#link_to_event" do
+        it "displays the title, and formatted date" do
+          event = Event.new("Ruby Kaigi", Date.new(2010, 8, 27))
+          # helper is an instance of ActionView::Base configured with the
+          # EventsHelper and all of Rails' built-in helpers
+          helper.link_to_event.should =~ /Ruby Kaigi, 27 Aug, 2010/
+        end
+      end
+    end
