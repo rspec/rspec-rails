@@ -1,26 +1,19 @@
 require 'webrat'
+require 'rspec/rails/view_assigns'
 
 module ViewExampleGroupBehaviour
   extend  ActiveSupport::Concern
 
-  include  RSpec::Rails::SetupAndTeardownAdapter
-  include  RSpec::Rails::TestUnitAssertionAdapter
-  include  ActionView::TestCase::Behavior
-  include  Webrat::Matchers
+  include RSpec::Rails::SetupAndTeardownAdapter
+  include RSpec::Rails::TestUnitAssertionAdapter
+  include ActionView::TestCase::Behavior
+  include RSpec::Rails::ViewAssigns
+  include Webrat::Matchers
 
   module InstanceMethods
     def response
       RSpec.deprecate("response", "rendered")
       rendered
-    end
-
-    # :callseq:
-    #   assign(:widget, stub_model(Widget))
-    #
-    # Assigns a value to an instance variable in the scope of the
-    # view being rendered.
-    def assign(key, value)
-      _encapsulated_assigns[key] = value
     end
 
     # :callseq:
@@ -47,14 +40,6 @@ module ViewExampleGroupBehaviour
     end
 
   private
-
-    def _encapsulated_assigns
-      @_encapsulated_assigns ||= {}
-    end
-
-    def _assigns
-      super.merge(_encapsulated_assigns)
-    end
 
     def _default_file_to_render
       running_example.example_group.top_level_description

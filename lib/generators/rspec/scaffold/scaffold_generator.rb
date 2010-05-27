@@ -5,6 +5,7 @@ module Rspec
   module Generators
     class ScaffoldGenerator < Base
       include Rails::Generators::ResourceHelpers
+      source_paths << File.expand_path("../../helper/templates", __FILE__)
       argument :attributes, :type => :array, :default => [], :banner => "field:type field:type"
 
       class_option :orm, :desc => "ORM used to generate the controller"
@@ -32,11 +33,19 @@ module Rspec
         copy_view :show
       end
 
+      def copy_helper_files
+        return unless options[:helper_specs]
+
+        template "helper_spec.rb",
+          File.join('spec/helpers', "#{controller_file_name}_helper_spec.rb")
+
+      end
+
       def copy_routing_files
         return unless options[:routing_specs]
 
         template 'routing_spec.rb',
-                 File.join('spec/routing', controller_class_path, "#{controller_file_name}_routing_spec.rb")
+          File.join('spec/routing', "#{controller_file_name}_routing_spec.rb")
       end
 
       hook_for :integration_tool, :as => :integration
