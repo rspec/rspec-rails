@@ -4,10 +4,17 @@ require 'action_controller/test_case'
 require 'action_view'
 
 unless defined?(ActionView::TestCase::Behavior)
+
+
   # This has been merged to rails HEAD after the 3.0.0.beta.3 release (see
   # https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/4678).
   # Once 3.0.0.rc.1 comes out, we can remove it.
   module ActionView
+
+    # This line is NOT part of the code merged into Rails, but ensures that
+    # we're using the correct code for rails-3.0.0.beta.3
+    remove_const :TestCase 
+
     class TestCase < ActiveSupport::TestCase
       class TestController < ActionController::Base
         include ActionDispatch::TestProcess
