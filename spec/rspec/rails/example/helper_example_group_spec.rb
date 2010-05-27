@@ -9,7 +9,7 @@ describe HelperExampleGroupBehaviour do
     group.included_modules.should include(HelperExampleGroupBehaviour)
   end
 
-  module FoosHelper; end
+  module ::FoosHelper; end
 
   it "provides a controller_path based on the helper module's name" do
     helper_spec = Object.new
