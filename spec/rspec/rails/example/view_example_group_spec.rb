@@ -12,42 +12,63 @@ describe ViewExampleGroupBehaviour do
   describe "#render" do
     let(:view_spec) do
       Class.new do
-        include ViewExampleGroupBehaviour
+        module Local
+          def received
+            @received ||= []
+          end
+          def render(options={}, local_assigns={}, &block)
+            received << [options, local_assigns, block]
+          end
+        end
+        include Local
+        include ViewExampleGroupBehaviour::InstanceMethods
       end.new
-    end
-
-    let(:helpers) { double("helpers").as_null_object }
-    let(:example) { double("example").as_null_object }
-
-    before do
-      helpers.stub(:include?) { false }
-      view_spec.stub(:helpers) { helpers }
-      view_spec.stub(:running_example) { example }
     end
 
     context "given no input" do
       it "sends render(:file => (described file)) to the view" do
-        view_spec.stub(:file_to_render) { "widgets/new.html.erb" }
-        view_spec.view.should_receive(:render).
-          with({:file => "widgets/new.html.erb"}, {})
+        view_spec.stub(:_default_file_to_render) { "widgets/new.html.erb" }
         view_spec.render
+        view_spec.received.first.should == [{:template => "widgets/new.html.erb"},{}, nil]
       end
     end
 
     context "given a string" do
       it "sends string as the first arg to render" do
-        view_spec.view.should_receive(:render).
-          with('arbitrary/path', {})
         view_spec.render('arbitrary/path')
+        view_spec.received.first.should == ["arbitrary/path", {}, nil]
       end
     end
 
     context "given a hash" do
       it "sends the hash as the first arg to render" do
-        pending
-        view_spec.view.should_receive(:render).
-          with({:foo => 'bar'}, {})
         view_spec.render(:foo => 'bar')
+        view_spec.received.first.should == [{:foo => "bar"}, {}, nil]
+      end
+    end
+  end
+
+  describe "#_controller_path" do
+    let(:view_spec) do
+      Class.new do
+        include ViewExampleGroupBehaviour::InstanceMethods
+      end.new
+    end
+    context "with a common _default_file_to_render" do
+      it "it returns the directory" do
+        view_spec.stub(:_default_file_to_render).
+          and_return("things/new.html.erb")
+        view_spec.__send__(:_controller_path).
+          should == "things"
+      end
+    end
+
+    context "with a nested _default_file_to_render" do
+      it "it returns the directory path" do
+        view_spec.stub(:_default_file_to_render).
+          and_return("admin/things/new.html.erb")
+        view_spec.__send__(:_controller_path).
+          should == "admin/things"
       end
     end
   end

@@ -15,7 +15,7 @@ describe "<%= table_name %>/show.html.<%= options[:template_engine] %>" do
   it "renders attributes in <p>" do
     render
 <% for attribute in output_attributes -%>
-    response.should contain(<%= attribute.default.inspect %>)
+   rendered.should contain(<%= attribute.default.inspect %>)
 <% end -%>
   end
 end

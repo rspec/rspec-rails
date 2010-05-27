@@ -19,7 +19,7 @@ describe "<%= table_name %>/index.html.<%= options[:template_engine] %>" do
   it "renders a list of <%= table_name %>" do
     render
 <% for attribute in output_attributes -%>
-    response.should have_selector("tr>td", :content => <%= attribute.default.inspect %>.to_s, :count => 2)
+    rendered.should have_selector("tr>td", :content => <%= attribute.default.inspect %>.to_s, :count => 2)
 <% end -%>
   end
 end

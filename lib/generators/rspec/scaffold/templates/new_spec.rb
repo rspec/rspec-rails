@@ -14,7 +14,7 @@ describe "<%= table_name %>/new.html.<%= options[:template_engine] %>" do
   it "renders new <%= file_name %> form" do
     render
 
-    response.should have_selector("form", :action => <%= table_name %>_path, :method => "post") do |form|
+    rendered.should have_selector("form", :action => <%= table_name %>_path, :method => "post") do |form|
 <% for attribute in output_attributes -%>
       form.should have_selector("<%= attribute.input_type -%>#<%= file_name %>_<%= attribute.name %>", :name => "<%= file_name %>[<%= attribute.name %>]")
 <% end -%>
