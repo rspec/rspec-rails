@@ -19,6 +19,9 @@ module RSpec
 
     module TestUnitAssertionAdapter
       extend ActiveSupport::Concern
+      def method_name 
+        @running_example
+      end
 
       include Test::Unit::Assertions
 

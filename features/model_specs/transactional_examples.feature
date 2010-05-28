@@ -76,3 +76,26 @@ Feature: transactional examples
       """
     When I run "rspec spec/models/widget_spec.rb"
     Then I should see "3 examples, 0 failures"
+
+  Scenario: run in transactions with fixture
+    Given a file named "spec/models/thing_spec.rb" with:
+      """
+      require "spec_helper"
+
+      describe Thing do 
+        fixtures :things
+        it "fixture method defined" do
+          things(:one)
+        end
+      end
+      """
+    Given a file named "spec/fixtures/things.yml" with:
+      """
+      one:
+        name: MyString
+      """
+    When I run "rspec spec/models/thing_spec.rb"
+    Then I should see "1 example, 0 failures"
+
+
+
