@@ -72,6 +72,8 @@ Feature: transactional examples
         it "has one after one was created in a previous example" do
           Widget.count.should == 1
         end
+
+        after(:all) { Widget.destroy_all }
       end
       """
     When I run "rspec spec/models/widget_spec.rb"
