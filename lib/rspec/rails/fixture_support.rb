@@ -23,9 +23,9 @@ end
 
 RSpec.configure do |c|
   c.include RSpec::Rails::FixtureSupport
-  c.add_option :use_transactional_fixtures, :type => :boolean, :default => true
-  c.add_option :use_transactional_examples, :type => :alias,   :target => :use_transactional_fixtures
-  c.add_option :use_instantiated_fixtures,  :type => :boolean, :default => false
-  c.add_option :global_fixtures 
-  c.add_option :fixture_path 
+  c.add_setting :use_transactional_fixtures, :default => true
+  c.add_setting :use_transactional_examples, :alias => :use_transactional_fixtures
+  c.add_setting :use_instantiated_fixtures
+  c.add_setting :global_fixtures
+  c.add_setting :fixture_path
 end
