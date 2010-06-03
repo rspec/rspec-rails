@@ -15,6 +15,10 @@ DESC
         directory 'spec'
       end
 
+      def copy_lib_files
+        directory 'lib'
+      end
+
       def copy_autotest_files
         directory 'autotest'
       end

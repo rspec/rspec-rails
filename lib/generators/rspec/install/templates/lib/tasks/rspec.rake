@@ -66,3 +66,4 @@ namespace :spec do
     ::CodeStatistics::TEST_TYPES << "Request specs" if File.exist?('spec/requests')
   end
 end
+
