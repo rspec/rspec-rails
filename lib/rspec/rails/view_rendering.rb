@@ -8,6 +8,7 @@ module RSpec
           metadata[:rspec_rails] ||= {}
         end
 
+        # See RSpec::Rails::ControllerExampleGroup
         def render_views
           metadata_for_rspec_rails[:render_views] = true
         end

@@ -2,6 +2,23 @@ require 'webrat'
 require 'rspec/rails/view_assigns'
 
 module RSpec::Rails
+  # Extends ActionView::TestCase::Behavior
+  #
+  # == Examples
+  #
+  #   describe "widgets/index.html.erb" do
+  #     it "renders the @widgets" do
+  #       widgets = [
+  #         stub_model(Widget, :name => "Foo"),
+  #         stub_model(Widget, :name => "Bar")
+  #       ]
+  #       assign(:widgets, widgets)
+  #       render
+  #       rendered.should contain("Foo")
+  #       rendered.should contain("Bar")
+  #     end
+  #   end
+  #
   module ViewExampleGroup
     extend  ActiveSupport::Concern
 
