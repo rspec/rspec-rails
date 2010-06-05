@@ -20,7 +20,7 @@ Rspec.configure do |config|
 
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
-  # If you'd prefer not to run each of your examples within a transaction,
-  # uncomment the following line.
-  # config.use_transactional_examples = false
+  # If you're not using ActiveRecord, or you'd prefer not to run each of your
+  # examples within a transaction, uncomment the following line.
+  # config.use_transactional_fixtures = false
 end
