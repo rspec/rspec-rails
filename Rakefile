@@ -35,9 +35,10 @@ begin
   This version of rspec-rails only works with 
   versions of rails >= 3.0.0.pre.
 
-  This is beta software. If you are looking
-  for a supported production release, please
-  "gem install rspec-rails" (without --pre).
+  Be sure to run the following command in each of your
+  Rails apps if you're upgrading:
+
+    script/rails generate rspec
 
 #{"*"*50}
 EOM
@@ -77,7 +78,7 @@ namespace :generate do
   desc "generate a fresh app with rspec installed"
   task :app => ["rails:clone"] do |t|
     unless File.directory?('./tmp/example_app')
-      ruby "./tmp/rails/bin/rails tmp/example_app --dev -m example_app_template.rb"
+      ruby "./tmp/rails/bin/rails new tmp/example_app --dev -m example_app_template.rb"
     end
   end
 
@@ -124,11 +125,5 @@ namespace :clobber do
   end
 end
 
-namespace :bundle do
-  task :install do
-    sh "bundle install"
-  end
-end
-
-task :default => ["bundle:install", "clobber:app", "generate:app", "generate:stuff", :spec, :cucumber, :smoke]
+task :default => ["clobber:app", "generate:app", "generate:stuff", :spec, :cucumber, :smoke]
 
