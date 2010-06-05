@@ -3,3 +3,4 @@ pkg
 .bundle
 rspec-rails-
 Gemfile.lock
+doc
