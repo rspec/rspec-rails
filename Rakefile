@@ -57,17 +57,26 @@ end
 namespace :rails do
   desc "clone the rails repo"
   task :clone do
-    mkdir 'tmp' unless File.directory?('tmp')
-    unless File.directory?('tmp/rails')
-      Dir.chdir('tmp') do
+    mkdir 'vendor' unless File.directory?('vendor')
+    unless File.directory?('vendor/rails')
+      Dir.chdir('vendor') do
         sh "git clone git://github.com/rails/rails"
+      end
+    end
+    unless File.directory?('vendor/arel')
+      Dir.chdir('vendor') do
+        sh "git clone git://github.com/rails/arel"
       end
     end
   end
 
   desc "update the rails repo"
   task :update => :clone do
-    Dir.chdir('tmp/rails') do
+    Dir.chdir('vendor/rails') do
+      sh "git checkout master"
+      sh "git pull"
+    end
+    Dir.chdir('vendor/arel') do
       sh "git checkout master"
       sh "git pull"
     end
@@ -78,7 +87,8 @@ namespace :generate do
   desc "generate a fresh app with rspec installed"
   task :app => ["rails:clone"] do |t|
     unless File.directory?('./tmp/example_app')
-      ruby "./tmp/rails/bin/rails new tmp/example_app --dev -m example_app_template.rb"
+      ruby "./vendor/rails/bin/rails new ./tmp/example_app"
+      system "cp ./templates/Gemfile ./tmp/example_app/" 
     end
   end
 
@@ -116,6 +126,8 @@ end
 desc 'clobber generated files'
 task :clobber do
   rm_rf "pkg"
+  rm_rf "tmp"
+  rm    "Gemfile.lock" if File.exist?("Gemfile.lock")
 end
 
 namespace :clobber do

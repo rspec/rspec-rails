@@ -38,8 +38,6 @@ Before do
     end
   end
 
-  copy('tmp/example_app/.bundle')
-
   ["spec/spec_helper.rb"].each do |file_or_dir|
     write_symlink("tmp/example_app/#{file_or_dir}")
   end

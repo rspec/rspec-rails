@@ -4,3 +4,4 @@ pkg
 rspec-rails-
 Gemfile.lock
 doc
+vendor
