@@ -9,14 +9,15 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-06-02}
+  s.date = %q{2010-06-05}
   s.description = %q{RSpec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
     "README.markdown"
   ]
   s.files = [
-    ".gitignore",
+    ".document",
+     ".gitignore",
      "Gemfile",
      "README.markdown",
      "Rakefile",
@@ -67,7 +68,6 @@ Gem::Specification.new do |s|
      "lib/rspec-rails.rb",
      "lib/rspec/rails.rb",
      "lib/rspec/rails/adapters.rb",
-     "lib/rspec/rails/configuration.rb",
      "lib/rspec/rails/example.rb",
      "lib/rspec/rails/example/controller_example_group.rb",
      "lib/rspec/rails/example/helper_example_group.rb",
@@ -115,9 +115,10 @@ Gem::Specification.new do |s|
   This version of rspec-rails only works with 
   versions of rails >= 3.0.0.pre.
 
-  This is beta software. If you are looking
-  for a supported production release, please
-  "gem install rspec-rails" (without --pre).
+  Be sure to run the following command in each of your
+  Rails apps if you're upgrading:
+
+    script/rails generate rspec
 
 **************************************************
 }
