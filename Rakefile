@@ -137,5 +137,5 @@ namespace :clobber do
   end
 end
 
-task :default => ["clobber:app", "generate:app", "generate:stuff", :spec, :cucumber, :smoke]
+task :default => ["clobber:app", "generate:app", "generate:stuff", :smoke, :spec, :cucumber]
 

@@ -1,5 +1,3 @@
-run('bundle lock')
-
 generate('rspec:install')
 generate('controller wombats index')
 generate('integration_test widgets')

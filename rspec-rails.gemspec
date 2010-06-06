@@ -25,7 +25,6 @@ Gem::Specification.new do |s|
      "VERSION",
      "autotest/discover.rb",
      "cucumber.yml",
-     "example_app_template.rb",
      "features/controller_specs/do_not_render_views.feature",
      "features/controller_specs/readers.feature",
      "features/controller_specs/render_views.feature",
@@ -104,6 +103,7 @@ Gem::Specification.new do |s|
      "spec/spec_helper.rb",
      "spec/support/helpers.rb",
      "specs.watchr",
+     "templates/Gemfile",
      "templates/generate_stuff.rb",
      "templates/run_specs.rb"
   ]
