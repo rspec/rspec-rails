@@ -25,4 +25,6 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 #   gem 'webrat'
 # end
 
-gem "rspec-rails", :path => "/Users/dchelimsky/projects/ruby/rspec2/repos/rspec-rails"
+group :test do
+  gem "rspec-rails", :path => "../../../rspec-rails"
+end
