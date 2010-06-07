@@ -23,12 +23,20 @@ RSpec::Matchers.define :redirect_to do |destination|
   match_unless_raises Test::Unit::AssertionFailedError do |_|
     assert_redirected_to destination
   end
+
+  failure_message_for_should do
+    rescued_exception.message
+  end
 end
 
 RSpec::Matchers.define :render_template do |options, message|
   match_unless_raises Test::Unit::AssertionFailedError do |_|
     options = options.to_s if Symbol === options
     assert_template options, message
+  end
+
+  failure_message_for_should do
+    rescued_exception.message
   end
 end
 

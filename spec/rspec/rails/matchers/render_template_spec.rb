@@ -1,6 +1,15 @@
 require "spec_helper"
 
 describe "render_template" do
+  it "uses failure message from render_template" do
+    self.stub!(:assert_template).and_raise(
+      Test::Unit::AssertionFailedError.new("this message"))
+    response = ActionController::TestResponse.new
+    expect do
+      response.should render_template("destination")
+    end.to raise_error("this message")
+  end
+
   context "given a hash" do
     it "delegates to assert_template" do
       self.should_receive(:assert_template).with({:this => "hash"}, "this message")
