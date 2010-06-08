@@ -25,6 +25,12 @@ module RSpec::Rails
         helper_spec.stub(:_view) { av_tc_b_view }
         helper_spec.helper.should eq(av_tc_b_view)
       end
+
+      it "returns the same instance every time" do
+        helper_spec = Object.new.extend HelperExampleGroup::InstanceMethods
+        helper_spec.stub(:_view) { double('view') }
+        helper_spec.helper.should equal(helper_spec.helper)
+      end
     end
   end
 
