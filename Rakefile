@@ -38,7 +38,7 @@ begin
   Be sure to run the following command in each of your
   Rails apps if you're upgrading:
 
-    script/rails generate rspec
+    script/rails generate rspec:install
 
 #{"*"*50}
 EOM
