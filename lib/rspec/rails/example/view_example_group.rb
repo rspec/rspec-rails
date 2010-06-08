@@ -57,6 +57,14 @@ module RSpec::Rails
         super(options, local_assigns, &block)
       end
 
+      def _view
+        @_view ||= super()
+      end
+
+      def view
+        _view
+      end
+
     private
 
       def _default_file_to_render

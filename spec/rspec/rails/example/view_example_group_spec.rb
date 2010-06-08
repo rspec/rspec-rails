@@ -73,5 +73,34 @@ module RSpec::Rails
         end
       end
     end
+
+    describe "#_view" do
+      it "memoizes (this should probably happen in rails)" do
+        view_spec = Class.new do
+          def _view
+            Object.new
+          end
+        end.new
+
+        view_spec.extend ViewExampleGroup::InstanceMethods
+
+        view_spec._view.should equal(view_spec._view)
+      end
+    end
+
+    describe "#view" do
+      let(:view_spec) do
+        Class.new do
+          include ViewExampleGroup::InstanceMethods
+        end.new
+      end
+
+      it "delegates to _view" do
+        view = double("view")
+        view_spec.stub(:_view) { view }
+        view_spec.view.should == view
+      end
+
+    end
   end
 end
