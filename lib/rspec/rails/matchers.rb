@@ -16,27 +16,32 @@ end
 begin
   require "active_record"
 rescue LoadError
-
 end
 
-RSpec::Matchers.define :redirect_to do |destination|
-  match_unless_raises Test::Unit::AssertionFailedError do |_|
-    assert_redirected_to destination
-  end
+module RSpec::Rails
+  module ControllerSpecMatchers
+    extend RSpec::Matchers::DSL
 
-  failure_message_for_should do
-    rescued_exception.message
-  end
-end
+    matcher :redirect_to do |destination|
+      match_unless_raises Test::Unit::AssertionFailedError do |_|
+        assert_redirected_to destination
+      end
 
-RSpec::Matchers.define :render_template do |options, message|
-  match_unless_raises Test::Unit::AssertionFailedError do |_|
-    options = options.to_s if Symbol === options
-    assert_template options, message
-  end
+      failure_message_for_should do
+        rescued_exception.message
+      end
+    end
 
-  failure_message_for_should do
-    rescued_exception.message
+    matcher :render_template do |options, message|
+      match_unless_raises Test::Unit::AssertionFailedError do |_|
+        options = options.to_s if Symbol === options
+        assert_template options, message
+      end
+
+      failure_message_for_should do
+        rescued_exception.message
+      end
+    end
   end
 end
 

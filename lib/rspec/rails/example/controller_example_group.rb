@@ -82,6 +82,7 @@ module RSpec::Rails
     include Webrat::Matchers
     include Webrat::Methods
     include RSpec::Matchers
+    include RSpec::Rails::ControllerSpecMatchers
 
     attr_reader :controller
 
