@@ -11,6 +11,10 @@ DESC
         @source_root ||= File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
       end
 
+      def copy_dot_rspec
+        template '.rspec'
+      end
+
       def copy_spec_files
         directory 'spec'
       end
