@@ -84,12 +84,14 @@ module RSpec::Rails
     include RSpec::Matchers
     include RSpec::Rails::ControllerSpecMatchers
 
-    attr_reader :controller
-
     module ClassMethods
       def controller_class
         describes
       end
+    end
+
+    module InstanceMethods
+      attr_reader :controller
     end
 
     included do

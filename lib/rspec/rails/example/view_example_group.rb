@@ -19,6 +19,8 @@ module RSpec::Rails
   #     end
   #   end
   #
+  #
+  #
   module ViewExampleGroup
     extend  ActiveSupport::Concern
 
@@ -57,6 +59,17 @@ module RSpec::Rails
         super(options, local_assigns, &block)
       end
 
+      # The instance of ActionView::Base that is used to render the template.
+      # Use this before the +render+ call to stub any methods you want to stub
+      # on the view:
+      #
+      #   describe "widgets/new.html.erb" do
+      #     it "shows all the widgets" do
+      #       view.stub(:foo) { "foo" }
+      #       render
+      #       ...
+      #     end
+      #   end
       def view
         _view
       end

@@ -7,8 +7,10 @@ module RSpec::Rails
     include Webrat::Matchers
     include RSpec::Matchers
 
-    def read_fixture(action)
-      IO.readlines(File.join(Rails.root, 'spec', 'fixtures', self.described_class.name.underscore, action))
+    module InstanceMethods
+      def read_fixture(action)
+        IO.readlines(File.join(Rails.root, 'spec', 'fixtures', self.described_class.name.underscore, action))
+      end
     end
 
     included do
