@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 
+gem "arel", :path => "../../vendor/arel"
 gem "rails", :path => "../../vendor/rails"
 
 gem 'sqlite3-ruby', :require => 'sqlite3'
