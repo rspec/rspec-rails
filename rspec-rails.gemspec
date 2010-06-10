@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-06-06}
+  s.date = %q{2010-06-10}
   s.description = %q{RSpec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -42,6 +42,7 @@ Gem::Specification.new do |s|
      "lib/generators/rspec/helper/helper_generator.rb",
      "lib/generators/rspec/helper/templates/helper_spec.rb",
      "lib/generators/rspec/install/install_generator.rb",
+     "lib/generators/rspec/install/templates/.rspec",
      "lib/generators/rspec/install/templates/autotest/discover.rb",
      "lib/generators/rspec/install/templates/config/initializers/rspec_generator.rb.tt",
      "lib/generators/rspec/install/templates/lib/tasks/rspec.rake",
@@ -119,7 +120,7 @@ Gem::Specification.new do |s|
   Be sure to run the following command in each of your
   Rails apps if you're upgrading:
 
-    script/rails generate rspec
+    script/rails generate rspec:install
 
 **************************************************
 }
