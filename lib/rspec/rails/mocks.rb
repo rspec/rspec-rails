@@ -55,6 +55,10 @@ module RSpec
           def @object.to_s
             "#{model_class.name}_#{id}"
           end
+
+          def @object.model_name
+            "#{model_class}"
+          end
         CODE
         yield m if block_given?
         m
