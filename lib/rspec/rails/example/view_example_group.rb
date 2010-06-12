@@ -18,9 +18,6 @@ module RSpec::Rails
   #       rendered.should contain("Bar")
   #     end
   #   end
-  #
-  #
-  #
   module ViewExampleGroup
     extend  ActiveSupport::Concern
 
@@ -74,6 +71,7 @@ module RSpec::Rails
         _view
       end
 
+      # Deprecated. Use +view+ instead.
       def template
         RSpec.deprecate("template","view")
         view
