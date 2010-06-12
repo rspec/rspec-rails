@@ -26,8 +26,8 @@ require 'active_support/core_ext'
 require 'autotest/rspec2'
 
 Autotest.add_hook :initialize do |at|
-  %w{config/ coverage/ db/ doc/ log/ public/ script/ tmp/ vendor/rails vendor/plugins previous_failures.txt}.each do |exception|
-    at.add_exception(exception)
+  %w{config/ coverage/ db/ doc/ log/ public/ script/ tmp/ vendor/rails vendor/plugins vendor/gems}.each do |exception|
+    at.add_exception("^#{exception}")
   end
   
   at.clear_mappings
