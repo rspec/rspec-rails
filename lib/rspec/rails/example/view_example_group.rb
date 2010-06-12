@@ -74,6 +74,11 @@ module RSpec::Rails
         _view
       end
 
+      def template
+        RSpec.deprecate("template","view")
+        view
+      end
+
     private
 
       def _default_file_to_render

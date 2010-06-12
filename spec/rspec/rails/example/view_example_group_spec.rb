@@ -86,7 +86,27 @@ module RSpec::Rails
         view_spec.stub(:_view) { view }
         view_spec.view.should == view
       end
+    end
 
+    describe "#template" do
+      let(:view_spec) do
+        Class.new do
+          include ViewExampleGroup::InstanceMethods
+          def _view; end
+        end.new
+      end
+
+      before { RSpec.stub(:deprecate) }
+
+      it "is deprecated" do
+        RSpec.should_receive(:deprecate)
+        view_spec.template
+      end
+
+      it "delegates to #view" do
+        view_spec.should_receive(:view)
+        view_spec.template
+      end
     end
   end
 end
