@@ -95,7 +95,7 @@ available from Rails.
 
 You can use RSpec expectations/matchers or Test::Unit assertions.
 
-## rendering views
+## `render_views`
 By default, controller specs do not render views (as of beta.9).
 This supports specifying controllers without concern for whether
 the views they render work correctly or even exist. If you prefer
@@ -105,6 +105,18 @@ to render the views (a la Rails' functional tests), you can use the
     describe SomeController do
       render_views
       ...
+
+### * Upgrade note
+
+`render_views` replaces `integrate_views` from rspec-rails-1.3
+
+## `assigns`
+
+Use `assigns(key)` to express expectations about instance variables that a controller
+assigns to the view in the course of an action:
+
+    get :index
+    assigns(:widgets).should eq(expected_value)
 
 ## Matchers
 In addition to what Rails offers, controller specs provide all
@@ -134,6 +146,31 @@ View specs live in spec/views, and mix in ActionView::TestCase::Behavior.
         rendered.should contain("Chicago")
       end
     end
+    
+## `assign(key, val)`
+
+Use this to assign values to instance variables in the view:
+
+    assign(:widget, stub_model(Widget))
+    render
+    
+The code above assigns `stub_model(Widget)` to the `@widget` variable in the view, and then
+renders the view.
+
+### * Upgrade note
+
+`assign(key, value)` replaces `assigns[key] = value` from rspec-rails-1.3
+
+## `rendered`
+
+This represents the rendered view.
+
+    render
+    rendered.should =~ /Some text expected to appear on the page/
+
+### * Upgrade note
+
+`rendered` replaces `response` from rspec-rails-1.3
 
 # Helper specs
 
