@@ -118,17 +118,12 @@ assigns to the view in the course of an action:
     get :index
     assigns(:widgets).should eq(expected_value)
 
-## Matchers
-In addition to what Rails offers, controller specs provide all
-of rspec-core's matchers and the rspec-rails' specific matchers
-as well.
-
-### render_template
+## `render_template`
 Delegates to Rails' assert_template:
 
     response.should render_template("new")
 
-### redirect_to
+## `redirect_to`
 Delegates to assert_redirect
 
     response.should redirect_to(widgets_path)
