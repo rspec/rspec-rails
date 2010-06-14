@@ -33,7 +33,7 @@ module RSpec::Rails
         rendered
       end
 
-      # :callseq:
+      # :call-seq:
       #   render 
       #   render(:template => "widgets/new.html.erb")
       #   render({:partial => "widgets/widget.html.erb"}, {... locals ...})

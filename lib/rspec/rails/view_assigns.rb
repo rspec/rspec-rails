@@ -4,7 +4,7 @@ module RSpec
       extend ActiveSupport::Concern
 
       module InstanceMethods
-        # :callseq:
+        # :call-seq:
         #   assign(:widget, stub_model(Widget))
         #
         # Assigns a value to an instance variable in the scope of the
