@@ -31,7 +31,6 @@ module RSpec::Rails
         config.mode = :rack
       end
     end
-    
 
     RSpec.configure do |c|
       c.include self, :example_group => { :file_path => /\bspec\/requests\// }
