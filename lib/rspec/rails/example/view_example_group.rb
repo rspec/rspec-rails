@@ -28,11 +28,6 @@ module RSpec::Rails
     include Webrat::Matchers
 
     module InstanceMethods
-      def response
-        RSpec.deprecate("response", "rendered")
-        rendered
-      end
-
       # :call-seq:
       #   render 
       #   render(:template => "widgets/new.html.erb")
@@ -75,6 +70,13 @@ module RSpec::Rails
       def template
         RSpec.deprecate("template","view")
         view
+      end
+
+
+      # Deprecated. Use +rendered+ instead.
+      def response
+        RSpec.deprecate("response", "rendered")
+        rendered
       end
 
     private
