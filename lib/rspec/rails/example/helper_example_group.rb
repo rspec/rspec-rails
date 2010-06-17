@@ -51,7 +51,7 @@ module RSpec::Rails
     private
 
       def _controller_path
-        running_example.example_group.describes.to_s.sub(/Helper/,'').underscore
+        example.example_group.describes.to_s.sub(/Helper/,'').underscore
       end
     end
 

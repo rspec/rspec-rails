@@ -14,7 +14,7 @@ module RSpec::Rails
 
     it "provides a controller_path based on the helper module's name" do
       helper_spec = Object.new.extend HelperExampleGroup::InstanceMethods
-      helper_spec.stub_chain(:running_example, :example_group, :describes).and_return(FoosHelper)
+      helper_spec.stub_chain(:example, :example_group, :describes).and_return(FoosHelper)
       helper_spec.__send__(:_controller_path).should == "foos"
     end
 

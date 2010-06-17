@@ -82,7 +82,7 @@ module RSpec::Rails
     private
 
       def _default_file_to_render
-        running_example.example_group.top_level_description
+        example.example_group.top_level_description
       end
 
       def _controller_path
