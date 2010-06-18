@@ -167,6 +167,33 @@ This represents the rendered view.
 
 `rendered` replaces `response` from rspec-rails-1.3
 
+# Routing specs
+
+Routing specs live in spec/routing.
+
+    describe "routing to profiles" do
+      it "routes /profile/:username to profile#show for username" do
+        { :get => "/profiles/jsmith" }.should route_to(
+          :controller => "profiles",
+          :action => "show",
+          :username => "jsmith"
+        )
+      end
+
+      it "does not expose a list of profiles" do
+        { :get => "/profiles" }.should_not be_routable
+      end
+    end
+
+## `route_to`
+
+Delegates to Rails' assert_routing.
+
+## `be_routable`
+
+Passes if the path is recognized by Rails' routing. This is primarily intended
+to be used with `should_not` to specify routes that should not be routable.
+
 # Helper specs
 
 Helper specs live in spec/helpers, and mix in ActionView::TestCase::Behavior.

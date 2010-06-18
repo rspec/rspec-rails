@@ -36,6 +36,7 @@ module RSpec::Rails
   #   describe WidgetsController do
   #     describe "GET index" do
   #       fixtures :widgets
+  #
   #       it "assigns all widgets to @widgets" do
   #         get :index
   #         assigns(:widgets).should eq(Widget.all)
