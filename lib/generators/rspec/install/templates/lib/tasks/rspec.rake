@@ -39,7 +39,7 @@ desc "Run all specs in spec directory (excluding plugin specs)"
 RSpec::Core::RakeTask.new(:spec => spec_prereq)
 
 namespace :spec do
-  [:requests, :models, :controllers, :views, :helpers, :mailers, :lib].each do |sub|
+  [:requests, :models, :controllers, :views, :helpers, :mailers, :lib, :routing].each do |sub|
     desc "Run the code examples in spec/#{sub}"
     RSpec::Core::RakeTask.new(sub => spec_prereq) do |t|
       t.pattern = "./spec/#{sub}/**/*_spec.rb"

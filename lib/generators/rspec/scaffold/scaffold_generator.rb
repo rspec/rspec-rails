@@ -15,7 +15,7 @@ module Rspec
       class_option :controller_specs, :type => :boolean, :default => true,  :desc => "Generate controller specs"
       class_option :view_specs,       :type => :boolean, :default => true,  :desc => "Generate view specs"
       class_option :helper_specs,     :type => :boolean, :default => true,  :desc => "Generate helper specs"
-      class_option :routing_specs,    :type => :boolean, :default => false, :desc => "Generate routing specs"
+      class_option :routing_specs,    :type => :boolean, :default => true,  :desc => "Generate routing specs"
 
       def copy_controller_files
         return unless options[:controller_specs]
