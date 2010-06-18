@@ -24,6 +24,7 @@ module RSpec::Rails
     include Webrat::Methods
     include RSpec::Matchers
     include RSpec::Rails::ControllerSpecMatchers
+    include ActionController::TemplateAssertions
 
     module InstanceMethods
       def app
