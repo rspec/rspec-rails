@@ -1,3 +1,5 @@
+require 'action_view/testing/resolvers'
+
 module RSpec
   module Rails
     module ViewRendering
@@ -21,7 +23,7 @@ module RSpec
       included do
         before do
           @_view_paths = controller.class.view_paths
-          controller.class.view_paths = [RSpec::Rails::NullResolver.new()] unless
+          controller.class.view_paths = [ActionView::NullResolver.new()] unless
             self.class.render_views?
         end
 
