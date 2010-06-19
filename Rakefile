@@ -137,5 +137,11 @@ namespace :clobber do
   end
 end
 
-task :default => ["clobber:app", "generate:app", "generate:stuff", :smoke, :spec, :cucumber]
+namespace :bundle do
+  task :install_if_not_locked do
+    `bundle install` unless File.exist?('Gemfile.lock')
+  end
+end
+
+task :default => ["bundle:install_if_not_locked", "clobber:app", "generate:app", "generate:stuff", :smoke, :spec, :cucumber]
 
