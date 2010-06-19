@@ -58,27 +58,33 @@ namespace :rails do
   desc "clone the rails repo"
   task :clone do
     mkdir 'vendor' unless File.directory?('vendor')
+    unless File.directory?('vendor/arel')
+      Dir.chdir('vendor') do
+        sh "git clone git://github.com/rails/arel"
+      end
+    end
     unless File.directory?('vendor/rails')
       Dir.chdir('vendor') do
         sh "git clone git://github.com/rails/rails"
       end
     end
-    unless File.directory?('vendor/arel')
-      Dir.chdir('vendor') do
-        sh "git clone git://github.com/rails/arel"
+    unless File.exist?('vendor/rails/Gemfile.lock')
+      Dir.chdir('vendor/rails') do
+        sh "bundle install"
       end
     end
   end
 
   desc "update the rails repo"
   task :update => :clone do
-    Dir.chdir('vendor/rails') do
-      sh "git checkout master"
-      sh "git pull"
-    end
     Dir.chdir('vendor/arel') do
       sh "git checkout master"
       sh "git pull"
+    end
+    Dir.chdir('vendor/rails') do
+      sh "git checkout master"
+      sh "git pull"
+      sh "bundle install"
     end
   end
 end
