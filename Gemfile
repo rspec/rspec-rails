@@ -7,4 +7,4 @@ gem 'cucumber'
 gem 'aruba'
 gem 'jeweler'
 gem 'webrat'
-
+gem 'sqlite3-ruby'
