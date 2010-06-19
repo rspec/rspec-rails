@@ -1,3 +1,4 @@
+require 'action_mailer'
 require 'webrat'
 
 module RSpec::Rails

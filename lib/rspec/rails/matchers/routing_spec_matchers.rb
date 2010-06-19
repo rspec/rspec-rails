@@ -1,23 +1,3 @@
-require 'rspec/core/deprecation'
-require 'rspec/core/backward_compatibility'
-require 'rspec/matchers'
-
-begin
-  require 'test/unit/assertionfailederror'
-rescue LoadError
-  module Test
-    module Unit
-      class AssertionFailedError < StandardError
-      end
-    end
-  end
-end
-
-begin
-  require "action_controller"
-rescue LoadError
-end
-
 module RSpec::Rails
   module RoutingSpecMatchers
     extend RSpec::Matchers::DSL

@@ -1,6 +1,20 @@
+require 'rspec/core/deprecation'
+require 'rspec/core/backward_compatibility'
+require 'rspec/matchers'
+
 module RSpec::Rails
   module Matchers
   end
+end
+
+begin
+  require "active_record"
+rescue LoadError
+end
+
+begin
+  require "action_controller"
+rescue LoadError
 end
 
 begin
@@ -14,13 +28,8 @@ rescue LoadError
   end
 end
 
-begin
-  require "action_controller"
-rescue LoadError
-end
-
 require 'rspec/rails/matchers/render_template'
 require 'rspec/rails/matchers/redirect_to'
 require 'rspec/rails/matchers/routing_spec_matchers'
-require 'rspec/rails/matchers/model_matchers'
-require 'rspec/rails/matchers/matcher_extensions'
+require 'rspec/rails/matchers/be_a_new'
+require 'rspec/rails/matchers/have_extension'
