@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-06-14}
+  s.date = %q{2010-06-18}
   s.description = %q{RSpec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -74,11 +74,16 @@ Gem::Specification.new do |s|
      "lib/rspec/rails/example/helper_example_group.rb",
      "lib/rspec/rails/example/mailer_example_group.rb",
      "lib/rspec/rails/example/request_example_group.rb",
+     "lib/rspec/rails/example/routing_example_group.rb",
      "lib/rspec/rails/example/view_example_group.rb",
      "lib/rspec/rails/extensions.rb",
      "lib/rspec/rails/extensions/active_record/base.rb",
      "lib/rspec/rails/fixture_support.rb",
      "lib/rspec/rails/matchers.rb",
+     "lib/rspec/rails/matchers/controller_spec_matchers.rb",
+     "lib/rspec/rails/matchers/matcher_extensions.rb",
+     "lib/rspec/rails/matchers/model_matchers.rb",
+     "lib/rspec/rails/matchers/routing_spec_matchers.rb",
      "lib/rspec/rails/mocks.rb",
      "lib/rspec/rails/monkey.rb",
      "lib/rspec/rails/monkey/action_controller/test_case.rb",
@@ -94,12 +99,14 @@ Gem::Specification.new do |s|
      "spec/rspec/rails/example/helper_example_group_spec.rb",
      "spec/rspec/rails/example/mailer_example_group_spec.rb",
      "spec/rspec/rails/example/request_example_group_spec.rb",
+     "spec/rspec/rails/example/routing_example_group_spec.rb",
      "spec/rspec/rails/example/view_example_group_spec.rb",
      "spec/rspec/rails/example/view_rendering_spec.rb",
      "spec/rspec/rails/matchers/be_a_new_spec.rb",
      "spec/rspec/rails/matchers/errors_on_spec.rb",
      "spec/rspec/rails/matchers/redirect_to_spec.rb",
      "spec/rspec/rails/matchers/render_template_spec.rb",
+     "spec/rspec/rails/matchers/route_to_spec.rb",
      "spec/rspec/rails/mocks/ar_classes.rb",
      "spec/rspec/rails/mocks/mock_model_spec.rb",
      "spec/rspec/rails/mocks/stub_model_spec.rb",
@@ -135,12 +142,14 @@ Gem::Specification.new do |s|
      "spec/rspec/rails/example/helper_example_group_spec.rb",
      "spec/rspec/rails/example/mailer_example_group_spec.rb",
      "spec/rspec/rails/example/request_example_group_spec.rb",
+     "spec/rspec/rails/example/routing_example_group_spec.rb",
      "spec/rspec/rails/example/view_example_group_spec.rb",
      "spec/rspec/rails/example/view_rendering_spec.rb",
      "spec/rspec/rails/matchers/be_a_new_spec.rb",
      "spec/rspec/rails/matchers/errors_on_spec.rb",
      "spec/rspec/rails/matchers/redirect_to_spec.rb",
      "spec/rspec/rails/matchers/render_template_spec.rb",
+     "spec/rspec/rails/matchers/route_to_spec.rb",
      "spec/rspec/rails/mocks/ar_classes.rb",
      "spec/rspec/rails/mocks/mock_model_spec.rb",
      "spec/rspec/rails/mocks/stub_model_spec.rb",
