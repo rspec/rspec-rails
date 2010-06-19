@@ -2,7 +2,7 @@ require "spec_helper"
 require "action_controller/test_case"
 
 describe "redirect_to" do
-  include RSpec::Rails::ControllerSpecMatchers
+  include RSpec::Rails::Matchers::RedirectTo
 
   it "delegates to assert_redirected_to" do
     self.should_receive(:assert_redirected_to).with("destination")

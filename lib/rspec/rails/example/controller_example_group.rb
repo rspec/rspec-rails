@@ -83,7 +83,8 @@ module RSpec::Rails
     include Webrat::Matchers
     include Webrat::Methods
     include RSpec::Matchers
-    include RSpec::Rails::ControllerSpecMatchers
+    include RSpec::Rails::Matchers::RedirectTo
+    include RSpec::Rails::Matchers::RenderTemplate
 
     module ClassMethods
       def controller_class

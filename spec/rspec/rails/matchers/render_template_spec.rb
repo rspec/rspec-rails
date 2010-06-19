@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe "render_template" do
-  include RSpec::Rails::ControllerSpecMatchers
+  include RSpec::Rails::Matchers::RenderTemplate
 
   it "uses failure message from render_template" do
     self.stub!(:assert_template).and_raise(

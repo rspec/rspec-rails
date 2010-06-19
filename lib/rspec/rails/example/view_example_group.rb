@@ -26,6 +26,7 @@ module RSpec::Rails
     include ActionView::TestCase::Behavior
     include RSpec::Rails::ViewAssigns
     include Webrat::Matchers
+    include RSpec::Rails::Matchers::RenderTemplate
 
     module InstanceMethods
       # :call-seq:
@@ -93,6 +94,10 @@ module RSpec::Rails
     included do
       before do
         controller.controller_path = _controller_path
+        # this won't be necessary if/when
+        # https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/4903
+        # is accepted and released
+        @request ||= controller.request
       end
     end
 
