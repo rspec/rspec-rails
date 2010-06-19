@@ -132,6 +132,14 @@ Delegates to assert_redirect
 
 View specs live in spec/views, and mix in ActionView::TestCase::Behavior.
 
+    describe "events/index.html.erb" do
+      it "renders _event partial for each event" do
+        assign(:events, [stub_model(Event), stub_model(Event)])
+        render
+        view.should render_template(:partial => "_event", :count => 2)
+      end
+    end
+
     describe "events/show.html.erb" do
       it "displays the event location" do
         assign(:event, stub_model(Event,
