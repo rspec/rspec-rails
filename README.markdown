@@ -1,5 +1,9 @@
 # rspec-rails-2
 
+This README aligns with the code in git HEAD. If you're looking for the README for
+the latest release, go to [http://github.com/rspec/rspec-rails](http://github.com/rspec/rspec-rails),
+and select the appropriate tag from the Switch Tags select list.
+
 ## RSpec-2 for Rails-3
 
 rspec-rails-2 brings rspec-2 to rails-3 with lightweight extensions to both
