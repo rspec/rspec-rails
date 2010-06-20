@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-06-18}
+  s.date = %q{2010-06-19}
   s.description = %q{RSpec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -80,17 +80,12 @@ Gem::Specification.new do |s|
      "lib/rspec/rails/extensions/active_record/base.rb",
      "lib/rspec/rails/fixture_support.rb",
      "lib/rspec/rails/matchers.rb",
-     "lib/rspec/rails/matchers/controller_spec_matchers.rb",
-     "lib/rspec/rails/matchers/matcher_extensions.rb",
-     "lib/rspec/rails/matchers/model_matchers.rb",
+     "lib/rspec/rails/matchers/be_a_new.rb",
+     "lib/rspec/rails/matchers/have_extension.rb",
+     "lib/rspec/rails/matchers/redirect_to.rb",
+     "lib/rspec/rails/matchers/render_template.rb",
      "lib/rspec/rails/matchers/routing_spec_matchers.rb",
      "lib/rspec/rails/mocks.rb",
-     "lib/rspec/rails/monkey.rb",
-     "lib/rspec/rails/monkey/action_controller/test_case.rb",
-     "lib/rspec/rails/monkey/action_mailer/test_case.rb",
-     "lib/rspec/rails/monkey/action_view/test_case.rb",
-     "lib/rspec/rails/monkey/active_support/notifications/fanout.rb",
-     "lib/rspec/rails/null_resolver.rb",
      "lib/rspec/rails/version.rb",
      "lib/rspec/rails/view_assigns.rb",
      "lib/rspec/rails/view_rendering.rb",
