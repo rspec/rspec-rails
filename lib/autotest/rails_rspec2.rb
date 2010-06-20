@@ -35,7 +35,7 @@ Autotest.add_hook :initialize do |at|
   at.add_mapping(%r%^(test|spec)/fixtures/(.*).yml$%) { |_, m|
     ["spec/models/#{m[2].singularize}_spec.rb"] + at.files_matching(%r%^spec\/views\/#{m[2]}/.*_spec\.rb$%)
   }
-  at.add_mapping(%r%^spec/(models|controllers|routing|views|helpers|lib)/.*rb$%) { |filename, _|
+  at.add_mapping(%r%^spec/(models|controllers|routing|views|helpers|mailers|lib)/.*rb$%) { |filename, _|
     filename
   }
   at.add_mapping(%r%^app/models/(.*)\.rb$%) { |_, m|
@@ -69,6 +69,9 @@ Autotest.add_hook :initialize do |at|
   }
   at.add_mapping(%r%^lib/(.*)\.rb$%) { |_, m|
     ["spec/lib/#{m[1]}_spec.rb"]
+  }
+  at.add_mapping(%r%^app/mailers/(.*)\.rb$%) { |_, m|
+    ["spec/mailers/#{m[1]}_spec.rb"]
   }
 end
 
