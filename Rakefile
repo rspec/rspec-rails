@@ -57,45 +57,11 @@ namespace :gem do
   end
 end
 
-namespace :rails do
-  desc "clone the rails repo"
-  task :clone do
-    mkdir 'vendor' unless File.directory?('vendor')
-    install_bundle = false
-    unless File.directory?('vendor/arel')
-      install_bundle = true
-      Dir.chdir('vendor') do
-        sh "git clone git://github.com/rails/arel"
-      end
-    end
-    unless File.directory?('vendor/rails')
-      install_bundle = true
-      Dir.chdir('vendor') do
-        sh "git clone git://github.com/rails/rails"
-      end
-    end
-    sh "bundle install" if install_bundle
-  end
-
-  desc "update the rails repo"
-  task :update => :clone do
-    Dir.chdir('vendor/arel') do
-      sh "git checkout master"
-      sh "git pull"
-    end
-    Dir.chdir('vendor/rails') do
-      sh "git checkout master"
-      sh "git pull"
-    end
-    sh "bundle install"
-  end
-end
-
 namespace :generate do
   desc "generate a fresh app with rspec installed"
-  task :app => ["rails:clone"] do |t|
+  task :app do |t|
     unless File.directory?('./tmp/example_app')
-      sh "bundle exec ./vendor/rails/bin/rails new ./tmp/example_app"
+      sh "bundle exec rails new ./tmp/example_app"
       sh "cp ./templates/Gemfile ./tmp/example_app/" 
     end
   end
