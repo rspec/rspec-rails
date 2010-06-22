@@ -1,3 +1,6 @@
+require "bundler"
+Bundler.setup
+
 require 'rake'
 require 'yaml'
 
@@ -92,8 +95,8 @@ namespace :generate do
   desc "generate a fresh app with rspec installed"
   task :app => ["rails:clone"] do |t|
     unless File.directory?('./tmp/example_app')
-      ruby "./vendor/rails/bin/rails new ./tmp/example_app"
-      system "cp ./templates/Gemfile ./tmp/example_app/" 
+      sh "bundle exec ./vendor/rails/bin/rails new ./tmp/example_app"
+      sh "cp ./templates/Gemfile ./tmp/example_app/" 
     end
   end
 

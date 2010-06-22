@@ -1,4 +1,4 @@
-run('rspec spec -cfdoc')
+run('bundle exec ../../../rspec-core/bin/rspec spec -cfdoc')
 run('rake spec')
 run('rake spec:requests')
 run('rake spec:models')

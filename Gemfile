@@ -1,8 +1,12 @@
 source "http://rubygems.org"
 
-gem 'arel', :path => "./vendor/arel"
+gem 'arel',  :path => "./vendor/arel"
 gem 'rails', :path => "./vendor/rails"
-gem 'rspec', '>= 2.0.0.beta.10'
+gem 'rspec-core', :path => "../rspec-core"
+gem 'rspec-expectations', :path => "../rspec-expectations"
+gem 'rspec-mocks', :path => "../rspec-mocks"
+gem 'rspec', :path => "../rspec"
+gem 'thor'
 gem 'cucumber'
 gem 'aruba'
 gem 'jeweler'
