@@ -8,6 +8,10 @@ module RSpec::Rails
     include ActionDispatch::Assertions::RoutingAssertions
     include RSpec::Rails::RoutingSpecMatchers
 
+    module InstanceMethods
+      attr_reader :routes
+    end
+
     included do
       before do
         @routes = ::Rails.application.routes
