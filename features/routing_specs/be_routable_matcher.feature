@@ -9,7 +9,7 @@ Feature: be_routable matcher
       require "spec_helper"
 
       describe WidgetsController do
-        it "does not route to widgets/foo/bar" do
+        it "routes to /widgets" do
           { :get => "/widgets" }.should be_routable
         end
       end
@@ -24,7 +24,7 @@ Feature: be_routable matcher
       require "spec_helper"
 
       describe WidgetsController do
-        it "does not route to widgets/foo/bar" do
+        it "does not route to widgets" do
           { :get => "/widgets" }.should_not be_routable
         end
       end
@@ -54,7 +54,7 @@ Feature: be_routable matcher
       require "spec_helper"
 
       describe WidgetsController do
-        it "does not route to widgets/foo/bar" do
+        it "routes to widgets/foo/bar" do
           { :get => "/widgets/foo/bar" }.should be_routable
         end
       end
