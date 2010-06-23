@@ -49,6 +49,12 @@ module RSpec::Rails
       #     end
       #   end
       def render(options={}, local_assigns={}, &block)
+        # TODO - this is a temporary hack to achieve behaviour that is in rails edge
+        # as of http://github.com/rails/rails/commit/0e0df4b0c5df7fdd1daa5653c255c4737f5526fc,
+        # but is not part of the rails-3.0.0.beta4 release. This line can be removed as
+        # soon as either rails 3 beta5 or rc is released.
+        _assigns.each { |key, value| view.instance_variable_set("@#{key}", value) }
+
         options = {:template => _default_file_to_render} if Hash === options and options.empty?
         super(options, local_assigns, &block)
       end
