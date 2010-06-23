@@ -20,6 +20,9 @@ module RSpec::Rails
             def render(options={}, local_assigns={}, &block)
               received << [options, local_assigns, block]
             end
+            def _assigns
+              {}
+            end
           end
           include Local
           include ViewExampleGroup::InstanceMethods
