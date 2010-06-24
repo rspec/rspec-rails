@@ -80,11 +80,12 @@ module RSpec::Rails
     include RSpec::Rails::TestUnitAssertionAdapter
     include ActionController::TestCase::Behavior
     include RSpec::Rails::ViewRendering
-    include Webrat::Matchers
     include Webrat::Methods
+    include Webrat::Matchers
     include RSpec::Matchers
     include RSpec::Rails::Matchers::RedirectTo
     include RSpec::Rails::Matchers::RenderTemplate
+    include RSpec::Rails::Matchers::RoutingMatchers
 
     module ClassMethods
       def controller_class
@@ -93,7 +94,7 @@ module RSpec::Rails
     end
 
     module InstanceMethods
-      attr_reader :controller
+      attr_reader :controller, :routes
     end
 
     included do

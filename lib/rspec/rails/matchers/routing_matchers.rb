@@ -1,5 +1,5 @@
-module RSpec::Rails
-  module RoutingSpecMatchers
+module RSpec::Rails::Matchers
+  module RoutingMatchers
     extend RSpec::Matchers::DSL
 
     matcher :route_to do |route_options|

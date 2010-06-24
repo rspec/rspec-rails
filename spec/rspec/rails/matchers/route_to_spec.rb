@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe "route_to" do
-  include RSpec::Rails::RoutingSpecMatchers
+  include RSpec::Rails::Matchers::RoutingMatchers
 
   it "uses failure message from assert_routing" do
     self.stub!(:assert_routing).and_raise(
@@ -13,7 +13,7 @@ describe "route_to" do
 end
 
 describe "be_routable" do
-  include RSpec::Rails::RoutingSpecMatchers
+  include RSpec::Rails::Matchers::RoutingMatchers
   attr_reader :routes
 
   before { @routes = double("routes") }

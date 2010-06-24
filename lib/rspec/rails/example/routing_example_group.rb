@@ -6,7 +6,7 @@ module RSpec::Rails
 
     include RSpec::Rails::TestUnitAssertionAdapter
     include ActionDispatch::Assertions::RoutingAssertions
-    include RSpec::Rails::RoutingSpecMatchers
+    include RSpec::Rails::Matchers::RoutingMatchers
 
     module InstanceMethods
       attr_reader :routes

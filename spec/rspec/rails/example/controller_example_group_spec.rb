@@ -9,5 +9,12 @@ module RSpec::Rails
       group = RSpec::Core::ExampleGroup.describe
       group.included_modules.should include(ControllerExampleGroup)
     end
+
+    it "includes routing matchers" do
+      group = RSpec::Core::ExampleGroup.describe do
+        include ControllerExampleGroup
+      end
+      group.included_modules.should include(RSpec::Rails::Matchers::RoutingMatchers)
+    end
   end
 end
