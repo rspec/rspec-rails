@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-06-23}
+  s.date = %q{2010-06-24}
   s.description = %q{RSpec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -28,10 +28,10 @@ Gem::Specification.new do |s|
      "features/controller_specs/do_not_render_views.feature",
      "features/controller_specs/readers.feature",
      "features/controller_specs/render_views.feature",
+     "features/matchers/be_routable_matcher.feature",
      "features/matchers/new_record_matcher.feature",
      "features/model_specs/errors_on.feature",
      "features/model_specs/transactional_examples.feature",
-     "features/routing_specs/be_routable_matcher.feature",
      "features/step_definitions/model_steps.rb",
      "features/support/env.rb",
      "features/view_specs/view_spec.feature",
@@ -85,6 +85,7 @@ Gem::Specification.new do |s|
      "lib/rspec/rails/matchers/have_extension.rb",
      "lib/rspec/rails/matchers/redirect_to.rb",
      "lib/rspec/rails/matchers/render_template.rb",
+     "lib/rspec/rails/matchers/routing_matchers.rb",
      "lib/rspec/rails/matchers/routing_spec_matchers.rb",
      "lib/rspec/rails/mocks.rb",
      "lib/rspec/rails/monkey.rb",
