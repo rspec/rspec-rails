@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rspec-rails}
-  s.version = "2.0.0.beta.12"
+  s.version = "2.0.0.beta.13"
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
@@ -31,6 +31,7 @@ Gem::Specification.new do |s|
      "features/matchers/new_record_matcher.feature",
      "features/model_specs/errors_on.feature",
      "features/model_specs/transactional_examples.feature",
+     "features/routing_specs/be_routable_matcher.feature",
      "features/step_definitions/model_steps.rb",
      "features/support/env.rb",
      "features/view_specs/view_spec.feature",
@@ -117,7 +118,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/rspec/rspec-rails}
   s.post_install_message = %q{**************************************************
 
-  Thank you for installing rspec-rails-2.0.0.beta.12!
+  Thank you for installing rspec-rails-2.0.0.beta.13!
 
   This version of rspec-rails only works with 
   versions of rails >= 3.0.0.pre.
@@ -133,7 +134,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{rspec}
   s.rubygems_version = %q{1.3.6}
-  s.summary = %q{rspec-rails-2.0.0.beta.12}
+  s.summary = %q{rspec-rails-2.0.0.beta.13}
   s.test_files = [
     "spec/rspec/rails/example/controller_example_group_spec.rb",
      "spec/rspec/rails/example/helper_example_group_spec.rb",
@@ -159,14 +160,14 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::RubyGemsVersion) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rspec>, ["= 2.0.0.beta.12"])
+      s.add_runtime_dependency(%q<rspec>, ["= 2.0.0.beta.13"])
       s.add_runtime_dependency(%q<webrat>, [">= 0.7.0"])
     else
-      s.add_dependency(%q<rspec>, ["= 2.0.0.beta.12"])
+      s.add_dependency(%q<rspec>, ["= 2.0.0.beta.13"])
       s.add_dependency(%q<webrat>, [">= 0.7.0"])
     end
   else
-    s.add_dependency(%q<rspec>, ["= 2.0.0.beta.12"])
+    s.add_dependency(%q<rspec>, ["= 2.0.0.beta.13"])
     s.add_dependency(%q<webrat>, [">= 0.7.0"])
   end
 end
