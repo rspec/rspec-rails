@@ -1,13 +1,13 @@
 # rspec-rails-2
 
-This README aligns with the code in git HEAD. If you're looking for the README for
-the latest release, go to [http://github.com/rspec/rspec-rails](http://github.com/rspec/rspec-rails),
-and select the appropriate tag from the Switch Tags select list.
+rspec-2 for rails-3 with lightweight extensions to each
 
-## RSpec-2 for Rails-3
+NOTICE: rspec-rails-2.0.0.beta.13 only works with rails-3.0.0.beta4 or higher.
 
-rspec-rails-2 brings rspec-2 to rails-3 with lightweight extensions to both
-libraries.
+NOTICE: This README aligns with the code in git HEAD. If you're looking for the
+README for the latest release, go to
+[http://github.com/rspec/rspec-rails](http://github.com/rspec/rspec-rails), and
+select the appropriate tag from the Switch Tags select list.
 
 ## Install
 
@@ -25,7 +25,7 @@ This installs the following gems:
 
 Add this line to the Gemfile:
 
-    gem "rspec-rails", ">= 2.0.0.beta.8"
+    gem "rspec-rails", ">= 2.0.0.beta.13"
 
 This will expose generators, including rspec:install. Now you can run: 
 
@@ -60,35 +60,23 @@ or rails.  Many of the APIs from rspec-rails-1 have been carried forward,
 however, so upgrading an app from rspec-1/rails-2, while not pain-free, should
 not send you to the doctor with a migraine.
 
-## Synopsis
-
-* each example runs in its own transaction
-  * configurable in RSpec.configure
-    * see generated spec/spec\_helper.rb
-* model specs in spec/models
-* controller specs in spec/controllers
-* view specs in spec/views
-* mailer specs in spec/mailers
-* observer specs in spec/models
-* request specs in spec/requests
-  * these wrap rails integration tests
-* rails assertions
-* assertion-wrapping matchers
-  * redirect\_to
-  * render\_template
-* helper specs
-* webrat matchers
-* generators
-  * run "script/rails g" to see the list of available generators
-
 ## Known issues
 
 See http://github.com/rspec/rspec-rails/issues
 
 # Request Specs
 
-Request specs live in spec/requests, and mix in behavior
-from Rails' integration tests.
+Request specs live in spec/requests.
+
+    describe "widgets resource" do
+      describe "GET index" do
+        get "/widgets/index"
+        response.should have_selector("h1", :content => "Widgets")
+      end
+    end
+
+Request specs mix in behavior from Rails' integration tests. See the
+docs for ActionDispatch::Integration::Runner for more information.
 
 # Controller Specs
 
@@ -121,16 +109,6 @@ assigns to the view in the course of an action:
 
     get :index
     assigns(:widgets).should eq(expected_value)
-
-## `render_template`
-Delegates to Rails' assert_template:
-
-    response.should render_template("new")
-
-## `redirect_to`
-Delegates to assert_redirect
-
-    response.should redirect_to(widgets_path)
 
 # View specs
 
@@ -197,15 +175,6 @@ Routing specs live in spec/routing.
       end
     end
 
-## `route_to`
-
-Delegates to Rails' assert_routing.
-
-## `be_routable`
-
-Passes if the path is recognized by Rails' routing. This is primarily intended
-to be used with `should_not` to specify routes that should not be routable.
-
 # Helper specs
 
 Helper specs live in spec/helpers, and mix in ActionView::TestCase::Behavior.
@@ -220,3 +189,54 @@ Helper specs live in spec/helpers, and mix in ActionView::TestCase::Behavior.
         end
       end
     end
+
+# Matchers
+
+rspec-rails exposes domain-specific matchers to each of the example group types. Most
+of them simply delegate to Rails' assertions.
+
+## `be_a_new`
+* Available in all specs.
+* Primarily intended for controller specs
+
+<pre>
+object.should be_a_new(Widget)
+</pre>
+
+Passes if the object is a `Widget` and returns true for `new_record?`
+
+## `render_template`
+* Delegates to Rails' assert_template.
+* Available in request, controller, and view specs.
+
+In request and controller specs, apply to the response object:
+
+    response.should render_template("new")
+
+In view specs, apply to the view object:
+
+    view.should render_template(:partial => "_form", :locals => { :widget => widget } )
+
+## `redirect_to`
+* Delegates to assert_redirect
+* Available in request and controller specs.
+
+<pre>
+response.should redirect_to(widgets_path)
+</pre>
+
+## `route_to`
+
+* Delegates to Rails' assert_routing.
+* Available in routing and controller specs.
+
+<pre>
+{ :get => "/widgets" }.should route_to(:controller => "widgets", :action => "index")
+</pre>
+
+## `be_routable`
+
+Passes if the path is recognized by Rails' routing. This is primarily intended
+to be used with `should_not` to specify routes that should not be routable.
+
+    { :get => "/widgets/1/edit" }.should_not be_routable
