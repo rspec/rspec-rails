@@ -86,7 +86,6 @@ Gem::Specification.new do |s|
      "lib/rspec/rails/matchers/redirect_to.rb",
      "lib/rspec/rails/matchers/render_template.rb",
      "lib/rspec/rails/matchers/routing_matchers.rb",
-     "lib/rspec/rails/matchers/routing_spec_matchers.rb",
      "lib/rspec/rails/mocks.rb",
      "lib/rspec/rails/monkey.rb",
      "lib/rspec/rails/monkey/action_mailer/test_case.rb",
