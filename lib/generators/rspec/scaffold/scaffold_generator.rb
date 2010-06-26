@@ -120,6 +120,15 @@ module Rspec
           response
         end
 
+        def value_for(attribute)
+          case attribute.type
+          when :string
+            "#{attribute.name.titleize}".inspect
+          else
+            attribute.default.inspect
+          end
+        end
+
     end
   end
 end
