@@ -16,6 +16,7 @@ module RSpec::Rails
   #   => delegates to assert_redirected_to(destination)
   module RequestExampleGroup
     extend ActiveSupport::Concern
+    extend RSpec::Rails::ModuleInclusion
 
     include ActionDispatch::Integration::Runner
     include RSpec::Rails::TestUnitAssertionAdapter
@@ -47,8 +48,6 @@ module RSpec::Rails
       end
     end
 
-    RSpec.configure do |c|
-      c.include self, :example_group => { :file_path => /\bspec\/requests\// }
-    end
+    RSpec.configure &include_self_when_dir_matches('spec','requests')
   end
 end

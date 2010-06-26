@@ -4,9 +4,9 @@ require 'webrat'
 module RSpec::Rails
   module MailerExampleGroup
     extend ActiveSupport::Concern
+    extend RSpec::Rails::ModuleInclusion
 
     include ActionMailer::TestCase::Behavior
-
     include Webrat::Matchers
     include RSpec::Matchers
 
@@ -16,8 +16,6 @@ module RSpec::Rails
       end
     end
 
-    RSpec.configure do |c|
-      c.include self, :example_group => { :file_path => /\bspec\/mailers\// }
-    end
+    RSpec.configure &include_self_when_dir_matches('spec','mailers')
   end
 end

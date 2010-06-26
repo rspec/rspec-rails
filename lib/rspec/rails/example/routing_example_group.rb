@@ -3,6 +3,7 @@ require "action_dispatch/testing/assertions/routing"
 module RSpec::Rails
   module RoutingExampleGroup
     extend ActiveSupport::Concern
+    extend RSpec::Rails::ModuleInclusion
 
     include RSpec::Rails::TestUnitAssertionAdapter
     include ActionDispatch::Assertions::RoutingAssertions
@@ -18,8 +19,6 @@ module RSpec::Rails
       end
     end
 
-    RSpec.configure do |c|
-      c.include self, :example_group => { :file_path => /\bspec\/routing\// }
-    end
+    RSpec.configure &include_self_when_dir_matches('spec','routing')
   end
 end

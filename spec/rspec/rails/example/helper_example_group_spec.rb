@@ -3,14 +3,10 @@ require "spec_helper"
 module RSpec::Rails
   describe HelperExampleGroup::InstanceMethods do
     module ::FoosHelper; end
+    subject { HelperExampleGroup }
 
-    it "is included in specs in ./spec/views" do
-      stub_metadata(
-        :example_group => {:file_path => "./spec/helpers/whatever_spec.rb:15"}
-      )
-      group = RSpec::Core::ExampleGroup.describe
-      group.included_modules.should include(HelperExampleGroup)
-    end
+    it { should be_included_in_files_in('./spec/helpers/') }
+    it { should be_included_in_files_in('.\\spec\\helpers\\') }
 
     it "provides a controller_path based on the helper module's name" do
       helper_spec = Object.new.extend HelperExampleGroup::InstanceMethods

@@ -2,13 +2,8 @@ require "spec_helper"
 
 module RSpec::Rails
   describe ViewExampleGroup do
-    it "is included in specs in ./spec/views" do
-      stub_metadata(
-        :example_group => {:file_path => "./spec/views/whatever_spec.rb:15"}
-      )
-      group = RSpec::Core::ExampleGroup.describe
-      group.included_modules.should include(ViewExampleGroup)
-    end
+    it { should be_included_in_files_in('./spec/views/') }
+    it { should be_included_in_files_in('.\\spec\\views\\') }
 
     describe "#render" do
       let(:view_spec) do

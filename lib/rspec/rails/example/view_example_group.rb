@@ -20,7 +20,8 @@ module RSpec::Rails
   #     end
   #   end
   module ViewExampleGroup
-    extend  ActiveSupport::Concern
+    extend ActiveSupport::Concern
+    extend RSpec::Rails::ModuleInclusion
 
     include RSpec::Rails::SetupAndTeardownAdapter
     include RSpec::Rails::TestUnitAssertionAdapter
@@ -108,8 +109,6 @@ module RSpec::Rails
       end
     end
 
-    RSpec.configure do |c|
-      c.include self, :example_group => { :file_path => /\bspec\/views\// }
-    end
+    RSpec.configure &include_self_when_dir_matches('spec','views')
   end
 end
