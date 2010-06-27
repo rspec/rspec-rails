@@ -1,6 +1,9 @@
 require 'bundler'
 Bundler.setup
 
+require 'active_record'
+require 'action_controller'
+require 'action_mailer'
 require 'rspec/rails'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}

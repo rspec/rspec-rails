@@ -1,6 +1,3 @@
-require 'action_mailer'
-require 'webrat'
-
 module RSpec::Rails
   module MailerExampleGroup
     extend ActiveSupport::Concern

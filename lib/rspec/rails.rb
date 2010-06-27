@@ -1,3 +1,5 @@
+require 'webrat'
+
 require 'rspec/core'
 require 'rspec/rails/monkey'
 require 'rspec/rails/extensions'

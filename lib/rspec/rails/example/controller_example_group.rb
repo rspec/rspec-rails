@@ -1,6 +1,3 @@
-require 'action_controller'
-require 'webrat'
-
 module RSpec::Rails
   # Extends ActionController::TestCase::Behavior to work with RSpec.
   #

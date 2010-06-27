@@ -1,6 +1,4 @@
-require 'action_view'
 require 'rspec/rails/view_assigns'
-require 'webrat'
 
 module RSpec::Rails
   # Extends ActionView::TestCase::Behavior

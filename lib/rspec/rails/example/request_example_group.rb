@@ -1,6 +1,3 @@
-require 'action_dispatch'
-require 'webrat'
-
 module RSpec::Rails
   # Extends ActionDispatch::Integration::Runner to work with RSpec.
   #

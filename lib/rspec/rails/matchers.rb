@@ -8,16 +8,6 @@ module RSpec::Rails
 end
 
 begin
-  require "active_record"
-rescue LoadError
-end
-
-begin
-  require "action_controller"
-rescue LoadError
-end
-
-begin
   require 'test/unit/assertionfailederror'
 rescue LoadError
   module Test
