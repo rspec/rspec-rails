@@ -22,6 +22,10 @@ module RSpec
         def persisted?
           !!id
         end
+
+        def destroy
+          self.stub(:id) { nil }
+        end
       end
       
       # Creates a mock object instance for a +model_class+ with common

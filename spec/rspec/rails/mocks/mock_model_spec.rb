@@ -14,6 +14,14 @@ describe "mock_model(RealModel)" do
     end
   end
 
+  describe "destroy" do
+    it "sets id to nil" do
+      model = mock_model(MockableModel)
+      model.destroy
+      model.id.should be_nil
+    end
+  end
+
   describe "with params" do
     it "does not mutate its parameters" do
       params = {:a => 'b'}
