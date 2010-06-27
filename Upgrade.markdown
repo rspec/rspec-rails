@@ -2,23 +2,23 @@
 
 ## Controller specs
 
-### render_views
+### islation from view templates
 
-Controller specs, by default, do _not_ render views. This helps keep the
-controller specs focused on the controller. Use `render_views` instead of
-rspec-1's `integrate_views` to tell the spec to render the views:
+By default, controller specs do _not_ render view templates. This keeps
+controller specs isolated from the content of views and their requirements.
 
-    describe WidgetController do
-      render_views
-      
-      describe "GET index" do
-        ...
+NOTE that the template must exist, but it will not be rendered.  This is
+different from rspec-rails-1.x, in which the template didn't need to exist, but
+ActionController makes a number of new decisions in Rails 3 based on the
+existence of the template. To keep the RSpec code free of monkey patches, and
+to keep the rspec user experience simpler, we decided that this would be a fair
+trade-off.
 
 ## View specs
 
-Rails changed the way it renders partials, so to set an expectation that a partial
-gets rendered:
+Rails changed the way it renders partials, so to set an expectation that a
+partial gets rendered:
 
-    view.should_receive(:_render_partial).
-      with(hash_including(:partial => "widget/row"))
+    render
+    view.should render_template(:partial => "widget/_row")
 

@@ -88,11 +88,12 @@ available from Rails.
 You can use RSpec expectations/matchers or Test::Unit assertions.
 
 ## `render_views`
-By default, controller specs do not render views (as of beta.9).
-This supports specifying controllers without concern for whether
-the views they render work correctly or even exist. If you prefer
-to render the views (a la Rails' functional tests), you can use the
-`render_views` declaration in each example group:
+By default, controller specs do not render views.  This supports specifying
+controllers without concern for whether the views they render work correctly
+(NOTE: the template must exist, unlike rspec-rails-1. See Upgrade.markdown for
+more information about this). If you prefer to render the views (a la Rails'
+functional tests), you can use the `render_views` declaration in each example
+group:
 
     describe SomeController do
       render_views
