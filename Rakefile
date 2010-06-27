@@ -53,6 +53,9 @@ begin
 
     script/rails generate rspec:install
 
+  Also, be sure to look at Upgrade.markdown to see 
+  what might have changed since the last release.
+
 #{"*"*50}
 EOM
   end
