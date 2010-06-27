@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-06-26}
+  s.date = %q{2010-06-27}
   s.description = %q{RSpec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
      "VERSION",
      "autotest/discover.rb",
      "cucumber.yml",
-     "features/controller_specs/do_not_render_views.feature",
+     "features/controller_specs/isolation_from_views.feature",
      "features/controller_specs/readers.feature",
      "features/controller_specs/render_views.feature",
      "features/matchers/be_routable_matcher.feature",
@@ -128,6 +128,9 @@ Gem::Specification.new do |s|
   Rails apps if you're upgrading:
 
     script/rails generate rspec:install
+
+  Also, be sure to look at Upgrade.markdown to see 
+  what might have changed since the last release.
 
 **************************************************
 }
