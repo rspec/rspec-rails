@@ -43,12 +43,16 @@ module RSpec
 
       included do
         before do
-          @_path_set_delegator_resolver = PathSetDelegatorResolver.new(@controller.class.view_paths)
-          @controller.class.view_paths = ::ActionView::PathSet.new.push(@_path_set_delegator_resolver)
+          unless self.class.render_views?
+            @_path_set_delegator_resolver = PathSetDelegatorResolver.new(@controller.class.view_paths)
+            @controller.class.view_paths = ::ActionView::PathSet.new.push(@_path_set_delegator_resolver)
+          end
         end
         
         after do
-          @controller.class.view_paths = @_path_set_delegator_resolver.path_set
+          unless self.class.render_views?
+            @controller.class.view_paths = @_path_set_delegator_resolver.path_set
+          end
         end
       end
 
