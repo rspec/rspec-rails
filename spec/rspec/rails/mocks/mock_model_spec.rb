@@ -22,6 +22,29 @@ describe "mock_model(RealModel)" do
     end
   end
 
+  describe "errors" do
+    context "default" do
+      it "is empty" do
+        model = mock_model(MockableModel)
+        model.errors.should be_empty
+      end
+    end
+
+    context "with :save => false" do
+      it "is not empty" do
+        model = mock_model(MockableModel, :save => false)
+        model.errors.should_not be_empty
+      end
+    end
+
+    context "with :update_attributes => false" do
+      it "is not empty" do
+        model = mock_model(MockableModel, :save => false)
+        model.errors.should_not be_empty
+      end
+    end
+  end
+
   describe "with params" do
     it "does not mutate its parameters" do
       params = {:a => 'b'}

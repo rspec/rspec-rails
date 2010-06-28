@@ -42,7 +42,13 @@ module RSpec
         m = mock(derived_name, options_and_stubs)
         m.extend InstanceMethods
         m.extend ActiveModel::Conversion
-        m.stub(:errors) { ActiveModel::Errors.new(m) }
+        errors = ActiveModel::Errors.new(m)
+        [:save, :update_attributes].each do |key|
+          if options_and_stubs[key] == false
+            errors.stub(:empty?) { false }
+          end
+        end
+        m.stub(:errors) { errors }
         m.__send__(:__mock_proxy).instance_eval(<<-CODE, __FILE__, __LINE__)
           def @object.is_a?(other)
             #{model_class}.ancestors.include?(other)
