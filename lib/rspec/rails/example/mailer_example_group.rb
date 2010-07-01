@@ -7,6 +7,12 @@ module RSpec::Rails
     include Webrat::Matchers
     include RSpec::Matchers
 
+    included do
+      include ::Rails.application.routes.url_helpers
+      options = ::Rails.configuration.action_mailer.default_url_options
+      options.each { |key, value| default_url_options[key] = value } if options
+    end
+
     module ClassMethods
       def mailer_class
         describes
