@@ -1,4 +1,4 @@
-# Cucumber features for rspec-rails
+# Cucumber features
 
 RSpec is specified using both RSpec and
 [Cucumber](http://github.com/aslakhellesoy/cucumber). Cucumber provides
