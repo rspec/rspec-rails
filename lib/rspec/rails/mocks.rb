@@ -132,12 +132,7 @@ module RSpec
         returning model_class.new do |m|
           m.id = stubs.delete(:id)
           m.extend ModelStubber
-          stubs.each do |k,v|
-            if m.has_attribute?(k)
-              m[k] = stubs.delete(k)
-            end
-          end
-          m.stub!(stubs)
+          m.stub(stubs)
           yield m if block_given?
         end
       end
