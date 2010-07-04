@@ -16,8 +16,8 @@ Feature: view spec
 
           render
 
-          response.should contain("slicer")
-          response.should contain("dicer")
+          rendered.should contain("slicer")
+          rendered.should contain("dicer")
         end
       end
       """
@@ -42,8 +42,8 @@ Feature: view spec
           it "displays both widgets" do
             render
 
-            response.should contain("slicer")
-            response.should contain("dicer")
+            rendered.should contain("slicer")
+            rendered.should contain("dicer")
           end
         end
       end
@@ -62,7 +62,7 @@ Feature: view spec
 
           render :template => "widgets/widget.html.erb"
 
-          response.should contain("slicer")
+          rendered.should contain("slicer")
         end
       end
       """
@@ -84,7 +84,7 @@ Feature: view spec
 
           render :partial => "widgets/widget.html.erb", :locals => {:widget => widget}
 
-          response.should contain("slicer")
+          rendered.should contain("slicer")
         end
       end
       """
@@ -106,7 +106,7 @@ Feature: view spec
 
           render "widgets/widget", :widget => widget
 
-          response.should contain("slicer")
+          rendered.should contain("slicer")
         end
       end
       """
@@ -127,7 +127,7 @@ Feature: view spec
 
           render :text => "This is directly rendered"
 
-          response.should contain("directly rendered")
+          rendered.should contain("directly rendered")
         end
       end
       """
@@ -146,7 +146,7 @@ Feature: view spec
             page.hide 'status-indicator'
           end
 
-          response.should contain("Element.hide(\"status-indicator\")")
+          rendered.should contain("Element.hide(\"status-indicator\")")
         end
       end
       """
