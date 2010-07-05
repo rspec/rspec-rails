@@ -1,24 +1,26 @@
-module RSpec::Rails
-  module MailerExampleGroup
-    extend ActiveSupport::Concern
-    extend RSpec::Rails::ModuleInclusion
+if defined?(ActionMailer)
+  module RSpec::Rails
+    module MailerExampleGroup
+      extend ActiveSupport::Concern
+      extend RSpec::Rails::ModuleInclusion
 
-    include ActionMailer::TestCase::Behavior
-    include Webrat::Matchers
-    include RSpec::Matchers
+      include ActionMailer::TestCase::Behavior
+      include Webrat::Matchers
+      include RSpec::Matchers
 
-    included do
-      include ::Rails.application.routes.url_helpers
-      options = ::Rails.configuration.action_mailer.default_url_options
-      options.each { |key, value| default_url_options[key] = value } if options
-    end
-
-    module ClassMethods
-      def mailer_class
-        describes
+      included do
+        include ::Rails.application.routes.url_helpers
+        options = ::Rails.configuration.action_mailer.default_url_options
+        options.each { |key, value| default_url_options[key] = value } if options
       end
-    end
 
-    RSpec.configure &include_self_when_dir_matches('spec','mailers')
+      module ClassMethods
+        def mailer_class
+          describes
+        end
+      end
+
+      RSpec.configure &include_self_when_dir_matches('spec','mailers')
+    end
   end
 end
