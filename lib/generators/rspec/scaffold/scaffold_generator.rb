@@ -37,7 +37,7 @@ module Rspec
         return unless options[:helper_specs]
 
         template "helper_spec.rb",
-          File.join('spec/helpers', "#{controller_file_name}_helper_spec.rb")
+          File.join('spec/helpers', controller_class_path, "#{controller_file_name}_helper_spec.rb")
 
       end
 
@@ -45,7 +45,7 @@ module Rspec
         return unless options[:routing_specs]
 
         template 'routing_spec.rb',
-          File.join('spec/routing', "#{controller_file_name}_routing_spec.rb")
+          File.join('spec/routing', controller_class_path, "#{controller_file_name}_routing_spec.rb")
       end
 
       hook_for :integration_tool, :as => :integration
