@@ -12,6 +12,73 @@ module RSpec::Rails
       group.metadata[:type].should eq(:view)
     end
 
+    describe 'automatic inclusion of helpers' do
+      module ::ThingsHelper; end
+
+      it 'includes the helper with the same name' do
+        group = RSpec::Core::ExampleGroup.describe 'things/show.html.erb'
+        group.should_receive(:helper).with(ThingsHelper)
+        group.class_eval do
+          include ViewExampleGroup
+        end
+      end
+
+      it 'operates normally when no helper with the same name exists' do
+        raise 'unexpected constant found' if Object.const_defined?('ClocksHelper')
+        lambda {
+          RSpec::Core::ExampleGroup.describe 'clocks/show.html.erb' do
+            include ViewExampleGroup
+          end
+        }.should_not raise_error
+      end
+
+      context 'application helper exists' do
+        before do
+          if !Object.const_defined? 'ApplicationHelper'
+            module ::ApplicationHelper; end
+            @application_helper_defined = true
+          end
+        end
+
+        after do
+          if @application_helper_defined
+            Object.__send__ :remove_const, 'ApplicationHelper'
+          end
+        end
+
+        it 'includes the application helper' do
+          group = RSpec::Core::Example.describe 'bars/new.html.erb'
+          group.should_receive(:helper).with(ApplicationHelper)
+          group.class_eval do
+            include ViewExampleGroup
+          end
+        end
+      end
+
+      context 'no application helper exists' do
+        before do
+          if Object.const_defined? 'ApplicationHelper'
+            @application_helper = ApplicationHelper
+            Object.__send__ :remove_const, 'ApplicationHelper'
+          end
+        end
+
+        after do
+          if @application_helper
+            ApplicationHelper = @application_helper
+          end
+        end
+
+        it 'operates normally' do
+          lambda {
+            RSpec::Core::ExampleGroup.describe 'foos/edit.html.erb' do
+              include ViewExampleGroup
+            end
+          }.should_not raise_error
+        end
+      end
+    end
+
     describe "#render" do
       let(:view_spec) do
         Class.new do
