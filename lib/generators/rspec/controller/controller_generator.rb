@@ -9,8 +9,6 @@ module Rspec
       class_option :controllers, :type => :boolean, :default => true
       class_option :views,       :type => :boolean, :default => true
 
-      hook_for :integration_tool, :as => :integration
-
       def create_controller_files
         return unless options[:controllers]
 
