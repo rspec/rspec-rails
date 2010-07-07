@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{rspec-rails}
-  s.version = "2.0.0.beta.15"
+  s.version = "2.0.0.beta.16"
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-07-03}
+  s.date = %q{2010-07-06}
   s.description = %q{RSpec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -29,6 +29,7 @@ Gem::Specification.new do |s|
      "features/controller_specs/isolation_from_views.feature",
      "features/controller_specs/readers.feature",
      "features/controller_specs/render_views.feature",
+     "features/mailer_specs/url_helpers.feature",
      "features/matchers/be_routable_matcher.feature",
      "features/matchers/new_record_matcher.feature",
      "features/model_specs/errors_on.feature",
@@ -120,7 +121,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/rspec/rspec-rails}
   s.post_install_message = %q{**************************************************
 
-  Thank you for installing rspec-rails-2.0.0.beta.15!
+  Thank you for installing rspec-rails-2.0.0.beta.16!
 
   This version of rspec-rails only works with 
   versions of rails >= 3.0.0.pre.
@@ -139,7 +140,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubyforge_project = %q{rspec}
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{rspec-rails-2.0.0.beta.15}
+  s.summary = %q{rspec-rails-2.0.0.beta.16}
   s.test_files = [
     "spec/rspec/rails/example/controller_example_group_spec.rb",
      "spec/rspec/rails/example/helper_example_group_spec.rb",
