@@ -241,3 +241,14 @@ Passes if the path is recognized by Rails' routing. This is primarily intended
 to be used with `should_not` to specify routes that should not be routable.
 
     { :get => "/widgets/1/edit" }.should_not be_routable
+
+## Contribute
+
+See [http://github.com/rspec/rspec-dev](http://github.com/rspec/rspec-dev)
+
+## Also see
+
+* [http://github.com/rspec/rspec](http://github.com/rspec/rspec)
+* [http://github.com/rspec/rspec-core](http://github.com/rspec/rspec-core)
+* [http://github.com/rspec/rspec-expectations](http://github.com/rspec/rspec-expectations)
+* [http://github.com/rspec/rspec-mocks](http://github.com/rspec/rspec-mocks)
