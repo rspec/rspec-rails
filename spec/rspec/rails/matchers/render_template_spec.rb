@@ -26,7 +26,7 @@ describe "render_template" do
     end
   end
 
-  context "given a string" do
+  context "given a symbol" do
     it "converts to_s and delegates to assert_template" do
       self.should_receive(:assert_template).with("template_name", "this message")
       "response".should render_template(:template_name, "this message")
