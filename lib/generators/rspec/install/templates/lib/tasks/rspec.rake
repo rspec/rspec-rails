@@ -26,7 +26,7 @@ MSG
   end
 end
 
-Rake.application.instance_variable_get('@tasks').delete('default')
+Rake.application.instance_variable_get('@tasks')['default'].prerequisites.delete('test')
 
 spec_prereq = Rails.root.join('config', 'database.yml').exist? ? "db:test:prepare" : :noop
 task :noop do
