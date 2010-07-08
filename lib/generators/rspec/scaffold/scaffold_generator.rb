@@ -33,12 +33,9 @@ module Rspec
         copy_view :show
       end
 
-      def copy_helper_files
-        return unless options[:helper_specs]
-
-        template "helper_spec.rb",
-          File.join('spec/helpers', controller_class_path, "#{controller_file_name}_helper_spec.rb")
-
+      # Invoke the helper using the controller name (pluralized)
+      hook_for :helper, :as => :scaffold do |invoked|
+        invoke invoked, [ controller_name ]
       end
 
       def copy_routing_files
