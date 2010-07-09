@@ -29,4 +29,4 @@ Feature: errors_on
       end
       """
     When I run "rspec spec/models/widget_spec.rb"
-    Then I should see "4 examples, 0 failures"
+    Then the output should contain "4 examples, 0 failures"

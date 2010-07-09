@@ -15,4 +15,4 @@ Feature: controller spec readers
       end
       """
     When I run "rspec ./spec"
-    Then I should see "1 example, 0 failures"
+    Then the output should contain "1 example, 0 failures"

@@ -17,7 +17,7 @@ Feature: be_routable matcher
       """
 
     When I run "rspec spec/routing/widgets_routing_spec.rb"
-    Then I should see "1 example, 0 failures"
+    Then the output should contain "1 example, 0 failures"
 
   Scenario: specify routeable route should not be routable (fails)
     Given a file named "spec/routing/widgets_routing_spec.rb" with:
@@ -32,7 +32,7 @@ Feature: be_routable matcher
       """
 
     When I run "rspec spec/routing/widgets_routing_spec.rb"
-    Then I should see "1 example, 1 failure"
+    Then the output should contain "1 example, 1 failure"
 
   Scenario: specify non-routeable route should not be routable (passes)
     Given a file named "spec/routing/widgets_routing_spec.rb" with:
@@ -47,7 +47,7 @@ Feature: be_routable matcher
       """
 
     When I run "rspec spec/routing/widgets_routing_spec.rb"
-    Then I should see "1 example, 0 failures"
+    Then the output should contain "1 example, 0 failures"
 
   Scenario: specify non-routeable route should be routable (fails)
     Given a file named "spec/routing/widgets_routing_spec.rb" with:
@@ -62,7 +62,7 @@ Feature: be_routable matcher
       """
 
     When I run "rspec spec/routing/widgets_routing_spec.rb"
-    Then I should see "1 example, 1 failure"
+    Then the output should contain "1 example, 1 failure"
 
   Scenario: be_routable in a controller spec
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
@@ -77,4 +77,4 @@ Feature: be_routable matcher
       """
 
     When I run "rspec spec/controllers/widgets_controller_spec.rb"
-    Then I should see "1 example, 0 failures"
+    Then the output should contain "1 example, 0 failures"

@@ -10,7 +10,7 @@ gem 'rspec', :path => "../rspec"
 
 gem 'thor'
 gem 'cucumber'
-gem 'aruba'
+gem 'aruba', ">= 0.2.0"
 gem 'jeweler'
 gem 'webrat'
 gem 'sqlite3-ruby', :require => 'sqlite3'

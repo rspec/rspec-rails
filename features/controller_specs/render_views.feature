@@ -25,7 +25,7 @@ Feature: render views
       end
       """
     When I run "rspec spec"
-    Then I should see "2 examples, 0 failures"
+    Then the output should contain "2 examples, 0 failures"
 
   Scenario: expect template that does not exist and is rendered by controller (fails)
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
@@ -49,8 +49,8 @@ Feature: render views
       end
       """
     When I run "rspec spec"
-    Then I should see "1 example, 1 failure"
-    And I should see "Missing template"
+    Then the output should contain "1 example, 1 failure"
+    And the output should contain "Missing template"
 
   Scenario: render_views on and off in diff contexts
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
@@ -100,4 +100,4 @@ Feature: render views
       end
       """
     When I run "rspec spec"
-    Then I should see "4 examples, 0 failures"
+    Then the output should contain "4 examples, 0 failures"

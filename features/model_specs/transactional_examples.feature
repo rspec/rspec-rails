@@ -21,7 +21,7 @@ Feature: transactional examples
       end
       """
     When I run "rspec spec/models/widget_spec.rb"
-    Then I should see "3 examples, 0 failures"
+    Then the output should contain "3 examples, 0 failures"
 
   Scenario: run in transactions (explicit)
     Given a file named "spec/models/widget_spec.rb" with:
@@ -48,7 +48,7 @@ Feature: transactional examples
       end
       """
     When I run "rspec spec/models/widget_spec.rb"
-    Then I should see "3 examples, 0 failures"
+    Then the output should contain "3 examples, 0 failures"
 
   Scenario: disable transactions (explicit)
     Given a file named "spec/models/widget_spec.rb" with:
@@ -77,7 +77,7 @@ Feature: transactional examples
       end
       """
     When I run "rspec spec/models/widget_spec.rb"
-    Then I should see "3 examples, 0 failures"
+    Then the output should contain "3 examples, 0 failures"
 
   Scenario: run in transactions with fixture
     Given a file named "spec/models/thing_spec.rb" with:
@@ -97,7 +97,7 @@ Feature: transactional examples
         name: MyString
       """
     When I run "rspec spec/models/thing_spec.rb"
-    Then I should see "1 example, 0 failures"
+    Then the output should contain "1 example, 0 failures"
 
 
 
