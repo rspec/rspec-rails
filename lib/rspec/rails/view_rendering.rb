@@ -31,7 +31,6 @@ module RSpec
 
         def find_all(*args)
           path_set.find_all(*args).collect do |template|
-            puts template.inspect
             ::ActionView::Template.new(
               "",
               template.identifier,
