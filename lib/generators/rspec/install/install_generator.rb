@@ -19,20 +19,6 @@ DESC
         directory 'spec'
       end
 
-      def copy_lib_files
-        directory 'lib'
-      end
-
-      def copy_initializer_files
-        inside "config" do
-          empty_directory "initializers", :verbose => false
-
-          inside "initializers" do
-            template "rspec_generator.rb.tt", "rspec_generator.rb"
-          end
-        end
-      end
-
       def copy_autotest_files
         directory 'autotest'
       end

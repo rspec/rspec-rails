@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-07-06}
+  s.date = %q{2010-07-10}
   s.description = %q{RSpec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -47,8 +47,6 @@ Gem::Specification.new do |s|
      "lib/generators/rspec/install/install_generator.rb",
      "lib/generators/rspec/install/templates/.rspec",
      "lib/generators/rspec/install/templates/autotest/discover.rb",
-     "lib/generators/rspec/install/templates/config/initializers/rspec_generator.rb.tt",
-     "lib/generators/rspec/install/templates/lib/tasks/rspec.rake",
      "lib/generators/rspec/install/templates/spec/spec_helper.rb",
      "lib/generators/rspec/integration/integration_generator.rb",
      "lib/generators/rspec/integration/templates/request_spec.rb",
@@ -92,6 +90,7 @@ Gem::Specification.new do |s|
      "lib/rspec/rails/module_inclusion.rb",
      "lib/rspec/rails/monkey.rb",
      "lib/rspec/rails/monkey/action_mailer/test_case.rb",
+     "lib/rspec/rails/tasks/rspec.rake",
      "lib/rspec/rails/version.rb",
      "lib/rspec/rails/view_assigns.rb",
      "lib/rspec/rails/view_rendering.rb",
@@ -123,16 +122,33 @@ Gem::Specification.new do |s|
 
   Thank you for installing rspec-rails-2.0.0.beta.16!
 
-  This version of rspec-rails only works with 
-  versions of rails >= 3.0.0.pre.
+  This version of rspec-rails only works with versions of rails >= 3.0.0.beta.4.
 
-  Be sure to run the following command in each of your
-  Rails apps if you're upgrading:
+  To configure your app to use rspec-rails, add a declaration to your Gemfile.
+  If you are using Bundler's grouping feature in your Gemfile, be sure to include
+  rspec-rails in the :development group as well as the :test group so that you
+  can access its generators and rake tasks.
+
+    group :development, :test do
+      gem "rspec-rails", ">= 2.0.0.beta.16"
+    end
+
+  Be sure to run the following command in each of your Rails apps if you're
+  upgrading:
 
     script/rails generate rspec:install
 
-  Also, be sure to look at Upgrade.markdown to see 
-  what might have changed since the last release.
+  Even if you've run it before, this ensures that you have the latest updates
+  to spec/spec_helper.rb and any other support files.
+
+  Previous versions of rspec-rails-2.0.0.beta installed files that are no
+  longer being used, so please remove these files if you have them:
+
+    lib/tasks/rspec.rake
+    config/initializers/rspec_generator.rb
+
+  Lastly, be sure to look at Upgrade.markdown to see what might have changed
+  since the last release.
 
 **************************************************
 }

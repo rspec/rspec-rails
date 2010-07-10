@@ -5,8 +5,10 @@ gem 'rails', :path => "../../vendor/rails"
 
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
-gem "rspec-rails",        :path => "../../../rspec-rails"
-gem "rspec",              :path => "../../../rspec"
-gem "rspec-core",         :path => "../../../rspec-core"
-gem "rspec-expectations", :path => "../../../rspec-expectations"
-gem "rspec-mocks",        :path => "../../../rspec-mocks"
+group :development, :test do
+  gem "rspec-rails",        :path => "../../../rspec-rails"
+  gem "rspec",              :path => "../../../rspec"
+  gem "rspec-core",         :path => "../../../rspec-core"
+  gem "rspec-expectations", :path => "../../../rspec-expectations"
+  gem "rspec-mocks",        :path => "../../../rspec-mocks"
+end
