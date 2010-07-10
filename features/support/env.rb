@@ -1,17 +1,5 @@
 require 'aruba'
 
-module ArubaOverrides
-  def detect_ruby_script(cmd)
-    if cmd =~ /^rspec /
-      "bundle exec ../../../rspec-core/bin/#{cmd}"
-    else
-      super(cmd)
-    end
-  end
-end
-
-World(ArubaOverrides)
-
 unless File.directory?('./tmp/example_app')
   system "rake generate:app generate:stuff"
 end

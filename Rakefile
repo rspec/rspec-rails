@@ -23,9 +23,14 @@ require 'rspec/core/rake_task'
 require 'cucumber/rake/task'
 
 RSpec::Core::RakeTask.new(:spec)
-Cucumber::Rake::Task.new(:cucumber) do |t|
-  t.fork = false
+class Cucumber::Rake::Task::ForkedCucumberRunner
+  # When cucumber shells out, we still need it to run in the context of our
+  # bundle.
+  def run
+    sh "bundle exec #{RUBY} " + args.join(" ")
+  end
 end
+Cucumber::Rake::Task.new(:cucumber)
 
 begin
   require 'jeweler'
