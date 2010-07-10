@@ -1,3 +1,6 @@
+require 'bundler'
+Bundler.setup
+
 require 'aruba'
 require 'rspec/expectations'
 
