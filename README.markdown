@@ -2,12 +2,7 @@
 
 rspec-2 for rails-3 with lightweight extensions to each
 
-NOTICE: rspec-rails-2.0.0.beta.13 only works with rails-3.0.0.beta4 or higher.
-
-NOTICE: This README aligns with the code in git HEAD. If you're looking for the
-README for the latest release, go to
-[http://github.com/rspec/rspec-rails](http://github.com/rspec/rspec-rails), and
-select the appropriate tag from the Switch Tags select list.
+NOTICE: rspec-rails-2.0.0.beta.17 only works with rails-3.0.0.beta4 or higher.
 
 ## Install
 
@@ -25,7 +20,7 @@ This installs the following gems:
 
 Add this line to the Gemfile:
 
-    gem "rspec-rails", ">= 2.0.0.beta.13"
+    gem "rspec-rails", ">= 2.0.0.beta.17"
 
 This will expose generators, including rspec:install. Now you can run: 
 
