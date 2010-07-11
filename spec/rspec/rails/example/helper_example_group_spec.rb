@@ -14,6 +14,13 @@ module RSpec::Rails
       helper_spec.__send__(:_controller_path).should == "foos"
     end
 
+    it "adds :type => :helper to the metadata" do
+      group = RSpec::Core::ExampleGroup.describe do
+        include HelperExampleGroup
+      end
+      group.metadata[:type].should eq(:helper)
+    end
+
     describe "#helper" do
       it "returns the instance of AV::Base provided by AV::TC::Behavior" do
         helper_spec = Object.new.extend HelperExampleGroup::InstanceMethods

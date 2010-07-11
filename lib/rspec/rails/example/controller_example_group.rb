@@ -96,6 +96,7 @@ module RSpec::Rails
     end
 
     included do
+      metadata[:type] = :controller
       before do
         @routes = ::Rails.application.routes
         ActionController::Base.allow_forgery_protection = false

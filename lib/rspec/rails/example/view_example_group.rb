@@ -98,6 +98,8 @@ module RSpec::Rails
     end
 
     included do
+      metadata[:type] = :view
+
       before do
         controller.controller_path = _controller_path
         # this won't be necessary if/when

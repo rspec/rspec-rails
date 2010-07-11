@@ -5,6 +5,13 @@ module RSpec::Rails
     it { should be_included_in_files_in('./spec/views/') }
     it { should be_included_in_files_in('.\\spec\\views\\') }
 
+    it "adds :type => :view to the metadata" do
+      group = RSpec::Core::ExampleGroup.describe do
+        include ViewExampleGroup
+      end
+      group.metadata[:type].should eq(:view)
+    end
+
     describe "#render" do
       let(:view_spec) do
         Class.new do

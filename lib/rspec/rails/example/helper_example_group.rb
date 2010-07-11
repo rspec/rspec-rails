@@ -56,6 +56,7 @@ module RSpec::Rails
     end
 
     included do
+      metadata[:type] = :helper
       before do
         controller.controller_path = _controller_path
       end

@@ -36,6 +36,8 @@ module RSpec::Rails
     end
 
     included do
+      metadata[:type] = :request
+
       before do
         @router = ::Rails.application.routes
       end
