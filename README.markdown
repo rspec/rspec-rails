@@ -129,16 +129,28 @@ View specs live in spec/views, and mix in ActionView::TestCase::Behavior.
         rendered.should contain("Chicago")
       end
     end
-    
+
 ## `assign(key, val)`
 
 Use this to assign values to instance variables in the view:
 
     assign(:widget, stub_model(Widget))
     render
-    
+
 The code above assigns `stub_model(Widget)` to the `@widget` variable in the view, and then
 renders the view.
+
+Note that because view specs mix in `ActionView::TestCase` behavior, any
+instance variables you set will be transparently propagated into your views
+(similar to how instance variables you set in controller actions are made
+available in views). For example:
+
+    @widget = stub_model(Widget)
+    render # @widget is available inside the view
+
+RSpec doesn't officially support this pattern, which only works as a
+side-effect of the inclusion of `ActionView::TestCase`. Be aware that it may be
+made unavailable in the future.
 
 ### * Upgrade note
 
