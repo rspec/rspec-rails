@@ -121,6 +121,14 @@ module RSpec::Rails
       end
     end
 
+    describe '#params' do
+      include ViewExampleGroup
+      it 'delegates to the controller' do
+        controller.should_receive(:params).and_return({})
+        params[:foo] = 1
+      end
+    end
+
     describe "#_controller_path" do
       let(:view_spec) do
         Class.new do

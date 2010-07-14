@@ -88,6 +88,14 @@ module RSpec::Rails
         _view
       end
 
+      # Provides access to the params hash that will be available within the
+      # view:
+      #
+      #       params[:foo] = 'bar'
+      def params
+        controller.params
+      end
+
       # Deprecated. Use +view+ instead.
       def template
         RSpec.deprecate("template","view")
