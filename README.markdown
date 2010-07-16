@@ -65,8 +65,10 @@ Request specs live in spec/requests.
 
     describe "widgets resource" do
       describe "GET index" do
-        get "/widgets/index"
-        response.should have_selector("h1", :content => "Widgets")
+        it "contains the widgets header" do
+          get "/widgets/index"
+          response.should have_selector("h1", :content => "Widgets")
+        end
       end
     end
 
