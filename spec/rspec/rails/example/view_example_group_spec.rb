@@ -122,10 +122,18 @@ module RSpec::Rails
     end
 
     describe '#params' do
-      include ViewExampleGroup
+      let(:view_spec) do
+        Class.new do
+          include ViewExampleGroup::InstanceMethods
+          def controller
+            @controller ||= Object.new
+          end
+        end.new
+      end
+
       it 'delegates to the controller' do
-        controller.should_receive(:params).and_return({})
-        params[:foo] = 1
+        view_spec.controller.should_receive(:params).and_return({})
+        view_spec.params[:foo] = 1
       end
     end
 

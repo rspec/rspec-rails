@@ -152,3 +152,34 @@ Feature: view spec
       """
     When I run "rspec spec/views"
     Then the output should contain "1 example, 0 failures"
+
+  Scenario: spec with view that accesses helper_method helpers
+    Given a file named "app/views/secrets/index.html.erb" with:
+      """
+      <%- if admin? %>
+        <h1>Secret admin area</h1>
+      <%- end %>
+      """
+    And a file named "spec/views/secrets/index.html.erb_spec.rb" with:
+      """
+      require 'spec_helper'
+
+      describe 'secrets/index.html.erb' do
+        before do
+          controller.singleton_class.class_eval do
+            protected
+              def admin?
+                true
+              end
+              helper_method :admin?
+          end
+        end
+
+        it 'checks for admin access' do
+          render
+          rendered.should contain('Secret admin area')
+        end
+      end
+      """
+    When I run "rspec spec/views/secrets"
+    Then the output should contain "1 example, 0 failures"

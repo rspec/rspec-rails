@@ -102,7 +102,6 @@ module RSpec::Rails
         view
       end
 
-
       # Deprecated. Use +rendered+ instead.
       def response
         RSpec.deprecate("response", "rendered")
@@ -118,6 +117,13 @@ module RSpec::Rails
       def _controller_path
         _default_file_to_render.split("/")[0..-2].join("/")
       end
+
+      def _include_controller_helpers
+        helpers = controller._helpers
+        view.singleton_class.class_eval do
+          include helpers unless included_modules.include?(helpers)
+        end
+      end
     end
 
     included do
@@ -125,6 +131,7 @@ module RSpec::Rails
       helper *_default_helpers
 
       before do
+        _include_controller_helpers
         controller.controller_path = _controller_path
         # this won't be necessary if/when
         # https://rails.lighthouseapp.com/projects/8994-ruby-on-rails/tickets/4903
