@@ -22,15 +22,15 @@ describe <%= controller_class_name %>Controller do
     end
 
     it "recognizes and generates #create" do
-      { :post => "/<%= table_name %>" }.should route_to(:controller => "<%= table_name %>", :action => "create") 
+      { :post => "/<%= table_name %>" }.should route_to(:controller => "<%= table_name %>", :action => "create")
     end
 
     it "recognizes and generates #update" do
-      { :put => "/<%= table_name %>/1" }.should route_to(:controller => "<%= table_name %>", :action => "update", :id => "1") 
+      { :put => "/<%= table_name %>/1" }.should route_to(:controller => "<%= table_name %>", :action => "update", :id => "1")
     end
 
     it "recognizes and generates #destroy" do
-      { :delete => "/<%= table_name %>/1" }.should route_to(:controller => "<%= table_name %>", :action => "destroy", :id => "1") 
+      { :delete => "/<%= table_name %>/1" }.should route_to(:controller => "<%= table_name %>", :action => "destroy", :id => "1")
     end
 
   end

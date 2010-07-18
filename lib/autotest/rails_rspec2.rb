@@ -29,9 +29,9 @@ Autotest.add_hook :initialize do |at|
   %w{config/ coverage/ db/ doc/ log/ public/ script/ tmp/ vendor/rails vendor/plugins vendor/gems}.each do |exception|
     at.add_exception("^#{exception}")
   end
-  
+
   at.clear_mappings
-  
+
   at.add_mapping(%r%^(test|spec)/fixtures/(.*).yml$%) { |_, m|
     ["spec/models/#{m[2].singularize}_spec.rb"] + at.files_matching(%r%^spec\/views\/#{m[2]}/.*_spec\.rb$%)
   }

@@ -4,7 +4,7 @@ module RSpec::Rails
   # == Examples
   #
   # == with stubs
-  #   
+  #
   #   describe WidgetsController do
   #     describe "GET index" do
   #       it "assigns all widgets to @widgets" do
@@ -69,7 +69,7 @@ module RSpec::Rails
   #   describe WidgetsController do
   #     render_views
   #     ...
-  #     
+  #
   module ControllerExampleGroup
     extend ActiveSupport::Concern
     extend RSpec::Rails::ModuleInclusion

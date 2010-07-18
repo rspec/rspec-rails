@@ -35,7 +35,7 @@ describe "be_routable" do
   end
 
   context "with should_not" do
-    
+
     it "passes if routes do not recognize the path" do
       routes.stub(:recognize_path) { raise ActionController::RoutingError.new('ignore') }
       expect do

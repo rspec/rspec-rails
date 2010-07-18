@@ -51,7 +51,7 @@ module RSpec
             @controller.class.view_paths = ::ActionView::PathSet.new.push(@_path_set_delegator_resolver)
           end
         end
-        
+
         after do
           unless self.class.render_views?
             @controller.class.view_paths = @_path_set_delegator_resolver.path_set

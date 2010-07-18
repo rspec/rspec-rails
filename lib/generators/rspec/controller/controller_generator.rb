@@ -18,7 +18,7 @@ module Rspec
 
       def create_view_files
         return if actions.empty?
-        return unless options[:views] 
+        return unless options[:views]
 
         empty_directory File.join("spec", "views", file_path)
 

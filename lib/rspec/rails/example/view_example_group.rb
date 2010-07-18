@@ -45,7 +45,7 @@ module RSpec::Rails
 
     module InstanceMethods
       # :call-seq:
-      #   render 
+      #   render
       #   render(:template => "widgets/new.html.erb")
       #   render({:partial => "widgets/widget.html.erb"}, {... locals ...})
       #   render({:partial => "widgets/widget.html.erb"}, {... locals ...}) do ... end

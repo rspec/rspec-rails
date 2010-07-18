@@ -27,7 +27,7 @@ module RSpec
           self.stub(:id) { nil }
         end
       end
-      
+
       # Creates a mock object instance for a +model_class+ with common
       # methods stubbed out. Additional methods may be easily stubbed (via
       # add_stubs) if +stubs+ is passed.
@@ -73,7 +73,7 @@ module RSpec
         yield m if block_given?
         m
       end
-      
+
       module ModelStubber
         def connection
           raise Spec::Rails::IllegalDataAccessException.new("stubbed models are not allowed to access the database")
@@ -136,7 +136,7 @@ module RSpec
           yield m if block_given?
         end
       end
-      
+
     private
 
       @@model_id = 1000
