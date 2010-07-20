@@ -2,6 +2,41 @@ require 'spec_helper'
 require File.dirname(__FILE__) + '/ar_classes'
 
 describe "mock_model(RealModel)" do
+
+  context "given a String" do
+    context "that does not represent an existing constant" do
+      it "class says it's name" do
+        model = mock_model("Foo")
+        model.class.name.should eq("Foo")
+      end
+    end
+
+    context "that represents an existing constant" do
+      context "that extends ActiveModel::Naming" do
+        it "treats the constant as the class" do
+          model = mock_model("MockableModel")
+          model.class.name.should eq("MockableModel")
+        end
+      end
+
+      context "that does not extend ActiveModel::Naming" do
+        it "raises with a helpful message" do
+          expect do
+            mock_model("String")
+          end.to raise_error(ArgumentError)
+        end
+      end
+    end
+  end
+
+  context "given a class that does not extend ActiveModel::Naming" do
+    it "raises with a helpful message" do
+      expect do
+        mock_model(String)
+      end.to raise_error(ArgumentError)
+    end
+  end
+
   describe "with #id stubbed" do
     before(:each) do
       @model = mock_model(MockableModel, :id => 1)
@@ -105,17 +140,6 @@ describe "mock_model(RealModel)" do
     end
   end
 
-  describe "#model_name" do
-    before(:each) do
-      @model = mock_model(SubMockableModel)
-    end
-
-    it "says its model_name" do
-      @model.model_name.should == "SubMockableModel"
-    end
-  end
-
-
   describe "#destroyed?" do
     context "default" do
       it "returns false" do
@@ -199,6 +223,5 @@ describe "mock_model(RealModel)" do
     def model
       mock_model(MockableModel, :id => nil)
     end
-
   end
 end

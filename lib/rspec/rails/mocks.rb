@@ -28,10 +28,39 @@ module RSpec
         end
       end
 
-      # Creates a mock object instance for a +model_class+ with common
-      # methods stubbed out. Additional methods may be easily stubbed (via
-      # add_stubs) if +stubs+ is passed.
-      def mock_model(model_class, options_and_stubs = {})
+      # Creates a mock object instance for a +string_or_model_class+ with
+      # common methods stubbed out. Additional methods may be easily stubbed
+      # (via add_stubs) if +stubs+ is passed.
+      #
+      # +model_class+ can be any of:
+      #
+      #   * A String representing a Class that does not exist
+      #   * A String representing a Class that extends ActiveModel::Naming
+      #   * A Class that extends ActiveModel::Naming
+      def mock_model(string_or_model_class, options_and_stubs = {})
+        if String === string_or_model_class
+          if Object.const_defined?(string_or_model_class)
+            model_class = Object.const_get(string_or_model_class)
+          else
+            model_class = Object.const_set(string_or_model_class, Class.new do
+              extend ActiveModel::Naming
+            end)
+          end
+        else
+          model_class = string_or_model_class 
+        end
+
+        unless model_class.kind_of? ActiveModel::Naming
+          raise ArgumentError.new <<-EOM
+The mock_model method can only accept as its first argument:
+  * A String representing a Class that does not exist
+  * A String representing a Class that extends ActiveModel::Naming
+  * A Class that extends ActiveModel::Naming
+
+It received #{model_class.inspect}
+EOM
+        end
+
         id = options_and_stubs.has_key?(:id) ? options_and_stubs[:id] : next_id
         options_and_stubs = options_and_stubs.reverse_merge({
           :id => id,
@@ -65,15 +94,11 @@ module RSpec
           def @object.to_s
             "#{model_class.name}_#{id}"
           end
-
-          def @object.model_name
-            "#{model_class}"
-          end
         CODE
         yield m if block_given?
         m
       end
-
+      
       module ModelStubber
         def connection
           raise Spec::Rails::IllegalDataAccessException.new("stubbed models are not allowed to access the database")
@@ -136,7 +161,7 @@ module RSpec
           yield m if block_given?
         end
       end
-
+      
     private
 
       @@model_id = 1000
@@ -152,3 +177,4 @@ end
 RSpec.configure do |c|
   c.include RSpec::Rails::Mocks
 end
+
