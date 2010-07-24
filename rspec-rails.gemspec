@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-07-21}
+  s.date = %q{2010-07-23}
   s.description = %q{RSpec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
      "autotest/discover.rb",
      "cucumber.yml",
      "features/README.markdown",
+     "features/controller_specs/anonymous_controller.feature",
      "features/controller_specs/isolation_from_views.feature",
      "features/controller_specs/readers.feature",
      "features/controller_specs/render_views.feature",
