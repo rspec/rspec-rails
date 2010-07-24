@@ -89,6 +89,54 @@ module RSpec::Rails
       def controller_class
         describes
       end
+
+      # Creates an anonymous subclass of ApplicationController and evals the
+      # +body+ in that context. Also sets up implicit routes for this
+      # controller, that are separate from those defined in
+      # <tt>config/routes.rb</tt>.
+      #
+      # Supports a simple DSL for specifying behaviour of ApplicationController.
+      #
+      # == Example
+      #
+      #    describe ApplicationController do
+      #      controller do
+      #        def index
+      #          raise ApplicationController::AccessDenied
+      #        end
+      #      end
+
+      #      describe "handling AccessDenied exceptions" do
+      #        it "redirects to the /401.html page" do
+      #          get :index
+      #          response.should redirect_to("/401.html")
+      #        end
+      #      end
+      #    end
+      #   
+      # NOTICE: Due to Ruby 1.8 scoping rules in anoymous subclasses, constants
+      # defined in +ApplicationController+ must be fully qualified (e.g.
+      # ApplicationController::AccessDenied) in the block passed to the
+      # +controller+ method. Any instance methods, filters, etc, that are
+      # defined in +ApplicationController+, however, are accessible from within
+      # the block.
+      def controller(&body)
+        metadata[:example_group][:describes] = Class.new(ApplicationController, &body)
+        metadata[:example_group][:describes].singleton_class.class_eval do
+          def name
+            "StubResourcesController"
+          end
+        end
+
+        before do
+          @orig_routes, @routes = @routes, ActionDispatch::Routing::RouteSet.new
+          @routes.draw { resources :stub_resources }
+        end
+
+        after do
+          @routes = @orig_routes
+        end
+      end
     end
 
     module InstanceMethods
