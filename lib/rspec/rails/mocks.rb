@@ -154,7 +154,7 @@ EOM
       #   end
       def stub_model(model_class, stubs={})
         stubs = {:id => next_id}.merge(stubs)
-        returning model_class.new do |m|
+        model_class.new.tap do |m|
           m.id = stubs.delete(:id)
           m.extend ModelStubber
           m.stub(stubs)
