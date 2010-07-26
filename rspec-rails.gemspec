@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-07-23}
+  s.date = %q{2010-07-25}
   s.description = %q{RSpec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -186,15 +186,15 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<rspec>, [">= 2.0.0.beta.14"])
-      s.add_runtime_dependency(%q<webrat>, [">= 0.7.0"])
+      s.add_runtime_dependency(%q<rspec>, ["= 2.0.0.beta.18"])
+      s.add_runtime_dependency(%q<webrat>, [">= 0.7.2.beta.1"])
     else
-      s.add_dependency(%q<rspec>, [">= 2.0.0.beta.14"])
-      s.add_dependency(%q<webrat>, [">= 0.7.0"])
+      s.add_dependency(%q<rspec>, ["= 2.0.0.beta.18"])
+      s.add_dependency(%q<webrat>, [">= 0.7.2.beta.1"])
     end
   else
-    s.add_dependency(%q<rspec>, [">= 2.0.0.beta.14"])
-    s.add_dependency(%q<webrat>, [">= 0.7.0"])
+    s.add_dependency(%q<rspec>, ["= 2.0.0.beta.18"])
+    s.add_dependency(%q<webrat>, [">= 0.7.2.beta.1"])
   end
 end
 
