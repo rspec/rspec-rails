@@ -16,6 +16,7 @@ module RSpec::Rails
     extend RSpec::Rails::ModuleInclusion
 
     include ActionDispatch::Integration::Runner
+    include RSpec::Rails::SetupAndTeardownAdapter
     include RSpec::Rails::TestUnitAssertionAdapter
     include ActionDispatch::Assertions
     include Webrat::Matchers

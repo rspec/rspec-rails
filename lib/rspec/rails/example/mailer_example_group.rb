@@ -4,6 +4,7 @@ if defined?(ActionMailer)
       extend ActiveSupport::Concern
       extend RSpec::Rails::ModuleInclusion
 
+      include RSpec::Rails::SetupAndTeardownAdapter
       include ActionMailer::TestCase::Behavior
       include Webrat::Matchers
       include RSpec::Matchers
