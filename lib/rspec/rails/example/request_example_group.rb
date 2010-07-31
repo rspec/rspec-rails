@@ -15,13 +15,12 @@ module RSpec::Rails
     extend ActiveSupport::Concern
     extend RSpec::Rails::ModuleInclusion
 
+    include RSpec::Rails::RailsExampleGroup
+
     include ActionDispatch::Integration::Runner
-    include RSpec::Rails::SetupAndTeardownAdapter
-    include RSpec::Rails::TestUnitAssertionAdapter
     include ActionDispatch::Assertions
     include Webrat::Matchers
     include Webrat::Methods
-    include RSpec::Matchers
     include RSpec::Rails::Matchers::RedirectTo
     include RSpec::Rails::Matchers::RenderTemplate
     include ActionController::TemplateAssertions

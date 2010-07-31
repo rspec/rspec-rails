@@ -74,16 +74,23 @@ module RSpec::Rails
     extend ActiveSupport::Concern
     extend RSpec::Rails::ModuleInclusion
 
-    include RSpec::Rails::SetupAndTeardownAdapter
-    include RSpec::Rails::TestUnitAssertionAdapter
+    include RSpec::Rails::RailsExampleGroup
+
     include ActionController::TestCase::Behavior
     include RSpec::Rails::ViewRendering
-    include Webrat::Methods
-    include Webrat::Matchers
-    include RSpec::Matchers
     include RSpec::Rails::Matchers::RedirectTo
     include RSpec::Rails::Matchers::RenderTemplate
     include RSpec::Rails::Matchers::RoutingMatchers
+
+    include Webrat::Methods
+    include Webrat::Matchers
+
+    # TODO (DC 7/31/2010) this is already included in RailsExampleGroup, but
+    # due to some load order dependency problem between Webrat::Matchers and
+    # RSpec::Matchers, combined with the fact that RailsExampleGroup extends
+    # ActiveSupport::Concern, while the matcher modules do not, this needs to
+    # be here as well. At least for now.
+    include RSpec::Matchers
 
     module ClassMethods
       def controller_class

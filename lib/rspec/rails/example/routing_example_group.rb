@@ -5,7 +5,8 @@ module RSpec::Rails
     extend ActiveSupport::Concern
     extend RSpec::Rails::ModuleInclusion
 
-    include RSpec::Rails::TestUnitAssertionAdapter
+    include RSpec::Rails::RailsExampleGroup
+
     include ActionDispatch::Assertions::RoutingAssertions
     include RSpec::Rails::Matchers::RoutingMatchers
 

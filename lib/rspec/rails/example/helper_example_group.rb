@@ -29,8 +29,8 @@ module RSpec::Rails
     extend ActiveSupport::Concern
     extend RSpec::Rails::ModuleInclusion
 
-    include RSpec::Rails::SetupAndTeardownAdapter
-    include RSpec::Rails::TestUnitAssertionAdapter
+    include RSpec::Rails::RailsExampleGroup
+
     include ActionView::TestCase::Behavior
     include RSpec::Rails::ViewAssigns
     include Webrat::Matchers

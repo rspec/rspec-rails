@@ -3,7 +3,7 @@ module RSpec::Rails
     extend ActiveSupport::Concern
     extend RSpec::Rails::ModuleInclusion
 
-    include RSpec::Matchers
+    include RSpec::Rails::RailsExampleGroup
 
     included do
       metadata[:type] = :model
