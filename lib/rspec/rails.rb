@@ -1,7 +1,6 @@
 require 'webrat'
 
 require 'rspec/core'
-require 'rspec/rails/monkey'
 require 'rspec/rails/extensions'
 require 'rspec/rails/view_rendering'
 require 'rspec/rails/adapters'
