@@ -3,12 +3,12 @@ require "spec_helper"
 describe <%= controller_class_name %>Controller do
   describe "routing" do
 
-    <% unless options[:singleton] -%>
+<% unless options[:singleton] -%>
     it "recognizes and generates #index" do
       { :get => "/<%= table_name %>" }.should route_to(:controller => "<%= table_name %>", :action => "index")
     end
 
-    <% end -%>
+<% end -%>
     it "recognizes and generates #new" do
       { :get => "/<%= table_name %>/new" }.should route_to(:controller => "<%= table_name %>", :action => "new")
     end
