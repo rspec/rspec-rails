@@ -120,7 +120,7 @@ module RSpec::Rails
       #        end
       #      end
       #    end
-      #   
+      #
       # NOTICE: Due to Ruby 1.8 scoping rules in anoymous subclasses, constants
       # defined in +ApplicationController+ must be fully qualified (e.g.
       # ApplicationController::AccessDenied) in the block passed to the

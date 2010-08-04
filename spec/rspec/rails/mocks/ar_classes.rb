@@ -28,7 +28,7 @@ end
 class ConnectableModel < ActiveRecord::Base
   establish_connection :adapter => 'sqlite3',
                        :database => ':memory:'
-                       
+
   connection.execute <<-eosql
     CREATE TABLE connectable_models (
       id integer PRIMARY KEY AUTOINCREMENT

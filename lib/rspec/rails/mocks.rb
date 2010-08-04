@@ -47,7 +47,7 @@ module RSpec
             end)
           end
         else
-          model_class = string_or_model_class 
+          model_class = string_or_model_class
         end
 
         unless model_class.kind_of? ActiveModel::Naming
@@ -98,7 +98,7 @@ EOM
         yield m if block_given?
         m
       end
-      
+
       module ModelStubber
         def connection
           raise RSpec::Rails::IllegalDataAccessException.new("stubbed models are not allowed to access the database")
@@ -161,7 +161,7 @@ EOM
           yield m if block_given?
         end
       end
-      
+
     private
 
       @@model_id = 1000
