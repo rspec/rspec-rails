@@ -101,7 +101,7 @@ EOM
       
       module ModelStubber
         def connection
-          raise Spec::Rails::IllegalDataAccessException.new("stubbed models are not allowed to access the database")
+          raise RSpec::Rails::IllegalDataAccessException.new("stubbed models are not allowed to access the database")
         end
         def new_record?
           id.nil?
