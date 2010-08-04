@@ -24,3 +24,14 @@ class AssociatedModel < ActiveRecord::Base
   include NoConnections
   belongs_to :mockable_model
 end
+
+class ConnectableModel < ActiveRecord::Base
+  establish_connection :adapter => 'sqlite3',
+                       :database => ':memory:'
+                       
+  connection.execute <<-eosql
+    CREATE TABLE connectable_models (
+      id integer PRIMARY KEY AUTOINCREMENT
+    )
+  eosql
+end

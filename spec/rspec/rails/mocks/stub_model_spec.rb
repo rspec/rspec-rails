@@ -38,10 +38,9 @@ describe "stub_model" do
     end
   end
 
-  pending "should raise when hitting the db" do
+  it "should raise when hitting the db" do
     lambda do
-      model = stub_model(MockableModel, :changed => true, :attributes_with_quotes => {'this' => 'that'})
-      model.save
+      stub_model(ConnectableModel).connection
     end.should raise_error(RSpec::Rails::IllegalDataAccessException, /stubbed models are not allowed to access the database/)
   end
 
