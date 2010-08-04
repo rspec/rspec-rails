@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-07-25}
+  s.date = %q{2010-08-04}
   s.description = %q{RSpec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -76,6 +76,7 @@ Gem::Specification.new do |s|
      "lib/rspec/rails/example/helper_example_group.rb",
      "lib/rspec/rails/example/mailer_example_group.rb",
      "lib/rspec/rails/example/model_example_group.rb",
+     "lib/rspec/rails/example/rails_example_group.rb",
      "lib/rspec/rails/example/request_example_group.rb",
      "lib/rspec/rails/example/routing_example_group.rb",
      "lib/rspec/rails/example/view_example_group.rb",
@@ -90,8 +91,6 @@ Gem::Specification.new do |s|
      "lib/rspec/rails/matchers/routing_matchers.rb",
      "lib/rspec/rails/mocks.rb",
      "lib/rspec/rails/module_inclusion.rb",
-     "lib/rspec/rails/monkey.rb",
-     "lib/rspec/rails/monkey/action_mailer/test_case.rb",
      "lib/rspec/rails/tasks/rspec.rake",
      "lib/rspec/rails/version.rb",
      "lib/rspec/rails/view_assigns.rb",
