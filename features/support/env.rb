@@ -1,4 +1,5 @@
 require 'aruba'
+require 'webrat'
 
 unless File.directory?('./tmp/example_app')
   system "rake generate:app generate:stuff"

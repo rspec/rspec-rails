@@ -19,8 +19,17 @@ module RSpec::Rails
 
     include ActionDispatch::Integration::Runner
     include ActionDispatch::Assertions
-    include Webrat::Matchers
-    include Webrat::Methods
+    include RSpec::Rails::BrowserSimulators
+
+    webrat do
+      include Webrat::Matchers
+      include Webrat::Methods
+    end
+
+    capybara do
+      include Capybara
+    end
+
     include RSpec::Rails::Matchers::RedirectTo
     include RSpec::Rails::Matchers::RenderTemplate
     include ActionController::TemplateAssertions
@@ -42,8 +51,10 @@ module RSpec::Rails
         @router = ::Rails.application.routes
       end
 
-      Webrat.configure do |config|
-        config.mode = :rack
+      webrat do
+        Webrat.configure do |config|
+          config.mode = :rack
+        end
       end
     end
 
