@@ -112,7 +112,7 @@ module RSpec::Rails
       #          raise ApplicationController::AccessDenied
       #        end
       #      end
-
+      #
       #      describe "handling AccessDenied exceptions" do
       #        it "redirects to the /401.html page" do
       #          get :index
@@ -121,14 +121,23 @@ module RSpec::Rails
       #      end
       #    end
       #
+      # If you would like to test a subclass of ApplicationController, call
+      # controller like so:
+      #
+      # == Example
+      #
+      # controller(ApplicationControllerSubclass) do
+      #
+      # end
+      #
       # NOTICE: Due to Ruby 1.8 scoping rules in anoymous subclasses, constants
       # defined in +ApplicationController+ must be fully qualified (e.g.
       # ApplicationController::AccessDenied) in the block passed to the
       # +controller+ method. Any instance methods, filters, etc, that are
       # defined in +ApplicationController+, however, are accessible from within
       # the block.
-      def controller(&body)
-        metadata[:example_group][:describes] = Class.new(ApplicationController, &body)
+      def controller(base_class = ApplicationController, &body)
+        metadata[:example_group][:describes] = Class.new(base_class, &body)
         metadata[:example_group][:describes].singleton_class.class_eval do
           def name
             "StubResourcesController"
