@@ -44,7 +44,6 @@ begin
     gem.authors = ["David Chelimsky", "Chad Humphries"]
     gem.rubyforge_project = "rspec"
     gem.add_dependency "rspec", RSpec::Rails::Version::STRING
-    gem.add_dependency "webrat", ">= 0.7.2.beta.1"
     gem.post_install_message = <<-EOM
 #{"*"*50}
 

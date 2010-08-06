@@ -1,9 +1,3 @@
-begin
-  require 'capybara'
-rescue LoadError
-  require 'webrat'
-end
-
 require 'rspec/core'
 require 'rspec/rails/extensions'
 require 'rspec/rails/view_rendering'

@@ -27,7 +27,6 @@ PATH
   specs:
     rspec-rails (2.0.0.beta.19)
       rspec (= 2.0.0.beta.19)
-      webrat (>= 0.7.2.beta.1)
 
 PATH
   remote: vendor/arel

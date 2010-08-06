@@ -12,4 +12,5 @@ group :development, :test do
   gem "rspec-expectations", :path => "../../../rspec-expectations"
   gem "rspec-mocks",        :path => "../../../rspec-mocks"
   gem "rcov"
+  gem "webrat"
 end

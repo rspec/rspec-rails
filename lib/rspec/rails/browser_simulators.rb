@@ -1,3 +1,13 @@
+begin
+  require 'capybara/rails'
+rescue LoadError
+end
+
+begin
+  require 'webrat'
+rescue LoadError
+end
+
 module RSpec
   module Rails
     module BrowserSimulators
