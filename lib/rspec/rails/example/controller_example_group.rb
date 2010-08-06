@@ -97,14 +97,13 @@ module RSpec::Rails
         describes
       end
 
-      # Creates an anonymous subclass of ApplicationController and evals the
-      # +body+ in that context. Also sets up implicit routes for this
-      # controller, that are separate from those defined in
-      # <tt>config/routes.rb</tt>.
+      # Supports a simple DSL for specifying behaviour of
+      # ApplicationController.  Creates an anonymous subclass of
+      # ApplicationController and evals the +body+ in that context. Also sets
+      # up implicit routes for this controller, that are separate from those
+      # defined in <tt>config/routes.rb</tt>.
       #
-      # Supports a simple DSL for specifying behaviour of ApplicationController.
-      #
-      # == Example
+      # == Examples
       #
       #    describe ApplicationController do
       #      controller do
@@ -121,14 +120,12 @@ module RSpec::Rails
       #      end
       #    end
       #
-      # If you would like to test a subclass of ApplicationController, call
+      # If you would like to spec a subclass of ApplicationController, call
       # controller like so:
       #
-      # == Example
-      #
-      # controller(ApplicationControllerSubclass) do
-      #
-      # end
+      #    controller(ApplicationControllerSubclass) do
+      #      # ....
+      #    end
       #
       # NOTICE: Due to Ruby 1.8 scoping rules in anoymous subclasses, constants
       # defined in +ApplicationController+ must be fully qualified (e.g.
