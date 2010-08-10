@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-08-04}
+  s.date = %q{2010-08-09}
   s.description = %q{RSpec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -19,6 +19,8 @@ Gem::Specification.new do |s|
     ".document",
      ".gitignore",
      "Gemfile",
+     "Gemfile.lock",
+     "Gotchas.markdown",
      "README.markdown",
      "Rakefile",
      "Upgrade.markdown",
