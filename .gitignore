@@ -4,3 +4,4 @@ pkg
 rspec-rails-
 doc
 vendor
+.bundle
