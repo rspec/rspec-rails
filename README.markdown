@@ -29,8 +29,16 @@ This will expose generators, including rspec:install. Now you can run:
 This adds the spec directory and some skeleton files, including
 the "rake spec" task.
 
-Note that things are in flux, so some generators generate code that
-doesn't work all that well yet.
+### Webrat and Capybara
+
+You can choose between webrat or capybara for simulating a browser, automating
+a browser, or setting expectations using the matchers they supply. Just add
+your preference to the Gemfile:
+
+    gem "webrat"
+    gem "capybara"
+
+Note that Capybara matchers are not available in view or helper specs.
 
 ## Living on edge
 

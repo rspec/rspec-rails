@@ -1,3 +1,10 @@
+# Changes in beta.20
+
+### Webrat or Capybara
+
+rspec-rails-2.0.0.beta.20 removes the dependency and offers you a choice of
+using webrat or capybara. Just add the library of your choice to your Gemfile.
+
 # Upgrade to rspec-rails-2
 
 ## Controller specs
