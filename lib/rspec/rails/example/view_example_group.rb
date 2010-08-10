@@ -31,10 +31,6 @@ module RSpec::Rails
       include Webrat::Matchers
     end
 
-    capybara do
-      include Capybara
-    end
-
     module ClassMethods
       def _default_helper
         base = metadata[:behaviour][:description].split('/').first
