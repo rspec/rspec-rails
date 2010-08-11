@@ -27,6 +27,28 @@ describe "stub_model" do
   it "should accept a stub for save" do
     stub_model(MockableModel, :save => false).save.should be(false)
   end
+  
+  describe "alternate primary key" do
+    it "should have the correct primary_key name" do
+      stub_model(AlternatePrimaryKeyModel).class.primary_key.should eql('my_id')
+    end
+    
+    it "should have a primary_key" do
+      stub_model(AlternatePrimaryKeyModel).my_id.should be > 0
+    end
+    
+    it "should not say it is a new record" do
+      stub_model(AlternatePrimaryKeyModel).should_not be_new_record
+    end
+    
+    it "should say it is a new record if primary_key is nil" do
+      stub_model(AlternatePrimaryKeyModel, :my_id => nil).should be_new_record
+    end
+    
+    it "should accept a stub for the primary_key" do
+      stub_model(AlternatePrimaryKeyModel, :my_id => 5).my_id.should == 5
+    end
+  end
 
   describe "#as_new_record" do
     it "should say it is a new record" do

@@ -25,6 +25,12 @@ class AssociatedModel < ActiveRecord::Base
   belongs_to :mockable_model
 end
 
+class AlternatePrimaryKeyModel < ActiveRecord::Base
+  include NoConnections
+  self.primary_key = :my_id
+  attr_accessor :my_id
+end
+
 class ConnectableModel < ActiveRecord::Base
   establish_connection :adapter => 'sqlite3',
                        :database => ':memory:'

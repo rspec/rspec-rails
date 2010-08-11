@@ -104,10 +104,10 @@ EOM
           raise RSpec::Rails::IllegalDataAccessException.new("stubbed models are not allowed to access the database")
         end
         def new_record?
-          id.nil?
+          __send__(self.class.primary_key).nil?
         end
         def as_new_record
-          self.id = nil
+          self.__send__("#{self.class.primary_key}=", nil)
           self
         end
       end
@@ -153,9 +153,10 @@ EOM
       #     person.first_name = "David"
       #   end
       def stub_model(model_class, stubs={})
-        stubs = {:id => next_id}.merge(stubs)
+        primary_key = model_class.primary_key.to_sym
+        stubs = {primary_key => next_id}.merge(stubs)
         model_class.new.tap do |m|
-          m.id = stubs.delete(:id)
+          m.__send__("#{primary_key}=", stubs.delete(primary_key))
           m.extend ModelStubber
           m.stub(stubs)
           yield m if block_given?
