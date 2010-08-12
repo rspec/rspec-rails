@@ -20,9 +20,14 @@ This installs the following gems:
 
 Add this line to the Gemfile:
 
-    gem "rspec-rails", ">= 2.0.0.beta.17"
+    group :test, :development do
+      gem "rspec-rails", ">= 2.0.0.beta.17"
+    end
 
-This will expose generators, including rspec:install. Now you can run: 
+It needs to be in the `:development` group to expose generators and rake
+tasks without having to type `RAILS_ENV=test`.
+
+Now you can run: 
 
     script/rails g rspec:install
 
