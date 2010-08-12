@@ -18,7 +18,7 @@ This installs the following gems:
 
 ## Configure:
 
-Add this line to the Gemfile:
+Add `rspec-rails` to the `:test` and `:development` groups in the Gemfile:
 
     group :test, :development do
       gem "rspec-rails", ">= 2.0.0.beta.17"
