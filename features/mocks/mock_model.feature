@@ -1,36 +1,52 @@
 Feature: mock_model
 
-  As a Rails developer using RSpec
-  In order to mock an Active Record model
-  I want to use mock_model
+  The mock_model method generates a test double object that acts like an
+  ActiveModel model. This is different from the stub_model method which
+  generates an instance of a real ActiveModel class (stub_model.feature coming
+  soon).
 
-  Scenario: passing a string that is not an existing constant
+  The benefit of mock_model over stub_model is that its a true double, so the
+  examples are not dependent on the behaviour (or mis-behaviour), or even the
+  existence of any other code. If you're working on a controller spec and you
+  need a model that doesn't exist, you can pass mock_model a string and the
+  generated object will act as though its an instance of the class named by
+  that string.
+   
+  Scenario: passing a string that represents a non-existent constant
     Given a file named "spec/models/car_spec.rb" with:
       """
       require "spec_helper"
 
-      describe "Car" do
-        it "converts to a constant" do
-          car = mock_model("Car")
-          Object.should be_const_defined(:Car)
+      describe "mock_model('Car') with no Car constant in existence" do
+        it "generates a constant" do
+          Object.const_defined?(:Car).should be_false
+          mock_model("Car")
+          Object.const_defined?(:Car).should be_true
         end
 
-        it "returns the correct name" do
-          car = mock_model("Car")
-          car.class.name.should eql("Car")
+        describe "generates an object that ..." do
+          it "returns the correct name" do
+            car = mock_model("Car")
+            car.class.name.should eq("Car")
+          end
+
+          it "says it is a Car" do
+            car = mock_model("Car")
+            car.should be_a(Car)
+          end
         end
       end
       """
     When I run "rspec spec/models/car_spec.rb"
-    Then the output should contain "2 examples, 0 failures"
+    Then the output should contain "3 examples, 0 failures"
 
-  Scenario: passing a string that is an existing constant
+  Scenario: passing a string that represents an existing constant
     Given a file named "spec/models/widget_spec.rb" with:
       """
       require "spec_helper"
 
       describe Widget do
-        it "gets the constant" do
+        it "uses the existing constant" do
           widget = mock_model("Widget")
           widget.should be_a(Widget)
         end
@@ -39,7 +55,7 @@ Feature: mock_model
     When I run "rspec spec/models/widget_spec.rb"
     Then the output should contain "1 example, 0 failures"
 
-  Scenario: passing a constant that is not extendable
+  Scenario: passing a class that does not extend ActiveModel::Naming
     Given a file named "spec/models/string_spec.rb" with:
       """
       require "spec_helper"
@@ -53,7 +69,7 @@ Feature: mock_model
     When I run "rspec spec/models/string_spec.rb"
     Then the output should contain "1 example, 0 failures"
 
-  Scenario: passing an AR constant and invoking its methods
+  Scenario: passing an AR constant
     Given a file named "spec/models/widget_spec.rb" with:
       """
       require "spec_helper"
@@ -82,35 +98,35 @@ Feature: mock_model
     When I run "rspec spec/models/widget_spec.rb"
     Then the output should contain "4 examples, 0 failures"
 
-  Scenario: passing an AR constant with method mocks
+  Scenario: passing an AR constant with method stubs
     Given a file named "spec/models/widget_spec.rb" with:
       """
       require "spec_helper"
 
-      describe Widget do
+      describe "mock_model(Widget) with stubs" do
         let(:widget) do
           mock_model Widget, :foo => "bar",
                              :save => true,
                              :update_attributes => false
         end
 
-        it "calls foo successfully" do
-          widget.foo.should eql("bar")
+        it "supports stubs for methods that don't exist in ActiveModel or ActiveRecord" do
+          widget.foo.should eq("bar")
         end
 
-        it "calls save and returns true" do
-          widget.save.should eql(true)
-        end
-
-        it "calls update_attributes and returns false" do
+        it "supports stubs for methods that do exist" do
+          widget.save.should eq(true)
           widget.update_attributes.should be_false
         end
 
-        it "calls update_attributes and produces errors" do
-          widget.update_attributes
-          widget.errors.should_not be_empty
+        describe "#errors" do
+          context "with update_attributes => false" do
+            it "is not empty" do
+              widget.errors.should_not be_empty
+            end
+          end
         end
       end
       """
     When I run "rspec spec/models/widget_spec.rb"
-    Then the output should contain "4 examples, 0 failures"
+    Then the output should contain "3 examples, 0 failures"
