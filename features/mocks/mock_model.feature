@@ -1,9 +1,8 @@
 Feature: mock_model
 
   The mock_model method generates a test double object that acts like an
-  ActiveModel model. This is different from the stub_model method which
-  generates an instance of a real ActiveModel class (stub_model.feature coming
-  soon).
+  Active Model model. This is different from the stub_model method which
+  generates an instance of a real ActiveModel class.
 
   The benefit of mock_model over stub_model is that its a true double, so the
   examples are not dependent on the behaviour (or mis-behaviour), or even the
@@ -69,7 +68,7 @@ Feature: mock_model
     When I run "rspec spec/models/string_spec.rb"
     Then the output should contain "1 example, 0 failures"
 
-  Scenario: passing an AR constant
+  Scenario: passing an Active Record constant
     Given a file named "spec/models/widget_spec.rb" with:
       """
       require "spec_helper"
@@ -98,7 +97,7 @@ Feature: mock_model
     When I run "rspec spec/models/widget_spec.rb"
     Then the output should contain "4 examples, 0 failures"
 
-  Scenario: passing an AR constant with method stubs
+  Scenario: passing an Active Record constant with method stubs
     Given a file named "spec/models/widget_spec.rb" with:
       """
       require "spec_helper"
