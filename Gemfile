@@ -14,3 +14,4 @@ gem 'aruba', ">= 0.2.0", :require => nil
 gem 'jeweler'
 gem 'webrat', ">= 0.7.2.beta.1"
 gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'ruby-debug'
