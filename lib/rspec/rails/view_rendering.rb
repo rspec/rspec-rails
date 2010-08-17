@@ -20,6 +20,12 @@ module RSpec
         end
       end
 
+      module InstanceMethods
+        def render_views?
+          self.class.render_views? || !@controller.class.respond_to?(:view_paths)
+        end
+      end
+
       # Delegates find_all to the submitted path set and then returns templates
       # with modified source
       class PathSetDelegatorResolver < ::ActionView::Resolver
@@ -46,14 +52,14 @@ module RSpec
 
       included do
         before do
-          unless self.class.render_views?
+          unless render_views?
             @_path_set_delegator_resolver = PathSetDelegatorResolver.new(@controller.class.view_paths)
             @controller.class.view_paths = ::ActionView::PathSet.new.push(@_path_set_delegator_resolver)
           end
         end
 
         after do
-          unless self.class.render_views?
+          unless render_views?
             @controller.class.view_paths = @_path_set_delegator_resolver.path_set
           end
         end
