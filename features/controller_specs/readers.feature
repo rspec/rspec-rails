@@ -6,7 +6,7 @@ Feature: controller spec readers
   Scenario: access controller
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """
-      require "spec_helper.rb"
+      require "spec_helper"
 
       describe WidgetsController do
         it "is available before an action" do

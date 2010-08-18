@@ -6,7 +6,7 @@ Feature: render views
   Scenario: expect template that exists and is rendered by controller (passes)
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """
-      require "spec_helper.rb"
+      require "spec_helper"
 
       describe WidgetsController do
         render_views
@@ -30,7 +30,7 @@ Feature: render views
   Scenario: expect template that does not exist and is rendered by controller (fails)
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """
-      require "spec_helper.rb"
+      require "spec_helper"
 
       describe WidgetsController do
         render_views
@@ -55,7 +55,7 @@ Feature: render views
   Scenario: render_views on and off in diff contexts
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """
-      require "spec_helper.rb"
+      require "spec_helper"
 
       describe WidgetsController do
         context "with render_views" do

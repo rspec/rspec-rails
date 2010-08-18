@@ -9,7 +9,7 @@ Feature: do not render views
   Scenario: expect template that is rendered by controller action (passes)
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """
-      require "spec_helper.rb"
+      require "spec_helper"
 
       describe WidgetsController do
         describe "index" do
@@ -32,7 +32,7 @@ Feature: do not render views
   Scenario: expect template that is not rendered by controller action (fails)
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """
-      require "spec_helper.rb"
+      require "spec_helper"
 
       describe WidgetsController do
         describe "index" do
