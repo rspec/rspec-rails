@@ -29,10 +29,13 @@ tasks without having to type `RAILS_ENV=test`.
 
 Now you can run: 
 
-    script/rails g rspec:install
+    script/rails generate rspec:install
 
 This adds the spec directory and some skeleton files, including
-the "rake spec" task.
+the "rake spec" task. Note that this is the only rspec generator you'll
+actually see. That's because RSpec is registered with Rails as the test
+framework, so whenever you generate application components like models,
+controllers, etc, RSpec specs are generated instead of Test::Unit tests.
 
 ### Webrat and Capybara
 
