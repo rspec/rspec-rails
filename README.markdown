@@ -148,6 +148,16 @@ View specs live in spec/views, and mix in ActionView::TestCase::Behavior.
       end
     end
 
+View specs infer the controller name and path from the path to the view
+template. e.g. if the template is "events/index.html.erb" then:
+
+    controller.controller_path == "events"
+    controller.request.path_parameters[:controller] == "events"
+
+This means that most of the time you don't need to set these values. When
+spec'ing a partial that is included across different controllers, you _may_
+need to override these values before rendering the view.
+
 ## `assign(key, val)`
 
 Use this to assign values to instance variables in the view:

@@ -130,6 +130,7 @@ module RSpec::Rails
       before do
         _include_controller_helpers
         controller.controller_path = _controller_path
+        controller.request.path_parameters["controller"] = _controller_path
       end
     end
 
