@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new("> 1.3.1") if s.respond_to? :required_rubygems_version=
   s.authors = ["David Chelimsky", "Chad Humphries"]
-  s.date = %q{2010-08-09}
+  s.date = %q{2010-08-23}
   s.description = %q{RSpec-2 for Rails-3}
   s.email = %q{dchelimsky@gmail.com;chad.humphries@gmail.com}
   s.extra_rdoc_files = [
@@ -32,13 +32,20 @@ Gem::Specification.new do |s|
      "features/controller_specs/isolation_from_views.feature",
      "features/controller_specs/readers.feature",
      "features/controller_specs/render_views.feature",
+     "features/helper_specs/helper_spec.feature",
      "features/mailer_specs/url_helpers.feature",
      "features/matchers/be_routable_matcher.feature",
      "features/matchers/new_record_matcher.feature",
+     "features/matchers/redirect_to_matcher.feature",
+     "features/matchers/render_template_matcher.feature",
+     "features/mocks/mock_model.feature",
+     "features/mocks/stub_model.feature",
      "features/model_specs/errors_on.feature",
      "features/model_specs/transactional_examples.feature",
+     "features/routing_specs/access_to_named_routes.feature",
      "features/step_definitions/model_steps.rb",
      "features/support/env.rb",
+     "features/view_specs/inferred_controller_path.feature",
      "features/view_specs/view_spec.feature",
      "lib/autotest/rails_rspec2.rb",
      "lib/generators/rspec.rb",
@@ -73,6 +80,7 @@ Gem::Specification.new do |s|
      "lib/rspec-rails.rb",
      "lib/rspec/rails.rb",
      "lib/rspec/rails/adapters.rb",
+     "lib/rspec/rails/browser_simulators.rb",
      "lib/rspec/rails/example.rb",
      "lib/rspec/rails/example/controller_example_group.rb",
      "lib/rspec/rails/example/helper_example_group.rb",
@@ -98,6 +106,7 @@ Gem::Specification.new do |s|
      "lib/rspec/rails/view_assigns.rb",
      "lib/rspec/rails/view_rendering.rb",
      "rspec-rails.gemspec",
+     "spec/rspec/rails/assertion_adapter_spec.rb",
      "spec/rspec/rails/example/controller_example_group_spec.rb",
      "spec/rspec/rails/example/helper_example_group_spec.rb",
      "spec/rspec/rails/example/mailer_example_group_spec.rb",
@@ -162,7 +171,8 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{rspec-rails-2.0.0.beta.19}
   s.test_files = [
-    "spec/rspec/rails/example/controller_example_group_spec.rb",
+    "spec/rspec/rails/assertion_adapter_spec.rb",
+     "spec/rspec/rails/example/controller_example_group_spec.rb",
      "spec/rspec/rails/example/helper_example_group_spec.rb",
      "spec/rspec/rails/example/mailer_example_group_spec.rb",
      "spec/rspec/rails/example/model_example_group_spec.rb",
@@ -188,14 +198,11 @@ Gem::Specification.new do |s|
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<rspec>, ["= 2.0.0.beta.19"])
-      s.add_runtime_dependency(%q<webrat>, [">= 0.7.2.beta.1"])
     else
       s.add_dependency(%q<rspec>, ["= 2.0.0.beta.19"])
-      s.add_dependency(%q<webrat>, [">= 0.7.2.beta.1"])
     end
   else
     s.add_dependency(%q<rspec>, ["= 2.0.0.beta.19"])
-    s.add_dependency(%q<webrat>, [">= 0.7.2.beta.1"])
   end
 end
 
