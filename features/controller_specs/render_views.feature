@@ -37,7 +37,7 @@ Feature: render views
 
         before do
           def controller.index
-            render "other"
+            render :template => "other"
           end
         end
 
