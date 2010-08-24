@@ -111,8 +111,16 @@ module RSpec::Rails
         example.example_group.top_level_description
       end
 
+      def _path_parts
+        _default_file_to_render.split("/")
+      end
+
       def _controller_path
-        _default_file_to_render.split("/")[0..-2].join("/")
+        _path_parts[0..-2].join("/")
+      end
+
+      def _inferred_action
+        _path_parts.last.split(".").first
       end
 
       def _include_controller_helpers
@@ -131,9 +139,11 @@ module RSpec::Rails
         _include_controller_helpers
         controller.controller_path = _controller_path
         controller.request.path_parameters["controller"] = _controller_path
+        controller.request.path_parameters["action"]     = _inferred_action unless _inferred_action =~ /^_/
       end
     end
 
     RSpec.configure &include_self_when_dir_matches('spec','views')
   end
 end
+
