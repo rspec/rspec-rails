@@ -42,7 +42,7 @@ class Autotest::RailsRspec2 < Autotest::Rspec2
     add_mapping(%r%^(test|spec)/fixtures/(.*).yml$%) { |_, m|
       ["spec/models/#{m[2].singularize}_spec.rb"] + files_matching(%r%^spec\/views\/#{m[2]}/.*_spec\.rb$%)
     }
-    add_mapping(%r%^spec/(models|controllers|routing|views|helpers|mailers|lib)/.*rb$%) { |filename, _|
+    add_mapping(%r%^spec/(models|controllers|routing|views|helpers|mailers|requests|lib)/.*rb$%) { |filename, _|
       filename
     }
     add_mapping(%r%^app/models/(.*)\.rb$%) { |_, m|
