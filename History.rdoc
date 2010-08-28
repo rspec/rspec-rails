@@ -1,0 +1,9 @@
+== NOTE that this is not in any way complete, but you gotta start somewhere.
+
+=== git (post-2.0.0.beta.20)
+
+* Enhancements
+  * autotest mapping improvements (Andreas Neuhaus)
+
+* Bug fixes
+  * delegate flunk to assertion delegate
