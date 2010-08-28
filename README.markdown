@@ -37,6 +37,14 @@ actually see. That's because RSpec is registered with Rails as the test
 framework, so whenever you generate application components like models,
 controllers, etc, RSpec specs are generated instead of Test::Unit tests.
 
+### Autotest
+
+The `rspec:install` generator creates an `./autotest/discover.rb` file, which
+tells Autotest that you're using RSpec and Rails. You'll also need to add the
+autotest (not autotest-rails) gem to your Gemfile:
+
+    gem "autotest"
+
 ### Webrat and Capybara
 
 You can choose between webrat or capybara for simulating a browser, automating
