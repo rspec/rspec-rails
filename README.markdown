@@ -45,6 +45,11 @@ autotest (not autotest-rails) gem to your Gemfile:
 
     gem "autotest"
 
+At this point, if all of the gems in your Gemfile are installed in system
+gems, you can just type `autotest`. If, however, Bundler is managing any gems
+for you directly (i.e. you've got `:git` or `:path` attributes in the `Gemfile`),
+you'll need to run `bundle exec autotest`.
+
 ### Webrat and Capybara
 
 You can choose between webrat or capybara for simulating a browser, automating
