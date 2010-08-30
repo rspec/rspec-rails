@@ -226,6 +226,10 @@ Routing specs live in spec/routing.
       end
     end
 
+### * Upgrade note
+
+`route_for` from rspec-rails-1.x is gone. Use `route_to` and `be_routable` instead.
+
 # Helper specs
 
 Helper specs live in spec/helpers, and mix in ActionView::TestCase::Behavior.
