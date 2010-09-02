@@ -15,6 +15,8 @@ gem 'jeweler'
 gem 'webrat', ">= 0.7.2.beta.1"
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
+gem 'autotest'
+
 case RUBY_VERSION
 when /^1\.9/
   gem 'ruby-debug19'
