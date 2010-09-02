@@ -41,9 +41,9 @@ see is `rspec:install`. That's because RSpec is registered with Rails as the
 test framework, so whenever you generate application components like models,
 controllers, etc, RSpec specs are generated instead of Test::Unit tests.
 
-Note that the generators are intended to be a help to get started, but they are
-only guaranteed to work out of the box for the default scenario (`ActiveRecord`
-+ `Webrat`).
+Note that the generators are there to help you get started, but they are no
+substitute for writing your own examples, and they are only guaranteed to work
+out of the box for the default scenario (`ActiveRecord` + `Webrat`).
 
 ### Autotest
 
