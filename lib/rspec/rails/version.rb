@@ -1,7 +1,7 @@
 module RSpec # :nodoc:
   module Rails # :nodoc:
     module Version # :nodoc:
-      STRING = File.readlines(File.expand_path('../../../../VERSION', __FILE__)).first
+      STRING = '2.0.0.beta.20'
     end
   end
 end
