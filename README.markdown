@@ -32,10 +32,18 @@ Now you can run:
     script/rails generate rspec:install
 
 This adds the spec directory and some skeleton files, including
-the "rake spec" task. Note that this is the only rspec generator you'll
-actually see. That's because RSpec is registered with Rails as the test
-framework, so whenever you generate application components like models,
+the "rake spec" task. 
+
+### Generators
+
+If you type `script/rails generate`, the only RSpec generator you'll actually
+see is `rspec:install`. That's because RSpec is registered with Rails as the
+test framework, so whenever you generate application components like models,
 controllers, etc, RSpec specs are generated instead of Test::Unit tests.
+
+Note that the generators are intended to be a help to get started, but they are
+only guaranteed to work out of the box for the default scenario (`ActiveRecord`
++ `Webrat`).
 
 ### Autotest
 
