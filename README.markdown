@@ -2,26 +2,24 @@
 
 rspec-2 for rails-3 with lightweight extensions to each
 
-NOTICE: rspec-rails-2.0.0.beta.17 only works with rails-3.0.0.beta4 or higher.
-
 ## Install
 
     gem install rspec-rails --pre
 
 This installs the following gems:
 
-* rspec
-* rspec-core
-* rspec-expectations
-* rspec-mocks
-* rspec-rails
+    rspec
+    rspec-core
+    rspec-expectations
+    rspec-mocks
+    rspec-rails
 
 ## Configure:
 
 Add `rspec-rails` to the `:test` and `:development` groups in the Gemfile:
 
     group :test, :development do
-      gem "rspec-rails", ">= 2.0.0.beta.19"
+      gem "rspec-rails", ">= 2.0.0.beta.20"
     end
 
 It needs to be in the `:development` group to expose generators and rake
@@ -71,8 +69,9 @@ Note that Capybara matchers are not available in view or helper specs.
 
 ## Living on edge
 
-If you prefer to exploit bundler's support for pointing a gem at a github repo,
-be sure to do so for all five of the relevant rspec gems:
+Bundler makes it a snap to use the latest code for any gem your app depends on. For
+rspec-rails, you'll need to point bundler to the git repositories for `rspec-rails`
+and the other rspec related gems it depends on:
 
     gem "rspec-rails",        :git => "git://github.com/rspec/rspec-rails.git"
     gem "rspec",              :git => "git://github.com/rspec/rspec.git"
@@ -80,9 +79,13 @@ be sure to do so for all five of the relevant rspec gems:
     gem "rspec-expectations", :git => "git://github.com/rspec/rspec-expectations.git"
     gem "rspec-mocks",        :git => "git://github.com/rspec/rspec-mocks.git"
 
-Keep in mind that each of these repos is under active development, which means
-that its very likely that you'll pull from these repos and they won't play nice
-together. If playing nice is important to you, stick to the published gems.
+Run `bundle install` and you'll have whatever is in git right now. Any time you
+want to update to a newer head, just run `bundle update`.
+
+Keep in mind that each of these codebases is under active development, which
+means that its entirely possible that you'll pull from these repos and they won't
+play nice together. If playing nice is important to you, stick to the published
+gems.
 
 ## Backwards compatibility
 
