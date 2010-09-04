@@ -13,4 +13,6 @@ group :development, :test do
   gem "rspec-mocks",        :path => "../../../rspec-mocks"
   gem "rcov"
   gem "webrat"
+  gem "autotest"
+  gem "watchr"
 end

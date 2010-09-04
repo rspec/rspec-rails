@@ -97,6 +97,7 @@ namespace :generate do
     unless File.directory?('./tmp/example_app')
       sh "bundle exec rails new ./tmp/example_app"
       sh "cp ./templates/Gemfile ./tmp/example_app/"
+      sh "cp ./specs.watchr ./tmp/example_app/"
     end
   end
 
