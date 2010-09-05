@@ -1,6 +1,6 @@
-if defined?(ActiveRecord::Base)
-  module RSpec
-    module Rails
+module RSpec
+  module Rails
+    if using_active_record?
       module Extensions
         module ActiveRecord
           module ClassMethods
@@ -33,12 +33,12 @@ if defined?(ActiveRecord::Base)
           end
         end
       end
-    end
-  end
 
-  class ActiveRecord::Base #:nodoc:
-    extend  RSpec::Rails::Extensions::ActiveRecord::ClassMethods
-    include RSpec::Rails::Extensions::ActiveRecord::InstanceMethods
+      class ::ActiveRecord::Base #:nodoc:
+        extend  RSpec::Rails::Extensions::ActiveRecord::ClassMethods
+        include RSpec::Rails::Extensions::ActiveRecord::InstanceMethods
+      end
+    end
   end
 end
 

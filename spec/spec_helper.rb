@@ -1,6 +1,10 @@
-require 'active_record'
-require 'action_controller'
-require 'action_mailer'
+require 'rails/all'
+
+module RSpecRails
+  class Application < ::Rails::Application
+  end
+end
+
 require 'rspec/rails'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
