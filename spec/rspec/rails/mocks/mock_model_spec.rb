@@ -140,6 +140,19 @@ describe "mock_model(RealModel)" do
     end
   end
 
+  describe "#respond_to?" do
+    before(:each) do
+      MockableModel.stub(:column_names).and_return(["column_a", "column_b"])
+      @model = mock_model(MockableModel)
+    end
+    it "says it will respond_to?(key) if RealModel has the attribute 'key'" do
+      @model.respond_to?("column_a").should be(true)
+    end
+    it "does not say it will respond_to?(key) if RealModel does not have the attribute 'key'" do
+      @model.respond_to?("column_c").should be(false)
+    end
+  end
+
   describe "#destroyed?" do
     context "default" do
       it "returns false" do
