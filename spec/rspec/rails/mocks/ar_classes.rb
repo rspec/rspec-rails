@@ -12,6 +12,10 @@ module NoConnections
   end
 end
 
+class NonActiveRecordModel
+  extend ActiveModel::Naming
+end
+
 class MockableModel < ActiveRecord::Base
   include NoConnections
   has_one :associated_model
