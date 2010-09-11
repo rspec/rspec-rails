@@ -1,8 +1,8 @@
-== NOTE that this is not in any way complete, but you gotta start somewhere.
+## rspec-rails release history (incomplete)
 
-=== git (post-2.0.0.beta.20)
+### 2.0.0.beta.21 (not yet released)
 
-http://github.com/rspec/rspec-rails/compare/v2.0.0.beta.20...master
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.0.beta.20...v2.0.0.beta.21)
 
 * Enhancements
   * autotest mapping improvements (Andreas Neuhaus)
@@ -10,9 +10,9 @@ http://github.com/rspec/rspec-rails/compare/v2.0.0.beta.20...master
 * Bug fixes
   * delegate flunk to assertion delegate
 
-=== 2.0.0.beta.20
+### 2.0.0.beta.20 / 2010-08-24
 
-http://github.com/rspec/rspec-rails/compare/v2.0.0.beta.19...v2.0.0.beta.20
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.0.beta.19...v2.0.0.beta.20)
 
 * Enhancements
   * infer controller and action path_params in view specs
