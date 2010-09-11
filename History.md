@@ -2,7 +2,7 @@
 
 ### 2.0.0.beta.21 (not yet released)
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.0.beta.20...v2.0.0.beta.21)
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.0.beta.20...master)
 
 * Enhancements
   * autotest mapping improvements (Andreas Neuhaus)
