@@ -19,7 +19,7 @@ This installs the following gems:
 Add `rspec-rails` to the `:test` and `:development` groups in the Gemfile:
 
     group :test, :development do
-      gem "rspec-rails", ">= 2.0.0.beta.20"
+      gem "rspec-rails", ">= 2.0.0.beta.22"
     end
 
 It needs to be in the `:development` group to expose generators and rake
