@@ -1,8 +1,8 @@
 ## rspec-rails release history (incomplete)
 
-### 2.0.0.beta.21 / 2010-09-12
+### 2.0.0.beta.22 / 2010-09-12
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.0.beta.20...v2.0.0.beta.21)
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.0.beta.20...v2.0.0.beta.22)
 
 * Enhancements
   * autotest mapping improvements (Andreas Neuhaus)
