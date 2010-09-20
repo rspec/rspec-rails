@@ -106,11 +106,16 @@ EOM
         def connection
           raise RSpec::Rails::IllegalDataAccessException.new("stubbed models are not allowed to access the database")
         end
+        
+        # The method used to tell if the record is new or not is different for Mongoid.
         def new_record?
-          __send__(self.class.primary_key).nil?
+          self.class.primary_key ? __send__(self.class.primary_key).nil? : self.instance_variable_get("@new_record")
         end
+        
+        # Same as above
         def as_new_record
-          self.__send__("#{self.class.primary_key}=", nil)
+          self.__send__("#{self.class.primary_key}=", nil) if self.class.primary_key # mongoid returns nil for primary_key calls
+          self.__send__("new_record=", true) if self.respond_to?("new_record=") # AR does't respond to new_record=
           self
         end
       end
@@ -156,10 +161,10 @@ EOM
       #     person.first_name = "David"
       #   end
       def stub_model(model_class, stubs={})
-        primary_key = model_class.primary_key.to_sym
-        stubs = {primary_key => next_id}.merge(stubs)
+        primary_key = model_class.primary_key.try(:to_sym)
+        stubs = {primary_key => next_id}.merge(stubs) if primary_key
         model_class.new.tap do |m|
-          m.__send__("#{primary_key}=", stubs.delete(primary_key))
+          m.__send__("#{primary_key}=", stubs.delete(primary_key)) if primary_key
           m.extend ModelStubber
           m.stub(stubs)
           yield m if block_given?
