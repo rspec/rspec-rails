@@ -13,6 +13,8 @@ gem 'cucumber'
 gem 'aruba', ">= 0.2.0", :require => nil
 gem 'webrat', ">= 0.7.2.beta.1"
 gem 'sqlite3-ruby', :require => 'sqlite3'
+gem 'mongoid', ">= 2.0.0.beta.18"
+gem 'database_cleaner', ">= 0.5.2"
 
 gem 'autotest'
 
