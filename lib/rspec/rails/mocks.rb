@@ -165,6 +165,7 @@ EOM
         stubs = {primary_key => next_id}.merge(stubs) if primary_key
         model_class.new.tap do |m|
           m.__send__("#{primary_key}=", stubs.delete(primary_key)) if primary_key
+          m.__send__("new_record=", false) if m.respond_to?("new_record=")
           m.extend ModelStubber
           m.stub(stubs)
           yield m if block_given?
