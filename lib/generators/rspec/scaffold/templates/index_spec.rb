@@ -19,7 +19,12 @@ describe "<%= table_name %>/index.html.<%= options[:template_engine] %>" do
   it "renders a list of <%= table_name %>" do
     render
 <% for attribute in output_attributes -%>
+<% if webrat? -%>
     rendered.should have_selector("tr>td", :content => <%= value_for(attribute) %>.to_s, :count => 2)
+<% else -%>
+    # Run the generator again with the --webrat-matchers flag if you want to use webrat matchers
+    assert_select "tr>td", :text => <%= value_for(attribute) %>.to_s, :count => 2
+<% end -%>
 <% end -%>
   end
 end

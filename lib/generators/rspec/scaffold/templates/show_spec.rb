@@ -15,7 +15,12 @@ describe "<%= table_name %>/show.html.<%= options[:template_engine] %>" do
   it "renders attributes in <p>" do
     render
 <% for attribute in output_attributes -%>
+<% if webrat? -%>
     rendered.should contain(<%= value_for(attribute) %>.to_s)
+<% else -%>
+    # Run the generator again with the --webrat-matchers flag if you want to use webrat matchers
+    rendered.should match(/<%= eval(value_for(attribute)) %>/)
+<% end -%>
 <% end -%>
   end
 end

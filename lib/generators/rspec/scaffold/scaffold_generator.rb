@@ -14,6 +14,7 @@ module Rspec
 
       class_option :controller_specs, :type => :boolean, :default => true,  :desc => "Generate controller specs"
       class_option :view_specs,       :type => :boolean, :default => true,  :desc => "Generate view specs"
+      class_option :webrat_matchers,  :type => :boolean, :default => false, :desc => "Use webrat matchers in view specs"
       class_option :helper_specs,     :type => :boolean, :default => true,  :desc => "Generate helper specs"
       class_option :routing_specs,    :type => :boolean, :default => true,  :desc => "Generate routing specs"
 
@@ -48,6 +49,10 @@ module Rspec
       hook_for :integration_tool, :as => :integration
 
       protected
+
+        def webrat?
+          options[:webrat_matchers] || @webrat_matchers_requested
+        end
 
         def copy_view(view)
           template "#{view}_spec.rb",
@@ -124,6 +129,10 @@ module Rspec
           else
             attribute.default.inspect
           end
+        end
+
+        def banner
+          self.class.banner
         end
 
     end

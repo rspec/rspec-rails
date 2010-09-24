@@ -14,10 +14,19 @@ describe "<%= table_name %>/new.html.<%= options[:template_engine] %>" do
   it "renders new <%= file_name %> form" do
     render
 
+<% if webrat? -%>
     rendered.should have_selector("form", :action => <%= table_name %>_path, :method => "post") do |form|
 <% for attribute in output_attributes -%>
       form.should have_selector("<%= attribute.input_type -%>#<%= file_name %>_<%= attribute.name %>", :name => "<%= file_name %>[<%= attribute.name %>]")
 <% end -%>
     end
+<% else -%>
+    # Run the generator again with the --webrat-matchers flag if you want to use webrat matchers
+    assert_select "form", :action => <%= table_name %>_path, :method => "post" do
+<% for attribute in output_attributes -%>
+      assert_select "<%= attribute.input_type -%>#<%= file_name %>_<%= attribute.name %>", :name => "<%= file_name %>[<%= attribute.name %>]"
+<% end -%>
+    end
+<% end -%>
   end
 end
