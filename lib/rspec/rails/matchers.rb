@@ -21,5 +21,6 @@ end
 require 'rspec/rails/matchers/render_template'
 require 'rspec/rails/matchers/redirect_to'
 require 'rspec/rails/matchers/routing_matchers'
+require 'rspec/rails/matchers/be_new_record'
 require 'rspec/rails/matchers/be_a_new'
 require 'rspec/rails/matchers/have_extension'
