@@ -14,6 +14,7 @@ end
 
 class NonActiveRecordModel
   extend ActiveModel::Naming
+  include ActiveModel::Conversion
 end
 
 class MockableModel < ActiveRecord::Base

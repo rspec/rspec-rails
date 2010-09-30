@@ -5,26 +5,26 @@ module RSpec
 
     module Mocks
 
-      module InstanceMethods
-        def valid?
-          true
-        end
-
+      module ActiveModelInstanceMethods
         def as_new_record
+          self.stub(:persisted?) { false }
           self.stub(:id) { nil }
           self
         end
 
+        def persisted?
+          true
+        end
+      end
+
+      module ActiveRecordInstanceMethods
+        def destroy
+          self.stub(:persisted?) { false }
+          self.stub(:id) { nil }
+        end
+
         def new_record?
           !persisted?
-        end
-
-        def persisted?
-          !!id
-        end
-
-        def destroy
-          self.stub(:id) { nil }
         end
       end
 
@@ -37,7 +37,7 @@ module RSpec
       #   * A String representing a Class that does not exist
       #   * A String representing a Class that extends ActiveModel::Naming
       #   * A Class that extends ActiveModel::Naming
-      def mock_model(string_or_model_class, options_and_stubs = {})
+      def mock_model(string_or_model_class, stubs = {})
         if String === string_or_model_class
           if Object.const_defined?(string_or_model_class)
             model_class = Object.const_get(string_or_model_class)
@@ -61,57 +61,71 @@ It received #{model_class.inspect}
 EOM
         end
 
-        id = options_and_stubs.has_key?(:id) ? options_and_stubs[:id] : next_id
-        options_and_stubs = options_and_stubs.reverse_merge({
-          :id => id,
-          :destroyed? => false,
-          :marked_for_destruction? => false
-        })
-        derived_name = "#{model_class.name}_#{id}"
-        m = mock(derived_name, options_and_stubs)
-        m.extend InstanceMethods
-        m.extend ActiveModel::Conversion
-        errors = ActiveModel::Errors.new(m)
-        [:save, :update_attributes].each do |key|
-          if options_and_stubs[key] == false
-            errors.stub(:empty?) { false }
+        stubs = stubs.reverse_merge(:id => next_id)
+        stubs = stubs.reverse_merge(:persisted? => !!stubs[:id])
+        stubs = stubs.reverse_merge(:destroyed? => false)
+        stubs = stubs.reverse_merge(:marked_for_destruction? => false)
+
+        mock("#{model_class.name}_#{stubs[:id]}", stubs).tap do |m|
+          m.extend ActiveModelInstanceMethods
+          m.singleton_class.__send__ :include, ActiveModel::Conversion
+          m.singleton_class.__send__ :include, ActiveModel::Validations
+          if RSpec::Rails::using_active_record?
+            m.extend ActiveRecordInstanceMethods
+            [:save, :update_attributes].each do |key|
+              if stubs[key] == false
+                m.errors.stub(:empty?) { false }
+              end
+            end
           end
+          m.__send__(:__mock_proxy).instance_eval(<<-CODE, __FILE__, __LINE__)
+            def @object.is_a?(other)
+              #{model_class}.ancestors.include?(other)
+            end
+            def @object.kind_of?(other)
+              #{model_class}.ancestors.include?(other)
+            end
+            def @object.instance_of?(other)
+              other == #{model_class}
+            end
+            def @object.respond_to?(method_name)
+              #{model_class}.respond_to?(:column_names) && #{model_class}.column_names.include?(method_name.to_s) || super
+            end
+            def @object.class
+              #{model_class}
+            end
+            def @object.to_s
+              "#{model_class.name}_#{to_param}"
+            end
+          CODE
+          yield m if block_given?
         end
-        m.stub(:errors) { errors }
-        m.__send__(:__mock_proxy).instance_eval(<<-CODE, __FILE__, __LINE__)
-          def @object.is_a?(other)
-            #{model_class}.ancestors.include?(other)
-          end
-          def @object.kind_of?(other)
-            #{model_class}.ancestors.include?(other)
-          end
-          def @object.instance_of?(other)
-            other == #{model_class}
-          end
-          def @object.respond_to?(method_name)
-            #{model_class}.respond_to?(:column_names) && #{model_class}.column_names.include?(method_name.to_s) || super
-          end
-          def @object.class
-            #{model_class}
-          end
-          def @object.to_s
-            "#{model_class.name}_#{id}"
-          end
-        CODE
-        yield m if block_given?
-        m
       end
 
-      module ModelStubber
-        def connection
-          raise RSpec::Rails::IllegalDataAccessException.new("stubbed models are not allowed to access the database")
+      module ActiveModelStubExtensions
+        def as_new_record
+          self.stub(:persisted?)  { false }
+          self.stub(:id)          { nil }
+          self
         end
-        def new_record?
-          __send__(self.class.primary_key).nil?
+
+        def persisted?
+          true
         end
+      end
+
+      module ActiveRecordStubExtensions
         def as_new_record
           self.__send__("#{self.class.primary_key}=", nil)
-          self
+          super
+        end
+
+        def new_record?
+          !persisted?
+        end
+
+        def connection
+          raise RSpec::Rails::IllegalDataAccessException.new("stubbed models are not allowed to access the database")
         end
       end
 
@@ -121,12 +135,15 @@ EOM
       #   stub_model(Model, hash_of_stubs)
       #   stub_model(Model, instance_variable_name, hash_of_stubs)
       #
-      # Creates an instance of +Model+ that is prohibited from accessing the
-      # database*. For each key in +hash_of_stubs+, if the model has a
-      # matching attribute (determined by asking it) are simply assigned the
-      # submitted values. If the model does not have a matching attribute, the
-      # key/value pair is assigned as a stub return value using RSpec's
-      # mocking/stubbing framework.
+      # Creates an instance of +Model+ with +to_param+ stubbed using a
+      # generated value that is unique to each object.. If +Model+ is an
+      # +ActiveRecord+ model, it is prohibited from accessing the database*.
+      #
+      # For each key in +hash_of_stubs+, if the model has a matching attribute
+      # (determined by asking it) are simply assigned the submitted values. If
+      # the model does not have a matching attribute, the key/value pair is
+      # assigned as a stub return value using RSpec's mocking/stubbing
+      # framework.
       #
       # <tt>new_record?</tt> is overridden to return the result of id.nil?
       # This means that by default new_record? will return false. If  you want
@@ -151,16 +168,25 @@ EOM
       #
       #   stub_model(Person)
       #   stub_model(Person).as_new_record
-      #   stub_model(Person, :id => 37)
+      #   stub_model(Person, :to_param => 37)
       #   stub_model(Person) do |person|
       #     person.first_name = "David"
       #   end
       def stub_model(model_class, stubs={})
-        primary_key = model_class.primary_key.to_sym
-        stubs = {primary_key => next_id}.merge(stubs)
         model_class.new.tap do |m|
-          m.__send__("#{primary_key}=", stubs.delete(primary_key))
-          m.extend ModelStubber
+          m.extend ActiveModelStubExtensions
+          if RSpec::Rails::using_active_record? && model_class < ActiveRecord::Base
+            m.extend ActiveRecordStubExtensions
+            primary_key = model_class.primary_key.to_sym
+            stubs = stubs.reverse_merge(primary_key => next_id)
+            stubs = stubs.reverse_merge(:persisted? => !!stubs[primary_key])
+          else
+            stubs = stubs.reverse_merge(:id => next_id)
+            stubs = stubs.reverse_merge(:persisted? => !!stubs[:id])
+          end
+          stubs.each do |k,v|
+            m.__send__("#{k}=", stubs.delete(k)) if m.respond_to?("#{k}=")
+          end
           m.stub(stubs)
           yield m if block_given?
         end

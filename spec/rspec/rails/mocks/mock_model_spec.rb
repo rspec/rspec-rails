@@ -41,19 +41,17 @@ describe "mock_model(RealModel)" do
     before(:each) do
       @model = mock_model(MockableModel, :id => 1)
     end
+
     it "is named using the stubbed id value" do
       @model.instance_variable_get(:@name).should == "MockableModel_1"
-    end
-    it "returns string of id value for to_param" do
-      @model.to_param.should == "1"
     end
   end
 
   describe "destroy" do
-    it "sets id to nil" do
+    it "sets persisted to false" do
       model = mock_model(MockableModel)
       model.destroy
-      model.id.should be_nil
+      model.should_not be_persisted
     end
   end
 
@@ -181,25 +179,24 @@ describe "mock_model(RealModel)" do
   end
 
   describe "#persisted?" do
-    context "with default id" do
+    context "with default identifier" do
       it "returns true" do
         mock_model(MockableModel).should be_persisted
       end
     end
 
-    context "with explicit id" do
+    context "with explicit identifier via :id" do
       it "returns true" do
         mock_model(MockableModel, :id => 37).should be_persisted
       end
     end
 
-    context "with id nil" do
+    context "with id => nil" do
       it "returns false" do
         mock_model(MockableModel, :id => nil).should_not be_persisted
       end
     end
   end
-
 
   describe "#valid?" do
     context "default" do
@@ -218,6 +215,11 @@ describe "mock_model(RealModel)" do
     it "says it is a new record" do
       m = mock_model(MockableModel)
       m.as_new_record.should be_new_record
+    end
+
+    it "says it is not persisted" do
+      m = mock_model(MockableModel)
+      m.as_new_record.should_not be_persisted
     end
 
     it "has a nil id" do
