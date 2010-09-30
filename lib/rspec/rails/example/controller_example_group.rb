@@ -169,6 +169,7 @@ module RSpec::Rails
         @routes = ::Rails.application.routes
         ActionController::Base.allow_forgery_protection = false
       end
+      subject { controller }
     end
 
     RSpec.configure &include_self_when_dir_matches('spec','controllers')
