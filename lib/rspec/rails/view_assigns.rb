@@ -15,12 +15,18 @@ module RSpec
 
       private
 
-        def _encapsulated_assigns
-          @_encapsulated_assigns ||= {}
+        # === Rails-3.0.1 and up calls down to this
+        def view_assigns
+          super.merge(_encapsulated_assigns)
         end
 
+        # === Rails-3.0.0 calls down to this
         def _assigns
           super.merge(_encapsulated_assigns)
+        end
+
+        def _encapsulated_assigns
+          @_encapsulated_assigns ||= {}
         end
       end
     end

@@ -49,7 +49,7 @@ module RSpec::Rails
       # Returns an instance of ActionView::Base with the helper being specified
       # mixed in, along with any of the built-in rails helpers.
       def helper
-        _view.tap {|v| v.assign(_assigns)}
+        _view.tap {|v| v.assign(view_assigns)}
       end
 
     private
