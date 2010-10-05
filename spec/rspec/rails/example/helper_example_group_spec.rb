@@ -24,7 +24,7 @@ module RSpec::Rails
     describe "#helper" do
       it "returns the instance of AV::Base provided by AV::TC::Behavior" do
         helper_spec = Object.new.extend HelperExampleGroup::InstanceMethods
-        helper_spec.should_receive(:_assigns)
+        helper_spec.should_receive(:view_assigns)
         av_tc_b_view = double('_view')
         av_tc_b_view.should_receive(:assign)
         helper_spec.stub(:_view) { av_tc_b_view }

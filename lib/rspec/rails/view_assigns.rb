@@ -13,17 +13,20 @@ module RSpec
           _encapsulated_assigns[key] = value
         end
 
+        if ::Rails::VERSION::STRING == "3.0.0"
+          def _assigns
+            super.merge(_encapsulated_assigns)
+          end
+          def view_assigns
+            _assigns
+          end
+        else # >= 3.0.1
+          def view_assigns
+            super.merge(_encapsulated_assigns)
+          end
+        end
+
       private
-
-        # === Rails-3.0.1 and up calls down to this
-        def view_assigns
-          super.merge(_encapsulated_assigns)
-        end
-
-        # === Rails-3.0.0 calls down to this
-        def _assigns
-          super.merge(_encapsulated_assigns)
-        end
 
         def _encapsulated_assigns
           @_encapsulated_assigns ||= {}
