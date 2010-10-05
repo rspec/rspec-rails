@@ -26,7 +26,7 @@ Gem::Specification.new do |s|
 
   Thank you for installing #{s.summary}!
 
-  This version of rspec-rails only works with versions of rails >= 3.0.0.beta.4.
+  This version of rspec-rails only works with versions of rails >= 3.0.0
 
   To configure your app to use rspec-rails, add a declaration to your Gemfile.
   If you are using Bundler's grouping feature in your Gemfile, be sure to include
