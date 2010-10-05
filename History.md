@@ -1,5 +1,14 @@
 ## rspec-rails release history (incomplete)
 
+### 2.0.0.rc / 2010-10-05
+
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.0.beta.22...v2.0.0.rc)
+
+* Enhancements
+  * add --webrat-matchers flag to scaffold generator (for view specs)
+  * separate ActiveModel and ActiveRecord APIs in mock_model and stub_model
+  * ControllerExampleGroup uses controller as the implicit subject by default (Paul Rosania)
+
 ### 2.0.0.beta.22 / 2010-09-12
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.0.beta.20...v2.0.0.beta.22)
