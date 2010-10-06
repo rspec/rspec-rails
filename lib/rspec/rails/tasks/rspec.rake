@@ -23,7 +23,7 @@ namespace :spec do
   RSpec::Core::RakeTask.new(:rcov => spec_prereq) do |t|
     t.rcov = true
     t.pattern = "./spec/**/*_spec.rb"
-    t.rcov_opts = "-Ispec --exclude /gems/,/Library/,/usr/,lib/tasks,.bundle,config,/lib/rspec/,/lib/rspec-"
+    t.rcov_opts = '--exclude /gems/,/Library/,/usr/,lib/tasks,.bundle,config,/lib/rspec/,/lib/rspec-'
   end
 
   task :statsetup do

@@ -1,12 +1,5 @@
 ## rspec-rails release history (incomplete)
 
-### 2.0.0 / in development
-
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.0.beta.22...master)
-
-* Bug fixes
-  * Fix spec:rcov rake task (was not including -Ispec in rcov_opts)
-
 ### 2.0.0.rc / 2010-10-05
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.0.beta.22...v2.0.0.rc)
