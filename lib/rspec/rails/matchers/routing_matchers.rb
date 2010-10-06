@@ -5,7 +5,7 @@ module RSpec::Rails::Matchers
     matcher :route_to do |route_options|
       match_unless_raises Test::Unit::AssertionFailedError do |path|
         assertion_path = { :method => path.keys.first, :path => path.values.first }
-        assert_routing(assertion_path, route_options)
+        assert_recognizes(route_options, assertion_path)
       end
 
       failure_message_for_should do

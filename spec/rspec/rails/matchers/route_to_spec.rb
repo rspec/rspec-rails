@@ -3,8 +3,8 @@ require "spec_helper"
 describe "route_to" do
   include RSpec::Rails::Matchers::RoutingMatchers
 
-  it "uses failure message from assert_routing" do
-    self.stub!(:assert_routing).and_raise(
+  it "uses failure message from assert_recognizes" do
+    self.stub!(:assert_recognizes).and_raise(
       Test::Unit::AssertionFailedError.new("this message"))
     expect do
       {"this" => "path"}.should route_to("these" => "options")
