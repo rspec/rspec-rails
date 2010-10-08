@@ -71,7 +71,7 @@ class Autotest::RailsRspec2 < Autotest::Rspec2
     add_mapping(%r%^config/database\.yml$%) { |_, m|
       files_matching %r%^spec/models/.*_spec\.rb$%
     }
-    add_mapping(%r%^(spec/(spec_helper|shared/.*)|config/(boot|environment(s/test)?))\.rb$%) {
+    add_mapping(%r%^(spec/(spec_helper|support/.*)|config/(boot|environment(s/test)?))\.rb$%) {
       files_matching %r%^spec/(models|controllers|routing|views|helpers)/.*_spec\.rb$%
     }
     add_mapping(%r%^lib/(.*)\.rb$%) { |_, m|
