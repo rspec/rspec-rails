@@ -6,6 +6,7 @@
 
 * Changes
   * route_to matcher delegates to assert_recognizes instead of assert_routing
+  * update generators to use as_new_record instead of :new_record => true
 
 ### 2.0.0.rc / 2010-10-05
 

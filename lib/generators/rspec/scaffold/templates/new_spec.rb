@@ -3,13 +3,11 @@ require 'spec_helper'
 <% output_attributes = attributes.reject{|attribute| [:datetime, :timestamp, :time, :date].index(attribute.type) } -%>
 describe "<%= table_name %>/new.html.<%= options[:template_engine] %>" do
   before(:each) do
-    assign(:<%= file_name %>, stub_model(<%= class_name %>,
-      :new_record? => true<%= output_attributes.empty? ? '' : ',' %>
+    assign(:<%= file_name %>, stub_model(<%= class_name %><%= output_attributes.empty? ? ').as_new_record)' : ',' %>
 <% output_attributes.each_with_index do |attribute, attribute_index| -%>
       :<%= attribute.name %> => <%= attribute.default.inspect %><%= attribute_index == output_attributes.length - 1 ? '' : ','%>
 <% end -%>
-    ))
-  end
+<%= !output_attributes.empty? ? "    ).as_new_record)\n  end" : "  end" %>
 
   it "renders new <%= file_name %> form" do
     render

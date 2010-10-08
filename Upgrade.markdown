@@ -1,11 +1,10 @@
-# Changes in beta.20
-
-### Webrat or Capybara
-
-rspec-rails-2.0.0.beta.20 removes the dependency and offers you a choice of
-using webrat or capybara. Just add the library of your choice to your Gemfile.
-
 # Upgrade to rspec-rails-2
+
+## Webrat and Capybara
+
+Earlier 2.0.0.beta versions depended on Webrat. As of
+rspec-rails-2.0.0.beta.20, this dependency and offers you a choice of using
+webrat or capybara. Just add the library of your choice to your Gemfile.
 
 ## Controller specs
 
@@ -28,4 +27,18 @@ partial gets rendered:
 
     render
     view.should render_template(:partial => "widget/_row")
+
+## as_new_record
+
+Earlier versions of the view generators generated stub_model with `:new_record?
+=> true`. As of rspec-rails-2.0.0.rc, that is no longer recognized, so you need
+to change this:
+  
+    stub_model(Widget, :new_record? => true)
+
+to this:
+
+    stub_model(Widget).as_new_record
+
+Generators in 2.0.0 final release will do the latter.
 
