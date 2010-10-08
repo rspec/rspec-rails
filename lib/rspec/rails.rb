@@ -8,6 +8,11 @@ module RSpec
   end
 end
 
+RSpec::configure do |c|
+  c.backtrace_clean_patterns << /vendor\//
+  c.backtrace_clean_patterns << /lib\/rspec\/rails/
+end
+
 require 'rspec/core'
 require 'rspec/rails/extensions'
 require 'rspec/rails/view_rendering'
