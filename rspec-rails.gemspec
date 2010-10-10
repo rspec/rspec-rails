@@ -45,8 +45,8 @@ Gem::Specification.new do |s|
   Even if you've run it before, this ensures that you have the latest updates
   to spec/spec_helper.rb and any other support files.
 
-  Previous versions of rspec-rails-2.0.0.beta installed files that are no
-  longer being used, so please remove these files if you have them:
+  Beta versions of rspec-rails-2 installed files that are no longer being used,
+  so please remove these files if you have them:
 
     lib/tasks/rspec.rake
     config/initializers/rspec_generator.rb
