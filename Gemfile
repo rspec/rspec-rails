@@ -9,13 +9,12 @@ gem 'rspec-expectations', :path => "../rspec-expectations"
 gem 'rspec-mocks', :path => "../rspec-mocks"
 gem 'rspec', :path => "../rspec"
 
-gem 'cucumber'
-gem 'aruba', ">= 0.2.0", :require => nil
+gem 'cucumber', '~> 0.9.2'
+gem 'aruba', "~> 0.2.3", :require => nil
 gem 'webrat', ">= 0.7.2.beta.1"
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
 gem 'autotest'
-gem 'relish'
 
 case RUBY_VERSION
 when /^1\.9/
