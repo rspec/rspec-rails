@@ -1,8 +1,8 @@
 ## rspec-rails release history (incomplete)
 
-### 2.0.0 / in development
+### 2.0.0 / 2010-10-10
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.0.rc...master)
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.0.rc...v2.0.0)
 
 * Changes
   * route_to matcher delegates to assert_recognizes instead of assert_routing
