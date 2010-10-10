@@ -20,7 +20,6 @@ require 'rspec'
 require 'rspec/core/rake_task'
 require 'cucumber/rake/task'
 
-RSpec::Core::RakeTask.new(:spec)
 class Cucumber::Rake::Task::ForkedCucumberRunner
   # When cucumber shells out, we still need it to run in the context of our
   # bundle.
@@ -28,7 +27,36 @@ class Cucumber::Rake::Task::ForkedCucumberRunner
     sh "bundle exec #{RUBY} " + args.join(" ")
   end
 end
+
+task :cleanup_rcov_files do
+  rm_rf 'coverage.data'
+end
+
+desc "Run all examples"
+RSpec::Core::RakeTask.new(:spec) do |t|
+  t.rspec_opts = %w[--color]
+end
+
 Cucumber::Rake::Task.new(:cucumber)
+
+namespace :spec do
+  desc "Run all examples using rcov"
+  RSpec::Core::RakeTask.new :rcov => :cleanup_rcov_files do |t|
+    t.rcov = true
+    t.rcov_opts =  %[-Ilib -Ispec --exclude "gems/*,features"]
+    t.rcov_opts << %[--text-report --sort coverage --no-html --aggregate coverage.data]
+  end
+end
+
+namespace :cucumber do
+  desc "Run cucumber features using rcov"
+  Cucumber::Rake::Task.new :rcov => :cleanup_rcov_files do |t|
+    t.cucumber_opts = %w{--format progress}
+    t.rcov = true
+    t.rcov_opts =  %[-Ilib -Ispec --exclude "gems/*,features"]
+    t.rcov_opts << %[--text-report --sort coverage --aggregate coverage.data]
+  end
+end
 
 namespace :generate do
   desc "generate a fresh app with rspec installed"
@@ -91,5 +119,5 @@ task :relish, :version do |t, args|
   sh "bundle exec relish --organization rspec --project rspec-rails -v #{args[:version]} push"
 end
 
-task :default => [:spec, "clobber:app", "generate:app", "generate:stuff", :cucumber, :smoke]
+task :default => [:spec, "clobber:app", "generate:app", "generate:stuff", :smoke, :cucumber]
 
