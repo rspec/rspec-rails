@@ -8,12 +8,13 @@ module RSpec
   end
 end
 
+require 'rspec/core'
+
 RSpec::configure do |c|
   c.backtrace_clean_patterns << /vendor\//
   c.backtrace_clean_patterns << /lib\/rspec\/rails/
 end
 
-require 'rspec/core'
 require 'rspec/rails/extensions'
 require 'rspec/rails/view_rendering'
 require 'rspec/rails/adapters'
@@ -23,3 +24,5 @@ require 'rspec/rails/mocks'
 require 'rspec/rails/module_inclusion'
 require 'rspec/rails/browser_simulators'
 require 'rspec/rails/example'
+
+
