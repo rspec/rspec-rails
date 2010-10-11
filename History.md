@@ -1,4 +1,12 @@
-## rspec-rails release history (incomplete)
+## rspec-rails-2 release history (incomplete)
+
+### 2.0.1 / in development
+
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.0...master)
+
+* Bug fixes
+  * Updated the mock_[model] method generated in controller specs so it adds
+    any stubs submitted each time it is called.
 
 ### 2.0.0 / 2010-10-10
 
