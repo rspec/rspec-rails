@@ -3,7 +3,9 @@ require 'spec_helper'
 describe <%= controller_class_name %>Controller do
 
   def <%= mock_file_name %>(stubs={})
-    @<%= mock_file_name %> ||= mock_model(<%= class_name %>, stubs).as_null_object
+    (@<%= mock_file_name %> ||= mock_model(<%= class_name %>).as_null_object).tap do |<%= file_name %>|
+      <%= file_name %>.stub(stubs) unless stubs.empty?
+    end
   end
 
 <% unless options[:singleton] -%>
