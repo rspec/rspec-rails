@@ -18,14 +18,14 @@ module Rspec
       class_option :helper_specs,     :type => :boolean, :default => true,  :desc => "Generate helper specs"
       class_option :routing_specs,    :type => :boolean, :default => true,  :desc => "Generate routing specs"
 
-      def copy_controller_files
+      def generate_controller_spec
         return unless options[:controller_specs]
 
         template 'controller_spec.rb',
                  File.join('spec/controllers', controller_class_path, "#{controller_file_name}_controller_spec.rb")
       end
 
-      def copy_view_files
+      def generate_view_specs
         return unless options[:view_specs]
 
         copy_view :edit
@@ -39,7 +39,7 @@ module Rspec
         invoke invoked, [ controller_name ]
       end
 
-      def copy_routing_files
+      def generate_routing_spec
         return unless options[:routing_specs]
 
         template 'routing_spec.rb',

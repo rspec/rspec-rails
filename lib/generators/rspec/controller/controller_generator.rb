@@ -9,14 +9,14 @@ module Rspec
       class_option :controller_specs, :type => :boolean, :default => true
       class_option :view_specs,       :type => :boolean, :default => true
 
-      def create_controller_files
+      def generate_controller_spec
         return unless options[:controller_specs]
 
         template 'controller_spec.rb',
                  File.join('spec/controllers', class_path, "#{file_name}_controller_spec.rb")
       end
 
-      def create_view_files
+      def generate_view_specs
         return if actions.empty?
         return unless options[:view_specs]
 

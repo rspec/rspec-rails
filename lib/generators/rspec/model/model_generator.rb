@@ -6,7 +6,7 @@ module Rspec
       argument :attributes, :type => :array, :default => [], :banner => "field:type field:type"
       class_option :fixture, :type => :boolean
 
-      def create_test_file
+      def create_model_spec
         template 'model_spec.rb', File.join('spec/models', class_path, "#{file_name}_spec.rb")
       end
 

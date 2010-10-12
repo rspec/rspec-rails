@@ -7,7 +7,7 @@ module Rspec
 
       class_option :template_engine, :desc => "Template engine to generate view files"
 
-      def create_view_files
+      def create_view_specs
         empty_directory File.join("spec", "views", file_path)
 
         actions.each do |action|
