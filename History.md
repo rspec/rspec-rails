@@ -4,6 +4,9 @@
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.0...master)
 
+* Enhancements
+  * Add option to not generate request spec (--skip-request-specs)
+
 * Bug fixes
   * Updated the mock_[model] method generated in controller specs so it adds
     any stubs submitted each time it is called.
