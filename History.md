@@ -1,8 +1,8 @@
 ## rspec-rails-2 release history (incomplete)
 
-### 2.0.1 / in development
+### 2.0.1 / 2010-10-15
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.0...master)
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.0...v2.0.1)
 
 * Enhancements
   * Add option to not generate request spec (--skip-request-specs)
@@ -10,6 +10,8 @@
 * Bug fixes
   * Updated the mock_[model] method generated in controller specs so it adds
     any stubs submitted each time it is called.
+  * Fixed bug where view assigns weren't making it to the view in view specs in Rails-3.0.1.
+    (Emanuele Vicentini)
 
 ### 2.0.0 / 2010-10-10
 
