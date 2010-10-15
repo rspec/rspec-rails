@@ -57,6 +57,6 @@ Gem::Specification.new do |s|
 **************************************************
 }
 
-  s.add_runtime_dependency "rspec", RSpec::Rails::Version::STRING
+  s.add_runtime_dependency "rspec", "~> 2.0.0"
 end
 
