@@ -1,13 +1,15 @@
 class Rails < Thor
   VERSIONS = {
     :rails => {
-      "3.0.0" => "v3.0.0",
       "master" => "master",
+      "3.0.0" => "v3.0.0",
+      "3.0.1" => "v3.0.1",
       "3-0-stable" => "origin/3-0-stable"
     },
     :arel => {
-      "3.0.0" => "v1.0.0",
       "master" => "master",
+      "3.0.0" => "v1.0.0",
+      "3.0.1" => "v1.0.0",
       "3-0-stable" => "master"
     }
   }
