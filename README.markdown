@@ -2,6 +2,8 @@
 
 rspec-2 for rails-3 with lightweight extensions to each
 
+NOTE: rspec-2 does _not_ support rails-2. Use rspec-rails-1.3.x for rails-2.
+
 ## Install
 
     gem install rspec-rails --pre
@@ -19,7 +21,7 @@ This installs the following gems:
 Add `rspec-rails` to the `:test` and `:development` groups in the Gemfile:
 
     group :test, :development do
-      gem "rspec-rails", ">= 2.0.0.beta.22"
+      gem "rspec-rails", ">= 2.0.0"
     end
 
 It needs to be in the `:development` group to expose generators and rake
