@@ -1,5 +1,4 @@
 require 'rspec/core/deprecation'
-require 'rspec/core/backward_compatibility'
 require 'rspec/matchers'
 
 module RSpec::Rails
