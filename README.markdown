@@ -99,8 +99,6 @@ not send you to the doctor with a migraine.
 
 See http://github.com/rspec/rspec-rails/issues
 
-Also see [Gotchas.markdown](http://github.com/rspec/rspec-rails/blob/master/Gotchas.markdown)
-
 # Request Specs
 
 Request specs live in spec/requests.
