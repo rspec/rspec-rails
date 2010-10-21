@@ -20,14 +20,6 @@ require 'rspec'
 require 'rspec/core/rake_task'
 require 'cucumber/rake/task'
 
-class Cucumber::Rake::Task::ForkedCucumberRunner
-  # When cucumber shells out, we still need it to run in the context of our
-  # bundle.
-  def run
-    sh "bundle exec #{RUBY} " + args.join(" ")
-  end
-end
-
 task :cleanup_rcov_files do
   rm_rf 'coverage.data'
 end
@@ -70,33 +62,33 @@ namespace :generate do
 
   desc "generate a bunch of stuff with generators"
   task :stuff do
-    Dir.chdir("./tmp/example_app/") do
-      sh "rake rails:template LOCATION='../../templates/generate_stuff.rb'"
+    in_example_app "rake rails:template LOCATION='../../templates/generate_stuff.rb'"
+  end
+end
+
+def in_example_app(command)
+  Dir.chdir("./tmp/example_app/") do
+    Bundler.with_clean_env do
+      sh command
     end
   end
 end
 
 namespace :db do
   task :migrate do
-    Dir.chdir("./tmp/example_app/") do
-      sh "rake db:migrate"
-    end
+    in_example_app "rake db:migrate"
   end
 
   namespace :test do
     task :prepare do
-      Dir.chdir("./tmp/example_app/") do
-        sh "rake db:test:prepare"
-      end
+      in_example_app "rake db:test:prepare"
     end
   end
 end
 
 desc "run a variety of specs against the generated app"
 task :smoke do
-  Dir.chdir("./tmp/example_app/") do
-    sh "rake rails:template LOCATION='../../templates/run_specs.rb'"
-  end
+  in_example_app "rake rails:template --trace LOCATION='../../templates/run_specs.rb'"
 end
 
 desc 'clobber generated files'
