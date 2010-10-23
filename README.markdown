@@ -2,9 +2,16 @@
 
 rspec-2 for rails-3 with lightweight extensions to each
 
+NOTE: rspec-2 does _not_ support rails-2. Use rspec-rails-1.3.x for rails-2.
+
+## Documentation
+
+* [Cucumber features](http://relishapp.com/rspec/rspec-rails/v/2-0)
+* [RDoc](http://rubydoc.info/gems/rspec-rails/2.0.1/frames)
+
 ## Install
 
-    gem install rspec-rails --pre
+    gem install rspec-rails
 
 This installs the following gems:
 
@@ -19,7 +26,7 @@ This installs the following gems:
 Add `rspec-rails` to the `:test` and `:development` groups in the Gemfile:
 
     group :test, :development do
-      gem "rspec-rails", ">= 2.0.0.beta.22"
+      gem "rspec-rails", "~> 2.0.1"
     end
 
 It needs to be in the `:development` group to expose generators and rake
