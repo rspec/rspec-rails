@@ -1,5 +1,12 @@
 ## rspec-rails-2 release history (incomplete)
 
+### 2.0.2 / in development
+
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.1...master)
+
+* Enhancements
+  * Re-added and properly deprecated `integrate_views` from rspec-rails-1
+
 ### 2.0.1 / 2010-10-15
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.0...v2.0.1)
