@@ -15,6 +15,11 @@ module RSpec
           metadata_for_rspec_rails[:render_views] = true
         end
 
+        def integrate_views
+          RSpec.deprecate("integrate_views","render_views")
+          render_views
+        end
+
         def render_views?
           !!metadata_for_rspec_rails[:render_views]
         end
