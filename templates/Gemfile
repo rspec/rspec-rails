@@ -1,16 +1,12 @@
 source 'http://rubygems.org'
 
-gem 'arel', :path => "../../vendor/arel"
-gem 'rails', :path => "../../vendor/rails"
-
+gem 'rails', :path => File.expand_path("../../../vendor/rails", __FILE__)
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
 group :development, :test do
-  gem "rspec-rails",        :path => "../../../rspec-rails"
-  gem "rspec",              :path => "../../../rspec"
-  gem "rspec-core",         :path => "../../../rspec-core"
-  gem "rspec-expectations", :path => "../../../rspec-expectations"
-  gem "rspec-mocks",        :path => "../../../rspec-mocks"
+  %w[rspec rspec-core rspec-expectations rspec-mocks rspec-rails].each do |lib|
+    gem lib, :path => File.expand_path("../../../../#{lib}", __FILE__)
+  end
   gem "rcov"
   gem "webrat"
   gem "autotest"

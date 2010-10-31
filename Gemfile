@@ -1,8 +1,7 @@
 source "http://rubygems.org"
 
-%w[arel rails].each do |lib|
-  gem lib, :path => File.expand_path("../vendor/#{lib}", __FILE__)
-end
+gem 'rails', :path => File.expand_path("../vendor/rails", __FILE__)
+gem "rack", :git => "git://github.com/rack/rack.git"
 
 %w[rspec-rails rspec rspec-core rspec-expectations rspec-mocks].each do |lib|
   gem lib, :path => File.expand_path("../../#{lib}", __FILE__)

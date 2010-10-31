@@ -1,9 +1,8 @@
-unless File.directory?("vendor/rails") && File.directory?("vendor/arel")
+unless File.directory?("vendor/rails")
   raise <<-MESSAGE
-You need to clone the rails and arel git repositories into ./vendor
-before you can use any of the rake tasks.
+You need to clone the rails git repository into ./vendor before you can use any
+of the rake tasks.
 
-    git clone git://github.com/rails/arel.git  vendor/arel
     git clone git://github.com/rails/rails.git vendor/rails
 
 MESSAGE
