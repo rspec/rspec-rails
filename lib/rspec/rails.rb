@@ -1,13 +1,3 @@
-module RSpec
-  module Rails
-    class << self
-      def using_active_record?
-        ::Rails.configuration.generators.options[:rails][:orm] == :active_record
-      end
-    end
-  end
-end
-
 require 'rspec/core'
 
 RSpec::configure do |c|

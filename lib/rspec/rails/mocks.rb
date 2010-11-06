@@ -70,7 +70,7 @@ EOM
           m.extend ActiveModelInstanceMethods
           m.singleton_class.__send__ :include, ActiveModel::Conversion
           m.singleton_class.__send__ :include, ActiveModel::Validations
-          if RSpec::Rails::using_active_record?
+          if defined?(ActiveRecord)
             m.extend ActiveRecordInstanceMethods
             [:save, :update_attributes].each do |key|
               if stubs[key] == false
@@ -175,7 +175,7 @@ EOM
       def stub_model(model_class, stubs={})
         model_class.new.tap do |m|
           m.extend ActiveModelStubExtensions
-          if RSpec::Rails::using_active_record? && model_class < ActiveRecord::Base
+          if defined?(ActiveRecord) && model_class < ActiveRecord::Base
             m.extend ActiveRecordStubExtensions
             primary_key = model_class.primary_key.to_sym
             stubs = stubs.reverse_merge(primary_key => next_id)
