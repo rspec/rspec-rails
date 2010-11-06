@@ -1,6 +1,6 @@
 module RSpec
   module Rails
-    if using_active_record?
+    if defined?(ActiveRecord)
       module Extensions
         module ActiveRecord
           # :call-seq:
