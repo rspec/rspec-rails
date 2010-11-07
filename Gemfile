@@ -14,9 +14,10 @@ gem 'sqlite3-ruby', :require => 'sqlite3'
 
 gem 'autotest'
 
-case RUBY_VERSION
-when /^1\.9/
+platforms :mri_19 do
   gem 'ruby-debug19'
-when /^1\.8/
+end
+
+platforms :mri_18 do
   gem 'ruby-debug'
 end
