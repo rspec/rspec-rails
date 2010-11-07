@@ -57,6 +57,6 @@ Gem::Specification.new do |s|
 **************************************************
 }
 
-  s.add_runtime_dependency "rspec", "2.1.0.pre"
+  s.add_runtime_dependency "rspec", "~> 2.1.0"
 end
 

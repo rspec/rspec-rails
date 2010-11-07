@@ -1,8 +1,8 @@
 ## rspec-rails-2 release history (incomplete)
 
-### 2.1.0 / in development
+### 2.1.0 / 2010-11-07
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.1...master)
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.1...v2.1.0)
 
 * Enhancements
   * Move errors_on to ActiveModel to support other AM-compliant ORMs
