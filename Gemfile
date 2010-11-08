@@ -12,6 +12,7 @@ gem "cucumber", "0.8.5"
 gem "aruba", "0.2.2"
 gem 'webrat', ">= 0.7.2"
 gem 'autotest'
+gem 'relish'
 
 case RUBY_VERSION
 when /^1\.9/
