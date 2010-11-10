@@ -15,7 +15,7 @@ module RSpec::Rails
     describe 'automatic inclusion of helpers' do
       module ::ThingsHelper; end
 
-      pending 'includes the helper with the same name' do
+      it 'includes the helper with the same name' do
         group = RSpec::Core::ExampleGroup.describe 'things/show.html.erb'
         group.should_receive(:helper).with(ThingsHelper)
         group.class_eval do
