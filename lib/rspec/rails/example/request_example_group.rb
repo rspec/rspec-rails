@@ -24,6 +24,10 @@ module RSpec::Rails
     webrat do
       include Webrat::Matchers
       include Webrat::Methods
+
+      def app
+        ::Rails.application
+      end
     end
 
     capybara do
@@ -34,27 +38,11 @@ module RSpec::Rails
     include RSpec::Rails::Matchers::RenderTemplate
     include ActionController::TemplateAssertions
 
-    module InstanceMethods
-      def app
-        ::Rails.application
-      end
-
-      def last_response
-        response
-      end
-    end
-
     included do
       metadata[:type] = :request
 
       before do
         @router = ::Rails.application.routes
-      end
-
-      webrat do
-        Webrat.configure do |config|
-          config.mode = :rack
-        end
       end
     end
 

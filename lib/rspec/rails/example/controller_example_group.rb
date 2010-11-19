@@ -84,20 +84,13 @@ module RSpec::Rails
     include RSpec::Rails::BrowserSimulators
 
     webrat do
-      include Webrat::Methods
       include Webrat::Matchers
+      include Webrat::Methods
     end
 
     capybara do
       include Capybara
     end
-
-    # TODO (DC 7/31/2010) this is already included in RailsExampleGroup, but
-    # due to some load order dependency problem between Webrat::Matchers and
-    # RSpec::Matchers, combined with the fact that RailsExampleGroup extends
-    # ActiveSupport::Concern, while the matcher modules do not, this needs to
-    # be here as well. At least for now.
-    include RSpec::Matchers
 
     module ClassMethods
       def controller_class
@@ -147,15 +140,6 @@ module RSpec::Rails
             "StubResourcesController"
           end
         end
-
-        before do
-          @orig_routes, @routes = @routes, ActionDispatch::Routing::RouteSet.new
-          @routes.draw { resources :stub_resources }
-        end
-
-        after do
-          @routes = @orig_routes
-        end
       end
     end
 
@@ -166,8 +150,13 @@ module RSpec::Rails
     included do
       metadata[:type] = :controller
       before do
-        @routes = ::Rails.application.routes
         ActionController::Base.allow_forgery_protection = false
+        @orig_routes, @routes = ::Rails.application.routes, ActionDispatch::Routing::RouteSet.new
+        @routes.draw { resources :stub_resources }
+      end
+
+      after do
+        @routes = @orig_routes
       end
       subject { controller }
     end
