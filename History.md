@@ -5,7 +5,9 @@
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.1.0...master)
 
 * Bug fixes
-  * properly include helpers in views (Jonathan del Strother)
+  * Properly include helpers in views (Jonathan del Strother)
+  * Fix bug in which method missing led to a stack overflow
+  * Fix stack overflow in request specs
 
 ### 2.1.0 / 2010-11-07
 
