@@ -13,6 +13,8 @@ module RSpec::Rails
     module InstanceMethods
       attr_reader :routes
 
+      private
+
       def method_missing(m, *args, &block)
         routes.url_helpers.respond_to?(m) ? routes.url_helpers.send(m, *args) : super
       end
