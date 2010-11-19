@@ -7,7 +7,8 @@
 * Bug fixes
   * Properly include helpers in views (Jonathan del Strother)
   * Fix bug in which method missing led to a stack overflow
-  * Fix stack overflow in request specs
+  * Fix stack overflow in request specs with open_session
+  * Fix stack overflow in any spec when method_missing was invoked
 
 ### 2.1.0 / 2010-11-07
 
