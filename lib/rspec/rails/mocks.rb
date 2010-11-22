@@ -28,11 +28,19 @@ module RSpec
         end
       end
 
-      # Creates a mock object instance for a +string_or_model_class+ with
-      # common methods stubbed out. Additional methods may be easily stubbed
-      # (via add_stubs) if +stubs+ is passed.
+      # Creates a test double representing +string_or_model_class+ with common
+      # ActiveModel methods stubbed out. Additional methods may be easily
+      # stubbed (via add_stubs) if +stubs+ is passed. This is most useful for
+      # impersonating models that don't exist yet.
       #
-      # +model_class+ can be any of:
+      # NOTE that only ActiveModel's methods, plus <tt>new_record?</tt>, are
+      # stubbed out implicitly.  <tt>new_record?</tt> returns the inverse of
+      # <tt>persisted?</tt>, and is present only for compatibility with
+      # extension frameworks that have yet to update themselves to the
+      # ActiveModel API (which declares <tt>persisted?</tt>, not
+      # <tt>new_record?</tt>).
+      #
+      # +string_or_model_class+ can be any of:
       #
       #   * A String representing a Class that does not exist
       #   * A String representing a Class that extends ActiveModel::Naming
@@ -145,24 +153,16 @@ EOM
       # assigned as a stub return value using RSpec's mocking/stubbing
       # framework.
       #
-      # <tt>new_record?</tt> is overridden to return the result of id.nil?
-      # This means that by default new_record? will return false. If  you want
+      # <tt>persisted?</tt> is overridden to return the result of !id.nil?
+      # This means that by default persisted? will return true. If  you want
       # the object to behave as a new record, sending it +as_new_record+ will
       # set the id to nil. You can also explicitly set :id => nil, in which
-      # case new_record? will return true, but using +as_new_record+ makes the
+      # case persisted? will return false, but using +as_new_record+ makes the
       # example a bit more descriptive.
       #
       # While you can use stub_model in any example (model, view, controller,
       # helper), it is especially useful in view examples, which are
       # inherently more state-based than interaction-based.
-      #
-      # == Database Independence
-      #
-      # +stub_model+ does not make your examples entirely
-      # database-independent. It does not stop the model class itself from
-      # loading up its columns from the database. It just prevents data access
-      # from the object itself. To completely decouple from the database, take
-      # a look at libraries like unit_record or NullDB.
       #
       # == Examples
       #
