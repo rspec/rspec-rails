@@ -9,6 +9,9 @@
   * Fix bug in which method missing led to a stack overflow
   * Fix stack overflow in request specs with open_session
   * Fix stack overflow in any spec when method_missing was invoked
+  * Add gem dependency on rails ~> 3.0.0 (ensures bundler won't install
+    rspec-rails-2 with rails-2 apps).
+
 
 ### 2.1.0 / 2010-11-07
 
