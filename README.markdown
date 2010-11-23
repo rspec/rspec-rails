@@ -50,6 +50,21 @@ Note that the generators are there to help you get started, but they are no
 substitute for writing your own examples, and they are only guaranteed to work
 out of the box for the default scenario (`ActiveRecord` + `Webrat`).
 
+#### Custom Generator Workflow
+
+To plug in a custom generator for one or more example types:
+In config/application.rb:
+
+    config.app_generators do |g|
+      g.routing_specs =   :my_fancy_routing_specs
+      g.controller_specs =  :my_fancy_controller_specs
+      g.view_specs =  :my_fancy_view_specs
+    end
+
+These generators should all live in lib/generators/rspec and the classes should be
+declared as Rspec::Generators::MyFancyRoutingSpecsGenerator, and so on.  Make copies
+of the ones from this git repo to use as templates.
+
 ### Autotest
 
 The `rspec:install` generator creates an `./autotest/discover.rb` file, which
