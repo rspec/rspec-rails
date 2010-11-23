@@ -62,7 +62,7 @@ In config/application.rb:
     end
 
 These generators should all live in lib/generators/rspec and the classes should be
-declared as Rspec::Generators::MyFancyRoutingSpecsGenerator, and so on.  Make copies
+declared as `Rspec::Generators::MyFancyRoutingSpecsGenerator`, and so on.  Make copies
 of the ones from this git repo to use as templates.
 
 ### Autotest
