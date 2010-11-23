@@ -140,6 +140,15 @@ module RSpec::Rails
             "StubResourcesController"
           end
         end
+
+        before do
+          @orig_routes, @routes = @routes, ActionDispatch::Routing::RouteSet.new
+          @routes.draw { resources :stub_resources }
+        end
+
+        after do
+          @routes = @orig_routes
+        end
       end
     end
 
@@ -150,13 +159,8 @@ module RSpec::Rails
     included do
       metadata[:type] = :controller
       before do
+        @routes = ::Rails.application.routes
         ActionController::Base.allow_forgery_protection = false
-        @orig_routes, @routes = ::Rails.application.routes, ActionDispatch::Routing::RouteSet.new
-        @routes.draw { resources :stub_resources }
-      end
-
-      after do
-        @routes = @orig_routes
       end
       subject { controller }
     end
