@@ -1,11 +1,10 @@
 require 'generators/rspec'
-require 'rails/generators/resource_helpers'
 
 module Rspec
   module Generators
-    class ScaffoldGenerator < Base
+    class ViewSpecsGenerator < Base
       include Rails::Generators::ResourceHelpers
-      source_paths << File.expand_path("../../helper/templates", __FILE__)
+      class_option :view_specs, :type => :boolean, :default => true
       argument :attributes, :type => :array, :default => [], :banner => "field:type field:type"
 
       class_option :orm, :desc => "ORM used to generate the controller"
@@ -18,22 +17,30 @@ module Rspec
       class_option :helper_specs,     :type => :boolean, :default => true,  :desc => "Generate helper specs"
       class_option :routing_specs,    :type => :boolean, :default => true,  :desc => "Generate routing specs"
 
-      hook_for :controller_specs
-      hook_for :view_specs
+      def generate_view_specs
+        return unless options[:view_specs]
 
-
-      # Invoke the helper using the controller name (pluralized)
-      hook_for :helper, :as => :scaffold do |invoked|
-        invoke invoked, [ controller_name ]
+        copy_view :edit
+        copy_view :index unless options[:singleton]
+        copy_view :new
+        copy_view :show
       end
-
-      hook_for :routing_specs
-
-      hook_for :integration_tool, :as => :integration
-
       protected
-        def banner
-          self.class.banner
+        def webrat?
+          options[:webrat_matchers] || @webrat_matchers_requested
+        end
+
+        def copy_view(view)
+          template "#{view}_spec.rb",
+                   File.join("spec/views", controller_file_path, "#{view}.html.#{options[:template_engine]}_spec.rb")
+        end
+        def value_for(attribute)
+          case attribute.type
+          when :string
+            "#{attribute.name.titleize}".inspect
+          else
+            attribute.default.inspect
+          end
         end
     end
   end
