@@ -4,6 +4,9 @@
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.1.0...master)
 
+* Enhancements
+  * Added stub_template in view specs
+
 * Bug fixes
   * Properly include helpers in views (Jonathan del Strother)
   * Fix bug in which method missing led to a stack overflow

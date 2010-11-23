@@ -22,17 +22,27 @@ trade-off.
 
 ## View specs
 
+### view.should render_template
+
 Rails changed the way it renders partials, so to set an expectation that a
-partial gets rendered:
+partial gets rendered, you need 
 
     render
     view.should render_template(:partial => "widget/_row")
 
-## as_new_record
+### stub_template
+
+Introduced in rspec-rails-2.2, simulates the presence of view templates on the
+file system. This supports isolation from partials rendered by the vew template
+that is the subject of a view example:
+
+    stub_template "widgets/_widget.html.erb" => "This Content"
+
+### as_new_record
 
 Earlier versions of the view generators generated stub_model with `:new_record?
-=> true`. As of rspec-rails-2.0.0.rc, that is no longer recognized, so you need
-to change this:
+=> true`. That is no longer recognized in rspec-rails-2, so you need to change
+this:
   
     stub_model(Widget, :new_record? => true)
 
