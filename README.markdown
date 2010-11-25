@@ -187,6 +187,11 @@ This means that most of the time you don't need to set these values. When
 spec'ing a partial that is included across different controllers, you _may_
 need to override these values before rendering the view.
 
+To provide a layout for the render, you'll need to specify _both_ the template
+and the layout explicitly.  For example:
+
+    render :template => "events/show", :layout => "layouts/application"
+
 ## `assign(key, val)`
 
 Use this to assign values to instance variables in the view:
