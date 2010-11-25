@@ -6,8 +6,16 @@ NOTE: rspec-2 does _not_ support rails-2. Use rspec-rails-1.3.x for rails-2.
 
 ## Documentation
 
-* [Cucumber features](http://relishapp.com/rspec/rspec-rails/v/2-0)
-* [RDoc](http://rubydoc.info/gems/rspec-rails/2.0.1/frames)
+The [Cucumber features](http://relishapp.com/rspec/rspec-rails/v/2-1) are the
+most comprehensive and up-to-date docs for end-users.
+
+The [RDoc](http://rubydoc.info/gems/rspec-rails/2.1/frames) provides additional
+information for contributors and/or extenders.
+
+All of the documentation is open source and a work in progress. If you find it
+lacking or confusing, you can help improve it by submitting requests and
+patches to the [rspec-rails issue
+tracker](https://github.com/rspec/rspec-rails/issues).
 
 ## Install
 
