@@ -7,7 +7,7 @@ gem 'rails', :path => File.expand_path("../vendor/rails", __FILE__)
   gem lib, :path => File.expand_path("../../#{lib}", __FILE__)
 end
 
-gem "cucumber", "0.8.5"
+gem "cucumber", "0.9.4"
 gem "aruba", "0.2.2"
 gem 'webrat', "0.7.2"
 gem 'sqlite3-ruby', :require => 'sqlite3'
