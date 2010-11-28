@@ -1,8 +1,8 @@
 ## rspec-rails-2 release history (incomplete)
 
-### 2.2.0 / in development
+### 2.2.0 / 2010-11-28
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.1.0...master)
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.1.0...v2.2.0)
 
 * Enhancements
   * Added stub_template in view specs
