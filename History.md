@@ -15,7 +15,6 @@
   * Add gem dependency on rails ~> 3.0.0 (ensures bundler won't install
     rspec-rails-2 with rails-2 apps).
 
-
 ### 2.1.0 / 2010-11-07
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.1...v2.1.0)
