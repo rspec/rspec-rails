@@ -57,9 +57,9 @@ Gem::Specification.new do |s|
 **************************************************
 }
 
-  s.add_runtime_dependency(%q<activesupport>, ["~> 3.0.0"])
-  s.add_runtime_dependency(%q<actionpack>, ["~> 3.0.0"])
-  s.add_runtime_dependency(%q<railties>, ["~> 3.0.0"])
-  s.add_runtime_dependency "rspec", "~> #{RSpec::Rails::Version::STRING.split('.')[0..1].join('.')}"
+  s.add_runtime_dependency(%q<activesupport>, [">= 3.0.0"])
+  s.add_runtime_dependency(%q<actionpack>, [">= 3.0.0"])
+  s.add_runtime_dependency(%q<railties>, [">= 3.0.0"])
+  s.add_runtime_dependency "rspec", "~> #{RSpec::Rails::Version::STRING.split('.')[0..1].concat(['0']).join('.')}"
 end
 
