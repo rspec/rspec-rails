@@ -1,5 +1,13 @@
 ## rspec-rails-2 release history (incomplete)
 
+### 2.3.0 / in development
+
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.2.0...master)
+
+* Bug fixes
+  * Depend on railties, activesupport, and actionpack instead of rails (Piotr
+    Solnica)
+
 ### 2.2.0 / 2010-11-28
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.1.0...v2.2.0)
