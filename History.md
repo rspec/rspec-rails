@@ -1,8 +1,8 @@
-## rspec-rails-2 release history (incomplete)
+## rspec-rails-2 release history
 
-### 2.3.0 / in development
+### 2.2.1 / 2010-12-01
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.2.0...master)
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.2.0...v2.2.1)
 
 * Bug fixes
   * Depend on railties, activesupport, and actionpack instead of rails (Piotr
