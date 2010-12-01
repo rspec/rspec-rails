@@ -20,7 +20,7 @@ describe "<%= table_name %>/edit.html.<%= options[:template_engine] %>" do
 <% end -%>
     end
 <% else -%>
-    # Run the generator again with the --webrat-matchers flag if you want to use webrat matchers
+    # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form", :action => <%= file_name %>_path(@<%= file_name %>), :method => "post" do
 <% for attribute in output_attributes -%>
       assert_select "<%= attribute.input_type -%>#<%= file_name %>_<%= attribute.name %>", :name => "<%= file_name %>[<%= attribute.name %>]"

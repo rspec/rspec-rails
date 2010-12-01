@@ -157,12 +157,20 @@ module RSpec::Rails
     end
 
     included do
+      subject { controller }
+
       metadata[:type] = :controller
+
       before do
         @routes = ::Rails.application.routes
         ActionController::Base.allow_forgery_protection = false
       end
-      subject { controller }
+
+      webrat do
+        before do
+          Webrat.configure {|c| c.mode = :rails}
+        end
+      end
     end
 
     RSpec.configure &include_self_when_dir_matches('spec','controllers')

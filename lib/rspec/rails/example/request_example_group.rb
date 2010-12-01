@@ -21,12 +21,21 @@ module RSpec::Rails
     include ActionDispatch::Assertions
     include RSpec::Rails::BrowserSimulators
 
+    module InstanceMethods
+      def app
+        ::Rails.application
+      end
+    end
+
     webrat do
       include Webrat::Matchers
       include Webrat::Methods
 
-      def app
-        ::Rails.application
+      module InstanceMethods
+
+        def last_response
+          @response
+        end
       end
     end
 
@@ -43,6 +52,14 @@ module RSpec::Rails
 
       before do
         @router = ::Rails.application.routes
+      end
+
+      webrat do
+        before do
+          Webrat.configure do |c|
+            c.mode = :rack
+          end
+        end
       end
     end
 

@@ -7,6 +7,10 @@
 * Bug fixes
   * Depend on railties, activesupport, and actionpack instead of rails (Piotr
     Solnica)
+  * Got webrat integration working properly across different types of specs
+
+* Deprecations
+  * --webrat-matchers flag for generators is deprecated. use --webrat instead.
 
 ### 2.2.0 / 2010-11-28
 

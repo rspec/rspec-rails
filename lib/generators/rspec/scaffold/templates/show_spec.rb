@@ -18,7 +18,7 @@ describe "<%= table_name %>/show.html.<%= options[:template_engine] %>" do
 <% if webrat? -%>
     rendered.should contain(<%= value_for(attribute) %>.to_s)
 <% else -%>
-    # Run the generator again with the --webrat-matchers flag if you want to use webrat matchers
+    # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/<%= eval(value_for(attribute)) %>/)
 <% end -%>
 <% end -%>
