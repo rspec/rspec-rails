@@ -144,11 +144,27 @@ describe "mock_model(RealModel)" do
         MockableModel.stub(:column_names).and_return(["column_a", "column_b"])
         @model = mock_model(MockableModel)
       end
-      it "says it will respond_to?(key) if RealModel has the attribute 'key'" do
-        @model.respond_to?("column_a").should be(true)
+      context "without as_null_object" do
+        it "says it will respond_to?(key) if RealModel has the attribute 'key'" do
+          @model.respond_to?("column_a").should be(true)
+        end
+        it "says it will not respond_to?(key) if RealModel does not have the attribute 'key'" do
+          @model.respond_to?("column_c").should be(false)
+        end
+        it "says it will not respond_to?(xxx_before_type_cast)" do
+          @model.respond_to?("title_before_type_cast").should be(false)
+        end
       end
-      it "does not say it will respond_to?(key) if RealModel does not have the attribute 'key'" do
-        @model.respond_to?("column_c").should be(false)
+      context "with as_null_object" do
+        it "says it will respond_to?(key) if RealModel has the attribute 'key'" do
+          @model.as_null_object.respond_to?("column_a").should be(true)
+        end
+        it "says it will respond_to?(key) even if RealModel does not have the attribute 'key'" do
+          @model.as_null_object.respond_to?("column_c").should be(true)
+        end
+        it "says it will not respond_to?(xxx_before_type_cast)" do
+          @model.as_null_object.respond_to?("title_before_type_cast").should be(false)
+        end
       end
     end
 
@@ -156,6 +172,12 @@ describe "mock_model(RealModel)" do
       it "responds as normal" do
         model = NonActiveRecordModel.new
         model.should respond_to(:to_param)
+      end
+      context "with as_null_object" do
+        it "says it will not respond_to?(xxx_before_type_cast)" do
+          model = NonActiveRecordModel.new.as_null_object
+          model.respond_to?("title_before_type_cast").should be(false)
+        end
       end
     end
   end

@@ -15,6 +15,10 @@ module RSpec
         def persisted?
           true
         end
+
+        def respond_to?(message)
+          message.to_s =~ /_before_type_cast$/ ? false : super
+        end
       end
 
       module ActiveRecordInstanceMethods
