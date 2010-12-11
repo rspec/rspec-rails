@@ -1,4 +1,14 @@
-# Upgrade to rspec-rails-2
+# rspec-rails-2.3.0
+
+## autotest integration
+
+Add a .rspec file to the project's root directory (if not already there) to
+tell RSpec to tell Autotest to use RSpec's specialized Autotest class.
+
+NOTE that rspec-core-2.0, 2.1, and 2.2 required an autotest/discover.rb file in
+the project's root directory. This worked with some, but not all versions of
+autotest and/or the autotest command that ships with ZenTest. This new approach
+will work regardless of which version of autotest/ZenTest you are using.
 
 ## Webrat and Capybara
 
@@ -51,4 +61,3 @@ to this:
     stub_model(Widget).as_new_record
 
 Generators in 2.0.0 final release will do the latter.
-

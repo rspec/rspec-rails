@@ -4,6 +4,10 @@
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.2.1...master)
 
+* Changes
+  * Generator no longer generates autotest/autodiscover.rb, as it is no longer
+    needed (as of rspec-core-2.3.0)
+
 ### 2.2.1 / 2010-12-01
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.2.0...v2.2.1)
