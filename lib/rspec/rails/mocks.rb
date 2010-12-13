@@ -16,7 +16,7 @@ module RSpec
           true
         end
 
-        def respond_to?(message)
+        def respond_to?(message, include_private=false)
           message.to_s =~ /_before_type_cast$/ ? false : super
         end
       end
@@ -100,8 +100,8 @@ EOM
             def @object.instance_of?(other)
               other == #{model_class}
             end
-            def @object.respond_to?(method_name)
-              #{model_class}.respond_to?(:column_names) && #{model_class}.column_names.include?(method_name.to_s) || super
+            def @object.respond_to?(method_name, include_private=false)
+              #{model_class}.respond_to?(:column_names, include_private) && #{model_class}.column_names.include?(method_name.to_s) || super
             end
             def @object.class
               #{model_class}

@@ -144,6 +144,13 @@ describe "mock_model(RealModel)" do
         MockableModel.stub(:column_names).and_return(["column_a", "column_b"])
         @model = mock_model(MockableModel)
       end
+
+      it "accepts two arguments" do
+        expect do
+          @model.respond_to?("title_before_type_cast", false)
+        end.to_not raise_exception
+      end
+
       context "without as_null_object" do
         it "says it will respond_to?(key) if RealModel has the attribute 'key'" do
           @model.respond_to?("column_a").should be(true)
