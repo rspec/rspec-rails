@@ -1,5 +1,13 @@
 ## rspec-rails-2 release history
 
+### 2.3.1 / in development
+
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.3.0...master)
+
+* Bug fixes
+  * respond_to? correctly handles 2 args
+  * scaffold generator no longer fails on autotest directory
+
 ### 2.3.0 / 2010-12-12
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.2.1...v2.3.0)
