@@ -6,6 +6,7 @@ module Aruba::Api
 
   def run(cmd, fail_on_error=false)
     if cmd =~ /^rspec/
+      ENV['BUNDLE_GEMFILE'] = File.dirname(__FILE__) + '/../../tmp/aruba/Gemfile'
       orig_run("bundle exec #{cmd}", fail_on_error)
     else
       orig_run(cmd, fail_on_error)
