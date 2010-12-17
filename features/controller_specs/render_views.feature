@@ -101,3 +101,33 @@ Feature: render_views
       """
     When I run "rspec spec"
     Then the output should contain "4 examples, 0 failures"
+
+  @wip
+  Scenario: render_views globally
+    Given a file named "spec/support/render_views.rb" with:
+      """
+      RSpec.configure do |config|
+        config.render_views
+      end
+      """
+    And a file named "spec/controllers/widgets_controller_spec.rb" with:
+      """
+      require "spec_helper"
+
+      describe WidgetsController do
+        describe "index" do
+          it "renders the index template" do
+            get :index
+            response.should contain("Listing widgets")
+          end
+
+          it "renders the widgets/index template" do
+            get :index
+            response.should contain("Listing widgets")
+          end
+        end
+      end
+      """
+    When I run "rspec spec"
+    Then the output should contain "2 examples, 0 failures"
+    
