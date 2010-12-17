@@ -1,10 +1,11 @@
-Feature: do not render views
+Feature: views are stubbed by default
 
-  By default, controller specs do not render views. This allows you specify
-  which view template an action should try to render regardless of whether or
-  not the template compiles cleanly.
+  By default, controller specs stub views with template that renders an empty
+  string instead of the views in the app. This allows you specify which view
+  template an action should try to render regardless of whether the template
+  compiles cleanly.
 
-  NOTE: unlike rspec-rails-1.x, the template must exist.
+  NOTE: unlike rspec-rails-1.x, the real template must exist. 
 
   Scenario: expect template that is rendered by controller action (passes)
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
