@@ -1,5 +1,19 @@
 require 'action_view/testing/resolvers'
 
+RSpec.configure do |config|
+  config.add_setting :render_views, :default => false
+
+  # TODO - rspec-core needs a way to define a setting that works like this in
+  # one go
+  def config.render_views
+    settings[:render_views] = true
+  end
+
+  def config.render_views?
+    settings[:render_views]
+  end
+end
+
 module RSpec
   module Rails
     module ViewRendering
@@ -21,7 +35,7 @@ module RSpec
         end
 
         def render_views?
-          !!metadata_for_rspec_rails[:render_views]
+          metadata_for_rspec_rails[:render_views] || RSpec.configuration.render_views?
         end
       end
 

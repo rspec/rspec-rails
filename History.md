@@ -1,5 +1,12 @@
 ## rspec-rails-2 release history
 
+### 2.4.0 / in development
+
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.3.1...master)
+
+* Bug fixes
+  * restore global config.render_views so you only need to say it once
+
 ### 2.3.1 / 2010-12-16
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.3.0...v2.3.1)
