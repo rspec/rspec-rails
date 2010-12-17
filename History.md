@@ -2,7 +2,7 @@
 
 ### 2.3.1 / 2010-12-16
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.3.0...master)
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.3.0...v2.3.1)
 
 * Bug fixes
   * respond_to? correctly handles 2 args
