@@ -1,6 +1,6 @@
 ## rspec-rails-2 release history
 
-### 2.3.1 / in development
+### 2.3.1 / 2010-12-16
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.3.0...master)
 
