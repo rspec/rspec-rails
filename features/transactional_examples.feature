@@ -1,5 +1,17 @@
 Feature: transactional examples
 
+  When you run the rspec:install generator, the generated spec/spec_helper.rb
+  configures rspec-rails to hook into the transaction management in Rails'
+  testing framework, which wraps every example in a transaction and rolls it
+  back after each example.
+
+      RSpec.configure do |config|
+        c.use_transactional_examples = true
+      end
+
+  This only works if you are using ActiveRecord as your ORM. If you are not, or
+  if you prefer to manage transactions differently, just delete that setting.
+
   Scenario: run in transactions (default)
     Given a file named "spec/models/widget_spec.rb" with:
       """

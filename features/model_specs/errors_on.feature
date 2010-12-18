@@ -1,5 +1,8 @@
 Feature: errors_on
 
+  rspec-rails adds an errors_on method to ActiveRecord objects to help you
+  specify validation errors.
+
   Scenario: with one validation error
     Given a file named "spec/models/widget_spec.rb" with:
       """
