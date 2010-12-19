@@ -97,21 +97,21 @@ module Rspec
         #   should! orm_class.find(User, "37")
         #   #=> User.should_receive(:get).with(37)
         #
-        def should_receive!(chain)
+        def should_receive(chain)
           stub_or_should_chain(:should_receive, chain)
         end
 
         # Receives the ORM chain and convert to stub. For ActiveRecord:
         #
-        #   stub! orm_class.find(User, "37")
-        #   #=> User.stub!(:find).with(37)
+        #   stub orm_class.find(User, "37")
+        #   #=> User.stub(:find).with(37)
         #
         # For Datamapper:
         #
-        #   stub! orm_class.find(User, "37")
-        #   #=> User.stub!(:get).with(37)
+        #   stub orm_class.find(User, "37")
+        #   #=> User.stub(:get).with(37)
         #
-        def stub!(chain)
+        def stub(chain)
           stub_or_should_chain(:stub, chain)
         end
 
