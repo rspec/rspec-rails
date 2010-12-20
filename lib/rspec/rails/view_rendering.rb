@@ -19,14 +19,16 @@ module RSpec
     module ViewRendering
       extend ActiveSupport::Concern
 
+      attr_accessor :controller
+
       module ClassMethods
         def metadata_for_rspec_rails
           metadata[:rspec_rails] ||= {}
         end
 
         # See RSpec::Rails::ControllerExampleGroup
-        def render_views
-          metadata_for_rspec_rails[:render_views] = true
+        def render_views(true_or_false=true)
+          metadata_for_rspec_rails[:render_views] = true_or_false
         end
 
         def integrate_views
@@ -41,7 +43,7 @@ module RSpec
 
       module InstanceMethods
         def render_views?
-          self.class.render_views? || !@controller.class.respond_to?(:view_paths)
+          self.class.render_views? || !controller.class.respond_to?(:view_paths)
         end
       end
 
@@ -72,14 +74,14 @@ module RSpec
       included do
         before do
           unless render_views?
-            @_path_set_delegator_resolver = PathSetDelegatorResolver.new(@controller.class.view_paths)
-            @controller.class.view_paths = ::ActionView::PathSet.new.push(@_path_set_delegator_resolver)
+            @_path_set_delegator_resolver = PathSetDelegatorResolver.new(controller.class.view_paths)
+            controller.class.view_paths = ::ActionView::PathSet.new.push(@_path_set_delegator_resolver)
           end
         end
 
         after do
           unless render_views?
-            @controller.class.view_paths = @_path_set_delegator_resolver.path_set
+            controller.class.view_paths = @_path_set_delegator_resolver.path_set
           end
         end
       end
