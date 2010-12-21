@@ -1,30 +1,15 @@
 Feature: be_routable matcher
 
-  The be_routable matcher is intended for use with should_not to specify that a
-  given route should_not be_routable. It is available in routing specs (in
-  spec/routing) and controller specs (in spec/controller).
-
-  Scenario: specify routeable route should be routable (passes)
-    Given a file named "spec/routing/widgets_routing_spec.rb" with:
-      """
-      require "spec_helper"
-
-      describe WidgetsController do
-        it "routes to /widgets" do
-          { :get => "/widgets" }.should be_routable
-        end
-      end
-      """
-
-    When I run "rspec spec/routing/widgets_routing_spec.rb"
-    Then the output should contain "1 example, 0 failures"
+  The `be_routable` matcher is best used with `should_not` to specify that a
+  given route should not be routable. It is available in routing specs (in
+  spec/routing) and controller specs (in spec/controllers).
 
   Scenario: specify routeable route should not be routable (fails)
     Given a file named "spec/routing/widgets_routing_spec.rb" with:
       """
       require "spec_helper"
 
-      describe WidgetsController do
+      describe "routes for Widgets" do
         it "does not route to widgets" do
           { :get => "/widgets" }.should_not be_routable
         end
@@ -39,9 +24,24 @@ Feature: be_routable matcher
       """
       require "spec_helper"
 
-      describe WidgetsController do
+      describe "routes for Widgets" do
         it "does not route to widgets/foo/bar" do
           { :get => "/widgets/foo/bar" }.should_not be_routable
+        end
+      end
+      """
+
+    When I run "rspec spec/routing/widgets_routing_spec.rb"
+    Then the output should contain "1 example, 0 failures"
+
+  Scenario: specify routeable route should be routable (passes)
+    Given a file named "spec/routing/widgets_routing_spec.rb" with:
+      """
+      require "spec_helper"
+
+      describe "routes for Widgets" do
+        it "routes to /widgets" do
+          { :get => "/widgets" }.should be_routable
         end
       end
       """
@@ -54,7 +54,7 @@ Feature: be_routable matcher
       """
       require "spec_helper"
 
-      describe WidgetsController do
+      describe "routes for Widgets" do
         it "routes to widgets/foo/bar" do
           { :get => "/widgets/foo/bar" }.should be_routable
         end
