@@ -1,7 +1,7 @@
 Feature: helper spec
   
-  Helper specs live in spec/helpers. In order to access
-  the helper methods you can call them on the "helper" object.
+  Helper specs live in `spec/helpers`. In order to access the helper methods
+  you can call them on the `helper` object.
   
   Scenario: helper method that returns true
     Given a file named "spec/helpers/application_helper_spec.rb" with:
