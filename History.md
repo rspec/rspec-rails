@@ -9,6 +9,7 @@
 
 * Bug fixes
   * restore global config.render_views so you only need to say it once
+  * support overriding render_views in nested groups
 
 ### 2.3.1 / 2010-12-16
 
