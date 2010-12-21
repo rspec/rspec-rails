@@ -4,6 +4,9 @@
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.3.1...master)
 
+* Enhancements
+  * include ApplicationHelper in helper object in helper specs
+
 * Bug fixes
   * restore global config.render_views so you only need to say it once
 

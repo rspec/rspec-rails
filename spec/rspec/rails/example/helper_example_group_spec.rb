@@ -30,6 +30,24 @@ module RSpec::Rails
         helper_spec.stub(:_view) { av_tc_b_view }
         helper_spec.helper.should eq(av_tc_b_view)
       end
+
+      before do
+        Object.const_set(:ApplicationHelper, Module.new)
+      end
+
+      after do
+        Object.__send__(:remove_const, :ApplicationHelper)
+      end
+
+      it "includes ApplicationHelper" do
+        group = RSpec::Core::ExampleGroup.describe do
+          include HelperExampleGroup
+          def _view
+            ActionView::Base.new
+          end
+        end
+        group.new.helper.should be_kind_of(ApplicationHelper)
+      end
     end
   end
 

@@ -51,3 +51,36 @@ Feature: helper spec
       """
     When I run "rspec spec/helpers/application_helper_spec.rb"
     Then the output should contain "1 example, 0 failures"
+
+  Scenario: application helper is included in helper object
+    Given a file named "spec/helpers/widgets_helper_spec.rb" with:
+      """
+      require "spec_helper"
+
+      describe WidgetsHelper do
+        describe "#page_title" do
+          it "includes the app name" do
+            assign(:title, "This Page")
+            helper.page_title.should eq("The App: This Page")
+          end
+        end
+      end
+      """
+    And a file named "app/helpers/application_helper.rb" with:
+      """
+      module ApplicationHelper
+        def app_name
+          "The App"
+        end
+      end
+      """
+    And a file named "app/helpers/widgets_helper.rb" with:
+      """
+      module WidgetsHelper
+        def page_title
+          "#{app_name}: #{@title}"
+        end
+      end
+      """
+    When I run "rspec spec/helpers/widgets_helper_spec.rb"
+    Then the output should contain "1 example, 0 failures"
