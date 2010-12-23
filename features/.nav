@@ -2,10 +2,6 @@
 - transactional_examples.feature
 - model_specs:
   - errors_on.feature
-- view_specs:
-  - view_spec.feature
-  - stub_template.feature
-  - inferred_controller_path.feature
 - controller_specs:
   - controller_spec.feature
   - isolation_from_views.feature
@@ -19,6 +15,10 @@
   - route_to_matcher.feature
   - be_routable_matcher.feature
   - named_routes.feature
+- view_specs:
+  - view_spec.feature
+  - stub_template.feature
+  - inferred_controller_path.feature
 - matchers:
   - new_record_matcher.feature
   - render_template_matcher.feature

@@ -13,4 +13,4 @@ customized routes, like vanity links, slugs, etc.
 
 They are also valuable for routes that should not be available:
 
-   { :delete => "/accounts/37" }.should_not be_routable
+    { :delete => "/accounts/37" }.should_not be_routable
