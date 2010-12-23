@@ -3,7 +3,7 @@ module RSpec::Rails::Matchers
     extend RSpec::Matchers::DSL
 
     matcher :route_to do |route_options|
-      match_unless_raises Test::Unit::AssertionFailedError do |path|
+      match_unless_raises ActiveSupport::TestCase::Assertion do |path|
         assertion_path = { :method => path.keys.first, :path => path.values.first }
         assert_recognizes(route_options, assertion_path)
       end

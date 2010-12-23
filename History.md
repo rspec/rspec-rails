@@ -10,6 +10,9 @@
 * Bug fixes
   * restore global config.render_views so you only need to say it once
   * support overriding render_views in nested groups
+  * matchers that delegate to Rails' assertions capture
+    ActiveSupport::TestCase::Assertion (so they work properly now with
+    should_not in Ruby 1.8.7 and 1.9.1)
 
 ### 2.3.1 / 2010-12-16
 
