@@ -1,5 +1,6 @@
+- Upgrade.md
+- transactional_examples.feature
 - model_specs:
-  - transactional_examples.feature
   - errors_on.feature
 - view_specs:
   - view_spec.feature
