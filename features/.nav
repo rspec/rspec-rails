@@ -1,4 +1,6 @@
 - Upgrade.md
+- Generators.md
+- Autotest.md
 - transactional_examples.feature
 - model_specs:
   - errors_on.feature
