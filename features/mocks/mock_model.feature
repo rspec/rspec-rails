@@ -1,8 +1,8 @@
 Feature: mock_model
 
-  The mock_model method generates a test double object that acts like an
-  Active Model model. This is different from the stub_model method which
-  generates an instance of a real ActiveModel class.
+  The mock_model method generates a test double that acts like an Active Model
+  model. This is different from the stub_model method which generates an
+  instance of a real ActiveModel class.
 
   The benefit of mock_model over stub_model is that its a true double, so the
   examples are not dependent on the behaviour (or mis-behaviour), or even the
