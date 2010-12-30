@@ -60,7 +60,7 @@ out of the box for the default scenario (`ActiveRecord` + `Webrat`).
 
 ### Autotest
 
-The `rspec:install` generator creates an `./autotest/discover.rb` file, which
+The `rspec:install` generator creates an `.rspec` file, which
 tells Autotest that you're using RSpec and Rails. You'll also need to add the
 autotest (not autotest-rails) gem to your Gemfile:
 
