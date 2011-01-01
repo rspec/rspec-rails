@@ -1,3 +1,6 @@
+Controller specs live in `spec/controllers` or any example group with
+`:type => :controller`.
+
 A controller spec is an RSpec wrapper for a Rails functional test
 (ActionController::TestCase::Behavior).  It allows you to simulate a single
 http request in each example, and then specify expected outcomes, including:
@@ -9,7 +12,7 @@ http request in each example, and then specify expected outcomes, including:
 
 To specify outcomes, you can use:
     
-* standard rspec matchers (e.g. `response.code.should eq(200)`)
+* standard rspec matchers (`response.code.should eq(200)`)
 * standard test/unit assertions (`assert_equal 200, response.code`)
 * rails assertions (`assert_response 200`)
 * rails-specific matchers:
@@ -19,11 +22,15 @@ To specify outcomes, you can use:
     
 ## Conventions:
 
+### Controller
+
 * pass the controller being specified to the outermost `describe` method.
 
       describe AccountController do
         # ...
 
+### Views
+
 * by default, views are not rendered. See
   [views are stubbed by default](controller-specs/views-are-stubbed-by-default) and
-  [render_views](controller-specs/render-views) for details
+  [render_views](controller-specs/render-views) for details.

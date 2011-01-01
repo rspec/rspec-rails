@@ -1,6 +1,7 @@
+- GettingStarted.md (Getting started)
 - Upgrade.md
-- Generators.md
-- Autotest.md
+- Generators.md (Rails generators)
+- Autotest.md (Autotest integration)
 - transactional_examples.feature
 - model_specs:
   - errors_on.feature

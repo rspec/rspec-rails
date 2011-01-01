@@ -1,5 +1,5 @@
 rspec-rails extends Rails' built-in testing framework to support rspec examples
-for requests, controllers, models, views, and helpers.
+for requests, controllers, models, views, helpers, mailers and routing.
 
 ## Rails-3
 
