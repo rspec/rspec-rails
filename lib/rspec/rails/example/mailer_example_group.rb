@@ -2,11 +2,9 @@ if defined?(ActionMailer)
   module RSpec::Rails
     module MailerExampleGroup
       extend ActiveSupport::Concern
-      extend RSpec::Rails::ModuleInclusion
-
-      include RSpec::Rails::RailsExampleGroup
 
       include ActionMailer::TestCase::Behavior
+      include RSpec::Rails::RailsExampleGroup
       include RSpec::Rails::BrowserSimulators
 
       webrat do
@@ -29,8 +27,6 @@ if defined?(ActionMailer)
           describes
         end
       end
-
-      RSpec.configure &include_self_when_dir_matches('spec','mailers')
     end
   end
 end

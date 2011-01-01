@@ -3,11 +3,9 @@ require "action_dispatch/testing/assertions/routing"
 module RSpec::Rails
   module RoutingExampleGroup
     extend ActiveSupport::Concern
-    extend RSpec::Rails::ModuleInclusion
-
-    include RSpec::Rails::RailsExampleGroup
 
     include ActionDispatch::Assertions::RoutingAssertions
+    include RSpec::Rails::RailsExampleGroup
     include RSpec::Rails::Matchers::RoutingMatchers
 
     module InstanceMethods
@@ -27,7 +25,5 @@ module RSpec::Rails
         @routes = ::Rails.application.routes
       end
     end
-
-    RSpec.configure &include_self_when_dir_matches('spec','routing')
   end
 end

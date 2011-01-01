@@ -72,11 +72,9 @@ module RSpec::Rails
   #
   module ControllerExampleGroup
     extend ActiveSupport::Concern
-    extend RSpec::Rails::ModuleInclusion
-
-    include RSpec::Rails::RailsExampleGroup
 
     include ActionController::TestCase::Behavior
+    include RSpec::Rails::RailsExampleGroup
     include RSpec::Rails::ViewRendering
     include RSpec::Rails::Matchers::RedirectTo
     include RSpec::Rails::Matchers::RenderTemplate
@@ -172,7 +170,5 @@ module RSpec::Rails
         end
       end
     end
-
-    RSpec.configure &include_self_when_dir_matches('spec','controllers')
   end
 end

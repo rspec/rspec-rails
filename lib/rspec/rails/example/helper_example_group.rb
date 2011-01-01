@@ -27,11 +27,9 @@ module RSpec::Rails
   #
   module HelperExampleGroup
     extend ActiveSupport::Concern
-    extend RSpec::Rails::ModuleInclusion
-
-    include RSpec::Rails::RailsExampleGroup
 
     include ActionView::TestCase::Behavior
+    include RSpec::Rails::RailsExampleGroup
     include RSpec::Rails::ViewAssigns
     include RSpec::Rails::BrowserSimulators
 
@@ -69,7 +67,5 @@ module RSpec::Rails
         controller.controller_path = _controller_path
       end
     end
-
-    RSpec.configure &include_self_when_dir_matches('spec','helpers')
   end
 end

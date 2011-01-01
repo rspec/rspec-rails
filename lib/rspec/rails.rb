@@ -15,4 +15,3 @@ require 'rspec/rails/module_inclusion'
 require 'rspec/rails/browser_simulators'
 require 'rspec/rails/example'
 
-

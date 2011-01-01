@@ -13,12 +13,10 @@ module RSpec::Rails
   #   => delegates to assert_redirected_to(destination)
   module RequestExampleGroup
     extend ActiveSupport::Concern
-    extend RSpec::Rails::ModuleInclusion
-
-    include RSpec::Rails::RailsExampleGroup
 
     include ActionDispatch::Integration::Runner
     include ActionDispatch::Assertions
+    include RSpec::Rails::RailsExampleGroup
     include RSpec::Rails::BrowserSimulators
 
     module InstanceMethods
@@ -62,7 +60,5 @@ module RSpec::Rails
         end
       end
     end
-
-    RSpec.configure &include_self_when_dir_matches('spec','requests')
   end
 end

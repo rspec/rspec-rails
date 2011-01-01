@@ -19,10 +19,9 @@ module RSpec::Rails
   #   end
   module ViewExampleGroup
     extend ActiveSupport::Concern
-    extend RSpec::Rails::ModuleInclusion
 
-    include RSpec::Rails::RailsExampleGroup
     include ActionView::TestCase::Behavior
+    include RSpec::Rails::RailsExampleGroup
     include RSpec::Rails::ViewAssigns
     include RSpec::Rails::Matchers::RenderTemplate
     include RSpec::Rails::BrowserSimulators
@@ -154,8 +153,6 @@ module RSpec::Rails
         controller.request.path_parameters["action"]     = _inferred_action unless _inferred_action =~ /^_/
       end
     end
-
-    RSpec.configure &include_self_when_dir_matches('spec','views')
   end
 end
 
