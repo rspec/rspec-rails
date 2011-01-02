@@ -1,8 +1,8 @@
 ## rspec-rails-2 release history
 
-### 2.4.0 / in development
+### 2.4.0 / 2011-01-02
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.3.1...master)
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.3.1...2.4.0)
 
 * Enhancements
   * include ApplicationHelper in helper object in helper specs
