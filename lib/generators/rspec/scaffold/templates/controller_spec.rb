@@ -7,9 +7,7 @@ require 'spec_helper'
 describe <%= controller_class_name %>Controller do
 
   def <%= mock_file_name %>(stubs={})
-    (@<%= mock_file_name %> ||= mock_model(<%= class_name %>).as_null_object).tap do |<%= file_name %>|
-      <%= file_name %>.stub(stubs) unless stubs.empty?
-    end
+    @<%= mock_file_name %> ||= mock_model(<%= class_name %>, stubs).as_null_object
   end
 
 <% unless options[:singleton] -%>
@@ -47,7 +45,6 @@ describe <%= controller_class_name %>Controller do
   end
 
   describe "POST create" do
-
     describe "with valid params" do
       it "assigns a newly created <%= file_name %> as @<%= file_name %>" do
         <%= stub orm_class.build(class_name, params) %> { <%= mock_file_name(:save => true) %> }
@@ -75,11 +72,9 @@ describe <%= controller_class_name %>Controller do
         response.should render_template("new")
       end
     end
-
   end
 
   describe "PUT update" do
-
     describe "with valid params" do
       it "updates the requested <%= file_name %>" do
         <%= stub orm_class.find(class_name, "37".inspect) %> { <%= mock_file_name %> }
@@ -113,7 +108,6 @@ describe <%= controller_class_name %>Controller do
         response.should render_template("edit")
       end
     end
-
   end
 
   describe "DELETE destroy" do
