@@ -1,10 +1,10 @@
 Feature: be_a_new matcher
 
-  The be_a_new matcher accepts a class and passes if the subject is an instance
-  of that class that returns true to new_record?
+  The `be_a_new` matcher accepts a class and passes if the subject is an
+  instance of that class that returns false to persisted?
 
-  You can also call "with" on be_a_new with a hash of attributes to specify the
-  subject has equal attributes.
+  You can also chain `with` on `be_a_new` with a hash of attributes to specify
+  the subject has equal attributes.
 
   Scenario: example spec with four be_a_new possibilities 
     Given a file named "spec/models/widget_spec.rb" with:

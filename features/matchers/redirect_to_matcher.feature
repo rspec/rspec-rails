@@ -1,9 +1,8 @@
 Feature: redirect_to matcher
 
-  The redirect_to matcher is used to specify that the redirect called
-  in the latest action ended with the intended behaviour. Essentially,
-  it delegates to "assert_redirect". For more info, please check out
-  the Rails documentation on this method.
+  The `redirect_to` matcher is used to specify that the redirect called in the
+  latest action ended with the intended behaviour. Essentially, it delegates to
+  [`assert_redirected_to`](http://api.rubyonrails.org/classes/ActionDispatch/Assertions/ResponseAssertions.html#method-i-assert_redirected_to).
 
   It is available in controller specs (spec/controllers) and request
   specs (spec/requests).

@@ -5,10 +5,10 @@ A controller spec is an RSpec wrapper for a Rails functional test
 (ActionController::TestCase::Behavior).  It allows you to simulate a single
 http request in each example, and then specify expected outcomes, including:
 
-* templates that are rendered by the action
-* instance variables that are assigned in the controller to be shared with the
-  view
-* cookies that get sent back with the response
+* rendered templates
+* redirects
+* instance variables assigned in the controller to be shared with the view
+* cookies sent back with the response
 
 To specify outcomes, you can use:
     

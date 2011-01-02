@@ -1,7 +1,7 @@
 Feature: render_views
 
-  You can tell a controller example group to render views with the render_views
-  declaration.
+  You can tell a controller example group to render views with the
+  `render_views` declaration.
 
   Scenario: expect template that exists and is rendered by controller (passes)
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
