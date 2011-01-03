@@ -3,9 +3,8 @@ require "action_dispatch/testing/assertions/routing"
 module RSpec::Rails
   module RoutingExampleGroup
     extend ActiveSupport::Concern
-
-    include ActionDispatch::Assertions::RoutingAssertions
     include RSpec::Rails::RailsExampleGroup
+    include ActionDispatch::Assertions::RoutingAssertions
     include RSpec::Rails::Matchers::RoutingMatchers
 
     module InstanceMethods

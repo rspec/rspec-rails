@@ -27,9 +27,8 @@ module RSpec::Rails
   #
   module HelperExampleGroup
     extend ActiveSupport::Concern
-
-    include ActionView::TestCase::Behavior
     include RSpec::Rails::RailsExampleGroup
+    include ActionView::TestCase::Behavior
     include RSpec::Rails::ViewAssigns
     include RSpec::Rails::BrowserSimulators
 

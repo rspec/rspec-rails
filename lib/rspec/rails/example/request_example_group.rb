@@ -13,10 +13,9 @@ module RSpec::Rails
   #   => delegates to assert_redirected_to(destination)
   module RequestExampleGroup
     extend ActiveSupport::Concern
-
+    include RSpec::Rails::RailsExampleGroup
     include ActionDispatch::Integration::Runner
     include ActionDispatch::Assertions
-    include RSpec::Rails::RailsExampleGroup
     include RSpec::Rails::BrowserSimulators
 
     module InstanceMethods

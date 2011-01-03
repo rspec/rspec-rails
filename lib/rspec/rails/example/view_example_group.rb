@@ -19,9 +19,8 @@ module RSpec::Rails
   #   end
   module ViewExampleGroup
     extend ActiveSupport::Concern
-
-    include ActionView::TestCase::Behavior
     include RSpec::Rails::RailsExampleGroup
+    include ActionView::TestCase::Behavior
     include RSpec::Rails::ViewAssigns
     include RSpec::Rails::Matchers::RenderTemplate
     include RSpec::Rails::BrowserSimulators

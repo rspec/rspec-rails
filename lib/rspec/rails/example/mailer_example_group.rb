@@ -2,9 +2,8 @@ if defined?(ActionMailer)
   module RSpec::Rails
     module MailerExampleGroup
       extend ActiveSupport::Concern
-
-      include ActionMailer::TestCase::Behavior
       include RSpec::Rails::RailsExampleGroup
+      include ActionMailer::TestCase::Behavior
       include RSpec::Rails::BrowserSimulators
 
       webrat do

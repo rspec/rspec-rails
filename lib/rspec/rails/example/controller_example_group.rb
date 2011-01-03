@@ -72,9 +72,8 @@ module RSpec::Rails
   #
   module ControllerExampleGroup
     extend ActiveSupport::Concern
-
-    include ActionController::TestCase::Behavior
     include RSpec::Rails::RailsExampleGroup
+    include ActionController::TestCase::Behavior
     include RSpec::Rails::ViewRendering
     include RSpec::Rails::Matchers::RedirectTo
     include RSpec::Rails::Matchers::RenderTemplate
