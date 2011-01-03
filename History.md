@@ -2,7 +2,7 @@
 
 ### 2.4.1 / 2011-01-03
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.4.0...2.4.1)
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.4.0...v2.4.1)
 
 * Bug fixes
   * fixed bug caused by including some Rails modules before RSpec's
@@ -10,7 +10,7 @@
 
 ### 2.4.0 / 2011-01-02
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.3.1...2.4.0)
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.3.1...v2.4.0)
 
 * Enhancements
   * include ApplicationHelper in helper object in helper specs
