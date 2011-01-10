@@ -48,7 +48,7 @@ module RSpec::Rails
       metadata[:type] = :request
 
       before do
-        @router = ::Rails.application.routes
+        @routes = ::Rails.application.routes
       end
 
       webrat do
