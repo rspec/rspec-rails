@@ -1,14 +1,13 @@
-module NoConnections
-  def self.included(mod)
-    (class << mod; self; end).class_eval do
-      def columns
-        []
-      end
+module Connections
+  def self.extended(host)
+    host.establish_connection :adapter => 'sqlite3',
+                              :database => ':memory:'
 
-      def connection
-        RSpec::Mocks::Mock.new.as_null_object
-      end
-    end
+    host.connection.execute <<-eosql
+      CREATE TABLE #{host.table_name} (
+        #{host.primary_key} integer PRIMARY KEY AUTOINCREMENT
+      )
+    eosql
   end
 end
 
@@ -18,7 +17,7 @@ class NonActiveRecordModel
 end
 
 class MockableModel < ActiveRecord::Base
-  include NoConnections
+  extend Connections
   has_one :associated_model
 end
 
@@ -26,23 +25,12 @@ class SubMockableModel < MockableModel
 end
 
 class AssociatedModel < ActiveRecord::Base
-  include NoConnections
+  extend Connections
   belongs_to :mockable_model
 end
 
 class AlternatePrimaryKeyModel < ActiveRecord::Base
-  include NoConnections
   self.primary_key = :my_id
+  extend Connections
   attr_accessor :my_id
-end
-
-class ConnectableModel < ActiveRecord::Base
-  establish_connection :adapter => 'sqlite3',
-                       :database => ':memory:'
-
-  connection.execute <<-eosql
-    CREATE TABLE connectable_models (
-      id integer PRIMARY KEY AUTOINCREMENT
-    )
-  eosql
 end

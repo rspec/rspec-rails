@@ -84,7 +84,7 @@ describe "stub_model" do
 
     it "raises when hitting the db" do
       lambda do
-        stub_model(ConnectableModel).connection
+        stub_model(MockableModel).connection
       end.should raise_error(RSpec::Rails::IllegalDataAccessException, /stubbed models are not allowed to access the database/)
     end
 
@@ -108,7 +108,7 @@ describe "stub_model" do
 
     describe "alternate primary key" do
       it "has the correct primary_key name" do
-        stub_model(AlternatePrimaryKeyModel).class.primary_key.should eql('my_id')
+        stub_model(AlternatePrimaryKeyModel).class.primary_key.to_s.should eql('my_id')
       end
 
       it "has a primary_key" do
@@ -138,11 +138,11 @@ describe "stub_model" do
       end
 
       it "passes associated_model == mock" do
-          @stub_model.should == @real.mockable_model
+        @stub_model.should == @real.mockable_model
       end
 
       it "passes mock == associated_model" do
-          @real.mockable_model.should == @stub_model
+        @real.mockable_model.should == @stub_model
       end
     end
 
