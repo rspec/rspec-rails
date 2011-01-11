@@ -10,7 +10,7 @@ source "http://rubygems.org"
 end
 
 gem "rake", "0.8.7"
-gem "cucumber", "0.9.4"
+gem "cucumber", "0.10.0"
 gem "aruba", "0.2.2"
 gem "rcov", "0.9.9"
 gem "relish", "0.2.0"
