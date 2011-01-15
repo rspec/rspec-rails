@@ -54,3 +54,19 @@ fix releases in RSpec). Part of the philosophy of rspec-rails-2 is to rely on
 public APIs in Rails as much as possible. In this case, `render_template`
 delegates directly to Rails' `assert_template`, which only works after the
 action.
+
+## View specs
+
+### No more `have_tag`
+
+Before Webrat came along, rspec-rails had its own `have_tag` matcher that
+wrapped Rails' `assert_select`. Webrat included a replacement for `have_tag` as
+well as new matchers (`have_selector` and `have_xpath`), all of which rely on
+Nokogiri to do its work, and are far less brittle than RSpec's `have_tag`.
+
+Capybara has similar matchers, which will soon be available view specs (they
+are already available in controller specs with `render_views`).
+
+Given the brittleness of RSpec's `have_tag` matcher and the presence of new
+Webrat and Capybara matchers that do a better job, `have_tag` was not included
+in rspec-rails-2.

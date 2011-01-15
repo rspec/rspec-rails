@@ -27,6 +27,10 @@ module RSpec
           self.stub(:id) { nil }
         end
 
+        def [](key)
+          send(key)
+        end
+
         def new_record?
           !persisted?
         end

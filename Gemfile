@@ -9,6 +9,8 @@ source "http://rubygems.org"
   end
 end
 
+gem "arel", :path => "~/projects/ruby/arel"
+
 gem "rake", "0.8.7"
 gem "cucumber", "0.10.0"
 gem "aruba", "0.2.2"
