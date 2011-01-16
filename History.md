@@ -7,6 +7,7 @@
 * Bug fixes
   * fixed bug in which `render_views` in a nested group set the value in its
     parent group.
+  * only include MailerExampleGroup when it is defiend (Steve Sloan)
 
 ### 2.4.1 / 2011-01-03
 

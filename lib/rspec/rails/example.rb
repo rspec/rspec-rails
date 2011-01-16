@@ -18,9 +18,11 @@ RSpec::configure do |c|
   c.include RSpec::Rails::HelperExampleGroup, :type => :helper, :example_group => {
     :file_path => c.escaped_path(%w[spec helpers])
   }
-  c.include RSpec::Rails::MailerExampleGroup, :type => :mailer, :example_group => {
-    :file_path => c.escaped_path(%w[spec mailers])
-  }
+  if defined?(RSpec::Rails::MailerExampleGroup)
+    c.include RSpec::Rails::MailerExampleGroup, :type => :mailer, :example_group => {
+      :file_path => c.escaped_path(%w[spec mailers])
+    }
+  end
   c.include RSpec::Rails::ModelExampleGroup, :type => :model, :example_group => {
     :file_path => c.escaped_path(%w[spec models])
   }
