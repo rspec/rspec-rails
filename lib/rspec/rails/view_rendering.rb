@@ -23,7 +23,7 @@ module RSpec
 
       module ClassMethods
         def metadata_for_rspec_rails
-          metadata[:rspec_rails] ||= {}
+          metadata[:rspec_rails] = metadata[:rspec_rails] ? metadata[:rspec_rails].dup : {}
         end
 
         # See RSpec::Rails::ControllerExampleGroup

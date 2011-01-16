@@ -1,5 +1,13 @@
 ## rspec-rails-2 release history
 
+### 2.4.2 / in dev
+
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.4.1...master)
+
+* Bug fixes
+  * fixed bug in which `render_views` in a nested group set the value in its
+    parent group.
+
 ### 2.4.1 / 2011-01-03
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.4.0...v2.4.1)

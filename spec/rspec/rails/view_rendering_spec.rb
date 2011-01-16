@@ -88,7 +88,13 @@ module RSpec::Rails
           end
         end
 
-        it "overrides the parent group" do
+        it "leaves the parent group as/is" do
+          group.render_views
+          nested_group.render_views false
+          group.new.render_views?.should be_true
+        end
+
+        it "overrides the value inherited from the parent group" do
           group.render_views
           nested_group.render_views false
           nested_group.new.render_views?.should be_false
