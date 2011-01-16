@@ -2,8 +2,9 @@ Controller specs live in `spec/controllers` or any example group with
 `:type => :controller`.
 
 A controller spec is an RSpec wrapper for a Rails functional test
-(ActionController::TestCase::Behavior).  It allows you to simulate a single
-http request in each example, and then specify expected outcomes, including:
+([ActionController::TestCase::Behavior](https://github.com/rails/rails/blob/master/actionpack/lib/action_controller/test_case.rb)).
+It allows you to simulate a single http request in each example, and then
+specify expected outcomes such as:
 
 * rendered templates
 * redirects

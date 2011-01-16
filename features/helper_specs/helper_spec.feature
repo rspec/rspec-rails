@@ -26,7 +26,7 @@ Feature: helper spec
       end
       """
     When I run "rspec spec/helpers/application_helper_spec.rb"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
     
   Scenario: helper method that accesses an instance variable
     Given a file named "spec/helpers/application_helper_spec.rb" with:
@@ -51,7 +51,7 @@ Feature: helper spec
       end
       """
     When I run "rspec spec/helpers/application_helper_spec.rb"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
 
   Scenario: application helper is included in helper object
     Given a file named "spec/helpers/widgets_helper_spec.rb" with:
@@ -84,4 +84,4 @@ Feature: helper spec
       end
       """
     When I run "rspec spec/helpers/widgets_helper_spec.rb"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass

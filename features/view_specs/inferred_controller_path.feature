@@ -12,7 +12,7 @@ Feature: view spec infers controller path and action
       end
       """
     When I run "rspec spec/views"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
 
   Scenario: infer action
     Given a file named "spec/views/widgets/new.html.erb_spec.rb" with:
@@ -26,7 +26,7 @@ Feature: view spec infers controller path and action
       end
       """
     When I run "rspec spec/views"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
 
   Scenario: do not infer action in a partial
     Given a file named "spec/views/widgets/_form.html.erb_spec.rb" with:
@@ -40,5 +40,5 @@ Feature: view spec infers controller path and action
       end
       """
     When I run "rspec spec/views"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
 

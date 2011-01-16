@@ -1,6 +1,6 @@
-- GettingStarted.md (Getting started)
-- Upgrade.md
-- Generators.md (Rails generators)
+- GettingStarted.md (Start from scratch)
+- Upgrade.md (Upgrade from 1.x)
+- Generators.md (Generators)
 - Autotest.md (Autotest integration)
 - transactional_examples.feature
 - model_specs:

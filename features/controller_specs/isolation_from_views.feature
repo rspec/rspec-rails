@@ -1,6 +1,6 @@
 Feature: views are stubbed by default
 
-  By default, controller specs stub views with template that renders an empty
+  By default, controller specs stub views with a template that renders an empty
   string instead of the views in the app. This allows you specify which view
   template an action should try to render regardless of whether the template
   compiles cleanly.
@@ -28,7 +28,7 @@ Feature: views are stubbed by default
       end
       """
     When I run "rspec ./spec"
-    Then the output should contain "2 examples, 0 failures"
+    Then the examples should all pass
 
   Scenario: expect template that is not rendered by controller action (fails)
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:

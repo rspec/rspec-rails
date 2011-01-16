@@ -16,7 +16,7 @@ Feature: URL helpers in mailer examples
       end
       """
     When I run "rspec spec"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
 
   Scenario: using URL helpers without default options
     Given a file named "config/initializers/mailer_defaults.rb" with:
@@ -35,4 +35,4 @@ Feature: URL helpers in mailer examples
       end
       """
     When I run "rspec spec"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass

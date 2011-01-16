@@ -27,7 +27,7 @@ Feature: stub template
       <%= render :partial => "gadget", :collection => @gadgets %>
       """
     When I run "rspec spec/views/gadgets/list.html.erb_spec.rb"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
 
   Scenario: stub template that exists
     Given a file named "spec/views/gadgets/edit.html.erb_spec.rb" with:
@@ -47,5 +47,5 @@ Feature: stub template
       end
       """
     When I run "rspec spec/views/gadgets/edit.html.erb_spec.rb"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
 

@@ -15,4 +15,4 @@ Feature: named routes
       end
       """
     When I run "rspec spec"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass

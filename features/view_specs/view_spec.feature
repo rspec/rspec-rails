@@ -22,7 +22,7 @@ Feature: view spec
       end
       """
     When I run "rspec spec/views"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
 
   Scenario: passing spec with before and nesting
     Given a file named "spec/views/widgets/index.html.erb_spec.rb" with:
@@ -49,7 +49,7 @@ Feature: view spec
       end
       """
     When I run "rspec spec/views"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
 
   Scenario: passing spec with explicit template rendering
     Given a file named "spec/views/widgets/widget.html.erb_spec.rb" with:
@@ -71,7 +71,7 @@ Feature: view spec
       <h2><%= @widget.name %></h2>
       """
     When I run "rspec spec/views"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
 
   Scenario: passing spec with rendering of locals in a partial
     Given a file named "spec/views/widgets/_widget.html.erb_spec.rb" with:
@@ -93,7 +93,7 @@ Feature: view spec
       <h3><%= widget.name %></h3>
       """
     When I run "rspec spec/views"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
 
   Scenario: passing spec with rendering of locals in an implicit partial
     Given a file named "spec/views/widgets/_widget.html.erb_spec.rb" with:
@@ -115,7 +115,7 @@ Feature: view spec
       <h3><%= widget.name %></h3>
       """
     When I run "rspec spec/views"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
 
   Scenario: passing spec with rendering of text
     Given a file named "spec/views/widgets/direct.html.erb_spec.rb" with:
@@ -132,7 +132,7 @@ Feature: view spec
       end
       """
     When I run "rspec spec/views"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
 
   Scenario: passing spec with rendering of Prototype helper update
     Given a file named "spec/views/widgets/prototype_update.html.erb_spec.rb" with:
@@ -151,7 +151,7 @@ Feature: view spec
       end
       """
     When I run "rspec spec/views"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
 
   Scenario: spec with view that accesses helper_method helpers
     Given a file named "app/views/secrets/index.html.erb" with:
@@ -182,4 +182,4 @@ Feature: view spec
       end
       """
     When I run "rspec spec/views/secrets"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass

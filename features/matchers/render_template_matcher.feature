@@ -22,4 +22,4 @@ Feature: render_template matcher
       end
       """
     When I run "rspec spec/controllers/gadgets_spec.rb"
-    Then the output should contain "3 examples, 0 failures"
+    Then the examples should all pass

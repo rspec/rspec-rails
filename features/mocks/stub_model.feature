@@ -35,7 +35,7 @@ Feature: stub_model
       end
       """
     When I run "rspec spec/models/widget_spec.rb"
-    Then the output should contain "4 examples, 0 failures"
+    Then the examples should all pass
     
   Scenario: passing an Active Record constant with a block of stubs
     Given a file named "spec/models/widget_spec.rb" with:
@@ -55,4 +55,4 @@ Feature: stub_model
       end
       """
     When I run "rspec spec/models/widget_spec.rb"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass

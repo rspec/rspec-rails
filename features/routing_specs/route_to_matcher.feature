@@ -19,7 +19,7 @@ Feature: route_to matcher
       """
 
     When I run "rspec spec/routing/widgets_routing_spec.rb"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
 
   Scenario: route spec for a route that doesn't exist (fails)
     Given a file named "spec/routing/widgets_routing_spec.rb" with:

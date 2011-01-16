@@ -25,7 +25,7 @@ Feature: be_a_new matcher
       end
       """
     When I run "rspec spec/models/widget_spec.rb"
-    Then the output should contain "4 examples, 0 failures"
+    Then the examples should all pass
 
   Scenario: example spec using be_a_new.with
     Given a file named "spec/models/widget_spec.rb" with:
@@ -67,4 +67,4 @@ Feature: be_a_new matcher
       end
       """
     When I run "rspec spec/models/widget_spec.rb"
-    Then the output should contain "4 examples, 0 failures"
+    Then the examples should all pass

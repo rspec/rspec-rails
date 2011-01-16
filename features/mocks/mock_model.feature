@@ -37,7 +37,7 @@ Feature: mock_model
       end
       """
     When I run "rspec spec/models/car_spec.rb"
-    Then the output should contain "3 examples, 0 failures"
+    Then the examples should all pass
 
   Scenario: passing a string that represents an existing constant
     Given a file named "spec/models/widget_spec.rb" with:
@@ -52,7 +52,7 @@ Feature: mock_model
       end
       """
     When I run "rspec spec/models/widget_spec.rb"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
 
   Scenario: passing a class that does not extend ActiveModel::Naming
     Given a file named "spec/models/string_spec.rb" with:
@@ -66,7 +66,7 @@ Feature: mock_model
       end
       """
     When I run "rspec spec/models/string_spec.rb"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
 
   Scenario: passing an Active Record constant
     Given a file named "spec/models/widget_spec.rb" with:
@@ -95,7 +95,7 @@ Feature: mock_model
       end
       """
     When I run "rspec spec/models/widget_spec.rb"
-    Then the output should contain "4 examples, 0 failures"
+    Then the examples should all pass
 
   Scenario: passing an Active Record constant with method stubs
     Given a file named "spec/models/widget_spec.rb" with:
@@ -128,4 +128,4 @@ Feature: mock_model
       end
       """
     When I run "rspec spec/models/widget_spec.rb"
-    Then the output should contain "3 examples, 0 failures"
+    Then the examples should all pass

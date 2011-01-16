@@ -37,4 +37,4 @@ Feature: redirect_to matcher
       end
       """
     When I run "rspec spec/controllers/widgets_controller_spec.rb"
-    Then the output should contain "4 examples, 0 failures"
+    Then the examples should all pass

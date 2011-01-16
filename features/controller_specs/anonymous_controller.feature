@@ -37,7 +37,7 @@ Feature: anonymous controller
     end
     """
     When I run "rspec spec"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
 
   Scenario: specify error handling in subclass of ApplicationController
     Given a file named "spec/controllers/application_controller_subclass_spec.rb" with:
@@ -75,4 +75,4 @@ Feature: anonymous controller
     end
     """
     When I run "rspec spec"
-    Then the output should contain "1 example, 0 failures"
+    Then the examples should all pass
