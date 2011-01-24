@@ -120,7 +120,7 @@ describe <%= controller_class_name %>Controller do
     it "redirects to the <%= table_name %> list" do
       <%= stub orm_class.find(class_name) %> { <%= mock_file_name %> }
       delete :destroy, :id => "1"
-      response.should redirect_to(<%= table_name %>_url)
+      response.should redirect_to(<%= index_helper %>_url)
     end
   end
 
