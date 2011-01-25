@@ -1,10 +1,12 @@
-unless File.directory?("vendor/rails")
+unless File.exist?('./Gemfile')
   raise <<-MESSAGE
-You need to clone the rails git repository into ./vendor before you can use any
-of the rake tasks.
+Could not find a Gemfile. Please run any of:
+  thor rails:use 3-0-stable
+  thor rails:use master
+  thor rails:use 3.0.0
+  thor rails:use 3.0.3
 
-    git clone git://github.com/rails/rails.git vendor/rails
-
+And then run 'bundle install'
 MESSAGE
 end
 require "bundler"
@@ -54,8 +56,8 @@ namespace :generate do
   task :app do |t|
     unless File.directory?('./tmp/example_app')
       sh "bundle exec rails new ./tmp/example_app"
-      sh "cp ./templates/Gemfile ./tmp/example_app/"
-      sh "cp ./specs.watchr ./tmp/example_app/"
+      sh "cp ./templates/Gemfile-base ./tmp/example_app/"
+      sh "cp ./Gemfile ./tmp/example_app/"
     end
   end
 

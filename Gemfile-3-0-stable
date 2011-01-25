@@ -1,0 +1,6 @@
+instance_eval(File.read("./Gemfile-base"))
+
+gem "rails", :git => "https://github.com/rails/rails.git", :branch => "3-0-stable"
+gem "arel",  :git => "https://github.com/rails/arel.git"
+gem "rack",  :git => "git://github.com/rack/rack.git"
+

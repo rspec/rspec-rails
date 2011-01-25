@@ -15,4 +15,10 @@ class Rails < Thor
       `git fetch`
     end
   end
+
+  desc "use VERSION", "copies the appropriate Gemfile to Gemfile"
+  def use(version)
+    `cp ./Gemfile-#{version} ./Gemfile` 
+    `rm ./Gemfile.lock`
+  end
 end

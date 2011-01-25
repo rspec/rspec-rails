@@ -6,3 +6,4 @@ doc
 vendor
 .bundle
 Gemfile.lock
+Gemfile

@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-%w[rspec rspec-core rspec-expectations rspec-mocks].each do |lib|
+%w[rspec rspec-core rspec-expectations rspec-mocks rspec-rails].each do |lib|
   library_path = File.expand_path("../../#{lib}", __FILE__)
   if File.exist?(library_path)
     gem lib, :path => library_path
@@ -9,8 +9,7 @@ source "http://rubygems.org"
   end
 end
 
-gem "arel", :path => "~/projects/ruby/arel"
-
+gem 'sqlite3-ruby', :require => 'sqlite3'
 gem "rake", "0.8.7"
 gem "cucumber", "0.10.0"
 gem "aruba", "0.2.2"
@@ -19,6 +18,7 @@ gem "relish", "0.2.0"
 gem "guard-rspec", "0.1.9"
 gem "growl", "1.0.3"
 gem "ZenTest", "~> 4.4.2"
+gem "webrat", "0.7.2"
 
 if RUBY_PLATFORM =~ /darwin/
   gem "autotest-fsevent", "~> 0.2.4"
@@ -36,9 +36,3 @@ end
 platforms :jruby do
   gem "jruby-openssl"
 end
-
-#### rspec-rails only
-gem "rails", :path => File.expand_path("../vendor/rails", __FILE__)
-gem "rack", :git => "git://github.com/rack/rack.git"
-gem 'webrat', "0.7.2"
-gem 'sqlite3-ruby', :require => 'sqlite3'

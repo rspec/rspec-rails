@@ -1,0 +1,17 @@
+source 'http://rubygems.org'
+
+group :development, :test do
+  %w[rspec rspec-core rspec-expectations rspec-mocks rspec-rails].each do |lib|
+    library_path = File.expand_path("../../../../#{lib}", __FILE__)
+    if File.exist?(library_path)
+      gem lib, :path => library_path
+    else
+      gem lib
+    end
+  end
+  gem "rcov"
+  gem "webrat", "0.7.2"
+  gem "ZenTest", "4.4.2"
+end
+
+gem 'sqlite3-ruby', :require => 'sqlite3'
