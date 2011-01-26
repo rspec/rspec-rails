@@ -56,15 +56,19 @@ module RSpec::Rails
   #
   # RSpec's preferred approach to spec'ing controller behaviour is to isolate
   # the controller from its collaborators.  By default, therefore, controller
-  # example groups do not render views. This means that a view template need
-  # not even exist in order to run a controller spec, and you can still specify
-  # which template the controller should render.
+  # example groups do not render the views in your app. Due to the way Rails
+  # searches for view templates, the template still needs to exist, but it
+  # won't actually be loaded.
+  #
+  # NOTE that this is different from rspec-rails-1 with rails-2, which did not
+  # require the presence of the file at all. Due to changes in rails-3, this
+  # was no longer feasible in rspec-rails-2.
   #
   # == View rendering
   #
-  # If you prefer a more integrated approach, similar to that of
-  # Rails' functional tests, you can tell controller groups to
-  # render views with the +render_views+ declaration:
+  # If you prefer a more integrated approach, similar to that of Rails'
+  # functional tests, you can tell controller groups to render the views in the
+  # app with the +render_views+ declaration:
   #
   #   describe WidgetsController do
   #     render_views
