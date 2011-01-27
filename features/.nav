@@ -1,8 +1,9 @@
 - GettingStarted.md (Start from scratch)
-- Upgrade.md (Upgrade from 1.x)
 - Generators.md (Generators)
-- Autotest.md (Autotest integration)
 - transactional_examples.feature
+- Autotest.md (Autotest integration)
+- Changelog.md
+- Upgrade.md
 - model_specs:
   - errors_on.feature
 - controller_specs:
