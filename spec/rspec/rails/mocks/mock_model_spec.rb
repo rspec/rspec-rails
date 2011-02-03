@@ -260,6 +260,12 @@ describe "mock_model(RealModel)" do
     end
   end
 
+  describe "#blank?" do
+    it "is false" do
+      mock_model(MockableModel).should_not be_blank
+    end
+  end
+
   describe "ActiveModel Lint tests" do
     require 'test/unit/assertions'
     require 'active_model/lint'

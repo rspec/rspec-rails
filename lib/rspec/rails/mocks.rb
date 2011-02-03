@@ -81,6 +81,7 @@ EOM
         stubs = stubs.reverse_merge(:persisted? => !!stubs[:id])
         stubs = stubs.reverse_merge(:destroyed? => false)
         stubs = stubs.reverse_merge(:marked_for_destruction? => false)
+        stubs = stubs.reverse_merge(:blank? => false)
 
         mock("#{model_class.name}_#{stubs[:id]}", stubs).tap do |m|
           m.extend ActiveModelInstanceMethods
@@ -192,6 +193,7 @@ EOM
             stubs = stubs.reverse_merge(:id => next_id)
             stubs = stubs.reverse_merge(:persisted? => !!stubs[:id])
           end
+          stubs = stubs.reverse_merge(:blank? => false)
           stubs.each do |k,v|
             m.__send__("#{k}=", stubs.delete(k)) if m.respond_to?("#{k}=")
           end
