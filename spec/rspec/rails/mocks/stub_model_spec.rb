@@ -35,6 +35,11 @@ describe "stub_model" do
       second.to_param.to_i.should == (first.to_param.to_i + 1)
     end
 
+    describe "#blank?" do
+      it "is false" do
+        stub_model(model_class).should_not be_blank
+      end
+    end
   end
 
   context "with ActiveModel (not ActiveRecord)" do
