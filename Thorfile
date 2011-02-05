@@ -20,5 +20,6 @@ class Rails < Thor
   def use(version)
     `cp ./Gemfile-#{version} ./Gemfile` 
     `rm ./Gemfile.lock`
+    system "bundle install"
   end
 end
