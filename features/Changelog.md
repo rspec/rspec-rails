@@ -4,11 +4,16 @@
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.4.1...master)
 
+* Enhancements
+  * use index_helper instead of table_name when generating specs (Reza
+    Primardiansyah)
+ 
 * Bug fixes
   * fixed bug in which `render_views` in a nested group set the value in its
     parent group.
   * only include MailerExampleGroup when it is defiend (Steve Sloan)
   * mock_model.as_null_object.attribute.blank? returns false (Randy Schmidt)
+  * fix typo in request specs (Paco Guzman)
 
 ### 2.4.1 / 2011-01-03
 
