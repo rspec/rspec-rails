@@ -1,8 +1,6 @@
-## rspec-rails-2 release history
+### 2.5.0 / 2011-02-05
 
-### in dev
-
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.4.1...master)
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.4.1...v2.5.0)
 
 * Enhancements
   * use index_helper instead of table_name when generating specs (Reza
