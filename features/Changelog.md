@@ -8,6 +8,7 @@
   * fixed bug in which `render_views` in a nested group set the value in its
     parent group.
   * only include MailerExampleGroup when it is defiend (Steve Sloan)
+  * mock_model.as_null_object.attribute.blank? returns false (Randy Schmidt)
 
 ### 2.4.1 / 2011-01-03
 
