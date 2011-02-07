@@ -15,3 +15,10 @@ If Bundler is managing any gems for you directly (i.e. you've got `:git` or
 
     bundle exec autotest
 
+If you do, you require Autotest's bundler plugin in a `.autotest` file in the
+project root directory or your home directory:
+
+    require "autotest/bundler"
+
+Now you can just type `autotest`, it should prefix the generated shell command
+with `bundle exec`.
