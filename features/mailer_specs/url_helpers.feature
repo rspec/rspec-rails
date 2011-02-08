@@ -1,5 +1,7 @@
+@mailer
 Feature: URL helpers in mailer examples
 
+  @rails_configuration
   Scenario: using URL helpers with default options
     Given a file named "config/initializers/mailer_defaults.rb" with:
       """

@@ -1,9 +1,11 @@
+@controller
 Feature: anonymous controller
 
   As a Rails developer using RSpec
   In order to specify behaviour of ApplicationController
   I want a simple DSL for generating anonymous subclasses
 
+  @redirect_to
   Scenario: specify error handling in ApplicationController
     Given a file named "spec/controllers/application_controller_spec.rb" with:
     """
@@ -39,6 +41,7 @@ Feature: anonymous controller
     When I run "rspec spec"
     Then the examples should all pass
 
+  @redirect_to
   Scenario: specify error handling in subclass of ApplicationController
     Given a file named "spec/controllers/application_controller_subclass_spec.rb" with:
     """

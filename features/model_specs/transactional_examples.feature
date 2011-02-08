@@ -1,3 +1,4 @@
+@transactions
 Feature: transactional examples
 
   Scenario: run in transactions (default)
@@ -23,6 +24,7 @@ Feature: transactional examples
     When I run "rspec spec/models/widget_spec.rb"
     Then the examples should all pass
 
+  @configuration
   Scenario: run in transactions (explicit)
     Given a file named "spec/models/widget_spec.rb" with:
       """
@@ -50,6 +52,7 @@ Feature: transactional examples
     When I run "rspec spec/models/widget_spec.rb"
     Then the examples should all pass
 
+  @configuration
   Scenario: disable transactions (explicit)
     Given a file named "spec/models/widget_spec.rb" with:
       """
@@ -79,6 +82,7 @@ Feature: transactional examples
     When I run "rspec spec/models/widget_spec.rb"
     Then the examples should all pass
 
+  @fixutre
   Scenario: run in transactions with fixture
     Given a file named "spec/models/thing_spec.rb" with:
       """

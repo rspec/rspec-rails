@@ -1,3 +1,4 @@
+@matcher @render_template @controller
 Feature: render_template matcher
 
   This matcher just delegates to the Rails assertion method
@@ -6,6 +7,7 @@ Feature: render_template matcher
 
   This method is available in spec/controllers and spec/requests.
 
+  @subject @specify
   Scenario: render_template with three possible options
     Given a file named "spec/controllers/gadgets_spec.rb" with:
       """

@@ -1,3 +1,4 @@
+@matcher @be_a_new
 Feature: be_a_new matcher
 
   The `be_a_new` matcher accepts a class and passes if the subject is an
@@ -5,7 +6,8 @@ Feature: be_a_new matcher
 
   You can also chain `with` on `be_a_new` with a hash of attributes to specify
   the subject has equal attributes.
-
+  
+  @subject
   Scenario: example spec with four be_a_new possibilities 
     Given a file named "spec/models/widget_spec.rb" with:
       """
@@ -27,6 +29,7 @@ Feature: be_a_new matcher
     When I run "rspec spec/models/widget_spec.rb"
     Then the examples should all pass
 
+  @subject
   Scenario: example spec using be_a_new.with
     Given a file named "spec/models/widget_spec.rb" with:
       """

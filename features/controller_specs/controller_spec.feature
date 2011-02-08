@@ -1,6 +1,7 @@
+@controller
 Feature: controller spec
 
-
+  @response_code
   Scenario: simple passing example
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """

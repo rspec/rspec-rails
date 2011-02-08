@@ -1,3 +1,4 @@
+@redirect_to @controller
 Feature: redirect_to matcher
 
   The `redirect_to` matcher is used to specify that the redirect called in the

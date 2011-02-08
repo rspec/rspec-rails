@@ -1,3 +1,4 @@
+@model @stub_model
 Feature: stub_model
   
   The stub_model method generates an instance of a Active Model model.

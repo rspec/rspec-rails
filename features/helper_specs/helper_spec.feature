@@ -1,3 +1,4 @@
+@helpers
 Feature: helper spec
   
   Helper specs live in `spec/helpers`, or any example group with `:type =>
@@ -27,7 +28,8 @@ Feature: helper spec
       """
     When I run "rspec spec/helpers/application_helper_spec.rb"
     Then the examples should all pass
-    
+  
+  @assign
   Scenario: helper method that accesses an instance variable
     Given a file named "spec/helpers/application_helper_spec.rb" with:
       """
@@ -53,6 +55,7 @@ Feature: helper spec
     When I run "rspec spec/helpers/application_helper_spec.rb"
     Then the examples should all pass
 
+  @assign
   Scenario: application helper is included in helper object
     Given a file named "spec/helpers/widgets_helper_spec.rb" with:
       """

@@ -1,5 +1,11 @@
+@model @errors_on
 Feature: errors_on
+  
+  To ensure that your model has validation in place for a particular field the
+  'errors_on' method provides that functionality
 
+
+  @validates_presence_of
   Scenario: with one validation error
     Given a file named "spec/models/widget_spec.rb" with:
       """

@@ -1,3 +1,4 @@
+@routing @be_routable @matcher
 Feature: be_routable matcher
 
   The `be_routable` matcher is best used with `should_not` to specify that a

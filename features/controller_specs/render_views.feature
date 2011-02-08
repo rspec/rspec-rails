@@ -1,3 +1,4 @@
+@controller @response_body @view
 Feature: render_views
 
   You can tell a controller example group to render views with the

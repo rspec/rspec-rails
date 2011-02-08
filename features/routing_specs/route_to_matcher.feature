@@ -1,3 +1,4 @@
+@routing @matcher @route_to
 Feature: route_to matcher
 
   The `route_to` matcher specifies that a request (verb + uri) is routable.  It

@@ -1,3 +1,4 @@
+@routing @route_to @matcher
 Feature: named routes
 
   Routing specs have access to named routes.

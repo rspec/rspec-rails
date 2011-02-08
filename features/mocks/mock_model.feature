@@ -1,3 +1,4 @@
+@model @mock_model
 Feature: mock_model
 
   The mock_model method generates a test double that acts like an Active Model
@@ -97,6 +98,7 @@ Feature: mock_model
     When I run "rspec spec/models/widget_spec.rb"
     Then the examples should all pass
 
+  @stubs
   Scenario: passing an Active Record constant with method stubs
     Given a file named "spec/models/widget_spec.rb" with:
       """

@@ -1,3 +1,4 @@
+@controller @render_template @view
 Feature: views are stubbed by default
 
   By default, controller specs stub views with a template that renders an empty
@@ -30,6 +31,7 @@ Feature: views are stubbed by default
     When I run "rspec ./spec"
     Then the examples should all pass
 
+  @failures
   Scenario: expect template that is not rendered by controller action (fails)
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """
