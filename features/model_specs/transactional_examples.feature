@@ -1,5 +1,10 @@
 Feature: transactional examples
 
+  By default rspec executes each individual example in a transaction.
+
+  You can also explicitly enable/disable transactions the configuration
+  property 'use_transactional_examples'.
+
   Scenario: run in transactions (default)
     Given a file named "spec/models/widget_spec.rb" with:
       """
@@ -84,7 +89,7 @@ Feature: transactional examples
       """
       require "spec_helper"
 
-      describe Thing do 
+      describe Thing do
         fixtures :things
         it "fixture method defined" do
           things(:one)
