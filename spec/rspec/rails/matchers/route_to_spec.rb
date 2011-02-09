@@ -8,6 +8,11 @@ describe "route_to" do
     {:get => "path"}.should route_to("these" => "options")
   end
 
+  it "uses shortcut syntax" do
+    self.should_receive(:assert_recognizes).with({ :controller => "controller", :action => "action", :extra => "options"}, { :method=> :get, :path=>"path" })
+    get("path").should route_to("controller#action", :extra => "options")
+  end
+
   context "with should" do
     context "when assert_recognizes passes" do
       it "passes" do

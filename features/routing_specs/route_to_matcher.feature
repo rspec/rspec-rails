@@ -5,6 +5,10 @@ Feature: route_to matcher
 
       { :get => "/" }.should route_to(:controller => "welcome")
 
+      or
+
+      get("/").should route_to("welcome#index")
+
   Scenario: passing route spec
     Given a file named "spec/routing/widgets_routing_spec.rb" with:
       """
@@ -14,6 +18,22 @@ Feature: route_to matcher
         it "routes /widgets to the widgets controller" do
           { :get => "/widgets" }.
             should route_to(:controller => "widgets", :action => "index")
+        end
+      end
+      """
+
+    When I run "rspec spec/routing/widgets_routing_spec.rb"
+    Then the examples should all pass
+
+  Scenario: passing route spec
+    Given a file named "spec/routing/widgets_routing_spec.rb" with:
+      """
+      require "spec_helper"
+
+      describe "routes for Widgets" do
+        it "routes /widgets to the widgets controller" do
+          get("/widgets").
+            should route_to("widgets#index")
         end
       end
       """
