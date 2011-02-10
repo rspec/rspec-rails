@@ -37,4 +37,34 @@ module ::ActiveModel::Validations
     [self.errors[attribute]].flatten.compact
   end
   alias :error_on :errors_on
+
+  # :call-seq:
+  #   model.error_message_on(:attribute).should be_blank
+  #   model.error_message_on(:attribute).should == 'msg'
+  #   model.error_messages_on(:attribute).should == ['msg1', 'msg2']
+  #
+  # Extension to enhance AR Model instances to ensure the correct validation 
+  # rule executed by testing the validation message itself, instead of the 
+  # attribute's error count.
+  #
+  # Equivalent to, yet sounds more natural, than:
+  #   model.errors[:attribute].should include('msg') 
+  #
+  # Reasoning: If there are two or more validations for :attribute, each
+  # should be tested.  Simply calling model.should have(1).error_on(:attribute)
+  # could yield false positives if the wrong validation fires.  It's better to 
+  # check that the proper validation was triggered via the validation message 
+  #
+  # For zero or one error message, the AR infused array is dropped, making the
+  # test should more natural (e.g. == 'msg' instead of eq(['msg'])
+  #
+  # Calls model.valid? in order to prepare the object's errors
+  # object.
+  def error_messages_on(attribute)
+    return nil if self.valid?                                               # Model valid
+    return nil if self.errors[attribute].empty?                             # Model invalid, this attribute is valid
+    return self.errors[attribute][0] if self.errors[attribute].length == 1  # Attribute invalid, one error msg
+    self.errors[attribute]                                                  # Attribute invalid, two+ error msg
+  end
+  alias :error_message_on :error_messages_on
 end
