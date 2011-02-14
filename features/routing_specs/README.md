@@ -1,4 +1,5 @@
-Routing specs live in the `spec/routing` directory. 
+Routing specs live in the `spec/routing` directory, or any example group with
+`:type => :routing`.
 
 Simple apps with nothing but standard RESTful routes won't get much value from
 routing specs, but they can provide significant value when used to specify
