@@ -3,10 +3,7 @@ unless File.exist?('./Gemfile')
 Could not find a Gemfile. Please run any of:
   thor rails:use 3-0-stable
   thor rails:use master
-  thor rails:use 3.0.0
-  thor rails:use 3.0.3
-
-And then run 'bundle install'
+  thor rails:use VERSION (where VERSION is any released version)
 MESSAGE
 end
 require "bundler"
