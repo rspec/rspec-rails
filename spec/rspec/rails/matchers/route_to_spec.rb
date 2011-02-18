@@ -2,15 +2,25 @@ require "spec_helper"
 
 describe "route_to" do
   include RSpec::Rails::Matchers::RoutingMatchers
+  include RSpec::Rails::Matchers::RoutingMatchers::RouteHelpers
 
   it "delegates to assert_recognizes" do
     self.should_receive(:assert_recognizes).with({ "these" => "options" }, { :method=> :get, :path=>"path" })
     {:get => "path"}.should route_to("these" => "options")
   end
 
-  it "uses shortcut syntax" do
-    self.should_receive(:assert_recognizes).with({ :controller => "controller", :action => "action", :extra => "options"}, { :method=> :get, :path=>"path" })
-    get("path").should route_to("controller#action", :extra => "options")
+  context "with shortcut syntax" do
+
+    it "routes with extra options" do
+      self.should_receive(:assert_recognizes).with({ :controller => "controller", :action => "action", :extra => "options"}, { :method=> :get, :path=>"path" })
+      get("path").should route_to("controller#action", :extra => "options")
+    end
+
+    it "routes without extra options" do
+      self.should_receive(:assert_recognizes).with({ :controller => "controller", :action => "action"}, { :method=> :get, :path=>"path" })
+      get("path").should route_to("controller#action")
+    end
+
   end
 
   context "with should" do

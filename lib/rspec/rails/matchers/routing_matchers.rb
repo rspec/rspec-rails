@@ -2,12 +2,6 @@ module RSpec::Rails::Matchers
   module RoutingMatchers
     extend RSpec::Matchers::DSL
 
-    %w(get post put delete options head).each do |method|
-      define_method method do |path|
-        { method.to_sym => path }
-      end
-    end
-
     matcher :route_to do |*route_options|
       match_unless_raises Test::Unit::AssertionFailedError do |path|
         assertion_path = { :method => path.keys.first, :path => path.values.first }
@@ -42,6 +36,16 @@ module RSpec::Rails::Matchers
       failure_message_for_should_not do |path|
         "expected #{path.inspect} not to be routable, but it routes to #{@routing_options.inspect}"
       end
+    end
+
+    module RouteHelpers
+
+      %w(get post put delete options head).each do |method|
+        define_method method do |path|
+          { method.to_sym => path }
+        end
+      end
+
     end
 
   end
