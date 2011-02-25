@@ -28,7 +28,7 @@ is what you need to change:
     end
 
     # rspec-2
-    require 'rspec/core'
+    require 'rspec/rails'
 
     RSpec.configure do |config|
       ...
@@ -72,7 +72,7 @@ action.
 ### `view.should render_template`
 
 Rails changed the way it renders partials, so to set an expectation that a
-partial gets rendered, you need 
+partial gets rendered, you need
 
     render
     view.should render_template(:partial => "widget/_row")
@@ -106,7 +106,7 @@ in rspec-rails-2.
 Earlier versions of the view generators generated stub_model with `:new_record?
 => true`. That is no longer recognized in rspec-rails-2, so you need to change
 this:
-  
+
     stub_model(Widget, :new_record? => true)
 
 to this:
