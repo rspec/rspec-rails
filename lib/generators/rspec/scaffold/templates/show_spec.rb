@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 <% output_attributes = attributes.reject{|attribute| [:datetime, :timestamp, :time, :date].index(attribute.type) } -%>
-describe "<%= table_name %>/show.html.<%= options[:template_engine] %>" do
+describe "<%= ns_table_name %>/show.html.<%= options[:template_engine] %>" do
   before(:each) do
-    @<%= file_name %> = assign(:<%= file_name %>, stub_model(<%= class_name %><%= output_attributes.empty? ? '))' : ',' %>
+    @<%= ns_file_name %> = assign(:<%= ns_file_name %>, stub_model(<%= class_name %><%= output_attributes.empty? ? '))' : ',' %>
 <% output_attributes.each_with_index do |attribute, attribute_index| -%>
       :<%= attribute.name %> => <%= value_for(attribute) %><%= attribute_index == output_attributes.length - 1 ? '' : ','%>
 <% end -%>

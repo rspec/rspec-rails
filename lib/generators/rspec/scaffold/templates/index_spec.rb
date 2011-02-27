@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 <% output_attributes = attributes.reject{|attribute| [:datetime, :timestamp, :time, :date].index(attribute.type) } -%>
-describe "<%= table_name %>/index.html.<%= options[:template_engine] %>" do
+describe "<%= ns_table_name %>/index.html.<%= options[:template_engine] %>" do
   before(:each) do
     assign(:<%= table_name %>, [
 <% [1,2].each_with_index do |id, model_index| -%>
@@ -16,7 +16,7 @@ describe "<%= table_name %>/index.html.<%= options[:template_engine] %>" do
     ])
   end
 
-  it "renders a list of <%= table_name %>" do
+  it "renders a list of <%= ns_table_name %>" do
     render
 <% for attribute in output_attributes -%>
 <% if webrat? -%>
