@@ -65,6 +65,24 @@ module Rspec
           "{'these' => 'params'}"
         end
 
+        # support for namespaced-resources
+        def ns_file_name
+          if $ARGV[0].match(/(\w+)\/(\w+)/)
+            "#{$1.underscore}_#{$2.singularize.underscore}"
+          else
+            file_name
+          end
+        end
+
+        # support for namespaced-resources
+        def ns_table_name
+          if $ARGV[0].match(/(\w+)\/(\w+)/)
+            "#{$1.underscore}/#{$2.tableize}"
+          else
+            table_name
+          end
+        end
+
         # Returns the name of the mock. For example, if the file name is user,
         # it returns mock_user.
         #
@@ -81,9 +99,9 @@ module Rspec
           if hash
             method, and_return = hash.to_a.first
             method = orm_instance.send(method).split('.').last.gsub(/\(.*?\)/, '')
-            "mock_#{file_name}(:#{method} => #{and_return})"
+            "mock_#{ns_file_name}(:#{method} => #{and_return})"
           else
-            "mock_#{file_name}"
+            "mock_#{ns_file_name}"
           end
         end
 
