@@ -11,7 +11,7 @@ module RSpec::Rails::Matchers
         if path.is_a?(String)
           controller, action = path.split("#")
           options ||= {}
-          (options || {}).merge!(:controller => controller, :action => action)
+          options.merge!(:controller => controller, :action => action)
         else
           options = path
         end
