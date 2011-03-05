@@ -1,3 +1,10 @@
+### dev
+
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.5.0...master)
+
+* Enhancments
+  * rails 3 shortcuts for routing specs (Joe Fiorini)
+
 ### 2.5.0 / 2011-02-05
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.4.1...v2.5.0)
