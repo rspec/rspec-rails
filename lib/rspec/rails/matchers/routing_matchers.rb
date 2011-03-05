@@ -9,9 +9,9 @@ module RSpec::Rails::Matchers
         path, options = *route_options
 
         if path.is_a?(String)
-          parts = path.split("#")
+          controller, action = path.split("#")
           options ||= {}
-          options.merge!({ :controller => parts.first, :action => parts.last })
+          (options || {}).merge!(:controller => controller, :action => action)
         else
           options = path
         end
@@ -22,9 +22,7 @@ module RSpec::Rails::Matchers
       failure_message_for_should do
         rescued_exception.message
       end
-
     end
-
 
     matcher :be_routable do
       match_unless_raises ActionController::RoutingError do |path|
@@ -47,6 +45,5 @@ module RSpec::Rails::Matchers
       end
 
     end
-
   end
 end
