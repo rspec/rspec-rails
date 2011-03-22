@@ -41,7 +41,7 @@ namespace :spec do
     ::CodeStatistics::TEST_TYPES << "Controller specs" if File.exist?('spec/controllers')
     ::CodeStatistics::TEST_TYPES << "Helper specs" if File.exist?('spec/helpers')
     ::CodeStatistics::TEST_TYPES << "Library specs" if File.exist?('spec/lib')
-    ::CodeStatistics::TEST_TYPES << "Mailer specs" if File.exist?('spec/mailer')
+    ::CodeStatistics::TEST_TYPES << "Mailer specs" if File.exist?('spec/mailers')
     ::CodeStatistics::TEST_TYPES << "Routing specs" if File.exist?('spec/routing')
     ::CodeStatistics::TEST_TYPES << "Request specs" if File.exist?('spec/requests')
   end
