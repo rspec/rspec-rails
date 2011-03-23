@@ -5,6 +5,9 @@
 * Enhancments
   * rails 3 shortcuts for routing specs (Joe Fiorini)
 
+* Bug fixes
+  * fix typo in "rake spec:statsetup" (Curtis Schofield)
+
 ### 2.5.0 / 2011-02-05
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.4.1...v2.5.0)
@@ -12,7 +15,7 @@
 * Enhancements
   * use index_helper instead of table_name when generating specs (Reza
     Primardiansyah)
- 
+
 * Bug fixes
   * fixed bug in which `render_views` in a nested group set the value in its
     parent group.
