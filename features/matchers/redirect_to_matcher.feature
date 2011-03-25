@@ -36,5 +36,5 @@ Feature: redirect_to matcher
         end
       end
       """
-    When I run "rspec spec/controllers/widgets_controller_spec.rb"
+    When I run `rspec spec/controllers/widgets_controller_spec.rb`
     Then the examples should all pass

@@ -25,7 +25,7 @@ Feature: helper spec
         end
       end
       """
-    When I run "rspec spec/helpers/application_helper_spec.rb"
+    When I run `rspec spec/helpers/application_helper_spec.rb`
     Then the examples should all pass
     
   Scenario: helper method that accesses an instance variable
@@ -50,7 +50,7 @@ Feature: helper spec
         end
       end
       """
-    When I run "rspec spec/helpers/application_helper_spec.rb"
+    When I run `rspec spec/helpers/application_helper_spec.rb`
     Then the examples should all pass
 
   Scenario: application helper is included in helper object
@@ -83,5 +83,5 @@ Feature: helper spec
         end
       end
       """
-    When I run "rspec spec/helpers/widgets_helper_spec.rb"
+    When I run `rspec spec/helpers/widgets_helper_spec.rb`
     Then the examples should all pass

@@ -28,5 +28,5 @@ Feature: errors_on
         end
       end
       """
-    When I run "rspec spec/models/widget_spec.rb"
+    When I run `rspec spec/models/widget_spec.rb`
     Then the examples should all pass

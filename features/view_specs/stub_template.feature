@@ -26,7 +26,7 @@ Feature: stub template
       """
       <%= render :partial => "gadget", :collection => @gadgets %>
       """
-    When I run "rspec spec/views/gadgets/list.html.erb_spec.rb"
+    When I run `rspec spec/views/gadgets/list.html.erb_spec.rb`
     Then the examples should all pass
 
   Scenario: stub template that exists
@@ -46,6 +46,6 @@ Feature: stub template
         end
       end
       """
-    When I run "rspec spec/views/gadgets/edit.html.erb_spec.rb"
+    When I run `rspec spec/views/gadgets/edit.html.erb_spec.rb`
     Then the examples should all pass
 

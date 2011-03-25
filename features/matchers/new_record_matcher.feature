@@ -24,7 +24,7 @@ Feature: be_a_new matcher
         end
       end
       """
-    When I run "rspec spec/models/widget_spec.rb"
+    When I run `rspec spec/models/widget_spec.rb`
     Then the examples should all pass
 
   Scenario: example spec using be_a_new.with
@@ -66,5 +66,5 @@ Feature: be_a_new matcher
         end
       end
       """
-    When I run "rspec spec/models/widget_spec.rb"
+    When I run `rspec spec/models/widget_spec.rb`
     Then the examples should all pass

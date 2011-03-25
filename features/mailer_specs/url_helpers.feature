@@ -15,7 +15,7 @@ Feature: URL helpers in mailer examples
         end
       end
       """
-    When I run "rspec spec"
+    When I run `rspec spec`
     Then the examples should all pass
 
   Scenario: using URL helpers without default options
@@ -34,5 +34,5 @@ Feature: URL helpers in mailer examples
         end
       end
       """
-    When I run "rspec spec"
+    When I run `rspec spec`
     Then the examples should all pass

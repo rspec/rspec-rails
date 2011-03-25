@@ -15,5 +15,5 @@ Feature: controller spec
         end
       end
       """
-    When I run "rspec spec"
+    When I run `rspec spec`
     Then the example should pass

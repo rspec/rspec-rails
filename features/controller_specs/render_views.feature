@@ -19,7 +19,7 @@ Feature: render_views
         end
       end
       """
-    When I run "rspec spec"
+    When I run `rspec spec`
     Then the examples should all pass
 
   Scenario: render_views on and off in nested groups
@@ -71,7 +71,7 @@ Feature: render_views
         end
       end
       """
-    When I run "rspec spec --format documentation"
+    When I run `rspec spec --format documentation`
     Then the output should contain:
       """
       WidgetsController
@@ -109,6 +109,6 @@ Feature: render_views
         end
       end
       """
-    When I run "rspec spec"
+    When I run `rspec spec`
     Then the examples should all pass
     

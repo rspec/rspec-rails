@@ -11,7 +11,7 @@ Feature: view spec infers controller path and action
         end
       end
       """
-    When I run "rspec spec/views"
+    When I run `rspec spec/views`
     Then the examples should all pass
 
   Scenario: infer action
@@ -25,7 +25,7 @@ Feature: view spec infers controller path and action
         end
       end
       """
-    When I run "rspec spec/views"
+    When I run `rspec spec/views`
     Then the examples should all pass
 
   Scenario: do not infer action in a partial
@@ -39,6 +39,6 @@ Feature: view spec infers controller path and action
         end
       end
       """
-    When I run "rspec spec/views"
+    When I run `rspec spec/views`
     Then the examples should all pass
 

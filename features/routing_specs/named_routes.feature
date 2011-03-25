@@ -14,5 +14,5 @@ Feature: named routes
         end
       end
       """
-    When I run "rspec spec"
+    When I run `rspec spec`
     Then the examples should all pass

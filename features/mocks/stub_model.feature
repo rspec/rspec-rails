@@ -34,7 +34,7 @@ Feature: stub_model
         end
       end
       """
-    When I run "rspec spec/models/widget_spec.rb"
+    When I run `rspec spec/models/widget_spec.rb`
     Then the examples should all pass
     
   Scenario: passing an Active Record constant with a block of stubs
@@ -54,5 +54,5 @@ Feature: stub_model
         end
       end
       """
-    When I run "rspec spec/models/widget_spec.rb"
+    When I run `rspec spec/models/widget_spec.rb`
     Then the examples should all pass

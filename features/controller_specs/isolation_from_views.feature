@@ -27,7 +27,7 @@ Feature: views are stubbed by default
         end
       end
       """
-    When I run "rspec ./spec"
+    When I run `rspec spec`
     Then the examples should all pass
 
   Scenario: expect template that is not rendered by controller action (fails)
@@ -44,6 +44,6 @@ Feature: views are stubbed by default
         end
       end
       """
-    When I run "rspec ./spec"
+    When I run `rspec spec`
     Then the output should contain "1 example, 1 failure"
 

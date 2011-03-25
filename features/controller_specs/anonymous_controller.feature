@@ -36,7 +36,7 @@ Feature: anonymous controller
       end
     end
     """
-    When I run "rspec spec"
+    When I run `rspec spec`
     Then the examples should all pass
 
   Scenario: specify error handling in subclass of ApplicationController
@@ -74,5 +74,5 @@ Feature: anonymous controller
       end
     end
     """
-    When I run "rspec spec"
+    When I run `rspec spec`
     Then the examples should all pass

@@ -23,7 +23,7 @@ Feature: route_to matcher
       end
       """
 
-    When I run "rspec spec/routing/widgets_routing_spec.rb"
+    When I run `rspec spec/routing/widgets_routing_spec.rb`
     Then the examples should all pass
 
   Scenario: passing route spec with verbose syntax
@@ -39,7 +39,7 @@ Feature: route_to matcher
       end
       """
 
-    When I run "rspec spec/routing/widgets_routing_spec.rb"
+    When I run `rspec spec/routing/widgets_routing_spec.rb`
     Then the examples should all pass
 
   Scenario: route spec for a route that doesn't exist (fails)
@@ -54,5 +54,5 @@ Feature: route_to matcher
       end
       """
 
-    When I run "rspec spec/routing/widgets_routing_spec.rb"
+    When I run `rspec spec/routing/widgets_routing_spec.rb`
     Then the output should contain "1 failure"

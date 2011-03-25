@@ -16,7 +16,7 @@ Feature: be_routable matcher
       end
       """
 
-    When I run "rspec spec/routing/widgets_routing_spec.rb"
+    When I run `rspec spec/routing/widgets_routing_spec.rb`
     Then the output should contain "1 example, 1 failure"
 
   Scenario: specify non-routeable route should not be routable (passes)
@@ -31,7 +31,7 @@ Feature: be_routable matcher
       end
       """
 
-    When I run "rspec spec/routing/widgets_routing_spec.rb"
+    When I run `rspec spec/routing/widgets_routing_spec.rb`
     Then the examples should all pass
 
   Scenario: specify routeable route should be routable (passes)
@@ -46,7 +46,7 @@ Feature: be_routable matcher
       end
       """
 
-    When I run "rspec spec/routing/widgets_routing_spec.rb"
+    When I run `rspec spec/routing/widgets_routing_spec.rb`
     Then the examples should all pass
 
   Scenario: specify non-routeable route should be routable (fails)
@@ -61,7 +61,7 @@ Feature: be_routable matcher
       end
       """
 
-    When I run "rspec spec/routing/widgets_routing_spec.rb"
+    When I run `rspec spec/routing/widgets_routing_spec.rb`
     Then the output should contain "1 example, 1 failure"
 
   Scenario: be_routable in a controller spec
@@ -76,5 +76,5 @@ Feature: be_routable matcher
       end
       """
 
-    When I run "rspec spec/controllers/widgets_controller_spec.rb"
+    When I run `rspec spec/controllers/widgets_controller_spec.rb`
     Then the examples should all pass

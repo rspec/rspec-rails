@@ -21,5 +21,5 @@ Feature: render_template matcher
         end
       end
       """
-    When I run "rspec spec/controllers/gadgets_spec.rb"
+    When I run `rspec spec/controllers/gadgets_spec.rb`
     Then the examples should all pass

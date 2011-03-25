@@ -21,7 +21,7 @@ Feature: view spec
         end
       end
       """
-    When I run "rspec spec/views"
+    When I run `rspec spec/views`
     Then the examples should all pass
 
   Scenario: passing spec with before and nesting
@@ -48,7 +48,7 @@ Feature: view spec
         end
       end
       """
-    When I run "rspec spec/views"
+    When I run `rspec spec/views`
     Then the examples should all pass
 
   Scenario: passing spec with explicit template rendering
@@ -70,7 +70,7 @@ Feature: view spec
       """
       <h2><%= @widget.name %></h2>
       """
-    When I run "rspec spec/views"
+    When I run `rspec spec/views`
     Then the examples should all pass
 
   Scenario: passing spec with rendering of locals in a partial
@@ -92,7 +92,7 @@ Feature: view spec
       """
       <h3><%= widget.name %></h3>
       """
-    When I run "rspec spec/views"
+    When I run `rspec spec/views`
     Then the examples should all pass
 
   Scenario: passing spec with rendering of locals in an implicit partial
@@ -114,7 +114,7 @@ Feature: view spec
       """
       <h3><%= widget.name %></h3>
       """
-    When I run "rspec spec/views"
+    When I run `rspec spec/views`
     Then the examples should all pass
 
   Scenario: passing spec with rendering of text
@@ -131,7 +131,7 @@ Feature: view spec
         end
       end
       """
-    When I run "rspec spec/views"
+    When I run `rspec spec/views`
     Then the examples should all pass
 
   Scenario: passing spec with rendering of Prototype helper update
@@ -150,7 +150,7 @@ Feature: view spec
         end
       end
       """
-    When I run "rspec spec/views"
+    When I run `rspec spec/views`
     Then the examples should all pass
 
   Scenario: spec with view that accesses helper_method helpers
@@ -181,5 +181,5 @@ Feature: view spec
         end
       end
       """
-    When I run "rspec spec/views/secrets"
+    When I run `rspec spec/views/secrets`
     Then the examples should all pass

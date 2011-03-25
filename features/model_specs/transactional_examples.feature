@@ -20,7 +20,7 @@ Feature: transactional examples
         end
       end
       """
-    When I run "rspec spec/models/widget_spec.rb"
+    When I run `rspec spec/models/widget_spec.rb`
     Then the examples should all pass
 
   Scenario: run in transactions (explicit)
@@ -47,7 +47,7 @@ Feature: transactional examples
         end
       end
       """
-    When I run "rspec spec/models/widget_spec.rb"
+    When I run `rspec spec/models/widget_spec.rb`
     Then the examples should all pass
 
   Scenario: disable transactions (explicit)
@@ -76,7 +76,7 @@ Feature: transactional examples
         after(:all) { Widget.destroy_all }
       end
       """
-    When I run "rspec spec/models/widget_spec.rb"
+    When I run `rspec spec/models/widget_spec.rb`
     Then the examples should all pass
 
   Scenario: run in transactions with fixture
@@ -96,7 +96,7 @@ Feature: transactional examples
       one:
         name: MyString
       """
-    When I run "rspec spec/models/thing_spec.rb"
+    When I run `rspec spec/models/thing_spec.rb`
     Then the examples should all pass
 
 
