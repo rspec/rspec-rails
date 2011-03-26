@@ -1,4 +1,5 @@
 require "action_dispatch/testing/assertions/routing"
+require 'rspec/rails/example/routing_example_group/describe_with_request_pair_support'
 
 module RSpec::Rails
   module RoutingExampleGroup
@@ -19,6 +20,8 @@ module RSpec::Rails
     end
 
     included do
+      extend RSpec::Rails::Matchers::RoutingMatchers::RouteHelpers
+      extend DescribeWithRequestPairSupport
       metadata[:type] = :routing
 
       before do
