@@ -1,8 +1,8 @@
 Feature: anonymous controller
 
-  As a Rails developer using RSpec
-  In order to specify behaviour of ApplicationController
-  I want a simple DSL for generating anonymous subclasses
+  Use the `controller` method to define an anonymous controller derived from
+  ApplicationController, or any other base controller. This is useful for
+  spec'ing behavior such as global error handling.
 
   Scenario: specify error handling in ApplicationController
     Given a file named "spec/controllers/application_controller_spec.rb" with:
