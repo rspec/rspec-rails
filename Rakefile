@@ -60,7 +60,6 @@ namespace :generate do
 
   desc "generate a bunch of stuff with generators"
   task :stuff do
-    in_example_app "bundle install"
     in_example_app "rake rails:template LOCATION='../../templates/generate_stuff.rb'"
   end
 end
