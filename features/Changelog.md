@@ -4,6 +4,7 @@
 
 * Enhancments
   * rails 3 shortcuts for routing specs (Joe Fiorini)
+  * support nested resources in generators (Tim McEwan)
 
 * Bug fixes
   * fix typo in "rake spec:statsetup" (Curtis Schofield)
