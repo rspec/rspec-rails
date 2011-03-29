@@ -54,7 +54,8 @@ namespace :generate do
     unless File.directory?('./tmp/example_app')
       sh "bundle exec rails new ./tmp/example_app"
       sh "cp ./templates/Gemfile-base ./tmp/example_app/"
-      sh "cp ./Gemfile ./tmp/example_app/"
+      sh "cp ./Gemfile                ./tmp/example_app/"
+      sh "cp ./Gemfile.lock           ./tmp/example_app/"
     end
   end
 
