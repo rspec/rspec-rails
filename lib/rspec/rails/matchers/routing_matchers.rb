@@ -37,8 +37,9 @@ module RSpec::Rails::Matchers
     end
 
     module RouteHelpers
+      NAMES = %w(get post put delete options head)
 
-      %w(get post put delete options head).each do |method|
+      NAMES.each do |method|
         define_method method do |path|
           { method.to_sym => path }
         end

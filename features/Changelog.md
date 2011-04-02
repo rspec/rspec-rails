@@ -3,6 +3,7 @@
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.5.0...master)
 
 * Enhancments
+  * rails 3 hyper shortcuts for routing specs (Hugo Roque a.k.a HugoLnx)
   * rails 3 shortcuts for routing specs (Joe Fiorini)
   * support nested resources in generators (Tim McEwan)
 

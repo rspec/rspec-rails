@@ -4,6 +4,19 @@ Feature: be_routable matcher
   given route should not be routable. It is available in routing specs (in
   spec/routing) and controller specs (in spec/controllers).
 
+  Scenario: specify routeable route should be routable with hyper shortcut (passes)
+    Given a file named "spec/routing/widgets_routing_spec.rb" with:
+      """
+      require "spec_helper"
+
+      describe "routes for Widgets" do
+        get("/widgets").should be_routable
+      end
+      """
+
+    When I run `rspec spec/routing/widgets_routing_spec.rb`
+    Then the examples should all pass
+
   Scenario: specify routeable route should not be routable (fails)
     Given a file named "spec/routing/widgets_routing_spec.rb" with:
       """
