@@ -26,16 +26,11 @@ describe Autotest::RailsRspec2 do
   end
 
   describe 'mappings' do
-    before do
-      rails_rspec2_autotest.find_order = %w(
-        spec/models/user_spec.rb
-        spec/support/blueprints.rb
-      )
-    end
-
     it 'runs model specs when support files change' do
+      rails_rspec2_autotest.find_order = %w(spec/models/user_spec.rb spec/support/blueprints.rb)
       rails_rspec2_autotest.test_files_for('spec/support/blueprints.rb').should(
         include('spec/models/user_spec.rb'))
     end
   end
+
 end
