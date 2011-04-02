@@ -7,3 +7,4 @@ vendor
 .bundle
 Gemfile.lock
 Gemfile
+.rvmrc
