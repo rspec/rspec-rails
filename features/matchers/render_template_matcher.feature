@@ -1,3 +1,5 @@
+@matchers
+@render_template_matcher
 Feature: render_template matcher
 
   This matcher just delegates to the Rails assertion method

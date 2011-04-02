@@ -1,3 +1,5 @@
+@matchers
+@redirect_to_matcher
 Feature: redirect_to matcher
 
   The `redirect_to` matcher is used to specify that the redirect called in the

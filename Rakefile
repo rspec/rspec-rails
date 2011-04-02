@@ -17,6 +17,10 @@ require 'rake/rdoctask'
 require 'rspec'
 require 'rspec/core/rake_task'
 require 'cucumber/rake/task'
+require 'task_helpers/create_tags_helper'
+
+include CreateTagsHelper
+include CreateTagsHelper::TagsExtractorMethod
 
 task :cleanup_rcov_files do
   rm_rf 'coverage.data'
@@ -45,6 +49,24 @@ namespace :cucumber do
     t.rcov = true
     t.rcov_opts =  %[-Ilib -Ispec --exclude "gems/*,features"]
     t.rcov_opts << %[--text-report --sort coverage --aggregate coverage.data]
+  end
+
+  desc 'Run features of this tag that should pass'
+  Cucumber::Rake::Task.new :tag => 'db:test:prepare' do |t|
+    t.fork = true # You may get faster startup if you set this to false
+    t.cucumber_opts = "features --format pretty -t @#{ARGV[1]}"
+    t.profile = 'default'
+  end
+
+  desc "Create tags in cucumber features based on file name and directory"
+  task :create_tags do
+    paths = Dir["features/**/*.feature"]
+    paths.each do |path| 
+      tags = extract_tags_from(path)
+      archive = FeatureArchive.build_from path
+      archive.try_add_all_tags! tags
+      archive.save!
+    end
   end
 end
 
@@ -111,5 +133,4 @@ task :relish, :version do |t, args|
 end
 
 task :default => [:spec, "clobber:app", "generate:app", "generate:stuff", :smoke, :cucumber]
-
 

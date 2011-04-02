@@ -1,3 +1,5 @@
+@mocks
+@mock_model
 Feature: mock_model
 
   The mock_model method generates a test double that acts like an Active Model

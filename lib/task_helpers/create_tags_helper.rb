@@ -1,0 +1,2 @@
+require "task_helpers/create_tags_helper/feature_archive"
+require "task_helpers/create_tags_helper/tags_extractor_method"

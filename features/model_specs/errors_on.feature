@@ -1,3 +1,5 @@
+@model_specs
+@errors_on
 Feature: errors_on
 
   Scenario: with one validation error

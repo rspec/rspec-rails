@@ -1,3 +1,5 @@
+@controller_specs
+@isolation_from_views
 Feature: views are stubbed by default
 
   By default, controller specs stub views with a template that renders an empty

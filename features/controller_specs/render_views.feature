@@ -1,3 +1,5 @@
+@controller_specs
+@render_views
 Feature: render_views
 
   You can tell a controller example group to render views with the

@@ -1,3 +1,5 @@
+@helper_specs
+@helper_spec
 Feature: helper spec
   
   Helper specs live in `spec/helpers`, or any example group with `:type =>

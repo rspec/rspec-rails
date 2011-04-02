@@ -1,3 +1,5 @@
+@matchers
+@new_record_matcher
 Feature: be_a_new matcher
 
   The `be_a_new` matcher accepts a class and passes if the subject is an

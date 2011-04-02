@@ -1,3 +1,5 @@
+@view_specs
+@stub_template
 Feature: stub template
 
   In order to isolate view specs from the partials rendered by the primary

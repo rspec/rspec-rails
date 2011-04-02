@@ -1,3 +1,5 @@
+@controller_specs
+@anonymous_controller
 Feature: anonymous controller
 
   Use the `controller` method to define an anonymous controller derived from

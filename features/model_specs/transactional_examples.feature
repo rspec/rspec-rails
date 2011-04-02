@@ -1,3 +1,5 @@
+@model_specs
+@transactional_examples
 Feature: transactional examples
 
   Scenario: run in transactions (default)

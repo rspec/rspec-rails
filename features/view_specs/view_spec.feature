@@ -1,3 +1,5 @@
+@view_specs
+@view_spec
 Feature: view spec
 
   View specs live in spec/views and render view templates in isolation.

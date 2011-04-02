@@ -1,3 +1,5 @@
+@controller_specs
+@controller_spec
 Feature: controller spec
 
 

@@ -1,3 +1,5 @@
+@mailer_specs
+@url_helpers
 Feature: URL helpers in mailer examples
 
   Scenario: using URL helpers with default options

@@ -1,3 +1,5 @@
+@routing_specs
+@named_routes
 Feature: named routes
 
   Routing specs have access to named routes.

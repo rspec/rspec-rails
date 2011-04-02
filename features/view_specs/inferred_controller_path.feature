@@ -1,3 +1,5 @@
+@view_specs
+@inferred_controller_path
 Feature: view spec infers controller path and action
 
   Scenario: infer controller path
