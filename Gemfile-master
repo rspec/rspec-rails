@@ -1,4 +1,4 @@
-instance_eval(File.read("./Gemfile-base"))
+instance_eval(File.read("Gemfile-base"))
 
 gem "rails", :git => "git://github.com/rails/rails.git"
 gem "arel",  :git => "git://github.com/rails/arel.git"

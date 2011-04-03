@@ -111,5 +111,3 @@ task :relish, :version do |t, args|
 end
 
 task :default => [:spec, "clobber:app", "generate:app", "generate:stuff", :smoke, :cucumber]
-
-

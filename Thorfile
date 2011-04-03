@@ -5,7 +5,7 @@ class Rails < Thor
     `rm Gemfile`      if File.exist?('./Gemfile')
     case version
     when /^\d\.\d/
-      `echo 'instance_eval(File.read("./Gemfile-base"))' >> Gemfile`
+      `echo 'instance_eval(File.read("Gemfile-base"))' >> Gemfile`
       `echo 'gem "rails", "#{version}"' >> Gemfile`
     else
       `cp Gemfile-#{version} Gemfile` 
