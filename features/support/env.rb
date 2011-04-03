@@ -1,6 +1,14 @@
 require 'aruba/cucumber'
 require 'webrat'
 
+module ArubaExt
+  def run(cmd)
+    super(cmd =~ /^rspec/ ? "bundle exec #{cmd}" : cmd)
+  end
+end
+
+World(ArubaExt)
+
 Before do
   @aruba_timeout_seconds = 10
   unset_bundler_env_vars
