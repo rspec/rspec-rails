@@ -1,10 +1,13 @@
-unless File.exist?('./Gemfile')
-  raise <<-MESSAGE
-Could not find a Gemfile. Please run any of:
-  thor rails:use 3-0-stable
-  thor rails:use master
-  thor rails:use VERSION (where VERSION is any released version)
+unless ENV["BUNDLE_GEMFILE"]
+  warn <<-MESSAGE
+You must set the BUNDLE_GEMFILE environment variable to point to any of the
+files in the gemfiles directory (other than base) using the absolute path to
+the file e.g. (in bash):
+
+  export BUNDLE_GEMFILE=#{File.expand_path("../gemfiles/rails-3.0.5", __FILE__)}
+  bundle install
 MESSAGE
+  exit 1
 end
 require "bundler"
 Bundler.setup
@@ -53,9 +56,6 @@ namespace :generate do
   task :app do |t|
     unless File.directory?('./tmp/example_app')
       sh "bundle exec rails new ./tmp/example_app"
-      sh "cp ./templates/Gemfile-base ./tmp/example_app/"
-      sh "cp ./Gemfile                ./tmp/example_app/"
-      in_example_app "bundle install"
     end
   end
 

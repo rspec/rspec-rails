@@ -11,7 +11,6 @@ World(ArubaExt)
 
 Before do
   @aruba_timeout_seconds = 10
-  unset_bundler_env_vars
 end
 
 unless File.directory?('./tmp/example_app')
@@ -52,8 +51,4 @@ Before do
   ["spec/spec_helper.rb"].each do |file_or_dir|
     write_symlink("tmp/example_app/#{file_or_dir}")
   end
-end
-
-Around do |scenario, block|
-  Bundler.with_clean_env &block
 end

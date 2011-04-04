@@ -1,10 +1,10 @@
 tmp
-pkg
-.bundle
-rspec-rails-
 doc
+pkg
 vendor
 .bundle
-Gemfile.lock
+*.gem
 Gemfile
+Gemfile.lock
+gemfiles/*.lock
 .rvmrc
