@@ -7,6 +7,8 @@ module GemfileBase
         library_path = File.expand_path("../../../#{lib}", __FILE__)
         if File.exist?(library_path)
           gem lib, :path => library_path
+        elsif ENV["USE_GIT_REPOS"] == 'true'
+          gem lib, :git => "git://github.com/rspec/#{lib}.git"
         else
           gem lib
         end
