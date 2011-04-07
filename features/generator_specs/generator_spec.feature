@@ -1,6 +1,6 @@
 Feature: generator spec
 
-  Helper specs live in spec/generators. In order to access
+  Generator specs live in spec/generators. In order to access
   the generator's methods you can call them on the "generator" object.
 
   Background: A simple generator

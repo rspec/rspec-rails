@@ -14,7 +14,6 @@ module RSpec::Rails
     end
 
     module InstanceMethods
-      # attr_reader :controller, :routes
       attr_accessor :destination_root
 
       # You can provide a configuration hash as second argument. This method returns the output
