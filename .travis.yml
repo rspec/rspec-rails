@@ -4,7 +4,8 @@ rvm:
   - 1.9.1
   - 1.9.2
 gemfile:
-  - gemfiles/rails-3.0.5
+  - gemfiles/rails-3.0.6
   - gemfiles/rails-3-0-stable
+  - gemfiles/rails-master
 env:
   - USE_GIT_REPOS=true
