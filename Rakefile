@@ -4,7 +4,7 @@ You must set the BUNDLE_GEMFILE environment variable to point to any of the
 files in the gemfiles directory (other than base) using the absolute path to
 the file e.g. (in bash):
 
-  export BUNDLE_GEMFILE=#{File.expand_path("../gemfiles/rails-3.0.5", __FILE__)}
+  export BUNDLE_GEMFILE=#{File.expand_path("../gemfiles/rails-3.0.6", __FILE__)}
   bundle install
 MESSAGE
   exit 1
