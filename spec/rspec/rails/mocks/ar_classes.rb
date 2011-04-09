@@ -1,7 +1,10 @@
+ActiveRecord::Base.establish_connection(
+  :adapter => 'sqlite3',
+  :database => ':memory:'
+)
+
 module Connections
   def self.extended(host)
-    host.establish_connection :adapter => 'sqlite3',
-                              :database => ':memory:'
 
     host.connection.execute <<-eosql
       CREATE TABLE #{host.table_name} (
