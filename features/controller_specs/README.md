@@ -21,16 +21,24 @@ To specify outcomes, you can use:
   * `response.should redirect_to (wraps assert_redirected_to)`
   * `assigns(:widget).should be_a_new(Widget)`
     
-## Conventions:
+## Examples
 
-### Controller
+    describe TeamsController do
+      describe "GET index" do
+        it "assigns @teams" do
+          team = Team.create
+          get :index
+          assigns(:teams).should eq([team])
+        end
 
-* pass the controller being specified to the outermost `describe` method.
+        it "renders the index template" do
+          get :index
+          response.should render_template("index")
+        end
+      end
+    end
 
-      describe AccountController do
-        # ...
-
-### Views
+## Views
 
 * by default, views are not rendered. See
   [views are stubbed by default](controller-specs/views-are-stubbed-by-default) and
