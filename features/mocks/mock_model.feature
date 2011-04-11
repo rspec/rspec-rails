@@ -129,3 +129,19 @@ Feature: mock_model
       """
     When I run `rspec spec/models/widget_spec.rb`
     Then the examples should all pass
+
+  Scenario: mock_model outside rails
+    Given a file named "mock_model_outside_rails_spec.rb" with:
+      """
+      require 'rspec/rails/mocks'
+
+      describe "Foo" do
+        it "is mockable" do
+          foo = mock_model("Foo")
+          foo.id.should eq(1001)
+          foo.to_param.should eq("1001")
+        end
+      end
+      """
+    When I run `rspec mock_model_outside_rails_spec.rb`
+    Then the examples should all pass
