@@ -5,6 +5,8 @@
 * Enhancments
   * rails 3 shortcuts for routing specs (Joe Fiorini)
   * support nested resources in generators (Tim McEwan)
+  * require 'rspec/rails/mocks' to use `mock_model` without requiring the whole
+    rails framework
 
 * Bug fixes
   * fix typo in "rake spec:statsetup" (Curtis Schofield)
