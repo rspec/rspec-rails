@@ -8,3 +8,4 @@ Gemfile
 Gemfile.lock
 gemfiles/*.lock
 .rvmrc
+*.rbc
