@@ -36,21 +36,23 @@ Feature: generator spec
       require 'generators/awesome/awesome_generator'
 
       describe AwesomeGenerator do
+        destination File.expand_path("../../tmp", __FILE__)
+
         before do
-          run_generator ['my_dir']
+          run_generator %w(my_dir)
         end
         it 'should copy the awesome file into public' do
-          File.should exist(File.join(Rails.root, 'public/my_dir/awesome.html'))
+          absolute_filename('public/my_dir/awesome.html').should be_generated
         end
         it 'should copy the lame file into public' do
-          File.should exist(File.join(Rails.root, 'public/my_dir/lame.html'))
+          absolute_filename('public/my_dir/lame.html').should be_generated
         end
       end
       """
     When I run `rspec spec/generators/awesome_generator_spec.rb`
     Then the output should contain "2 examples, 0 failures"
 
-    Scenario: A spec that runs part of the generator
+    Scenario: A spec that runs one task in the generator
       Given a file named "spec/generators/another_awesome_generator_spec.rb" with:
         """
         require "spec_helper"
@@ -59,14 +61,17 @@ Feature: generator spec
         require 'generators/awesome/awesome_generator'
 
         describe AwesomeGenerator do
+          destination File.expand_path("../../tmp", __FILE__)
+          arguments %w(another_dir)
+
           before do
-            generator(['another_dir']).create_awesomeness
+            invoke_task :create_awesomeness
           end
           it 'should copy the awesome file into public' do
-            File.should exist(File.join(Rails.root, 'public/another_dir/awesome.html'))
+            absolute_filename('public/another_dir/awesome.html').should be_generated
           end
           it 'should not have copied the lame file into public' do
-            File.should_not exist(File.join(Rails.root, 'public/another_dir/lame.html'))
+            absolute_filename('public/another_dir/lame.html').should_not be_generated
           end
         end
         """

@@ -1,60 +1,59 @@
-### These contecpts copied from Railties Rails::Generators::TestCase which makes it possible to test generators with TestUnit
-### https://github.com/rails/rails/blob/master/railties/lib/rails/generators/test_case.rb
+require 'rspec/rails/matchers/generate_a_file'
+
 module RSpec::Rails
+  # Delegats to Rails::Generators::TestCase to work with RSpec.
   module GeneratorExampleGroup
     extend ActiveSupport::Concern
-    extend RSpec::Rails::ModuleInclusion
-
     include RSpec::Rails::RailsExampleGroup
 
     module ClassMethods
-      def generator_class
-        describes
+      mattr_accessor :test_unit_test_case_delegate
+      delegate :generator, :generator_class, :destination_root_is_set?, :capture, :ensure_current_path, :prepare_destination, :destination_root, :current_path, :generator_class, :default_arguments, :to => :'self.test_unit_test_case_delegate'
+      delegate :destination, :arguments, :to => :'self.test_unit_test_case_delegate.class'
+
+      def initialize_delegate
+        self.test_unit_test_case_delegate = Rails::Generators::TestCase.new 'default_test'
+        self.test_unit_test_case_delegate.class.tests(describes)
+      end
+
+      def run_generator(given_args=self.default_arguments, config={})
+        args, opts = Thor::Options.split(given_args)
+        capture(:stdout) { generator(args, opts, config).invoke_all }
       end
     end
 
     module InstanceMethods
-      attr_accessor :destination_root
-
-      # You can provide a configuration hash as second argument. This method returns the output
-      # printed by the generator.
-      def generator(args=[], options={}, config={})
-        destination_root ||= Rails.root
-        self.class.generator_class.new(args, options, config.reverse_merge(:destination_root => destination_root))
+      def invoke_task name
+        capture(:stdout) { generator.invoke_task(generator_class.all_tasks[name.to_s]) }
       end
-
-      # Silently run the generator.  Output is given back as return value.
-      def run_generator(args=[], options={}, config={})
-        capture(:stdout) {
-          generator(args, options, config).invoke_all
-        }
-      end
-
-      # Captures the given stream and returns it:
-      #
-      #   stream = capture(:stdout){ puts "Cool" }
-      #   stream # => "Cool\n"
-      #
-      def capture(stream)
-        begin
-          stream = stream.to_s
-          eval "$#{stream} = StringIO.new"
-          yield
-          result = eval("$#{stream}").string
-        ensure
-          eval("$#{stream} = #{stream.upcase}")
-        end
-
-        result
-      end
-
     end
 
     included do
+      delegate :generator, :run_generator, :destination_root_is_set?, :capture, :ensure_current_path, :prepare_destination, :destination, :destination_root, :current_path, :generator_class, :arguments, :to => :'self.class'
+      initialize_delegate
+
       subject { generator }
 
+      before do
+        self.class.initialize_delegate
+        destination_root_is_set?
+        ensure_current_path
+      end
+      after do
+        ensure_current_path
+      end
       metadata[:type] = :generator
     end
 
+    def absolute_filename relative
+      File.expand_path(relative, destination_root)
+    end
+
+    # Copied from Rails::Generators::TestCase because that method is protected
+    def migration_file_name(relative) #:nodoc:
+      absolute = absolute_filename(relative)
+      dirname, file_name = File.dirname(absolute), File.basename(absolute).sub(/\.rb$/, '')
+      Dir.glob("#{dirname}/[0-9]*_*.rb").grep(/\d+_#{file_name}.rb$/).first
+    end
   end
 end
