@@ -67,7 +67,7 @@ module Rspec
 
         # support for namespaced-resources
         def ns_file_name
-          if $ARGV[0].match(/(\w+)\/(\w+)/)
+          if ARGV[0].match(/(\w+)\/(\w+)/)
             "#{$1.underscore}_#{$2.singularize.underscore}"
           else
             file_name
@@ -76,7 +76,7 @@ module Rspec
 
         # support for namespaced-resources
         def ns_table_name
-          if $ARGV[0].match(/(\w+)\/(\w+)/)
+          if ARGV[0].match(/(\w+)\/(\w+)/)
             "#{$1.underscore}/#{$2.tableize}"
           else
             table_name
