@@ -88,7 +88,7 @@ that is the subject of a view example:
 ### No more `have_tag` or `have_text`
 
 Before Webrat came along, rspec-rails had its own `have_tag` and `have_text`
-matchers that wrapped Rails' `assert_select`. Webrat included replacement for
+matchers that wrapped Rails' `assert_select`. Webrat included replacements for
 these methods, as well as new matchers (`have_selector` and `have_xpath`), all
 of which rely on Nokogiri to do its work, and are far less brittle than RSpec's
 `have_tag`.
