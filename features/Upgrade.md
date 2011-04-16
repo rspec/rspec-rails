@@ -85,19 +85,20 @@ that is the subject of a view example:
 
     stub_template "widgets/_widget.html.erb" => "This Content"
 
-### No more `have_tag`
+### No more `have_tag` or `have_text`
 
-Before Webrat came along, rspec-rails had its own `have_tag` matcher that
-wrapped Rails' `assert_select`. Webrat included a replacement for `have_tag` as
-well as new matchers (`have_selector` and `have_xpath`), all of which rely on
-Nokogiri to do its work, and are far less brittle than RSpec's `have_tag`.
+Before Webrat came along, rspec-rails had its own `have_tag` and `have_text`
+matchers that wrapped Rails' `assert_select`. Webrat included replacement for
+these methods, as well as new matchers (`have_selector` and `have_xpath`), all
+of which rely on Nokogiri to do its work, and are far less brittle than RSpec's
+`have_tag`.
 
 Capybara has similar matchers, which will soon be available view specs (they
 are already available in controller specs with `render_views`).
 
-Given the brittleness of RSpec's `have_tag` matcher and the presence of new
-Webrat and Capybara matchers that do a better job, `have_tag` was not included
-in rspec-rails-2.
+Given the brittleness of RSpec's `have_tag` and `have_text` matchers and the
+presence of new Webrat and Capybara matchers that do a better job, `have_tag`
+and `have_text` were not included in rspec-rails-2.
 
 ## Mocks, stubs, doubles
 
