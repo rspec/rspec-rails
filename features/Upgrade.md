@@ -14,7 +14,7 @@ There were a few changes to the generated `spec/spec_helper.rb` file. We
 recommend the following:
 
 1. set aside a copy of your existing `spec/spec_helper.rb` file.
-2. run `rails generate spec:install`
+2. run `rails generate rspec:install`
 3. copy any customizations from your old spec_helper to the new one
 
 If you prefer to make the changes manually in the existing spec_helper, here
