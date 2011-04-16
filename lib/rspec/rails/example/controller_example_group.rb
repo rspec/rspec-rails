@@ -149,12 +149,22 @@ module RSpec::Rails
 
         after do
           @routes = @orig_routes
+          @orig_routes = nil
         end
       end
     end
 
     module InstanceMethods
       attr_reader :controller, :routes
+
+      def method_missing(method, *args, &block)
+        if @orig_routes && @orig_routes.named_routes.helpers.include?(method)
+          # Delegate to underlying controller
+          controller.send(method, *args, &block)
+        else
+          super
+        end
+      end
     end
 
     included do

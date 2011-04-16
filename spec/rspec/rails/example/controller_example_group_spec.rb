@@ -35,5 +35,30 @@ module RSpec::Rails
         example.subject.should == 'explicit'
       end
     end
+
+    describe "with anonymous controller" do
+      before do
+        group.class_eval do
+          controller(Class.new) { }
+        end
+      end
+
+      it "delegates named route helpers to the underlying controller" do
+        controller = double('controller')
+        controller.should_receive(:foos_url).and_return('http://test.host/foos')
+
+        example = group.new
+        example.stub(:controller => controller)
+
+        # As in the routing example spec, this is pretty invasive, but not sure
+        # how to do it any other way as the correct operation relies on before
+        # hooks
+        orig_routes = ActionDispatch::Routing::RouteSet.new
+        orig_routes.draw { resources :foos }
+        example.instance_variable_set(:@orig_routes, orig_routes)
+
+        example.foos_url.should be
+      end
+    end
   end
 end
