@@ -45,7 +45,7 @@ module RSpec::Rails
 
       it "delegates named route helpers to the underlying controller" do
         controller = double('controller')
-        controller.should_receive(:foos_url).and_return('http://test.host/foos')
+        controller.stub(:foos_url).and_return('http://test.host/foos')
 
         example = group.new
         example.stub(:controller => controller)
@@ -53,11 +53,11 @@ module RSpec::Rails
         # As in the routing example spec, this is pretty invasive, but not sure
         # how to do it any other way as the correct operation relies on before
         # hooks
-        orig_routes = ActionDispatch::Routing::RouteSet.new
-        orig_routes.draw { resources :foos }
-        example.instance_variable_set(:@orig_routes, orig_routes)
+        routes = ActionDispatch::Routing::RouteSet.new
+        routes.draw { resources :foos }
+        example.instance_variable_set(:@orig_routes, routes)
 
-        example.foos_url.should be
+        example.foos_url.should eq('http://test.host/foos')
       end
     end
   end

@@ -2,7 +2,7 @@ Feature: anonymous controller
 
   Use the `controller` method to define an anonymous controller derived from
   ApplicationController, or any other base controller. This is useful for
-  spec'ing behavior such as global error handling.
+  specifying behavior like global error handling.
 
   Scenario: specify error handling in ApplicationController
     Given a file named "spec/controllers/application_controller_spec.rb" with:
