@@ -23,6 +23,8 @@
   - view_spec.feature
   - stub_template.feature
   - inferred_controller_path.feature
+- request_specs:
+  - request_spec.feature
 - matchers:
   - new_record_matcher.feature
   - render_template_matcher.feature
