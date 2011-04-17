@@ -11,3 +11,4 @@ gemfiles/bin/*
 bin
 .rvmrc
 *.rbc
+.gemfile

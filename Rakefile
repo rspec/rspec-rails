@@ -1,14 +1,34 @@
-unless ENV["BUNDLE_GEMFILE"]
+unless File.exist?("./.gemfile")
   warn <<-MESSAGE
-You must set the BUNDLE_GEMFILE environment variable to point to any of the
-files in the gemfiles directory (other than base) using the absolute path to
-the file e.g. (in bash):
+=============================================================================
+You must set the version of rails you want to run against. The simplest way
+to accomplish this is to install thor (if you don't already have it) and run:
 
-  export BUNDLE_GEMFILE=#{File.expand_path("../gemfiles/rails-3.0.6", __FILE__)}
-  bundle install
+    thor rails:use 3.0.6
+
+You can use any of the following versions/branches:
+
+  3.0.0 .. 3.0.6
+  master
+  3-0-stable
+
+See the README_DEV.md file for more information.
+=============================================================================
+
 MESSAGE
   exit 1
 end
+
+require 'pathname'
+ENV["BUNDLE_GEMFILE"] ||= begin
+                            version = if File.exist?("./.gemfile")
+                                        File.read("./.gemfile").chomp
+                                      else
+                                        "rails-3.0.6"
+                                      end
+                            File.expand_path("../gemfiles/#{version}", __FILE__)
+                          end
+puts "Using gemfile: #{ENV["BUNDLE_GEMFILE"].gsub(Pathname.new(__FILE__).dirname.to_s,'').sub(/^\//,'')}"
 require "bundler"
 Bundler.setup
 Bundler::GemHelper.install_tasks
@@ -55,7 +75,11 @@ namespace :generate do
   desc "generate a fresh app with rspec installed"
   task :app do |t|
     unless File.directory?('./tmp/example_app')
-      sh "bundle exec rails new ./tmp/example_app"
+      sh "bin/rails new ./tmp/example_app"
+      bindir = File.expand_path("gemfiles/bin")
+      Dir.chdir("./tmp/example_app") do
+        sh "ln -s #{bindir}"
+      end
     end
   end
 
