@@ -11,6 +11,7 @@
 * Bug fixes
   * fix typo in "rake spec:statsetup" (Curtis Schofield)
   * expose named routes in anonymous controller specs (Andy Lindeman)
+  * error when generating namespaced scaffold resources (Andy Lindeman)
 
 ### 2.5.0 / 2011-02-05
 
