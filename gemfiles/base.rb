@@ -15,8 +15,8 @@ module GemfileBase
       end
 
       gem 'sqlite3-ruby', :require => 'sqlite3'
-      # gem "cucumber", "~> 0.10.2"
-      # gem "aruba", :git => "git://github.com/aslakhellesoy/aruba"
+      gem "cucumber", "~> 0.10.2"
+      gem "aruba", "~> 0.3.6"
       gem "rcov", "0.9.9"
       gem "relish", "0.2.0"
       gem "guard-rspec", "0.1.9"
