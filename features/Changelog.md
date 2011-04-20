@@ -1,6 +1,6 @@
 ### 2.6.0.rc2 / 2011-04-18
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.5.0...v2.6.1.rc2)
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.5.0...v2.6.0.rc2)
 
 * Enhancments
   * rails 3 shortcuts for routing specs (Joe Fiorini)
