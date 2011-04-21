@@ -1,6 +1,5 @@
 Feature: controller spec
 
-
   Scenario: simple passing example
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """
