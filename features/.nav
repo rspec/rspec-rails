@@ -4,6 +4,8 @@
 - Autotest.md (Autotest integration)
 - Changelog.md
 - Upgrade.md
+- request_specs:
+  - request_spec.feature
 - model_specs:
   - errors_on.feature
 - controller_specs:
@@ -15,8 +17,6 @@
   - helper_spec.feature
 - mailer_specs:
   - url_helpers.feature
-- request_specs:
-  - request_spec.feature
 - routing_specs:
   - route_to_matcher.feature
   - be_routable_matcher.feature
