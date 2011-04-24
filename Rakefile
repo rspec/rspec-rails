@@ -23,7 +23,6 @@ Bundler::GemHelper.install_tasks
 require 'rake'
 require 'yaml'
 
-require 'rake/rdoctask'
 require 'rspec'
 require 'rspec/core/rake_task'
 
