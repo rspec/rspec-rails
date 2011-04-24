@@ -9,3 +9,4 @@ gemfile:
   - "$PWD/gemfiles/rails-master"
 env:
   - USE_GIT_REPOS=true
+  - CI=true
