@@ -8,5 +8,4 @@ gemfile:
   - "$PWD/gemfiles/rails-3-0-stable"
   - "$PWD/gemfiles/rails-master"
 env:
-  - USE_GIT_REPOS=true
-  - CI=true
+  - USE_GIT_REPOS=true CI=true
