@@ -9,10 +9,15 @@ ENV["BUNDLE_GEMFILE"] ||= begin
                           end
 puts "Using gemfile: #{ENV["BUNDLE_GEMFILE"].gsub(Pathname.new(__FILE__).dirname.to_s,'').sub(/^\//,'')}"
 require "bundler"
-unless `bundle check`
-  `BUNDLE_GEMFILE=#{ENV["BUNDLE_GEMFILE"]} bundle install`
+begin
+  Bundler.setup
+rescue
+  if ENV["CI"]
+    sh "bundle install"
+  else
+    raise "You need to install a bundle first. Try 'thor rails:use 3.0.7'"
+  end
 end
-Bundler.setup
 Bundler::GemHelper.install_tasks
 
 require 'rake'
