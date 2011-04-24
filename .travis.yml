@@ -1,11 +1,11 @@
-script: "rake ci --trace 2>&1"
+script: "rake --trace 2>&1"
 rvm:
   - 1.8.7
   - 1.9.1
   - 1.9.2
 gemfile:
-  - gemfiles/rails-3.0.6
-  - gemfiles/rails-3-0-stable
-  - gemfiles/rails-master
+  - $PWD/gemfiles/rails-3.0.7
+  - $PWD/gemfiles/rails-3-0-stable
+  - $PWD/gemfiles/rails-master
 env:
   - USE_GIT_REPOS=true

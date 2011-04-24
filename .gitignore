@@ -2,7 +2,6 @@ tmp
 doc
 pkg
 vendor
-.bundle
 *.gem
 Gemfile
 Gemfile.lock

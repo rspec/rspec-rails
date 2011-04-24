@@ -1,30 +1,9 @@
-unless File.exist?("./.gemfile")
-  warn <<-MESSAGE
-=============================================================================
-You must set the version of rails you want to run against. The simplest way
-to accomplish this is to install thor (if you don't already have it) and run:
-
-    thor rails:use 3.0.6
-
-You can use any of the following versions/branches:
-
-  3.0.0 .. 3.0.6
-  master
-  3-0-stable
-
-See the README_DEV.md file for more information.
-=============================================================================
-
-MESSAGE
-  exit 1
-end
-
 require 'pathname'
 ENV["BUNDLE_GEMFILE"] ||= begin
                             version = if File.exist?("./.gemfile")
                                         File.read("./.gemfile").chomp
                                       else
-                                        "rails-3.0.6"
+                                        "rails-3.0.7"
                                       end
                             File.expand_path("../gemfiles/#{version}", __FILE__)
                           end
@@ -83,10 +62,12 @@ namespace :generate do
   desc "generate a fresh app with rspec installed"
   task :app do |t|
     unless File.directory?('./tmp/example_app')
-      sh "bin/rails new ./tmp/example_app"
+      sh "rails new ./tmp/example_app"
       bindir = File.expand_path("gemfiles/bin")
-      Dir.chdir("./tmp/example_app") do
-        sh "ln -s #{bindir}"
+      if test ?d, bindir
+        Dir.chdir("./tmp/example_app") do
+          sh "ln -s #{bindir}"
+        end
       end
     end
   end
