@@ -9,6 +9,9 @@ ENV["BUNDLE_GEMFILE"] ||= begin
                           end
 puts "Using gemfile: #{ENV["BUNDLE_GEMFILE"].gsub(Pathname.new(__FILE__).dirname.to_s,'').sub(/^\//,'')}"
 require "bundler"
+unless `bundle check`
+  `BUNDLE_GEMFILE=#{ENV["BUNDLE_GEMFILE"]} bundle install`
+end
 Bundler.setup
 Bundler::GemHelper.install_tasks
 
