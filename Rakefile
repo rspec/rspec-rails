@@ -14,6 +14,7 @@ begin
 rescue
   if ENV["CI"]
     sh "bundle install"
+    Bundler.setup
   else
     raise "You need to install a bundle first. Try 'thor rails:use 3.0.7'"
   end
