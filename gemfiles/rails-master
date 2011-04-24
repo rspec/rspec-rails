@@ -1,4 +1,4 @@
-load File.expand_path("../Gemfile-base", __FILE__)
+require File.expand_path("../base.rb", __FILE__)
 
 extend GemfileBase
 

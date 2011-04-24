@@ -6,7 +6,8 @@ vendor
 *.gem
 Gemfile
 Gemfile.lock
-*.lock
+gemfiles/*.lock
+gemfiles/bin/*
 bin
 .rvmrc
 *.rbc
