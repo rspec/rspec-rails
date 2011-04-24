@@ -6,7 +6,7 @@ Feature: request spec
 
   With request specs, you can:
 
-  * specify a single requests
+  * specify a single request
   * specify multiple requests across multiple controllers
   * specify multiple requests across multiple sessions
 
