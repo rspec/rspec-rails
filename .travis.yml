@@ -2,6 +2,6 @@ script: "rake --trace 2>&1"
 rvm:
   - 1.9.2
 gemfile:
-  - "$PWD/gemfiles/rails-3.0.7"
+  - gemfiles/rails-3.0.7
 env:
   - CI=true
