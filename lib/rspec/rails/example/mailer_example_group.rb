@@ -11,7 +11,11 @@ if defined?(ActionMailer)
       end
 
       capybara do
-        include Capybara
+        begin
+          include Capybara::RSpecMatchers
+        rescue
+          include Capybara
+        end
       end
 
       included do

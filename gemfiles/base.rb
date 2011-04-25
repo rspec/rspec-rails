@@ -19,7 +19,10 @@ module GemfileBase
       gem "aruba", "~> 0.3.6"
       gem "growl", "1.0.3"
       gem "ZenTest", "~> 4.4.2"
-      gem "webrat", "0.7.2"
+
+      # gem "webrat", "0.7.2"
+      # gem "capybara", "~> 0.4"
+      # gem "capybara", "1.0.0.beta1"
 
       unless ENV['CI']
         gem "rcov", "0.9.9"

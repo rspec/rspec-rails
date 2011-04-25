@@ -29,6 +29,10 @@ module RSpec::Rails
       include Webrat::Matchers
     end
 
+    capybara do
+      include Capybara::RSpecMatchers if defined?(Capybara::RSpecMatchers)
+    end
+
     module ClassMethods
       def _default_helper
         base = metadata[:example_group][:description].split('/').first

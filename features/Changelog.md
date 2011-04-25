@@ -7,6 +7,7 @@
     * Add documentation to the generated spec
     * Use any_instance to avoid stubbing finders
     * Use real objects instead of mock_model
+  * Update capybara integration to work with capy 0.4 and 1.0.0.beta
 
 ### 2.6.0.rc2 / 2011-04-18
 

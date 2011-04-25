@@ -37,7 +37,7 @@ module RSpec::Rails
     end
 
     capybara do
-      include Capybara
+      include Capybara unless defined?(Capybara::DSL)
     end
 
     include RSpec::Rails::Matchers::RedirectTo

@@ -1,4 +1,9 @@
 begin
+  require 'capybara/rspec'
+rescue LoadError
+end
+
+begin
   require 'capybara/rails'
 rescue LoadError
 end

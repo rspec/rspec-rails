@@ -90,7 +90,12 @@ module RSpec::Rails
     end
 
     capybara do
-      include Capybara
+      begin
+        include Capybara::DSL
+        include Capybara::RSpecMatchers
+      rescue
+        include Capybara
+      end
     end
 
     module ClassMethods
