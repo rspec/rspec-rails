@@ -16,8 +16,8 @@ Feature: view spec
 
           render
 
-          rendered.should contain("slicer")
-          rendered.should contain("dicer")
+          rendered.should =~ /slicer/
+          rendered.should =~ /dicer/
         end
       end
       """
@@ -42,8 +42,8 @@ Feature: view spec
           it "displays both widgets" do
             render
 
-            rendered.should contain("slicer")
-            rendered.should contain("dicer")
+            rendered.should =~ /slicer/
+            rendered.should =~ /dicer/
           end
         end
       end
@@ -62,7 +62,7 @@ Feature: view spec
 
           render :template => "widgets/widget.html.erb"
 
-          rendered.should contain("slicer")
+          rendered.should =~ /slicer/
         end
       end
       """
@@ -84,7 +84,7 @@ Feature: view spec
 
           render :partial => "widgets/widget.html.erb", :locals => {:widget => widget}
 
-          rendered.should contain("slicer")
+          rendered.should =~ /slicer/
         end
       end
       """
@@ -106,7 +106,7 @@ Feature: view spec
 
           render "widgets/widget", :widget => widget
 
-          rendered.should contain("slicer")
+          rendered.should =~ /slicer/
         end
       end
       """
@@ -127,7 +127,7 @@ Feature: view spec
 
           render :text => "This is directly rendered"
 
-          rendered.should contain("directly rendered")
+          rendered.should =~ /directly rendered/
         end
       end
       """
@@ -146,7 +146,7 @@ Feature: view spec
             page.hide 'status-indicator'
           end
 
-          rendered.should contain("Element.hide(\"status-indicator\")")
+          rendered.should =~ /Element.hide\(\"status-indicator\"\);/
         end
       end
       """
@@ -177,7 +177,7 @@ Feature: view spec
 
         it 'checks for admin access' do
           render
-          rendered.should contain('Secret admin area')
+          rendered.should =~ /Secret admin area/
         end
       end
       """

@@ -1,5 +1,4 @@
 require 'aruba/cucumber'
-require 'webrat'
 
 module ArubaExt
   def run(cmd)
