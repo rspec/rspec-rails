@@ -4,5 +4,6 @@ rvm:
   - 1.9.2
 gemfile:
   - gemfiles/rails-3.0.7
+  - gemfiles/rails-3-0-stable
 env:
   - CI=true
