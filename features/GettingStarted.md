@@ -15,6 +15,10 @@ Install Rails-3
 
     $ bundle install
 
+### Bootstrap RSpec
+
+    $ rails generate rspec:install
+
 ### Generate a scaffold
 
     $ rails generate scaffold Widgets name:string
@@ -33,8 +37,48 @@ the files in the `spec` directory to RSpec.
 
 or
 
-    $ rspec spec
+    $ rspec spec --format documentation
 
 If all went well, you should see output ending with:
 
     29 examples, 0 failures, 2 pending
+
+This output also includes the following controller spec:
+
+    WidgetsController
+      GET index
+        assigns all widgets as @widgets
+      GET show
+        assigns the requested widget as @widget
+      GET new
+        assigns a new widget as @widget
+      GET edit
+        assigns the requested widget as @widget
+      POST create
+        with valid params
+          creates a new Widget
+          assigns a newly created widget as @widget
+          redirects to the created widget
+        with invalid params
+          assigns a newly created but unsaved widget as @widget
+          re-renders the 'new' template
+      PUT update
+        with valid params
+          updates the requested widget
+          assigns the requested widget as @widget
+          redirects to the widget
+        with invalid params
+          assigns the widget as @widget
+          re-renders the 'edit' template
+      DELETE destroy
+        destroys the requested widget
+        redirects to the widgets list
+
+Output like this can help to quickly gain a high level understanding of how an
+object behaves. It also exposes which cases have been specified and which have
+not. Note the balance between the examples for the `create` and `update`
+actions. If the `redirects to the widget` example was missing from one or the
+other, it would be easy to spot.
+
+Take a look at the generated `spec/controllers/widgets_controller_spec.rb` to
+get a sense of how to organize your specs to generate output like this.
