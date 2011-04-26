@@ -31,8 +31,6 @@ Feature: generator spec
     Given a file named "spec/generators/awesome_generator_spec.rb" with:
       """
       require "spec_helper"
-
-      require 'rails/generators'
       require 'generators/awesome/awesome_generator'
 
       describe AwesomeGenerator do
@@ -56,8 +54,6 @@ Feature: generator spec
       Given a file named "spec/generators/another_awesome_generator_spec.rb" with:
         """
         require "spec_helper"
-
-        require 'rails/generators'
         require 'generators/awesome/awesome_generator'
 
         describe AwesomeGenerator do

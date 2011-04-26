@@ -1,4 +1,5 @@
 require 'rspec/rails/matchers/generate_a_file'
+require 'rails/generators'
 
 module RSpec::Rails
   # Delegats to Rails::Generators::TestCase to work with RSpec.

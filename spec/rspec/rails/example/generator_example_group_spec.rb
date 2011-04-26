@@ -11,7 +11,7 @@ module RSpec::Rails
       end
     end
 
-    it "adds :type => :model to the metadata" do
+    it "adds :type => :generator to the metadata" do
       group.metadata[:type].should eq(:generator)
     end
 
