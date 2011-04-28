@@ -96,10 +96,6 @@ module RSpec
         after do
           unless render_views?
             controller.class.view_paths = @_path_set_delegator_resolver.path_set
-            controller.instance_eval do
-              alias prepend_view_path orig_prepend_view_path
-              alias append_view_path orig_append_view_path
-            end
           end
         end
       end
