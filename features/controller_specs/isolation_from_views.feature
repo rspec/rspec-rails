@@ -5,7 +5,7 @@ Feature: views are stubbed by default
   template an action should try to render regardless of whether the template
   compiles cleanly.
 
-  NOTE: unlike rspec-rails-1.x, the real template must exist. 
+  NOTE: unlike rspec-rails-1.x, the real template must exist.
 
   Scenario: expect template that is rendered by controller action (passes)
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
@@ -47,3 +47,49 @@ Feature: views are stubbed by default
     When I run `rspec spec`
     Then the output should contain "1 example, 1 failure"
 
+  Scenario: expect empty templates to render when view path is changed at runtime (passes)
+    Given a file named "spec/controllers/things_controller_spec.rb" with:
+      """
+      require "spec_helper"
+
+      describe ThingsController do
+        describe "custom_action" do
+          it "renders an empty custom_action template" do
+            controller.prepend_view_path 'app/views'
+            controller.append_view_path 'app/views'
+            get :custom_action
+            response.should render_template("custom_action")
+            response.body.should == ""
+          end
+        end
+      end
+      """
+    When I run `rspec spec`
+    Then the examples should all pass
+
+  Scenario: expect template to render when view path is changed at runtime (fails)
+    Given a file named "spec/controllers/things_controller_spec.rb" with:
+      """
+      require "spec_helper"
+
+      describe ThingsController do
+        describe "custom_action" do
+          it "renders the custom_action template" do
+            render_views
+            controller.prepend_view_path 'app/views'
+            get :custom_action
+            response.should render_template("custom_action")
+            response.body.should == ""
+          end
+
+          it "renders an empty custom_action template" do
+            controller.prepend_view_path 'app/views'
+            get :custom_action
+            response.should render_template("custom_action")
+            response.body.should == ""
+          end
+        end
+      end
+      """
+    When I run `rspec spec`
+    Then the output should contain "2 examples, 1 failure"
