@@ -76,6 +76,20 @@ module RSpec
           unless render_views?
             @_path_set_delegator_resolver = PathSetDelegatorResolver.new(controller.class.view_paths)
             controller.class.view_paths = ::ActionView::PathSet.new.push(@_path_set_delegator_resolver)
+            controller.instance_eval do
+              alias orig_prepend_view_path prepend_view_path
+              alias orig_append_view_path append_view_path
+
+              def prepend_view_path(new_path)
+                _new_path_delegator = PathSetDelegatorResolver.new(::ActionView::FileSystemResolver.new(new_path))
+                lookup_context.view_paths.unshift(*_new_path_delegator)
+              end
+
+              def append_view_path(new_path)
+                _new_path_delegator = PathSetDelegatorResolver.new(::ActionView::FileSystemResolver.new(new_path))
+                lookup_context.view_paths.push(*_new_path_delegator)
+              end
+            end
           end
         end
 
