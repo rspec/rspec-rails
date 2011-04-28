@@ -67,7 +67,7 @@ Feature: views are stubbed by default
     When I run `rspec spec`
     Then the examples should all pass
 
-  Scenario: expect template to render when view path is changed at runtime (passes)
+  Scenario: expect template to render when view path is changed at runtime (fails)
     Given a file named "spec/controllers/things_controller_spec.rb" with:
       """
       require "spec_helper"
