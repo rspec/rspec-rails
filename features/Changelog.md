@@ -8,6 +8,8 @@
     * Use any_instance to avoid stubbing finders
     * Use real objects instead of mock_model
   * Update capybara integration to work with capy 0.4 and 1.0.0.beta
+  * Decorate paths passed to append/prepend_view_paths with empty templates
+    unless rendering views. (Mark Turner)
 
 ### 2.6.0.rc2 / 2011-04-18
 
