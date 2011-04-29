@@ -49,15 +49,15 @@ module RSpec
 
       # Delegates find_all to the submitted path set and then returns templates
       # with modified source
-      class PathSetDelegatorResolver < ::ActionView::Resolver
-        attr_reader :path_set
+      class EmptyTemplatePathSetDecorator < ::ActionView::Resolver
+        attr_reader :original_path_set
 
-        def initialize(path_set)
-          @path_set = path_set
+        def initialize(original_path_set)
+          @original_path_set = original_path_set
         end
 
         def find_all(*args)
-          path_set.find_all(*args).collect do |template|
+          original_path_set.find_all(*args).collect do |template|
             ::ActionView::Template.new(
               "",
               template.identifier,
@@ -71,35 +71,33 @@ module RSpec
         end
       end
 
+      module EmptyTemplates
+        def prepend_view_path(new_path)
+          lookup_context.view_paths.unshift(*_path_decorator(new_path))
+        end
+
+        def append_view_path(new_path)
+          lookup_context.view_paths.push(*_path_decorator(new_path))
+        end
+
+        private
+        def _path_decorator(path)
+          EmptyTemplatePathSetDecorator.new(::ActionView::Base::process_view_paths(path))
+        end
+      end
+
       included do
         before do
           unless render_views?
-            @_path_set_delegator_resolver = PathSetDelegatorResolver.new(controller.class.view_paths)
-            controller.class.view_paths = ::ActionView::PathSet.new.push(@_path_set_delegator_resolver)
-            controller.instance_eval do
-              alias orig_prepend_view_path prepend_view_path
-              alias orig_append_view_path append_view_path
-
-              def prepend_view_path(new_path)
-                _new_path_delegator = PathSetDelegatorResolver.new(::ActionView::FileSystemResolver.new(new_path))
-                lookup_context.view_paths.unshift(*_new_path_delegator)
-              end
-
-              def append_view_path(new_path)
-                _new_path_delegator = PathSetDelegatorResolver.new(::ActionView::FileSystemResolver.new(new_path))
-                lookup_context.view_paths.push(*_new_path_delegator)
-              end
-            end
+            @_empty_view_path_set_delegator = EmptyTemplatePathSetDecorator.new(controller.class.view_paths)
+            controller.class.view_paths = ::ActionView::PathSet.new.push(@_empty_view_path_set_delegator)
+            controller.extend(EmptyTemplates)
           end
         end
 
         after do
           unless render_views?
-            controller.class.view_paths = @_path_set_delegator_resolver.path_set
-            controller.instance_eval do
-              alias prepend_view_path orig_prepend_view_path
-              alias append_view_path orig_append_view_path
-            end
+            controller.class.view_paths = @_empty_view_path_set_delegator.original_path_set
           end
         end
       end
