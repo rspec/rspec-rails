@@ -15,3 +15,17 @@ require 'rspec/rails/module_inclusion'
 require 'rspec/rails/browser_simulators'
 require 'rspec/rails/example'
 
+begin
+  require 'capybara/rspec'
+rescue LoadError
+end
+
+begin
+  require 'capybara/rails'
+rescue LoadError
+end
+
+begin
+  require 'webrat'
+rescue LoadError
+end
