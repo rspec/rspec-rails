@@ -36,10 +36,6 @@ module RSpec::Rails
       end
     end
 
-    capybara do
-      include Capybara unless defined?(Capybara::DSL)
-    end
-
     include RSpec::Rails::Matchers::RedirectTo
     include RSpec::Rails::Matchers::RenderTemplate
     include ActionController::TemplateAssertions

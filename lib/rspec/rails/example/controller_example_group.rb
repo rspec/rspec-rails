@@ -89,15 +89,6 @@ module RSpec::Rails
       include Webrat::Methods
     end
 
-    capybara do
-      begin
-        include Capybara::DSL
-        include Capybara::RSpecMatchers
-      rescue
-        include Capybara
-      end
-    end
-
     module ClassMethods
       def controller_class
         describes

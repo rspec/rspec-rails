@@ -10,14 +10,6 @@ if defined?(ActionMailer)
         include Webrat::Matchers
       end
 
-      capybara do
-        begin
-          include Capybara::RSpecMatchers
-        rescue
-          include Capybara
-        end
-      end
-
       included do
         metadata[:type] = :mailer
         include ::Rails.application.routes.url_helpers

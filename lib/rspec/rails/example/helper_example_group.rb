@@ -36,10 +36,6 @@ module RSpec::Rails
       include Webrat::Matchers
     end
 
-    capybara do
-      include Capybara::RSpecMatchers if defined?(Capybara::RSpecMatchers)
-    end
-
     module ClassMethods
       def determine_default_helper_class(ignore)
         describes
