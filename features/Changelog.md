@@ -1,3 +1,10 @@
+### dev
+
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.6.0.rc4...master)
+
+* Bug fixes
+  * Fix load order issue w/ Capybara (oleg dashevskii)
+
 ### 2.6.0.rc4 / 2011-05-01
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.6.0.rc2...v2.6.0.rc4)
