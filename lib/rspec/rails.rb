@@ -38,7 +38,9 @@ RSpec.configure do |c|
   end
 
   unless defined?(Capybara::RSpecMatchers) || defined?(Capybara::DSL)
-    c.include Capybara, :type => :request
-    c.include Capybara, :type => :controller
+    if defined?(Capybara)
+      c.include Capybara, :type => :request
+      c.include Capybara, :type => :controller
+    end
   end
 end
