@@ -20,7 +20,7 @@ module GemfileBase
       gem "growl", "1.0.3"
       gem "ZenTest", "~> 4.4.2"
 
-      # gem "webrat", "0.7.2"
+      # gem "webrat", "0.7.3"
       # gem "capybara", "~> 0.4"
       # gem "capybara", "1.0.0.beta1"
 

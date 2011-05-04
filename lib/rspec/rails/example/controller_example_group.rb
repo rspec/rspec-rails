@@ -82,12 +82,6 @@ module RSpec::Rails
     include RSpec::Rails::Matchers::RedirectTo
     include RSpec::Rails::Matchers::RenderTemplate
     include RSpec::Rails::Matchers::RoutingMatchers
-    include RSpec::Rails::BrowserSimulators
-
-    webrat do
-      include Webrat::Matchers
-      include Webrat::Methods
-    end
 
     module ClassMethods
       def controller_class
@@ -169,12 +163,6 @@ module RSpec::Rails
       before do
         @routes = ::Rails.application.routes
         ActionController::Base.allow_forgery_protection = false
-      end
-
-      webrat do
-        before do
-          Webrat.configure {|c| c.mode = :rails}
-        end
       end
     end
   end

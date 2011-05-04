@@ -4,11 +4,6 @@ if defined?(ActionMailer)
       extend ActiveSupport::Concern
       include RSpec::Rails::RailsExampleGroup
       include ActionMailer::TestCase::Behavior
-      include RSpec::Rails::BrowserSimulators
-
-      webrat do
-        include Webrat::Matchers
-      end
 
       included do
         metadata[:type] = :mailer

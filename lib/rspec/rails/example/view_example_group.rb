@@ -23,11 +23,6 @@ module RSpec::Rails
     include ActionView::TestCase::Behavior
     include RSpec::Rails::ViewAssigns
     include RSpec::Rails::Matchers::RenderTemplate
-    include RSpec::Rails::BrowserSimulators
-
-    webrat do
-      include Webrat::Matchers
-    end
 
     module ClassMethods
       def _default_helper

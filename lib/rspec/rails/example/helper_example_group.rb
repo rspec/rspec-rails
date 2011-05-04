@@ -30,11 +30,6 @@ module RSpec::Rails
     include RSpec::Rails::RailsExampleGroup
     include ActionView::TestCase::Behavior
     include RSpec::Rails::ViewAssigns
-    include RSpec::Rails::BrowserSimulators
-
-    webrat do
-      include Webrat::Matchers
-    end
 
     module ClassMethods
       def determine_default_helper_class(ignore)

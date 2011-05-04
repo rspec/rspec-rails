@@ -16,23 +16,10 @@ module RSpec::Rails
     include RSpec::Rails::RailsExampleGroup
     include ActionDispatch::Integration::Runner
     include ActionDispatch::Assertions
-    include RSpec::Rails::BrowserSimulators
 
     module InstanceMethods
       def app
         ::Rails.application
-      end
-    end
-
-    webrat do
-      include Webrat::Matchers
-      include Webrat::Methods
-
-      module InstanceMethods
-
-        def last_response
-          @response
-        end
       end
     end
 
@@ -45,14 +32,6 @@ module RSpec::Rails
 
       before do
         @routes = ::Rails.application.routes
-      end
-
-      webrat do
-        before do
-          Webrat.configure do |c|
-            c.mode = :rack
-          end
-        end
       end
     end
   end
