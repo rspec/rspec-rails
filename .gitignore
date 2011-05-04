@@ -2,6 +2,7 @@ tmp
 doc
 pkg
 vendor
+!lib/rspec/rails/vendor
 *.gem
 Gemfile
 Gemfile.lock
