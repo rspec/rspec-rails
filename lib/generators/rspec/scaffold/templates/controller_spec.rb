@@ -127,7 +127,7 @@ describe <%= controller_class_name %>Controller do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         <%= class_name %>.any_instance.stub(:save).and_return(false)
-        put :update, :id => <%= file_name %>.id.to_s
+        put :update, :id => <%= file_name %>.id.to_s, :<%= ns_file_name %> => {}
         assigns(:<%= ns_file_name %>).should eq(<%= file_name %>)
       end
 
@@ -135,7 +135,7 @@ describe <%= controller_class_name %>Controller do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         <%= class_name %>.any_instance.stub(:save).and_return(false)
-        put :update, :id => <%= file_name %>.id.to_s
+        put :update, :id => <%= file_name %>.id.to_s, :<%= ns_file_name %> => {}
         response.should render_template("edit")
       end
     end

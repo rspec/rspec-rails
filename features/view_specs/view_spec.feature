@@ -134,25 +134,6 @@ Feature: view spec
     When I run `rspec spec/views`
     Then the examples should all pass
 
-  Scenario: passing spec with rendering of Prototype helper update
-    Given a file named "spec/views/widgets/prototype_update.html.erb_spec.rb" with:
-      """
-      require "spec_helper"
-
-      describe "render a Prototype helper update" do
-        it "hides the status indicator" do
-
-          render :update do |page|
-            page.hide 'status-indicator'
-          end
-
-          rendered.should =~ /Element.hide\(\"status-indicator\"\);/
-        end
-      end
-      """
-    When I run `rspec spec/views`
-    Then the examples should all pass
-
   Scenario: spec with view that accesses helper_method helpers
     Given a file named "app/views/secrets/index.html.erb" with:
       """
