@@ -1,6 +1,6 @@
-### 2.6.0.rc5 / 2011-05-06
+### 2.6.0.rc6 / 2011-05-06
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.6.0.rc4...v2.6.0.rc5)
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.6.0.rc4...v2.6.0.rc6)
 
 * Bug fixes
   * Fix load order issue w/ Capybara (oleg dashevskii)
