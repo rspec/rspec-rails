@@ -4,6 +4,7 @@
 
 * Bug fixes
   * Fix load order issue w/ Capybara (oleg dashevskii)
+  * Relax the dependencies on rails gems to >= 3.0 (Joel Moss)
 
 ### 2.6.0.rc4 / 2011-05-01
 

@@ -22,9 +22,9 @@ Gem::Specification.new do |s|
   s.rdoc_options     = ["--charset=UTF-8"]
   s.require_path     = "lib"
 
-  s.add_runtime_dependency(%q<activesupport>, ["~> 3.0"])
-  s.add_runtime_dependency(%q<actionpack>, ["~> 3.0"])
-  s.add_runtime_dependency(%q<railties>, ["~> 3.0"])
+  s.add_runtime_dependency(%q<activesupport>, [">= 3.0"])
+  s.add_runtime_dependency(%q<actionpack>, [">= 3.0"])
+  s.add_runtime_dependency(%q<railties>, [">= 3.0"])
   if RSpec::Rails::Version::STRING =~ /[a-zA-Z]+/
     s.add_runtime_dependency "rspec", "= #{RSpec::Rails::Version::STRING}"
   else
