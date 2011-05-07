@@ -16,7 +16,7 @@ rescue
     sh "bundle install"
     Bundler.setup
   else
-    raise "You need to install a bundle first. Try 'thor rails:use 3.0.7'"
+    raise "You need to install a bundle first. Try 'thor gemfile:use 3.0.7'"
   end
 end
 Bundler::GemHelper.install_tasks
