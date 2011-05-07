@@ -1,10 +1,13 @@
 Feature: render_template matcher
 
-  This matcher just delegates to the Rails assertion method
-  "assert_template". For complete info on the available options,
-  please take a look at the Rails documentation.
+  The `render_template` matcher is used to specify that a request renders a
+  given template.  It delegates to
+  [`assert_template`](http://api.rubyonrails.org/classes/ActionController/TemplateAssertions.html#method-i-assert_template)
 
-  This method is available in spec/controllers and spec/requests.
+  It is available in controller specs (spec/controllers) and request
+  specs (spec/requests).
+
+  NOTE: use `redirect_to(:action => 'new')` for redirects, not `render_template`.
 
   Scenario: render_template with three possible options
     Given a file named "spec/controllers/gadgets_spec.rb" with:
@@ -12,12 +15,12 @@ Feature: render_template matcher
       require "spec_helper"
 
       describe GadgetsController do
-        describe "#index" do
+        describe "GET #index" do
           subject { get :index }
 
-          specify { should render_template(:index) }
-          specify { should render_template("index") }
-          specify { should render_template("gadgets/index") }
+          it { should render_template(:index) }
+          it { should render_template("index") }
+          it { should render_template("gadgets/index") }
         end
       end
       """
