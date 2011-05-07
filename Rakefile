@@ -90,6 +90,11 @@ namespace :generate do
         Dir.chdir("./tmp/example_app") do
           sh "rm -rf test"
           sh "ln -s #{bindir}"
+          application_file = File.read("config/application.rb")
+          sh "rm config/application.rb"
+          File.open("config/application.rb","w") do |f|
+            f.write application_file.gsub("config.assets.enabled = true","config.assets.enabled = false")
+          end
         end
       end
     end
