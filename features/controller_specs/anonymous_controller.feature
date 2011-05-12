@@ -76,3 +76,34 @@ Feature: anonymous controller
     """
     When I run `rspec spec`
     Then the examples should all pass
+
+  Scenario: regression with ApplicationController around_filters
+    Given a file named "spec/controllers/application_controller_around_filter_spec.rb" with:
+    """
+    require "spec_helper"
+
+    class ApplicationController < ActionController::Base
+      around_filter :some_around_filter
+
+      def some_around_filter
+        @callback_invoked = true
+        yield
+      end
+    end
+
+    describe ApplicationController do
+      controller do
+        def index
+          render :nothing => true
+        end
+      end
+
+      it "invokes the callback" do
+        get :index
+
+        assigns[:callback_invoked].should be_true
+      end
+    end
+    """
+    When I run `rspec spec`
+    Then the examples should all pass
