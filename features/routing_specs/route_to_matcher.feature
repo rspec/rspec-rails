@@ -4,7 +4,7 @@ Feature: route_to matcher
   It is most valuable when specifying routes other than standard RESTful
   routes.
 
-      get("/").should route_to("welcome#index")
+      get("/").should route_to("welcome#index") # new in 2.6.0
 
       or
 
