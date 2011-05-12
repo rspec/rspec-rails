@@ -1,9 +1,20 @@
 class Gemfile < Thor
   desc "use VERSION", "installs the bundle using gemfiles/rails-VERSION"
   def use(version)
-    gemfile = "--gemfile gemfiles/rails-#{version}"
-    say `bundle install #{gemfile} --binstubs`
-    say `bundle #{gemfile} update rails` unless version =~ /^\d\.\d\.\d/
+    "gemfiles/rails-#{version}".tap do |gemfile|
+      ENV["BUNDLE_GEMFILE"] = File.expand_path(gemfile)
+      say "Using #{gemfile}"
+    end
+    "bundle install --binstubs".tap do |m|
+      say m
+      system m
+    end
+    unless version =~ /^\d\.\d\.\d/
+      "bundle update rails".tap do |m|
+        say m
+        system m
+      end
+    end
     say `ln -s gemfiles/bin` unless File.exist?('bin')
     `echo rails-#{version} > ./.gemfile`
   end
