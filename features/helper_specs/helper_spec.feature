@@ -1,10 +1,17 @@
 Feature: helper spec
   
   Helper specs live in `spec/helpers`, or any example group with `:type =>
-  :helper`. In order to access the helper methods you can call them on the
-  `helper` object.
+  :helper`.
+
+  Helper specs expose a `helper` object, which includes the helper module being
+  specified, the `ApplicationHelper` module (if there is one) and all of the
+  helpers built into Rails. It does not include the other helper modules in
+  your app.
+
+  To access the helper methods you're specifying, simply call them directly
+  on the `helper` object.
   
-  Scenario: helper method that returns true
+  Scenario: helper method that returns a value
     Given a file named "spec/helpers/application_helper_spec.rb" with:
       """
       require "spec_helper"
@@ -12,7 +19,7 @@ Feature: helper spec
       describe ApplicationHelper do
         describe "#page_title" do
           it "returns true" do
-            helper.page_title.should be_true
+            helper.page_title.should eq("RSpec is your friend")
           end
         end
       end
@@ -21,7 +28,7 @@ Feature: helper spec
       """
       module ApplicationHelper
         def page_title
-          true
+          "RSpec is your friend"
         end
       end
       """
