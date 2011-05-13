@@ -18,7 +18,7 @@ Feature: helper spec
       
       describe ApplicationHelper do
         describe "#page_title" do
-          it "returns true" do
+          it "returns the default title" do
             helper.page_title.should eq("RSpec is your friend")
           end
         end
