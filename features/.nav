@@ -4,6 +4,7 @@
 - Autotest.md (Autotest integration)
 - Changelog.md
 - Upgrade.md
+- RailsVersions.md (Rails versions)
 - request_specs:
   - request_spec.feature
 - model_specs:
