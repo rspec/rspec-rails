@@ -3,5 +3,4 @@ require File.expand_path("../base.rb", __FILE__)
 extend GemfileBase
 
 gem "rails", :git => "git://github.com/rails/rails.git"
-gem "arel",  :git => "git://github.com/rails/arel.git"
 gem "rack",  :git => "git://github.com/rack/rack.git"
