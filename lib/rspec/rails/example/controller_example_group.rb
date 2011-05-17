@@ -127,14 +127,12 @@ module RSpec::Rails
       def controller(base_class = ApplicationController, &body)
         metadata[:example_group][:describes] = Class.new(base_class, &body)
         metadata[:example_group][:describes].singleton_class.class_eval do
-          def name
-            "StubResourcesController"
-          end
+          def name; "AnonymousController" end
         end
 
         before do
           @orig_routes, @routes = @routes, ActionDispatch::Routing::RouteSet.new
-          @routes.draw { resources :stub_resources }
+          @routes.draw { resources :anonymous }
         end
 
         after do
