@@ -125,9 +125,11 @@ module RSpec::Rails
       # defined in +ApplicationController+, however, are accessible from within
       # the block.
       def controller(base_class = ApplicationController, &body)
-        base_class.dup.tap do |new_base|
-          def new_base.name; "StubResourcesController"; end
-          metadata[:example_group][:describes] = Class.new(new_base, &body)
+        metadata[:example_group][:describes] = Class.new(base_class, &body)
+        metadata[:example_group][:describes].singleton_class.class_eval do
+          def name
+            "StubResourcesController"
+          end
         end
 
         before do
