@@ -10,6 +10,8 @@ Feature: helper spec
 
   To access the helper methods you're specifying, simply call them directly
   on the `helper` object.
+
+  NOTE: helper methods defined in controllers are not included.
   
   Scenario: helper method that returns a value
     Given a file named "spec/helpers/application_helper_spec.rb" with:
