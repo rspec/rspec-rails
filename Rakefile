@@ -102,7 +102,7 @@ namespace :generate do
 
   desc "generate a bunch of stuff with generators"
   task :stuff do
-    in_example_app "rake rails:template LOCATION='../../templates/generate_stuff.rb'"
+    in_example_app "bin/rake rails:template LOCATION='../../templates/generate_stuff.rb'"
   end
 end
 
@@ -116,19 +116,19 @@ end
 
 namespace :db do
   task :migrate do
-    in_example_app "rake db:migrate"
+    in_example_app "bin/rake db:migrate"
   end
 
   namespace :test do
     task :prepare do
-      in_example_app "rake db:test:prepare"
+      in_example_app "bin/rake db:test:prepare"
     end
   end
 end
 
 desc "run a variety of specs against the generated app"
 task :smoke do
-  in_example_app "rake rails:template --trace LOCATION='../../templates/run_specs.rb'"
+  in_example_app "bin/rake rails:template --trace LOCATION='../../templates/run_specs.rb'"
 end
 
 desc 'clobber generated files'
