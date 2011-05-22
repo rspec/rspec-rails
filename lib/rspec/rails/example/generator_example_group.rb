@@ -1,15 +1,22 @@
-require 'rspec/rails/matchers/generate_a_file'
+require 'rspec/rails/matchers/exist'
+require 'rspec/rails/matchers/contain'
+require 'rspec/rails/matchers/be_a_migration'
 require 'rails/generators'
 
 module RSpec::Rails
-  # Delegats to Rails::Generators::TestCase to work with RSpec.
+  # Delegates to Rails::Generators::TestCase to work with RSpec.
   module GeneratorExampleGroup
     extend ActiveSupport::Concern
     include RSpec::Rails::RailsExampleGroup
 
+    DELEGATED_METHODS = [:generator, :destination_root_is_set?, :capture, :ensure_current_path,
+                         :prepare_destination, :destination_root, :current_path, :generator_class]
     module ClassMethods
       mattr_accessor :test_unit_test_case_delegate
-      delegate :generator, :generator_class, :destination_root_is_set?, :capture, :ensure_current_path, :prepare_destination, :destination_root, :current_path, :generator_class, :default_arguments, :to => :'self.test_unit_test_case_delegate'
+      delegate :default_arguments, :to => :'self.test_unit_test_case_delegate'
+      DELEGATED_METHODS.each do |method|
+        delegate method,  :to => :'self.test_unit_test_case_delegate'
+      end
       delegate :destination, :arguments, :to => :'self.test_unit_test_case_delegate.class'
 
       def initialize_delegate
@@ -30,7 +37,10 @@ module RSpec::Rails
     end
 
     included do
-      delegate :generator, :run_generator, :destination_root_is_set?, :capture, :ensure_current_path, :prepare_destination, :destination, :destination_root, :current_path, :generator_class, :arguments, :to => :'self.class'
+      delegate :run_generator, :destination, :arguments, :to => :'self.class'
+      DELEGATED_METHODS.each do |method|
+        delegate method,  :to => :'self.class'
+      end
       initialize_delegate
 
       subject { generator }
@@ -46,15 +56,8 @@ module RSpec::Rails
       metadata[:type] = :generator
     end
 
-    def absolute_filename relative
+    def file relative
       File.expand_path(relative, destination_root)
-    end
-
-    # Copied from Rails::Generators::TestCase because that method is protected
-    def migration_file_name(relative) #:nodoc:
-      absolute = absolute_filename(relative)
-      dirname, file_name = File.dirname(absolute), File.basename(absolute).sub(/\.rb$/, '')
-      Dir.glob("#{dirname}/[0-9]*_*.rb").grep(/\d+_#{file_name}.rb$/).first
     end
   end
 end

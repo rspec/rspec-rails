@@ -44,8 +44,9 @@ describe Rspec::Generators::ModelGenerator do
   describe 'without mocking' do
     it 'should create model and fixture files' do
       run_generator %w(posts --fixture)
-      absolute_filename('spec/models/posts_spec.rb').should be_generated
-      absolute_filename('spec/models/posts_spec.rb').should be_generated.containing /require 'spec_helper'/, /describe Posts/
+      file('spec/models/posts_spec.rb').should exist
+      file('spec/models/posts_spec.rb').should contain /require 'spec_helper'/
+      file('spec/models/posts_spec.rb').should contain /describe Posts/
     end
   end
 end

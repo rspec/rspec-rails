@@ -1,5 +1,4 @@
 require 'rails/all'
-require 'rails/generators'
 
 module RSpecRails
   class Application < ::Rails::Application
@@ -7,7 +6,6 @@ module RSpecRails
 end
 
 require 'rspec/rails'
-
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
