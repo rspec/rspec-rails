@@ -1,12 +1,13 @@
-### 2.6.1 / not released
+### 2.6.1 / 2011-05-21
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.6.0...master)
 
-This release is compatible with rails-3.1.0.rc, but not rails-3.1.0.beta1
+This release is compatible with rails-3.1.0.rc1, but not rails-3.1.0.beta1
 
 * Bug fixes
-  * Fix controller specs with anonymous controllers with around filters
-  * Exclude spec directory from rcov metrics
+  * fix controller specs with anonymous controllers with around filters
+  * exclude spec directory from rcov metrics
+  * guard against calling prerequisites on nil default rake task (Jack Dempsey)
 
 ### 2.6.0 / 2011-05-12
 
