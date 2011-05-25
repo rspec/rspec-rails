@@ -35,9 +35,7 @@ MSG
   end
 end
 
-require 'rake'
 require 'yaml'
-
 require 'rspec'
 require 'rspec/core/rake_task'
 
