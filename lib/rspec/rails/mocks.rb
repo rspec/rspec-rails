@@ -114,10 +114,14 @@ EOM
             def @object.class
               #{model_class}
             end
-            def @object.to_s
-              "#{model_class.name}_#{to_param}"
-            end
           CODE
+          unless stubs.has_key? :to_s
+            m.__send__(:__mock_proxy).instance_eval(<<-CODE, __FILE__, __LINE__)
+              def @object.to_s
+                "#{model_class.name}_#{to_param}"
+              end
+            CODE
+          end
           yield m if block_given?
         end
       end
