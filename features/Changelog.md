@@ -1,6 +1,6 @@
-### 2.6.1.beta1 / 2011-05-22
+### 2.6.1 / 2011-05-25
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.6.0...v2.6.1.beta1)
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.6.0...v2.6.1)
 
 This release is compatible with rails-3.1.0.rc1, but not rails-3.1.0.beta1
 
