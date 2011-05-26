@@ -4,6 +4,7 @@ rvm:
   - 1.9.2
 gemfile:
   - gemfiles/rails-3.0.7
+  - gemfiles/rails-3.0.8.rc1
   - gemfiles/rails-3.1.0.rc1
   - gemfiles/rails-master
 bundler_args: "--binstubs"
