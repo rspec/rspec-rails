@@ -6,7 +6,7 @@ This release is compatible with rails-3.1.0.rc1, but not rails-3.1.0.beta1
 
 * Bug fixes
   * fix controller specs with anonymous controllers with around filters
-  * exclude spec directory from rcov metrics
+  * exclude spec directory from rcov metrics (Rodrigo Navarro)
   * guard against calling prerequisites on nil default rake task (Jack Dempsey)
 
 ### 2.6.0 / 2011-05-12
