@@ -101,27 +101,28 @@ EOM
           m.__send__(:__mock_proxy).instance_eval(<<-CODE, __FILE__, __LINE__)
             def @object.is_a?(other)
               #{model_class}.ancestors.include?(other)
-            end
+            end unless #{stubs.has_key?(:is_a?)}
+            
             def @object.kind_of?(other)
               #{model_class}.ancestors.include?(other)
-            end
+            end unless #{stubs.has_key?(:kind_of?)}
+            
             def @object.instance_of?(other)
               other == #{model_class}
-            end
+            end unless #{stubs.has_key?(:instance_of?)}
+            
             def @object.respond_to?(method_name, include_private=false)
               #{model_class}.respond_to?(:column_names) && #{model_class}.column_names.include?(method_name.to_s) || super
-            end
+            end unless #{stubs.has_key?(:respond_to?)}
+            
             def @object.class
               #{model_class}
-            end
+            end unless #{stubs.has_key?(:class)}
+            
+            def @object.to_s
+              "#{model_class.name}_#{to_param}"
+            end unless #{stubs.has_key?(:to_s)}
           CODE
-          unless stubs.has_key? :to_s
-            m.__send__(:__mock_proxy).instance_eval(<<-CODE, __FILE__, __LINE__)
-              def @object.to_s
-                "#{model_class.name}_#{to_param}"
-              end
-            CODE
-          end
           yield m if block_given?
         end
       end
