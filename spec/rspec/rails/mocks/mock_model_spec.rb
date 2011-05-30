@@ -1,8 +1,18 @@
 require 'spec_helper'
 require File.dirname(__FILE__) + '/ar_classes'
 
-describe "mock_model(RealModel)" do
+shared_examples_for 'a mock_model stubbed method' do |method_name|
+  context "that is stubbed" do
+    let(:return_value) { method_name.to_s.include?('?') ? true : 'foo' }
+    
+    it "returns the stub" do
+      mock_model(MockableModel, method_name => return_value).send(method_name).should eq(return_value)
+    end
+  end
+end unless RSpec.world.shared_example_groups.has_key?('a mock_model stubbed method')
 
+describe "mock_model(RealModel)" do
+  
   context "given a String" do
     context "that does not represent an existing constant" do
       it "class says it's name" do
@@ -114,6 +124,8 @@ describe "mock_model(RealModel)" do
     it "says it is_a?(OtherModel) if RealModel is an ancestors" do
       @model.is_a?(MockableModel).should be(true)
     end
+    
+    it_should_behave_like 'a mock_model stubbed method', :is_a?
   end
 
   describe "#kind_of?" do
@@ -128,6 +140,8 @@ describe "mock_model(RealModel)" do
     it "says it is kind_of? if RealModel's ancestor is" do
       @model.kind_of?(MockableModel).should be(true)
     end
+    
+    it_should_behave_like 'a mock_model stubbed method', :kind_of?
   end
 
   describe "#instance_of?" do
@@ -142,6 +156,8 @@ describe "mock_model(RealModel)" do
     it "does not say it instance_of? if RealModel isn't, even if it's ancestor is" do
       @model.instance_of?(MockableModel).should be(false)
     end
+    
+    it_should_behave_like 'a mock_model stubbed method', :instance_of?
   end
 
   describe "#respond_to?" do
@@ -195,6 +211,16 @@ describe "mock_model(RealModel)" do
         end
       end
     end
+    
+    it_should_behave_like 'a mock_model stubbed method', :respond_to?
+  end
+  
+  describe "#class" do
+    it "returns the mocked model" do
+      mock_model(MockableModel).class.should eq(MockableModel)
+    end
+    
+    it_should_behave_like 'a mock_model stubbed method', :class
   end
 
   describe "#to_s" do
@@ -202,11 +228,7 @@ describe "mock_model(RealModel)" do
       mock_model(MockableModel).to_s.should == "MockableModel_#{to_param}"
     end
     
-    context "that is stubbed" do
-      it "returns the stub" do
-        mock_model(MockableModel, :to_s => 'foobar').to_s.should == 'foobar'
-      end
-    end
+    it_should_behave_like 'a mock_model stubbed method', :to_s
   end
 
   describe "#destroyed?" do
