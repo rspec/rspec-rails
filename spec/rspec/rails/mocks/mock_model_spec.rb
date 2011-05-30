@@ -1,16 +1,6 @@
 require 'spec_helper'
 require File.dirname(__FILE__) + '/ar_classes'
 
-shared_examples_for 'a mock_model stubbed method' do |method_name|
-  context "that is stubbed" do
-    let(:return_value) { method_name.to_s.include?('?') ? true : 'foo' }
-    
-    it "returns the stub" do
-      mock_model(MockableModel, method_name => return_value).send(method_name).should eq(return_value)
-    end
-  end
-end
-
 describe "mock_model(RealModel)" do
   
   context "given a String" do
@@ -125,7 +115,9 @@ describe "mock_model(RealModel)" do
       @model.is_a?(MockableModel).should be(true)
     end
     
-    it_should_behave_like 'a mock_model stubbed method', :is_a?
+    it "can be stubbed" do
+      mock_model(MockableModel, :is_a? => true).is_a?(:Foo).should be_true
+    end
   end
 
   describe "#kind_of?" do
@@ -141,7 +133,9 @@ describe "mock_model(RealModel)" do
       @model.kind_of?(MockableModel).should be(true)
     end
     
-    it_should_behave_like 'a mock_model stubbed method', :kind_of?
+    it "can be stubbed" do
+      mock_model(MockableModel, :kind_of? => true).kind_of?(:Foo).should be_true
+    end
   end
 
   describe "#instance_of?" do
@@ -157,7 +151,9 @@ describe "mock_model(RealModel)" do
       @model.instance_of?(MockableModel).should be(false)
     end
     
-    it_should_behave_like 'a mock_model stubbed method', :instance_of?
+    it "can be stubbed" do
+      mock_model(MockableModel, :instance_of? => true).instance_of?(:Foo).should be_true
+    end
   end
 
   describe "#respond_to?" do
@@ -212,7 +208,9 @@ describe "mock_model(RealModel)" do
       end
     end
     
-    it_should_behave_like 'a mock_model stubbed method', :respond_to?
+    it "can be stubbed" do
+      mock_model(MockableModel, :respond_to? => true).respond_to?(:foo).should be_true
+    end
   end
   
   describe "#class" do
@@ -220,7 +218,9 @@ describe "mock_model(RealModel)" do
       mock_model(MockableModel).class.should eq(MockableModel)
     end
     
-    it_should_behave_like 'a mock_model stubbed method', :class
+    it "can be stubbed" do
+      mock_model(MockableModel, :class => String).class.should be(String)
+    end
   end
 
   describe "#to_s" do
@@ -228,7 +228,9 @@ describe "mock_model(RealModel)" do
       mock_model(MockableModel).to_s.should == "MockableModel_#{to_param}"
     end
     
-    it_should_behave_like 'a mock_model stubbed method', :to_s
+    it "can be stubbed" do
+      mock_model(MockableModel, :to_s => "this string").to_s.should == "this string"
+    end
   end
 
   describe "#destroyed?" do
