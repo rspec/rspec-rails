@@ -198,17 +198,12 @@ describe "mock_model(RealModel)" do
   end
 
   describe "#to_s" do
-    before(:each) do
-      @param = to_param
-      @model = mock_model(MockableModel)
+    it "returns (model.name)_(model#to_param)" do
+      mock_model(MockableModel).to_s.should == "MockableModel_#{to_param}"
     end
     
-    it "returns class name underscore rspec context id" do
-      @model.to_s.should == "MockableModel_#{@param}"
-    end
-    
-    context "stubbed to return 'foobar'" do
-      it "returns 'foobar'" do
+    context "that is stubbed" do
+      it "returns the stub" do
         mock_model(MockableModel, :to_s => 'foobar').to_s.should == 'foobar'
       end
     end
