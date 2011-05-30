@@ -9,7 +9,7 @@ shared_examples_for 'a mock_model stubbed method' do |method_name|
       mock_model(MockableModel, method_name => return_value).send(method_name).should eq(return_value)
     end
   end
-end unless RSpec.world.shared_example_groups.has_key?('a mock_model stubbed method')
+end
 
 describe "mock_model(RealModel)" do
   
