@@ -1,13 +1,13 @@
 Feature: mock_model
 
-  The mock_model method generates a test double that acts like an Active Model
-  model. This is different from the stub_model method which generates an
-  instance of a real ActiveModel class.
+  The `mock_model` method generates a test double that acts like an instance of
+  `ActiveModel`. This is different from the `stub_model` method which generates
+  a real, database-backed model instance.
 
-  The benefit of mock_model over stub_model is that its a true double, so the
-  examples are not dependent on the behaviour (or mis-behaviour), or even the
+  The benefit of `mock_model` over `stub_model` is that it is a true double, so
+  the examples are not dependent on the behavior (or mis-behavior), or even the
   existence of any other code. If you're working on a controller spec and you
-  need a model that doesn't exist, you can pass mock_model a string and the
+  need a model that doesn't exist, you can pass `mock_model` a string and the
   generated object will act as though its an instance of the class named by
   that string.
    
