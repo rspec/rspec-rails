@@ -10,6 +10,7 @@
 - model_specs:
   - errors_on.feature
 - controller_specs:
+  - Cookies.md
   - controller_spec.feature
   - isolation_from_views.feature
   - render_views.feature
