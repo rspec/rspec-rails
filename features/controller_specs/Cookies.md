@@ -10,15 +10,22 @@ the following guidelines:
 
 ### Recommended guidelines for rails-3.0.0 to 3.1.0
 
-  * Always access cookies through the `request` and `response` objects.
+  * Access cookies through the `request` and `response` objects in the spec.
     * Use `request.cookies` before the action to set up state.
     * Use `response.cookies` after the action to specify outcomes.
-  * Always use String keys.
+  * Use the `cookies` object in the controller action. 
+  * Use String keys.
 
 <pre>
+# spec
 request.cookies['foo'] = 'bar'
 get :some_action
-response.cookies['foo'].should eq('modified by controller')
+response.cookies['foo'].should eq('modified bar')
+
+# controller
+def some_action
+  cookies['foo'] = "modified #{cookies['foo']}"
+end
 </pre>
 
 #### Why use Strings instead of Symbols?
@@ -41,7 +48,7 @@ for the controller action.
     cookies['foo'] = 'bar' # this is not visible in the controller
     get :some_action
 
-### What about 3.1.1?
+### Future versions of Rails
 
 There is code in the master branch in rails that makes cookie access more
 consistent so you can use the same `cookies` object before and after the action, 
