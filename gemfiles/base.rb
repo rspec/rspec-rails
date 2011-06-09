@@ -21,6 +21,7 @@ module GemfileBase
       gem "aruba", "~> 0.3.6"
       gem "growl", "1.0.3"
       gem "ZenTest", "~> 4.4.2"
+      gem 'ammeter', '~> 0'
 
       # gem "webrat", "0.7.3"
       # gem "capybara", "~> 0.4"
