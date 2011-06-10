@@ -6,7 +6,6 @@ module RSpecRails
 end
 
 require 'rspec/rails'
-require 'ammeter'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
