@@ -12,12 +12,10 @@ Gem::Specification.new do |s|
   s.summary     = "rspec-rails-#{RSpec::Rails::Version::STRING}"
   s.description = "RSpec-2 for Rails-3"
 
-  s.rubygems_version   = "1.3.7"
   s.rubyforge_project  = "rspec"
 
-  s.files            = `git ls-files`.split("\n")
+  s.files            = `git ls-files -- lib/*`.split("\n")
   s.test_files       = `git ls-files -- {spec,features}/*`.split("\n")
-  s.executables      = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.extra_rdoc_files = [ "README.md" ]
   s.rdoc_options     = ["--charset=UTF-8"]
   s.require_path     = "lib"
