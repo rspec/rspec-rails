@@ -7,6 +7,6 @@ gemfile:
   - gemfiles/rails-3.0.9
   - gemfiles/rails-3.1.0
   - gemfiles/rails-master
-bundler_args: "--binstubs"
+bundler_args: "--binstubs --without development"
 env:
   - CI=true

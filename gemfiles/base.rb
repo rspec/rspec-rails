@@ -19,19 +19,23 @@ module GemfileBase
       gem 'sqlite3-ruby', :require => 'sqlite3'
       gem "cucumber", "~> 0.10.2"
       gem "aruba", "~> 0.3.6"
-      gem "growl", "1.0.3"
       gem "ZenTest", "~> 4.4.2"
+
+      platforms :jruby do
+        gem "jruby-openssl"
+      end
 
       # gem "webrat", "0.7.3"
       # gem "capybara", "~> 0.4"
       # gem "capybara", "1.0.0.beta1"
 
-      unless ENV['CI']
+      group :development do
         gem "rcov", "0.9.9"
         gem "relish", "0.2.0"
         gem "guard-rspec", "0.1.9"
 
         if RUBY_PLATFORM =~ /darwin/
+          gem "growl", "1.0.3"
           gem "autotest-fsevent", "~> 0.2.4"
           gem "autotest-growl", "~> 0.2.9"
         end
@@ -50,10 +54,6 @@ module GemfileBase
           gem "rb-fsevent", "~> 0.3.9"
           gem "ruby-prof", "~> 0.9.2"
         end
-      end
-
-      platforms :jruby do
-        gem "jruby-openssl"
       end
     end
   end
