@@ -39,9 +39,11 @@ Feature: generator spec
         before do
           run_generator %w(my_dir)
         end
+        
         it 'should copy the awesome file into public' do
           file('public/my_dir/awesome.html').should exist
         end
+        
         it 'should copy the lame file into public' do
           file('public/my_dir/lame.html').should exist
         end
@@ -63,10 +65,12 @@ Feature: generator spec
           before do
             invoke_task :create_awesomeness
           end
+          
           it 'should copy the awesome file into public' do
             file('public/another_dir/awesome.html').should exist
             file('public/another_dir/awesome.html').should contain 'This is an awesome file'
           end
+          
           it 'should not have copied the lame file into public' do
             file('public/another_dir/lame.html').should_not exist
           end
