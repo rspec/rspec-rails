@@ -1,11 +1,13 @@
-begin
-  require 'capybara/rspec'
-rescue LoadError
-end
-
-begin
-  require 'capybara/rails'
-rescue LoadError
+[
+  'capybara/dsl',
+  'capybara/rspec/matchers',
+  'capybara/rspec/features',
+  'capybara/rails'
+].each do |dependency|
+  begin
+    require dependency
+  rescue LoadError
+  end
 end
 
 RSpec.configure do |c|
