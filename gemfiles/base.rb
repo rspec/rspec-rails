@@ -20,6 +20,7 @@ module GemfileBase
       gem "cucumber", "~> 0.10.2"
       gem "aruba", "~> 0.3.6"
       gem "ZenTest", "~> 4.4.2"
+      gem 'ammeter', '~> 0.1'
 
       platforms :jruby do
         gem "jruby-openssl"
