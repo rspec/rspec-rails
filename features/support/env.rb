@@ -2,7 +2,7 @@ require 'aruba/cucumber'
 
 module ArubaExt
   def run(cmd)
-    super(cmd =~ /^rspec/ ? "bundle exec #{cmd}" : cmd)
+    super(cmd =~ /^rspec/ ? "bin/#{cmd}" : cmd)
   end
 end
 

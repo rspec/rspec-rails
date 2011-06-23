@@ -3,23 +3,19 @@ ENV["BUNDLE_GEMFILE"] ||= begin
                             version = if File.exist?("./.gemfile")
                                         File.read("./.gemfile").chomp
                                       else
-                                        "rails-3.0.7"
+                                        "rails-3.1.0"
                                       end
                             File.expand_path("../gemfiles/#{version}", __FILE__)
                           end
 puts "Using gemfile: #{ENV["BUNDLE_GEMFILE"].gsub(Pathname.new(__FILE__).dirname.to_s,'').sub(/^\//,'')}"
+
 require "bundler"
 begin
   Bundler.setup
+  Bundler::GemHelper.install_tasks
 rescue
-  if ENV["CI"]
-    sh "bundle install"
-    Bundler.setup
-  else
-    raise "You need to install a bundle first. Try 'thor gemfile:use 3.1.0'"
-  end
+  raise "You need to install a bundle first. Try 'thor gemfile:use 3.1.0'"
 end
-Bundler::GemHelper.install_tasks
 
 task :build => :raise_if_psych_is_defined
 

@@ -17,8 +17,8 @@ module GemfileBase
       gem 'rake', '0.8.7'
       gem 'rdoc'
       gem 'sqlite3-ruby', :require => 'sqlite3'
-      gem "cucumber", "~> 0.10.2"
-      gem "aruba", "~> 0.3.6"
+      gem "cucumber", "1.0.0"
+      gem "aruba", "0.4.2"
       gem "ZenTest", "~> 4.4.2"
       gem 'ammeter', '~> 0.1'
 
