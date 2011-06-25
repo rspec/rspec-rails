@@ -1,3 +1,11 @@
+### dev
+
+* Enhancments
+  * Make generated controller spec more consistent with regard to ids
+    (Brent J. Nordquist)
+* Internal
+  * Added specs for generators using ammeter (Alex Rothenberg)
+
 ### 2.6.1 / 2011-05-25
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.6.0...v2.6.1)
