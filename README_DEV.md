@@ -9,7 +9,7 @@ our own.
 
 ## The short version
 
-thor gemfile:use 3.0.6
+thor gemfile:use 3.1.0
 rake
 
 ## The long version
@@ -21,6 +21,10 @@ The `thor rails:use` task accepts any released version of rails, or either the
 
     thor gemfile:use master
     thor gemfile:use 3-0-stable
+    thor gemfile:use 3.1.0
+    thor gemfile:use 3.0.9
+    thor gemfile:use 3.0.8
+    thor gemfile:use 3.0.7
     thor gemfile:use 3.0.6
     thor gemfile:use 3.0.5
     thor gemfile:use 3.0.4
