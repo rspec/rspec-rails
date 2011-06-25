@@ -9,7 +9,7 @@ end
 World(ArubaExt)
 
 Before do
-  @aruba_timeout_seconds = 10
+  @aruba_timeout_seconds = 15
 end
 
 unless File.directory?('./tmp/example_app')
