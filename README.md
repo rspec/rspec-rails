@@ -2,7 +2,7 @@
 
 rspec-2 for rails-3 with lightweight extensions to each
 
-[![build status](http://travis-ci.org/rspec/rspec-rails.png)](http://travis-ci.org/rspec/rspec-rails)
+[![build status](https://travis-ci.org/rspec/rspec-rails.png)](http://travis-ci.org/rspec/rspec-rails)
 
 NOTE: rspec-2 does _not_ support rails-2. Use rspec-rails-1.3.x for rails-2.
 
