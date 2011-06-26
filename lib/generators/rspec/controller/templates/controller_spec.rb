@@ -4,7 +4,7 @@ describe <%= class_name %>Controller do
 
 <% for action in actions -%>
   describe "GET '<%= action %>'" do
-    it "is successful" do
+    it "returns http success" do
       get '<%= action %>'
       response.should be_success
     end
