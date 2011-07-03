@@ -3,6 +3,8 @@
 * Enhancments
   * Make generated controller spec more consistent with regard to ids
     (Brent J. Nordquist)
+  * Less restrictive autotest mapping between spec and implementation files
+    (José Valim)
 
 * Internal
   * Added specs for generators using ammeter (Alex Rothenberg)
@@ -10,7 +12,8 @@
 * Bug fixes
   * Fix configuration/integration bug with rails 3.0 (fixed in 3.1) in which
     fixure_file_upload reads from ActiveSupport::TestCase.fixture_path and misses
-    RSpec's configuration.
+    RSpec's configuration (David Chelimsky)
+  * Support nested resource in view spec generator (David Chelimsky)
 
 ### 2.6.1 / 2011-05-25
 
