@@ -9,35 +9,33 @@ describe Rspec::Generators::ViewGenerator do
 
   before { prepare_destination }
 
-  describe 'a spec is created for each action' do
-    describe 'with default template engine' do
-      before do
-        run_generator %w(posts index show)
-      end
-      describe 'index.html.erb' do
-        subject { file('spec/views/posts/index.html.erb_spec.rb') }
-        it { should exist }
-        it { should contain /require 'spec_helper'/ }
-        it { should contain /describe "posts\/index.html.erb"/ }
-      end
-      describe 'show.html.erb' do
-        subject { file('spec/views/posts/show.html.erb_spec.rb') }
-        it { should exist }
-        it { should contain /require 'spec_helper'/ }
-        it { should contain /describe "posts\/show.html.erb"/ }
+  describe 'with default template engine' do
+    it 'generates a spec for the supplied action' do
+      run_generator %w(posts index)
+      file('spec/views/posts/index.html.erb_spec.rb').tap do |f|
+        f.should contain /require 'spec_helper'/
+        f.should contain /describe "posts\/index.html.erb"/
       end
     end
-    describe 'with haml' do
-      before do
-        run_generator %w(posts index --template_engine haml)
+
+    describe 'with a nested resource' do
+      it 'generates a spec for the supplied action' do
+        run_generator %w(admin/posts index)
+        file('spec/views/admin/posts/index.html.erb_spec.rb').tap do |f|
+          f.should contain /require 'spec_helper'/
+          f.should contain /describe "admin\/posts\/index.html.erb"/
+        end
       end
-      describe 'index.html.haml' do
-        subject { file('spec/views/posts/index.html.haml_spec.rb') }
-        it { should exist }
-        it { should contain /require 'spec_helper'/ }
-        it { should contain /describe "posts\/index.html.haml"/ }
+    end
+  end
+
+  describe 'haml' do
+    it 'generates a spec for the supplied action' do
+      run_generator %w(posts index --template_engine haml)
+      file('spec/views/posts/index.html.haml_spec.rb').tap do |f|
+        f.should contain /require 'spec_helper'/
+        f.should contain /describe "posts\/index.html.haml"/
       end
     end
   end
 end
-
