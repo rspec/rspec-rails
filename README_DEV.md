@@ -9,14 +9,15 @@ our own.
 
 ## The short version
 
-thor gemfile:use 3.1.0
-rake
+    gem install thor bundler
+    thor gemfile:use 3.0.9
+    rake
 
 ## The long version
 
 ### thor gemfile:use
 
-The `thor rails:use` task accepts any released version of rails, or either the
+The `thor gemfile:use` task accepts any released version of rails, or either the
 3-0-stable or master branches.
 
     thor gemfile:use master
