@@ -36,18 +36,18 @@ This installs the following gems:
 Add `rspec-rails` to the `:test` and `:development` groups in the Gemfile:
 
     group :test, :development do
-      gem "rspec-rails", "~> 2.4"
+      gem "rspec-rails", "~> 2.6"
     end
 
 It needs to be in the `:development` group to expose generators and rake
 tasks without having to type `RAILS_ENV=test`.
 
-Now you can run: 
+Now you can run:
 
-    script/rails generate rspec:install
+    rails g rspec:install
 
 This adds the spec directory and some skeleton files, including
-the "rake spec" task. 
+the "rake spec" task.
 
 ### Generators
 
