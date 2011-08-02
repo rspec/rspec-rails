@@ -134,7 +134,7 @@ Feature: view spec
     When I run `rspec spec/views`
     Then the examples should all pass
 
-  Scenario: spec with view that accesses helper_method helpers
+  Scenario: passing view spec that stubs a helper method
     Given a file named "app/views/secrets/index.html.erb" with:
       """
       <%- if admin? %>
@@ -147,13 +147,7 @@ Feature: view spec
 
       describe 'secrets/index.html.erb' do
         before do
-          controller.singleton_class.class_eval do
-            protected
-              def admin?
-                true
-              end
-              helper_method :admin?
-          end
+          view.stub(:admin?).and_return(true)
         end
 
         it 'checks for admin access' do
