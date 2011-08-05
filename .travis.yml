@@ -5,6 +5,7 @@ rvm:
   - 1.9.2
 gemfile:
   - gemfiles/rails-3.0.9
+  - gemfiles/rails-3.0.10
   - gemfiles/rails-3.1.0
   - gemfiles/rails-3-1-stable
   - gemfiles/rails-master
