@@ -5,6 +5,7 @@
     (Brent J. Nordquist)
   * Less restrictive autotest mapping between spec and implementation files
     (José Valim)
+  * require 'rspec/autorun' from generated spec_helper.rb (David Chelimsky)
 
 * Internal
   * Added specs for generators using ammeter (Alex Rothenberg)

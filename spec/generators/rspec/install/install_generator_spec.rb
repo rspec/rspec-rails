@@ -1,22 +1,18 @@
 require 'spec_helper'
-
-# Generators are not automatically loaded by Rails
 require 'generators/rspec/install/install_generator'
 
 describe Rspec::Generators::InstallGenerator do
-  # Tell the generator where to put its output (what it thinks of as Rails.root)
   destination File.expand_path("../../../../../tmp", __FILE__)
 
-  before do
-    prepare_destination
+  before { prepare_destination }
+
+  it "generates .rspec" do
     run_generator
+    file('.rspec').should exist
   end
-  describe '.rspec' do
-    subject { file('.rspec') }
-    it { should exist }
-  end
-  describe 'spec_helper.rb' do
-    subject { file('spec/spec_helper.rb') }
-    it { should exist }
+
+  it "generates spec/spec_helper.rb" do
+    run_generator
+    File.read( file('spec/spec_helper.rb') ).should =~ /^require 'rspec\/autorun'$/m
   end
 end
