@@ -144,6 +144,12 @@ module RSpec::Rails
     module InstanceMethods
       attr_reader :controller, :routes
 
+      def bypass_rescue
+        def controller.rescue_with_handler(exception)
+          raise exception
+        end
+      end
+      
       def method_missing(method, *args, &block)
         if @orig_routes && @orig_routes.named_routes.helpers.include?(method)
           controller.send(method, *args, &block)
