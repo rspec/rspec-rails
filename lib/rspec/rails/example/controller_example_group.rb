@@ -144,10 +144,14 @@ module RSpec::Rails
     module InstanceMethods
       attr_reader :controller, :routes
 
-      def bypass_rescue
-        def controller.rescue_with_handler(exception)
+      module BypassRescue
+        def rescue_with_handler(exception)
           raise exception
         end
+      end
+
+      def bypass_rescue
+        controller.extend(BypassRescue)
       end
 
       def method_missing(method, *args, &block)
