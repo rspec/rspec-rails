@@ -28,15 +28,15 @@ module RSpec::Rails
       end
     end
 
-    describe "with explicit subject" do
-      it "should use the specified subject instead of the controller" do
+    context "with explicit subject" do
+      it "uses the specified subject instead of the controller" do
         group.subject { 'explicit' }
         example = group.new
         example.subject.should == 'explicit'
       end
     end
 
-    describe "with anonymous controller" do
+    describe "#controller" do
       before do
         group.class_eval do
           controller(Class.new) { }
@@ -58,6 +58,17 @@ module RSpec::Rails
         example.instance_variable_set(:@orig_routes, routes)
 
         example.foos_url.should eq('http://test.host/foos')
+      end
+    end
+
+    describe "#bypass_rescue" do
+      it "overrides the rescue_with_handler method on the controller to raise submitted error" do
+        example = group.new
+        example.instance_variable_set("@controller", Class.new { def rescue_with_handler(e); end }.new)
+        example.bypass_rescue
+        expect do
+          example.controller.rescue_with_handler(RuntimeError.new("foo"))
+        end.to raise_error("foo")
       end
     end
   end
