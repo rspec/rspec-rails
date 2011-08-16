@@ -77,6 +77,40 @@ Feature: anonymous controller
     When I run `rspec spec`
     Then the examples should all pass
 
+  Scenario: base class can be inferred
+    Given a file named "spec/support/base_class_is_inferred_config.rb" with:
+    """
+    require "spec_helper"
+
+    RSpec.configure do |c|
+      c.infer_base_class_for_anonymous_controllers = true
+    end
+    """
+    And a file named "spec/controllers/base_class_can_be_inferred_spec.rb" with:
+    """
+    require "spec_helper"
+
+    class ApplicationController < ActionController::Base
+    end
+
+    class ApplicationControllerSubclass < ApplicationController
+    end
+
+    describe ApplicationControllerSubclass do
+      controller do
+        def index
+          render :text => "Hello World"
+        end
+      end
+
+      it "creates an anonymous controller that inherits from ApplicationControllerSubclass" do
+        controller.should be_a_kind_of(ApplicationControllerSubclass)
+      end
+    end
+    """
+    When I run `rspec spec`
+    Then the examples should all pass
+
   Scenario: regression with ApplicationController around_filters
     Given a file named "spec/controllers/application_controller_around_filter_spec.rb" with:
     """
