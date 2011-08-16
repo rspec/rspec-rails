@@ -15,6 +15,7 @@
   - isolation_from_views.feature
   - render_views.feature
   - anonymous_controller.feature
+  - bypass_rescue.feature
 - helper_specs:
   - helper_spec.feature
 - mailer_specs:
