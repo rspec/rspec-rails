@@ -1,5 +1,8 @@
 require "spec_helper"
 
+class ::ApplicationController
+end
+
 module RSpec::Rails
   describe ControllerExampleGroup do
     it { should be_included_in_files_in('./spec/controllers/') }
@@ -69,6 +72,28 @@ module RSpec::Rails
         expect do
           example.controller.rescue_with_handler(RuntimeError.new("foo"))
         end.to raise_error("foo")
+      end
+    end
+
+    describe "with inferred anonymous controller" do
+      before do
+        group.stub(:controller_class).and_return(Class.new)
+      end
+
+      it "infers the anonymous controller class when infer_base_class_for_anonymous_controllers is true" do
+        RSpec.configuration.stub(:infer_base_class_for_anonymous_controllers?).and_return(true)
+        group.controller { }
+
+        controller_class = group.metadata[:example_group][:describes]
+        controller_class.superclass.should eq(group.controller_class)
+      end
+
+      it "sets the anonymous controller class to ApplicationController when infer_base_class_for_anonymous_controllers is false" do
+        RSpec.configuration.stub(:infer_base_class_for_anonymous_controllers?).and_return(false)
+        group.controller { }
+
+        controller_class = group.metadata[:example_group][:describes]
+        controller_class.superclass.should eq(ApplicationController)
       end
     end
   end

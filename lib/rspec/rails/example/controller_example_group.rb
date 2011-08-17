@@ -1,3 +1,7 @@
+RSpec.configure do |config|
+  config.add_setting :infer_base_class_for_anonymous_controllers, :default => false
+end
+
 module RSpec::Rails
   # Extends ActionController::TestCase::Behavior to work with RSpec.
   #
@@ -124,7 +128,11 @@ module RSpec::Rails
       # +controller+ method. Any instance methods, filters, etc, that are
       # defined in +ApplicationController+, however, are accessible from within
       # the block.
-      def controller(base_class = ApplicationController, &body)
+      def controller(base_class = nil, &body)
+        base_class ||= RSpec.configuration.infer_base_class_for_anonymous_controllers? ?
+                         controller_class :
+                         ApplicationController
+
         metadata[:example_group][:describes] = Class.new(base_class, &body)
         metadata[:example_group][:describes].singleton_class.class_eval do
           def name; "AnonymousController" end
