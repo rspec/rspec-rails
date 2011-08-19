@@ -1,5 +1,4 @@
 require 'spec_helper'
-require File.dirname(__FILE__) + '/ar_classes'
 
 describe "mock_model(RealModel)" do
   
