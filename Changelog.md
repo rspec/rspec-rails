@@ -1,6 +1,7 @@
 ### dev
 
 * Enhancments
+  * ActiveRecord::Relation can use the "=~" matcher (Andy Lindeman)
   * Make generated controller spec more consistent with regard to ids
     (Brent J. Nordquist)
   * Less restrictive autotest mapping between spec and implementation files
