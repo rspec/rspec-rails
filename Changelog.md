@@ -8,6 +8,7 @@
     (José Valim)
   * require 'rspec/autorun' from generated spec_helper.rb (David Chelimsky)
   * bypass_rescue (Lenny Marks)
+  * route_to accepts query string (Marc Weil)
 
 * Internal
   * Added specs for generators using ammeter (Alex Rothenberg)
