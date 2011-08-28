@@ -21,9 +21,14 @@ describe "route_to" do
       get("path").should route_to("controller#action")
     end
 
-    it "routes with query parameters" do
+    it "routes with one query parameter" do
       self.should_receive(:assert_recognizes).with({ :controller => "controller", :action => "action", :queryitem => "queryvalue"}, { :method=> :get, :path=>"path" }, { :queryitem => 'queryvalue' })
       get("path?queryitem=queryvalue").should route_to("controller#action", :queryitem => 'queryvalue')
+    end
+
+    it "routes with multiple query parameters" do
+      self.should_receive(:assert_recognizes).with({ :controller => "controller", :action => "action", :queryitem => "queryvalue", :qi2 => 'qv2'}, { :method=> :get, :path=>"path" }, { :queryitem => 'queryvalue', :qi2 => 'qv2' })
+      get("path?queryitem=queryvalue&qi2=qv2").should route_to("controller#action", :queryitem => 'queryvalue', :qi2 => 'qv2')
     end
 
   end
