@@ -31,8 +31,9 @@ module GemfileBase
       # gem "capybara", "1.0.0.beta1"
 
       group :development do
+        gem 'gherkin', '2.4.5'
         gem "rcov", "0.9.9"
-        gem "relish", "0.2.0"
+        gem "relish", "0.4.0"
         gem "guard-rspec", "0.1.9"
 
         if RUBY_PLATFORM =~ /darwin/
