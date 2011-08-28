@@ -21,7 +21,6 @@ module GemfileBase
       gem "aruba", "0.4.2"
       gem "ZenTest", "~> 4.4.2"
       gem 'ammeter', '~> 0.1'
-      gem "json", "~> 1.5.3"
 
       platforms :jruby do
         gem "jruby-openssl"
@@ -32,8 +31,9 @@ module GemfileBase
       # gem "capybara", "1.0.0.beta1"
 
       group :development do
+        gem 'gherkin', '2.4.5'
         gem "rcov", "0.9.9"
-        gem "relish", "0.2.0"
+        gem "relish", "0.4.0"
         gem "guard-rspec", "0.1.9"
 
         if RUBY_PLATFORM =~ /darwin/
