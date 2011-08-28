@@ -5,20 +5,25 @@ describe "route_to" do
   include RSpec::Rails::Matchers::RoutingMatchers::RouteHelpers
 
   it "delegates to assert_recognizes" do
-    self.should_receive(:assert_recognizes).with({ "these" => "options" }, { :method=> :get, :path=>"path" })
+    self.should_receive(:assert_recognizes).with({ "these" => "options" }, { :method=> :get, :path=>"path" }, {})
     {:get => "path"}.should route_to("these" => "options")
   end
 
   context "with shortcut syntax" do
 
     it "routes with extra options" do
-      self.should_receive(:assert_recognizes).with({ :controller => "controller", :action => "action", :extra => "options"}, { :method=> :get, :path=>"path" })
+      self.should_receive(:assert_recognizes).with({ :controller => "controller", :action => "action", :extra => "options"}, { :method=> :get, :path=>"path" }, {})
       get("path").should route_to("controller#action", :extra => "options")
     end
 
     it "routes without extra options" do
-      self.should_receive(:assert_recognizes).with({ :controller => "controller", :action => "action"}, { :method=> :get, :path=>"path" })
+      self.should_receive(:assert_recognizes).with({ :controller => "controller", :action => "action"}, { :method=> :get, :path=>"path" }, {})
       get("path").should route_to("controller#action")
+    end
+
+    it "routes with query parameters" do
+      self.should_receive(:assert_recognizes).with({ :controller => "controller", :action => "action", :queryitem => "queryvalue"}, { :method=> :get, :path=>"path" }, { :queryitem => 'queryvalue' })
+      get("path?queryitem=queryvalue").should route_to("controller#action", :queryitem => 'queryvalue')
     end
 
   end
