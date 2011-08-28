@@ -2,27 +2,28 @@ module RSpec::Rails::Matchers
   module RoutingMatchers
     extend RSpec::Matchers::DSL
 
-    matcher :route_to do |*route_options|
-      match_unless_raises ActiveSupport::TestCase::Assertion do |path|
-        assertion_path = { :method => path.keys.first, :path => path.values.first }
-        assertion_query_params, assertion_path[:path] = QueryHelpers::extract_query_params(assertion_path[:path])
+    matcher :route_to do |*expected|
+      expected_options = expected[1] || {}
+      if Hash === expected[0]
+        expected_options.merge!(expected[0])
+      else
+        controller, action = expected[0].split('#')
+        expected_options.merge!(:controller => controller, :action => action)
+      end
 
-        path, options = *route_options
-
-        if path.is_a?(String)
-          controller, action = path.split("#")
-          options ||= {}
-          options.merge!(:controller => controller, :action => action)
-        else
-          options = path
-        end
-
-        assert_recognizes(options, assertion_path, assertion_query_params)
+      match_unless_raises ActiveSupport::TestCase::Assertion do |verb_to_path_map|
+        path, query = *verb_to_path_map.values.first.split('?')
+        assert_recognizes(
+          expected_options,
+          {:method => verb_to_path_map.keys.first, :path => path},
+          Rack::Utils::parse_query(query)
+        )
       end
 
       failure_message_for_should do
         rescued_exception.message
       end
+
     end
 
     matcher :be_routable do
@@ -34,21 +35,6 @@ module RSpec::Rails::Matchers
 
       failure_message_for_should_not do |path|
         "expected #{path.inspect} not to be routable, but it routes to #{@routing_options.inspect}"
-      end
-    end
-
-    class QueryHelpers
-      def self.extract_query_params(path)
-        params = {}
-        cleaned_path = path
-        if not path.index('?').nil?
-          cleaned_path, params_string = path.split('?')
-          params_string.split('&').each do |kvp|
-            key, value = kvp.split('=')
-            params[key.to_sym] = value
-          end
-        end
-        [params, cleaned_path]
       end
     end
 
