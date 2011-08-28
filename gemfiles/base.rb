@@ -21,6 +21,7 @@ module GemfileBase
       gem "aruba", "0.4.2"
       gem "ZenTest", "~> 4.4.2"
       gem 'ammeter', '~> 0.1'
+      gem "json", "~> 1.5.3"
 
       platforms :jruby do
         gem "jruby-openssl"
