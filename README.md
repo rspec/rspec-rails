@@ -35,20 +35,16 @@ This installs the following gems:
 
 Add `rspec-rails` to the `:test` and `:development` groups in the Gemfile:
 
-```ruby
-group :test, :development do
-  gem "rspec-rails", "~> 2.6"
-end
-```
+    group :test, :development do
+      gem "rspec-rails", "~> 2.6"
+    end
 
 It needs to be in the `:development` group to expose generators and rake
 tasks without having to type `RAILS_ENV=test`.
 
 Now you can run:
 
-```ruby
-rails g rspec:install
-```
+    rails g rspec:install
 
 This adds the spec directory and some skeleton files, including
 the "rake spec" task.
@@ -70,9 +66,7 @@ The `rspec:install` generator creates an `.rspec` file, which
 tells Autotest that you're using RSpec and Rails. You'll also need to add the
 autotest (not autotest-rails) gem to your Gemfile:
 
-```ruby
-gem "autotest"
-```
+    gem "autotest"
 
 At this point, if all of the gems in your Gemfile are installed in system
 gems, you can just type `autotest`. If, however, Bundler is managing any gems
@@ -85,10 +79,8 @@ You can choose between webrat or capybara for simulating a browser, automating
 a browser, or setting expectations using the matchers they supply. Just add
 your preference to the Gemfile:
 
-```ruby
-gem "webrat"
-gem "capybara"
-```
+    gem "webrat"
+    gem "capybara"
 
 Note that Capybara matchers are not available in view or helper specs.
 
@@ -98,13 +90,11 @@ Bundler makes it a snap to use the latest code for any gem your app depends on. 
 rspec-rails, you'll need to point bundler to the git repositories for `rspec-rails`
 and the other rspec related gems it depends on:
 
-```ruby
-gem "rspec-rails",        :git => "git://github.com/rspec/rspec-rails.git"
-gem "rspec",              :git => "git://github.com/rspec/rspec.git"
-gem "rspec-core",         :git => "git://github.com/rspec/rspec-core.git"
-gem "rspec-expectations", :git => "git://github.com/rspec/rspec-expectations.git"
-gem "rspec-mocks",        :git => "git://github.com/rspec/rspec-mocks.git"
-```
+    gem "rspec-rails",        :git => "git://github.com/rspec/rspec-rails.git"
+    gem "rspec",              :git => "git://github.com/rspec/rspec.git"
+    gem "rspec-core",         :git => "git://github.com/rspec/rspec-core.git"
+    gem "rspec-expectations", :git => "git://github.com/rspec/rspec-expectations.git"
+    gem "rspec-mocks",        :git => "git://github.com/rspec/rspec-mocks.git"
 
 Run `bundle install` and you'll have whatever is in git right now. Any time you
 want to update to a newer head, just run `bundle update`.
@@ -130,16 +120,14 @@ See http://github.com/rspec/rspec-rails/issues
 
 Request specs live in spec/requests.
 
-```ruby
-describe "widgets resource" do
-  describe "GET index" do
-    it "contains the widgets header" do
-      get "/widgets/index"
-      response.should have_selector("h1", :content => "Widgets")
+    describe "widgets resource" do
+      describe "GET index" do
+        it "contains the widgets header" do
+          get "/widgets/index"
+          response.should have_selector("h1", :content => "Widgets")
+        end
+      end
     end
-  end
-end
-```
 
 Request specs mix in behavior from Rails' integration tests. See the
 docs for ActionDispatch::Integration::Runner for more information.
@@ -161,11 +149,9 @@ information about this). If you prefer to render the views (a la Rails'
 functional tests), you can use the `render_views` declaration in each example
 group:
 
-```ruby
-describe SomeController do
-  render_views
-  ...
-```
+    describe SomeController do
+      render_views
+      ...
 
 ### * Upgrade note
 
@@ -176,42 +162,36 @@ describe SomeController do
 Use `assigns(key)` to express expectations about instance variables that a controller
 assigns to the view in the course of an action:
 
-```ruby
-get :index
-assigns(:widgets).should eq(expected_value)
-```
+    get :index
+    assigns(:widgets).should eq(expected_value)
 
 # View specs
 
 View specs live in spec/views, and mix in ActionView::TestCase::Behavior.
 
-```ruby
-describe "events/index.html.erb" do
-  it "renders _event partial for each event" do
-    assign(:events, [stub_model(Event), stub_model(Event)])
-    render
-    view.should render_template(:partial => "_event", :count => 2)
-  end
-end
+    describe "events/index.html.erb" do
+      it "renders _event partial for each event" do
+        assign(:events, [stub_model(Event), stub_model(Event)])
+        render
+        view.should render_template(:partial => "_event", :count => 2)
+      end
+    end
 
-describe "events/show.html.erb" do
-  it "displays the event location" do
-    assign(:event, stub_model(Event,
-      :location => "Chicago"
-    )
-    render
-    rendered.should contain("Chicago")
-  end
-end
-```
+    describe "events/show.html.erb" do
+      it "displays the event location" do
+        assign(:event, stub_model(Event,
+          :location => "Chicago"
+        )
+        render
+        rendered.should contain("Chicago")
+      end
+    end
 
 View specs infer the controller name and path from the path to the view
 template. e.g. if the template is "events/index.html.erb" then:
 
-```ruby
-controller.controller_path == "events"
-controller.request.path_parameters[:controller] == "events"
-```
+    controller.controller_path == "events"
+    controller.request.path_parameters[:controller] == "events"
 
 This means that most of the time you don't need to set these values. When
 spec'ing a partial that is included across different controllers, you _may_
@@ -220,18 +200,14 @@ need to override these values before rendering the view.
 To provide a layout for the render, you'll need to specify _both_ the template
 and the layout explicitly.  For example:
 
-```ruby
-render :template => "events/show", :layout => "layouts/application"
-```
+    render :template => "events/show", :layout => "layouts/application"
 
 ## `assign(key, val)`
 
 Use this to assign values to instance variables in the view:
 
-```ruby
-assign(:widget, stub_model(Widget))
-render
-```
+    assign(:widget, stub_model(Widget))
+    render
 
 The code above assigns `stub_model(Widget)` to the `@widget` variable in the view, and then
 renders the view.
@@ -241,10 +217,8 @@ instance variables you set will be transparently propagated into your views
 (similar to how instance variables you set in controller actions are made
 available in views). For example:
 
-```ruby
-@widget = stub_model(Widget)
-render # @widget is available inside the view
-```
+    @widget = stub_model(Widget)
+    render # @widget is available inside the view
 
 RSpec doesn't officially support this pattern, which only works as a
 side-effect of the inclusion of `ActionView::TestCase`. Be aware that it may be
@@ -258,10 +232,9 @@ made unavailable in the future.
 
 This represents the rendered view.
 
-```ruby
-render
-rendered.should =~ /Some text expected to appear on the page/
-```
+    render
+    rendered.should =~ /Some text expected to appear on the page/
+
 ### * Upgrade note
 
 `rendered` replaces `response` from rspec-rails-1.3
@@ -270,21 +243,19 @@ rendered.should =~ /Some text expected to appear on the page/
 
 Routing specs live in spec/routing.
 
-```ruby
-describe "routing to profiles" do
-  it "routes /profile/:username to profile#show for username" do
-    { :get => "/profiles/jsmith" }.should route_to(
-      :controller => "profiles",
-      :action => "show",
-      :username => "jsmith"
-    )
-  end
+    describe "routing to profiles" do
+      it "routes /profile/:username to profile#show for username" do
+        { :get => "/profiles/jsmith" }.should route_to(
+          :controller => "profiles",
+          :action => "show",
+          :username => "jsmith"
+        )
+      end
 
-  it "does not expose a list of profiles" do
-    { :get => "/profiles" }.should_not be_routable
-  end
-end
-```
+      it "does not expose a list of profiles" do
+        { :get => "/profiles" }.should_not be_routable
+      end
+    end
 
 ### * Upgrade note
 
@@ -294,18 +265,16 @@ end
 
 Helper specs live in spec/helpers, and mix in ActionView::TestCase::Behavior.
 
-```ruby
-describe EventsHelper do
-  describe "#link_to_event" do
-    it "displays the title, and formatted date" do
-      event = Event.new("Ruby Kaigi", Date.new(2010, 8, 27))
-      # helper is an instance of ActionView::Base configured with the
-      # EventsHelper and all of Rails' built-in helpers
-      helper.link_to_event.should =~ /Ruby Kaigi, 27 Aug, 2010/
+    describe EventsHelper do
+      describe "#link_to_event" do
+        it "displays the title, and formatted date" do
+          event = Event.new("Ruby Kaigi", Date.new(2010, 8, 27))
+          # helper is an instance of ActionView::Base configured with the
+          # EventsHelper and all of Rails' built-in helpers
+          helper.link_to_event.should =~ /Ruby Kaigi, 27 Aug, 2010/
+        end
+      end
     end
-  end
-end
-```
 
 # Matchers
 
@@ -316,9 +285,9 @@ of them simply delegate to Rails' assertions.
 * Available in all specs.
 * Primarily intended for controller specs
 
-```ruby
+<pre>
 object.should be_a_new(Widget)
-```
+</pre>
 
 Passes if the object is a `Widget` and returns true for `new_record?`
 
@@ -328,41 +297,35 @@ Passes if the object is a `Widget` and returns true for `new_record?`
 
 In request and controller specs, apply to the response object:
 
-```ruby
-response.should render_template("new")
-```
+    response.should render_template("new")
 
 In view specs, apply to the view object:
 
-```ruby
-view.should render_template(:partial => "_form", :locals => { :widget => widget } )
-```
+    view.should render_template(:partial => "_form", :locals => { :widget => widget } )
 
 ## `redirect_to`
 * Delegates to assert_redirect
 * Available in request and controller specs.
 
-```ruby
+<pre>
 response.should redirect_to(widgets_path)
-```
+</pre>
 
 ## `route_to`
 
 * Delegates to Rails' assert_routing.
 * Available in routing and controller specs.
 
-```ruby
+<pre>
 { :get => "/widgets" }.should route_to(:controller => "widgets", :action => "index")
-```
+</pre>
 
 ## `be_routable`
 
 Passes if the path is recognized by Rails' routing. This is primarily intended
 to be used with `should_not` to specify routes that should not be routable.
 
-```ruby
-{ :get => "/widgets/1/edit" }.should_not be_routable
-```
+    { :get => "/widgets/1/edit" }.should_not be_routable
 
 ## Contribute
 
