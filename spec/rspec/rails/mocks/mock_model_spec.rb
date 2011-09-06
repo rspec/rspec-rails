@@ -101,6 +101,22 @@ describe "mock_model(RealModel)" do
     end
   end
 
+  describe "as association that doesn't exist yet" do
+    before(:each) do
+      @real = AssociatedModel.create!
+      @mock_model = mock_model("Other")
+      @real.nonexistent_model = @mock_model
+    end
+
+    it "passes: associated_model == mock" do
+      @mock_model.should == @real.nonexistent_model
+    end
+
+    it "passes: mock == associated_model" do
+      @real.nonexistent_model.should == @mock_model
+    end
+  end
+
   describe "#is_a?" do
     before(:each) do
       @model = mock_model(SubMockableModel)

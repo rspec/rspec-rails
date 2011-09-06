@@ -63,6 +63,7 @@ module RSpec
           else
             model_class = Object.const_set(string_or_model_class, Class.new do
               extend ActiveModel::Naming
+              def self.primary_key; :id; end
             end)
           end
         else
