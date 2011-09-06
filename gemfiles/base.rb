@@ -14,7 +14,7 @@ module GemfileBase
         end
       end
 
-      gem 'rake', '0.8.7'
+      gem 'rake', '0.9.2'
       gem 'rdoc'
       gem 'sqlite3-ruby', :require => 'sqlite3'
       gem "cucumber", "1.0.0"
