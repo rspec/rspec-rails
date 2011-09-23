@@ -38,3 +38,16 @@ module ::ActiveModel::Validations
   end
   alias :error_on :errors_on
 end
+
+class ::ActiveRecord::Associations::CollectionProxy
+  # Since CollectionProxy is blank slate and it removes almost all methods we
+  # need to force it to have #should and #should_not methods. Otherwise it will
+  # delegate to its target object.
+  def should(matcher=nil, message=nil, &block)
+    RSpec::Expectations::PositiveExpectationHandler.handle_matcher(self, matcher, message, &block)
+  end
+
+  def should_not(matcher=nil, message=nil, &block)
+    RSpec::Expectations::NegativeExpectationHandler.handle_matcher(self, matcher, message, &block)
+  end
+end
