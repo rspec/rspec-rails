@@ -159,7 +159,6 @@ EOM
       #   stub_model(Model)
       #   stub_model(Model).as_new_record
       #   stub_model(Model, hash_of_stubs)
-      #   stub_model(Model, instance_variable_name, hash_of_stubs)
       #
       # Creates an instance of +Model+ with +to_param+ stubbed using a
       # generated value that is unique to each object.. If +Model+ is an
