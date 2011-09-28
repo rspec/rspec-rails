@@ -14,10 +14,19 @@ module RSpec::Rails
 
     describe 'automatic inclusion of helpers' do
       module ::ThingsHelper; end
+      module ::Namespaced; module ThingsHelper; end; end
 
       it 'includes the helper with the same name' do
         group = RSpec::Core::ExampleGroup.describe 'things/show.html.erb'
         group.should_receive(:helper).with(ThingsHelper)
+        group.class_eval do
+          include ViewExampleGroup
+        end
+      end
+
+      it 'includes the namespaced helper with the same name' do
+        group = RSpec::Core::ExampleGroup.describe 'namespaced/things/show.html.erb'
+        group.should_receive(:helper).with(Namespaced::ThingsHelper)
         group.class_eval do
           include ViewExampleGroup
         end
