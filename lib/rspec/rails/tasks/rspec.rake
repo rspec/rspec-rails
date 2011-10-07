@@ -6,7 +6,7 @@ end
 
 spec_prereq = Rails.configuration.generators.options[:rails][:orm] == :active_record ?  "db:test:prepare" : :noop
 task :noop do; end
-task :default => :spec
+task :test => :spec
 
 task :stats => "spec:statsetup"
 
