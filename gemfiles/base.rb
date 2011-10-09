@@ -33,7 +33,7 @@ module GemfileBase
       group :development do
         gem 'gherkin', '2.4.5'
         gem "rcov", "0.9.9"
-        gem "relish", "0.4.0"
+        gem "relish", "~> 0.5.0"
         gem "guard-rspec", "0.1.9"
 
         if RUBY_PLATFORM =~ /darwin/
