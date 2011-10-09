@@ -1,4 +1,6 @@
-### dev
+### 2.7.0.rc1 / 2011-10-09
+
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.6.1...v2.7.0.rc1)
 
 * Enhancments
   * ActiveRecord::Relation can use the "=~" matcher (Andy Lindeman)
