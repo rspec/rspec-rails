@@ -1,0 +1,5 @@
+--no-private
+--exclude features
+--exclude lib/generators/**/*_spec.rb
+-
+README.md

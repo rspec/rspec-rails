@@ -12,3 +12,4 @@ bin
 .rvmrc
 *.rbc
 .gemfile
+.yardoc
