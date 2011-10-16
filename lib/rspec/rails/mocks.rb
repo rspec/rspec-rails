@@ -9,31 +9,39 @@ module RSpec
     module Mocks
 
       module ActiveModelInstanceMethods
+        # Stubs +persisted?+ to return false and +id+ to return nil
+        # @return self
         def as_new_record
           self.stub(:persisted?) { false }
           self.stub(:id) { nil }
           self
         end
 
+        # Returns true by default. Override with a stub.
         def persisted?
           true
         end
 
+        # Returns false for names matching <tt>/_before_type_cast$/</tt>,
+        # otherwise delegates to super.
         def respond_to?(message, include_private=false)
           message.to_s =~ /_before_type_cast$/ ? false : super
         end
       end
 
       module ActiveRecordInstanceMethods
+        # Stubs +persisted?+ to return +false+ and +id+ to return +nil+.
         def destroy
           self.stub(:persisted?) { false }
           self.stub(:id) { nil }
         end
 
+        # Transforms the key to a method and calls it.
         def [](key)
           send(key)
         end
 
+        # Returns the opposite of +persisted?+
         def new_record?
           !persisted?
         end
@@ -129,37 +137,38 @@ EOM
       end
 
       module ActiveModelStubExtensions
+        # Stubs +persisted+ to return false and +id+ to return nil
         def as_new_record
           self.stub(:persisted?)  { false }
           self.stub(:id)          { nil }
           self
         end
 
+        # Returns +true+ by default. Override with a stub.
         def persisted?
           true
         end
       end
 
       module ActiveRecordStubExtensions
+        # Stubs +id+ (or other primary key method) to return nil
         def as_new_record
           self.__send__("#{self.class.primary_key}=", nil)
           super
         end
 
+        # Returns the opposite of +persisted?+.
         def new_record?
           !persisted?
         end
 
+        # Raises an IllegalDataAccessException (stubbed models are not allowed to access the database)
+        # @raises IllegalDataAccessException
         def connection
           raise RSpec::Rails::IllegalDataAccessException.new("stubbed models are not allowed to access the database")
         end
       end
 
-      # :call-seq:
-      #   stub_model(Model)
-      #   stub_model(Model).as_new_record
-      #   stub_model(Model, hash_of_stubs)
-      #
       # Creates an instance of +Model+ with +to_param+ stubbed using a
       # generated value that is unique to each object.. If +Model+ is an
       # +ActiveRecord+ model, it is prohibited from accessing the database*.

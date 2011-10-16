@@ -2,22 +2,7 @@
 
 rspec-2 for rails-3 with lightweight extensions to each
 
-[![build status](https://secure.travis-ci.org/rspec/rspec-rails.png)](http://travis-ci.org/rspec/rspec-rails)
-
-NOTE: rspec-2 does _not_ support rails-2. Use rspec-rails-1.3.x for rails-2.
-
-## Documentation
-
-The [Cucumber features](http://relishapp.com/rspec/rspec-rails) are the
-most comprehensive and up-to-date docs for end-users.
-
-The [RDoc](http://rubydoc.info/gems/rspec-rails/2.4.0/frames) provides additional
-information for contributors and/or extenders.
-
-All of the documentation is open source and a work in progress. If you find it
-lacking or confusing, you can help improve it by submitting requests and
-patches to the [rspec-rails issue
-tracker](https://github.com/rspec/rspec-rails/issues).
+NOTE: Use rspec-rails-1.3.x for rails-2.
 
 ## Install
 
@@ -31,7 +16,7 @@ This installs the following gems:
     rspec-mocks
     rspec-rails
 
-## Configure:
+## Configure
 
 Add `rspec-rails` to the `:test` and `:development` groups in the Gemfile:
 
@@ -44,7 +29,7 @@ tasks without having to type `RAILS_ENV=test`.
 
 Now you can run:
 
-    rails g rspec:install
+    rails generate rspec:install
 
 This adds the spec directory and some skeleton files, including
 the "rake spec" task.
@@ -56,17 +41,17 @@ see is `rspec:install`. That's because RSpec is registered with Rails as the
 test framework, so whenever you generate application components like models,
 controllers, etc, RSpec specs are generated instead of Test::Unit tests.
 
-Note that the generators are there to help you get started, but they are no
-substitute for writing your own examples, and they are only guaranteed to work
-out of the box for the default scenario (`ActiveRecord` + `Webrat`).
+Please note that the generators are there to help you get started, but they are
+no substitute for writing your own examples, and they are only guaranteed to
+work out of the box for the default scenario (`ActiveRecord` + `Webrat`).
 
 ### Autotest
 
-The `rspec:install` generator creates an `.rspec` file, which
-tells Autotest that you're using RSpec and Rails. You'll also need to add the
-autotest (not autotest-rails) gem to your Gemfile:
+The `rspec:install` generator creates an `.rspec` file, which tells Autotest
+that you're using RSpec and Rails. You'll also need to add the ZenTest gem to
+your Gemfile:
 
-    gem "autotest"
+    gem "ZenTest"
 
 At this point, if all of the gems in your Gemfile are installed in system
 gems, you can just type `autotest`. If, however, Bundler is managing any gems
@@ -81,8 +66,6 @@ your preference to the Gemfile:
 
     gem "webrat"
     gem "capybara"
-
-Note that Capybara matchers are not available in view or helper specs.
 
 ## Living on edge
 

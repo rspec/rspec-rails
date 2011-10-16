@@ -40,14 +40,13 @@ module RSpec::Rails
     end
 
     module InstanceMethods
-      # :call-seq:
-      #   render
-      #   render(:template => "widgets/new.html.erb")
-      #   render({:partial => "widgets/widget.html.erb"}, {... locals ...})
-      #   render({:partial => "widgets/widget.html.erb"}, {... locals ...}) do ... end
+      # @overload render
+      # @overload render({:partial => path_to_file})
+      # @overload render({:partial => path_to_file}, {... locals ...})
+      # @overload render({:partial => path_to_file}, {... locals ...}) do ... end
       #
-      # Delegates to ActionView::Base#render, so see documentation on that for more
-      # info.
+      # Delegates to ActionView::Base#render, so see documentation on that
+      # for more info.
       #
       # The only addition is that you can call render with no arguments, and RSpec
       # will pass the top level description to render:
@@ -63,9 +62,8 @@ module RSpec::Rails
         super(options, local_assigns, &block)
       end
 
-      # The instance of ActionView::Base that is used to render the template.
-      # Use this before the +render+ call to stub any methods you want to stub
-      # on the view:
+      # The instance of +ActionView::Base+ that is used to render the template.
+      # Use this to stub methods _before_ calling +render+.
       #
       #   describe "widgets/new.html.erb" do
       #     it "shows all the widgets" do
@@ -98,13 +96,13 @@ module RSpec::Rails
         controller.params
       end
 
-      # Deprecated. Use +view+ instead.
+      # @deprecated # use +view+ instead.
       def template
         RSpec.deprecate("template","view")
         view
       end
 
-      # Deprecated. Use +rendered+ instead.
+      # @deprecated # use +rendered+ instead.
       def response
         RSpec.deprecate("response", "rendered")
         rendered

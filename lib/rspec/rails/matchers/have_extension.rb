@@ -1,9 +1,9 @@
 require 'active_support/core_ext/module/aliasing'
 require 'rspec/matchers/have'
 
-module RSpec #:nodoc:
-  module Matchers #:nodoc:
-    class Have #:nodoc:
+module RSpec
+  module Matchers
+    class Have
       def failure_message_for_should_with_errors_on_extensions
         return "expected #{relativities[@relativity]}#{@expected} errors on :#{@args[0]}, got #{@actual}" if @collection_name == :errors_on
         return "expected #{relativities[@relativity]}#{@expected} error on :#{@args[0]}, got #{@actual}"  if @collection_name == :error_on

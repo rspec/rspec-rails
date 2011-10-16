@@ -4,11 +4,12 @@ module RSpec
       extend ActiveSupport::Concern
 
       module InstanceMethods
-        # :call-seq:
-        #   assign(:widget, stub_model(Widget))
-        #
         # Assigns a value to an instance variable in the scope of the
         # view being rendered.
+        #
+        # == Examples
+        #
+        #   assign(:widget, stub_model(Widget))
         def assign(key, value)
           _encapsulated_assigns[key] = value
         end
