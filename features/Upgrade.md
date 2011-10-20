@@ -36,7 +36,7 @@ is what you need to change:
 
 ## Controller specs
 
-### islation from view templates
+### isolation from view templates
 
 By default, controller specs do _not_ render view templates. This keeps
 controller specs isolated from the content of views and their requirements.
