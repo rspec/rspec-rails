@@ -67,20 +67,16 @@ module Rspec
 
         # support for namespaced-resources
         def ns_file_name
-          if ARGV[0].match(/(\w+)\/(\w+)/)
-            "#{$1.underscore}_#{$2.singularize.underscore}"
-          else
-            file_name
-          end
+          ns_given? ? "#{$1.underscore}_#{$2.singularize.underscore}" : file_name
         end
 
         # support for namespaced-resources
         def ns_table_name
-          if ARGV[0].match(/(\w+)\/(\w+)/)
-            "#{$1.underscore}/#{$2.tableize}"
-          else
-            table_name
-          end
+          ns_given? ? "#{$1.underscore}/#{$2.tableize}" : table_name
+        end
+
+        def ns_given?
+          ARGV.any? && ARGV[0].match(/(\w+)\/(\w+)/)
         end
 
         # Returns the name of the mock. For example, if the file name is user,
