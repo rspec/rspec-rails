@@ -76,7 +76,7 @@ module Rspec
         end
 
         def ns_given?
-          ARGV.any? && ARGV[0].match(/(\w+)\/(\w+)/)
+          ARGV.any? && ARGV[0].match(/\A(\w+)\/(\w+)/)
         end
 
         # Returns the name of the mock. For example, if the file name is user,
