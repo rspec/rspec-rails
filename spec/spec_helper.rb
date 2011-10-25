@@ -16,12 +16,13 @@ class RSpec::Core::ExampleGroup
   end
 end
 
-RSpec.configure do |c|
-  c.before(:each) do
+RSpec.configure do |config|
+  config.before(:each) do
     @real_world = RSpec.world
     RSpec.instance_variable_set(:@world, RSpec::Core::World.new)
   end
-  c.after(:each) do
+  config.after(:each) do
     RSpec.instance_variable_set(:@world, @real_world)
   end
+  config.order = :random
 end
