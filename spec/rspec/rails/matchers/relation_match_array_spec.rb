@@ -1,6 +1,8 @@
 require "spec_helper"
 
 describe "ActiveSupport::Relation =~ matcher" do
+  before { MockableModel.delete_all }
+  
   let!(:models) { Array.new(3) { MockableModel.create } }
 
   it "verifies that the scope returns the records on the right hand side, regardless of order" do
@@ -9,7 +11,6 @@ describe "ActiveSupport::Relation =~ matcher" do
 
   it "fails if the scope encompasses more records than on the right hand side" do
     another_model = MockableModel.create
-
     MockableModel.scoped.should_not =~ models.reverse
   end
 
