@@ -1,16 +1,24 @@
 require 'action_view/testing/resolvers'
 
 RSpec.configure do |config|
-  config.add_setting :render_views, :default => false
+  # This allows us to expose `render_views` as a config option even though it
+  # breaks the convention of other options by using `render_views` as a
+  # command (i.e. render_views = true), where it would normally be used as a
+  # getter. This makes it easier for rspec-rails users because we use
+  # `render_views` directly in example groups, so this aligns the two APIs,
+  # but requires this workaround:
+  config.add_setting :rendering_views, :default => false
 
-  # TODO - rspec-core needs a way to define a setting that works like this in
-  # one go
+  def config.render_views=(val)
+    self.rendering_views = val
+  end
+
   def config.render_views
-    settings[:render_views] = true
+    self.rendering_views = true
   end
 
   def config.render_views?
-    settings[:render_views]
+    rendering_views
   end
 end
 
