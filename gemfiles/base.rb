@@ -47,9 +47,11 @@ module GemfileBase
         end
 
         platforms :mri_19 do
-          gem 'linecache19', '0.5.11' # 0.5.12 cannot install on 1.9.1, and 0.5.11 appears to work with both 1.9.1 & 1.9.2
-          gem 'ruby-debug19'
-          gem 'ruby-debug-base19', RUBY_VERSION == '1.9.1' ? '0.11.23' : '~> 0.11.24'
+          if RUBY_VERSION == '1.9.2'
+            gem 'linecache19', '~> 0.5.12'
+            gem 'ruby-debug19', '~> 0.11.6'
+            gem 'ruby-debug-base19', '~> 0.11.25'
+          end
         end
 
         platforms :ruby_18, :ruby_19 do
