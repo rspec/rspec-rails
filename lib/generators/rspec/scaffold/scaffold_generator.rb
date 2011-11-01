@@ -67,16 +67,19 @@ module Rspec
 
         # support for namespaced-resources
         def ns_file_name
-          ns_given? ? "#{$1.underscore}_#{$2.singularize.underscore}" : file_name
+          ns_parts.empty? ? file_name : "#{ns_parts[0].underscore}_#{ns_parts[1].singularize.underscore}"
         end
 
         # support for namespaced-resources
         def ns_table_name
-          ns_given? ? "#{$1.underscore}/#{$2.tableize}" : table_name
+          ns_parts.empty? ? table_name : "#{ns_parts[0].underscore}/#{ns_parts[1].tableize}"
         end
 
-        def ns_given?
-          ARGV.any? && ARGV[0].match(/\A(\w+)\/(\w+)/)
+        def ns_parts
+          @ns_parts ||= begin
+                          matches = ARGV[0].to_s.match(/\A(\w+)\/(\w+)/)
+                          matches ? [matches[1], matches[2]] : []
+                        end
         end
 
         # Returns the name of the mock. For example, if the file name is user,
