@@ -1,3 +1,19 @@
+### 2.8.0.rc1 / 2011-11-06
+
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.7.0...v2.8.0.rc1)
+
+* Enhancements
+    * Removed unnecessary "config.mock_with :rspec" from spec_helper.rb (Paul
+      Annesley)
+
+* Changes
+    * No API changes for rspec-rails in this release, but some internals
+      changed to align with rspec-core-2.8.
+
+* [rspec-core](https://github.com/rspec/rspec-core/blob/master/Changelog.md)
+* [rspec-expectations](https://github.com/rspec/rspec-expectations/blob/master/Changelog.md)
+* [rspec-mocks](https://github.com/rspec/rspec-mocks/blob/master/Changelog.md)
+
 ### 2.7.0 / 2011-10-16
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.6.1...v2.7.0)
