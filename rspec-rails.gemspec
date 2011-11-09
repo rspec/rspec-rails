@@ -7,7 +7,7 @@ Gem::Specification.new do |s|
   s.version     = RSpec::Rails::Version::STRING
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["David Chelimsky"]
-  s.email       = "dchelimsky@gmail.com"
+  s.email       = "rspec-users@rubyforge.org"
   s.homepage    = "http://github.com/rspec/rspec-rails"
   s.summary     = "rspec-rails-#{RSpec::Rails::Version::STRING}"
   s.description = "RSpec-2 for Rails-3"
