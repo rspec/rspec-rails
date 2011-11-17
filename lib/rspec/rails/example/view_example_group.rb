@@ -133,8 +133,8 @@ module RSpec::Rails
           # rails 3.0
           controller.controller_path = _controller_path
         end
-        controller.request.path_parameters["controller"] = _controller_path
-        controller.request.path_parameters["action"]     = _inferred_action unless _inferred_action =~ /^_/
+        controller.request.path_parameters[:controller] = _controller_path
+        controller.request.path_parameters[:action]     = _inferred_action unless _inferred_action =~ /^_/
       end
     end
   end
