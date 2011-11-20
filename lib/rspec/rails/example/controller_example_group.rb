@@ -3,36 +3,16 @@ RSpec.configure do |config|
 end
 
 module RSpec::Rails
-  # Extends ActionController::TestCase::Behavior to work with RSpec.
+  # Extends ActionController::TestCase::Behavior to work with RSpec, with
+  # some caveats.
   #
-  # == Examples
+  # rspec-rails is designed to support separate specs for models, controllers,
+  # views (where appropriate) and helpers. Rails allows this separation, but
+  # discourages real isolation by rendering views in controller tests
   #
-  # == with stubs
+  # ## Examples
   #
-  #   describe WidgetsController do
-  #     describe "GET index" do
-  #       it "assigns all widgets to @widgets" do
-  #         widget = stub_model(Widget)
-  #         Widget.stub(:all) { widget }
-  #         get :index
-  #         assigns(:widgets).should eq([widget])
-  #       end
-  #     end
-  #   end
-  #
-  # === with a factory
-  #
-  #   describe WidgetsController do
-  #     describe "GET index" do
-  #       it "assigns all widgets to @widgets" do
-  #         widget = Factory(:widget)
-  #         get :index
-  #         assigns(:widgets).should eq([widget])
-  #       end
-  #     end
-  #   end
-  #
-  # === with fixtures
+  # ### with fixtures
   #
   #   describe WidgetsController do
   #     describe "GET index" do
@@ -45,18 +25,43 @@ module RSpec::Rails
   #     end
   #   end
   #
-  # == Matchers
+  # ### with a factory
+  #
+  #   describe WidgetsController do
+  #     describe "GET index" do
+  #       it "assigns all widgets to @widgets" do
+  #         widget = Factory(:widget)
+  #         get :index
+  #         assigns(:widgets).should eq([widget])
+  #       end
+  #     end
+  #   end
+  #
+  # ## with stubs
+  #
+  #   describe WidgetsController do
+  #     describe "GET index" do
+  #       it "assigns all widgets to @widgets" do
+  #         widget = stub_model(Widget)
+  #         Widget.stub(:all) { widget }
+  #         get :index
+  #         assigns(:widgets).should eq([widget])
+  #       end
+  #     end
+  #   end
+  #
+  # ## Matchers
   #
   # In addition to the stock matchers from rspec-expectations, controller
   # specs add these matchers, which delegate to rails' assertions:
   #
-  #   response.should render_template(*args)
-  #   => delegates to assert_template(*args)
+  #     response.should render_template(*args)
+  #     # => delegates to assert_template(*args)
   #
-  #   response.should redirect_to(destination)
-  #   => delegates to assert_redirected_to(destination)
+  #     response.should redirect_to(destination)
+  #     # => delegates to assert_redirected_to(destination)
   #
-  # == Isolation from views
+  # ## Isolation from views
   #
   # RSpec's preferred approach to spec'ing controller behaviour is to isolate
   # the controller from its collaborators.  By default, therefore, controller
@@ -68,7 +73,7 @@ module RSpec::Rails
   # require the presence of the file at all. Due to changes in rails-3, this
   # was no longer feasible in rspec-rails-2.
   #
-  # == View rendering
+  # ## View rendering
   #
   # If you prefer a more integrated approach, similar to that of Rails'
   # functional tests, you can tell controller groups to render the views in the
@@ -88,6 +93,7 @@ module RSpec::Rails
     include RSpec::Rails::Matchers::RoutingMatchers
 
     module ClassMethods
+      # @api private
       def controller_class
         describes
       end
@@ -98,7 +104,7 @@ module RSpec::Rails
       # up implicit routes for this controller, that are separate from those
       # defined in <tt>config/routes.rb</tt>.
       #
-      # == Examples
+      # ## Examples
       #
       #    describe ApplicationController do
       #      controller do
@@ -158,10 +164,16 @@ module RSpec::Rails
         end
       end
 
+      # Extends the controller with a module that overrides
+      # `rescue_with_handler` to raise the exception passed to it.  Use this to
+      # specify that an action _should_ raise an exception given appropriate
+      # conditions.
       def bypass_rescue
         controller.extend(BypassRescue)
       end
 
+      # If method is a named_route, delegates to the RouteSet associated with
+      # this controller.
       def method_missing(method, *args, &block)
         if @orig_routes && @orig_routes.named_routes.helpers.include?(method)
           controller.send(method, *args, &block)

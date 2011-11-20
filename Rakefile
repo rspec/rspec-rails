@@ -123,6 +123,8 @@ desc 'clobber generated files'
 task :clobber do
   rm_rf "pkg"
   rm_rf "tmp"
+  rm_rf "doc"
+  rm_rf ".yardoc"
   rm    "Gemfile.lock" if File.exist?("Gemfile.lock")
 end
 

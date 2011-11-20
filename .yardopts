@@ -1,5 +1,6 @@
 --no-private
 --exclude features
 --exclude lib/generators/**/*_spec.rb
+--markup markdown
 -
 README.md
