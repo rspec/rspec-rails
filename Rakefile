@@ -1,14 +1,3 @@
-require 'pathname'
-ENV["BUNDLE_GEMFILE"] ||= begin
-                            version = if File.exist?("./.gemfile")
-                                        File.read("./.gemfile").chomp
-                                      else
-                                        "rails-3.1.0"
-                                      end
-                            File.expand_path("../gemfiles/#{version}", __FILE__)
-                          end
-puts "Using gemfile: #{ENV["BUNDLE_GEMFILE"].gsub(Pathname.new(__FILE__).dirname.to_s,'').sub(/^\//,'')}"
-
 require "bundler"
 begin
   Bundler.setup

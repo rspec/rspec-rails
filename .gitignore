@@ -4,12 +4,10 @@ pkg
 vendor
 !lib/rspec/rails/vendor
 *.gem
-Gemfile
 Gemfile.lock
-gemfiles/*.lock
-gemfiles/bin/*
 bin
 .rvmrc
 *.rbc
-.gemfile
 .yardoc
+.bundle
+.rails-version
