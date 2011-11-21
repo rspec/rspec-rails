@@ -33,7 +33,7 @@ module RSpec::Rails
 
     module ClassMethods
       def determine_default_helper_class(ignore)
-        describes
+        described_class
       end
     end
 
@@ -50,7 +50,7 @@ module RSpec::Rails
     private
 
       def _controller_path
-        example.example_group.describes.to_s.sub(/Helper/,'').underscore
+        example.example_group.described_class.to_s.sub(/Helper/,'').underscore
       end
     end
 

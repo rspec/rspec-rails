@@ -84,7 +84,7 @@ module RSpec::Rails
         RSpec.configuration.stub(:infer_base_class_for_anonymous_controllers?).and_return(true)
         group.controller { }
 
-        controller_class = group.metadata[:example_group][:describes]
+        controller_class = group.metadata[:example_group][:described_class]
         controller_class.superclass.should eq(group.controller_class)
       end
 
@@ -92,7 +92,7 @@ module RSpec::Rails
         RSpec.configuration.stub(:infer_base_class_for_anonymous_controllers?).and_return(false)
         group.controller { }
 
-        controller_class = group.metadata[:example_group][:describes]
+        controller_class = group.metadata[:example_group][:described_class]
         controller_class.superclass.should eq(ApplicationController)
       end
     end

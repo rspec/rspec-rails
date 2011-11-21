@@ -10,7 +10,7 @@ module RSpec::Rails
 
     it "provides a controller_path based on the helper module's name" do
       helper_spec = Object.new.extend HelperExampleGroup::InstanceMethods
-      helper_spec.stub_chain(:example, :example_group, :describes).and_return(FoosHelper)
+      helper_spec.stub_chain(:example, :example_group, :described_class).and_return(FoosHelper)
       helper_spec.__send__(:_controller_path).should == "foos"
     end
 
@@ -55,7 +55,7 @@ module RSpec::Rails
     describe "determine_default_helper_class" do
       it "returns the helper module passed to describe" do
         helper_spec = Object.new.extend HelperExampleGroup::ClassMethods
-        helper_spec.stub(:describes) { FoosHelper }
+        helper_spec.stub(:described_class) { FoosHelper }
         helper_spec.determine_default_helper_class("ignore this").
           should eq(FoosHelper)
       end

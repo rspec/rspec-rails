@@ -95,7 +95,7 @@ module RSpec::Rails
     module ClassMethods
       # @api private
       def controller_class
-        describes
+        described_class
       end
 
       # Supports a simple DSL for specifying behaviour of
@@ -139,8 +139,8 @@ module RSpec::Rails
                          controller_class :
                          ApplicationController
 
-        metadata[:example_group][:describes] = Class.new(base_class, &body)
-        metadata[:example_group][:describes].singleton_class.class_eval do
+        metadata[:example_group][:described_class] = Class.new(base_class, &body)
+        metadata[:example_group][:described_class].singleton_class.class_eval do
           def name; "AnonymousController" end
         end
 

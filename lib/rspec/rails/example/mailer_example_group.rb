@@ -14,7 +14,7 @@ if defined?(ActionMailer)
 
       module ClassMethods
         def mailer_class
-          describes
+          described_class
         end
       end
     end
