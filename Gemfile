@@ -57,7 +57,7 @@ group :development do
   end
 end
 
-case version = File.read(".rails-version").chomp
+case version = ENV['RAILS_VERSION'] || File.read(".rails-version").chomp
 when /master/
   gem "rails", :git => "git://github.com/rails/rails.git"
   gem "journey", :git => "git://github.com/rails/journey.git"
