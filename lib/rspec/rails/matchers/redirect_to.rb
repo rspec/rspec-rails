@@ -1,19 +1,39 @@
 module RSpec::Rails::Matchers
   module RedirectTo
-    extend RSpec::Matchers::DSL
+    class RedirectTo
+      include RSpec::Matchers::BaseMatcher
+      include RSpec::Rails::Matchers::MatchUnlessRaises
 
-    matcher :redirect_to do |destination|
-      match_unless_raises ActiveSupport::TestCase::Assertion do |_|
-        assert_redirected_to destination
+      def initialize(scope, expected)
+        super(expected)
+        @scope = scope
       end
 
-      failure_message_for_should do |_|
+      # @api private
+      def matches?(actual)
+        match_unless_raises ActiveSupport::TestCase::Assertion do
+          @scope.assert_redirected_to(expected)
+        end
+      end
+
+      # @api private
+      def failure_message_for_should
         rescued_exception.message
       end
 
-      failure_message_for_should_not do |_|
-        "expected not to redirect to #{destination.inspect}, but did"
+      # @api private
+      def failure_message_for_should_not
+        "expected not to redirect to #{expected.inspect}, but did"
       end
+    end
+
+    # Delegates to `assert_redirected_to`
+    #
+    # ## Examples:
+    #
+    #     response.should redirect_to(:action => "new")
+    def redirect_to(target)
+      RedirectTo.new(self, target)
     end
   end
 end

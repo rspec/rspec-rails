@@ -1,20 +1,40 @@
 module RSpec::Rails::Matchers
   module RenderTemplate
-    extend RSpec::Matchers::DSL
+    class RenderTemplateMatcher
+      include RSpec::Matchers::BaseMatcher
+      include RSpec::Rails::Matchers::MatchUnlessRaises
 
-    matcher :render_template do |options, message|
-      match_unless_raises ActiveSupport::TestCase::Assertion do |_|
-        options = options.to_s if Symbol === options
-        assert_template options, message
+      def initialize(scope, expected, message=nil)
+        super(Symbol === expected ? expected.to_s : expected)
+        @message = message
+        @scope = scope
       end
 
-      failure_message_for_should do
+      # @api private
+      def matches?(*)
+        match_unless_raises ActiveSupport::TestCase::Assertion do
+          @scope.assert_template expected, @message
+        end
+      end
+
+      # @api private
+      def failure_message_for_should
         rescued_exception.message
       end
 
-      failure_message_for_should_not do |_|
-        "expected not to render #{options.inspect}, but did"
+      # @api private
+      def failure_message_for_should_not
+        "expected not to render #{expected.inspect}, but did"
       end
+    end
+
+    # Delegates to `assert_template`
+    #
+    # ## Examples:
+    #
+    #     response.should render_template("new")
+    def render_template(options, message=nil)
+      RenderTemplateMatcher.new(self, options, message)
     end
   end
 end

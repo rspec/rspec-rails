@@ -2,16 +2,26 @@ module RSpec::Matchers
   class BeANew
     include BaseMatcher
 
+    # @api private
     def matches?(actual)
       super
       actual.is_a?(expected) && actual.new_record? && attributes_match?(actual)
     end
 
+    # Use this to specify the specific attributes to match on the new record.
+    #
+    # ## Examples:
+    #
+    #     it "assigns a new Thing with the submitted attributes" do
+    #       post :create, :thing => { :name => "Illegal Value" }
+    #       assigns(:thing).should be_a_new(Thing).with(:name => nil)
+    #     end
     def with(expected_attributes)
       attributes.merge!(expected_attributes)
       self
     end
 
+    # @api private
     def failure_message_for_should
       [].tap do |message|
         unless actual.is_a?(expected) && actual.new_record?
@@ -26,6 +36,8 @@ module RSpec::Matchers
         end
       end.join(' and ')
     end
+
+    private
 
     def attributes
       @attributes ||= {}
@@ -42,10 +54,20 @@ module RSpec::Matchers
         actual.attributes[key].eql?(value)
       end
     end
-
   end
 
-  def be_a_new(model_klass)
-    BeANew.new(model_klass)
+  # Passes if actual is an instance of `model_class` and returns `false` for
+  # `persisted?`. Typically used to specify instance variables assigned to
+  # views by controller actions
+  #
+  # ## Examples:
+  #
+  #     get :new
+  #     assigns(:thing).should be_a_new(Thing)
+  #
+  #     post :create, :thing => { :name => "Illegal Value" }
+  #     assigns(:thing).should be_a_new(Thing).with(:name => nil)
+  def be_a_new(model_class)
+    BeANew.new(model_class)
   end
 end

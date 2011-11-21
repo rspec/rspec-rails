@@ -61,7 +61,7 @@ describe "render_template" do
   context "with should_not" do
     context "when assert_template fails" do
       it "passes" do
-        self.stub!(:assert_template) do
+        def assert_template(*)
           raise ActiveSupport::TestCase::Assertion.new("this message")
         end
         expect do
@@ -72,7 +72,7 @@ describe "render_template" do
 
     context "when assert_template passes" do
       it "fails with custom failure message" do
-        self.stub!(:assert_template)
+        def assert_template(*); end
         expect do
           response.should_not render_template("template_name")
         end.to raise_error(/expected not to render \"template_name\", but did/)
@@ -81,9 +81,7 @@ describe "render_template" do
 
     context "when fails due to some other exception" do
       it "raises that exception" do
-        self.stub!(:assert_template) do
-          raise "oops"
-        end
+        def assert_template(*); raise "oops"; end
         expect do
           response.should_not render_template("template_name")
         end.to raise_exception("oops")
