@@ -10,7 +10,7 @@ our own.
 ## The short version
 
     gem install thor bundler
-    thor version:use 3.1.1
+    thor version:use 3.1.3
     rake
 
 ## The long version
@@ -22,17 +22,8 @@ The `thor gemfile:use` task accepts any released version of rails, or either the
 
     thor version:use master
     thor version:use 3-0-stable
-    thor version:use 3.1.0
-    thor version:use 3.0.9
-    thor version:use 3.0.8
-    thor version:use 3.0.7
-    thor version:use 3.0.6
-    thor version:use 3.0.5
-    thor version:use 3.0.4
-    thor version:use 3.0.3
-    thor version:use 3.0.2
-    thor version:use 3.0.1
-    thor version:use 3.0.0
+    thor version:use 3-1-stable
+    thor version:use 3.1.3 # or any release >= 3.0.0
 
 It then does a few things:
 

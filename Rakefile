@@ -3,7 +3,7 @@ begin
   Bundler.setup
   Bundler::GemHelper.install_tasks
 rescue
-  raise "You need to install a bundle first. Try 'thor gemfile:use 3.1.0'"
+  raise "You need to install a bundle first. Try 'thor version:use 3.1.3'"
 end
 
 task :build => :raise_if_psych_is_defined
