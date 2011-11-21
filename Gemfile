@@ -60,6 +60,7 @@ end
 case version = ENV['RAILS_VERSION'] || File.read(File.expand_path("../.rails-version", __FILE__)).chomp
 when /master/
   gem "rails", :git => "git://github.com/rails/rails.git"
+  gem "arel", :git => "git://github.com/rails/arel.git"
   gem "journey", :git => "git://github.com/rails/journey.git"
 when /3-0-stable/
   gem "rails", :git => "git://github.com/rails/rails.git", :branch => "3-0-stable"
