@@ -45,8 +45,6 @@ your preference to the Gemfile:
     gem "webrat"
     gem "capybara"
 
-Note that Capybara matchers are not available in view or helper specs.
-
 ## Issues
 
 The documentation for rspec-rails is a work in progress. We'll be adding
