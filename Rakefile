@@ -114,7 +114,6 @@ task :clobber do
   rm_rf "tmp"
   rm_rf "doc"
   rm_rf ".yardoc"
-  rm    "Gemfile.lock" if File.exist?("Gemfile.lock")
 end
 
 namespace :clobber do
