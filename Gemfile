@@ -11,21 +11,23 @@ source "http://rubygems.org"
   end
 end
 
-gem 'rake', '0.9.2'
-gem 'rdoc'
-gem 'sqlite3-ruby', :require => 'sqlite3'
-gem "cucumber", "1.0.0"
-gem "aruba", "0.4.2"
-gem "ZenTest", "~> 4.4.2"
-gem 'ammeter', '~> 0.1'
-
 platforms :jruby do
   gem "jruby-openssl"
 end
 
-# gem "webrat", "0.7.3"
-# gem "capybara", "~> 0.4"
-# gem "capybara", "1.0.0.beta1"
+gem 'rake', '0.9.2'
+gem 'rdoc'
+gem 'sqlite3-ruby', :require => 'sqlite3'
+
+group :development, :test do
+  gem "cucumber", "1.0.0"
+  gem "aruba", "0.4.2"
+  gem "ZenTest", "~> 4.4.2"
+end
+
+group :test do
+  gem 'ammeter', '~> 0.1'
+end
 
 group :development do
   gem 'gherkin', '2.4.5'
