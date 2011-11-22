@@ -7,9 +7,9 @@ module RSpec
           #
           # ## Examples:
           #
-          #   ModelClass.should have(:no).records
-          #   ModelClass.should have(1).record
-          #   ModelClass.should have(n).records
+          #     ModelClass.should have(:no).records
+          #     ModelClass.should have(1).record
+          #     ModelClass.should have(n).records
           def records
             find(:all)
           end
@@ -32,11 +32,11 @@ module ::ActiveModel::Validations
   #
   # ## Examples:
   #
-  #   model.should have(:no).errors_on(:attribute)
-  #   model.should have(1).error_on(:attribute)
-  #   model.should have(n).errors_on(:attribute)
+  #     model.should have(:no).errors_on(:attribute)
+  #     model.should have(1).error_on(:attribute)
+  #     model.should have(n).errors_on(:attribute)
   #
-  #   model.errors_on(:attribute).should include("can't be blank")
+  #     model.errors_on(:attribute).should include("can't be blank")
   def errors_on(attribute)
     self.valid?
     [self.errors[attribute]].flatten.compact
