@@ -1,3 +1,7 @@
+# Temporary workaround to resolve circular dependency between rspec-rails' spec
+# suite and ammeter.
+require 'rspec/rails/matchers'
+
 module RSpec
   module Rails
     module RailsExampleGroup
