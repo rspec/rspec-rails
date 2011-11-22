@@ -5,7 +5,8 @@ module RSpec
         module ActiveRecord
           # Extension to enhance +should have+ on AR Model classes
           #
-          # == Examples
+          # ## Examples:
+          #
           #   ModelClass.should have(:no).records
           #   ModelClass.should have(1).record
           #   ModelClass.should have(n).records
@@ -24,16 +25,18 @@ module RSpec
 end
 
 module ::ActiveModel::Validations
-  # Extension to enhance <tt>should have</tt> on AR Model instances.
-  # Calls model.valid? in order to prepare the object's errors
-  # object.
+  # Extension to enhance `should have` on AR Model instances.  Calls
+  # model.valid? in order to prepare the object's errors object. 
   #
-  # == Examples
+  # You can also use this to specify the content of the error messages.
+  #
+  # ## Examples:
   #
   #   model.should have(:no).errors_on(:attribute)
   #   model.should have(1).error_on(:attribute)
   #   model.should have(n).errors_on(:attribute)
   #
+  #   model.errors_on(:attribute).should include("can't be blank")
   def errors_on(attribute)
     self.valid?
     [self.errors[attribute]].flatten.compact
