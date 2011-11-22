@@ -9,7 +9,7 @@ module RSpec
     module Mocks
 
       module ActiveModelInstanceMethods
-        # Stubs +persisted?+ to return false and +id+ to return nil
+        # Stubs `persisted?` to return false and `id` to return nil
         # @return self
         def as_new_record
           self.stub(:persisted?) { false }
@@ -30,7 +30,7 @@ module RSpec
       end
 
       module ActiveRecordInstanceMethods
-        # Stubs +persisted?+ to return +false+ and +id+ to return +nil+.
+        # Stubs `persisted?` to return `false` and `id` to return `nil`.
         def destroy
           self.stub(:persisted?) { false }
           self.stub(:id) { nil }
@@ -41,15 +41,15 @@ module RSpec
           send(key)
         end
 
-        # Returns the opposite of +persisted?+
+        # Returns the opposite of `persisted?`
         def new_record?
           !persisted?
         end
       end
 
-      # Creates a test double representing +string_or_model_class+ with common
+      # Creates a test double representing `string_or_model_class` with common
       # ActiveModel methods stubbed out. Additional methods may be easily
-      # stubbed (via add_stubs) if +stubs+ is passed. This is most useful for
+      # stubbed (via add_stubs) if `stubs` is passed. This is most useful for
       # impersonating models that don't exist yet.
       #
       # NOTE that only ActiveModel's methods, plus <tt>new_record?</tt>, are
@@ -59,7 +59,7 @@ module RSpec
       # ActiveModel API (which declares <tt>persisted?</tt>, not
       # <tt>new_record?</tt>).
       #
-      # +string_or_model_class+ can be any of:
+      # `string_or_model_class` can be any of:
       #
       #   * A String representing a Class that does not exist
       #   * A String representing a Class that extends ActiveModel::Naming
@@ -137,27 +137,27 @@ EOM
       end
 
       module ActiveModelStubExtensions
-        # Stubs +persisted+ to return false and +id+ to return nil
+        # Stubs `persisted` to return false and `id` to return nil
         def as_new_record
           self.stub(:persisted?)  { false }
           self.stub(:id)          { nil }
           self
         end
 
-        # Returns +true+ by default. Override with a stub.
+        # Returns `true` by default. Override with a stub.
         def persisted?
           true
         end
       end
 
       module ActiveRecordStubExtensions
-        # Stubs +id+ (or other primary key method) to return nil
+        # Stubs `id` (or other primary key method) to return nil
         def as_new_record
           self.__send__("#{self.class.primary_key}=", nil)
           super
         end
 
-        # Returns the opposite of +persisted?+.
+        # Returns the opposite of `persisted?`.
         def new_record?
           !persisted?
         end
@@ -169,11 +169,11 @@ EOM
         end
       end
 
-      # Creates an instance of +Model+ with +to_param+ stubbed using a
-      # generated value that is unique to each object.. If +Model+ is an
-      # +ActiveRecord+ model, it is prohibited from accessing the database*.
+      # Creates an instance of `Model` with `to_param` stubbed using a
+      # generated value that is unique to each object.. If `Model` is an
+      # `ActiveRecord` model, it is prohibited from accessing the database*.
       #
-      # For each key in +hash_of_stubs+, if the model has a matching attribute
+      # For each key in `hash_of_stubs`, if the model has a matching attribute
       # (determined by asking it) are simply assigned the submitted values. If
       # the model does not have a matching attribute, the key/value pair is
       # assigned as a stub return value using RSpec's mocking/stubbing
@@ -181,9 +181,9 @@ EOM
       #
       # <tt>persisted?</tt> is overridden to return the result of !id.nil?
       # This means that by default persisted? will return true. If  you want
-      # the object to behave as a new record, sending it +as_new_record+ will
+      # the object to behave as a new record, sending it `as_new_record` will
       # set the id to nil. You can also explicitly set :id => nil, in which
-      # case persisted? will return false, but using +as_new_record+ makes the
+      # case persisted? will return false, but using `as_new_record` makes the
       # example a bit more descriptive.
       #
       # While you can use stub_model in any example (model, view, controller,

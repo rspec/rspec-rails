@@ -34,22 +34,25 @@ module RSpec
           metadata[:rspec_rails] = metadata[:rspec_rails] ? metadata[:rspec_rails].dup : {}
         end
 
-        # See RSpec::Rails::ControllerExampleGroup
+        # @see RSpec::Rails::ControllerExampleGroup
         def render_views(true_or_false=true)
           metadata_for_rspec_rails[:render_views] = true_or_false
         end
 
+        # @deprecated use render_views
         def integrate_views
           RSpec.deprecate("integrate_views","render_views")
           render_views
         end
 
+        # @api private
         def render_views?
           metadata_for_rspec_rails[:render_views] || RSpec.configuration.render_views?
         end
       end
 
       module InstanceMethods
+        # @api private
         def render_views?
           self.class.render_views? || !controller.class.respond_to?(:view_paths)
         end
@@ -64,6 +67,7 @@ module RSpec
           @original_path_set = original_path_set
         end
 
+        # @api private
         def find_all(*args)
           original_path_set.find_all(*args).collect do |template|
             ::ActionView::Template.new(
@@ -80,15 +84,18 @@ module RSpec
       end
 
       module EmptyTemplates
+        # @api private
         def prepend_view_path(new_path)
           lookup_context.view_paths.unshift(*_path_decorator(new_path))
         end
 
+        # @api private
         def append_view_path(new_path)
           lookup_context.view_paths.push(*_path_decorator(new_path))
         end
 
         private
+
         def _path_decorator(path)
           EmptyTemplatePathSetDecorator.new(::ActionView::Base::process_view_paths(path))
         end
@@ -109,7 +116,6 @@ module RSpec
           end
         end
       end
-
     end
   end
 end

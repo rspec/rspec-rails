@@ -32,6 +32,7 @@ module RSpec
           end
         end
 
+        # @api private
         def _assigns
           super.merge(_encapsulated_assigns)
         end

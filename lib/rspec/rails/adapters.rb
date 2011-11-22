@@ -7,16 +7,25 @@ module RSpec
       extend ActiveSupport::Concern
 
       module ClassMethods
+        # @api private
+        #
+        # Wraps `setup` calls from within Rails' testing framework in `before`
+        # hooks.
         def setup(*methods)
           methods.each {|method| before { send method } }
         end
 
+        # @api private
+        #
+        # Wraps `teardown` calls from within Rails' testing framework in
+        # `after` hooks.
         def teardown(*methods)
           methods.each {|method| after { send method } }
         end
       end
 
       module InstanceMethods
+        # @api private
         def method_name
           @example
         end
@@ -26,21 +35,23 @@ module RSpec
     module TestUnitAssertionAdapter
       extend ActiveSupport::Concern
 
-      class AssertionDelegate
-        include Test::Unit::Assertions
-      end
-
       module ClassMethods
+        # @api private
+        #
+        # Returns the names of assertion methods that we want to expose to
+        # examples without exposing non-assertion methods in Test::Unit or
+        # Minitest.
         def assertion_method_names
           Test::Unit::Assertions.public_instance_methods.select{|m| m.to_s =~ /^(assert|flunk)/} +
             [:build_message]
         end
 
+        # @api private
         def define_assertion_delegators
           assertion_method_names.each do |m|
             class_eval <<-CODE
               def #{m}(*args, &block)
-                assertion_delegate.send :#{m}, *args, &block
+                assertion_delegator.send :#{m}, *args, &block
               end
             CODE
           end
@@ -48,8 +59,13 @@ module RSpec
       end
 
       module InstanceMethods
-        def assertion_delegate
-          @assertion_delegate ||= AssertionDelegate.new
+        class AssertionDelegator
+          include Test::Unit::Assertions
+        end
+
+        # @api private
+        def assertion_delegator
+          @assertion_delegator ||= AssertionDelegator.new
         end
       end
 
