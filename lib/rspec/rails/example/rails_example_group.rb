@@ -4,6 +4,7 @@ module RSpec
       extend ActiveSupport::Concern
       include RSpec::Rails::SetupAndTeardownAdapter
       include RSpec::Rails::TestUnitAssertionAdapter
+      include RSpec::Rails::Matchers
     end
   end
 end

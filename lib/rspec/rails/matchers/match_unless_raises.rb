@@ -1,5 +1,6 @@
 module RSpec::Rails::Matchers
   module MatchUnlessRaises
+    # @api private
     attr_accessor :rescued_exception
 
     # @api private

@@ -1,6 +1,8 @@
 require "spec_helper"
 
 describe "be_new_record" do
+  include RSpec::Rails::Matchers
+
   context "un-persisted record" do
     it "passes" do
       record = double('record', :persisted? => false)
