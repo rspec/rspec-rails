@@ -11,3 +11,4 @@ bin
 .yardoc
 .bundle
 .rails-version
+.DS_Store
