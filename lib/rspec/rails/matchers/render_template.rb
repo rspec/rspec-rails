@@ -2,7 +2,6 @@ module RSpec::Rails::Matchers
   module RenderTemplate
     class RenderTemplateMatcher
       include RSpec::Matchers::BaseMatcher
-      include RSpec::Rails::Matchers::MatchUnlessRaises
 
       def initialize(scope, expected, message=nil)
         super(Symbol === expected ? expected.to_s : expected)

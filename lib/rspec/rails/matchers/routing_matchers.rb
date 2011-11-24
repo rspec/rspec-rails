@@ -4,7 +4,6 @@ module RSpec::Rails::Matchers
 
     class RouteToMatcher
       include RSpec::Matchers::BaseMatcher
-      include RSpec::Rails::Matchers::MatchUnlessRaises
 
       def initialize(scope, *expected)
         @scope = scope
@@ -54,7 +53,6 @@ module RSpec::Rails::Matchers
 
     class BeRoutableMatcher
       include RSpec::Matchers::BaseMatcher
-      include RSpec::Rails::Matchers::MatchUnlessRaises
 
       def initialize(scope)
         @scope = scope
