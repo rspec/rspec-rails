@@ -47,7 +47,7 @@ group :development do
 
   platforms :mri_19 do
     gem 'ruby-debug19', '~> 0.11.6'
-    if RUBY_VERSION == '1.9.3'
+    if RUBY_VERSION == '1.9.3' && !ENV['TRAVIS']
       if `gem list ruby-debug-base19` =~ /0\.11\.26/
         gem 'ruby-debug-base19', '0.11.26'
       else
