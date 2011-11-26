@@ -1,0 +1,36 @@
+group :development do
+  gem 'interactive_rspec'
+  gem 'yard'
+  gem "relish", "~> 0.5.0"
+  gem "guard-rspec", "0.5.0"
+  gem "growl", "1.0.3"
+  gem "spork", "0.9.0.rc9"
+
+  platforms :mri_18, :jruby do
+    gem "rcov", "0.9.10"
+  end
+
+  platforms :mri_18 do
+    gem 'ruby-debug'
+  end
+
+  platforms :mri_19 do
+    case RUBY_VERSION
+    when '1.9.2'
+      gem 'ruby-debug19',      '0.11.6'
+      gem 'ruby-debug-base19', '0.11.25'
+      gem 'linecache19',       '0.5.12'
+    when '1.9.3'
+      # NOTE - see http://blog.wyeworks.com/2011/11/1/ruby-1-9-3-and-ruby-debug
+      # for help setting up ruby-debug19 on ruby 1.9.3
+      gem 'ruby-debug19',      '0.11.6'
+      gem 'ruby-debug-base19', '0.11.26'
+      gem 'linecache19',       '0.5.13'
+    end
+  end
+
+  platforms :mri_18, :mri_19 do
+    gem "rb-fsevent", "~> 0.4.3.1"
+    gem "ruby-prof", "~> 0.10.0"
+  end
+end

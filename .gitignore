@@ -12,3 +12,4 @@ bin
 .bundle
 .rails-version
 .DS_Store
+Gemfile-custom
