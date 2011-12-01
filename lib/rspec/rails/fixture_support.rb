@@ -1,6 +1,6 @@
 module RSpec
   module Rails
-    if defined?(ActiveRecord)
+    if defined?(ActiveRecord::TestFixtures)
       module FixtureSupport
         extend ActiveSupport::Concern
 
