@@ -40,7 +40,7 @@ describe <%= controller_class_name %>Controller do
   describe "GET show" do
     it "assigns the requested <%= ns_file_name %> as @<%= ns_file_name %>" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
-      get :show, :id => <%= file_name %>.id
+      get :show, :id => <%= file_name %>.to_param
       assigns(:<%= ns_file_name %>).should eq(<%= file_name %>)
     end
   end
@@ -55,7 +55,7 @@ describe <%= controller_class_name %>Controller do
   describe "GET edit" do
     it "assigns the requested <%= ns_file_name %> as @<%= ns_file_name %>" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
-      get :edit, :id => <%= file_name %>.id
+      get :edit, :id => <%= file_name %>.to_param
       assigns(:<%= ns_file_name %>).should eq(<%= file_name %>)
     end
   end
@@ -106,18 +106,18 @@ describe <%= controller_class_name %>Controller do
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
         <%= class_name %>.any_instance.should_receive(:update_attributes).with(<%= params %>)
-        put :update, :id => <%= file_name %>.id, :<%= ns_file_name %> => <%= params %>
+        put :update, :id => <%= file_name %>.to_param, :<%= ns_file_name %> => <%= params %>
       end
 
       it "assigns the requested <%= ns_file_name %> as @<%= ns_file_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-        put :update, :id => <%= file_name %>.id, :<%= ns_file_name %> => valid_attributes
+        put :update, :id => <%= file_name %>.to_param, :<%= ns_file_name %> => valid_attributes
         assigns(:<%= ns_file_name %>).should eq(<%= file_name %>)
       end
 
       it "redirects to the <%= ns_file_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-        put :update, :id => <%= file_name %>.id, :<%= ns_file_name %> => valid_attributes
+        put :update, :id => <%= file_name %>.to_param, :<%= ns_file_name %> => valid_attributes
         response.should redirect_to(<%= file_name %>)
       end
     end
@@ -127,7 +127,7 @@ describe <%= controller_class_name %>Controller do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         <%= class_name %>.any_instance.stub(:save).and_return(false)
-        put :update, :id => <%= file_name %>.id, :<%= ns_file_name %> => {}
+        put :update, :id => <%= file_name %>.to_param, :<%= ns_file_name %> => {}
         assigns(:<%= ns_file_name %>).should eq(<%= file_name %>)
       end
 
@@ -135,7 +135,7 @@ describe <%= controller_class_name %>Controller do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         <%= class_name %>.any_instance.stub(:save).and_return(false)
-        put :update, :id => <%= file_name %>.id, :<%= ns_file_name %> => {}
+        put :update, :id => <%= file_name %>.to_param, :<%= ns_file_name %> => {}
         response.should render_template("edit")
       end
     end
@@ -145,13 +145,13 @@ describe <%= controller_class_name %>Controller do
     it "destroys the requested <%= ns_file_name %>" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
       expect {
-        delete :destroy, :id => <%= file_name %>.id
+        delete :destroy, :id => <%= file_name %>.to_param
       }.to change(<%= class_name %>, :count).by(-1)
     end
 
     it "redirects to the <%= table_name %> list" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
-      delete :destroy, :id => <%= file_name %>.id
+      delete :destroy, :id => <%= file_name %>.to_param
       response.should redirect_to(<%= index_helper %>_url)
     end
   end
