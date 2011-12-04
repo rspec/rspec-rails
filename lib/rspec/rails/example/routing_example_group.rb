@@ -9,7 +9,10 @@ module RSpec::Rails
     include RSpec::Rails::Matchers::RoutingMatchers::RouteHelpers
 
     module InstanceMethods
-      attr_reader :routes
+      
+      def routes
+        @routes ||= ::Rails.application.routes
+      end
 
       private
 
@@ -20,10 +23,6 @@ module RSpec::Rails
 
     included do
       metadata[:type] = :routing
-
-      before do
-        @routes = ::Rails.application.routes
-      end
     end
   end
 end
