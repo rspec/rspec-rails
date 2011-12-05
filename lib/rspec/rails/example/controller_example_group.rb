@@ -14,41 +14,41 @@ module RSpec::Rails
   #
   # ### with fixtures
   #
-  #   describe WidgetsController do
-  #     describe "GET index" do
-  #       fixtures :widgets
+  #     describe WidgetsController do
+  #       describe "GET index" do
+  #         fixtures :widgets
   #
-  #       it "assigns all widgets to @widgets" do
-  #         get :index
-  #         assigns(:widgets).should eq(Widget.all)
+  #         it "assigns all widgets to @widgets" do
+  #           get :index
+  #           assigns(:widgets).should eq(Widget.all)
+  #         end
   #       end
   #     end
-  #   end
   #
   # ### with a factory
   #
-  #   describe WidgetsController do
-  #     describe "GET index" do
-  #       it "assigns all widgets to @widgets" do
-  #         widget = Factory(:widget)
-  #         get :index
-  #         assigns(:widgets).should eq([widget])
+  #     describe WidgetsController do
+  #       describe "GET index" do
+  #         it "assigns all widgets to @widgets" do
+  #           widget = Factory(:widget)
+  #           get :index
+  #           assigns(:widgets).should eq([widget])
+  #         end
   #       end
   #     end
-  #   end
   #
   # ## with stubs
   #
-  #   describe WidgetsController do
-  #     describe "GET index" do
-  #       it "assigns all widgets to @widgets" do
-  #         widget = stub_model(Widget)
-  #         Widget.stub(:all) { widget }
-  #         get :index
-  #         assigns(:widgets).should eq([widget])
+  #     describe WidgetsController do
+  #       describe "GET index" do
+  #         it "assigns all widgets to @widgets" do
+  #           widget = stub_model(Widget)
+  #           Widget.stub(:all) { [widget] }
+  #           get :index
+  #           assigns(:widgets).should eq([widget])
+  #         end
   #       end
   #     end
-  #   end
   #
   # ## Matchers
   #
@@ -79,10 +79,9 @@ module RSpec::Rails
   # functional tests, you can tell controller groups to render the views in the
   # app with the +render_views+ declaration:
   #
-  #   describe WidgetsController do
-  #     render_views
-  #     ...
-  #
+  #     describe WidgetsController do
+  #       render_views
+  #       # ...
   module ControllerExampleGroup
     extend ActiveSupport::Concern
     include RSpec::Rails::RailsExampleGroup

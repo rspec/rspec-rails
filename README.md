@@ -47,6 +47,17 @@ Please note that the generators are there to help you get started, but they are
 no substitute for writing your own examples, and they are only guaranteed to
 work out of the box for the default scenario (`ActiveRecord` + `Webrat`).
 
+### Webrat and Capybara
+
+You can choose between webrat or capybara for simulating a browser, automating
+a browser, or setting expectations using the matchers they supply. Just add
+your preference to the Gemfile:
+
+```ruby
+gem "webrat"
+gem "capybara"
+```
+
 ### Autotest
 
 The `rspec:install` generator creates an `.rspec` file, which tells Autotest
@@ -61,17 +72,6 @@ At this point, if all of the gems in your Gemfile are installed in system
 gems, you can just type `autotest`. If, however, Bundler is managing any gems
 for you directly (i.e. you've got `:git` or `:path` attributes in the `Gemfile`),
 you'll need to run `bundle exec autotest`.
-
-### Webrat and Capybara
-
-You can choose between webrat or capybara for simulating a browser, automating
-a browser, or setting expectations using the matchers they supply. Just add
-your preference to the Gemfile:
-
-```ruby
-gem "webrat"
-gem "capybara"
-```
 
 ## Living on edge
 
@@ -135,6 +135,7 @@ available from Rails.
 You can use RSpec expectations/matchers or Test::Unit assertions.
 
 ## `render_views`
+
 By default, controller specs do not render views.  This supports specifying
 controllers without concern for whether the views they render work correctly
 (NOTE: the template must exist, unlike rspec-rails-1. See Upgrade.md for more
@@ -148,7 +149,7 @@ describe SomeController do
   # ...
 ```
 
-### * Upgrade note
+### Upgrade note
 
 `render_views` replaces `integrate_views` from rspec-rails-1.3
 
@@ -231,7 +232,7 @@ RSpec doesn't officially support this pattern, which only works as a
 side-effect of the inclusion of `ActionView::TestCase`. Be aware that it may be
 made unavailable in the future.
 
-### * Upgrade note
+### Upgrade note
 
 ```ruby
 # rspec-rails-1.x
@@ -250,7 +251,7 @@ render
 rendered.should =~ /Some text expected to appear on the page/
 ```
 
-### * Upgrade note
+### Upgrade note
 
 ```ruby
 # rspec-rails-1.x
@@ -260,6 +261,31 @@ response.should xxx
 # rspec-rails-2.x
 render
 rendered.should xxx
+```
+
+# Model specs
+
+Model specs live in spec/models.
+
+```ruby
+describe Articles do
+  describe ".recent" do
+    it "includes articles published less than one week ago" do
+      article = Article.create!(:published_at => Date.today - 1.week + 1.second)
+      Article.recent.should eq([article])
+    end
+
+    it "excludes articles published at midnight one week ago" do
+      article = Article.create!(:published_at => Date.today - 1.week)
+      Article.recent.should be_empty
+    end
+
+    it "excludes articles published more than one week ago" do
+      article = Article.create!(:published_at => Date.today - 1.week - 1.second)
+      Article.recent.should be_empty
+    end
+  end
+end
 ```
 
 # Routing specs
@@ -282,7 +308,7 @@ describe "routing to profiles" do
 end
 ```
 
-### * Upgrade note
+### Upgrade note
 
 `route_for` from rspec-rails-1.x is gone. Use `route_to` and `be_routable` instead.
 
@@ -361,11 +387,11 @@ to be used with `should_not` to specify routes that should not be routable.
 { :get => "/widgets/1/edit" }.should_not be_routable
 ```
 
-## Contribute
+# Contribute
 
 See [http://github.com/rspec/rspec-dev](http://github.com/rspec/rspec-dev)
 
-## Also see
+# Also see
 
 * [http://github.com/rspec/rspec](http://github.com/rspec/rspec)
 * [http://github.com/rspec/rspec-core](http://github.com/rspec/rspec-core)

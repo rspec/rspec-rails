@@ -1,16 +1,16 @@
 module RSpec::Rails
   # Extends ActionDispatch::Integration::Runner to work with RSpec.
   #
-  # == Matchers
+  # ## Matchers
   #
   # In addition to the stock matchers from rspec-expectations, request
   # specs add these matchers, which delegate to rails' assertions:
   #
-  #   response.should render_template(*args)
-  #   => delegates to assert_template(*args)
+  #     response.should render_template(*args)
+  #     # => delegates to assert_template(*args)
   #
-  #   response.should redirect_to(destination)
-  #   => delegates to assert_redirected_to(destination)
+  #     response.should redirect_to(destination)
+  #     # => delegates to assert_redirected_to(destination)
   module RequestExampleGroup
     extend ActiveSupport::Concern
     include RSpec::Rails::RailsExampleGroup
