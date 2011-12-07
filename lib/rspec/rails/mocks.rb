@@ -121,7 +121,12 @@ EOM
             end unless #{stubs.has_key?(:instance_of?)}
             
             def @object.respond_to?(method_name, include_private=false)
-              #{model_class}.respond_to?(:column_names) && #{model_class}.column_names.include?(method_name.to_s) || super
+              if #{model_class}.respond_to?(:column_names) && #{model_class}.column_names.include?(method_name.to_s)
+                stub!(method_name) unless [#{stubs.keys.map{|stub| ":#{stub}"}.join(',')}].include?(method_name)
+                true
+              else
+                super
+              end
             end unless #{stubs.has_key?(:respond_to?)}
             
             def @object.class

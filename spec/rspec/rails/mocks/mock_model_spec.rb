@@ -188,6 +188,11 @@ describe "mock_model(RealModel)" do
         it "says it will respond_to?(key) if RealModel has the attribute 'key'" do
           @model.respond_to?("column_a").should be(true)
         end
+        it "stubs column accessor method after respond_to call" do
+          lambda { @model.column_a }.should raise_error
+          @model.respond_to?("column_a").should be(true)
+          lambda { @model.column_a }.should_not raise_error
+        end
         it "says it will not respond_to?(key) if RealModel does not have the attribute 'key'" do
           @model.respond_to?("column_c").should be(false)
         end
