@@ -188,10 +188,33 @@ describe "mock_model(RealModel)" do
         it "says it will respond_to?(key) if RealModel has the attribute 'key'" do
           @model.respond_to?("column_a").should be(true)
         end
-        it "stubs column accessor method after respond_to call" do
-          lambda { @model.column_a }.should raise_error
-          @model.respond_to?("column_a").should be(true)
-          lambda { @model.column_a }.should_not raise_error
+        it "stubs column accessor (with string)" do
+          @model.respond_to?("column_a")
+          @model.column_a.should be_nil
+        end
+        it "stubs column accessor (with symbol)" do
+          @model.respond_to?(:column_a)
+          @model.column_a.should be_nil
+        end
+        it "does not stub column accessor if already stubbed in declaration (with string)" do
+          model = mock_model(MockableModel, "column_a" => "a")
+          model.respond_to?("column_a")
+          model.column_a.should eq("a")
+        end
+        it "does not stub column accessor if already stubbed in declaration (with symbol)" do
+          model = mock_model(MockableModel, :column_a => "a")
+          model.respond_to?("column_a")
+          model.column_a.should eq("a")
+        end
+        it "does not stub column accessor if already stubbed after declaration (with string)" do
+          @model.stub("column_a" => "a")
+          @model.respond_to?("column_a")
+          @model.column_a.should eq("a")
+        end
+        it "does not stub column accessor if already stubbed after declaration (with symbol)" do
+          @model.stub(:column_a => "a")
+          @model.respond_to?("column_a")
+          @model.column_a.should eq("a")
         end
         it "says it will not respond_to?(key) if RealModel does not have the attribute 'key'" do
           @model.respond_to?("column_c").should be(false)

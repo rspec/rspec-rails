@@ -122,7 +122,10 @@ EOM
             
             def @object.respond_to?(method_name, include_private=false)
               if #{model_class}.respond_to?(:column_names) && #{model_class}.column_names.include?(method_name.to_s)
-                stub!(method_name) unless [#{stubs.keys.map{|stub| ":#{stub}"}.join(',')}].include?(method_name)
+                unless __send__(:__mock_proxy).send(:method_doubles).map{ |md| md.method_name }.include?(method_name.to_sym)
+                  stub!(method_name)
+                end
+
                 true
               else
                 super
