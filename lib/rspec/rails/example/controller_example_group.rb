@@ -167,6 +167,20 @@ module RSpec::Rails
       # `rescue_with_handler` to raise the exception passed to it.  Use this to
       # specify that an action _should_ raise an exception given appropriate
       # conditions.
+      #
+      # @example
+      #
+      #     describe ProfilesController do
+      #       it "raises a 403 when a non-admin user tries to view another user's profile" do
+      #         profile = create_profile
+      #         login_as profile.user
+      #
+      #         expect do
+      #           bypass_rescue
+      #           get :show, :id => profile.id + 1
+      #         end.to raise_error(/403 Forbidden/)
+      #       end
+      #     end
       def bypass_rescue
         controller.extend(BypassRescue)
       end
