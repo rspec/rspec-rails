@@ -1,3 +1,11 @@
+### dev
+
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.8.0.rc1...master)
+
+* Bug fixes
+    * Stub attribute accessor after `respond_to?` call on mocked model (Igor
+      Afonov)
+
 ### 2.8.0.rc1 / 2011-11-06
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.7.0...v2.8.0.rc1)
