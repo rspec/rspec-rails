@@ -28,7 +28,7 @@ module RSpec::Rails::Matchers
 
     # Delegates to `assert_redirected_to`
     #
-    # ## Examples:
+    # @example
     #
     #     response.should redirect_to(:action => "new")
     def redirect_to(target)

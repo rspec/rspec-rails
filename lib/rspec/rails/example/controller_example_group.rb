@@ -18,28 +18,27 @@ module RSpec::Rails
         described_class
       end
 
-      # Supports a simple DSL for specifying behaviour of
-      # ApplicationController.  Creates an anonymous subclass of
-      # ApplicationController and evals the +body+ in that context. Also sets
-      # up implicit routes for this controller, that are separate from those
-      # defined in <tt>config/routes.rb</tt>.
+      # Supports a simple DSL for specifying behavior of ApplicationController.
+      # Creates an anonymous subclass of ApplicationController and evals the
+      # `body` in that context. Also sets up implicit routes for this
+      # controller, that are separate from those defined in "config/routes.rb".
       #
-      # ## Examples
+      # @example
       #
-      #    describe ApplicationController do
-      #      controller do
-      #        def index
-      #          raise ApplicationController::AccessDenied
-      #        end
-      #      end
+      #     describe ApplicationController do
+      #       controller do
+      #         def index
+      #           raise ApplicationController::AccessDenied
+      #         end
+      #       end
       #
-      #      describe "handling AccessDenied exceptions" do
-      #        it "redirects to the /401.html page" do
-      #          get :index
-      #          response.should redirect_to("/401.html")
-      #        end
-      #      end
-      #    end
+      #       describe "handling AccessDenied exceptions" do
+      #         it "redirects to the /401.html page" do
+      #           get :index
+      #           response.should redirect_to("/401.html")
+      #         end
+      #       end
+      #     end
       #
       # If you would like to spec a subclass of ApplicationController, call
       # controller like so:
@@ -49,10 +48,10 @@ module RSpec::Rails
       #    end
       #
       # NOTICE: Due to Ruby 1.8 scoping rules in anoymous subclasses, constants
-      # defined in +ApplicationController+ must be fully qualified (e.g.
+      # defined in `ApplicationController` must be fully qualified (e.g.
       # ApplicationController::AccessDenied) in the block passed to the
-      # +controller+ method. Any instance methods, filters, etc, that are
-      # defined in +ApplicationController+, however, are accessible from within
+      # `controller` method. Any instance methods, filters, etc, that are
+      # defined in `ApplicationController`, however, are accessible from within
       # the block.
       def controller(base_class = nil, &body)
         base_class ||= RSpec.configuration.infer_base_class_for_anonymous_controllers? ?

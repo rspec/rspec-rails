@@ -10,7 +10,7 @@ module RSpec::Rails::Matchers
 
     # Use this to specify the specific attributes to match on the new record.
     #
-    # ## Examples:
+    # @example
     #
     #     it "assigns a new Thing with the submitted attributes" do
     #       post :create, :thing => { :name => "Illegal Value" }
@@ -60,7 +60,7 @@ module RSpec::Rails::Matchers
   # `persisted?`. Typically used to specify instance variables assigned to
   # views by controller actions
   #
-  # ## Examples:
+  # @example
   #
   #     get :new
   #     assigns(:thing).should be_a_new(Thing)

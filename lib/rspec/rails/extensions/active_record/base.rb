@@ -3,9 +3,9 @@ module RSpec
     if defined?(ActiveRecord)
       module Extensions
         module ActiveRecord
-          # Extension to enhance +should have+ on AR Model classes
+          # Extension to enhance `should have` on AR Model classes
           #
-          # ## Examples:
+          # @example
           #
           #     ModelClass.should have(:no).records
           #     ModelClass.should have(1).record
@@ -30,7 +30,7 @@ module ::ActiveModel::Validations
   #
   # You can also use this to specify the content of the error messages.
   #
-  # ## Examples:
+  # @example
   #
   #     model.should have(:no).errors_on(:attribute)
   #     model.should have(1).error_on(:attribute)

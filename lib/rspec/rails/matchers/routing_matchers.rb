@@ -37,7 +37,7 @@ module RSpec::Rails::Matchers
     # Delegates to `assert_recognizes`. Supports short-hand controller/action
     # declarations (e.g. `"controller#action"`).
     #
-    # ## Examples
+    # @example
     #
     #     { :get => "/things/special" }.should route_to(
     #       :controller => "things",
@@ -78,7 +78,7 @@ module RSpec::Rails::Matchers
     # the declarations in `config/routes.rb`. Delegates to
     # `RouteSet#recognize_path`.
     #
-    # ## Examples:
+    # @example
     #
     # You can use route helpers provided by rspec-rails.
     #     {:get =>  "/a/path"}.should be_routable

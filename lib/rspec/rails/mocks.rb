@@ -200,7 +200,7 @@ EOM
       # helper), it is especially useful in view examples, which are
       # inherently more state-based than interaction-based.
       #
-      # ## Examples
+      # @example
       #
       #     stub_model(Person)
       #     stub_model(Person).as_new_record

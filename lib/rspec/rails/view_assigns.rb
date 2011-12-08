@@ -7,9 +7,9 @@ module RSpec
         # Assigns a value to an instance variable in the scope of the
         # view being rendered.
         #
-        # ## Examples
+        # @example
         #
-        #   assign(:widget, stub_model(Widget))
+        #     assign(:widget, stub_model(Widget))
         def assign(key, value)
           _encapsulated_assigns[key] = value
         end

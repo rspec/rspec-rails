@@ -29,7 +29,7 @@ module RSpec::Rails::Matchers
 
     # Delegates to `assert_template`
     #
-    # ## Examples:
+    # @example
     #
     #     response.should render_template("new")
     def render_template(options, message=nil)

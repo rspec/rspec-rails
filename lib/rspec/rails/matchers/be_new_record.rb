@@ -10,7 +10,7 @@ module RSpec::Rails::Matchers
 
   # Passes if actual returns `false` for `persisted?`.
   #
-  # ## Examples:
+  # @example
   #
   #     get :new
   #     assigns(:thing).should be_new_record

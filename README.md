@@ -58,21 +58,6 @@ gem "webrat"
 gem "capybara"
 ```
 
-### Autotest
-
-The `rspec:install` generator creates an `.rspec` file, which tells Autotest
-that you're using RSpec and Rails. You'll also need to add the ZenTest gem to
-your Gemfile:
-
-```ruby
-gem "ZenTest"
-```
-
-At this point, if all of the gems in your Gemfile are installed in system
-gems, you can just type `autotest`. If, however, Bundler is managing any gems
-for you directly (i.e. you've got `:git` or `:path` attributes in the `Gemfile`),
-you'll need to run `bundle exec autotest`.
-
 ## Living on edge
 
 Bundler makes it a snap to use the latest code for any gem your app depends on. For

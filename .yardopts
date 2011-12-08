@@ -2,6 +2,7 @@
 --exclude features
 --exclude lib/generators/**/*_spec.rb
 --markup markdown
+--template-path yard/template/
 -
 README.md
 Changelog.md

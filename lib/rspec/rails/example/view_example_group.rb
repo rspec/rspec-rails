@@ -35,27 +35,27 @@ module RSpec::Rails
       # The only addition is that you can call render with no arguments, and RSpec
       # will pass the top level description to render:
       #
-      #   describe "widgets/new.html.erb" do
-      #     it "shows all the widgets" do
-      #       render # => view.render(:file => "widgets/new.html.erb")
-      #       ...
+      #     describe "widgets/new.html.erb" do
+      #       it "shows all the widgets" do
+      #         render # => view.render(:file => "widgets/new.html.erb")
+      #         # ...
+      #       end
       #     end
-      #   end
       def render(options={}, local_assigns={}, &block)
         options = {:template => _default_file_to_render} if Hash === options and options.empty?
         super(options, local_assigns, &block)
       end
 
-      # The instance of +ActionView::Base+ that is used to render the template.
-      # Use this to stub methods _before_ calling +render+.
+      # The instance of `ActionView::Base` that is used to render the template.
+      # Use this to stub methods _before_ calling `render`.
       #
-      #   describe "widgets/new.html.erb" do
-      #     it "shows all the widgets" do
-      #       view.stub(:foo) { "foo" }
-      #       render
-      #       ...
+      #     describe "widgets/new.html.erb" do
+      #       it "shows all the widgets" do
+      #         view.stub(:foo) { "foo" }
+      #         render
+      #         # ...
+      #       end
       #     end
-      #   end
       def view
         _view
       end
@@ -65,9 +65,9 @@ module RSpec::Rails
       # help isolate view examples from partials rendered by the view template
       # that is the subject of the example.
       #
-      # ## Example
+      # @example
       #
-      #   stub_template("widgets/_widget.html.erb" => "This content.")
+      #     stub_template("widgets/_widget.html.erb" => "This content.")
       def stub_template(hash)
         view.view_paths.unshift(ActionView::FixtureResolver.new(hash))
       end
@@ -75,18 +75,18 @@ module RSpec::Rails
       # Provides access to the params hash that will be available within the
       # view:
       #
-      #       params[:foo] = 'bar'
+      #     params[:foo] = 'bar'
       def params
         controller.params
       end
 
-      # @deprecated # use +view+ instead.
+      # @deprecated # use `view` instead.
       def template
         RSpec.deprecate("template","view")
         view
       end
 
-      # @deprecated # use +rendered+ instead.
+      # @deprecated # use `rendered` instead.
       def response
         RSpec.deprecate("response", "rendered")
         rendered
