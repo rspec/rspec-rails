@@ -27,9 +27,9 @@ describe <%= controller_class_name %>Controller do
     {}
   end
   
-  # This should return the minimal values that should be in the session
-  # in order to pass any filters (such as authentication) required by
-  # <%= controller_class_name %>Controller, be sure to keep this updated too.
+  # This should return the minimal set of values that should be in the session
+  # in order to pass any filters (e.g. authentication) defined in
+  # <%= controller_class_name %>Controller. Be sure to keep this updated too.
   def valid_session
     {}
   end

@@ -2,6 +2,9 @@
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.8.0.rc1...master)
 
+* Enhancements
+    * Add session hash to generated controller specs (Thiago Almeida)
+
 * Bug fixes
     * Stub attribute accessor after `respond_to?` call on mocked model (Igor
       Afonov)
