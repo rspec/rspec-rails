@@ -80,13 +80,13 @@ module RSpec::Rails
         controller.params
       end
 
-      # @deprecated # use `view` instead.
+      # @deprecated Use `view` instead.
       def template
         RSpec.deprecate("template","view")
         view
       end
 
-      # @deprecated # use `rendered` instead.
+      # @deprecated Use `rendered` instead.
       def response
         RSpec.deprecate("response", "rendered")
         rendered

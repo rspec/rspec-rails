@@ -51,6 +51,7 @@ module Rspec
 
       protected
 
+        # @deprecated Use `--webrat` instead.
         def webrat?
           RSpec.deprecate("--webrat-matchers", "--webrat") if options[:webrat_matchers]
           options[:webrat] || options[:webrat_matchers]

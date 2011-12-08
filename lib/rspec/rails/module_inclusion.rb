@@ -1,6 +1,7 @@
 module RSpec::Rails
   module ModuleInclusion
-    # Deprecated as of rspec-rails-2.4
+    # @deprecated No replacement.
+    #
     # Will be removed from rspec-rails-3.0
     #
     # This was never intended to be a public API and is no longer needed

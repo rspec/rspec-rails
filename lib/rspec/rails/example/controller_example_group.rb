@@ -13,7 +13,7 @@ module RSpec::Rails
     include RSpec::Rails::Matchers::RoutingMatchers
 
     module ClassMethods
-      # @api private
+      # @private
       def controller_class
         described_class
       end
@@ -22,6 +22,13 @@ module RSpec::Rails
       # Creates an anonymous subclass of ApplicationController and evals the
       # `body` in that context. Also sets up implicit routes for this
       # controller, that are separate from those defined in "config/routes.rb".
+      #
+      # @note Due to Ruby 1.8 scoping rules in anoymous subclasses, constants
+      #   defined in `ApplicationController` must be fully qualified (e.g.
+      #   `ApplicationController::AccessDenied`) in the block passed to the
+      #   `controller` method. Any instance methods, filters, etc, that are
+      #   defined in `ApplicationController`, however, are accessible from
+      #   within the block.
       #
       # @example
       #
@@ -43,16 +50,9 @@ module RSpec::Rails
       # If you would like to spec a subclass of ApplicationController, call
       # controller like so:
       #
-      #    controller(ApplicationControllerSubclass) do
-      #      # ....
-      #    end
-      #
-      # NOTICE: Due to Ruby 1.8 scoping rules in anoymous subclasses, constants
-      # defined in `ApplicationController` must be fully qualified (e.g.
-      # ApplicationController::AccessDenied) in the block passed to the
-      # `controller` method. Any instance methods, filters, etc, that are
-      # defined in `ApplicationController`, however, are accessible from within
-      # the block.
+      #     controller(ApplicationControllerSubclass) do
+      #       # ....
+      #     end
       def controller(base_class = nil, &body)
         base_class ||= RSpec.configuration.infer_base_class_for_anonymous_controllers? ?
                          controller_class :

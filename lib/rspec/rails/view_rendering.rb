@@ -39,7 +39,7 @@ module RSpec
           metadata_for_rspec_rails[:render_views] = true_or_false
         end
 
-        # @deprecated use render_views
+        # @deprecated Use `render_views` instead.
         def integrate_views
           RSpec.deprecate("integrate_views","render_views")
           render_views

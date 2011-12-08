@@ -2,19 +2,23 @@
 
 rspec-2 for rails-3 with lightweight extensions to each
 
-NOTE: Use rspec-rails-1.3.x for rails-2.
+Note: Use [rspec-rails-1.3](http://github.com/dchelimsky/rspec-rails) for rails-2.
 
 ## Install
 
-    gem install rspec-rails
+```
+gem install rspec-rails
+```
 
 This installs the following gems:
 
-    rspec
-    rspec-core
-    rspec-expectations
-    rspec-mocks
-    rspec-rails
+```
+rspec
+rspec-core
+rspec-expectations
+rspec-mocks
+rspec-rails
+```
 
 ## Configure
 
@@ -31,7 +35,9 @@ tasks without having to type `RAILS_ENV=test`.
 
 Now you can run:
 
-    rails generate rspec:install
+```
+rails generate rspec:install
+```
 
 This adds the spec directory and some skeleton files, including
 the "rake spec" task.
@@ -116,9 +122,7 @@ Controller specs live in spec/controllers, and mix in
 ActionController::TestCase::Behavior, which is the basis for Rails' functional
 tests.
 
-## Examples
-
-### with fixtures
+## with fixtures
 
 ```ruby
 describe WidgetsController do
@@ -133,7 +137,7 @@ describe WidgetsController do
 end
 ```
 
-### with a factory
+## with a factory
 
 ```ruby
 describe WidgetsController do
@@ -162,7 +166,7 @@ describe WidgetsController do
 end
 ```
 
-## Matchers
+## matchers
 
 In addition to the stock matchers from rspec-expectations, controller
 specs add these matchers, which delegate to rails' assertions:
@@ -175,7 +179,7 @@ response.should redirect_to(destination)
 # => delegates to assert_redirected_to(destination)
 ```
 
-## Isolation from views
+## isolation from views
 
 RSpec's preferred approach to spec'ing controller behaviour is to isolate
 the controller from its collaborators.  By default, therefore, controller
