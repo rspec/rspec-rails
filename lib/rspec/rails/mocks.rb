@@ -90,20 +90,22 @@ EOM
         end
 
         stubs = stubs.reverse_merge(:id => next_id)
-        stubs = stubs.reverse_merge(:persisted? => !!stubs[:id])
-        stubs = stubs.reverse_merge(:destroyed? => false)
-        stubs = stubs.reverse_merge(:marked_for_destruction? => false)
-        stubs = stubs.reverse_merge(:blank? => false)
+        stubs = stubs.reverse_merge(:persisted? => !!stubs[:id],
+                                    :destroyed? => false,
+                                    :marked_for_destruction? => false,
+                                    :blank? => false)
 
         mock("#{model_class.name}_#{stubs[:id]}", stubs).tap do |m|
-          m.extend ActiveModelInstanceMethods
-          m.singleton_class.__send__ :include, ActiveModel::Conversion
-          m.singleton_class.__send__ :include, ActiveModel::Validations
+          m.singleton_class.class_eval do
+            include ActiveModelInstanceMethods
+            include ActiveRecordInstanceMethods if defined?(ActiveRecord)
+            include ActiveModel::Conversion
+            include ActiveModel::Validations
+          end
           if defined?(ActiveRecord)
-            m.extend ActiveRecordInstanceMethods
             [:save, :update_attributes].each do |key|
               if stubs[key] == false
-                m.errors.stub(:empty?) { false }
+                m.errors.stub(:empty? => false)
               end
             end
           end
@@ -119,19 +121,19 @@ EOM
             def @object.instance_of?(other)
               other == #{model_class}
             end unless #{stubs.has_key?(:instance_of?)}
-            
-            def @object.respond_to?(method_name, include_private=false)
-              if #{model_class}.respond_to?(:column_names) && #{model_class}.column_names.include?(method_name.to_s)
-                unless __send__(:__mock_proxy).send(:method_doubles).map{ |md| md.method_name }.include?(method_name.to_sym)
-                  stub!(method_name)
-                end
 
-                true
-              else
-                super
-              end
+            def @object.__model_class_has_column?(method_name)
+              #{model_class}.respond_to?(:column_names) && #{model_class}.column_names.include?(method_name.to_s)
+            end
+
+            def @object.respond_to?(method_name, include_private=false)
+              __model_class_has_column?(method_name) ? true : super
             end unless #{stubs.has_key?(:respond_to?)}
             
+            def @object.method_missing(m, *a, &b)
+              respond_to?(m) ? nil : super
+            end
+
             def @object.class
               #{model_class}
             end unless #{stubs.has_key?(:class)}
