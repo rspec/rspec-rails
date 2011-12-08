@@ -1,19 +1,6 @@
 require "action_dispatch/testing/assertions/routing"
 
 module RSpec::Rails
-  # Routing specs live in spec/routing. If `config/routes.rb` has nothing
-  # beyond `map.resources :thing`, then you probably don't need a routing spec,
-  # but they can be quite helpful when specifying non-standard routes.
-  #
-  # @example
-  #
-  #     require 'spec_helper'
-  #
-  #     describe "profiles routes" do
-  #       it "routes /profiles/jdoe" do
-  #         get("/profiles/jdoe").should route_to("profiles#show", :username => 'jdoe')
-  #       end
-  #     end
   module RoutingExampleGroup
     extend ActiveSupport::Concern
     include RSpec::Rails::RailsExampleGroup

@@ -200,14 +200,12 @@ EOM
       # helper), it is especially useful in view examples, which are
       # inherently more state-based than interaction-based.
       #
-      # == Examples
+      # ## Examples
       #
-      #   stub_model(Person)
-      #   stub_model(Person).as_new_record
-      #   stub_model(Person, :to_param => 37)
-      #   stub_model(Person) do |person|
-      #     person.first_name = "David"
-      #   end
+      #     stub_model(Person)
+      #     stub_model(Person).as_new_record
+      #     stub_model(Person, :to_param => 37)
+      #     stub_model(Person) {|person| person.first_name = "David"}
       def stub_model(model_class, stubs={})
         model_class.new.tap do |m|
           m.extend ActiveModelStubExtensions

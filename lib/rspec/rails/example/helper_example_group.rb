@@ -1,32 +1,6 @@
 require 'rspec/rails/view_assigns'
 
 module RSpec::Rails
-  # Extends ActionView::TestCase::Behavior
-  #
-  # Provides a `helper` object which mixes in the helper module being spec'd,
-  # along with `ApplicationHelper` (if present).
-  #
-  # @example
-  #
-  #     describe RoleBasedDisplayHelper do
-  #       describe "display_for" do
-  #         context "given the role of the current user" do
-  #           it "yields to the block" do
-  #             helper.stub(:current_user) { double(:roles => ['admin']) }
-  #             text = helper.display_for('admin') { "this text" }
-  #             text.should eq("this text")
-  #           end
-  #         end
-  #
-  #         context "given a different role that that of the current user" do
-  #           it "renders an empty String" do
-  #             helper.stub(:current_user) { double(:roles => ['manager']) }
-  #             text = helper.display_for('admin') { "this text" }
-  #             text.should eq("")
-  #           end
-  #         end
-  #       end
-  #     end
   module HelperExampleGroup
     extend ActiveSupport::Concern
     include RSpec::Rails::RailsExampleGroup

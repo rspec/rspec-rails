@@ -45,7 +45,7 @@ controllers, etc, RSpec specs are generated instead of Test::Unit tests.
 
 Please note that the generators are there to help you get started, but they are
 no substitute for writing your own examples, and they are only guaranteed to
-work out of the box for the default scenario (`ActiveRecord` + `Webrat`).
+work out of the box for the default scenario (`ActiveRecord` & `Webrat`).
 
 ### Webrat and Capybara
 
@@ -128,23 +128,88 @@ docs for ActionDispatch::Integration::Runner for more information.
 # Controller Specs
 
 Controller specs live in spec/controllers, and mix in
-ActionController::TestCase::Behavior. See the documentation
-for ActionController::TestCase to see what facilities are
-available from Rails.
+ActionController::TestCase::Behavior, which is the basis for Rails' functional
+tests.
 
-You can use RSpec expectations/matchers or Test::Unit assertions.
+## Examples
+
+### with fixtures
+
+```ruby
+describe WidgetsController do
+  describe "GET index" do
+    fixtures :widgets
+
+    it "assigns all widgets to @widgets" do
+      get :index
+      assigns(:widgets).should eq(Widget.all)
+    end
+  end
+end
+```
+
+### with a factory
+
+```ruby
+describe WidgetsController do
+  describe "GET index" do
+    it "assigns all widgets to @widgets" do
+      widget = Factory(:widget)
+      get :index
+      assigns(:widgets).should eq([widget])
+    end
+  end
+end
+```
+
+## with stubs
+
+```ruby
+describe WidgetsController do
+  describe "GET index" do
+    it "assigns all widgets to @widgets" do
+      widget = stub_model(Widget)
+      Widget.stub(:all) { [widget] }
+      get :index
+      assigns(:widgets).should eq([widget])
+    end
+  end
+end
+```
+
+## Matchers
+
+In addition to the stock matchers from rspec-expectations, controller
+specs add these matchers, which delegate to rails' assertions:
+
+```ruby
+response.should render_template(*args)
+# => delegates to assert_template(*args)
+
+response.should redirect_to(destination)
+# => delegates to assert_redirected_to(destination)
+```
+
+## Isolation from views
+
+RSpec's preferred approach to spec'ing controller behaviour is to isolate
+the controller from its collaborators.  By default, therefore, controller
+example groups do not render the views in your app. Due to the way Rails
+searches for view templates, the template still needs to exist, but it
+won't actually be loaded.
+
+NOTE that this is different from rspec-rails-1 with rails-2, which did not
+require the presence of the file at all. Due to changes in rails-3, this
+was no longer feasible in rspec-rails-2.
 
 ## `render_views`
 
-By default, controller specs do not render views.  This supports specifying
-controllers without concern for whether the views they render work correctly
-(NOTE: the template must exist, unlike rspec-rails-1. See Upgrade.md for more
-information about this). If you prefer to render the views (a la Rails'
-functional tests), you can use the `render_views` declaration in each example
-group:
+If you prefer a more integrated approach, similar to that of Rails'
+functional tests, you can tell controller groups to render the views in the
+app with the `render_views` declaration:
 
 ```ruby
-describe SomeController do
+describe WidgetsController do
   render_views
   # ...
 ```
@@ -315,6 +380,9 @@ end
 # Helper specs
 
 Helper specs live in spec/helpers, and mix in ActionView::TestCase::Behavior.
+
+Provides a `helper` object which mixes in the helper module being spec'd, along
+with `ApplicationHelper` (if present).
 
 ```ruby
 describe EventsHelper do
