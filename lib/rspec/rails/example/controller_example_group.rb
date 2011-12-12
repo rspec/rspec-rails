@@ -1,5 +1,6 @@
 RSpec.configure do |config|
   config.add_setting :infer_base_class_for_anonymous_controllers, :default => false
+  config.add_setting :application, :default => ::Rails.application
 end
 
 module RSpec::Rails
@@ -122,7 +123,7 @@ module RSpec::Rails
       metadata[:type] = :controller
 
       before do
-        @routes = ::Rails.application.routes
+        @routes = RSpec.configuration.application.routes
         ActionController::Base.allow_forgery_protection = false
       end
     end
