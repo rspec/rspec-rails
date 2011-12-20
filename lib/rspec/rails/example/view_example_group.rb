@@ -10,7 +10,7 @@ module RSpec::Rails
 
     module ClassMethods
       def _default_helper
-        base = metadata[:example_group][:description].split('/').first
+        base = metadata[:example_group][:description].split('/')[0..-2].join('/')
         (base.camelize + 'Helper').constantize if base
       rescue NameError
         nil
@@ -129,10 +129,8 @@ module RSpec::Rails
         if view.lookup_context.respond_to?(:prefixes)
           # rails 3.1
           view.lookup_context.prefixes << _controller_path
-        else
-          # rails 3.0
-          controller.controller_path = _controller_path
         end
+        controller.controller_path = _controller_path
         controller.request.path_parameters["controller"] = _controller_path
         controller.request.path_parameters["action"]     = _inferred_action unless _inferred_action =~ /^_/
       end
