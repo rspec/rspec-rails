@@ -150,6 +150,7 @@ EOM
         # Stubs `persisted` to return false and `id` to return nil
         def as_new_record
           self.stub(:persisted?)  { false }
+          self.stub(:new_record?) { true }
           self.stub(:id)          { nil }
           self
         end
@@ -217,6 +218,7 @@ EOM
           else
             stubs = stubs.reverse_merge(:id => next_id)
             stubs = stubs.reverse_merge(:persisted? => !!stubs[:id])
+            stubs = stubs.reverse_merge(:new_record? => !stubs[:persisted?])
           end
           stubs = stubs.reverse_merge(:blank? => false)
           stubs.each do |k,v|
