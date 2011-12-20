@@ -150,3 +150,181 @@ Feature: anonymous controller
       """
     When I run `rspec spec`
     Then the examples should all pass
+
+  Scenario: anonymous controllers only create resource routes
+    Given a file named "spec/controllers/application_controller_spec.rb" with:
+    """
+    require "spec_helper"
+
+    describe ApplicationController do
+      controller do
+        def index
+          render :text => "index called"
+        end
+
+        def create
+          render :text => "create called"
+        end
+
+        def new
+          render :text => "new called"
+        end
+
+        def show
+          render :text => "show called"
+        end
+
+        def edit
+          render :text => "edit called"
+        end
+
+        def update
+          render :text => "update called"
+        end
+
+        def destroy
+          render :text => "destroy called"
+        end
+
+        def willerror
+          render :text => "will not render"
+        end
+      end
+
+      describe "#index" do
+        it "responds to GET" do
+          get :index
+          response.body.should == "index called"
+        end
+
+        it "also responds to POST" do
+          post :index
+          response.body.should == "index called"
+        end
+
+        it "also responds to PUT" do
+          put :index
+          response.body.should == "index called"
+        end
+
+        it "also responds to DELETE" do
+          delete :index
+          response.body.should == "index called"
+        end
+      end
+
+      describe "#create" do
+        it "responds to POST" do
+          post :create
+          response.body.should == "create called"
+        end
+
+        # And the rest...
+        %w{get post put delete}.each do |calltype|
+          it "responds to #{calltype}" do
+            send(calltype.intern, :create)
+            response.body.should == "create called"
+          end
+        end
+      end
+
+      describe "#new" do
+        it "responds to GET" do
+          get :new
+          response.body.should == "new called"
+        end
+
+        # And the rest...
+        %w{get post put delete}.each do |calltype|
+          it "responds to #{calltype}" do
+            send(calltype.intern, :new)
+            response.body.should == "new called"
+          end
+        end
+      end
+
+      describe "#edit" do
+        it "responds to GET" do
+          get :edit, :id => "anyid"
+          response.body.should == "edit called"
+        end
+
+        it "requires the :id parameter" do
+          expect { get :edit }.to raise_error(ActionController::RoutingError)
+        end
+
+        # And the rest...
+        %w{get post put delete}.each do |calltype|
+          it "responds to #{calltype}" do
+            send(calltype.intern, :edit, {:id => "anyid"})
+            response.body.should == "edit called"
+          end
+        end
+      end
+
+      describe "#show" do
+        it "responds to GET" do
+          get :show, :id => "anyid"
+          response.body.should == "show called"
+        end
+
+        it "requires the :id parameter" do
+          expect { get :show }.to raise_error(ActionController::RoutingError)
+        end
+
+        # And the rest...
+        %w{get post put delete}.each do |calltype|
+          it "responds to #{calltype}" do
+            send(calltype.intern, :show, {:id => "anyid"})
+            response.body.should == "show called"
+          end
+        end
+      end
+
+      describe "#update" do
+        it "responds to PUT" do
+          put :update, :id => "anyid"
+          response.body.should == "update called"
+        end
+
+        it "requires the :id parameter" do
+          expect { put :update }.to raise_error(ActionController::RoutingError)
+        end
+
+        # And the rest...
+        %w{get post put delete}.each do |calltype|
+          it "responds to #{calltype}" do
+            send(calltype.intern, :update, {:id => "anyid"})
+            response.body.should == "update called"
+          end
+        end
+      end
+
+      describe "#destroy" do
+        it "responds to DELETE" do
+          delete :destroy, :id => "anyid"
+          response.body.should == "destroy called"
+        end
+
+        it "requires the :id parameter" do
+          expect { delete :destroy }.to raise_error(ActionController::RoutingError)
+        end
+
+        # And the rest...
+        %w{get post put delete}.each do |calltype|
+          it "responds to #{calltype}" do
+            send(calltype.intern, :destroy, {:id => "anyid"})
+            response.body.should == "destroy called"
+          end
+        end
+      end
+
+      describe "#willerror" do
+        it "cannot be called" do
+          expect { get :willerror }.to raise_error(ActionController::RoutingError)
+        end
+      end
+    end
+    """
+    When I run `rspec spec`
+    Then the examples should all pass
