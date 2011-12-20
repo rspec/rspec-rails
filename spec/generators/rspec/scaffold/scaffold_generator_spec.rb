@@ -35,7 +35,7 @@ describe Rspec::Generators::ScaffoldGenerator do
         subject { file("spec/views/posts/edit.html.erb_spec.rb") }
         it { should exist }
         it { should contain /require 'spec_helper'/ }
-        it { should contain /describe "(.*)\/edit.html.erb"/ }
+        it { should contain /describe "(.*)\/edit"/ }
         it { should contain /it "renders the edit (.*) form"/ }
       end
 
@@ -43,7 +43,7 @@ describe Rspec::Generators::ScaffoldGenerator do
         subject { file("spec/views/posts/index.html.erb_spec.rb") }
         it { should exist }
         it { should contain /require 'spec_helper'/ }
-        it { should contain /describe "(.*)\/index.html.erb"/ }
+        it { should contain /describe "(.*)\/index"/ }
         it { should contain /it "renders a list of (.*)"/ }
       end
 
@@ -51,7 +51,7 @@ describe Rspec::Generators::ScaffoldGenerator do
         subject { file("spec/views/posts/new.html.erb_spec.rb") }
         it { should exist }
         it { should contain /require 'spec_helper'/ }
-        it { should contain /describe "(.*)\/new.html.erb"/ }
+        it { should contain /describe "(.*)\/new"/ }
         it { should contain /it "renders new (.*) form"/ }
       end
 
@@ -59,7 +59,7 @@ describe Rspec::Generators::ScaffoldGenerator do
         subject { file("spec/views/posts/show.html.erb_spec.rb") }
         it { should exist }
         it { should contain /require 'spec_helper'/ }
-        it { should contain /describe "(.*)\/show.html.erb"/ }
+        it { should contain /describe "(.*)\/show"/ }
         it { should contain /it "renders attributes in <p>"/ }
       end
     end

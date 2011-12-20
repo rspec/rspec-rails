@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 <% output_attributes = attributes.reject{|attribute| [:datetime, :timestamp, :time, :date].index(attribute.type) } -%>
-describe "<%= ns_table_name %>/new.html.<%= options[:template_engine] %>" do
+describe "<%= ns_table_name %>/new" do
   before(:each) do
     assign(:<%= ns_file_name %>, stub_model(<%= class_name %><%= output_attributes.empty? ? ').as_new_record)' : ',' %>
 <% output_attributes.each_with_index do |attribute, attribute_index| -%>
