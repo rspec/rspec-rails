@@ -222,7 +222,7 @@ Feature: anonymous controller
         # And the rest...
         %w{get post put delete}.each do |calltype|
           it "responds to #{calltype}" do
-            send(calltype.intern, :create)
+            send(calltype, :create)
             response.body.should == "create called"
           end
         end
@@ -237,7 +237,7 @@ Feature: anonymous controller
         # And the rest...
         %w{get post put delete}.each do |calltype|
           it "responds to #{calltype}" do
-            send(calltype.intern, :new)
+            send(calltype, :new)
             response.body.should == "new called"
           end
         end
@@ -256,7 +256,7 @@ Feature: anonymous controller
         # And the rest...
         %w{get post put delete}.each do |calltype|
           it "responds to #{calltype}" do
-            send(calltype.intern, :edit, {:id => "anyid"})
+            send(calltype, :edit, {:id => "anyid"})
             response.body.should == "edit called"
           end
         end
@@ -275,7 +275,7 @@ Feature: anonymous controller
         # And the rest...
         %w{get post put delete}.each do |calltype|
           it "responds to #{calltype}" do
-            send(calltype.intern, :show, {:id => "anyid"})
+            send(calltype, :show, {:id => "anyid"})
             response.body.should == "show called"
           end
         end
@@ -294,7 +294,7 @@ Feature: anonymous controller
         # And the rest...
         %w{get post put delete}.each do |calltype|
           it "responds to #{calltype}" do
-            send(calltype.intern, :update, {:id => "anyid"})
+            send(calltype, :update, {:id => "anyid"})
             response.body.should == "update called"
           end
         end
@@ -313,7 +313,7 @@ Feature: anonymous controller
         # And the rest...
         %w{get post put delete}.each do |calltype|
           it "responds to #{calltype}" do
-            send(calltype.intern, :destroy, {:id => "anyid"})
+            send(calltype, :destroy, {:id => "anyid"})
             response.body.should == "destroy called"
           end
         end

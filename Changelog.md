@@ -5,6 +5,8 @@
 * Enhancements
     * Eliminate deprecation warnings in generated view specs in Rails 3.2
     * Ensure namespaced helpers are included automatically (Evgeniy Dolzhenko)
+    * Added cuke scenario documenting which routes are generated for anonymous
+      controllers (Alan Shields)
 
 ### 2.8.0.rc2 / 2011-12-19
 
