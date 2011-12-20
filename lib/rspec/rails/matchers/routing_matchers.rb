@@ -15,9 +15,14 @@ module RSpec::Rails::Matchers
           @expected_options.merge!(:controller => controller, :action => action)
         end
       end
+      
+      def description
+        "route #{@verb_to_path_map} to #{@expected_options}"
+      end
 
       # @api private
       def matches?(verb_to_path_map)
+        @verb_to_path_map = verb_to_path_map
         match_unless_raises ActiveSupport::TestCase::Assertion do
           path, query = *verb_to_path_map.values.first.split('?')
           @scope.assert_recognizes(
