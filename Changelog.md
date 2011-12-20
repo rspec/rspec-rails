@@ -1,10 +1,17 @@
+### dev
+
+[full changelog](http://github.com/rspec/rspec-mocks/compare/v2.8.0.rc2...master)
+
+* Enhancements
+    * Eliminate deprecation warnings in generated view specs in Rails 3.2
+
 ### 2.8.0.rc2 / 2011-12-19
 
 [full changelog](http://github.com/rspec/rspec-mocks/compare/v2.8.0.rc1...v2.8.0.rc2)
 
 * Enhancements
     * Add session hash to generated controller specs (Thiago Almeida)
-    * Eliminate new deprecation warnings in rails 3.2
+    * Eliminate deprecation warnings about InstanceMethods modules in Rails 3.2
 
 * Bug fixes
     * Stub attribute accessor after `respond_to?` call on mocked model (Igor
@@ -20,7 +27,7 @@
 
 * Changes
     * No API changes for rspec-rails in this release, but some internals
-      changed to align with rspec-core-2.8.
+      changed to align with rspec-core-2.8
 
 * [rspec-core](https://github.com/rspec/rspec-core/blob/master/Changelog.md)
 * [rspec-expectations](https://github.com/rspec/rspec-expectations/blob/master/Changelog.md)
