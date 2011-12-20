@@ -51,11 +51,9 @@ module RSpec
         end
       end
 
-      module InstanceMethods
-        # @api private
-        def render_views?
-          self.class.render_views? || !controller.class.respond_to?(:view_paths)
-        end
+      # @api private
+      def render_views?
+        self.class.render_views? || !controller.class.respond_to?(:view_paths)
       end
 
       # Delegates find_all to the submitted path set and then returns templates

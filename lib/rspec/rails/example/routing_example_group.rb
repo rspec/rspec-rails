@@ -8,22 +8,20 @@ module RSpec::Rails
     include RSpec::Rails::Matchers::RoutingMatchers
     include RSpec::Rails::Matchers::RoutingMatchers::RouteHelpers
 
-    module InstanceMethods
-      attr_reader :routes
-
-      private
-
-      def method_missing(m, *args, &block)
-        routes.url_helpers.respond_to?(m) ? routes.url_helpers.send(m, *args) : super
-      end
-    end
-
     included do
       metadata[:type] = :routing
 
       before do
         @routes = ::Rails.application.routes
       end
+    end
+
+    attr_reader :routes
+
+    private
+
+    def method_missing(m, *args, &block)
+      routes.url_helpers.respond_to?(m) ? routes.url_helpers.send(m, *args) : super
     end
   end
 end

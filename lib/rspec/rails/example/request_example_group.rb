@@ -4,16 +4,13 @@ module RSpec::Rails
     include RSpec::Rails::RailsExampleGroup
     include ActionDispatch::Integration::Runner
     include ActionDispatch::Assertions
-
-    module InstanceMethods
-      def app
-        ::Rails.application
-      end
-    end
-
     include RSpec::Rails::Matchers::RedirectTo
     include RSpec::Rails::Matchers::RenderTemplate
     include ActionController::TemplateAssertions
+
+    def app
+      ::Rails.application
+    end
 
     included do
       metadata[:type] = :request

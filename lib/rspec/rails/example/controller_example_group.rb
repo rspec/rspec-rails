@@ -74,45 +74,43 @@ module RSpec::Rails
       end
     end
 
-    module InstanceMethods
-      attr_reader :controller, :routes
+    attr_reader :controller, :routes
 
-      module BypassRescue
-        def rescue_with_handler(exception)
-          raise exception
-        end
+    module BypassRescue
+      def rescue_with_handler(exception)
+        raise exception
       end
+    end
 
-      # Extends the controller with a module that overrides
-      # `rescue_with_handler` to raise the exception passed to it.  Use this to
-      # specify that an action _should_ raise an exception given appropriate
-      # conditions.
-      #
-      # @example
-      #
-      #     describe ProfilesController do
-      #       it "raises a 403 when a non-admin user tries to view another user's profile" do
-      #         profile = create_profile
-      #         login_as profile.user
-      #
-      #         expect do
-      #           bypass_rescue
-      #           get :show, :id => profile.id + 1
-      #         end.to raise_error(/403 Forbidden/)
-      #       end
-      #     end
-      def bypass_rescue
-        controller.extend(BypassRescue)
-      end
+    # Extends the controller with a module that overrides
+    # `rescue_with_handler` to raise the exception passed to it.  Use this to
+    # specify that an action _should_ raise an exception given appropriate
+    # conditions.
+    #
+    # @example
+    #
+    #     describe ProfilesController do
+    #       it "raises a 403 when a non-admin user tries to view another user's profile" do
+    #         profile = create_profile
+    #         login_as profile.user
+    #
+    #         expect do
+    #           bypass_rescue
+    #           get :show, :id => profile.id + 1
+    #         end.to raise_error(/403 Forbidden/)
+    #       end
+    #     end
+    def bypass_rescue
+      controller.extend(BypassRescue)
+    end
 
-      # If method is a named_route, delegates to the RouteSet associated with
-      # this controller.
-      def method_missing(method, *args, &block)
-        if @orig_routes && @orig_routes.named_routes.helpers.include?(method)
-          controller.send(method, *args, &block)
-        else
-          super
-        end
+    # If method is a named_route, delegates to the RouteSet associated with
+    # this controller.
+    def method_missing(method, *args, &block)
+      if @orig_routes && @orig_routes.named_routes.helpers.include?(method)
+        controller.send(method, *args, &block)
+      else
+        super
       end
     end
 

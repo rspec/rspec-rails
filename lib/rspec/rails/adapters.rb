@@ -24,11 +24,9 @@ module RSpec
         end
       end
 
-      module InstanceMethods
-        # @api private
-        def method_name
-          @example
-        end
+      # @api private
+      def method_name
+        @example
       end
     end
 
@@ -58,15 +56,13 @@ module RSpec
         end
       end
 
-      module InstanceMethods
-        class AssertionDelegator
-          include Test::Unit::Assertions
-        end
+      class AssertionDelegator
+        include Test::Unit::Assertions
+      end
 
-        # @api private
-        def assertion_delegator
-          @assertion_delegator ||= AssertionDelegator.new
-        end
+      # @api private
+      def assertion_delegator
+        @assertion_delegator ||= AssertionDelegator.new
       end
 
       included do

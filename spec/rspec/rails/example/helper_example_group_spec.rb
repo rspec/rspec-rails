@@ -1,7 +1,7 @@
 require "spec_helper"
 
 module RSpec::Rails
-  describe HelperExampleGroup::InstanceMethods do
+  describe HelperExampleGroup do
     module ::FoosHelper; end
     subject { HelperExampleGroup }
 
@@ -9,7 +9,7 @@ module RSpec::Rails
     it { should be_included_in_files_in('.\\spec\\helpers\\') }
 
     it "provides a controller_path based on the helper module's name" do
-      helper_spec = Object.new.extend HelperExampleGroup::InstanceMethods
+      helper_spec = Object.new.extend HelperExampleGroup
       helper_spec.stub_chain(:example, :example_group, :described_class).and_return(FoosHelper)
       helper_spec.__send__(:_controller_path).should == "foos"
     end
@@ -23,7 +23,7 @@ module RSpec::Rails
 
     describe "#helper" do
       it "returns the instance of AV::Base provided by AV::TC::Behavior" do
-        helper_spec = Object.new.extend HelperExampleGroup::InstanceMethods
+        helper_spec = Object.new.extend HelperExampleGroup
         helper_spec.should_receive(:view_assigns)
         av_tc_b_view = double('_view')
         av_tc_b_view.should_receive(:assign)

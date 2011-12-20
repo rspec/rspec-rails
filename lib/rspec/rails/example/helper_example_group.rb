@@ -14,21 +14,19 @@ module RSpec::Rails
       end
     end
 
-    module InstanceMethods
-      # Returns an instance of ActionView::Base with the helper being specified
-      # mixed in, along with any of the built-in rails helpers.
-      def helper
-        _view.tap do |v|
-          v.extend(ApplicationHelper) if defined?(ApplicationHelper)
-          v.assign(view_assigns)
-        end
+    # Returns an instance of ActionView::Base with the helper being specified
+    # mixed in, along with any of the built-in rails helpers.
+    def helper
+      _view.tap do |v|
+        v.extend(ApplicationHelper) if defined?(ApplicationHelper)
+        v.assign(view_assigns)
       end
+    end
 
     private
 
-      def _controller_path
-        example.example_group.described_class.to_s.sub(/Helper/,'').underscore
-      end
+    def _controller_path
+      example.example_group.described_class.to_s.sub(/Helper/,'').underscore
     end
 
     included do

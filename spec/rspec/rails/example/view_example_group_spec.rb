@@ -94,7 +94,7 @@ module RSpec::Rails
             end
           end
           include Local
-          include ViewExampleGroup::InstanceMethods
+          include ViewExampleGroup::ExampleMethods
         end.new
       end
 
@@ -124,7 +124,7 @@ module RSpec::Rails
     describe '#params' do
       let(:view_spec) do
         Class.new do
-          include ViewExampleGroup::InstanceMethods
+          include ViewExampleGroup::ExampleMethods
           def controller
             @controller ||= Object.new
           end
@@ -140,7 +140,7 @@ module RSpec::Rails
     describe "#_controller_path" do
       let(:view_spec) do
         Class.new do
-          include ViewExampleGroup::InstanceMethods
+          include ViewExampleGroup::ExampleMethods
         end.new
       end
       context "with a common _default_file_to_render" do
@@ -165,7 +165,7 @@ module RSpec::Rails
     describe "#view" do
       let(:view_spec) do
         Class.new do
-          include ViewExampleGroup::InstanceMethods
+          include ViewExampleGroup::ExampleMethods
         end.new
       end
 
@@ -179,7 +179,7 @@ module RSpec::Rails
     describe "#template" do
       let(:view_spec) do
         Class.new do
-          include ViewExampleGroup::InstanceMethods
+          include ViewExampleGroup::ExampleMethods
           def _view; end
         end.new
       end

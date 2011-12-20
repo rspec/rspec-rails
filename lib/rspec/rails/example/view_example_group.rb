@@ -23,7 +23,7 @@ module RSpec::Rails
       end
     end
 
-    module InstanceMethods
+    module ExampleMethods
       # @overload render
       # @overload render({:partial => path_to_file})
       # @overload render({:partial => path_to_file}, {... locals ...})
@@ -119,6 +119,8 @@ module RSpec::Rails
     end
 
     included do
+      include ExampleMethods
+
       metadata[:type] = :view
       helper *_default_helpers
 
