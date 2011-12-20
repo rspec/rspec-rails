@@ -27,6 +27,22 @@ describe "stub_model" do
         end
       end
     end
+    
+    describe "#new_record?" do
+      context "default" do
+        it "returns false" do
+          model = stub_model(model_class)
+          model.should_not be_a_new_record
+        end
+      end
+
+      context "with as_new_record" do
+        it "returns false" do
+          model = stub_model(model_class).as_new_record
+          model.should be_a_new_record
+        end
+      end
+    end
 
     it "increments the value returned by to_param" do
       first = stub_model(model_class)
