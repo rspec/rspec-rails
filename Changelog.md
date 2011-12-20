@@ -1,9 +1,10 @@
-### dev
+### 2.8.0.rc2 / 2011-12-19
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.8.0.rc1...master)
+[full changelog](http://github.com/rspec/rspec-mocks/compare/v2.8.0.rc1...v2.8.0.rc2)
 
 * Enhancements
     * Add session hash to generated controller specs (Thiago Almeida)
+    * Eliminate new deprecation warnings in rails 3.2
 
 * Bug fixes
     * Stub attribute accessor after `respond_to?` call on mocked model (Igor
