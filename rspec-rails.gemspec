@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = "rspec-users@rubyforge.org"
   s.homepage    = "http://github.com/rspec/rspec-rails"
   s.summary     = "rspec-rails-#{RSpec::Rails::Version::STRING}"
-  s.description = "RSpec-2 for Rails-3"
+  s.description = "RSpec for Rails"
 
   s.rubyforge_project  = "rspec"
 
@@ -22,9 +22,9 @@ Gem::Specification.new do |s|
   s.rdoc_options     = ["--charset=UTF-8"]
   s.require_path     = "lib"
 
-  s.add_runtime_dependency(%q<activesupport>, ["~> 3.0"])
-  s.add_runtime_dependency(%q<actionpack>, ["~> 3.0"])
-  s.add_runtime_dependency(%q<railties>, ["~> 3.0"])
+  s.add_runtime_dependency(%q<activesupport>, [">= 3.0"])
+  s.add_runtime_dependency(%q<actionpack>, [">= 3.0"])
+  s.add_runtime_dependency(%q<railties>, [">= 3.0"])
   if RSpec::Rails::Version::STRING =~ /[a-zA-Z]+/ # prerelease builds
     s.add_runtime_dependency "rspec", "= #{RSpec::Rails::Version::STRING}"
   else

@@ -8,6 +8,7 @@ env:
   - RAILS_VERSION=3.2.0.rc1
   - RAILS_VERSION=3.1.3
   - RAILS_VERSION=3.0.11
+  - RAILS_VERSION=3-2-stable
   - RAILS_VERSION=3-1-stable
   - RAILS_VERSION=3-0-stable
   - RAILS_VERSION=master

@@ -26,7 +26,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'ammeter', '~> 0.1'
+  gem 'ammeter', :git => "git://github.com/dchelimsky/ammeter.git", :branch => "rails-3-2-and-4-0"
 end
 
 eval File.read('Gemfile-custom') if File.exist?('Gemfile-custom')
@@ -39,8 +39,8 @@ when /master/
 when /3-0-stable/
   gem "rails", :git => "git://github.com/rails/rails.git", :branch => "3-0-stable"
   gem "arel",  :git => "git://github.com/rails/arel.git", :branch => "2-0-stable"
-when /3-1-stable/
-  gem "rails", :git => "git://github.com/rails/rails.git", :branch => "3-1-stable"
+when /(3-(1|2)-stable)/
+  gem "rails", :git => "git://github.com/rails/rails.git", :branch => $1
 else
   gem "rails", version
 end
