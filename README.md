@@ -100,21 +100,59 @@ See http://github.com/rspec/rspec-rails/issues
 
 # Request Specs
 
-Request specs live in spec/requests.
+Request specs live in spec/requests, and mix in behavior
+[ActionDispatch::Integration::Runner](http://api.rubyonrails.org/classes/ActionDispatch/Integration/Runner.html),
+which is the basis for [Rails' integration
+tests](http://guides.rubyonrails.org/testing.html#integration-testing).  The
+intent is to specify one or more request/response cycles from end to end using
+a black box approach.
 
 ```ruby
-describe "widgets resource" do
-  describe "GET index" do
-    it "contains the widgets header" do
-      get "/widgets/index"
-      response.should have_selector("h1", :content => "Widgets")
+describe "home page" do
+  it "diplays the user's username after successful login" do
+    user = User.create!(:username => "jdoe", :password => "secret")
+    get "/login"
+    assert_select "form.login" do
+      assert_select "input[name=?]", "username"
+      assert_select "input[name=?]", "password"
+      assert_select "input[type=?]", "submit"
     end
+
+    post "/login", :username => "jdoe", :password => "secret"
+    assert_select ".header .username", :text => "jdoe"
   end
 end
 ```
 
-Request specs mix in behavior from Rails' integration tests. See the
-docs for ActionDispatch::Integration::Runner for more information.
+This example uses only standard Rails and RSpec API's, but many RSpec/Rails
+users like to use extension libraries like FactoryGirl and Capybara:
+
+```ruby
+describe "home page" do
+  it "diplays the user's username after successful login" do
+    user = Factory(:user, :username => "jdoe", :password => "secret")
+    visit "/login"
+    fill_in "Username", :with => "jdoe"
+    fill_in "Password", :with => "secret"
+    click_buton "Log in"
+
+    page.should have_selector(".header .username", :content => "jdoe")
+  end
+end
+```
+
+FactoryGirl decouples this example from changes to validation requirements,
+which can be encoded into the underlying factory definition without requiring
+changes to this example.
+
+Among other benefits, Capybara binds the form post to the generated HTML, which
+means we don't need to specify them separately.
+
+There are several other Ruby libs that implement the factory pattern or provide
+a DSL for request specs (a.k.a. acceptance or integration specs), but
+FactoryGirl and Capybara seem to be the most widely used. Whether you choose
+these or other libs, we strongly recommend using something for each of these
+roles.
 
 # Controller Specs
 
