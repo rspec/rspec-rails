@@ -1,3 +1,16 @@
+### 2.8.1 / 2012-01-04
+
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.8.0...v2.8.1)
+
+NOTE: there was a change in rails-3.2.0.rc2 which broke compatibility with
+stub_model in rspec-rails. This release fixes that issue, but it means that
+you'll have to upgrade to rspec-rails-2.8.1 when you upgrade to rails >=
+3.2.0.rc2.
+
+* Bug fixes
+    * Explicitly stub valid? in stub_model. Fixes stub_model for rails versions
+      >= 3.2.0.rc2.
+
 ### 2.8.0 / 2012-01-04
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.8.0.rc2...v2.8.0)
