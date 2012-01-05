@@ -93,6 +93,7 @@ EOM
         stubs = stubs.reverse_merge(:persisted? => !!stubs[:id],
                                     :destroyed? => false,
                                     :marked_for_destruction? => false,
+                                    :valid? => true,
                                     :blank? => false)
 
         mock("#{model_class.name}_#{stubs[:id]}", stubs).tap do |m|
