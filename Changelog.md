@@ -1,6 +1,6 @@
-### dev
+### 2.8.0 / 2012-01-04
 
-[full changelog](http://github.com/rspec/rspec-mocks/compare/v2.8.0.rc2...master)
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.8.0.rc2...v2.8.0)
 
 * Enhancements
     * Eliminate deprecation warnings in generated view specs in Rails 3.2
