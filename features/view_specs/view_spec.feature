@@ -158,3 +158,17 @@ Feature: view spec
       """
     When I run `rspec spec/views/secrets`
     Then the examples should all pass
+
+  Scenario: request.path_parameters should match Rails by using symbols for keys
+    Given a file named "spec/views/widgets/index.html.erb_spec.rb" with:
+      """
+      require "spec_helper"
+
+      describe "controller.request.path_parameters" do
+        it "matches the Rails environment by using symbols for keys" do
+          [:controller, :action].each { |k| controller.request.path_parameters.keys.should include(k) }
+        end
+      end
+      """
+    When I run `rspec spec/views`
+    Then the examples should all pass
