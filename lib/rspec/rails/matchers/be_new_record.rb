@@ -1,6 +1,6 @@
 module RSpec::Rails::Matchers
   class BeANewRecord
-    include RSpec::Matchers::BaseMatcher
+    include RSpec::Matchers::BuiltIn::BaseMatcher
 
     # @api private
     def matches?(actual)

@@ -1,5 +1,5 @@
 require 'active_support/core_ext/module/aliasing'
-require 'rspec/matchers/have'
+require 'rspec/matchers/built_in/have'
 
 module RSpec::Rails::Matchers
   module HaveExtensions
@@ -30,6 +30,6 @@ module RSpec::Rails::Matchers
   end
 end
 
-RSpec::Matchers::Have.class_eval do
+RSpec::Matchers::BuiltIn::Have.class_eval do
   include RSpec::Rails::Matchers::HaveExtensions
 end

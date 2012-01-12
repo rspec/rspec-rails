@@ -3,7 +3,7 @@ module RSpec::Rails::Matchers
     extend RSpec::Matchers::DSL
 
     class RouteToMatcher
-      include RSpec::Matchers::BaseMatcher
+      include RSpec::Matchers::BuiltIn::BaseMatcher
 
       def initialize(scope, *expected)
         @scope = scope
@@ -52,7 +52,7 @@ module RSpec::Rails::Matchers
     end
 
     class BeRoutableMatcher
-      include RSpec::Matchers::BaseMatcher
+      include RSpec::Matchers::BuiltIn::BaseMatcher
 
       def initialize(scope)
         @scope = scope
