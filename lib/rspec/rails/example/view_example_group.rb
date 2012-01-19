@@ -122,7 +122,7 @@ module RSpec::Rails
       include ExampleMethods
 
       metadata[:type] = :view
-      helper *_default_helpers
+      helper(*_default_helpers)
 
       before do
         _include_controller_helpers

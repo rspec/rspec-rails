@@ -17,6 +17,9 @@ class RSpec::Core::ExampleGroup
 end
 
 RSpec.configure do |config|
+  config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.filter_run :focus
+  config.run_all_when_everything_filtered = true
   config.before(:each) do
     @real_world = RSpec.world
     RSpec.instance_variable_set(:@world, RSpec::Core::World.new)

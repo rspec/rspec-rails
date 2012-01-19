@@ -23,11 +23,11 @@ RSpec.configure do |c|
     c.include RequestInstanceMethods, :type => :request
 
     c.before :type => :controller do
-      Webrat.configure {|c| c.mode = :rails}
+      Webrat.configure {|w| w.mode = :rails}
     end
 
     c.before :type => :request do
-      Webrat.configure {|c| c.mode = :rack}
+      Webrat.configure {|w| w.mode = :rack}
     end
   end
 end

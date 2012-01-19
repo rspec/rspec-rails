@@ -26,14 +26,14 @@ describe Rspec::Generators::ModelGenerator do
         subject { file('spec/models/posts_spec.rb') }
 
         it { should exist }
-        it { should contain /require 'spec_helper'/ }
-        it { should contain /describe Posts/ }
+        it { should contain(/require 'spec_helper'/) }
+        it { should contain(/describe Posts/) }
       end
 
       describe 'the fixtures' do
         subject { file('spec/fixtures/posts.yml') }
 
-        it { should contain Regexp.new '# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html' }
+        it { should contain(Regexp.new('# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html')) }
       end
     end
 

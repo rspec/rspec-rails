@@ -80,7 +80,7 @@ describe "mock_model(RealModel)" do
   describe "with params" do
     it "does not mutate its parameters" do
       params = {:a => 'b'}
-      model = mock_model(MockableModel, params)
+      mock_model(MockableModel, params)
       params.should == {:a => 'b'}
     end
   end

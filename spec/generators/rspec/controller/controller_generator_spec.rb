@@ -18,8 +18,8 @@ describe Rspec::Generators::ControllerGenerator do
 
       describe 'the spec' do
         it { should exist }
-        it { should contain /require 'spec_helper'/ }
-        it { should contain /describe PostsController/ }
+        it { should contain(/require 'spec_helper'/) }
+        it { should contain(/describe PostsController/) }
       end
     end
     describe 'skipped with a flag' do
@@ -60,14 +60,14 @@ describe Rspec::Generators::ControllerGenerator do
         describe 'index.html.erb' do
           subject { file('spec/views/posts/index.html.erb_spec.rb') }
           it { should exist }
-          it { should contain /require 'spec_helper'/ }
-          it { should contain /describe "posts\/index.html.erb"/ }
+          it { should contain(/require 'spec_helper'/) }
+          it { should contain(/describe "posts\/index.html.erb"/) }
         end
         describe 'show.html.erb' do
           subject { file('spec/views/posts/show.html.erb_spec.rb') }
           it { should exist }
-          it { should contain /require 'spec_helper'/ }
-          it { should contain /describe "posts\/show.html.erb"/ }
+          it { should contain(/require 'spec_helper'/) }
+          it { should contain(/describe "posts\/show.html.erb"/) }
         end
       end
       describe 'with haml' do
@@ -77,8 +77,8 @@ describe Rspec::Generators::ControllerGenerator do
         describe 'index.html.haml' do
           subject { file('spec/views/posts/index.html.haml_spec.rb') }
           it { should exist }
-          it { should contain /require 'spec_helper'/ }
-          it { should contain /describe "posts\/index.html.haml"/ }
+          it { should contain(/require 'spec_helper'/) }
+          it { should contain(/describe "posts\/index.html.haml"/) }
         end
       end
     end

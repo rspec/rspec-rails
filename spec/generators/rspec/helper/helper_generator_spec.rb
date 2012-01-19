@@ -17,8 +17,8 @@ describe Rspec::Generators::HelperGenerator do
 
     describe 'the spec' do
       it { should exist }
-      it { should contain /require 'spec_helper'/ }
-      it { should contain /describe PostsHelper/ }
+      it { should contain(/require 'spec_helper'/) }
+      it { should contain(/describe PostsHelper/) }
     end
   end
   describe 'skipped with a flag' do

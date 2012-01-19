@@ -10,7 +10,7 @@ describe "ActiveSupport::Relation =~ matcher" do
   end
 
   it "fails if the scope encompasses more records than on the right hand side" do
-    another_model = MockableModel.create
+    MockableModel.create
     MockableModel.scoped.should_not =~ models.reverse
   end
 

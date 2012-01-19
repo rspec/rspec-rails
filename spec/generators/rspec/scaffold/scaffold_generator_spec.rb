@@ -12,8 +12,8 @@ describe Rspec::Generators::ScaffoldGenerator do
 
     describe 'with no options' do
       before { run_generator %w(posts) }
-      it { should contain /require 'spec_helper'/ }
-      it { should contain /describe PostsController/ }
+      it { should contain(/require 'spec_helper'/) }
+      it { should contain(/describe PostsController/) }
     end
 
     describe 'with --no-controller_specs' do
@@ -25,7 +25,7 @@ describe Rspec::Generators::ScaffoldGenerator do
   describe 'namespaced controller spec' do
     subject { file('spec/controllers/admin/posts_controller_spec.rb') }
     before  { run_generator %w(admin/posts) }
-    it { should contain /describe Admin::PostsController/ }
+    it { should contain(/describe Admin::PostsController/)}
   end
 
   describe 'view specs' do
@@ -34,33 +34,33 @@ describe Rspec::Generators::ScaffoldGenerator do
       describe 'edit' do
         subject { file("spec/views/posts/edit.html.erb_spec.rb") }
         it { should exist }
-        it { should contain /require 'spec_helper'/ }
-        it { should contain /describe "(.*)\/edit"/ }
-        it { should contain /it "renders the edit (.*) form"/ }
+        it { should contain(/require 'spec_helper'/) }
+        it { should contain(/describe "(.*)\/edit"/) }
+        it { should contain(/it "renders the edit (.*) form"/) }
       end
 
       describe 'index' do
         subject { file("spec/views/posts/index.html.erb_spec.rb") }
         it { should exist }
-        it { should contain /require 'spec_helper'/ }
-        it { should contain /describe "(.*)\/index"/ }
-        it { should contain /it "renders a list of (.*)"/ }
+        it { should contain(/require 'spec_helper'/) }
+        it { should contain(/describe "(.*)\/index"/) }
+        it { should contain(/it "renders a list of (.*)"/) }
       end
 
       describe 'new' do
         subject { file("spec/views/posts/new.html.erb_spec.rb") }
         it { should exist }
-        it { should contain /require 'spec_helper'/ }
-        it { should contain /describe "(.*)\/new"/ }
-        it { should contain /it "renders new (.*) form"/ }
+        it { should contain(/require 'spec_helper'/) }
+        it { should contain(/describe "(.*)\/new"/) }
+        it { should contain(/it "renders new (.*) form"/) }
       end
 
       describe 'show' do
         subject { file("spec/views/posts/show.html.erb_spec.rb") }
         it { should exist }
-        it { should contain /require 'spec_helper'/ }
-        it { should contain /describe "(.*)\/show"/ }
-        it { should contain /it "renders attributes in <p>"/ }
+        it { should contain(/require 'spec_helper'/) }
+        it { should contain(/describe "(.*)\/show"/) }
+        it { should contain(/it "renders attributes in <p>"/) }
       end
     end
 
@@ -94,9 +94,9 @@ describe Rspec::Generators::ScaffoldGenerator do
 
     describe 'with default options' do
       before { run_generator %w(posts) }
-      it { should contain /require "spec_helper"/ }
-      it { should contain /describe PostsController/ }
-      it { should contain /describe "routing"/ }
+      it { should contain(/require "spec_helper"/) }
+      it { should contain(/describe PostsController/) }
+      it { should contain(/describe "routing"/) }
     end
 
     describe 'with --no-routing-specs' do
