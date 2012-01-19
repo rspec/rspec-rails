@@ -26,7 +26,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'ammeter', :git => "git://github.com/dchelimsky/ammeter.git", :branch => "rails-3-2-and-4-0"
+  gem 'ammeter', :git => "https://github.com/alexrothenberg/ammeter.git"
 end
 
 eval File.read('Gemfile-custom') if File.exist?('Gemfile-custom')
