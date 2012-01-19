@@ -1,7 +1,7 @@
 module RSpec::Rails::Matchers
   module RedirectTo
     class RedirectTo
-      include RSpec::Matchers::BaseMatcher
+      include RSpec::Matchers::BuiltIn::BaseMatcher
 
       def initialize(scope, expected)
         super(expected)
