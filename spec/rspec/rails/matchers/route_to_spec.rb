@@ -4,6 +4,12 @@ describe "route_to" do
   include RSpec::Rails::Matchers::RoutingMatchers
   include RSpec::Rails::Matchers::RoutingMatchers::RouteHelpers
 
+  it "provides a description" do
+    matcher = route_to 'these' => 'options'
+    matcher.instance_variable_set(:@verb_to_path_map, { :get => 'path' })
+    matcher.description.should == "route {:get=>\"path\"} to {\"these\"=>\"options\"}"
+  end
+
   it "delegates to assert_recognizes" do
     self.should_receive(:assert_recognizes).with({ "these" => "options" }, { :method=> :get, :path=>"path" }, {})
     {:get => "path"}.should route_to("these" => "options")
