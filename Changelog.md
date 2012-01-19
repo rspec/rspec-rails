@@ -2,6 +2,9 @@
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.8.1...master)
 
+Enhancments
+* add description method to RouteToMatcher (John Wulff)
+
 Bug fixes
 * mock_model(XXX).as_null_object.unknown_method returns self again
 
