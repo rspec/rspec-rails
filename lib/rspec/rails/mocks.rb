@@ -132,7 +132,7 @@ EOM
             end unless #{stubs.has_key?(:respond_to?)}
             
             def @object.method_missing(m, *a, &b)
-              respond_to?(m) ? nil : super
+              respond_to?(m) ? null_object? ? self : nil : super
             end
 
             def @object.class

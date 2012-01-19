@@ -1,3 +1,10 @@
+### dev
+
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.8.1...master)
+
+Bug fixes
+* mock_model(XXX).as_null_object.unknown_method returns self again
+
 ### 2.8.1 / 2012-01-04
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.8.0...v2.8.1)

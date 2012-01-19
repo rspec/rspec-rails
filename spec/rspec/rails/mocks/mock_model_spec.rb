@@ -234,6 +234,11 @@ describe "mock_model(RealModel)" do
         it "says it will not respond_to?(xxx_before_type_cast)" do
           @model.as_null_object.respond_to?("title_before_type_cast").should be(false)
         end
+        it "returns self for any unprepared message" do
+          @model.as_null_object.tap do |x|
+            x.non_existant_message.should be(@model)
+          end
+        end
       end
     end
 
