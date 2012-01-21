@@ -134,7 +134,7 @@ describe "home page" do
     visit "/login"
     fill_in "Username", :with => "jdoe"
     fill_in "Password", :with => "secret"
-    click_buton "Log in"
+    click_button "Log in"
 
     page.should have_selector(".header .username", :text => "jdoe")
   end
