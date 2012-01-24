@@ -17,7 +17,7 @@ module RSpec::Rails::Matchers
       end
       
       def description
-        "route #{@verb_to_path_map} to #{@expected_options}"
+        "route #{@verb_to_path_map.inspect} to #{@expected_options.inspect}"
       end
 
       # @api private
