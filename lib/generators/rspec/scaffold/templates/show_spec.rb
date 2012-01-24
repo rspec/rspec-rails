@@ -16,10 +16,10 @@ describe "<%= ns_table_name %>/show" do
     render
 <% for attribute in output_attributes -%>
 <% if webrat? -%>
-    rendered.should contain(<%= value_for(attribute) %>.to_s)
+    # rendered.should contain(<%= value_for(attribute) %>.to_s)
 <% else -%>
     # Run the generator again with the --webrat flag if you want to use webrat matchers
-    rendered.should match(/<%= eval(value_for(attribute)) %>/)
+    # rendered.should match(/<%= eval(value_for(attribute)) %>/)
 <% end -%>
 <% end -%>
   end
