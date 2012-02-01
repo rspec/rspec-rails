@@ -5,7 +5,7 @@ Feature: view spec infers controller path and action
       """
       require "spec_helper"
 
-      describe "widgets/new.html.erb" do
+      describe "widgets/new" do
         it "infers the controller path" do
           controller.request.path_parameters["controller"].should eq("widgets")
         end
@@ -19,7 +19,7 @@ Feature: view spec infers controller path and action
       """
       require "spec_helper"
 
-      describe "widgets/new.html.erb" do
+      describe "widgets/new" do
         it "infers the controller path" do
           controller.request.path_parameters["action"].should eq("new")
         end
@@ -33,7 +33,7 @@ Feature: view spec infers controller path and action
       """
       require "spec_helper"
 
-      describe "widgets/_form.html.erb" do
+      describe "widgets/_form" do
         it "includes a link to new" do
           controller.request.path_parameters["action"].should be_nil
         end

@@ -8,7 +8,7 @@ Feature: stub template
       """
       require "spec_helper"
 
-      describe "gadgets/list.html.erb" do
+      describe "gadgets/list" do
         it "renders the gadget partial for each gadget" do
           assign(:gadgets, [
             mock_model(Gadget, :id => 1, :name => "First"),
@@ -34,7 +34,7 @@ Feature: stub template
       """
       require "spec_helper"
 
-      describe "gadgets/edit.html.erb" do
+      describe "gadgets/edit" do
         before(:each) do
           @gadget = assign(:gadget, stub_model(Gadget))
         end

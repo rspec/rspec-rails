@@ -260,7 +260,7 @@ assigns(:widgets).should eq(expected_value)
 View specs live in spec/views, and mix in ActionView::TestCase::Behavior.
 
 ```ruby
-describe "events/index.html.erb" do
+describe "events/index" do
   it "renders _event partial for each event" do
     assign(:events, [stub_model(Event), stub_model(Event)])
     render
@@ -268,7 +268,7 @@ describe "events/index.html.erb" do
   end
 end
 
-describe "events/show.html.erb" do
+describe "events/show" do
   it "displays the event location" do
     assign(:event, stub_model(Event,
       :location => "Chicago"

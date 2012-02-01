@@ -7,7 +7,7 @@ Feature: view spec
       """
       require "spec_helper"
 
-      describe "widgets/index.html.erb" do
+      describe "widgets/index" do
         it "displays all the widgets" do
           assign(:widgets, [
             stub_model(Widget, :name => "slicer"),
@@ -29,7 +29,7 @@ Feature: view spec
       """
       require "spec_helper"
 
-      describe "widgets/index.html.erb" do
+      describe "widgets/index" do
 
         context "with 2 widgets" do
           before(:each) do
@@ -145,7 +145,7 @@ Feature: view spec
       """
       require 'spec_helper'
 
-      describe 'secrets/index.html.erb' do
+      describe 'secrets/index' do
         before do
           view.stub(:admin?).and_return(true)
         end
