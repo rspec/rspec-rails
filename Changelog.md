@@ -7,6 +7,7 @@ Enhancments
 
 Bug fixes
 * mock_model(XXX).as_null_object.unknown_method returns self again
+* Generated view specs use different IDs for each attribute.
 
 ### 2.8.1 / 2012-01-04
 

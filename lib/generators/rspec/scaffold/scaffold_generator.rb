@@ -146,6 +146,9 @@ module Rspec
           case attribute.type
           when :string
             "#{attribute.name.titleize}".inspect
+          when :integer
+            @attribute_id_map ||= {}
+            @attribute_id_map[attribute] ||= (@attribute_id_map.keys.size + 1).to_s
           else
             attribute.default.inspect
           end
