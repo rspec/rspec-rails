@@ -148,7 +148,7 @@ module Rspec
             "#{attribute.name.titleize}".inspect
           when :integer
             @attribute_id_map ||= {}
-            @attribute_id_map[attribute] ||= (@attribute_id_map.keys.size + 1).to_s
+            @attribute_id_map[attribute] ||= @attribute_id_map.keys.size.next.to_s
           else
             attribute.default.inspect
           end
