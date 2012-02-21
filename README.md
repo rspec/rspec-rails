@@ -109,7 +109,7 @@ a black box approach.
 
 ```ruby
 describe "home page" do
-  it "diplays the user's username after successful login" do
+  it "displays the user's username after successful login" do
     user = User.create!(:username => "jdoe", :password => "secret")
     get "/login"
     assert_select "form.login" do
@@ -129,7 +129,7 @@ users like to use extension libraries like FactoryGirl and Capybara:
 
 ```ruby
 describe "home page" do
-  it "diplays the user's username after successful login" do
+  it "displays the user's username after successful login" do
     user = Factory(:user, :username => "jdoe", :password => "secret")
     visit "/login"
     fill_in "Username", :with => "jdoe"
