@@ -71,9 +71,11 @@ describe "be_a_new matcher" do
         it "fails" do
           expect {
             record.should be_a_new(record.class).with(:zoo => 'zoo', :car => 'car')
-          }.to raise_error(
-            %Q(attributes {"zoo"=>"zoo", "car"=>"car"} were not set on #{record.inspect})
-          )
+          }.to raise_error {|e|
+            e.message.should match(/attributes {.*} were not set on #{record.inspect}/)
+            e.message.should match(/"zoo"=>"zoo"/)
+            e.message.should match(/"car"=>"car"/)
+          }
         end
       end
 
@@ -117,10 +119,11 @@ describe "be_a_new matcher" do
         it "fails" do
           expect {
             record.should be_a_new(String).with(:zoo => 'zoo', :car => 'car')
-          }.to raise_error(
-            "expected #{record.inspect} to be a new String and " +
-            %Q(attributes {"zoo"=>"zoo", "car"=>"car"} were not set on #{record.inspect})
-          )
+          }.to raise_error {|e|
+            e.message.should match(/expected #{record.inspect} to be a new String and attributes {.*} were not set on #{record.inspect}/)
+            e.message.should match(/"zoo"=>"zoo"/)
+            e.message.should match(/"car"=>"car"/)
+          }
         end
       end
 
