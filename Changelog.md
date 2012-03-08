@@ -4,6 +4,8 @@
 
 Enhancments
 * add description method to RouteToMatcher (John Wulff)
+* Run "db:test:clone_structure" instead of "db:test:prepare" if Active Record's
+  schema format is ":sql". (@Antiarchitect)
 
 Bug fixes
 * mock_model(XXX).as_null_object.unknown_method returns self again
