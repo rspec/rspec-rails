@@ -20,9 +20,9 @@ gem 'rdoc'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
 group :development, :test do
-  gem "cucumber", "1.0.1"
-  gem "aruba", "0.4.2"
-  gem "ZenTest", "~> 4.4.2"
+  gem "cucumber", "1.1.9"
+  gem "aruba", "0.4.11"
+  gem "ZenTest", "4.6.2"
 end
 
 group :test do
