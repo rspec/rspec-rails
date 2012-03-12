@@ -1,6 +1,5 @@
-### dev
-
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.8.1...master)
+### 2.9.0.rc1 / 2012-03-11
+[full changelog](http://github.com/rspec/rspec-mocks/compare/v2.8.1...v2.9.0.rc1)
 
 Enhancments
 * add description method to RouteToMatcher (John Wulff)

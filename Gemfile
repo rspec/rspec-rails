@@ -15,7 +15,7 @@ platforms :jruby do
   gem "jruby-openssl"
 end
 
-gem 'rake'
+gem 'rake', '~> 0.9.2'
 gem 'rdoc'
 gem 'sqlite3-ruby', :require => 'sqlite3'
 
