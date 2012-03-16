@@ -1,5 +1,5 @@
 require 'rspec/core/deprecation'
-require 'rspec/matchers'
+require 'rspec/expectations'
 
 module RSpec::Rails
   module Matchers
