@@ -1,10 +1,10 @@
 group :development do
   gem 'interactive_rspec'
-  gem 'yard'
+  gem 'yard', "~> 0.7.4"
   gem "relish", "~> 0.5.0"
   gem "guard-rspec", "0.5.0"
   gem "growl", "1.0.3"
-  gem "spork", "0.9.0.rc9"
+  gem "spork", "0.9.0"
 
   platforms :mri_18, :jruby do
     gem "rcov", "0.9.10"
@@ -21,9 +21,16 @@ group :development do
       gem 'ruby-debug-base19', '0.11.25'
       gem 'linecache19',       '0.5.12'
     when '1.9.3'
-      # NOTE - see http://blog.wyeworks.com/2011/11/1/ruby-1-9-3-and-ruby-debug
-      # for help setting up ruby-debug19 on ruby 1.9.3
       gem 'ruby-debug19',      '0.11.6'
+      # NOTE - as of 2012-03-17 the following two gems have not been released,
+      # so if you see either of these errors when trying to install the bundle:
+      #
+      #   Could not find gem 'ruby-debug-base19 (= 0.11.26) ruby' in the gems available on this machine.
+      #   Could not find gem 'linecache19 (= 0.5.13) ruby' in the gems available on this machine.
+      #
+      # ... run 'script/download-ruby-debug-19-dependencies' and try again
+      #
+      # See http://blog.wyeworks.com/2011/11/1/ruby-1-9-3-and-ruby-debug for more info.
       gem 'ruby-debug-base19', '0.11.26'
       gem 'linecache19',       '0.5.13'
     end
