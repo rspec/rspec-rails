@@ -62,11 +62,10 @@ namespace :generate do
   desc "generate a fresh app with rspec installed"
   task :app do |t|
     unless File.directory?('./tmp/example_app')
-      sh "rails new ./tmp/example_app --skip-javascript --skip-gemfile --skip-git"
+      sh "rails new ./tmp/example_app --skip-javascript --skip-gemfile --skip-git --skip-test-unit"
       bindir = File.expand_path("bin")
       if test ?d, bindir
         Dir.chdir("./tmp/example_app") do
-          sh "rm -rf test"
           sh "ln -s #{bindir}"
           application_file = File.read("config/application.rb")
           sh "rm config/application.rb"
