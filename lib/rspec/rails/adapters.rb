@@ -12,7 +12,7 @@ module RSpec
         # Wraps `setup` calls from within Rails' testing framework in `before`
         # hooks.
         def setup(*methods)
-          methods.each {|method| before { send method } }
+          methods.each {|method| prepend_before { send method } }
         end
 
         # @api private
