@@ -54,6 +54,12 @@ module RSpec::Rails
           group.render_views false
           group.new.render_views?.should be_false
         end
+
+        it "overrides the global config if render_views is enabled there" do
+          RSpec.configuration.stub(:render_views?).and_return true
+          group.render_views false
+          group.new.render_views?.should be_false
+        end
       end
 
       context "in a nested group" do

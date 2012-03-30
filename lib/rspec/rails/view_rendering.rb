@@ -47,7 +47,8 @@ module RSpec
 
         # @api private
         def render_views?
-          metadata_for_rspec_rails[:render_views] || RSpec.configuration.render_views?
+          return RSpec.configuration.render_views? unless metadata_for_rspec_rails.key? :render_views
+          metadata_for_rspec_rails[:render_views]
         end
       end
 
