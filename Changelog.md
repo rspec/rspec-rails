@@ -1,3 +1,10 @@
+### dev
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.9.0...master)
+
+Bug fixes
+
+* `render_views` called in a spec can now override the config setting. (martinsvalin)
+
 ### 2.9.0 / 2012-03-17
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.8.1...v2.9.0)
 
