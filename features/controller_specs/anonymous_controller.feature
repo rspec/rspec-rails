@@ -328,3 +328,33 @@ Feature: anonymous controller
     """
     When I run `rspec spec`
     Then the examples should all pass
+
+  Scenario: rendering views
+    Given a file named "spec/controllers/application_controller_spec.rb" with:
+      """
+      require "spec_helper"
+
+      describe ApplicationController do
+        render_views
+
+        controller do
+          def index
+            @name = "Bob"
+          end
+        end
+
+        describe "#index" do
+          it "greets the user" do
+            get :index
+            response.body.should =~ /Hello there, Bob/
+          end
+        end
+      end
+      """
+    And a file named "app/views/anonymous/index.html.erb" with:
+      """
+      Hello there, <%= @name %>
+      """
+    When I run `rspec spec`
+    Then the examples should all pass
+
