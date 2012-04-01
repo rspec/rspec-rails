@@ -8,6 +8,7 @@ Feature: errors_on
       class ValidatingWidget < ActiveRecord::Base
         set_table_name :widgets
         validates_presence_of :name
+        attr_accessible :name
       end
 
       describe ValidatingWidget do
