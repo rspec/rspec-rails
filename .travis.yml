@@ -5,6 +5,7 @@ rvm:
   - 1.9.2
   - 1.9.3
 env:
+  - RAILS_VERSION=3.2.3
   - RAILS_VERSION=3.2.2
   - RAILS_VERSION=3.2.1
   - RAILS_VERSION=3.1.4
