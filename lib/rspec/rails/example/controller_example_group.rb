@@ -58,10 +58,10 @@ module RSpec::Rails
                          controller_class :
                          ApplicationController
 
-        metadata[:example_group][:described_class] = Class.new(base_class, &body)
-        metadata[:example_group][:described_class].singleton_class.class_eval do
-          def name; "AnonymousController" end
+        metadata[:example_group][:described_class] = Class.new(base_class) do
+          def self.name; "AnonymousController"; end
         end
+        metadata[:example_group][:described_class].class_eval(&body)
 
         before do
           @orig_routes, @routes = @routes, ActionDispatch::Routing::RouteSet.new
