@@ -17,7 +17,7 @@ our own.
 
 ### thor version:use
 
-The `thor gemfile:use` task accepts any released version of rails, or either the
+The `thor version:use` task accepts any released version of rails, or either the
 3-0-stable or master branches.
 
     thor version:use master
