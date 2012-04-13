@@ -42,7 +42,7 @@ module RSpec::Rails
       #       end
       #     end
       def render(options={}, local_assigns={}, &block)
-        options = {:template => _default_file_to_render} if Hash === options and options.empty?
+        options = _default_render_options if Hash === options and options.empty?
         super(options, local_assigns, &block)
       end
 
@@ -96,6 +96,19 @@ module RSpec::Rails
 
       def _default_file_to_render
         example.example_group.top_level_description
+      end
+
+      def _default_render_options
+        # pluck the handler, format, and locale out of, eg, posts/index.de.html.haml
+        template, *components = _default_file_to_render.split('.')
+        handler, format, locale = *components.reverse
+
+        render_options = {:template => template}
+        render_options[:handlers] = [handler] if handler
+        render_options[:formats] = [format] if format
+        render_options[:locales] = [locale] if locale
+
+        render_options
       end
 
       def _path_parts
