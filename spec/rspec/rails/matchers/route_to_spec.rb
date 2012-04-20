@@ -20,7 +20,6 @@ describe "route_to" do
   end
 
   context "with shortcut syntax" do
-
     it "routes with extra options" do
       self.should_receive(:assert_recognizes).with({ :controller => "controller", :action => "action", :extra => "options"}, { :method=> :get, :path=>"path" }, {})
       get("path").should route_to("controller#action", :extra => "options")
@@ -65,14 +64,25 @@ describe "route_to" do
       end
     end
 
-    context "when assert_recognizes fails" do
+    context "when assert_recognizes fails with an assertion failure" do
       it "fails with message from assert_recognizes" do
         self.stub!(:assert_recognizes) do
           raise ActiveSupport::TestCase::Assertion.new("this message")
         end
         expect do
           {:get => "path"}.should route_to("these" => "options")
-        end.to raise_error("this message")
+        end.to raise_error(RSpec::Expectations::ExpectationNotMetError, "this message")
+      end
+    end
+
+    context "when assert_recognizes fails with a routing error" do
+      it "fails with message from assert_recognizes" do
+        self.stub!(:assert_recognizes) do
+          raise ActionController::RoutingError.new("this message")
+        end
+        expect do
+          {:get => "path"}.should route_to("these" => "options")
+        end.to raise_error(RSpec::Expectations::ExpectationNotMetError, "this message")
       end
     end
 
@@ -98,10 +108,21 @@ describe "route_to" do
       end
     end
 
-    context "when assert_recognizes fails" do
+    context "when assert_recognizes fails with an assertion failure" do
       it "passes" do
         self.stub!(:assert_recognizes) do
           raise ActiveSupport::TestCase::Assertion.new("this message")
+        end
+        expect do
+          {:get => "path"}.should_not route_to("these" => "options")
+        end.to_not raise_error
+      end
+    end
+
+    context "when assert_recognizes fails with a routing error" do
+      it "passes" do
+        self.stub!(:assert_recognizes) do
+          raise ActionController::RoutingError.new("this message")
         end
         expect do
           {:get => "path"}.should_not route_to("these" => "options")
@@ -120,6 +141,7 @@ describe "route_to" do
       end
     end
   end
+
   it "uses failure message from assert_recognizes" do
     self.stub!(:assert_recognizes).and_raise(
       ActiveSupport::TestCase::Assertion.new("this message"))
@@ -128,4 +150,3 @@ describe "route_to" do
     end.to raise_error("this message")
   end
 end
-
