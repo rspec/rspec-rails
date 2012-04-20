@@ -15,18 +15,15 @@ platforms :jruby do
   gem "jruby-openssl"
 end
 
-gem 'rake', '~> 0.9.2'
+gem 'sqlite3', '~> 1.3.6'
+gem 'rake',    '~> 0.9.2'
 gem 'rdoc'
-gem 'sqlite3-ruby', :require => 'sqlite3'
 
 group :development, :test do
-  gem "cucumber", "1.1.9"
-  gem "aruba", "0.4.11"
-  gem "ZenTest", "4.6.2"
-end
-
-group :test do
-  gem 'ammeter', :git => "https://github.com/alexrothenberg/ammeter.git"
+  gem 'cucumber', '1.1.9'
+  gem 'aruba',    '0.4.11'
+  gem 'ZenTest',  '4.6.2'
+  gem 'ammeter',  '0.2.4'
 end
 
 eval File.read('Gemfile-custom') if File.exist?('Gemfile-custom')
