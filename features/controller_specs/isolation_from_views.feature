@@ -17,12 +17,12 @@ Feature: views are stubbed by default
           it "renders the index template" do
             get :index
             response.should render_template("index")
-            response.body.should == ""
+            response.body.should eq ""
           end
           it "renders the widgets/index template" do
             get :index
             response.should render_template("widgets/index")
-            response.body.should == ""
+            response.body.should eq ""
           end
         end
       end
@@ -59,7 +59,7 @@ Feature: views are stubbed by default
             controller.append_view_path 'app/views'
             get :custom_action
             response.should render_template("custom_action")
-            response.body.should == ""
+            response.body.should eq ""
           end
         end
       end
@@ -67,29 +67,21 @@ Feature: views are stubbed by default
     When I run `rspec spec`
     Then the examples should all pass
 
-  Scenario: expect template to render when view path is changed at runtime (fails)
+  Scenario: expect template to render the real template with render_views when view path is changed at runtime
     Given a file named "spec/controllers/things_controller_spec.rb" with:
       """
       require "spec_helper"
 
       describe ThingsController do
-        describe "custom_action" do
-          it "renders the custom_action template" do
-            render_views
-            controller.prepend_view_path 'app/views'
-            get :custom_action
-            response.should render_template("custom_action")
-            response.body.should == ""
-          end
+        render_views
 
-          it "renders an empty custom_action template" do
-            controller.prepend_view_path 'app/views'
-            get :custom_action
-            response.should render_template("custom_action")
-            response.body.should == ""
-          end
+        it "renders the real custom_action template" do
+          controller.prepend_view_path 'app/views'
+          get :custom_action
+          response.should render_template("custom_action")
+          response.body.should match(/template for a custom action/)
         end
       end
       """
     When I run `rspec spec`
-    Then the output should contain "2 examples, 1 failure"
+    Then the examples should all pass

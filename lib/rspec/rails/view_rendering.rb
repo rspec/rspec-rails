@@ -97,7 +97,7 @@ module RSpec
         private
 
         def _path_decorator(path)
-          EmptyTemplatePathSetDecorator.new(::ActionView::Base::process_view_paths(path))
+          EmptyTemplatePathSetDecorator.new(ActionView::PathSet.new(Array.wrap(path)))
         end
       end
 
