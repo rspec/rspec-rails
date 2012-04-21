@@ -5,6 +5,9 @@ Bug fixes
 
 * `render_views` called in a spec can now override the config setting. (martinsvalin)
 * Fix render_views for anonymous controllers on 1.8.7. (hudge, mudge)
+* Eliminate use of deprecated `process_view_paths`
+* Fix false negatives when using `route_to` matcher with `should_not`
+* `controller` is no longer nil in `config.before` hooks
 
 ### 2.9.0 / 2012-03-17
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.8.1...v2.9.0)
