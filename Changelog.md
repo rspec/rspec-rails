@@ -8,6 +8,8 @@ Bug fixes
 * Eliminate use of deprecated `process_view_paths`
 * Fix false negatives when using `route_to` matcher with `should_not`
 * `controller` is no longer nil in `config.before` hooks
+* Change request.path_parameters keys to symbols to match real Rails
+  environment (Nathan Broadbent)
 
 ### 2.9.0 / 2012-03-17
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.8.1...v2.9.0)
