@@ -30,4 +30,3 @@ Gem::Specification.new do |s|
     s.add_runtime_dependency "rspec", "~> #{RSpec::Rails::Version::STRING.split('.')[0..1].concat(['0']).join('.')}"
   end
 end
-

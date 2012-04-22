@@ -4,6 +4,5 @@
 --markup markdown
 --template-path yard/template/
 -
-README.md
 Changelog.md
 License.txt
