@@ -29,4 +29,10 @@ Gem::Specification.new do |s|
   else
     s.add_runtime_dependency "rspec", "~> #{RSpec::Rails::Version::STRING.split('.')[0..1].concat(['0']).join('.')}"
   end
+
+  s.add_development_dependency 'rake',     '~> 0.9.2'
+  s.add_development_dependency 'cucumber', '~> 1.1.9'
+  s.add_development_dependency 'aruba',    '~> 0.4.11'
+  s.add_development_dependency 'ZenTest',  '4.6.2'
+  s.add_development_dependency 'ammeter',  '0.2.4'
 end

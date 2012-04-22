@@ -1,6 +1,8 @@
 source "http://rubygems.org"
 
-%w[rspec rspec-core rspec-expectations rspec-mocks rspec-rails].each do |lib|
+gemspec
+
+%w[rspec rspec-core rspec-expectations rspec-mocks].each do |lib|
   library_path = File.expand_path("../../#{lib}", __FILE__)
   if File.exist?(library_path)
     gem lib, :path => library_path
@@ -11,20 +13,16 @@ source "http://rubygems.org"
   end
 end
 
+### deps for rdoc.info
+gem 'yard',          '0.7.5', :require => false
+gem 'redcarpet',     '2.1.1'
+gem 'github-markup', '0.7.2'
+
 platforms :jruby do
   gem "jruby-openssl"
 end
 
 gem 'sqlite3', '~> 1.3.6'
-gem 'rake',    '~> 0.9.2'
-gem 'rdoc'
-
-group :development, :test do
-  gem 'cucumber', '1.1.9'
-  gem 'aruba',    '0.4.11'
-  gem 'ZenTest',  '4.6.2'
-  gem 'ammeter',  '0.2.4'
-end
 
 eval File.read('Gemfile-custom') if File.exist?('Gemfile-custom')
 

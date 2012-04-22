@@ -1,21 +1,17 @@
 group :development do
   gem 'interactive_rspec'
-  gem 'yard', "~> 0.7.4"
-  gem "relish", "~> 0.5.0"
-  gem "guard-rspec", "0.5.0"
-  gem "growl", "1.0.3"
-  gem "spork", "0.9.0"
+  gem 'relish', '~> 0.5.0'
+  gem 'guard-rspec', '0.5.0'
+  gem 'growl', '1.0.3'
+  gem 'spork', '0.9.0'
 
-  platforms :mri_18, :jruby do
-    gem "rcov", "0.9.10"
-  end
+  platform :mri do
+    gem 'rb-fsevent', '~> 0.4.3.1'
+    gem 'ruby-prof', '~> 0.10.0'
 
-  platforms :mri_18 do
-    gem 'ruby-debug'
-  end
-
-  platforms :mri_19 do
     case RUBY_VERSION
+    when /^1.8/
+      gem 'ruby-debug'
     when '1.9.2'
       gem 'ruby-debug19',      '0.11.6'
       gem 'ruby-debug-base19', '0.11.25'
@@ -34,10 +30,5 @@ group :development do
       gem 'ruby-debug-base19', '0.11.26'
       gem 'linecache19',       '0.5.13'
     end
-  end
-
-  platforms :mri_18, :mri_19 do
-    gem "rb-fsevent", "~> 0.4.3.1"
-    gem "ruby-prof", "~> 0.10.0"
   end
 end
