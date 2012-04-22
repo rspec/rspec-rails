@@ -108,10 +108,15 @@ module RSpec::Rails
       end
 
       context "given no input" do
-        it "sends render(:file => (described file)) to the view" do
-          view_spec.stub(:_default_file_to_render) { "widgets/new.html.erb" }
+        it "sends render(:template => (described file)) to the view" do
+          view_spec.stub(:_default_file_to_render) { "widgets/new" }
           view_spec.render
-          view_spec.received.first.should == [{:template => "widgets/new.html.erb"},{}, nil]
+          view_spec.received.first.should == [{:template => "widgets/new"},{}, nil]
+        end
+        it "converts the filename components into render options" do
+          view_spec.stub(:_default_file_to_render) { "widgets/new.en.html.erb" }
+          view_spec.render
+          view_spec.received.first.should == [{:template => "widgets/new", :locales=>['en'], :formats=>['html'], :handlers=>['erb']},{}, nil]
         end
       end
 
