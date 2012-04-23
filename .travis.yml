@@ -1,5 +1,5 @@
 script: "bin/rake --trace 2>&1"
-bundler_args: "--binstubs --without development"
+bundler_args: "--binstubs"
 rvm:
   - 1.8.7
   - 1.9.2
