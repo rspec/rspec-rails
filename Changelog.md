@@ -4,7 +4,7 @@
 Bug fixes
 
 * `render_views` called in a spec can now override the config setting. (martinsvalin)
-* Fix render_views for anonymous controllers on 1.8.7. (hudge, mudge)
+* Fix `render_views` for anonymous controllers on 1.8.7. (hudge, mudge)
 * Eliminate use of deprecated `process_view_paths`
 * Fix false negatives when using `route_to` matcher with `should_not`
 * `controller` is no longer nil in `config.before` hooks
