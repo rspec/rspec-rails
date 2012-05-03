@@ -26,7 +26,7 @@ Add `rspec-rails` to the `:test` and `:development` groups in the Gemfile:
 
 ```ruby
 group :test, :development do
-  gem "rspec-rails", "~> 2.6"
+  gem "rspec-rails", "~> 2.9.0"
 end
 ```
 
