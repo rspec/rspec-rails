@@ -1,5 +1,5 @@
-### dev
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.9.0...master)
+### 2.10.0 / 2012-05-03
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.9.0...v2.10.0)
 
 Bug fixes
 
@@ -8,7 +8,7 @@ Bug fixes
 * Eliminate use of deprecated `process_view_paths`
 * Fix false negatives when using `route_to` matcher with `should_not`
 * `controller` is no longer nil in `config.before` hooks
-* Change request.path_parameters keys to symbols to match real Rails
+* Change `request.path_parameters` keys to symbols to match real Rails
   environment (Nathan Broadbent)
 * Silence deprecation warnings in pre-2.9 generated view specs (Jonathan del
   Strother)
