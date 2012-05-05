@@ -31,6 +31,7 @@ when /master/
   gem "rails", :git => "git://github.com/rails/rails.git"
   gem "arel", :git => "git://github.com/rails/arel.git"
   gem "journey", :git => "git://github.com/rails/journey.git"
+  gem "active_record_deprecated_finders", :git => "git://github.com/rails/active_record_deprecated_finders.git"
 when /3-0-stable/
   gem "rails", :git => "git://github.com/rails/rails.git", :branch => "3-0-stable"
   gem "arel",  :git => "git://github.com/rails/arel.git", :branch => "2-0-stable"
