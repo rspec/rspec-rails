@@ -1,3 +1,11 @@
+### 2.10.1 / 2012-05-03
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.10.0...v2.10.1)
+
+Bug fixes
+
+* fix regression introduced in 2.10.0 that broke integration with Devise
+  (https://github.com/rspec/rspec-rails/issues/534)
+
 ### 2.10.0 / 2012-05-03
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.9.0...v2.10.0)
 
