@@ -1,3 +1,4 @@
+require 'rspec/core'
 require 'rspec/core/deprecation'
 require 'rspec/expectations'
 
