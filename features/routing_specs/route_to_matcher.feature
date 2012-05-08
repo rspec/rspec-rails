@@ -10,6 +10,21 @@ Feature: route_to matcher
 
       { :get => "/" }.should route_to(:controller => "welcome")
 
+  Scenario: passing route spec with describe title request pair
+    Given a file named "spec/routing/widgets_routing_spec.rb" with:
+      """
+      require "spec_helper"
+
+      describe "routes for Widgets" do
+        describe get("/widgets") do
+          it {should route_to "widgets#index" }
+        end
+      end
+      """
+
+    When I run "rspec spec/routing/widgets_routing_spec.rb"
+    Then the examples should all pass
+
   Scenario: passing route spec with shortcut syntax
     Given a file named "spec/routing/widgets_routing_spec.rb" with:
       """

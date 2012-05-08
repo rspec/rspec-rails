@@ -28,5 +28,25 @@ module RSpec::Rails
         example.foo_path.should == "foo"
       end
     end
+
+    context "use route helpers" do
+      it "should get 'path' return {:get => 'path'}" do
+        group = RSpec::Core::ExampleGroup.describe do
+          include RoutingExampleGroup
+        end
+        group.get("path").should be == {:get => "path"}
+      end
+    end
+
+    context "use request pair in describe title" do
+      it "should request pair be the subject" do
+        group = RSpec::Core::ExampleGroup.describe do
+          include RoutingExampleGroup
+        end
+        inner_group = group.describe ({:get => "path"})
+        inner_group.new.subject.should be == {:get => "path"}
+      end
+    end
+
   end
 end
