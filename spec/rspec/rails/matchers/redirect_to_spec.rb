@@ -6,15 +6,11 @@ describe "redirect_to" do
 
   let(:response) { ActionController::TestResponse.new }
 
-  it "delegates to assert_redirected_to" do
-    self.should_receive(:assert_redirected_to).with("destination")
-    "response".should redirect_to("destination")
-  end
-
   context "with should" do
     context "when assert_redirected_to passes" do
+      def assert_redirected_to(*); end
+
       it "passes" do
-        self.stub!(:assert_redirected_to)
         expect do
           response.should redirect_to("destination")
         end.to_not raise_exception
@@ -22,21 +18,23 @@ describe "redirect_to" do
     end
 
     context "when assert_redirected_to fails" do
+      def assert_redirected_to(*)
+        raise ActiveSupport::TestCase::Assertion.new("this message")
+      end
+
       it "uses failure message from assert_redirected_to" do
-        self.stub!(:assert_redirected_to) do
-          raise ActiveSupport::TestCase::Assertion.new("this message")
-        end
         expect do
           response.should redirect_to("destination")
-        end.to raise_error("this message")
+        end.to raise_exception("this message")
       end
     end
 
     context "when fails due to some other exception" do
+      def assert_redirected_to(*)
+        raise "oops"
+      end
+
       it "raises that exception" do
-        self.stub!(:assert_redirected_to) do
-          raise "oops"
-        end
         expect do
           response.should redirect_to("destination")
         end.to raise_exception("oops")
@@ -46,10 +44,11 @@ describe "redirect_to" do
 
   context "with should_not" do
     context "when assert_redirected_to fails" do
+      def assert_redirected_to(*)
+        raise ActiveSupport::TestCase::Assertion.new("this message")
+      end
+
       it "passes" do
-        self.stub!(:assert_redirected_to) do
-          raise ActiveSupport::TestCase::Assertion.new("this message")
-        end
         expect do
           response.should_not redirect_to("destination")
         end.to_not raise_exception
@@ -57,19 +56,21 @@ describe "redirect_to" do
     end
 
     context "when assert_redirected_to passes" do
+      def assert_redirected_to(*); end
+
       it "fails with custom failure message" do
-        self.stub!(:assert_redirected_to)
         expect do
           response.should_not redirect_to("destination")
-        end.to raise_error(/expected not to redirect to \"destination\", but did/)
+        end.to raise_exception(/expected not to redirect to \"destination\", but did/)
       end
     end
 
     context "when fails due to some other exception" do
+      def assert_redirected_to(*)
+        raise "oops"
+      end
+
       it "raises that exception" do
-        self.stub!(:assert_redirected_to) do
-          raise "oops"
-        end
         expect do
           response.should_not redirect_to("destination")
         end.to raise_exception("oops")
