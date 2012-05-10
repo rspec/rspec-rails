@@ -17,5 +17,25 @@ module RSpec::Rails
       end
       group.metadata[:type].should eq(:mailer)
     end
+
+    describe "custom application" do
+      before do
+        @orig_application = RSpec.configuration.application
+        RSpec.configuration.application = RSpec::EngineExample
+      end
+
+      after do
+        RSpec.configuration.application = @orig_application
+      end
+
+      it "should include custom application's url helpers" do
+        group = RSpec::Core::ExampleGroup.describe do
+          include MailerExampleGroup
+        end
+
+        example = group.new
+        example.bars_path.should == '/bars'
+      end
+    end
   end
 end

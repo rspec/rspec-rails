@@ -96,5 +96,28 @@ module RSpec::Rails
         controller_class.superclass.should eq(ApplicationController)
       end
     end
+
+    describe "#application" do
+      before do
+        @orig_application = RSpec.configuration.application
+        RSpec.configuration.application = RSpec::EngineExample
+      end
+
+      after do
+        RSpec.configuration.application = @orig_application
+      end
+
+      it "still delegates name routes to underlying controller" do
+        controller = double('controller')
+        controller.stub(:bars_path).and_return('/foos')
+
+        example = group.new
+        example.stub(:controller => controller)
+
+        example.instance_variable_set(:@orig_routes, RSpec.configuration.application.routes)
+
+        example.bars_path.should eq('/foos')
+      end
+    end
   end
 end

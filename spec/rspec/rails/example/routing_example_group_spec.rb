@@ -28,5 +28,30 @@ module RSpec::Rails
         example.foo_path.should == "foo"
       end
     end
+
+    describe "custom application routes" do
+      before do
+        @orig_application = RSpec.configuration.application
+        RSpec.configuration.application = RSpec::EngineExample
+      end
+
+      after do
+        RSpec.configuration.application = @orig_application
+      end
+
+      it "provides routes of custom application" do
+        group = RSpec::Core::ExampleGroup.describe do
+          include RoutingExampleGroup
+        end
+
+        example = group.new
+
+        # Because this relies on before hooks, I have to stub this in.
+        example.stub(:routes => RSpec.configuration.application.routes)
+
+        example.bars_path.should == "/bars"
+      end
+
+    end
   end
 end
