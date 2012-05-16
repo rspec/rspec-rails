@@ -20,12 +20,16 @@ module RSpec::Rails
 
     describe "custom application" do
       before do
-        @orig_application = RSpec.configuration.application
-        RSpec.configuration.application = RSpec::EngineExample
+        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
+          @orig_application = RSpec.configuration.application
+          RSpec.configuration.application = RSpec::EngineExample
+        end
       end
 
       after do
-        RSpec.configuration.application = @orig_application
+        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
+          RSpec.configuration.application = @orig_application
+        end
       end
 
       it "should include custom application's url helpers" do
@@ -34,7 +38,11 @@ module RSpec::Rails
         end
 
         example = group.new
-        example.bars_path.should == '/bars'
+        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
+          example.bars_path.should == '/bars'
+        else
+          expect { example.bars_path }.should raise_error
+        end
       end
     end
   end

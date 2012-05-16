@@ -16,6 +16,13 @@ class RSpec::Core::ExampleGroup
   end
 end
 
+if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
+  RSpec::EngineExample.routes.draw do
+    root :to => "foo#index"
+    resources :bars
+  end
+end
+
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.filter_run :focus

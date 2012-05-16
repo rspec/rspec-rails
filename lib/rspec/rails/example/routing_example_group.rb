@@ -12,7 +12,11 @@ module RSpec::Rails
       metadata[:type] = :routing
 
       before do
-        @routes = RSpec.configuration.application.routes
+        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
+          @routes = RSpec.configuration.application.routes
+        else
+          @routes = ::Rails.application.routes
+        end
       end
     end
 

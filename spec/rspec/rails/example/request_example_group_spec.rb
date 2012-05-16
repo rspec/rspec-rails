@@ -16,12 +16,16 @@ module RSpec::Rails
 
     describe "#app" do
       before do
-        @orig_application = RSpec.configuration.application
-        RSpec.configuration.application = RSpec::EngineExample
+        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
+          @orig_application = RSpec.configuration.application
+          RSpec.configuration.application = RSpec::EngineExample
+        end
       end
 
       after do
-        RSpec.configuration.application = @orig_application
+        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
+          RSpec.configuration.application = @orig_application
+        end
       end
 
       it "sets app as custom application" do
@@ -31,7 +35,11 @@ module RSpec::Rails
 
         example = group.new
 
-        example.app.should eq(RSpec::EngineExample)
+        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
+          example.app.should eq(RSpec::EngineExample)
+        else
+          example.app.should eq(::Rails.application)
+        end
       end
     end
   end

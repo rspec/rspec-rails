@@ -31,12 +31,16 @@ module RSpec::Rails
 
     describe "custom application routes" do
       before do
-        @orig_application = RSpec.configuration.application
-        RSpec.configuration.application = RSpec::EngineExample
+        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
+          @orig_application = RSpec.configuration.application
+          RSpec.configuration.application = RSpec::EngineExample
+        end
       end
 
       after do
-        RSpec.configuration.application = @orig_application
+        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
+          RSpec.configuration.application = @orig_application
+        end
       end
 
       it "provides routes of custom application" do
@@ -46,10 +50,14 @@ module RSpec::Rails
 
         example = group.new
 
-        # Because this relies on before hooks, I have to stub this in.
-        example.stub(:routes => RSpec.configuration.application.routes)
-
-        example.bars_path.should == "/bars"
+        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
+          # Because this relies on before hooks, I have to stub this in.
+          example.stub(:routes => RSpec.configuration.application.routes)
+          example.bars_path.should == "/bars"
+        else
+          example.stub(:routes => ::Rails.application.routes)
+          expect { example.bars_path }.should raise_error
+        end
       end
 
     end
