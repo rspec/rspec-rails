@@ -4,14 +4,14 @@ module RSpec::Rails::Matchers
       include RSpec::Matchers::BuiltIn::BaseMatcher
 
       def initialize(scope, expected)
-        super(expected)
+        @expected = expected
         @scope = scope
       end
 
       # @api private
-      def matches?(actual)
+      def matches?(_)
         match_unless_raises ActiveSupport::TestCase::Assertion do
-          @scope.assert_redirected_to(expected)
+          @scope.assert_redirected_to(@expected)
         end
       end
 
@@ -22,7 +22,7 @@ module RSpec::Rails::Matchers
 
       # @api private
       def failure_message_for_should_not
-        "expected not to redirect to #{expected.inspect}, but did"
+        "expected not to redirect to #{@expected.inspect}, but did"
       end
     end
 

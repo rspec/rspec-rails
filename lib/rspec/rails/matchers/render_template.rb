@@ -4,7 +4,7 @@ module RSpec::Rails::Matchers
       include RSpec::Matchers::BuiltIn::BaseMatcher
 
       def initialize(scope, expected, message=nil)
-        super(Symbol === expected ? expected.to_s : expected)
+        @expected = Symbol === expected ? expected.to_s : expected
         @message = message
         @scope = scope
       end

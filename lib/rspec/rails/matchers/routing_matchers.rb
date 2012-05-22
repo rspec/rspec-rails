@@ -7,28 +7,24 @@ module RSpec::Rails::Matchers
 
       def initialize(scope, *expected)
         @scope = scope
-        @expected_options = expected[1] || {}
+        @expected = expected[1] || {}
         if Hash === expected[0]
-          @expected_options.merge!(expected[0])
+          @expected.merge!(expected[0])
         else
           controller, action = expected[0].split('#')
-          @expected_options.merge!(:controller => controller, :action => action)
+          @expected.merge!(:controller => controller, :action => action)
         end
       end
       
-      def description
-        "route #{@verb_to_path_map.inspect} to #{@expected_options.inspect}"
-      end
-
       # @api private
       def matches?(verb_to_path_map)
-        @verb_to_path_map = verb_to_path_map
+        @actual = @verb_to_path_map = verb_to_path_map
         # assert_recognizes does not consider ActionController::RoutingError an
         # assertion failure, so we have to capture that and Assertion here.
         match_unless_raises ActiveSupport::TestCase::Assertion, ActionController::RoutingError do
           path, query = *verb_to_path_map.values.first.split('?')
           @scope.assert_recognizes(
-            @expected_options,
+            @expected,
             {:method => verb_to_path_map.keys.first, :path => path},
             Rack::Utils::parse_query(query)
           )
@@ -38,6 +34,10 @@ module RSpec::Rails::Matchers
       # @api private
       def failure_message_for_should
         rescued_exception.message
+      end
+
+      def description
+        "route #{@actual.inspect} to #{@expected.inspect}"
       end
     end
 
@@ -67,7 +67,7 @@ module RSpec::Rails::Matchers
 
       # @api private
       def matches?(path)
-        super(path)
+        @actual = path
         match_unless_raises ActionController::RoutingError do
           @routing_options = @scope.routes.recognize_path(
             path.values.first, :method => path.keys.first
@@ -75,9 +75,12 @@ module RSpec::Rails::Matchers
         end
       end
 
-      # @api private
+      def failure_message_for_should
+        "expected #{@actual.inspect} to be routable"
+      end
+
       def failure_message_for_should_not
-        "expected #{actual.inspect} not to be routable, but it routes to #{@routing_options.inspect}"
+        "expected #{@actual.inspect} not to be routable, but it routes to #{@routing_options.inspect}"
       end
     end
 

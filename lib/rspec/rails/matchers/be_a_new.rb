@@ -2,9 +2,13 @@ module RSpec::Rails::Matchers
   class BeANew
     include RSpec::Matchers::BuiltIn::BaseMatcher
 
+    def initialize(expected)
+      @expected = expected
+    end
+
     # @api private
     def matches?(actual)
-      super
+      @actual = actual
       actual.is_a?(expected) && actual.new_record? && attributes_match?(actual)
     end
 
