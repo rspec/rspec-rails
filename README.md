@@ -1,4 +1,4 @@
-# rspec-rails-2
+# rspec-rails-2 [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/rspec/rspec-rails)
 
 rspec-2 for rails-3 with lightweight extensions to each
 
