@@ -35,11 +35,6 @@ module Rspec
         copy_view :show
       end
 
-      # Invoke the helper using the controller name (pluralized)
-      hook_for :helper, :as => :scaffold do |invoked|
-        invoke invoked, [ controller_name ]
-      end
-
       def generate_routing_spec
         return unless options[:routing_specs]
 
