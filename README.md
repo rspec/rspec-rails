@@ -1,4 +1,4 @@
-# rspec-rails-2 [![Build Status](https://secure.travis-ci.org/rails/rails.png?branch=master)](http://travis-ci.org/rails/rails) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/rspec/rspec-rails)
+# rspec-rails-2 [![Build Status](https://secure.travis-ci.org/rspec/rspec-rails.png?branch=master)](http://travis-ci.org/rspec/rspec-rails) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/rspec/rspec-rails)
 
 rspec-2 for rails-3 with lightweight extensions to each
 
