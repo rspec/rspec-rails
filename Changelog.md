@@ -5,6 +5,8 @@ Bug fixes
 
 * fix regression introduced in 2.10.0 that broke integration with Devise
   (https://github.com/rspec/rspec-rails/issues/534)
+* remove generation of helper specs when running the scaffold generator, as
+  Rails already does this (Jack Dempsey)
 
 ### 2.10.0 / 2012-05-03
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.9.0...v2.10.0)
