@@ -130,7 +130,7 @@ users like to use extension libraries like FactoryGirl and Capybara:
 ```ruby
 describe "home page" do
   it "displays the user's username after successful login" do
-    user = Factory(:user, :username => "jdoe", :password => "secret")
+    user = FactoryGirl.create(:user, :username => "jdoe", :password => "secret")
     visit "/login"
     fill_in "Username", :with => "jdoe"
     fill_in "Password", :with => "secret"
@@ -181,7 +181,7 @@ end
 describe WidgetsController do
   describe "GET index" do
     it "assigns all widgets to @widgets" do
-      widget = Factory(:widget)
+      widget = FactoryGirl.create(:widget)
       get :index
       assigns(:widgets).should eq([widget])
     end
