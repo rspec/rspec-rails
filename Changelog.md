@@ -1,3 +1,11 @@
+### dev
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.10.1...master)
+
+Enhancements
+
+* The generated `spec/spec_helper.rb` sets `config.order = "random"` so that
+  specs run in random order by default.
+
 ### 2.10.1 / 2012-05-03
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.10.0...v2.10.1)
 
