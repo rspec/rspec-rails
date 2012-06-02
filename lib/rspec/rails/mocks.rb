@@ -114,11 +114,11 @@ EOM
             def @object.is_a?(other)
               #{model_class}.ancestors.include?(other)
             end unless #{stubs.has_key?(:is_a?)}
-            
+
             def @object.kind_of?(other)
               #{model_class}.ancestors.include?(other)
             end unless #{stubs.has_key?(:kind_of?)}
-            
+
             def @object.instance_of?(other)
               other == #{model_class}
             end unless #{stubs.has_key?(:instance_of?)}
@@ -130,7 +130,7 @@ EOM
             def @object.respond_to?(method_name, include_private=false)
               __model_class_has_column?(method_name) ? true : super
             end unless #{stubs.has_key?(:respond_to?)}
-            
+
             def @object.method_missing(m, *a, &b)
               respond_to?(m) ? null_object? ? self : nil : super
             end
@@ -138,7 +138,7 @@ EOM
             def @object.class
               #{model_class}
             end unless #{stubs.has_key?(:class)}
-            
+
             def @object.to_s
               "#{model_class.name}_#{to_param}"
             end unless #{stubs.has_key?(:to_s)}
@@ -181,12 +181,12 @@ EOM
       end
 
       # Creates an instance of `Model` with `to_param` stubbed using a
-      # generated value that is unique to each object.. If `Model` is an
+      # generated value that is unique to each object. If `Model` is an
       # `ActiveRecord` model, it is prohibited from accessing the database*.
       #
-      # For each key in `hash_of_stubs`, if the model has a matching attribute
-      # (determined by asking it) are simply assigned the submitted values. If
-      # the model does not have a matching attribute, the key/value pair is
+      # For each key in `stubs`, if the model has a matching attribute
+      # (determined by `respond_to?`) it is simply assigned the submitted values.
+      # If the model does not have a matching attribute, the key/value pair is
       # assigned as a stub return value using RSpec's mocking/stubbing
       # framework.
       #
