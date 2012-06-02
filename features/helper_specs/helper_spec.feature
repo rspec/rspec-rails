@@ -1,5 +1,5 @@
 Feature: helper spec
-  
+
   Helper specs live in `spec/helpers`, or any example group with `:type =>
   :helper`.
 
@@ -12,12 +12,12 @@ Feature: helper spec
   on the `helper` object.
 
   NOTE: helper methods defined in controllers are not included.
-  
+
   Scenario: helper method that returns a value
     Given a file named "spec/helpers/application_helper_spec.rb" with:
       """
       require "spec_helper"
-      
+
       describe ApplicationHelper do
         describe "#page_title" do
           it "returns the default title" do
@@ -36,7 +36,7 @@ Feature: helper spec
       """
     When I run `rspec spec/helpers/application_helper_spec.rb`
     Then the examples should all pass
-    
+
   Scenario: helper method that accesses an instance variable
     Given a file named "spec/helpers/application_helper_spec.rb" with:
       """
@@ -68,10 +68,10 @@ Feature: helper spec
       require "spec_helper"
 
       describe WidgetsHelper do
-        describe "#page_title" do
+        describe "#widget_title" do
           it "includes the app name" do
-            assign(:title, "This Page")
-            helper.page_title.should eq("The App: This Page")
+            assign(:title, "This Widget")
+            helper.widget_title.should eq("The App: This Widget")
           end
         end
       end
@@ -87,7 +87,7 @@ Feature: helper spec
     And a file named "app/helpers/widgets_helper.rb" with:
       """
       module WidgetsHelper
-        def page_title
+        def widget_title
           "#{app_name}: #{@title}"
         end
       end
