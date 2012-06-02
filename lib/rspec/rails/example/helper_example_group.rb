@@ -18,7 +18,7 @@ module RSpec::Rails
     # mixed in, along with any of the built-in rails helpers.
     def helper
       _view.tap do |v|
-        v.singleton_class.send(:include, ApplicationHelper) if defined?(ApplicationHelper)
+        v.extend(ApplicationHelper) if defined?(ApplicationHelper)
         v.assign(view_assigns)
       end
     end
