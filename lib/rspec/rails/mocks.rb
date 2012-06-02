@@ -240,7 +240,4 @@ EOM
   end
 end
 
-RSpec.configure do |c|
-  c.include RSpec::Rails::Mocks
-end
-
+RSpec.configuration.include RSpec::Rails::Mocks
