@@ -31,9 +31,11 @@ module RSpec::Rails::Matchers
     #
     # @example
     #
-    #     response.should render_template("new")
-    def render_template(options, message=nil)
+    #     response.should have_rendered("new")
+    def have_rendered(options, message=nil)
       RenderTemplateMatcher.new(self, options, message)
     end
+
+    alias_method :render_template, :have_rendered
   end
 end

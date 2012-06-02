@@ -17,7 +17,7 @@ rescue LoadError
   end
 end
 
-require 'rspec/rails/matchers/render_template'
+require 'rspec/rails/matchers/have_rendered'
 require 'rspec/rails/matchers/redirect_to'
 require 'rspec/rails/matchers/routing_matchers'
 require 'rspec/rails/matchers/be_new_record'
