@@ -4,7 +4,7 @@ require 'rails/generators/resource_helpers'
 module Rspec
   module Generators
     class ScaffoldGenerator < Base
-      include Rails::Generators::ResourceHelpers
+      include ::Rails::Generators::ResourceHelpers
       source_paths << File.expand_path("../../helper/templates", __FILE__)
       argument :attributes, :type => :array, :default => [], :banner => "field:type field:type"
 

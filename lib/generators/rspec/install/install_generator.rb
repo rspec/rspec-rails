@@ -1,6 +1,6 @@
 module Rspec
   module Generators
-    class InstallGenerator < Rails::Generators::Base
+    class InstallGenerator < ::Rails::Generators::Base
 
       desc <<DESC
 Description:

@@ -1,6 +1,12 @@
 ### dev
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.10.1...master)
 
+Bug fixes
+
+* "uninitialized constant" errors are avoided when using using gems like
+  `rspec-rails-uncommitted` that define `Rspec::Rails` before `rspec-rails`
+  loads (Andy Lindeman)
+
 Enhancements
 
 * The generated `spec/spec_helper.rb` sets `config.order = "random"` so that
