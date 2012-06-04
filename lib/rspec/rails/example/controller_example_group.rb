@@ -120,11 +120,7 @@ module RSpec::Rails
       metadata[:type] = :controller
 
       before do
-        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
-          @routes = RSpec.configuration.application.routes
-        else
-          @routes = ::Rails.application.routes
-        end
+        @routes = RSpec.configuration.application.routes
         ActionController::Base.allow_forgery_protection = false
       end
     end

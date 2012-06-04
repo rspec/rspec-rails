@@ -14,18 +14,14 @@ module RSpec::Rails
       group.metadata[:type].should eq(:request)
     end
 
-    describe "#app" do
+    describe "#app", :at_least_rails_3_1 do
       before do
-        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
-          @orig_application = RSpec.configuration.application
-          RSpec.configuration.application = RSpec::EngineExample
-        end
+        @orig_application = RSpec.configuration.application
+        RSpec.configuration.application = RSpec::EngineExample
       end
 
       after do
-        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
-          RSpec.configuration.application = @orig_application
-        end
+        RSpec.configuration.application = @orig_application
       end
 
       it "sets app as custom application" do
@@ -35,11 +31,7 @@ module RSpec::Rails
 
         example = group.new
 
-        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
-          example.app.should eq(RSpec::EngineExample)
-        else
-          example.app.should eq(::Rails.application)
-        end
+        example.app.should eq(RSpec::EngineExample)
       end
     end
   end

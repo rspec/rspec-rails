@@ -97,18 +97,14 @@ module RSpec::Rails
       end
     end
 
-    describe "#application" do
+    describe "#application", :at_least_rails_3_1 do
       before do
-        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
-          @orig_application = RSpec.configuration.application
-          RSpec.configuration.application = RSpec::EngineExample
-        end
+        @orig_application = RSpec.configuration.application
+        RSpec.configuration.application = RSpec::EngineExample
       end
 
       after do
-        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
-          RSpec.configuration.application = @orig_application
-        end
+        RSpec.configuration.application = @orig_application
       end
 
       it "still delegates name routes to underlying controller" do
@@ -118,13 +114,8 @@ module RSpec::Rails
         example = group.new
         example.stub(:controller => controller)
 
-        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
-          example.instance_variable_set(:@orig_routes, RSpec.configuration.application.routes)
-          example.bars_path.should eq('/foos')
-        else
-          example.instance_variable_set(:@orig_routes, ::Rails.application.routes)
-          expect { example.bars_path }.should raise_error
-        end
+        example.instance_variable_set(:@orig_routes, RSpec.configuration.application.routes)
+        example.bars_path.should eq('/foos')
       end
     end
   end

@@ -18,18 +18,14 @@ module RSpec::Rails
       group.metadata[:type].should eq(:mailer)
     end
 
-    describe "custom application" do
+    describe "custom application", :at_least_rails_3_1 do
       before do
-        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
-          @orig_application = RSpec.configuration.application
-          RSpec.configuration.application = RSpec::EngineExample
-        end
+        @orig_application = RSpec.configuration.application
+        RSpec.configuration.application = RSpec::EngineExample
       end
 
       after do
-        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
-          RSpec.configuration.application = @orig_application
-        end
+        RSpec.configuration.application = @orig_application
       end
 
       it "should include custom application's url helpers" do
@@ -38,11 +34,7 @@ module RSpec::Rails
         end
 
         example = group.new
-        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
-          example.bars_path.should == '/bars'
-        else
-          expect { example.bars_path }.should raise_error
-        end
+        example.bars_path.should == '/bars'
       end
     end
   end

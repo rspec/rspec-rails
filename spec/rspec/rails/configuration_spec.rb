@@ -29,35 +29,23 @@ describe "configuration" do
     context "default" do
 
       it "is Rails.application by default" do
-        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
-          RSpec.configuration.application.should eq(::Rails.application)
-        else
-          expect { RSpec.configuration.application }.should raise_error
-        end
+        RSpec.configuration.application.should eq(::Rails.application)
       end
 
     end
 
-    context "custom rack application" do
+    context "custom rack application", :at_least_rails_3_1 do
       before do
-        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
-          @orig_application = RSpec.configuration.application
-        end
+        @orig_application = RSpec.configuration.application
       end
 
       after do
-        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
-          RSpec.configuration.application = @orig_application
-        end
+        RSpec.configuration.application = @orig_application
       end
 
       it "allows for custom application" do
-        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
-          RSpec.configuration.application = RSpec::EngineExample
-          RSpec.configuration.application.should eq(RSpec::EngineExample)
-        else
-          expect { RSpec.configuration.application = RSpec::EngineExample }.should raise_error
-        end
+        RSpec.configuration.application = RSpec::EngineExample
+        RSpec.configuration.application.should eq(RSpec::EngineExample)
       end
 
     end

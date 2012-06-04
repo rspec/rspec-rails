@@ -16,7 +16,7 @@ class RSpec::Core::ExampleGroup
   end
 end
 
-if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
+if at_least_rails_3_1?
   RSpec::EngineExample.routes.draw do
     root :to => "foo#index"
     resources :bars
@@ -26,6 +26,9 @@ end
 RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.filter_run :focus
+  unless at_least_rails_3_1?
+    config.filter_run_excluding :at_least_rails_3_1
+  end
   config.run_all_when_everything_filtered = true
   config.before(:each) do
     @real_world = RSpec.world

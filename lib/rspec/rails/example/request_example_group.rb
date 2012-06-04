@@ -9,22 +9,14 @@ module RSpec::Rails
     include ActionController::TemplateAssertions
 
     def app
-      if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
-        return RSpec.configuration.application
-      else
-        return ::Rails.application
-      end
+      return RSpec.configuration.application
     end
 
     included do
       metadata[:type] = :request
 
       before do
-        if Gem::Version.new(Rails.version) >= Gem::Version.new('3.1.0')
-          @routes = RSpec.configuration.application.routes
-        else
-          @routes = ::Rails.application.routes
-        end
+        @routes = RSpec.configuration.application.routes
       end
     end
   end
