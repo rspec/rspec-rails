@@ -43,7 +43,7 @@ Bug fixes
 ### 2.9.0 / 2012-03-17
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.8.1...v2.9.0)
 
-Enhancments
+Enhancements
 
 * add description method to RouteToMatcher (John Wulff)
 * Run "db:test:clone_structure" instead of "db:test:prepare" if Active Record's
@@ -109,7 +109,7 @@ you'll have to upgrade to rspec-rails-2.8.1 when you upgrade to rails >=
 
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.6.1...v2.7.0)
 
-* Enhancments
+* Enhancements
   * `ActiveRecord::Relation` can use the `=~` matcher (Andy Lindeman)
   * Make generated controller spec more consistent with regard to ids
     (Brent J. Nordquist)
