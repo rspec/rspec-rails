@@ -56,3 +56,35 @@ Feature: route_to matcher
 
     When I run `rspec spec/routing/widgets_routing_spec.rb`
     Then the output should contain "1 failure"
+
+  Scenario: route spec for a namespaced route with shortcut specifier
+    Given a file named "spec/routing/admin_routing_spec.rb" with:
+      """
+      require "spec_helper"
+
+      describe "routes for Widgets" do
+        it "routes /admin/accounts to the admin/accounts controller" do
+          get("/admin/accounts").
+            should route_to("admin/accounts#index")
+        end
+      end
+      """
+
+    When I run `rspec spec/routing/admin_routing_spec.rb`
+    Then the examples should all pass
+
+  Scenario: route spec for a namespaced route with verbose specifier
+   Given a file named "spec/routing/admin_routing_spec.rb" with:
+     """
+     require "spec_helper"
+
+     describe "routes for Widgets" do
+       it "routes /admin/accounts to the admin/accounts controller" do
+         get("/admin/accounts").
+           should route_to(:controller => "admin/accounts", :action => "index")
+       end
+     end
+     """
+
+   When I run `rspec spec/routing/admin_routing_spec.rb`
+   Then the examples should all pass
