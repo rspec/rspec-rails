@@ -32,6 +32,10 @@ describe "configuration" do
         RSpec.configuration.application.should eq(::Rails.application)
       end
 
+      it "should raise an error for Rails 3.0", :not_at_least_rails_3_1 do
+        expect { RSpec.configuration.application = ::Rails.application }.should raise_error
+      end
+
     end
 
     context "custom rack application", :at_least_rails_3_1 do
