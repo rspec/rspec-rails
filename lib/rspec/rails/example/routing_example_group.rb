@@ -12,7 +12,7 @@ module RSpec::Rails
       metadata[:type] = :routing
 
       before do
-        @routes = ::Rails.application.routes
+        @routes = RSpec.configuration.application.routes
       end
     end
 
