@@ -25,17 +25,8 @@ describe "configuration" do
   end
 
   describe "#application" do
-
-    context "default" do
-
-      it "is Rails.application by default" do
-        RSpec.configuration.application.should eq(::Rails.application)
-      end
-
-      it "should raise an error for Rails 3.0", :not_at_least_rails_3_1 do
-        expect { RSpec.configuration.application = ::Rails.application }.should raise_error
-      end
-
+    it "returns Rails.application by default" do
+      RSpec.configuration.application.should eq(::Rails.application)
     end
 
     context "custom rack application", :at_least_rails_3_1 do
@@ -51,7 +42,14 @@ describe "configuration" do
         RSpec.configuration.application = RSpec::EngineExample
         RSpec.configuration.application.should eq(RSpec::EngineExample)
       end
+    end
+  end
 
+  describe '#application=' do
+    context 'for Rails 3.0', :not_at_least_rails_3_1 do
+      it 'raises an error' do
+        expect { RSpec.configuration.application = ::Rails.application }.to raise_error
+      end
     end
   end
 end
