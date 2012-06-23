@@ -1,8 +1,16 @@
 require 'rspec/core'
 
-RSpec::configure do |c|
+RSpec.configure do |c|
   c.backtrace_clean_patterns << /vendor\//
   c.backtrace_clean_patterns << /lib\/rspec\/rails/
+end
+
+module RSpec
+  module Rails
+    def self.at_least_rails_3_1?
+      Gem::Version.new(::Rails.version) >= Gem::Version.new('3.1.0')
+    end
+  end
 end
 
 require 'rspec/rails/extensions'
