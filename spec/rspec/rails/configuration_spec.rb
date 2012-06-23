@@ -23,4 +23,35 @@ describe "configuration" do
       RSpec.configuration.render_views?.should be_true
     end
   end
+
+  describe "#application" do
+
+    context "default" do
+
+      it "is Rails.application by default" do
+        RSpec.configuration.application.should eq(::Rails.application)
+      end
+
+      it "should raise an error for Rails 3.0", :not_at_least_rails_3_1 do
+        expect { RSpec.configuration.application = ::Rails.application }.should raise_error
+      end
+
+    end
+
+    context "custom rack application", :at_least_rails_3_1 do
+      before do
+        @orig_application = RSpec.configuration.application
+      end
+
+      after do
+        RSpec.configuration.application = @orig_application
+      end
+
+      it "allows for custom application" do
+        RSpec.configuration.application = RSpec::EngineExample
+        RSpec.configuration.application.should eq(RSpec::EngineExample)
+      end
+
+    end
+  end
 end

@@ -120,7 +120,7 @@ module RSpec::Rails
       metadata[:type] = :controller
 
       before do
-        @routes = ::Rails.application.routes
+        @routes = RSpec.configuration.application.routes
         ActionController::Base.allow_forgery_protection = false
       end
     end

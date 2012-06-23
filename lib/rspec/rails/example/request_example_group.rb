@@ -9,14 +9,14 @@ module RSpec::Rails
     include ActionController::TemplateAssertions
 
     def app
-      ::Rails.application
+      return RSpec.configuration.application
     end
 
     included do
       metadata[:type] = :request
 
       before do
-        @routes = ::Rails.application.routes
+        @routes = RSpec.configuration.application.routes
       end
     end
   end
