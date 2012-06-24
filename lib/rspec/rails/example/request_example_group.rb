@@ -9,7 +9,7 @@ module RSpec::Rails
     include ActionController::TemplateAssertions
 
     def app
-      return RSpec.configuration.application
+      RSpec.configuration.application
     end
 
     included do
