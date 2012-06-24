@@ -28,21 +28,6 @@ describe "configuration" do
     it "returns Rails.application by default" do
       RSpec.configuration.application.should eq(::Rails.application)
     end
-
-    context "custom rack application", :at_least_rails_3_1 do
-      before do
-        @orig_application = RSpec.configuration.application
-      end
-
-      after do
-        RSpec.configuration.application = @orig_application
-      end
-
-      it "allows for custom application" do
-        RSpec.configuration.application = RSpec::EngineExample
-        RSpec.configuration.application.should eq(RSpec::EngineExample)
-      end
-    end
   end
 
   describe '#application=' do
