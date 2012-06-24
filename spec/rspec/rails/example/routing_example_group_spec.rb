@@ -29,17 +29,8 @@ module RSpec::Rails
       end
     end
 
-    describe "custom application routes", :at_least_rails_3_1 do
-      before do
-        @orig_application = RSpec.configuration.application
-        RSpec.configuration.application = RSpec::EngineExample
-      end
-
-      after do
-        RSpec.configuration.application = @orig_application
-      end
-
-      it "provides routes of custom application" do
+    describe "custom application", :at_least_rails_3_1 do
+      it "provides routes of the custom application" do
         group = RSpec::Core::ExampleGroup.describe do
           include RoutingExampleGroup
         end
@@ -50,7 +41,6 @@ module RSpec::Rails
         example.stub(:routes => RSpec.configuration.application.routes)
         example.bars_path.should == "/bars"
       end
-
     end
   end
 end

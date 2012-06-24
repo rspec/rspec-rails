@@ -97,17 +97,8 @@ module RSpec::Rails
       end
     end
 
-    describe "#application", :at_least_rails_3_1 do
-      before do
-        @orig_application = RSpec.configuration.application
-        RSpec.configuration.application = RSpec::EngineExample
-      end
-
-      after do
-        RSpec.configuration.application = @orig_application
-      end
-
-      it "still delegates name routes to underlying controller" do
+    describe "custom application", :at_least_rails_3_1 do
+      it "delegates named routes to the underlying controller" do
         controller = double('controller')
         controller.stub(:bars_path).and_return('/foos')
 

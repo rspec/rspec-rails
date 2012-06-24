@@ -19,16 +19,7 @@ module RSpec::Rails
     end
 
     describe "custom application", :at_least_rails_3_1 do
-      before do
-        @orig_application = RSpec.configuration.application
-        RSpec.configuration.application = RSpec::EngineExample
-      end
-
-      after do
-        RSpec.configuration.application = @orig_application
-      end
-
-      it "should include custom application's url helpers" do
+      it "includes the custom application's url helpers" do
         group = RSpec::Core::ExampleGroup.describe do
           include MailerExampleGroup
         end

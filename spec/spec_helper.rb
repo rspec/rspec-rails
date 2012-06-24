@@ -21,6 +21,12 @@ RSpec.configure do |config|
   config.filter_run :focus
   if RSpec::Rails.at_least_rails_3_1?
     config.filter_run_excluding :not_at_least_rails_3_1
+    config.around(:each, :at_least_rails_3_1) do |example|
+      orig_application = RSpec.configuration.application
+      RSpec.configuration.application = RSpec::EngineExample
+      example.run
+      RSpec.configuration.application = orig_application
+    end
   else
     config.filter_run_excluding :at_least_rails_3_1
   end
