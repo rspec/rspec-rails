@@ -14,24 +14,15 @@ module RSpec::Rails
       group.metadata[:type].should eq(:request)
     end
 
-    describe "#app", :at_least_rails_3_1 do
-      before do
-        @orig_application = RSpec.configuration.application
-        RSpec.configuration.application = RSpec::EngineExample
-      end
-
-      after do
-        RSpec.configuration.application = @orig_application
-      end
-
-      it "sets app as custom application" do
+    describe '#app' do
+      it 'returns the RSpec.configuration.application' do
         group = RSpec::Core::ExampleGroup.describe do
           include RequestExampleGroup
         end
 
         example = group.new
 
-        example.app.should eq(RSpec::EngineExample)
+        example.app.should eq(RSpec.configuration.application)
       end
     end
   end
