@@ -31,7 +31,7 @@ describe "configuration" do
   end
 
   describe '#application=' do
-    context 'for Rails 3.0', :not_at_least_rails_3_1 do
+    context 'for Rails 3.0', :unless => RSpec::Rails.at_least_rails_3_1? do
       it 'raises an error' do
         expect { RSpec.configuration.application = ::Rails.application }.to raise_error
       end

@@ -96,18 +96,5 @@ module RSpec::Rails
         controller_class.superclass.should eq(ApplicationController)
       end
     end
-
-    describe "custom application", :at_least_rails_3_1 do
-      it "delegates named routes to the underlying controller" do
-        controller = double('controller')
-        controller.stub(:bars_path).and_return('/foos')
-
-        example = group.new
-        example.stub(:controller => controller)
-
-        example.instance_variable_set(:@orig_routes, RSpec.configuration.application.routes)
-        example.bars_path.should eq('/foos')
-      end
-    end
   end
 end
