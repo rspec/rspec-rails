@@ -2,8 +2,7 @@ module RSpec::Rails::Matchers
   module RoutingMatchers
     extend RSpec::Matchers::DSL
 
-    class RouteToMatcher
-      include RSpec::Matchers::BuiltIn::BaseMatcher
+    class RouteToMatcher < RSpec::Matchers::BuiltIn::BaseMatcher
 
       def initialize(scope, *expected)
         @scope = scope
@@ -58,8 +57,7 @@ module RSpec::Rails::Matchers
       RouteToMatcher.new(self, *expected)
     end
 
-    class BeRoutableMatcher
-      include RSpec::Matchers::BuiltIn::BaseMatcher
+    class BeRoutableMatcher < RSpec::Matchers::BuiltIn::BaseMatcher
 
       def initialize(scope)
         @scope = scope

@@ -1,6 +1,5 @@
 module RSpec::Rails::Matchers
-  class BeANew
-    include RSpec::Matchers::BuiltIn::BaseMatcher
+  class BeANew < RSpec::Matchers::BuiltIn::BaseMatcher
 
     def initialize(expected)
       @expected = expected
