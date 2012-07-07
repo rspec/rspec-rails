@@ -7,9 +7,6 @@ Enhancements
   specs run in random order by default.
 * rename `render_template` to `have_rendered` (and alias to `render_template`
   for backward compatibility)
-* Specify a different application (e.g. an engine) instead of the Rails app:
-  `Rails.configuration.application = MyEngine` - default is `Rails.application`
-  (Dan Rasband @danrasban)
 
 Bug fixes
 

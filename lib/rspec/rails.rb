@@ -1,23 +1,8 @@
 require 'rspec/core'
 
-module RSpec
-  module Rails
-    def self.at_least_rails_3_1?
-      Gem::Version.new(::Rails.version) >= Gem::Version.new('3.1.0')
-    end
-  end
-end
-
-RSpec.configure do |config|
-  config.backtrace_clean_patterns << /vendor\//
-  config.backtrace_clean_patterns << /lib\/rspec\/rails/
-  config.add_setting :application, :default => ::Rails.application
-
-  unless RSpec::Rails.at_least_rails_3_1?
-    def config.application=(*)
-      raise 'Setting the application is only supported on Rails 3.1 and above.'
-    end
-  end
+RSpec::configure do |c|
+  c.backtrace_clean_patterns << /vendor\//
+  c.backtrace_clean_patterns << /lib\/rspec\/rails/
 end
 
 require 'rspec/rails/extensions'

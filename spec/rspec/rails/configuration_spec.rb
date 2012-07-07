@@ -23,18 +23,4 @@ describe "configuration" do
       RSpec.configuration.render_views?.should be_true
     end
   end
-
-  describe "#application" do
-    it "returns Rails.application by default" do
-      RSpec.configuration.application.should eq(::Rails.application)
-    end
-  end
-
-  describe '#application=' do
-    context 'for Rails 3.0', :unless => RSpec::Rails.at_least_rails_3_1? do
-      it 'raises an error' do
-        expect { RSpec.configuration.application = ::Rails.application }.to raise_error
-      end
-    end
-  end
 end
