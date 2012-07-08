@@ -20,6 +20,10 @@ Feature: errors_on
           ValidatingWidget.new.should have(1).errors_on(:name)
         end
 
+        it "fails validation with no name expecting a specific message" do
+          ValidatingWidget.new.errors_on(:name).should include("can't be blank")
+        end
+
         it "passes validation with a name (using 0)" do
           ValidatingWidget.new(:name => "liquid nitrogen").should have(0).errors_on(:name)
         end
