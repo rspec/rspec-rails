@@ -125,6 +125,7 @@ describe <%= controller_class_name %>Controller do
       it "redirects to the <%= ns_file_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => valid_attributes}, valid_session
+        <%= file_name %>.reload
         response.should redirect_to(<%= file_name %>)
       end
     end
