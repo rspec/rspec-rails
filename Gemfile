@@ -24,7 +24,8 @@ end
 
 gem 'sqlite3', '~> 1.3.6'
 
-eval File.read('Gemfile-custom') if File.exist?('Gemfile-custom')
+custom_gemfile = File.expand_path("../Gemfile-custom", __FILE__)
+eval File.read(custom_gemfile) if File.exist?(custom_gemfile)
 
 case version = ENV['RAILS_VERSION'] || File.read(File.expand_path("../.rails-version", __FILE__)).chomp
 when /master/
