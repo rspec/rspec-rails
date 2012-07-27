@@ -33,6 +33,8 @@ when /master/
   gem "arel", :git => "git://github.com/rails/arel.git"
   gem "journey", :git => "git://github.com/rails/journey.git"
   gem "active_record_deprecated_finders", :git => "git://github.com/rails/active_record_deprecated_finders.git"
+  gem 'sass-rails', :git => "git://github.com/rails/sass-rails.git"
+  gem 'coffee-rails', :git => "git://github.com/rails/coffee-rails.git"
 when /3-0-stable/
   gem "rails", :git => "git://github.com/rails/rails.git", :branch => "3-0-stable"
   gem "arel",  :git => "git://github.com/rails/arel.git", :branch => "2-0-stable"
@@ -40,7 +42,6 @@ when /3-1-stable/
   gem "rails", :git => "git://github.com/rails/rails.git", :branch => "3-1-stable"
 when /3-2-stable/
   gem "rails", :git => "git://github.com/rails/rails.git", :branch => "3-2-stable"
-  gem "journey", :git => "git://github.com/rails/journey.git"
 else
   gem "rails", version
 end
