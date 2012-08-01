@@ -21,7 +21,7 @@ Feature: request spec
 
   If you would like to use webrat or capybara with your request specs, all you
   have to do is include one of them in your Gemfile and RSpec will
-  automatically load them in a request spec.
+  automatically load them in a request spec (a spec under "spec/requests").
 
   Scenario: specify managing a Widget with Rails integration methods
     Given a file named "spec/requests/widget_management_spec.rb" with:
