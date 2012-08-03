@@ -6,8 +6,8 @@ module RSpec::Rails::Matchers
     end
 
     # @api private
-    def matches?(actual)
-      @actual = actual
+    def matches?(model)
+      @actual = model.class
       unless @kind
         raise ArgumentError.new <<-EOM
 The have_callback matcher requires its `before` or `after` method to be called:
@@ -17,8 +17,8 @@ The have_callback matcher requires its `before` or `after` method to be called:
 EOM
       end
       @callback = "_#{@type}_callbacks"
-      return false unless @actual.class.respond_to?(@callback)
-      matches = @actual.class.send(@callback)
+      return false unless @actual.respond_to?(@callback)
+      matches = @actual.send(@callback)
       matches.select! { |o| o.kind == @kind } if @kind
       matches.any? { |o| o.filter == @expected }
     end
