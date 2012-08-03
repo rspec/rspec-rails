@@ -19,7 +19,7 @@ EOM
       @callback = "_#{@type}_callbacks"
       return false unless @actual.respond_to?(@callback)
       matches = @actual.send(@callback)
-      matches.select! { |o| o.kind == @kind } if @kind
+      matches = matches.select { |o| o.kind == @kind } if @kind
       matches.any? { |o| o.filter == @expected }
     end
 
