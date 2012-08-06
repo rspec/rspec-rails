@@ -22,8 +22,6 @@ SQL
 end
 
 describe "should have_xxx" do
-  #before { RSpec::Rails::Extensions::ActiveRecord::Proxy.fix_should_and_should_not }
-
   it "works with ActiveRecord::Associations::CollectionProxy" do
     owner = CollectionOwner.new
     owner.associated_items.should have_some_quality
