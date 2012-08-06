@@ -73,7 +73,7 @@ module Rspec
 
         def ns_parts
           @ns_parts ||= begin
-                          matches = ARGV[0].to_s.match(/\A(\w+)\/(\w+)/)
+                          matches = ARGV[0].to_s.match(/\A(\w+)(?:\/|::)(\w+)/)
                           matches ? [matches[1], matches[2]] : []
                         end
         end
