@@ -138,7 +138,7 @@ describe "home page" do
     fill_in "Password", :with => "secret"
     click_button "Log in"
 
-    page.should have_selector(".header .username", :text => "jdoe")
+    expect(page).to have_selector(".header .username", :text => "jdoe")
   end
 end
 ```
@@ -172,7 +172,7 @@ describe WidgetsController do
 
     it "assigns all widgets to @widgets" do
       get :index
-      assigns(:widgets).should eq(Widget.all)
+      expect(assigns(:widgets)).to eq(Widget.all)
     end
   end
 end
@@ -187,7 +187,7 @@ describe WidgetsController do
     it "assigns all widgets to @widgets" do
       widget = FactoryGirl.create(:widget)
       get :index
-      assigns(:widgets).should eq([widget])
+      expect(assigns(:widgets)).to eq([widget])
     end
   end
 end
@@ -203,7 +203,7 @@ describe WidgetsController do
       widget = stub_model(Widget)
       Widget.stub(:all) { [widget] }
       get :index
-      assigns(:widgets).should eq([widget])
+      expect(assigns(:widgets)).to eq([widget])
     end
   end
 end
@@ -215,10 +215,10 @@ In addition to the stock matchers from rspec-expectations, controller
 specs add these matchers, which delegate to rails' assertions:
 
 ```ruby
-response.should render_template(*args)
+expect(response).to render_template(*args)
 # => delegates to assert_template(*args)
 
-response.should redirect_to(destination)
+expect(response).to redirect_to(destination)
 # => delegates to assert_redirected_to(destination)
 ```
 
@@ -258,7 +258,7 @@ assigns to the view in the course of an action:
 
 ```ruby
 get :index
-assigns(:widgets).should eq(expected_value)
+expect(assigns(:widgets)).to eq(expected_value)
 ```
 
 # View specs
@@ -271,7 +271,7 @@ describe "events/index" do
   it "renders _event partial for each event" do
     assign(:events, [stub_model(Event), stub_model(Event)])
     render
-    view.should render_template(:partial => "_event", :count => 2)
+    expect(view).to render_template(:partial => "_event", :count => 2)
   end
 end
 
@@ -281,7 +281,7 @@ describe "events/show" do
       :location => "Chicago"
     ))
     render
-    rendered.should contain("Chicago")
+    expect(rendered).to contain("Chicago")
   end
 end
 ```
@@ -347,7 +347,7 @@ This represents the rendered view.
 
 ```ruby
 render
-rendered.should =~ /Some text expected to appear on the page/
+expect(rendered).to match /Some text expected to appear on the page/
 ```
 
 ### Upgrade note
@@ -360,6 +360,10 @@ response.should xxx
 # rspec-rails-2.x
 render
 rendered.should xxx
+
+# rspec-rails-2.x with expect syntax
+render
+expect(rendered).to xxx
 ```
 
 # Model specs
@@ -372,17 +376,17 @@ describe Article do
   describe ".recent" do
     it "includes articles published less than one week ago" do
       article = Article.create!(:published_at => Date.today - 1.week + 1.second)
-      Article.recent.should eq([article])
+      expect(Article.recent).to eq([article])
     end
 
     it "excludes articles published at midnight one week ago" do
       article = Article.create!(:published_at => Date.today - 1.week)
-      Article.recent.should be_empty
+      expect(Article.recent).to be_empty
     end
 
     it "excludes articles published more than one week ago" do
       article = Article.create!(:published_at => Date.today - 1.week - 1.second)
-      Article.recent.should be_empty
+      expect(Article.recent).to be_empty
     end
   end
 end
@@ -396,7 +400,7 @@ Routing specs live in spec/routing.
 require 'spec_helper'
 describe "routing to profiles" do
   it "routes /profile/:username to profile#show for username" do
-    { :get => "/profiles/jsmith" }.should route_to(
+    expect(:get => "/profiles/jsmith").to route_to(
       :controller => "profiles",
       :action => "show",
       :username => "jsmith"
@@ -404,7 +408,7 @@ describe "routing to profiles" do
   end
 
   it "does not expose a list of profiles" do
-    { :get => "/profiles" }.should_not be_routable
+    expect(:get => "/profiles").not_to be_routable
   end
 end
 ```
@@ -428,7 +432,7 @@ describe EventsHelper do
       event = Event.new("Ruby Kaigi", Date.new(2010, 8, 27))
       # helper is an instance of ActionView::Base configured with the
       # EventsHelper and all of Rails' built-in helpers
-      helper.link_to_event.should =~ /Ruby Kaigi, 27 Aug, 2010/
+      expect(helper.link_to_event).to match /Ruby Kaigi, 27 Aug, 2010/
     end
   end
 end
@@ -444,7 +448,7 @@ of them simply delegate to Rails' assertions.
 * Primarily intended for controller specs
 
 ```ruby
-object.should be_a_new(Widget)
+expect(object).to be_a_new(Widget)
 ```
 
 
@@ -457,13 +461,13 @@ Passes if the object is a `Widget` and returns true for `new_record?`
 In request and controller specs, apply to the response object:
 
 ```ruby
-response.should render_template("new")
+expect(response).to render_template("new")
 ```
 
 In view specs, apply to the view object:
 
 ```ruby
-view.should render_template(:partial => "_form", :locals => { :widget => widget } )
+expect(view).to render_template(:partial => "_form", :locals => { :widget => widget } )
 ```
 
 ## `redirect_to`
@@ -471,7 +475,7 @@ view.should render_template(:partial => "_form", :locals => { :widget => widget 
 * Available in request and controller specs.
 
 ```ruby
-response.should redirect_to(widgets_path)
+expect(response).to redirect_to(widgets_path)
 ```
 
 ## `route_to`
@@ -480,16 +484,16 @@ response.should redirect_to(widgets_path)
 * Available in routing and controller specs.
 
 ```ruby
-{ :get => "/widgets" }.should route_to(:controller => "widgets", :action => "index")
+expect(:get => "/widgets").to route_to(:controller => "widgets", :action => "index")
 ```
 
 ## `be_routable`
 
 Passes if the path is recognized by Rails' routing. This is primarily intended
-to be used with `should_not` to specify routes that should not be routable.
+to be used with `not_to` to specify routes that should not be routable.
 
 ```ruby
-{ :get => "/widgets/1/edit" }.should_not be_routable
+expect(:get => "/widgets/1/edit").not_to be_routable
 ```
 
 # Contribute
