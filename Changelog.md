@@ -15,6 +15,9 @@ Enhancements
   specs run in random order by default.
 * rename `render_template` to `have_rendered` (and alias to `render_template`
   for backward compatibility)
+* The controller spec generated with `rails generate scaffold namespaced::model`
+  matches the spec generated with `rails generate scaffold namespaced/model`
+  (Kohei Hasegawa)
 
 Bug fixes
 
