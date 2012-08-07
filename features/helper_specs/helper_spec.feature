@@ -21,7 +21,7 @@ Feature: helper spec
       describe ApplicationHelper do
         describe "#page_title" do
           it "returns the default title" do
-            helper.page_title.should eq("RSpec is your friend")
+            expect(helper.page_title).to eq("RSpec is your friend")
           end
         end
       end
@@ -46,7 +46,7 @@ Feature: helper spec
         describe "#page_title" do
           it "returns the instance variable" do
             assign(:title, "My Title")
-            helper.page_title.should eql("My Title")
+            expect(helper.page_title).to eql("My Title")
           end
         end
       end
@@ -71,7 +71,7 @@ Feature: helper spec
         describe "#widget_title" do
           it "includes the app name" do
             assign(:title, "This Widget")
-            helper.widget_title.should eq("The App: This Widget")
+            expect(helper.widget_title).to eq("The App: This Widget")
           end
         end
       end

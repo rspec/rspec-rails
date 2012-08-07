@@ -46,7 +46,7 @@ Feature: anonymous controller
         describe "handling AccessDenied exceptions" do
           it "redirects to the /401.html page" do
             get :index
-            response.should redirect_to("/401.html")
+            expect(response).to redirect_to("/401.html")
           end
         end
       end
@@ -84,7 +84,7 @@ Feature: anonymous controller
         describe "handling AccessDenied exceptions" do
           it "redirects to the /401.html page" do
             get :index
-            response.should redirect_to("/401.html")
+            expect(response).to redirect_to("/401.html")
           end
         end
       end
@@ -113,7 +113,7 @@ Feature: anonymous controller
         end
 
         it "creates an anonymous controller derived from ApplicationControllerSubclass" do
-          controller.should be_a_kind_of(ApplicationControllerSubclass)
+          expect(controller).to be_a_kind_of(ApplicationControllerSubclass)
         end
       end
       """
@@ -144,7 +144,7 @@ Feature: anonymous controller
         it "invokes the callback" do
           get :index
 
-          assigns[:callback_invoked].should be_true
+          expect(assigns[:callback_invoked]).to be_true
         end
       end
       """
@@ -194,36 +194,36 @@ Feature: anonymous controller
       describe "#index" do
         it "responds to GET" do
           get :index
-          response.body.should == "index called"
+          expect(response.body).to eq "index called"
         end
 
         it "also responds to POST" do
           post :index
-          response.body.should == "index called"
+          expect(response.body).to eq "index called"
         end
 
         it "also responds to PUT" do
           put :index
-          response.body.should == "index called"
+          expect(response.body).to eq "index called"
         end
 
         it "also responds to DELETE" do
           delete :index
-          response.body.should == "index called"
+          expect(response.body).to eq "index called"
         end
       end
 
       describe "#create" do
         it "responds to POST" do
           post :create
-          response.body.should == "create called"
+          expect(response.body).to eq "create called"
         end
 
         # And the rest...
         %w{get post put delete}.each do |calltype|
           it "responds to #{calltype}" do
             send(calltype, :create)
-            response.body.should == "create called"
+            expect(response.body).to eq "create called"
           end
         end
       end
@@ -231,14 +231,14 @@ Feature: anonymous controller
       describe "#new" do
         it "responds to GET" do
           get :new
-          response.body.should == "new called"
+          expect(response.body).to eq "new called"
         end
 
         # And the rest...
         %w{get post put delete}.each do |calltype|
           it "responds to #{calltype}" do
             send(calltype, :new)
-            response.body.should == "new called"
+            expect(response.body).to eq "new called"
           end
         end
       end
@@ -246,7 +246,7 @@ Feature: anonymous controller
       describe "#edit" do
         it "responds to GET" do
           get :edit, :id => "anyid"
-          response.body.should == "edit called"
+          expect(response.body).to eq "edit called"
         end
 
         it "requires the :id parameter" do
@@ -257,7 +257,7 @@ Feature: anonymous controller
         %w{get post put delete}.each do |calltype|
           it "responds to #{calltype}" do
             send(calltype, :edit, {:id => "anyid"})
-            response.body.should == "edit called"
+            expect(response.body).to eq "edit called"
           end
         end
       end
@@ -265,7 +265,7 @@ Feature: anonymous controller
       describe "#show" do
         it "responds to GET" do
           get :show, :id => "anyid"
-          response.body.should == "show called"
+          expect(response.body).to eq "show called"
         end
 
         it "requires the :id parameter" do
@@ -276,7 +276,7 @@ Feature: anonymous controller
         %w{get post put delete}.each do |calltype|
           it "responds to #{calltype}" do
             send(calltype, :show, {:id => "anyid"})
-            response.body.should == "show called"
+            expect(response.body).to eq "show called"
           end
         end
       end
@@ -284,7 +284,7 @@ Feature: anonymous controller
       describe "#update" do
         it "responds to PUT" do
           put :update, :id => "anyid"
-          response.body.should == "update called"
+          expect(response.body).to eq "update called"
         end
 
         it "requires the :id parameter" do
@@ -295,7 +295,7 @@ Feature: anonymous controller
         %w{get post put delete}.each do |calltype|
           it "responds to #{calltype}" do
             send(calltype, :update, {:id => "anyid"})
-            response.body.should == "update called"
+            expect(response.body).to eq "update called"
           end
         end
       end
@@ -303,7 +303,7 @@ Feature: anonymous controller
       describe "#destroy" do
         it "responds to DELETE" do
           delete :destroy, :id => "anyid"
-          response.body.should == "destroy called"
+          expect(response.body).to eq "destroy called"
         end
 
         it "requires the :id parameter" do
@@ -314,7 +314,7 @@ Feature: anonymous controller
         %w{get post put delete}.each do |calltype|
           it "responds to #{calltype}" do
             send(calltype, :destroy, {:id => "anyid"})
-            response.body.should == "destroy called"
+            expect(response.body).to eq "destroy called"
           end
         end
       end

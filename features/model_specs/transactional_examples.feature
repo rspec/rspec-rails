@@ -12,16 +12,16 @@ Feature: transactional examples
 
       describe Widget do
         it "has none to begin with" do
-          Widget.count.should == 0
+          expect(Widget.count).to eq 0
         end
 
         it "has one after adding one" do
           Widget.create
-          Widget.count.should == 1
+          expect(Widget.count).to eq 1
         end
 
         it "has none after one was created in a previous example" do
-          Widget.count.should == 0
+          expect(Widget.count).to eq 0
         end
       end
       """
@@ -39,16 +39,16 @@ Feature: transactional examples
 
       describe Widget do
         it "has none to begin with" do
-          Widget.count.should == 0
+          expect(Widget.count).to eq 0
         end
 
         it "has one after adding one" do
           Widget.create
-          Widget.count.should == 1
+          expect(Widget.count).to eq 1
         end
 
         it "has none after one was created in a previous example" do
-          Widget.count.should == 0
+          expect(Widget.count).to eq 0
         end
       end
       """
@@ -67,16 +67,16 @@ Feature: transactional examples
 
       describe Widget do
         it "has none to begin with" do
-          Widget.count.should == 0
+          expect(Widget.count).to eq 0
         end
 
         it "has one after adding one" do
           Widget.create
-          Widget.count.should == 1
+          expect(Widget.count).to eq 1
         end
 
         it "has one after one was created in a previous example" do
-          Widget.count.should == 1
+          expect(Widget.count).to eq 1
         end
 
         after(:all) { Widget.destroy_all }

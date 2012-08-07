@@ -16,8 +16,8 @@ Feature: stub template
           ])
           stub_template "gadgets/_gadget.html.erb" => "<%= gadget.name %><br/>"
           render
-          rendered.should =~ /First/
-          rendered.should =~ /Second/
+          expect(rendered).to match /First/
+          expect(rendered).to match /Second/
         end
       end
       """
@@ -42,7 +42,7 @@ Feature: stub template
         it "renders the form partial" do
           stub_template "gadgets/_form.html.erb" => "This content"
           render
-          rendered.should =~ /This content/
+          expect(rendered).to match /This content/
         end
       end
       """

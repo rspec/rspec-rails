@@ -13,14 +13,27 @@ Feature: be_a_new matcher
 
       describe Widget do
         context "when initialized" do
-          subject { Widget.new }
-          it { should be_a_new(Widget) }
-          it { should_not be_a_new(String) }
+          subject(:widget) { Widget.new }
+
+          it "is a new widget" do
+            expect(widget).to be_a_new(Widget)
+          end
+
+          it "is not a new string" do
+            expect(widget).not_to be_a_new(String)
+          end
         end
+
         context "when saved" do
-          subject { Widget.create }
-          it { should_not be_a_new(Widget) }
-          it { should_not be_a_new(String) }
+          subject(:widget) { Widget.create }
+
+          it "is not a new widget" do
+            expect(widget).not_to be_a_new(Widget)
+          end
+
+          it "is not a new string" do
+            expect(widget).not_to be_a_new(String)
+          end
         end
       end
       """
