@@ -4,11 +4,11 @@ Feature: route_to matcher
   It is most valuable when specifying routes other than standard RESTful
   routes.
 
-      get("/").should route_to("welcome#index") # new in 2.6.0
+      expect(get("/")).to route_to("welcome#index") # new in 2.6.0
 
       or
 
-      { :get => "/" }.should route_to(:controller => "welcome")
+      expect(:get => "/").to route_to(:controller => "welcome")
 
   Scenario: passing route spec with shortcut syntax
     Given a file named "spec/routing/widgets_routing_spec.rb" with:
@@ -17,8 +17,8 @@ Feature: route_to matcher
 
       describe "routes for Widgets" do
         it "routes /widgets to the widgets controller" do
-          get("/widgets").
-            should route_to("widgets#index")
+          expect(get("/widgets")).
+            to route_to("widgets#index")
         end
       end
       """
@@ -33,8 +33,8 @@ Feature: route_to matcher
 
       describe "routes for Widgets" do
         it "routes /widgets to the widgets controller" do
-          { :get => "/widgets" }.
-            should route_to(:controller => "widgets", :action => "index")
+          expect(:get => "/widgets").
+            to route_to(:controller => "widgets", :action => "index")
         end
       end
       """
@@ -49,7 +49,7 @@ Feature: route_to matcher
 
       describe "routes for Widgets" do
         it "routes /widgets/foo to the /foo action" do
-          get("/widgets/foo").should route_to("widgets#foo")
+          expect(get("/widgets/foo")).to route_to("widgets#foo")
         end
       end
       """
@@ -64,8 +64,8 @@ Feature: route_to matcher
 
       describe "routes for Widgets" do
         it "routes /admin/accounts to the admin/accounts controller" do
-          get("/admin/accounts").
-            should route_to("admin/accounts#index")
+          expect(get("/admin/accounts")).
+            to route_to("admin/accounts#index")
         end
       end
       """
@@ -80,8 +80,8 @@ Feature: route_to matcher
 
      describe "routes for Widgets" do
        it "routes /admin/accounts to the admin/accounts controller" do
-         get("/admin/accounts").
-           should route_to(:controller => "admin/accounts", :action => "index")
+         expect(get("/admin/accounts")).
+           to route_to(:controller => "admin/accounts", :action => "index")
        end
      end
      """

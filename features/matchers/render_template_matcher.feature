@@ -18,9 +18,11 @@ Feature: render_template matcher
         describe "GET #index" do
           subject { get :index }
 
-          it { should render_template(:index) }
-          it { should render_template("index") }
-          it { should render_template("gadgets/index") }
+          it "renders the index template" do
+            expect(subject).to render_template(:index)
+            expect(subject).to render_template("index")
+            expect(subject).to render_template("gadgets/index")
+          end
         end
       end
       """

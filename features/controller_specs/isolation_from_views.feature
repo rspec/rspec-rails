@@ -16,13 +16,13 @@ Feature: views are stubbed by default
         describe "index" do
           it "renders the index template" do
             get :index
-            response.should render_template("index")
-            response.body.should eq ""
+            expect(response).to render_template("index")
+            expect(response.body).to eq ""
           end
           it "renders the widgets/index template" do
             get :index
-            response.should render_template("widgets/index")
-            response.body.should eq ""
+            expect(response).to render_template("widgets/index")
+            expect(response.body).to eq ""
           end
         end
       end
@@ -39,7 +39,7 @@ Feature: views are stubbed by default
         describe "index" do
           it "renders the 'new' template" do
             get :index
-            response.should render_template("new")
+            expect(response).to render_template("new")
           end
         end
       end
@@ -58,8 +58,8 @@ Feature: views are stubbed by default
             controller.prepend_view_path 'app/views'
             controller.append_view_path 'app/views'
             get :custom_action
-            response.should render_template("custom_action")
-            response.body.should eq ""
+            expect(response).to render_template("custom_action")
+            expect(response.body).to eq ""
           end
         end
       end
@@ -78,8 +78,8 @@ Feature: views are stubbed by default
         it "renders the real custom_action template" do
           controller.prepend_view_path 'app/views'
           get :custom_action
-          response.should render_template("custom_action")
-          response.body.should match(/template for a custom action/)
+          expect(response).to render_template("custom_action")
+          expect(response.body).to match(/template for a custom action/)
         end
       end
       """

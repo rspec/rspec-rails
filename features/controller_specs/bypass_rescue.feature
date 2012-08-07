@@ -40,7 +40,7 @@ Feature: bypass rescue
         describe "index" do
           it "redirects to the /401.html page" do
             get :index
-            response.should redirect_to("/401.html")
+            expect(response).to redirect_to("/401.html")
           end
         end
       end

@@ -1,10 +1,10 @@
 Feature: ActiveRecord::Relation match array
 
-  The `=~` matcher can be used with an `ActiveRecord::Relation` (scope). The
-  assertion will pass if the scope would return all of the elements specified
-  in the array on the right hand side.
+  The `match_array` matcher can be used with an `ActiveRecord::Relation`
+  (scope). The assertion will pass if the scope would return all of the
+  elements specified in the array on the right hand side.
 
-  Scenario: example spec with relation =~ matcher
+  Scenario: example spec with relation match_array matcher
     Given a file named "spec/models/widget_spec.rb" with:
       """
       require "spec_helper"
@@ -13,7 +13,9 @@ Feature: ActiveRecord::Relation match array
         let!(:widgets) { Array.new(3) { Widget.create } }
         subject { Widget.scoped }
 
-        it { should =~ widgets }
+        it "returns all widgets in any order" do
+          expect(subject).to match_array(widgets)
+        end
       end
       """
     When I run `rspec spec/models/widget_spec.rb`

@@ -14,7 +14,7 @@ Feature: render_views
         describe "GET index" do
           it "says 'Listing widgets'" do
             get :index
-            response.body.should =~ /Listing widgets/m
+            expect(response.body).to match /Listing widgets/m
           end
         end
       end
@@ -34,7 +34,7 @@ Feature: render_views
           describe "GET index" do
             it "renders the actual template" do
               get :index
-              response.body.should =~ /Listing widgets/m
+              expect(response.body).to match /Listing widgets/m
             end
           end
 
@@ -44,7 +44,7 @@ Feature: render_views
             describe "GET index" do
               it "renders the RSpec generated template" do
                 get :index
-                response.body.should eq("")
+                expect(response.body).to eq("")
               end
             end
           end
@@ -54,7 +54,7 @@ Feature: render_views
           describe "GET index" do
             it "renders the RSpec generated template" do
               get :index
-              response.body.should eq("")
+              expect(response.body).to eq("")
             end
           end
         end
@@ -65,7 +65,7 @@ Feature: render_views
           describe "GET index" do
             it "renders the actual template" do
               get :index
-              response.body.should =~ /Listing widgets/m
+              expect(response.body).to match /Listing widgets/m
             end
           end
         end
@@ -104,7 +104,7 @@ Feature: render_views
         describe "GET index" do
           it "renders the index template" do
             get :index
-            response.body.should =~ /Listing widgets/m
+            expect(response.body).to match /Listing widgets/m
           end
         end
       end

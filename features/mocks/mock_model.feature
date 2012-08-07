@@ -18,20 +18,20 @@ Feature: mock_model
 
       describe "mock_model('Car') with no Car constant in existence" do
         it "generates a constant" do
-          Object.const_defined?(:Car).should be_false
+          expect(Object.const_defined?(:Car)).to be_false
           mock_model("Car")
-          Object.const_defined?(:Car).should be_true
+          expect(Object.const_defined?(:Car)).to be_true
         end
 
         describe "generates an object that ..." do
           it "returns the correct name" do
             car = mock_model("Car")
-            car.class.name.should eq("Car")
+            expect(car.class.name).to eq("Car")
           end
 
           it "says it is a Car" do
             car = mock_model("Car")
-            car.should be_a(Car)
+            expect(car).to be_a(Car)
           end
         end
       end
@@ -47,7 +47,7 @@ Feature: mock_model
       describe Widget do
         it "uses the existing constant" do
           widget = mock_model("Widget")
-          widget.should be_a(Widget)
+          expect(widget).to be_a(Widget)
         end
       end
       """
@@ -77,20 +77,20 @@ Feature: mock_model
         let(:widget) { mock_model(Widget) }
 
         it "is valid by default" do
-          widget.should be_valid
+          expect(widget).to be_valid
         end
 
         it "is not a new record by default" do
-          widget.should_not be_new_record
+          expect(widget).not_to be_new_record
         end
 
         it "can be converted to a new record" do
-          widget.as_new_record.should be_new_record
+          expect(widget.as_new_record).to be_new_record
         end
 
         it "sets :id to nil upon destroy" do
           widget.destroy
-          widget.id.should be_nil
+          expect(widget.id).to be_nil
         end
       end
       """
@@ -110,18 +110,18 @@ Feature: mock_model
         end
 
         it "supports stubs for methods that don't exist in ActiveModel or ActiveRecord" do
-          widget.foo.should eq("bar")
+          expect(widget.foo).to eq("bar")
         end
 
         it "supports stubs for methods that do exist" do
-          widget.save.should eq(true)
-          widget.update_attributes.should be_false
+          expect(widget.save).to eq(true)
+          expect(widget.update_attributes).to be_false
         end
 
         describe "#errors" do
           context "with update_attributes => false" do
             it "is not empty" do
-              widget.errors.should_not be_empty
+              expect(widget.errors).not_to be_empty
             end
           end
         end
@@ -138,8 +138,8 @@ Feature: mock_model
       describe "Foo" do
         it "is mockable" do
           foo = mock_model("Foo")
-          foo.id.should eq(1001)
-          foo.to_param.should eq("1001")
+          expect(foo.id).to eq(1001)
+          expect(foo.to_param).to eq("1001")
         end
       end
       """

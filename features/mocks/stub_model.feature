@@ -17,20 +17,20 @@ Feature: stub_model
         end
         
         it "stubs :id" do
-          widget.id.should eql(5)
+          expect(widget.id).to eql(5)
         end
         
         it "stubs :random_attribute" do
-          widget.random_attribute.should be_true
+          expect(widget.random_attribute).to be_true
         end
         
         it "returns false for new_record? if :id is set" do
-          widget.should_not be_new_record
+          expect(widget).not_to be_new_record
         end
         
         it "can be converted to a new record" do
           widget.as_new_record
-          widget.should be_new_record
+          expect(widget).to be_new_record
         end
       end
       """
@@ -50,7 +50,7 @@ Feature: stub_model
         end
         
         it "stubs :id" do
-          widget.id.should eql(5)
+          expect(widget.id).to eql(5)
         end
       end
       """
