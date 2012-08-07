@@ -32,15 +32,15 @@ Feature: request spec
 
         it "creates a Widget and redirects to the Widget's page" do
           get "/widgets/new"
-          response.should render_template(:new)
+          expect(response).to render_template(:new)
 
           post "/widgets", :widget => {:name => "My Widget"}
 
-          response.should redirect_to(assigns(:widget))
+          expect(response).to redirect_to(assigns(:widget))
           follow_redirect!
 
-          response.should render_template(:show)
-          response.body.should include("Widget was successfully created.")
+          expect(response).to render_template(:show)
+          expect(response.body).to include("Widget was successfully created.")
         end
 
       end

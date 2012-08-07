@@ -13,23 +13,23 @@ Feature: errors_on
 
       describe ValidatingWidget do
         it "fails validation with no name (using error_on)" do
-          ValidatingWidget.new.should have(1).error_on(:name)
+          expect(ValidatingWidget.new).to have(1).error_on(:name)
         end
 
         it "fails validation with no name (using errors_on)" do
-          ValidatingWidget.new.should have(1).errors_on(:name)
+          expect(ValidatingWidget.new).to have(1).errors_on(:name)
         end
 
         it "fails validation with no name expecting a specific message" do
-          ValidatingWidget.new.errors_on(:name).should include("can't be blank")
+          expect(ValidatingWidget.new.errors_on(:name)).to include("can't be blank")
         end
 
         it "passes validation with a name (using 0)" do
-          ValidatingWidget.new(:name => "liquid nitrogen").should have(0).errors_on(:name)
+          expect(ValidatingWidget.new(:name => "liquid nitrogen")).to have(0).errors_on(:name)
         end
 
         it "passes validation with a name (using :no)" do
-          ValidatingWidget.new(:name => "liquid nitrogen").should have(:no).errors_on(:name)
+          expect(ValidatingWidget.new(:name => "liquid nitrogen")).to have(:no).errors_on(:name)
         end
       end
       """

@@ -16,8 +16,8 @@ Feature: view spec
 
           render
 
-          rendered.should =~ /slicer/
-          rendered.should =~ /dicer/
+          expect(rendered).to match /slicer/
+          expect(rendered).to match /dicer/
         end
       end
       """
@@ -42,8 +42,8 @@ Feature: view spec
           it "displays both widgets" do
             render
 
-            rendered.should =~ /slicer/
-            rendered.should =~ /dicer/
+            expect(rendered).to match /slicer/
+            expect(rendered).to match /dicer/
           end
         end
       end
@@ -62,7 +62,7 @@ Feature: view spec
 
           render :template => "widgets/widget.html.erb"
 
-          rendered.should =~ /slicer/
+          expect(rendered).to match /slicer/
         end
       end
       """
@@ -84,7 +84,7 @@ Feature: view spec
 
           render :partial => "widgets/widget.html.erb", :locals => {:widget => widget}
 
-          rendered.should =~ /slicer/
+          expect(rendered).to match /slicer/
         end
       end
       """
@@ -106,7 +106,7 @@ Feature: view spec
 
           render "widgets/widget", :widget => widget
 
-          rendered.should =~ /slicer/
+          expect(rendered).to match /slicer/
         end
       end
       """
@@ -127,7 +127,7 @@ Feature: view spec
 
           render :text => "This is directly rendered"
 
-          rendered.should =~ /directly rendered/
+          expect(rendered).to match /directly rendered/
         end
       end
       """
@@ -152,7 +152,7 @@ Feature: view spec
 
         it 'checks for admin access' do
           render
-          rendered.should =~ /Secret admin area/
+          expect(rendered).to match /Secret admin area/
         end
       end
       """
@@ -166,7 +166,7 @@ Feature: view spec
 
       describe "controller.request.path_parameters" do
         it "matches the Rails environment by using symbols for keys" do
-          [:controller, :action].each { |k| controller.request.path_parameters.keys.should include(k) }
+          [:controller, :action].each { |k| expect(controller.request.path_parameters.keys).to include(k) }
         end
       end
       """

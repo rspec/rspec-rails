@@ -18,20 +18,20 @@ Feature: redirect_to matcher
           subject { post :create, :widget => { :name => "Foo" } }
 
           it "redirects to widget_url(@widget)" do
-            subject.should redirect_to(widget_url(assigns(:widget)))
+            expect(subject).to redirect_to(widget_url(assigns(:widget)))
           end
 
           it "redirects_to :action => :show" do
-            subject.should redirect_to :action => :show,
-                                       :id => assigns(:widget).id
+            expect(subject).to redirect_to :action => :show,
+                                           :id => assigns(:widget).id
           end
 
           it "redirects_to(@widget)" do
-            subject.should redirect_to(assigns(:widget))
+            expect(subject).to redirect_to(assigns(:widget))
           end
 
           it "redirects_to /widgets/:id" do
-            subject.should redirect_to("/widgets/#{assigns(:widget).id}")
+            expect(subject).to redirect_to("/widgets/#{assigns(:widget).id}")
           end
         end
       end

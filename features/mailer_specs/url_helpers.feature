@@ -11,7 +11,7 @@ Feature: URL helpers in mailer examples
 
       describe Notifications do
         it 'should have access to URL helpers' do
-          lambda { gadgets_url }.should_not raise_error
+          expect { gadgets_url }.not_to raise_error
         end
       end
       """
@@ -29,8 +29,8 @@ Feature: URL helpers in mailer examples
 
       describe Notifications do
         it 'should have access to URL helpers' do
-          lambda { gadgets_url :host => 'example.com' }.should_not raise_error
-          lambda { gadgets_url }.should raise_error
+          expect { gadgets_url :host => 'example.com' }.not_to raise_error
+          expect { gadgets_url }.to raise_error
         end
       end
       """

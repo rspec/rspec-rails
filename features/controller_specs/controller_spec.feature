@@ -9,7 +9,7 @@ Feature: controller spec
         describe "GET index" do
           it "has a 200 status code" do
             get :index
-            response.code.should eq("200")
+            expect(response.code).to eq("200")
           end
         end
       end
@@ -22,7 +22,7 @@ Feature: controller spec
       """
       require "spec_helper"
 
-      RSpec.configure {|c| c.before { controller.should_not be_nil }}
+      RSpec.configure {|c| c.before { expect(controller).not_to be_nil }}
 
       describe WidgetsController do
         describe "GET index" do

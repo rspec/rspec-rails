@@ -9,8 +9,8 @@ Feature: named routes
 
       describe "routes to the widgets controller" do
         it "routes a named route" do
-          {:get => new_widget_path}.
-            should route_to(:controller => "widgets", :action => "new")
+          expect(:get => new_widget_path).
+            to route_to(:controller => "widgets", :action => "new")
         end
       end
       """

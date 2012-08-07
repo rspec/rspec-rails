@@ -11,7 +11,7 @@ Feature: be_routable matcher
 
       describe "routes for Widgets" do
         it "does not route to widgets" do
-          { :get => "/widgets" }.should_not be_routable
+          expect(:get => "/widgets").not_to be_routable
         end
       end
       """
@@ -26,7 +26,7 @@ Feature: be_routable matcher
 
       describe "routes for Widgets" do
         it "does not route to widgets/foo/bar" do
-          { :get => "/widgets/foo/bar" }.should_not be_routable
+          expect(:get => "/widgets/foo/bar").not_to be_routable
         end
       end
       """
@@ -41,7 +41,7 @@ Feature: be_routable matcher
 
       describe "routes for Widgets" do
         it "routes to /widgets" do
-          { :get => "/widgets" }.should be_routable
+          expect(:get => "/widgets").to be_routable
         end
       end
       """
@@ -56,7 +56,7 @@ Feature: be_routable matcher
 
       describe "routes for Widgets" do
         it "routes to widgets/foo/bar" do
-          { :get => "/widgets/foo/bar" }.should be_routable
+          expect(:get => "/widgets/foo/bar").to be_routable
         end
       end
       """
@@ -71,7 +71,7 @@ Feature: be_routable matcher
 
       describe WidgetsController do
         it "routes to /widgets" do
-          { :get => "/widgets" }.should be_routable
+          expect(:get => "/widgets").to be_routable
         end
       end
       """
