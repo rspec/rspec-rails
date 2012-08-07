@@ -108,6 +108,7 @@ intent is to specify one or more request/response cycles from end to end using
 a black box approach.
 
 ```ruby
+require 'spec_helper'
 describe "home page" do
   it "displays the user's username after successful login" do
     user = User.create!(:username => "jdoe", :password => "secret")
@@ -128,6 +129,7 @@ This example uses only standard Rails and RSpec API's, but many RSpec/Rails
 users like to use extension libraries like FactoryGirl and Capybara:
 
 ```ruby
+require 'spec_helper'
 describe "home page" do
   it "displays the user's username after successful login" do
     user = FactoryGirl.create(:user, :username => "jdoe", :password => "secret")
@@ -163,6 +165,7 @@ tests.
 ## with fixtures
 
 ```ruby
+require 'spec_helper'
 describe WidgetsController do
   describe "GET index" do
     fixtures :widgets
@@ -178,6 +181,7 @@ end
 ## with a factory
 
 ```ruby
+require 'spec_helper'
 describe WidgetsController do
   describe "GET index" do
     it "assigns all widgets to @widgets" do
@@ -192,6 +196,7 @@ end
 ## with stubs
 
 ```ruby
+require 'spec_helper'
 describe WidgetsController do
   describe "GET index" do
     it "assigns all widgets to @widgets" do
@@ -236,6 +241,7 @@ functional tests, you can tell controller groups to render the views in the
 app with the `render_views` declaration:
 
 ```ruby
+require 'spec_helper'
 describe WidgetsController do
   render_views
   # ...
@@ -260,6 +266,7 @@ assigns(:widgets).should eq(expected_value)
 View specs live in spec/views, and mix in ActionView::TestCase::Behavior.
 
 ```ruby
+require 'spec_helper'
 describe "events/index" do
   it "renders _event partial for each event" do
     assign(:events, [stub_model(Event), stub_model(Event)])
@@ -360,6 +367,7 @@ rendered.should xxx
 Model specs live in spec/models.
 
 ```ruby
+require 'spec_helper'
 describe Article do
   describe ".recent" do
     it "includes articles published less than one week ago" do
@@ -385,6 +393,7 @@ end
 Routing specs live in spec/routing.
 
 ```ruby
+require 'spec_helper'
 describe "routing to profiles" do
   it "routes /profile/:username to profile#show for username" do
     { :get => "/profiles/jsmith" }.should route_to(
@@ -412,6 +421,7 @@ Provides a `helper` object which mixes in the helper module being spec'd, along
 with `ApplicationHelper` (if present).
 
 ```ruby
+require 'spec_helper'
 describe EventsHelper do
   describe "#link_to_event" do
     it "displays the title, and formatted date" do
