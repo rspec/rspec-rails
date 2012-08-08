@@ -328,3 +328,21 @@ Feature: anonymous controller
     """
     When I run `rspec spec`
     Then the examples should all pass
+
+  Scenario: override anonymous controller name
+    Given a file named "spec/controllers/override_anonymous_controller_name_spec.rb" with:
+    """
+      require "spec_helper"
+
+      class ApplicationController < ActionController::Base; end
+      class ApplicationControllerSubclass < ActionController::Base; end
+
+
+      describe ApplicationController do
+        controller(ApplicationControllerSubclass, "MyAnonymousController") {}
+
+        specify { controller.class.name.should == "MyAnonymousController" }
+      end
+      """
+    When I run `rspec spec`
+    Then the examples should all pass

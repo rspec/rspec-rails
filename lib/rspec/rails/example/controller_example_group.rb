@@ -53,14 +53,25 @@ module RSpec::Rails
       #     controller(ApplicationControllerSubclass) do
       #       # ....
       #     end
-      def controller(base_class = nil, &body)
+      #
+      # You may also optionally specify the anonymous controller's name:
+      #
+      #     controller(ApplicationControllerSubclass, "MyAnonymousController") do
+      #       # ....
+      #     end
+      def controller(base_class = nil, controller_name = "AnonymousController", &body)
         base_class ||= RSpec.configuration.infer_base_class_for_anonymous_controllers? ?
                          controller_class :
                          ApplicationController
 
         metadata[:example_group][:described_class] = Class.new(base_class) do
-          def self.name; "AnonymousController"; end
+          (class << self; self; end).module_eval do
+            define_method :name do
+              controller_name
+            end
+          end
         end
+
         metadata[:example_group][:described_class].class_eval(&body)
 
         before do
