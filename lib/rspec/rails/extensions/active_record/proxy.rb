@@ -1,7 +1,7 @@
 RSpec.configure do |rspec|
   # Delay this in order to give users a chance to configure `expect_with`...
   rspec.before(:suite) do
-    if defined?(RSpec::Matchers) && RSpec::Matchers.configuration.syntax.include?(:should)
+    if defined?(RSpec::Matchers) && RSpec::Matchers.configuration.syntax.include?(:should) && defined?(ActiveRecord)
       # In Rails 3.0, it was AssociationProxy.
       # In 3.1+, it's CollectionProxy.
       const_name = [:CollectionProxy, :AssociationProxy].find do |const|
