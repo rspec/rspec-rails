@@ -9,7 +9,7 @@ describe Rspec::Generators::ModelGenerator do
 
   before { prepare_destination }
 
-  it 'should run both the model and fixture tasks' do
+  it 'runs both the model and fixture tasks' do
     gen = generator %w(posts)
     gen.should_receive :create_model_spec
     gen.should_receive :create_fixture_file

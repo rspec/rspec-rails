@@ -8,19 +8,19 @@ describe Autotest::RailsRspec2 do
   describe 'exceptions' do
     let(:exceptions_regexp) { rails_rspec2_autotest.exceptions }
 
-    it "should match './log/test.log'" do
+    it "matches './log/test.log'" do
       exceptions_regexp.should match('./log/test.log')
     end
 
-    it "should match 'log/test.log'" do
+    it "matches 'log/test.log'" do
       exceptions_regexp.should match('log/test.log')
     end
 
-    it "should not match './spec/models/user_spec.rb'" do
+    it "does not match './spec/models/user_spec.rb'" do
       exceptions_regexp.should_not match('./spec/models/user_spec.rb')
     end
 
-    it "should not match 'spec/models/user_spec.rb'" do
+    it "does not match 'spec/models/user_spec.rb'" do
       exceptions_regexp.should_not match('spec/models/user_spec.rb')
     end
   end
