@@ -126,7 +126,7 @@ end
 ```
 
 This example uses only standard Rails and RSpec API's, but many RSpec/Rails
-users like to use extension libraries like FactoryGirl and Capybara:
+users like to use extension libraries like [FactoryGirl](https://github.com/thoughtbot/factory_girl) and [Capybara](https://github.com/jnicklas/capybara):
 
 ```ruby
 require 'spec_helper'
