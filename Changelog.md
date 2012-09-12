@@ -1,6 +1,10 @@
 ### dev
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.11.0...master)
 
+Enhancements
+
+* Support validation contexts when using #errors_on (Woody Peterson)
+
 Bug fixes
 
 * Add `should` and `should_not` to `CollectionProxy` (Rails 3.1+) and
