@@ -9,6 +9,8 @@ Feature: errors_on
         set_table_name :widgets
         validates_presence_of :name
         attr_accessible :name
+
+        validates_length_of :name, :minimum => 10, :on => :publication
       end
 
       describe ValidatingWidget do
@@ -22,6 +24,16 @@ Feature: errors_on
 
         it "fails validation with no name expecting a specific message" do
           expect(ValidatingWidget.new.errors_on(:name)).to include("can't be blank")
+        end
+
+        it "fails validation with a short name (using a validation context)" do
+          expect(ValidatingWidget.new(:name => "too short")).
+            to have(1).errors_on(:name, :context => :publication)
+        end
+
+        it "passes validation with a longer name (using a validation context)" do
+          expect(ValidatingWidget.new(:name => "a longer name")).
+            to have(0).errors_on(:name, :context => :publication)
         end
 
         it "passes validation with a name (using 0)" do
