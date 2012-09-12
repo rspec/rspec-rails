@@ -1,35 +1,19 @@
 group :development do
   gem 'interactive_rspec'
   gem 'relish', '~> 0.6.0'
-  gem 'guard-rspec', '0.5.0'
+  gem 'guard-rspec', '~> 1.2.1'
   gem 'growl', '1.0.3'
   gem 'spork', '0.9.0'
-  gem 'capybara'
 
   platform :mri do
-    gem 'rb-fsevent'
+    gem 'rb-fsevent', '~> 0.9.0'
     gem 'ruby-prof', '~> 0.10.0'
 
     case RUBY_VERSION
     when /^1.8/
       gem 'ruby-debug'
-    when '1.9.2'
-      gem 'ruby-debug19',      '0.11.6'
-      gem 'ruby-debug-base19', '0.11.25'
-      gem 'linecache19',       '0.5.12'
-    when '1.9.3'
-      gem 'ruby-debug19',      '0.11.6'
-      # NOTE - as of 2012-03-17 the following two gems have not been released,
-      # so if you see either of these errors when trying to install the bundle:
-      #
-      #   Could not find gem 'ruby-debug-base19 (= 0.11.26) ruby' in the gems available on this machine.
-      #   Could not find gem 'linecache19 (= 0.5.13) ruby' in the gems available on this machine.
-      #
-      # ... run 'script/download-ruby-debug-19-dependencies' and try again
-      #
-      # See http://blog.wyeworks.com/2011/11/1/ruby-1-9-3-and-ruby-debug for more info.
-      gem 'ruby-debug-base19', '0.11.26'
-      gem 'linecache19',       '0.5.13'
+    when /^1.9/
+      gem 'debugger'
     end
   end
 end
