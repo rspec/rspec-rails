@@ -14,9 +14,11 @@ gemspec
 end
 
 ### deps for rdoc.info
-gem 'yard',          '0.8.0', :require => false
-gem 'redcarpet',     '2.1.1'
-gem 'github-markup', '0.7.2'
+group :documentation do
+  gem 'yard',          '0.8.0', :require => false
+  gem 'redcarpet',     '2.1.1'
+  gem 'github-markup', '0.7.2'
+end
 
 platforms :jruby do
   gem "jruby-openssl"
