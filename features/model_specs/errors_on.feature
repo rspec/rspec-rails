@@ -6,7 +6,7 @@ Feature: errors_on
       require "spec_helper"
 
       class ValidatingWidget < ActiveRecord::Base
-        set_table_name :widgets
+        self.table_name = :widgets
         validates_presence_of :name
         attr_accessible :name
 
