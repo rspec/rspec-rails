@@ -281,7 +281,7 @@ describe "events/show" do
       :location => "Chicago"
     ))
     render
-    expect(rendered).to contain("Chicago")
+    expect(rendered).to include("Chicago")
   end
 end
 ```
