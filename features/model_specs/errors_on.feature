@@ -8,7 +8,9 @@ Feature: errors_on
       class ValidatingWidget < ActiveRecord::Base
         self.table_name = :widgets
         validates_presence_of :name
-        attr_accessible :name
+
+        # In Rails 4, mass assignment protection is implemented on controllers
+        attr_accessible :name if Rails.version < '4'
 
         validates_length_of :name, :minimum => 10, :on => :publication
       end
