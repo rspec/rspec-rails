@@ -14,12 +14,20 @@ describe Rspec::Generators::ScaffoldGenerator do
       before { run_generator %w(posts) }
       it { should contain(/require 'spec_helper'/) }
       it { should contain(/describe PostsController/) }
+      it { should contain(%({ "these" => "params" })) }
     end
 
     describe 'with --no-controller_specs' do
       before { run_generator %w(posts --no-controller_specs) }
       it { should_not exist }
     end
+  end
+
+  describe 'controller spec with attributes specified' do
+    subject { file('spec/controllers/posts_controller_spec.rb') }
+    before { run_generator %w(posts title:string) }
+
+    it { should contain(%({ "title" => "MyString" })) }
   end
 
   describe 'namespaced controller spec' do

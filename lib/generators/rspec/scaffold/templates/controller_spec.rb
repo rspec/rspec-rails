@@ -24,7 +24,7 @@ describe <%= controller_class_name %>Controller do
   # <%= class_name %>. As you add validations to <%= class_name %>, be sure to
   # update the return value of this method accordingly.
   def valid_attributes
-    {}
+    <%= formatted_hash(example_valid_attributes) %>
   end
 
   # This should return the minimal set of values that should be in the session
@@ -91,14 +91,14 @@ describe <%= controller_class_name %>Controller do
       it "assigns a newly created but unsaved <%= ns_file_name %> as @<%= ns_file_name %>" do
         # Trigger the behavior that occurs when invalid params are submitted
         <%= class_name %>.any_instance.stub(:save).and_return(false)
-        post :create, {:<%= ns_file_name %> => {}}, valid_session
+        post :create, {:<%= ns_file_name %> => <%= formatted_hash(example_invalid_attributes) %>}, valid_session
         assigns(:<%= ns_file_name %>).should be_a_new(<%= class_name %>)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
         <%= class_name %>.any_instance.stub(:save).and_return(false)
-        post :create, {:<%= ns_file_name %> => {}}, valid_session
+        post :create, {:<%= ns_file_name %> => <%= formatted_hash(example_invalid_attributes) %>}, valid_session
         response.should render_template("new")
       end
     end
@@ -112,8 +112,8 @@ describe <%= controller_class_name %>Controller do
         # specifies that the <%= class_name %> created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        <%= class_name %>.any_instance.should_receive(:update_attributes).with(<%= params %>)
-        put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => <%= params %>}, valid_session
+        <%= class_name %>.any_instance.should_receive(:update_attributes).with(<%= formatted_hash(example_params_for_update) %>)
+        put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => <%= formatted_hash(example_params_for_update) %>}, valid_session
       end
 
       it "assigns the requested <%= ns_file_name %> as @<%= ns_file_name %>" do
@@ -134,7 +134,7 @@ describe <%= controller_class_name %>Controller do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         <%= class_name %>.any_instance.stub(:save).and_return(false)
-        put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => {}}, valid_session
+        put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => <%= formatted_hash(example_invalid_attributes) %>}, valid_session
         assigns(:<%= ns_file_name %>).should eq(<%= file_name %>)
       end
 
@@ -142,7 +142,7 @@ describe <%= controller_class_name %>Controller do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         <%= class_name %>.any_instance.stub(:save).and_return(false)
-        put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => {}}, valid_session
+        put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => <%= formatted_hash(example_invalid_attributes) %>}, valid_session
         response.should render_template("edit")
       end
     end
