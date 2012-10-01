@@ -28,3 +28,21 @@ Feature: render_template matcher
       """
     When I run `rspec spec/controllers/gadgets_spec.rb`
     Then the examples should all pass
+
+  Scenario: render_template in a view spec
+    Given a file named "spec/views/gadgets/index.html.erb_spec.rb" with:
+      """
+      require "spec_helper"
+
+      describe "gadgets/index" do
+        it "renders the index template" do
+          render
+
+          expect(view).to render_template(:index)
+          expect(view).to render_template("index")
+          expect(view).to render_template("gadgets/index")
+        end
+      end
+      """
+    When I run `rspec spec/views`
+    Then the examples should all pass
