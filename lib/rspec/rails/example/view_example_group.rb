@@ -88,7 +88,15 @@ module RSpec::Rails
 
       # @deprecated Use `rendered` instead.
       def response
-        RSpec.deprecate("response", "rendered")
+        # `assert_template` expects `response` to implement a #body method
+        # like an `ActionDispatch::Response` does to force the view to render.
+        # For backwards compatibility, we use #response as an alias for
+        # #rendered, but it needs to implement #body to avoid `assert_template`
+        # raising a `NoMethodError`.
+        unless rendered.respond_to?(:body)
+          def rendered.body; self; end;
+        end
+
         rendered
       end
 
