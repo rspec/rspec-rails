@@ -24,10 +24,12 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency(%q<activesupport>, [">= 3.0"])
   s.add_runtime_dependency(%q<actionpack>, [">= 3.0"])
   s.add_runtime_dependency(%q<railties>, [">= 3.0"])
-  if RSpec::Rails::Version::STRING =~ /[a-zA-Z]+/ # prerelease builds
-    s.add_runtime_dependency "rspec", "= #{RSpec::Rails::Version::STRING}"
-  else
-    s.add_runtime_dependency "rspec", "~> #{RSpec::Rails::Version::STRING.split('.')[0..1].concat(['0']).join('.')}"
+  %w[core expectations mocks].each do |name|
+    if RSpec::Rails::Version::STRING =~ /[a-zA-Z]+/ # prerelease builds
+      s.add_runtime_dependency "rspec-#{name}", "= #{RSpec::Rails::Version::STRING}"
+    else
+      s.add_runtime_dependency "rspec-#{name}", "~> #{RSpec::Rails::Version::STRING.split('.')[0..1].concat(['0']).join('.')}"
+    end
   end
 
   s.add_development_dependency 'rake',     '~> 0.9.2'
