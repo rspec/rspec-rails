@@ -4,6 +4,8 @@
 Enhancements
 
 * Support validation contexts when using #errors_on (Woody Peterson)
+* Include Capybara::DSL and Capybara::RSpecMatchers in groups in spec/features
+* Include RequestExampleGroup in groups in spec/api
 
 Bug fixes
 
