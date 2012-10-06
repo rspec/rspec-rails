@@ -3,7 +3,6 @@ module RSpec
     if defined?(ActiveRecord::TestFixtures)
       module FixtureSupport
         extend ActiveSupport::Concern
-
         include RSpec::Rails::SetupAndTeardownAdapter
         include RSpec::Rails::TestUnitAssertionAdapter
         include ActiveRecord::TestFixtures
@@ -37,4 +36,3 @@ module RSpec
     end
   end
 end
-
