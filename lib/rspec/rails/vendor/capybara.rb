@@ -27,7 +27,11 @@ if defined?(Capybara)
       }
     end
 
-    unless defined?(Capybara::RSpecMatchers) || defined?(Capybara::DSL)
+    if defined?(Capybara::RSpecMatchers) || defined?(Capybara::DSL)
+      c.include RSpec::Rails::RailsExampleGroup, :example_group => {
+        :file_path => c.escaped_path(%w[spec features])
+      }
+    else
       c.include Capybara, :type => :request
       c.include Capybara, :type => :controller
     end
