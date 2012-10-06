@@ -27,7 +27,7 @@ RSpec::configure do |c|
     :file_path => c.escaped_path(%w[spec models])
   }
   c.include RSpec::Rails::RequestExampleGroup, :type => :request, :example_group => {
-    :file_path => c.escaped_path(%w[spec (requests|integration)])
+    :file_path => c.escaped_path(%w[spec (requests|integration|api)])
   }
   c.include RSpec::Rails::RoutingExampleGroup, :type => :routing, :example_group => {
     :file_path => c.escaped_path(%w[spec routing])
