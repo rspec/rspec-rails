@@ -8,6 +8,7 @@ Feature: view spec infers controller path and action
       describe "widgets/new" do
         it "infers the controller path" do
           expect(controller.request.path_parameters[:controller]).to eq("widgets")
+          expect(controller.controller_path).to eq("widgets")
         end
       end
       """
