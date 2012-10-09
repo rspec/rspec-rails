@@ -29,7 +29,8 @@ gem 'sqlite3', '~> 1.3.6'
 custom_gemfile = File.expand_path("../Gemfile-custom", __FILE__)
 eval File.read(custom_gemfile) if File.exist?(custom_gemfile)
 
-case version = ENV['RAILS_VERSION'] || File.read(File.expand_path("../.rails-version", __FILE__)).chomp
+version_file = File.expand_path("../.rails-version", __FILE__)
+case version = ENV['RAILS_VERSION'] || (File.exist?(version_file) && File.read(version_file).chomp)
 when /master/
   gem "rails", :git => "git://github.com/rails/rails.git"
   gem "arel", :git => "git://github.com/rails/arel.git"
@@ -44,6 +45,8 @@ when /3-1-stable/
   gem "rails", :git => "git://github.com/rails/rails.git", :branch => "3-1-stable"
 when /3-2-stable/
   gem "rails", :git => "git://github.com/rails/rails.git", :branch => "3-2-stable"
+when nil, false, ""
+  gem "rails"
 else
   gem "rails", version
 end
