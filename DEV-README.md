@@ -3,23 +3,25 @@
     git clone git://github.com/rspec/rspec-rails.git
     cd rspec-rails
     gem install bundler
-    bundle install
+    bundle install --binstubs
 
 Now you should be able to run any of:
 
-    rake
-    rake spec
-    rake cucumber
+    bin/rake
+    bin/rake spec
+    bin/rake cucumber
 
-Or, if you prefer to use the rspec and cucumber commands directly, you can either:
+## Rails version
 
-    bundle exec rspec
+rspec-rails runs its tests against many versions of Rails. To switch the
+active version used for tests, use the `thor version:use` command.
 
-Or ...
+Examples:
 
-    bundle install --binstubs
-    bin/rspec
-    
+    thor version:use 3.2.8
+    thor version:use 3-2-stable
+    thor version:use master
+
 ## Customize the dev enviroment
 
 The Gemfile includes the gems you'll need to be able to run specs. If you want

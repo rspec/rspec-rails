@@ -498,7 +498,10 @@ expect(:get => "/widgets/1/edit").not_to be_routable
 
 # Contribute
 
-See [http://github.com/rspec/rspec-dev](http://github.com/rspec/rspec-dev)
+See [http://github.com/rspec/rspec-dev](http://github.com/rspec/rspec-dev).
+
+For `rspec-rails`-specific development information, see
+[DEV-README](https://github.com/rspec/rspec-rails/blob/master/DEV-README.md).
 
 # Also see
 
