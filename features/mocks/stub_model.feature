@@ -8,7 +8,7 @@ Feature: stub_model
    
   Scenario: passing an Active Record constant with a hash of stubs
     Given a file named "spec/models/widget_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "stub_model(Widget) with a hash of stubs" do
@@ -39,7 +39,7 @@ Feature: stub_model
     
   Scenario: passing an Active Record constant with a block of stubs
     Given a file named "spec/models/widget_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "stub_model(Widget) with a block of stubs" do

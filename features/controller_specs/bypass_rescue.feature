@@ -9,7 +9,7 @@ Feature: bypass rescue
 
   Background:
     Given a file named "spec/controllers/gadgets_controller_spec_context.rb" with:
-      """
+      """ruby
       class AccessDenied < StandardError; end
 
       class ApplicationController < ActionController::Base
@@ -25,7 +25,7 @@ Feature: bypass rescue
 
   Scenario: standard exception handling using `rescue_from`
     Given a file named "spec/controllers/gadgets_controller_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       require 'controllers/gadgets_controller_spec_context'
@@ -50,7 +50,7 @@ Feature: bypass rescue
 
   Scenario: bypass `rescue_from` handling with `bypass_rescue`
     Given a file named "spec/controllers/gadgets_controller_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       require 'controllers/gadgets_controller_spec_context'

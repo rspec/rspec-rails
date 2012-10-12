@@ -4,7 +4,7 @@ Feature: view spec
 
   Scenario: passing spec that renders the described view file
     Given a file named "spec/views/widgets/index.html.erb_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "widgets/index" do
@@ -26,7 +26,7 @@ Feature: view spec
 
   Scenario: passing spec with before and nesting
     Given a file named "spec/views/widgets/index.html.erb_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "widgets/index" do
@@ -53,7 +53,7 @@ Feature: view spec
 
   Scenario: passing spec with explicit template rendering
     Given a file named "spec/views/widgets/widget.html.erb_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "rendering the widget template" do
@@ -75,7 +75,7 @@ Feature: view spec
 
   Scenario: passing spec with rendering of locals in a partial
     Given a file named "spec/views/widgets/_widget.html.erb_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "rendering locals in a partial" do
@@ -97,7 +97,7 @@ Feature: view spec
 
   Scenario: passing spec with rendering of locals in an implicit partial
     Given a file named "spec/views/widgets/_widget.html.erb_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "rendering locals in a partial" do
@@ -119,7 +119,7 @@ Feature: view spec
 
   Scenario: passing spec with rendering of text
     Given a file named "spec/views/widgets/direct.html.erb_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "rendering text directly" do
@@ -142,7 +142,7 @@ Feature: view spec
       <%- end %>
       """
     And a file named "spec/views/secrets/index.html.erb_spec.rb" with:
-      """
+      """ruby
       require 'spec_helper'
 
       describe 'secrets/index' do
@@ -161,7 +161,7 @@ Feature: view spec
 
   Scenario: request.path_parameters should match Rails by using symbols for keys
     Given a file named "spec/views/widgets/index.html.erb_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "controller.request.path_parameters" do

@@ -13,7 +13,7 @@ Feature: mock_model
    
   Scenario: passing a string that represents a non-existent constant
     Given a file named "spec/models/car_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "mock_model('Car') with no Car constant in existence" do
@@ -41,7 +41,7 @@ Feature: mock_model
 
   Scenario: passing a string that represents an existing constant
     Given a file named "spec/models/widget_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe Widget do
@@ -56,7 +56,7 @@ Feature: mock_model
 
   Scenario: passing a class that does not extend ActiveModel::Naming
     Given a file named "spec/models/string_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe String do
@@ -70,7 +70,7 @@ Feature: mock_model
 
   Scenario: passing an Active Record constant
     Given a file named "spec/models/widget_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe Widget do
@@ -99,7 +99,7 @@ Feature: mock_model
 
   Scenario: passing an Active Record constant with method stubs
     Given a file named "spec/models/widget_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "mock_model(Widget) with stubs" do
@@ -132,7 +132,7 @@ Feature: mock_model
 
   Scenario: mock_model outside rails
     Given a file named "mock_model_outside_rails_spec.rb" with:
-      """
+      """ruby
       require 'rspec/rails/mocks'
 
       describe "Foo" do

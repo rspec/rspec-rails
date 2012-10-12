@@ -7,7 +7,7 @@ Feature: transactional examples
 
   Scenario: run in transactions (default)
     Given a file named "spec/models/widget_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe Widget do
@@ -30,7 +30,7 @@ Feature: transactional examples
 
   Scenario: run in transactions (explicit)
     Given a file named "spec/models/widget_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       RSpec.configure do |c|
@@ -57,7 +57,7 @@ Feature: transactional examples
 
   Scenario: disable transactions (explicit)
     Given a file named "spec/models/widget_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       RSpec.configure do |c|
@@ -87,7 +87,7 @@ Feature: transactional examples
 
   Scenario: run in transactions with fixture
     Given a file named "spec/models/thing_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe Thing do
