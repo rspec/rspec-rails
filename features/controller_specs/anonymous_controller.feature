@@ -21,7 +21,7 @@ Feature: anonymous controller
 
   Scenario: specify error handling in ApplicationController
     Given a file named "spec/controllers/application_controller_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       class ApplicationController < ActionController::Base
@@ -56,7 +56,7 @@ Feature: anonymous controller
 
   Scenario: specify error handling in subclass of ApplicationController
     Given a file named "spec/controllers/application_controller_subclass_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       class ApplicationController < ActionController::Base
@@ -94,7 +94,7 @@ Feature: anonymous controller
 
   Scenario: infer base class from the described class
     Given a file named "spec/controllers/base_class_can_be_inferred_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       RSpec.configure do |c|
@@ -122,7 +122,7 @@ Feature: anonymous controller
 
   Scenario: invoke around filter in base class
     Given a file named "spec/controllers/application_controller_around_filter_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       class ApplicationController < ActionController::Base
@@ -153,7 +153,7 @@ Feature: anonymous controller
 
   Scenario: anonymous controllers only create resource routes
     Given a file named "spec/controllers/application_controller_spec.rb" with:
-    """
+    """ruby
     require "spec_helper"
 
     describe ApplicationController do

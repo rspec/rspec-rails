@@ -6,7 +6,7 @@ Feature: ActiveRecord::Relation match array
 
   Scenario: example spec with relation match_array matcher
     Given a file named "spec/models/widget_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe Widget do

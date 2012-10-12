@@ -2,7 +2,7 @@ Feature: errors_on
 
   Scenario: with one validation error
     Given a file named "spec/models/widget_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       class ValidatingWidget < ActiveRecord::Base
