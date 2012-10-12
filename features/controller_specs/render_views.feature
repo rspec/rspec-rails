@@ -5,7 +5,7 @@ Feature: render_views
 
   Scenario: render_views directly in a single group
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe WidgetsController do
@@ -24,7 +24,7 @@ Feature: render_views
 
   Scenario: render_views on and off in nested groups
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe WidgetsController do
@@ -73,7 +73,7 @@ Feature: render_views
       """
     When I run `rspec spec --order default --format documentation`
     Then the output should contain:
-      """
+      """ruby
       WidgetsController
         with render_views
           GET index
@@ -91,13 +91,13 @@ Feature: render_views
 
   Scenario: render_views globally
     Given a file named "spec/support/render_views.rb" with:
-      """
+      """ruby
       RSpec.configure do |config|
         config.render_views
       end
       """
     And a file named "spec/controllers/widgets_controller_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe WidgetsController do

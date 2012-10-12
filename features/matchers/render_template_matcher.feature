@@ -11,7 +11,7 @@ Feature: render_template matcher
 
   Scenario: render_template with three possible options
     Given a file named "spec/controllers/gadgets_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe GadgetsController do
@@ -31,7 +31,7 @@ Feature: render_template matcher
 
   Scenario: render_template in a view spec
     Given a file named "spec/views/gadgets/index.html.erb_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "gadgets/index" do

@@ -5,7 +5,7 @@ Feature: stub template
 
   Scenario: stub template that does not exist
     Given a file named "spec/views/gadgets/list.html.erb_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "gadgets/list" do
@@ -31,7 +31,7 @@ Feature: stub template
 
   Scenario: stub template that exists
     Given a file named "spec/views/gadgets/edit.html.erb_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "gadgets/edit" do

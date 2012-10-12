@@ -15,7 +15,7 @@ Feature: helper spec
 
   Scenario: helper method that returns a value
     Given a file named "spec/helpers/application_helper_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe ApplicationHelper do
@@ -27,7 +27,7 @@ Feature: helper spec
       end
       """
     And a file named "app/helpers/application_helper.rb" with:
-      """
+      """ruby
       module ApplicationHelper
         def page_title
           "RSpec is your friend"
@@ -39,7 +39,7 @@ Feature: helper spec
 
   Scenario: helper method that accesses an instance variable
     Given a file named "spec/helpers/application_helper_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe ApplicationHelper do
@@ -52,7 +52,7 @@ Feature: helper spec
       end
       """
     And a file named "app/helpers/application_helper.rb" with:
-      """
+      """ruby
       module ApplicationHelper
         def page_title
           @title || nil
@@ -64,7 +64,7 @@ Feature: helper spec
 
   Scenario: application helper is included in helper object
     Given a file named "spec/helpers/widgets_helper_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe WidgetsHelper do
@@ -77,7 +77,7 @@ Feature: helper spec
       end
       """
     And a file named "app/helpers/application_helper.rb" with:
-      """
+      """ruby
       module ApplicationHelper
         def app_name
           "The App"
@@ -85,7 +85,7 @@ Feature: helper spec
       end
       """
     And a file named "app/helpers/widgets_helper.rb" with:
-      """
+      """ruby
       module WidgetsHelper
         def widget_title
           "#{app_name}: #{@title}"

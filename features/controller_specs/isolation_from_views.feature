@@ -9,7 +9,7 @@ Feature: views are stubbed by default
 
   Scenario: expect template that is rendered by controller action (passes)
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe WidgetsController do
@@ -32,7 +32,7 @@ Feature: views are stubbed by default
 
   Scenario: expect template that is not rendered by controller action (fails)
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe WidgetsController do
@@ -49,7 +49,7 @@ Feature: views are stubbed by default
 
   Scenario: expect empty templates to render when view path is changed at runtime (passes)
     Given a file named "spec/controllers/things_controller_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe ThingsController do
@@ -69,7 +69,7 @@ Feature: views are stubbed by default
 
   Scenario: expect template to render the real template with render_views when view path is changed at runtime
     Given a file named "spec/controllers/things_controller_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe ThingsController do

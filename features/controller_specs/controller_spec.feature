@@ -2,7 +2,7 @@ Feature: controller spec
 
   Scenario: simple passing example
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe WidgetsController do
@@ -19,7 +19,7 @@ Feature: controller spec
 
   Scenario: controller is exposed to global before hooks
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       RSpec.configure {|c| c.before { expect(controller).not_to be_nil }}

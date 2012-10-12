@@ -12,7 +12,7 @@ Feature: route_to matcher
 
   Scenario: passing route spec with shortcut syntax
     Given a file named "spec/routing/widgets_routing_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "routes for Widgets" do
@@ -28,7 +28,7 @@ Feature: route_to matcher
 
   Scenario: passing route spec with verbose syntax
     Given a file named "spec/routing/widgets_routing_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "routes for Widgets" do
@@ -44,7 +44,7 @@ Feature: route_to matcher
 
   Scenario: route spec for a route that doesn't exist (fails)
     Given a file named "spec/routing/widgets_routing_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "routes for Widgets" do
@@ -59,7 +59,7 @@ Feature: route_to matcher
 
   Scenario: route spec for a namespaced route with shortcut specifier
     Given a file named "spec/routing/admin_routing_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "routes for Widgets" do
@@ -75,7 +75,7 @@ Feature: route_to matcher
 
   Scenario: route spec for a namespaced route with verbose specifier
    Given a file named "spec/routing/admin_routing_spec.rb" with:
-     """
+     """ruby
      require "spec_helper"
 
      describe "routes for Widgets" do

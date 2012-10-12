@@ -6,7 +6,7 @@ Feature: be_routable matcher
 
   Scenario: specify routeable route should not be routable (fails)
     Given a file named "spec/routing/widgets_routing_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "routes for Widgets" do
@@ -21,7 +21,7 @@ Feature: be_routable matcher
 
   Scenario: specify non-routeable route should not be routable (passes)
     Given a file named "spec/routing/widgets_routing_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "routes for Widgets" do
@@ -36,7 +36,7 @@ Feature: be_routable matcher
 
   Scenario: specify routeable route should be routable (passes)
     Given a file named "spec/routing/widgets_routing_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "routes for Widgets" do
@@ -51,7 +51,7 @@ Feature: be_routable matcher
 
   Scenario: specify non-routeable route should be routable (fails)
     Given a file named "spec/routing/widgets_routing_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "routes for Widgets" do
@@ -66,7 +66,7 @@ Feature: be_routable matcher
 
   Scenario: be_routable in a controller spec
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe WidgetsController do

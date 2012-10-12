@@ -4,7 +4,7 @@ Feature: named routes
 
   Scenario: access named route
     Given a file named "spec/routing/widget_routes_spec.rb" with:
-      """
+      """ruby
       require "spec_helper"
 
       describe "routes to the widgets controller" do
