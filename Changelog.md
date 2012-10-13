@@ -13,6 +13,8 @@ Bug fixes
   `AssociationProxy` (Rails 3.0).  (Myron Marston)
 * `controller.controller_path` is set correctly for view specs in Rails 3.1+.
   (Andy Lindeman)
+* Generated specs support module namespacing (e.g., in a Rails engine).
+  (Andy Lindeman)
 
 ### 2.11.0 / 2012-07-07
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.10.1...v2.11.0)

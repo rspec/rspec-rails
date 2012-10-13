@@ -18,6 +18,7 @@ require 'spec_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
+<% module_namespacing do -%>
 describe <%= controller_class_name %>Controller do
 
   # This should return the minimal set of attributes required to create a valid
@@ -164,3 +165,4 @@ describe <%= controller_class_name %>Controller do
   end
 
 end
+<% end -%>

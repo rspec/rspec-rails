@@ -1,5 +1,6 @@
 require "spec_helper"
 
+<% module_namespacing do -%>
 describe <%= controller_class_name %>Controller do
   describe "routing" do
 
@@ -35,3 +36,4 @@ describe <%= controller_class_name %>Controller do
 
   end
 end
+<% end -%>
