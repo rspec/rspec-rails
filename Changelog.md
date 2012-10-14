@@ -1,5 +1,5 @@
 ### dev
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.11.1...master)
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.11.4...master)
 
 Enhancements
 
@@ -15,8 +15,8 @@ Bug fixes
 * Generated specs support module namespacing (e.g., in a Rails engine).
   (Andy Lindeman)
 
-### 2.11.1 / 2012-10-14
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.11.0...v2.11.1)
+### 2.11.4 / 2012-10-14
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.11.0...v2.11.4)
 
 Capybara-2.0 integration support:
 
@@ -26,6 +26,8 @@ Capybara-2.0 integration support:
 See [https://github.com/jnicklas/capybara/pull/809](https://github.com/jnicklas/capybara/pull/809)
 and [http://rubydoc.info/gems/rspec-rails/file/CAPYBARA.md](http://rubydoc.info/gems/rspec-rails/file/CAPYBARA.md)
 for background.
+
+2.11.1, .2, .3 were yanked due to errant documentation.
 
 ### 2.11.0 / 2012-07-07
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.10.1...v2.11.0)
