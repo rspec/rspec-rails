@@ -64,6 +64,10 @@ gem "webrat"
 gem "capybara"
 ```
 
+See [http://rubydoc.info/gems/rspec-rails/file/CAPYBARA.md](http://rubydoc.info/gems/rspec-rails/file/CAPYBARA.md)
+for more info on Capybara integration.
+
+
 ## Living on edge
 
 Bundler makes it a snap to use the latest code for any gem your app depends on. For
