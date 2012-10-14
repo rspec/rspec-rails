@@ -64,7 +64,7 @@ gem "webrat"
 gem "capybara"
 ```
 
-See [http://rubydoc.info/gems/rspec-rails/file/CAPYBARA.md](http://rubydoc.info/gems/rspec-rails/file/CAPYBARA.md)
+See [http://rubydoc.info/gems/rspec-rails/file/Capybara.md](http://rubydoc.info/gems/rspec-rails/file/Capybara.md)
 for more info on Capybara integration.
 
 
