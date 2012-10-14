@@ -8,7 +8,7 @@ Note that you need to require "capybara/rspec" for this integration to work.
 ## Capybara::DSL
 
 Adds the `visit` and `page` methods, which work together to simulate a
-`get` and provide access to the result (via `page`).
+GET request and provide access to the result (via `page`).
 
 ## Capybara::RSpecMatchers
 
