@@ -1,3 +1,15 @@
+### 2.11.1 / 2012-10-14
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.11.0...v2.11.1)
+
+Capybara-2.0 integration support:
+
+* include RailsExampleGroup in spec/features (necessary when there is no AR)
+* include Capybara::DSL and Capybara::RSpecMatchers in spec/features
+
+See [https://github.com/jnicklas/capybara/pull/809](https://github.com/jnicklas/capybara/pull/809)
+and [http://rubydoc.info/gems/rspec-rails/file/CAPYBARA.md](http://rubydoc.info/gems/rspec-rails/file/CAPYBARA.md)
+for background.
+
 ### 2.11.0 / 2012-07-07
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.10.1...v2.11.0)
 
