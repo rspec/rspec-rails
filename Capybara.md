@@ -5,6 +5,15 @@ Capybara 1.x and Capybara >= 2.x.
 
 Note that you need to require "capybara/rspec" for this integration to work.
 
+## Capybara::DSL
+
+Adds the `visit` and `page` methods, which work together to simulate a
+`get` and provide access to the result (via `page`).
+
+## Capybara::RSpecMatchers
+
+Exposes matchers used to specify expected HTML content (e.g. `have_selector`).
+
 ## Capybara 1.x
 
 Capybara::DSL is added to examples in:
@@ -44,12 +53,8 @@ Capybara::DSL (visit/page) alongside the rack-test DSL
 and spec/controllers. As of rspec-2.11.1 and capybara-2.0.0.beta2, these
 are separated as follows:
 
-* Capybara::DSL is included
-** `spec/features`
-
-* rack-test DSL is included in
-** `spec/requests`
-** `spec/controllers`
+* Capybara::DSL is included `spec/features`
+* rack-test DSL is included in `spec/requests` and `spec/controllers`
 
 Capybara::RSpecMatchers is added to examples in:
 
