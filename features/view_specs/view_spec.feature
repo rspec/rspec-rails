@@ -73,6 +73,38 @@ Feature: view spec
     When I run `rspec spec/views`
     Then the examples should all pass
 
+  Scenario: passing spec with a description that includes the format and handler
+    Given a file named "spec/views/widgets/widget.xml.erb_spec.rb" with:
+      """ruby
+      require "spec_helper"
+
+      describe "widgets/widget.html.erb" do
+        it "renders the HTML template" do
+          render
+
+          expect(rendered).to match /HTML/
+        end
+      end
+
+      describe "widgets/widget.xml.erb" do
+        it "renders the XML template" do
+          render
+
+          expect(rendered).to match /XML/
+        end
+      end
+      """
+    And a file named "app/views/widgets/widget.html.erb" with:
+      """
+      HTML
+      """
+    And a file named "app/views/widgets/widget.xml.erb" with:
+      """
+      XML
+      """
+    When I run `rspec spec/views`
+    Then the examples should all pass
+
   Scenario: passing spec with rendering of locals in a partial
     Given a file named "spec/views/widgets/_widget.html.erb_spec.rb" with:
       """ruby
