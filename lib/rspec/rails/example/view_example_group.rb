@@ -99,16 +99,20 @@ module RSpec::Rails
       end
 
       def _default_render_options
-        # pluck the handler, format, and locale out of, eg, posts/index.de.html.haml
-        template, *components = _default_file_to_render.split('.')
-        handler, format, locale = *components.reverse
+        if ::Rails.version >= "3.2"
+          # pluck the handler, format, and locale out of, eg, posts/index.de.html.haml
+          template, *components   = _default_file_to_render.split('.')
+          handler, format, locale = *components.reverse
 
-        render_options = {:template => template}
-        render_options[:handlers] = [handler] if handler
-        render_options[:formats] = [format] if format
-        render_options[:locales] = [locale] if locale
+          render_options = {:template => template}
+          render_options[:handlers] = [handler] if handler
+          render_options[:formats] = [format] if format
+          render_options[:locales] = [locale] if locale
 
-        render_options
+          render_options
+        else
+          {:template => _default_file_to_render}
+        end
       end
 
       def _path_parts
