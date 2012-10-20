@@ -1,3 +1,6 @@
+* remove AutoTest config/ exception so mappings with config/ will work
+  (Brent J. Nordquist)
+
 ### 2.11.4 / 2012-10-14
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.11.0...v2.11.4)
 
