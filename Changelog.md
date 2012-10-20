@@ -16,6 +16,7 @@ Bug fixes
   (Andy Lindeman)
 * `render` properly infers the view to be rendered in Rails 3.0 and 3.1
   (John Firebaugh)
+* AutoTest mappings involving config/ work correctly (Brent J. Nordquist)
 
 ### 2.11.4 / 2012-10-14
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.11.0...v2.11.4)

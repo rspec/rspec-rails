@@ -33,7 +33,7 @@ class Autotest::RailsRspec2 < Autotest::Rspec2
   end
 
   def setup_rails_rspec2_mappings
-    %w{config/ coverage/ db/ doc/ log/ public/ script/ tmp/ vendor/rails vendor/plugins vendor/gems}.each do |exception|
+    %w{coverage/ db/ doc/ log/ public/ script/ tmp/ vendor/rails vendor/plugins vendor/gems}.each do |exception|
       add_exception(/^([\.\/]*)?#{exception}/)
     end
 
