@@ -14,6 +14,8 @@ Bug fixes
   (Andy Lindeman)
 * Generated specs support module namespacing (e.g., in a Rails engine).
   (Andy Lindeman)
+* `render` properly infers the view to be rendered in Rails 3.0 and 3.1
+  (John Firebaugh)
 
 ### 2.11.4 / 2012-10-14
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.11.0...v2.11.4)
