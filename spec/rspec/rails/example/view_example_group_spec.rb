@@ -113,10 +113,16 @@ module RSpec::Rails
           view_spec.render
           view_spec.received.first.should == [{:template => "widgets/new"},{}, nil]
         end
+
         it "converts the filename components into render options" do
           view_spec.stub(:_default_file_to_render) { "widgets/new.en.html.erb" }
           view_spec.render
-          view_spec.received.first.should == [{:template => "widgets/new", :locales=>['en'], :formats=>['html'], :handlers=>['erb']},{}, nil]
+
+          if ::Rails.version >= "3.2"
+            view_spec.received.first.should == [{:template => "widgets/new", :locales=>['en'], :formats=>['html'], :handlers=>['erb']}, {}, nil]
+          else
+            view_spec.received.first.should == [{:template => "widgets/new.en.html.erb"}, {}, nil]
+          end
         end
       end
 
