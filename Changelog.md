@@ -17,6 +17,7 @@ Bug fixes
 * `render` properly infers the view to be rendered in Rails 3.0 and 3.1
   (John Firebaugh)
 * AutoTest mappings involving config/ work correctly (Brent J. Nordquist)
+* Failures message for `be_new_record` are more useful (Andy Lindeman)
 
 ### 2.11.4 / 2012-10-14
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.11.0...v2.11.4)
