@@ -500,6 +500,25 @@ to be used with `not_to` to specify routes that should not be routable.
 expect(:get => "/widgets/1/edit").not_to be_routable
 ```
 
+# `rake` tasks
+
+`rspec-rails` defines rake tasks to run the entire test suite (`rake spec`)
+and subsets of tests (e.g., `rake spec:models`).
+
+A full list of the available rake tasks can be seen by running `rake -T | grep
+rspec`.
+
+## Customizing `rake` tasks
+
+If you want to customize the behavior of `rake spec`, you may [define your own
+task in the `Rakefile` for your
+project](https://www.relishapp.com/rspec/rspec-core/docs/command-line/rake-task).
+However, you must first clear the task that rspec-rails defined:
+
+```ruby
+task("spec").clear
+```
+
 # Contribute
 
 See [http://github.com/rspec/rspec-dev](http://github.com/rspec/rspec-dev).
