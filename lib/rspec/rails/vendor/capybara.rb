@@ -12,9 +12,7 @@ if defined?(Capybara)
   RSpec.configure do |c|
     if defined?(Capybara::DSL)
       c.include Capybara::DSL, :type => :controller
-      c.include Capybara::DSL, :example_group => {
-        :file_path => c.escaped_path(%w[spec features])
-      }
+      c.include Capybara::DSL, :type => :feature
     end
 
     if defined?(Capybara::RSpecMatchers)
@@ -27,11 +25,7 @@ if defined?(Capybara)
       }
     end
 
-    if defined?(Capybara::RSpecMatchers) || defined?(Capybara::DSL)
-      c.include RSpec::Rails::RailsExampleGroup, :example_group => {
-        :file_path => c.escaped_path(%w[spec features])
-      }
-    else
+    unless defined?(Capybara::RSpecMatchers) || defined?(Capybara::DSL)
       c.include Capybara, :type => :request
       c.include Capybara, :type => :controller
     end
