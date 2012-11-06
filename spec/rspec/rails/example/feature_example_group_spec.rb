@@ -14,7 +14,7 @@ module RSpec::Rails
 
     it "includes Rails route helpers" do
       Rails.application.routes.draw do
-        match "/foo", :as => :foo, :to => "foo#bar"
+        get "/foo", :as => :foo, :to => "foo#bar"
       end
 
       group = RSpec::Core::ExampleGroup.describe do
