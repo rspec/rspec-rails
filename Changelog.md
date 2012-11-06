@@ -28,7 +28,7 @@ Capybara-2.0 integration support:
 * include Capybara::DSL and Capybara::RSpecMatchers in spec/features
 
 See [https://github.com/jnicklas/capybara/pull/809](https://github.com/jnicklas/capybara/pull/809)
-and [http://rubydoc.info/gems/rspec-rails/file/CAPYBARA.md](http://rubydoc.info/gems/rspec-rails/file/CAPYBARA.md)
+and [http://rubydoc.info/gems/rspec-rails/file/Capybara.md](http://rubydoc.info/gems/rspec-rails/file/Capybara.md)
 for background.
 
 2.11.1, .2, .3 were yanked due to errant documentation.
