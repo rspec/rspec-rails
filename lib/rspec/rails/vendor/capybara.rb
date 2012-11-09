@@ -35,9 +35,5 @@ if defined?(Capybara)
       c.include Capybara, :type => :request
       c.include Capybara, :type => :controller
     end
-
-    c.include RSpec::Rails::UrlHelpers, :type => :feature, :example_group => {
-      :file_path => c.escaped_path(%w[spec features])
-    }
   end
 end
