@@ -50,7 +50,7 @@ Capybara::RSpecMatchers is added to examples in:
 Many users have been confused by the co-existence of the the
 Capybara::DSL (visit/page) alongside the rack-test DSL
 (get|post|put|delete|head/response.body) in examples in spec/requests
-and spec/controllers. As of rspec-2.11.1 and capybara-2.0.0.beta2, these
+and spec/controllers. As of rspec-rails-2.11.1 and capybara-2.0.0.beta2, these
 are separated as follows:
 
 * Capybara::DSL is included `spec/features`
