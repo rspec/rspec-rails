@@ -5,6 +5,8 @@
 - Changelog.md
 - Upgrade.md
 - RailsVersions.md (Rails versions)
+- feature_specs:
+  - feature_spec.feature
 - request_specs:
   - request_spec.feature
 - model_specs:

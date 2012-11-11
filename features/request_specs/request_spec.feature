@@ -19,9 +19,9 @@ Feature: request spec
 
   Check the Rails docs for details on these methods as well.
 
-  If you would like to use webrat or capybara with your request specs, all you
-  have to do is include one of them in your Gemfile and RSpec will
-  automatically load them in a request spec (a spec under "spec/requests").
+  [Capybara](http://github.com/jnicklas/capybara) is no longer supported in
+  request specs as of Capybara 2.0.0. The recommended way to use Capybara is
+  with [feature specs](../feature_specs/feature_spec.feature).
 
   Scenario: specify managing a Widget with Rails integration methods
     Given a file named "spec/requests/widget_management_spec.rb" with:
