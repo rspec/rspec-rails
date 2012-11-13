@@ -1,9 +1,9 @@
 run('rspec spec -cfdoc') || abort
-run('rake --trace spec') || abort
-run('rake --trace spec:requests') || abort
-run('rake --trace spec:models') || abort
-run('rake --trace spec:views') || abort
-run('rake --trace spec:controllers') || abort
-run('rake --trace spec:helpers') || abort
-run('rake --trace spec:mailers') || abort
-run("rake --trace stats") || abort
+run('rake --backtrace spec') || abort
+run('rake --backtrace spec:requests') || abort
+run('rake --backtrace spec:models') || abort
+run('rake --backtrace spec:views') || abort
+run('rake --backtrace spec:controllers') || abort
+run('rake --backtrace spec:helpers') || abort
+run('rake --backtrace spec:mailers') || abort
+run("rake --backtrace stats") || abort

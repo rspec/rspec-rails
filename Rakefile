@@ -91,7 +91,7 @@ end
 
 desc "run a variety of specs against the generated app"
 task :smoke do
-  in_example_app "bin/rake rails:template --trace LOCATION='../../templates/run_specs.rb'"
+  in_example_app "LOCATION='../../templates/run_specs.rb bin/rake rails:template --backtrace'"
 end
 
 desc 'clobber generated files'
