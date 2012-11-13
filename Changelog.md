@@ -14,7 +14,7 @@ Bug fixes
   and generation of URLs from other contexts. (Andy Lindeman)
 
 ### 2.12.0 / 2012-11-12
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.11.4...2.12.0)
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.11.4...v2.12.0)
 
 Enhancements
 
