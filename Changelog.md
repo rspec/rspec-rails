@@ -3,7 +3,7 @@
 
 Enhancements
 
-* Support validation contexts when using #errors_on (Woody Peterson)
+* Support validation contexts when using `#errors_on` (Woody Peterson)
 * Include RequestExampleGroup in groups in spec/api
 
 Bug fixes
