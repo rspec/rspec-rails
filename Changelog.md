@@ -1,3 +1,11 @@
+### dev
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.12.0...master)
+
+Bug fixes
+
+* Operates correctly when ActiveRecord is only partially loaded (e.g., with
+  older versions of Mongoid) (Eric Marden)
+
 ### 2.12.0 / 2012-11-12
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.11.4...2.12.0)
 
