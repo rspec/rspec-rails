@@ -104,7 +104,7 @@ See http://github.com/rspec/rspec-rails/issues
 
 # Request Specs
 
-Request specs live in spec/requests, and mix in behavior
+Request specs live in spec/requests, spec/api and spec/integration, and mix in behavior
 [ActionDispatch::Integration::Runner](http://api.rubyonrails.org/classes/ActionDispatch/Integration/Runner.html),
 which is the basis for [Rails' integration
 tests](http://guides.rubyonrails.org/testing.html#integration-testing).  The
