@@ -13,7 +13,6 @@ gem install rspec-rails
 This installs the following gems:
 
 ```
-rspec
 rspec-core
 rspec-expectations
 rspec-mocks
