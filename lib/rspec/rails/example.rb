@@ -10,7 +10,7 @@ require 'rspec/rails/example/feature_example_group'
 
 RSpec::configure do |c|
   def c.escaped_path(*parts)
-    Regexp.compile(parts.join('[\\\/]'))
+    Regexp.compile(parts.join('[\\\/]') + '[\\\/]')
   end
 
   c.include RSpec::Rails::ControllerExampleGroup, :type => :controller, :example_group => {
