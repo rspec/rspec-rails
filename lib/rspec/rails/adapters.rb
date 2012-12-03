@@ -1,8 +1,37 @@
+require 'delegate'
 require 'active_support/concern'
 require 'test/unit/assertions'
 
 module RSpec
   module Rails
+    class AssertionDelegator < Module
+      # @api private
+      def initialize(*assertion_modules)
+        super() do
+          @@assertion_modules = assertion_modules
+          @@assertion_class = Class.new(SimpleDelegator) do
+            include Test::Unit::Assertions
+            assertion_modules.each { |mod| include mod }
+          end
+
+          # @api private
+          def assertion_instance
+            @assertion_instance ||= @@assertion_class.new(self)
+          end
+
+          assertion_modules.each do |mod|
+            mod.instance_methods.each do |method|
+              class_eval <<-EOM
+                def #{method}(*args, &block)
+                  assertion_instance.send(:#{method}, *args, &block)
+                end
+              EOM
+            end
+          end
+        end
+      end
+    end
+
     module SetupAndTeardownAdapter
       extend ActiveSupport::Concern
 
