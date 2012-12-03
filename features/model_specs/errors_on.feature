@@ -66,7 +66,7 @@ Feature: errors_on
         end
 
         it "fails validation with no name expecting a specific message" do
-        expect(ValidatingActiveResourceWidget.new(:name => "").errors_on(:name)).to include("can't be blank")
+          expect(ValidatingActiveResourceWidget.new(:name => "").errors_on(:name)).to include("can't be blank")
         end
 
         it "passes validation with a name (using 0)" do
