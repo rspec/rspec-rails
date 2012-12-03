@@ -49,3 +49,34 @@ Feature: errors_on
       """
     When I run `rspec spec/models/widget_spec.rb`
     Then the examples should all pass
+
+  Scenario: ActiveResource - with one validation error
+    Given a file named "spec/models/active_resource_widget_spec.rb" with:
+      """ruby
+      require "spec_helper"
+
+      class ValidatingActiveResourceWidget < ActiveResource::Base
+        self.site = "fake"
+        validates_presence_of :name
+      end
+
+      describe ValidatingActiveResourceWidget do
+        it "fails validation with no name (using error_on)" do
+          expect(ValidatingActiveResourceWidget.new(:name => "")).to have(1).error_on(:name)
+        end
+
+        it "fails validation with no name expecting a specific message" do
+        expect(ValidatingActiveResourceWidget.new(:name => "").errors_on(:name)).to include("can't be blank")
+        end
+
+        it "passes validation with a name (using 0)" do
+          expect(ValidatingActiveResourceWidget.new(:name => "liquid nitrogen")).to have(0).errors_on(:name)
+        end
+
+        it "passes validation with a name (using :no)" do
+          expect(ValidatingActiveResourceWidget.new(:name => "liquid nitrogen")).to have(:no).errors_on(:name)
+        end
+      end
+      """
+    When I run `rspec spec/models/active_resource_widget_spec.rb`
+    Then the examples should all pass

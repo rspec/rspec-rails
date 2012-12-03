@@ -13,3 +13,4 @@ bin
 .rails-version
 .DS_Store
 Gemfile-custom
+.rbenv-version

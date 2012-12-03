@@ -41,10 +41,10 @@ if defined?(::ActiveModel)
     #
     #     model.errors_on(:attribute).should include("can't be blank")
     def errors_on(attribute, options = {})
-      if self.method(:valid?).arity == 1
-        self.valid?(options[:context])
-      else
+      if self.method(:valid?).arity == 0
         self.valid?
+      else
+        self.valid?(options[:context])
       end
 
       [self.errors[attribute]].flatten.compact
