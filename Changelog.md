@@ -5,8 +5,8 @@ Bug fixes
 
 * Operates correctly when ActiveRecord is only partially loaded (e.g., with
   older versions of Mongoid). (Eric Marden)
-* `expect(subject).to be_valid` operates correctly for ActiveResource
-  models where `valid?` does not accept an argument. (Yi Wen)
+* `expect(subject).to have(...).errors_on` operates correctly for
+  ActiveResource models where `valid?` does not accept an argument. (Yi Wen)
 * Rails 4 support for routing specs. (Andy Lindeman)
 * Rails 4 support for `ActiveRecord::Relation` and the `=~` operator matcher.
   (Andy Lindeman)
