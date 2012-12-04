@@ -4,15 +4,16 @@ module RSpec::Rails
   module RoutingExampleGroup
     extend ActiveSupport::Concern
     include RSpec::Rails::RailsExampleGroup
-    include ActionDispatch::Assertions::RoutingAssertions
     include RSpec::Rails::Matchers::RoutingMatchers
     include RSpec::Rails::Matchers::RoutingMatchers::RouteHelpers
+    include RSpec::Rails::AssertionDelegator.new(ActionDispatch::Assertions::RoutingAssertions)
 
     included do
       metadata[:type] = :routing
 
       before do
         @routes = ::Rails.application.routes
+        assertion_instance.instance_variable_set(:@routes, @routes)
       end
     end
 

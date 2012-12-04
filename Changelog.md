@@ -1,6 +1,12 @@
 ### dev
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.12.0...master)
 
+Enhancements
+
+* Rails 4 support for routing specs. (Andy Lindeman)
+* Rails 4 support for `ActiveRecord::Relation` and the `=~` operator matcher.
+  (Andy Lindeman)
+
 Bug fixes
 
 * Operates correctly when ActiveRecord is only partially loaded (e.g., with
