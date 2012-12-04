@@ -25,7 +25,7 @@ module RSpec
 
           assertion_modules.each do |mod|
             mod.instance_methods.each do |method|
-              class_eval <<-EOM
+              class_eval <<-EOM, __FILE__, __LINE__ + 1
                 def #{method}(*args, &block)
                   assertion_instance.send(:#{method}, *args, &block)
                 end
@@ -86,7 +86,7 @@ module RSpec
         # @api private
         def define_assertion_delegators
           assertion_method_names.each do |m|
-            class_eval <<-CODE
+            class_eval <<-CODE, __FILE__, __LINE__ + 1
               def #{m}(*args, &block)
                 assertion_delegator.send :#{m}, *args, &block
               end
