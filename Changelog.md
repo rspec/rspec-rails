@@ -11,8 +11,8 @@ Bug fixes
 
 * Operates correctly when ActiveRecord is only partially loaded (e.g., with
   older versions of Mongoid). (Eric Marden)
-* `expect(subject).to be_valid` operates correctly for ActiveResource
-  models where `valid?` does not accept an argument. (Yi Wen)
+* `expect(subject).to have(...).errors_on` operates correctly for
+  ActiveResource models where `valid?` does not accept an argument. (Yi Wen)
 
 ### 2.12.0 / 2012-11-12
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.11.4...v2.12.0)
