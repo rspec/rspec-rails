@@ -7,16 +7,20 @@ module RSpec
     class AssertionDelegator < Module
       # @api private
       def initialize(*assertion_modules)
+        assertion_class = Class.new(SimpleDelegator) do
+          include Test::Unit::Assertions
+          assertion_modules.each { |mod| include mod }
+        end
+
         super() do
-          @@assertion_modules = assertion_modules
-          @@assertion_class = Class.new(SimpleDelegator) do
-            include Test::Unit::Assertions
-            assertion_modules.each { |mod| include mod }
+          # @api private
+          define_method :build_assertion_instance do
+            assertion_class.new(self)
           end
 
           # @api private
           def assertion_instance
-            @assertion_instance ||= @@assertion_class.new(self)
+            @assertion_instance ||= build_assertion_instance
           end
 
           assertion_modules.each do |mod|
