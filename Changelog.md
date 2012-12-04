@@ -7,6 +7,9 @@ Bug fixes
   older versions of Mongoid). (Eric Marden)
 * `expect(subject).to be_valid` operates correctly for ActiveResource
   models where `valid?` does not accept an argument. (Yi Wen)
+* Rails 4 support for routing specs. (Andy Lindeman)
+* Rails 4 support for `ActiveRecord::Relation` and the `=~` operator matcher.
+  (Andy Lindeman)
 
 ### 2.12.0 / 2012-11-12
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.11.4...2.12.0)
