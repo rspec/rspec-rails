@@ -16,11 +16,13 @@ describe "be_valid matcher" do
     subject.something = "something"
 
     subject.should be_valid
+    expect(subject).to be_valid
   end
 
   it "fails the matcher when not valid" do
     subject.something = nil
 
     subject.should_not be_valid
+    expect(subject).to_not be_valid
   end
 end
