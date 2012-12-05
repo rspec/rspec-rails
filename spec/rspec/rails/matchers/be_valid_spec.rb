@@ -1,11 +1,11 @@
 require "spec_helper"
-
+require 'active_support/all'
 
 describe "be_valid matcher" do
   include RSpec::Rails::Matchers
 
   class TestModel
-    include ActiveModel::Validation
+    include ActiveModel::Validations
     attr_accessor :something
     validates_presence_of :something
   end
