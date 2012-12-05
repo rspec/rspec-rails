@@ -10,19 +10,12 @@ describe "be_valid matcher" do
     validates_presence_of :something
   end
 
+  let(:matcher) { be_valid }
   subject { TestModel.new }
 
-  it "passes the matcher when valid" do
-    subject.something = "something"
+  it "includes validation errors by default" do
+    matcher.matches? subject
 
-    subject.should be_valid
-    expect(subject).to be_valid
-  end
-
-  it "fails the matcher when not valid" do
-    subject.something = nil
-
-    subject.should_not be_valid
-    expect(subject).to_not be_valid
+    matcher.failure_message_for_should.should =~ /is blank/
   end
 end
