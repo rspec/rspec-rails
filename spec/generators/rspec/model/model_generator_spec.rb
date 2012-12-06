@@ -17,6 +17,23 @@ describe Rspec::Generators::ModelGenerator do
   end
 
   describe 'the generated files' do
+
+    describe 'it includes should have_db_column for all attributes ' do
+      before do
+        run_generator %w(posts title:string content:text)
+      end
+
+      describe 'the spec' do
+        subject { file('spec/models/posts_spec.rb') }
+
+        it { should exist }
+        it { should contain(/require 'spec_helper'/) }
+        it { should contain(/describe Posts/) }
+        it { should contain('should have_db_column(:title)') }
+        it { should contain('should have_db_column(:content)') }
+      end
+    end
+
     describe 'with fixtures' do
       before do
         run_generator %w(posts --fixture)
@@ -48,5 +65,6 @@ describe Rspec::Generators::ModelGenerator do
         it { should_not exist }
       end
     end
+
   end
 end
