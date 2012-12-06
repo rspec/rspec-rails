@@ -5,22 +5,40 @@ require 'rspec/rails/matchers/be_valid'
 describe "be_valid matcher" do
   include RSpec::Rails::Matchers
 
-  class TestModel
+  class Post
     include ActiveModel::Validations
-    attr_accessor :something
-    validates_presence_of :something
+    attr_accessor :title
+    validates_presence_of :title
   end
 
-  let(:matcher) { be_valid }
-  subject { TestModel.new }
+  let(:post) { Post.new }
 
-  it "uses the right matcher" do
-    matcher.should be_a RSpec::Rails::Matchers::BeValid
+  it "includes the error messages in the failure message" do
+    expect {
+      expect(post).to be_valid
+    }.to raise_exception(/Title can't be blank/)
   end
 
-  it "includes validation errors by default" do
-    matcher.matches? subject
+  it "includes a failure message for the negative case" do
+    post.stub(:valid?) { true }
+    expect {
+      expect(post).not_to be_valid
+    }.to raise_exception(/expected .* not to be valid/)
+  end
 
-    matcher.failure_message_for_should.should =~ /Something can't be blank/
+  it "uses a custom failure message if provided" do
+    expect {
+      expect(post).to be_valid, "Post was not valid!"
+    }.to raise_exception(/Post was not valid!/)
+  end
+
+  it "includes the validation context if provided" do
+    post.should_receive(:valid?).with(:create) { true }
+    expect(post).to be_valid(:create)
+  end
+
+  it "does not include the validation context if not provided" do
+    post.should_receive(:valid?).with(no_args) { true }
+    expect(post).to be_valid
   end
 end
