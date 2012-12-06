@@ -6,6 +6,7 @@ Enhancements
 * Rails 4 support for routing specs. (Andy Lindeman)
 * Rails 4 support for `ActiveRecord::Relation` and the `=~` operator matcher.
   (Andy Lindeman)
+* `be_valid` matcher includes validation error messages. (Tom Scott)
 
 Bug fixes
 
