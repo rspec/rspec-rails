@@ -7,6 +7,8 @@ Enhancements
 * Rails 4 support for `ActiveRecord::Relation` and the `=~` operator matcher.
   (Andy Lindeman)
 * `be_valid` matcher includes validation error messages. (Tom Scott)
+* Adds cucumber scenario showing how to invoke an anonymous controller's
+  non-resourceful actions. (Paulo Luis Franchini Casaretto)
 
 Bug fixes
 
