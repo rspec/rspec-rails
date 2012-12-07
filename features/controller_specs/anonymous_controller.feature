@@ -328,3 +328,45 @@ Feature: anonymous controller
     """
     When I run `rspec spec`
     Then the examples should all pass
+
+
+  Scenario: draw custom routes for anonymous controllers
+    Given a file named "spec/controllers/application_controller_spec.rb" with:
+    """ruby
+    require "spec_helper"
+
+    describe ApplicationController do
+      controller do
+        
+        def custom
+          render :text => "custom called"
+        end
+      end
+
+      describe "a custom route in an anonymous controllers" do
+        
+        it "is not supported by default" do
+          expect { get :custom }.to raise_error(ActionController::RoutingError)
+          expect { get :custom, :custom_id => 13 }.to raise_error(ActionController::RoutingError)
+        end
+        
+        context "with custom routes drawn in the spec" do
+          it "is supported with no params" do
+            routes.draw { get "custom" => "anonymous#custom" }
+            get :custom
+            expect(response.body).to eq "custom called"
+          end
+          
+          it "is supported with custom params" do
+            routes.draw { get "custom" => "anonymous#custom" }
+            get :custom
+            expect(response.body).to eq "custom called"
+          end
+          
+        end
+        
+      end
+    end
+    """
+    When I run `rspec spec`
+    Then the examples should all pass
