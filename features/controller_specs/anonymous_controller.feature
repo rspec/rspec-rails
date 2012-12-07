@@ -343,34 +343,26 @@ Feature: anonymous controller
         end
       end
 
-      describe "#custom" do
+      describe "a custom route in an anonymous controllers" do
         
-        it "does not work by default" do
+        it "is not supported by default" do
           expect { get :custom }.to raise_error(ActionController::RoutingError)
           expect { get :custom, :custom_id => 13 }.to raise_error(ActionController::RoutingError)
         end
         
-        context "when custom routes are drawn" do
-          before(:each) do
+        context "with custom routes drawn in the spec" do
+          it "is supported with no params" do
             routes.draw { get "custom" => "anonymous#custom" }
-          end
-        
-          it "works" do
             get :custom
             expect(response.body).to eq "custom called"
           end
-        end
-        
-        context "when a route is drawn with custom parameters" do
           
-          before(:each) do
-            routes.draw { get "custom/:custom_id" => "anonymous#custom" }
-          end
-          
-          it "accepts custom parameters" do
-            get :custom, :custom_id => 13
+          it "is supported with custom params" do
+            routes.draw { get "custom" => "anonymous#custom" }
+            get :custom
             expect(response.body).to eq "custom called"
           end
+          
         end
         
       end
