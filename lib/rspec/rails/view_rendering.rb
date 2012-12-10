@@ -73,7 +73,7 @@ module RSpec
             ::ActionView::Template.new(
               "",
               template.identifier,
-              template.handler,
+              lambda { |template| %[ "" ] },
               {
                 :virtual_path => template.virtual_path,
                 :format => template.formats
