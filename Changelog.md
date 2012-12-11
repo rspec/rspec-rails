@@ -9,6 +9,7 @@ Enhancements
 * `be_valid` matcher includes validation error messages. (Tom Scott)
 * Adds cucumber scenario showing how to invoke an anonymous controller's
   non-resourceful actions. (Paulo Luis Franchini Casaretto)
+* Null template handler is used when views are stubbed. (Daniel Schierbeck)
 
 Bug fixes
 
