@@ -73,13 +73,19 @@ module RSpec
             ::ActionView::Template.new(
               "",
               template.identifier,
-              lambda { |template| %[ "" ] },
+              EmptyTemplateHandler,
               {
                 :virtual_path => template.virtual_path,
                 :format => template.formats
               }
             )
           end
+        end
+      end
+
+      class EmptyTemplateHandler
+        def self.call(template)
+          %("")
         end
       end
 
