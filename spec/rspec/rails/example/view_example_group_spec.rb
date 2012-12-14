@@ -13,8 +13,8 @@ module RSpec::Rails
     end
 
     describe 'automatic inclusion of helpers' do
+      class ::ThingsController < ActionController::Base; end
       module ::ThingsHelper; end
-      module ::Namespaced; module ThingsHelper; end; end
 
       it 'includes the helper with the same name' do
         group = RSpec::Core::ExampleGroup.describe 'things/show.html.erb'
@@ -24,9 +24,27 @@ module RSpec::Rails
         end
       end
 
+      module ::Namespaced
+        class ThingsController < ActionController::Base; end
+        module ThingsHelper; end
+      end
+
       it 'includes the namespaced helper with the same name' do
         group = RSpec::Core::ExampleGroup.describe 'namespaced/things/show.html.erb'
         group.should_receive(:helper).with(Namespaced::ThingsHelper)
+        group.class_eval do
+          include ViewExampleGroup
+        end
+      end
+
+      class ::ParentController < ActionController::Base; end
+      class ::ChildController < ::ParentController; end
+      module ::ParentHelper; end
+      module ::ChildHelper; end
+
+      it 'includes the ancestor helper with the same name' do
+        group = RSpec::Core::ExampleGroup.describe 'child/show.html.erb'
+        group.should_receive(:helper).with(ChildHelper, ParentHelper)
         group.class_eval do
           include ViewExampleGroup
         end
@@ -39,52 +57,6 @@ module RSpec::Rails
             include ViewExampleGroup
           end
         }.should_not raise_error
-      end
-
-      context 'application helper exists' do
-        before do
-          if !Object.const_defined? 'ApplicationHelper'
-            module ::ApplicationHelper; end
-            @application_helper_defined = true
-          end
-        end
-
-        after do
-          if @application_helper_defined
-            Object.__send__ :remove_const, 'ApplicationHelper'
-          end
-        end
-
-        it 'includes the application helper' do
-          group = RSpec::Core::Example.describe 'bars/new.html.erb'
-          group.should_receive(:helper).with(ApplicationHelper)
-          group.class_eval do
-            include ViewExampleGroup
-          end
-        end
-      end
-
-      context 'no application helper exists' do
-        before do
-          if Object.const_defined? 'ApplicationHelper'
-            @application_helper = ApplicationHelper
-            Object.__send__ :remove_const, 'ApplicationHelper'
-          end
-        end
-
-        after do
-          if @application_helper
-            ApplicationHelper = @application_helper
-          end
-        end
-
-        it 'operates normally' do
-          lambda {
-            RSpec::Core::ExampleGroup.describe 'foos/edit.html.erb' do
-              include ViewExampleGroup
-            end
-          }.should_not raise_error
-        end
       end
     end
 
