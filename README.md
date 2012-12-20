@@ -35,7 +35,7 @@ tasks without having to type `RAILS_ENV=test`.
 Now you can run:
 
 ```
-rails generate rspec:install
+rspec --init
 ```
 
 This adds the spec directory and some skeleton files, including
