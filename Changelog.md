@@ -10,6 +10,9 @@ Enhancements
 * The generated `spec_helper.rb` in Rails 4 includes a check for pending
   migrations. (Andy Lindeman)
 
+### 2.12.1 / 2013-01-07
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.12.0...v2.12.1)
+
 Bug fixes
 
 * Operates correctly when ActiveRecord is only partially loaded (e.g., with
