@@ -52,7 +52,7 @@ namespace :generate do
       bindir = File.expand_path("bin")
       if test ?d, bindir
         Dir.chdir("./tmp/example_app") do
-          Dir.mkdir("bin") unless Dir.exist?("bin")
+          Dir.mkdir("bin") unless File.directory?("bin")
           sh "ln -sf #{bindir}/rake bin/rake"
           sh "ln -sf #{bindir}/rspec bin/rspec"
           sh "ln -sf #{bindir}/cucumber bin/cucumber"
