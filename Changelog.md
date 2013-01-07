@@ -19,6 +19,8 @@ Bug fixes
 * Rails 4 support for routing specs. (Andy Lindeman)
 * Rails 4 support for `ActiveRecord::Relation` and the `=~` operator matcher.
   (Andy Lindeman)
+* Anonymous controllers define `_routes` to support testing of redirection
+  and generation of URLs from other contexts. (Andy Lindeman)
 
 ### 2.12.0 / 2012-11-12
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.11.4...v2.12.0)
