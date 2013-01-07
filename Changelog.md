@@ -3,9 +3,6 @@
 
 Enhancements
 
-* Rails 4 support for routing specs. (Andy Lindeman)
-* Rails 4 support for `ActiveRecord::Relation` and the `=~` operator matcher.
-  (Andy Lindeman)
 * `be_valid` matcher includes validation error messages. (Tom Scott)
 * Adds cucumber scenario showing how to invoke an anonymous controller's
   non-resourceful actions. (Paulo Luis Franchini Casaretto)
@@ -19,6 +16,9 @@ Bug fixes
   older versions of Mongoid). (Eric Marden)
 * `expect(subject).to have(...).errors_on` operates correctly for
   ActiveResource models where `valid?` does not accept an argument. (Yi Wen)
+* Rails 4 support for routing specs. (Andy Lindeman)
+* Rails 4 support for `ActiveRecord::Relation` and the `=~` operator matcher.
+  (Andy Lindeman)
 
 ### 2.12.0 / 2012-11-12
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.11.4...v2.12.0)
