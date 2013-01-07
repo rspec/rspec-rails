@@ -52,7 +52,11 @@ namespace :generate do
       bindir = File.expand_path("bin")
       if test ?d, bindir
         Dir.chdir("./tmp/example_app") do
-          sh "ln -s #{bindir}"
+          Dir.mkdir("bin") unless Dir.exist?("bin")
+          sh "ln -sf #{bindir}/rake bin/rake"
+          sh "ln -sf #{bindir}/rspec bin/rspec"
+          sh "ln -sf #{bindir}/cucumber bin/cucumber"
+
           application_file = File.read("config/application.rb")
           sh "rm config/application.rb"
           File.open("config/application.rb","w") do |f|
