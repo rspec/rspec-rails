@@ -1,5 +1,5 @@
 ### 2.12.1 / 2013-01-07
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.12.0...master)
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.12.0...v2.12.1)
 
 Bug fixes
 
