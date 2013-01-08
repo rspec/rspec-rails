@@ -68,7 +68,7 @@ module RSpec::Rails
           @routes.draw { resources :anonymous }
 
           routes = @routes
-          described_class.send(:define_method, :_routes) { routes }
+          described_class.send(:define_method, :routes) { routes }
         end
 
         after do
