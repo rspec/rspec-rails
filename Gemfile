@@ -46,7 +46,7 @@ when /3-1-stable/
 when /3-2-stable/
   gem "rails", :git => "git://github.com/rails/rails.git", :branch => "3-2-stable"
 when nil, false, ""
-  gem "rails", "3.2.9"
+  gem "rails", "3.2.11"
 else
   gem "rails", version
 end
