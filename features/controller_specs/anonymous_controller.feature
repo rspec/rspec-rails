@@ -351,3 +351,28 @@ Feature: anonymous controller
     """
     When I run `rspec spec`
     Then the examples should all pass
+
+  Scenario: refer to application routes in the controller under test
+    Given a file named "spec/controllers/application_controller_spec.rb" with:
+    """ruby
+    require "spec_helper"
+
+    Rails.application.routes.draw do
+      match "/login" => "sessions#new", as: "login", via: "get"
+    end
+
+    describe ApplicationController do
+      controller do
+        def index
+          redirect_to login_url
+        end
+      end
+
+      it "redirects to the login page" do
+        get :index
+        expect(response).to redirect_to("/login")
+      end
+    end
+    """
+    When I run `rspec spec`
+    Then the examples should all pass
