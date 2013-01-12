@@ -66,9 +66,6 @@ module RSpec::Rails
         before do
           @orig_routes, @routes = @routes, ActionDispatch::Routing::RouteSet.new
           @routes.draw { resources :anonymous }
-
-          routes = @routes
-          described_class.send(:define_method, :_routes) { routes }
         end
 
         after do
