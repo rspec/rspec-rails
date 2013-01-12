@@ -10,6 +10,16 @@ Enhancements
 * The generated `spec_helper.rb` in Rails 4 includes a check for pending
   migrations. (Andy Lindeman)
 
+### 2.12.2 / 2013-01-12
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.12.1...v2.12.2)
+
+Bug fixes
+
+* Reverts earlier fix where anonymous controllers defined the `_routes` method
+  to support testing of redirection and generation of URLs from other contexts.
+  The implementation ended up breaking the ability to refer to non-anonymous
+  routes in the context of the controller under test.
+
 ### 2.12.1 / 2013-01-07
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.12.0...v2.12.1)
 

@@ -351,35 +351,3 @@ Feature: anonymous controller
     """
     When I run `rspec spec`
     Then the examples should all pass
-
-  Scenario: redirecting via a before_filter in ApplicationController
-    Given a file named "spec/controllers/application_controller_spec.rb" with:
-    """ruby
-    require "spec_helper"
-
-    class ApplicationController < ActionController::Base
-      private
-
-      def redirect_to_index
-        redirect_to(:action => :index)
-      end
-    end
-
-    describe ApplicationController do
-      controller do
-        before_filter :redirect_to_index, :only => :show
-
-        def show
-        end
-      end
-
-      context "GET #show" do
-        it "redirects to the index page" do
-          get :show, :id => 1
-          expect(response).to redirect_to(:action => :index)
-        end
-      end
-    end
-    """
-    When I run `rspec spec`
-    Then the examples should all pass
