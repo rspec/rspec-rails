@@ -358,7 +358,7 @@ Feature: anonymous controller
     require "spec_helper"
 
     Rails.application.routes.draw do
-      match "/login" => "sessions#new", as: "login", via: "get"
+      match "/login" => "sessions#new", :as => "login", :via => "get"
     end
 
     describe ApplicationController do
