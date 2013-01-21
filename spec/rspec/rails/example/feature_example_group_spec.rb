@@ -10,7 +10,7 @@ module RSpec::Rails
         include FeatureExampleGroup
       end
 
-      expect(group.metadata[:type]).to eql(:feature)
+      expect(group.metadata[:type]).to eq(:feature)
     end
 
     it "includes Rails route helpers" do
@@ -22,8 +22,8 @@ module RSpec::Rails
         include FeatureExampleGroup
       end
 
-      expect(group.new.foo_path).to eql("/foo")
-      expect(group.new.foo_url).to eql("http://www.example.com/foo")
+      expect(group.new.foo_path).to eq("/foo")
+      expect(group.new.foo_url).to eq("http://www.example.com/foo")
     end
 
     describe "#visit" do
@@ -49,7 +49,7 @@ module RSpec::Rails
           include FeatureExampleGroup
         end
 
-        expect(group.new.visit("/foo")).to eql("success: /foo")
+        expect(group.new.visit("/foo")).to eq("success: /foo")
       end
     end
   end
