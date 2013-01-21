@@ -5,7 +5,7 @@ module RSpec::Rails
     it { should be_included_in_files_in('./spec/features/') }
     it { should be_included_in_files_in('.\\spec\\features\\') }
 
-    it "adds :type => :model to the metadata" do
+    it "adds :type => :feature to the metadata" do
       group = RSpec::Core::ExampleGroup.describe do
         include FeatureExampleGroup
       end
