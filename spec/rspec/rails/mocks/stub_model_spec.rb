@@ -112,7 +112,7 @@ describe "stub_model" do
 
     describe "alternate primary key" do
       it "has the correct primary_key name" do
-        stub_model(AlternatePrimaryKeyModel).class.primary_key.to_s.should eql('my_id')
+        stub_model(AlternatePrimaryKeyModel).class.primary_key.to_s.should eq('my_id')
       end
 
       it "has a primary_key" do
