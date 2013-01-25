@@ -42,6 +42,7 @@ namespace :spec do
     ::STATS_DIRECTORIES << %w(Mailer\ specs spec/mailers) if File.exist?('spec/mailers')
     ::STATS_DIRECTORIES << %w(Routing\ specs spec/routing) if File.exist?('spec/routing')
     ::STATS_DIRECTORIES << %w(Request\ specs spec/requests) if File.exist?('spec/requests')
+    ::STATS_DIRECTORIES << %w(Feature\ specs spec/features) if File.exist?('spec/features')
     ::CodeStatistics::TEST_TYPES << "Model specs" if File.exist?('spec/models')
     ::CodeStatistics::TEST_TYPES << "View specs" if File.exist?('spec/views')
     ::CodeStatistics::TEST_TYPES << "Controller specs" if File.exist?('spec/controllers')
@@ -50,6 +51,7 @@ namespace :spec do
     ::CodeStatistics::TEST_TYPES << "Mailer specs" if File.exist?('spec/mailers')
     ::CodeStatistics::TEST_TYPES << "Routing specs" if File.exist?('spec/routing')
     ::CodeStatistics::TEST_TYPES << "Request specs" if File.exist?('spec/requests')
+    ::CodeStatistics::TEST_TYPES << "Feature specs" if File.exist?('spec/features')
   end
 end
 
