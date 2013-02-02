@@ -3,12 +3,7 @@ if default = Rake.application.instance_variable_get('@tasks')['default']
   default.prerequisites.delete('test')
 end
 
-orm_setting = Rails.configuration.generators.options[:rails][:orm]
-spec_prereq = if(orm_setting == :active_record)
-  Rails.configuration.active_record[:schema_format] == :sql ? "db:test:clone_structure" : "db:test:prepare"
-else
-  :noop
-end
+spec_prereq = Rails.configuration.generators.options[:rails][:orm] == :active_record ?  "db:test:prepare" : :noop
 task :noop do; end
 task :default => :spec
 
