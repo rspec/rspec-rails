@@ -104,7 +104,7 @@ EOM
             include ActiveModel::Validations
           end
           if defined?(ActiveRecord)
-            [:save, :update_attributes].each do |key|
+            [:save, :update_attributes, :update].each do |key|
               if stubs[key] == false
                 m.errors.stub(:empty? => false)
               end
