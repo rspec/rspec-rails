@@ -36,6 +36,7 @@ when /master/
   gem "arel", :git => "git://github.com/rails/arel.git"
   gem "journey", :git => "git://github.com/rails/journey.git"
   gem "activerecord-deprecated_finders", :git => "git://github.com/rails/activerecord-deprecated_finders.git"
+  gem "rails-observers", :git => "git://github.com/rails/rails-observers"
   gem 'sass-rails', :git => "git://github.com/rails/sass-rails.git"
   gem 'coffee-rails', :git => "git://github.com/rails/coffee-rails.git"
 when /3-0-stable/
