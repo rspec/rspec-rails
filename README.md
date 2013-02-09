@@ -1,25 +1,10 @@
-# rspec-rails-2 [![Build Status](https://secure.travis-ci.org/rspec/rspec-rails.png?branch=master)](http://travis-ci.org/rspec/rspec-rails) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/rspec/rspec-rails)
+# rspec-rails [![Build Status](https://secure.travis-ci.org/rspec/rspec-rails.png?branch=master)](http://travis-ci.org/rspec/rspec-rails) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/rspec/rspec-rails)
 
-rspec-2 for rails-3 with lightweight extensions to each
+**rspec-rails 2** is a testing framework for Rails 3.x and 4.x.
 
-Note: Use [rspec-rails-1.3](http://github.com/dchelimsky/rspec-rails) for rails-2.
+Use **[rspec-rails 1](http://github.com/dchelimsky/rspec-rails)** for Rails 2.x.
 
 ## Install
-
-```
-gem install rspec-rails
-```
-
-This installs the following gems:
-
-```
-rspec-core
-rspec-expectations
-rspec-mocks
-rspec-rails
-```
-
-## Configure
 
 Add `rspec-rails` to the `:test` and `:development` groups in the Gemfile:
 
@@ -43,14 +28,14 @@ the "rake spec" task.
 
 ### Generators
 
-If you type `script/rails generate`, the only RSpec generator you'll actually
-see is `rspec:install`. That's because RSpec is registered with Rails as the
-test framework, so whenever you generate application components like models,
+If you type `rails generate`, the only RSpec generator you'll actually see is
+`rspec:install`. That's because RSpec is registered with Rails as the test
+framework, so whenever you generate application components like models,
 controllers, etc, RSpec specs are generated instead of Test::Unit tests.
 
 Please note that the generators are there to help you get started, but they are
 no substitute for writing your own examples, and they are only guaranteed to
-work out of the box for the default scenario (`ActiveRecord` & `Webrat`).
+work out of the box for the default scenario.
 
 ### Webrat and Capybara
 
@@ -60,12 +45,12 @@ your preference to the Gemfile:
 
 ```ruby
 gem "webrat"
+# ... or ...
 gem "capybara"
 ```
 
 See [http://rubydoc.info/gems/rspec-rails/file/Capybara.md](http://rubydoc.info/gems/rspec-rails/file/Capybara.md)
 for more info on Capybara integration.
-
 
 ## Living on edge
 
@@ -89,17 +74,9 @@ means that its entirely possible that you'll pull from these repos and they won'
 play nice together. If playing nice is important to you, stick to the published
 gems.
 
-## Backwards compatibility
+## Feature Requests & Bugs
 
-This is a complete rewrite of the rspec-rails extension designed to work with
-rails-3.x and rspec-2.x. It will not work with older versions of either rspec
-or rails.  Many of the APIs from rspec-rails-1 have been carried forward,
-however, so upgrading an app from rspec-1/rails-2, while not pain-free, should
-not send you to the doctor with a migraine.
-
-## Known issues
-
-See http://github.com/rspec/rspec-rails/issues
+See <http://github.com/rspec/rspec-rails/issues>
 
 # Request Specs
 
