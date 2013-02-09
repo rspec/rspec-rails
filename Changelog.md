@@ -9,6 +9,7 @@ Enhancements
 * Null template handler is used when views are stubbed. (Daniel Schierbeck)
 * The generated `spec_helper.rb` in Rails 4 includes a check for pending
   migrations. (Andy Lindeman)
+* Adds `rake spec:features` task. (itzki)
 
 ### 2.12.2 / 2013-01-12
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.12.1...v2.12.2)
