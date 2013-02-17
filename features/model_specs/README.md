@@ -11,11 +11,11 @@ behavior and expectations.
     
     describe Post do
       context "with 2 or more comments" do
-        it "orders them in reverse" do
-          post = Post.create
-          comment1 = post.comment("first")
-          comment2 = post.comment("second")
-          post.reload.comments.should eq([comment2, comment1])
+        it "orders them in reverse chronologically" do
+          post = Post.create!
+          comment1 = post.comment.create!(:body => "first comment")
+          comment2 = post.comment.create!(:body => "second comment")
+          expect(post.reload.comments).to eq([comment2, comment1])
         end
       end
     end

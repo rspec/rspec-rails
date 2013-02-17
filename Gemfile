@@ -51,3 +51,5 @@ when nil, false, ""
 else
   gem "rails", version
 end
+
+gem 'relish'
