@@ -352,32 +352,6 @@ render
 expect(rendered).to xxx
 ```
 
-# Model specs
-
-Model specs live in spec/models.
-
-```ruby
-require 'spec_helper'
-describe Article do
-  describe ".recent" do
-    it "includes articles published less than one week ago" do
-      article = Article.create!(:published_at => Date.today - 1.week + 1.second)
-      expect(Article.recent).to eq([article])
-    end
-
-    it "excludes articles published at midnight one week ago" do
-      article = Article.create!(:published_at => Date.today - 1.week)
-      expect(Article.recent).to be_empty
-    end
-
-    it "excludes articles published more than one week ago" do
-      article = Article.create!(:published_at => Date.today - 1.week - 1.second)
-      expect(Article.recent).to be_empty
-    end
-  end
-end
-```
-
 # Routing specs
 
 Routing specs live in spec/routing.
