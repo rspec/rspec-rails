@@ -54,7 +54,37 @@ end
 For more information, see [cucumber scenarios for model
 specs](https://www.relishapp.com/rspec/rspec-rails/docs/model-specs).
 
-# Request Specs
+## Controller Specs
+
+Controller specs reside in the `spec/controllers` folder. Use controller specs
+to describe behavior of Rails controllers. For example:
+
+```ruby
+require "spec_helper"
+
+describe PostsController do
+  describe "GET #index" do
+    it "loads all of the posts" do
+      post1, post2 = Post.create!, Post.create!
+      get :index
+
+      expect(assigns(:posts)).to match_array([post1, post2])
+    end
+  end
+end
+```
+
+For more information, see [cucumber scenarios for controller
+specs](https://www.relishapp.com/rspec/rspec-rails/docs/controller-specs).
+
+**Note:** To encourage more isolated testing, views are not rendered by default
+in controller specs. If you wish to assert against the contents of the rendered
+view in a controller spec, enable
+[render\_views](https://www.relishapp.com/rspec/rspec-rails/docs/controller-specs/render-views)
+or use a higher-level [request spec](#request-specs) or [feature
+spec](#feature-specs).
+
+## <a id="request-spec"></a>Request Specs
 
 Request specs live in spec/requests, spec/api and spec/integration, and mix in behavior
 [ActionDispatch::Integration::Runner](http://api.rubyonrails.org/classes/ActionDispatch/Integration/Runner.html),
