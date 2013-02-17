@@ -5,12 +5,11 @@
 - Changelog.md
 - Upgrade.md
 - RailsVersions.md (Rails versions)
-- feature_specs:
-  - feature_spec.feature
-- request_specs:
-  - request_spec.feature
 - model_specs:
   - errors_on.feature
+- mocks:
+  - mock_model.feature
+  - stub_model.feature
 - controller_specs:
   - Cookies.md
   - controller_spec.feature
@@ -18,6 +17,18 @@
   - render_views.feature
   - anonymous_controller.feature
   - bypass_rescue.feature
+- matchers:
+  - new_record_matcher.feature
+  - render_template_matcher.feature
+  - redirect_to_matcher.feature
+- request_specs:
+  - request_spec.feature
+- feature_specs:
+  - feature_spec.feature
+- view_specs:
+  - view_spec.feature
+  - stub_template.feature
+  - inferred_controller_path.feature
 - helper_specs:
   - helper_spec.feature
 - mailer_specs:
@@ -26,14 +37,3 @@
   - route_to_matcher.feature
   - be_routable_matcher.feature
   - named_routes.feature
-- view_specs:
-  - view_spec.feature
-  - stub_template.feature
-  - inferred_controller_path.feature
-- matchers:
-  - new_record_matcher.feature
-  - render_template_matcher.feature
-  - redirect_to_matcher.feature
-- mocks:
-  - mock_model.feature
-  - stub_model.feature

@@ -28,55 +28,31 @@ the "rake spec" task.
 
 ### Generators
 
-If you type `rails generate`, the only RSpec generator you'll actually see is
-`rspec:install`. That's because RSpec is registered with Rails as the test
-framework, so whenever you generate application components like models,
-controllers, etc, RSpec specs are generated instead of Test::Unit tests.
+Once installed, RSpec will generate spec file instead of Test::Unit test files
+when commands like `rails generate model` and `rails generate controller` are
+used.
 
-Please note that the generators are there to help you get started, but they are
-no substitute for writing your own examples, and they are only guaranteed to
-work out of the box for the default scenario.
 
-### Webrat and Capybara
+## Model Specs
 
-You can choose between webrat or capybara for simulating a browser, automating
-a browser, or setting expectations using the matchers they supply. Just add
-your preference to the Gemfile:
+Model specs reside in the `spec/models` folder. Use model specs to describe
+behavior of models (usually ActiveRecord-based) in the application. For example:
 
 ```ruby
-gem "webrat"
-# ... or ...
-gem "capybara"
+require "spec_helper"
+
+describe User do
+  it "orders by last name" do
+    lindeman = User.create!(first_name: "Andy", last_name: "Lindeman")
+    chelimsky = User.create!(first_name: "David", last_name: "Chelimsky")
+
+    expect(User.ordered_by_last_name).to eq([chelimsky, lindeman])
+  end
+end
 ```
 
-See [http://rubydoc.info/gems/rspec-rails/file/Capybara.md](http://rubydoc.info/gems/rspec-rails/file/Capybara.md)
-for more info on Capybara integration.
-
-## Living on edge
-
-Bundler makes it a snap to use the latest code for any gem your app depends on. For
-rspec-rails, you'll need to point bundler to the git repositories for `rspec-rails`
-and the other rspec related gems it depends on:
-
-```ruby
-gem "rspec-rails",        :git => "git://github.com/rspec/rspec-rails.git"
-gem "rspec",              :git => "git://github.com/rspec/rspec.git"
-gem "rspec-core",         :git => "git://github.com/rspec/rspec-core.git"
-gem "rspec-expectations", :git => "git://github.com/rspec/rspec-expectations.git"
-gem "rspec-mocks",        :git => "git://github.com/rspec/rspec-mocks.git"
-```
-
-Run `bundle install` and you'll have whatever is in git right now. Any time you
-want to update to a newer head, just run `bundle update`.
-
-Keep in mind that each of these codebases is under active development, which
-means that its entirely possible that you'll pull from these repos and they won't
-play nice together. If playing nice is important to you, stick to the published
-gems.
-
-## Feature Requests & Bugs
-
-See <http://github.com/rspec/rspec-rails/issues>
+For more information, see [cucumber scenarios for model
+specs](https://www.relishapp.com/rspec/rspec-rails/docs/model-specs).
 
 # Request Specs
 
@@ -495,6 +471,21 @@ However, you must first clear the task that rspec-rails defined:
 task("spec").clear
 ```
 
+### Webrat and Capybara
+
+You can choose between webrat or capybara for simulating a browser, automating
+a browser, or setting expectations using the matchers they supply. Just add
+your preference to the Gemfile:
+
+```ruby
+gem "webrat"
+# ... or ...
+gem "capybara"
+```
+
+See [http://rubydoc.info/gems/rspec-rails/file/Capybara.md](http://rubydoc.info/gems/rspec-rails/file/Capybara.md)
+for more info on Capybara integration.
+
 # Contribute
 
 See [http://github.com/rspec/rspec-dev](http://github.com/rspec/rspec-dev).
@@ -508,3 +499,7 @@ For `rspec-rails`-specific development information, see
 * [http://github.com/rspec/rspec-core](http://github.com/rspec/rspec-core)
 * [http://github.com/rspec/rspec-expectations](http://github.com/rspec/rspec-expectations)
 * [http://github.com/rspec/rspec-mocks](http://github.com/rspec/rspec-mocks)
+
+## Feature Requests & Bugs
+
+See <http://github.com/rspec/rspec-rails/issues>
