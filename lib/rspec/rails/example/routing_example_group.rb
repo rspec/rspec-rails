@@ -12,12 +12,26 @@ module RSpec::Rails
       metadata[:type] = :routing
 
       before do
-        @routes = ::Rails.application.routes
-        assertion_instance.instance_variable_set(:@routes, @routes)
+        self.routes = ::Rails.application.routes
       end
     end
 
     attr_reader :routes
+
+    # Explicitly sets the routes. This is most often useful when testing a
+    # routes for a Rails engine.
+    #
+    # @example
+    #
+    #     describe "MyEngine routing" do
+    #       before { self.routes = MyEngine::Engine.routes }
+    #
+    #       # ...
+    #     end
+    def routes=(routes)
+      @routes = routes
+      assertion_instance.instance_variable_set(:@routes, @routes)
+    end
 
     private
 
