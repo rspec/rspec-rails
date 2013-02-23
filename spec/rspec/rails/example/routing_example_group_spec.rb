@@ -5,19 +5,18 @@ module RSpec::Rails
     it { should be_included_in_files_in('./spec/routing/') }
     it { should be_included_in_files_in('.\\spec\\routing\\') }
 
-    it "adds :type => :routing to the metadata" do
-      group = RSpec::Core::ExampleGroup.describe do
+    let(:group) {
+      RSpec::Core::ExampleGroup.describe do
         include RoutingExampleGroup
       end
+    }
+
+    it "adds :type => :routing to the metadata" do
       group.metadata[:type].should eq(:routing)
     end
 
     describe "named routes" do
       it "delegates them to the route_set" do
-        group = RSpec::Core::ExampleGroup.describe do
-          include RoutingExampleGroup
-        end
-
         example = group.new
 
         # Yes, this is quite invasive
@@ -26,6 +25,18 @@ module RSpec::Rails
         example.stub(:routes => routes)
 
         example.foo_path.should == "foo"
+      end
+    end
+
+    describe "#routes=" do
+      it "sets the routes used during the test" do
+        example = group.new
+
+        routes = ActionDispatch::Routing::RouteSet.new
+        routes.draw { resources :foos }
+        example.routes = routes
+
+        expect(example.foos_path).to eq("/foos")
       end
     end
   end
