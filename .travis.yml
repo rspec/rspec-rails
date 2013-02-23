@@ -7,9 +7,9 @@ rvm:
   - 1.9.3
   - 2.0.0
 env:
-  - RAILS_VERSION=3.2.11
-  - RAILS_VERSION=3.1.10
-  - RAILS_VERSION=3.0.19
+  - RAILS_VERSION=3.2.12
+  - RAILS_VERSION=3.1.11
+  - RAILS_VERSION=3.0.20
   - RAILS_VERSION=3-2-stable
   - RAILS_VERSION=3-1-stable
   - RAILS_VERSION=3-0-stable
@@ -21,9 +21,9 @@ matrix:
     - rvm: 1.9.2
       env: RAILS_VERSION=master
     - rvm: 2.0.0
-      env: RAILS_VERSION=3.1.10
+      env: RAILS_VERSION=3.1.11
     - rvm: 2.0.0
-      env: RAILS_VERSION=3.0.19
+      env: RAILS_VERSION=3.0.20
     - rvm: 2.0.0
       env: RAILS_VERSION=3-2-stable
     - rvm: 2.0.0
