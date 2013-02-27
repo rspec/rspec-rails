@@ -121,7 +121,12 @@ module RSpec::Rails
 
       before do
         @routes = ::Rails.application.routes
+        @previous_allow_forgery_protection_value = ActionController::Base.allow_forgery_protection
         ActionController::Base.allow_forgery_protection = false
+      end
+
+      after do
+        ActionController::Base.allow_forgery_protection = @previous_allow_forgery_protection_value
       end
     end
   end
