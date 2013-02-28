@@ -37,6 +37,19 @@ Capybara::DSL is added to examples in:
 
 * spec/features
 
+You can also use the `feature` and `scenario` methods in place of
+`describe` and `it` to trigger a capybara feature anywhere in your
+specs (in any folder,) like so:
+
+```ruby
+feature "home page" do
+  scenario "it has hello world" do
+    visit "/"
+    page.should have_content "hello world"
+  end
+end
+```
+
 Capybara::RSpecMatchers is added to examples in:
 
 * spec/features
