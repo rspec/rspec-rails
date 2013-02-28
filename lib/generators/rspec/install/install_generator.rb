@@ -18,7 +18,6 @@ DESC
       def copy_spec_files
         directory 'spec'
       end
-
     end
   end
 end

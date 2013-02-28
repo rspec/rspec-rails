@@ -16,6 +16,26 @@ describe Rspec::Generators::InstallGenerator do
     File.read( file('spec/spec_helper.rb') ).should =~ /^require 'rspec\/autorun'$/m
   end
 
+  it "should create the controlles folder" do
+    run_generator
+    File.directory?(file("spec/controllers")).should be_true
+  end
+
+  it "should create the helpers folder" do
+    run_generator
+    File.directory?(file("spec/helpers")).should be_true
+  end
+
+  it "should create the models folder" do
+    run_generator
+    File.directory?(file("spec/models")).should be_true
+  end
+
+  it "should create the views folder" do
+    run_generator
+    File.directory?(file("spec/views")).should be_true
+  end
+
   if ::Rails.version >= '4'
     it "generates spec/spec_helper.rb with a check for pending migrations" do
       run_generator
