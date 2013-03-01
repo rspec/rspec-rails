@@ -15,7 +15,7 @@ Feature: engine routes
       end
 
       Engine.routes.draw do
-        resources :widgets, only: [:index]
+        resources :widgets, :only => [:index]
       end
 
       class WidgetsController < ::ActionController::Base
