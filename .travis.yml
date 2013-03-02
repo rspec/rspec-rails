@@ -1,6 +1,6 @@
 script: "bin/rake --trace 2>&1"
 bundler_args: "--binstubs --without documentation"
-before_install: gem install bundler --pre
+before_install: gem install bundler
 rvm:
   - 1.8.7
   - 1.9.2
