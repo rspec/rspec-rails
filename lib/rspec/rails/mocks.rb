@@ -96,7 +96,7 @@ EOM
                                     :valid? => true,
                                     :blank? => false)
 
-        mock("#{model_class.name}_#{stubs[:id]}", stubs).tap do |m|
+        double("#{model_class.name}_#{stubs[:id]}", stubs).tap do |m|
           m.singleton_class.class_eval do
             include ActiveModelInstanceMethods
             include ActiveRecordInstanceMethods if defined?(ActiveRecord)
