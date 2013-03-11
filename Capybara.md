@@ -3,8 +3,6 @@ its Capybara::DSL (visit/page) and Capybara::RSpecMatchers to the
 examples in the applicable directories, which differ slightly between
 Capybara 1.x and Capybara >= 2.x.
 
-Note that you need to require "capybara/rspec" for this integration to work.
-
 ## Capybara::DSL
 
 Adds the `visit` and `page` methods, which work together to simulate a
@@ -12,7 +10,7 @@ GET request and provide access to the result (via `page`).
 
 ## Capybara::RSpecMatchers
 
-Exposes matchers used to specify expected HTML content (e.g. `have_selector`).
+Exposes matchers used to specify expected HTML content (e.g. `should_not have_selector` will work correctly).
 
 ## Capybara 1.x
 
