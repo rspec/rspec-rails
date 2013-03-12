@@ -97,7 +97,7 @@ module RSpec::Rails::Matchers
     end
 
     module RouteHelpers
-      %w(get post put delete options head).each do |method|
+      %w(get post put patch delete options head).each do |method|
         define_method method do |path|
           { method.to_sym => path }
         end
