@@ -5,6 +5,7 @@ Enhancements
 
 * `ActionController::Base.allow_forgery_protection` is set to its original
   value after each example. (Mark Dimas)
+* `patch` is supported in routing specs. (Chris Your)
 
 ### 2.13.0 / 2013-02-23
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.12.2...v2.13.0)
