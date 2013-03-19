@@ -50,6 +50,17 @@ describe Rspec::Generators::ControllerGenerator do
           it { should_not exist }
         end
       end
+
+      describe 'with --no-template-engine' do
+        before do
+          run_generator %w(posts index --no-template-engine)
+        end
+
+        describe 'index.html.erb' do
+          subject { file('spec/views/posts/index.html._spec.rb') }
+          it { should_not exist }
+        end
+      end
     end
 
     describe 'are generated' do
