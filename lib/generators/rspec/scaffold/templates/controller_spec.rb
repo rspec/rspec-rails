@@ -24,16 +24,12 @@ describe <%= controller_class_name %>Controller do
   # This should return the minimal set of attributes required to create a valid
   # <%= class_name %>. As you add validations to <%= class_name %>, be sure to
   # update the return value of this method accordingly.
-  def valid_attributes
-    <%= formatted_hash(example_valid_attributes) %>
-  end
+  set(:valid_attributes) { <%= formatted_hash(example_valid_attributes) %> }
 
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # <%= controller_class_name %>Controller. Be sure to keep this updated too.
-  def valid_session
-    {}
-  end
+  set(:valid_session) { {} }
 
 <% unless options[:singleton] -%>
   describe "GET index" do
