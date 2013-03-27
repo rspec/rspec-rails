@@ -118,7 +118,7 @@ module RSpec::Rails
           view_spec.stub(:_default_file_to_render) { "widgets/new.en.html.erb" }
           view_spec.render
 
-          if ::Rails.version >= "3.2"
+          if Gem::Requirement.new('>= 3.2').satisfied_by?(Gem::Version.new(::Rails.version.to_s))
             view_spec.received.first.should == [{:template => "widgets/new", :locales=>['en'], :formats=>['html'], :handlers=>['erb']}, {}, nil]
           else
             view_spec.received.first.should == [{:template => "widgets/new.en.html.erb"}, {}, nil]
