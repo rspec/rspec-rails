@@ -11,7 +11,6 @@ end
 if defined?(Capybara)
   RSpec.configure do |c|
     if defined?(Capybara::DSL)
-      c.include Capybara::DSL, :type => :controller
       c.include Capybara::DSL, :type => :feature
     end
 
