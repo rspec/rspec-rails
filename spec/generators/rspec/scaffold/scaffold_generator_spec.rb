@@ -72,6 +72,29 @@ describe Rspec::Generators::ScaffoldGenerator do
       end
     end
 
+    describe 'with --no-template-engine' do
+      before { run_generator %w(posts --no-template-engine) }
+      describe 'edit' do
+        subject { file("spec/views/posts/edit.html._spec.rb") }
+        it { should_not exist }
+      end
+
+      describe 'index' do
+        subject { file("spec/views/posts/index.html._spec.rb") }
+        it { should_not exist }
+      end
+
+      describe 'new' do
+        subject { file("spec/views/posts/new.html._spec.rb") }
+        it { should_not exist }
+      end
+
+      describe 'show' do
+        subject { file("spec/views/posts/show.html._spec.rb") }
+        it { should_not exist }
+      end
+    end
+
     describe 'with --no-view-specs' do
       before { run_generator %w(posts --no-view-specs) }
 

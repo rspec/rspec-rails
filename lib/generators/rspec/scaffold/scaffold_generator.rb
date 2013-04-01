@@ -27,7 +27,7 @@ module Rspec
       end
 
       def generate_view_specs
-        return unless options[:view_specs]
+        return unless options[:view_specs] && options[:template_engine]
 
         copy_view :edit
         copy_view :index unless options[:singleton]
