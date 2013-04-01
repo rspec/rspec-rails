@@ -7,7 +7,7 @@ module Rspec
         @_rspec_source_root ||= File.expand_path(File.join(File.dirname(__FILE__), 'rspec', generator_name, 'templates'))
       end
 
-      if ::Rails.version < '3.1'
+      if Gem::Requirement.new('< 3.1').satisfied_by?(Gem::Version.new(::Rails.version.to_s))
         def module_namespacing
           yield if block_given?
         end
