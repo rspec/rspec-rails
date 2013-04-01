@@ -8,7 +8,7 @@ require 'rspec/autorun'
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
-<% if Gem::Requirement.new('>= 4.0.0beta1').satisfied_by?(Gem::Version.new(::Rails.version.to_s)) -%>
+<% if Gem::Requirement.new('>= 4.0.0.beta1').satisfied_by?(Gem::Version.new(::Rails.version.to_s)) -%>
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
