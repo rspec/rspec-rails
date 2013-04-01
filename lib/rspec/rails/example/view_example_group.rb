@@ -107,7 +107,7 @@ module RSpec::Rails
       end
 
       def _default_render_options
-        if Gem::Requirement.new('>= 3.2').satisfied_by?(Gem::Version.new(::Rails.version.to_s))
+        if RSpec::Rails::Version.rails_version?('>= 3.2')
           # pluck the handler, format, and locale out of, eg, posts/index.de.html.haml
           template, *components   = _default_file_to_render.split('.')
           handler, format, locale = *components.reverse

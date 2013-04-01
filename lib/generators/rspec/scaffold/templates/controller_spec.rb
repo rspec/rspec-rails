@@ -113,7 +113,7 @@ describe <%= controller_class_name %>Controller do
         # specifies that the <%= class_name %> created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
-        <%- if Gem::Requirement.new('>= 4.0.0.beta1').satisfied_by?(Gem::Version.new(::Rails.version.to_s)) -%>
+        <%- if RSpec::Rails::Version.rails_version?('>= 4.0.0.beta1') -%>
         <%= class_name %>.any_instance.should_receive(:update).with(<%= formatted_hash(example_params_for_update) %>)
         <%- else -%>
         <%= class_name %>.any_instance.should_receive(:update_attributes).with(<%= formatted_hash(example_params_for_update) %>)
