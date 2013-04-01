@@ -29,7 +29,7 @@ require "spec_helper"
     context "with should" do
       context "when assert_template passes" do
         it "passes" do
-          self.stub!(:assert_template)
+          def assert_template(*); end
           expect do
             expect(response).to send(template_expectation, "template_name")
           end.to_not raise_exception
@@ -38,7 +38,7 @@ require "spec_helper"
 
       context "when assert_template fails" do
         it "uses failure message from assert_template" do
-          self.stub!(:assert_template) do
+          def assert_template(*)
             raise ActiveSupport::TestCase::Assertion.new("this message")
           end
           expect do
@@ -49,7 +49,7 @@ require "spec_helper"
 
       context "when fails due to some other exception" do
         it "raises that exception" do
-          self.stub!(:assert_template) do
+          def assert_template(*)
             raise "oops"
           end
           expect do
