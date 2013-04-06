@@ -37,6 +37,34 @@ module RSpec
       end
     end
 
+    # MiniTest::Unit::LifecycleHooks
+    module MiniTestLifecycleHooks
+      extend ActiveSupport::Concern
+
+      included do |group|
+        group.before { before_setup }
+        group.after  { after_teardown }
+
+        group.around do |example|
+          after_setup
+          example.run
+          before_teardown
+        end
+      end
+
+      def before_setup
+      end
+
+      def after_setup
+      end
+
+      def before_teardown
+      end
+
+      def after_teardown
+      end
+    end
+
     module SetupAndTeardownAdapter
       extend ActiveSupport::Concern
 
