@@ -1,11 +1,14 @@
 require "spec_helper"
 
 describe RSpec::Rails, "version" do
-  before do
+  def clear_memoized_version
     if RSpec::Rails.instance_variable_defined?(:@rails_version)
       RSpec::Rails.send(:remove_instance_variable, :@rails_version)
     end
   end
+
+  before { clear_memoized_version }
+  after  { clear_memoized_version }
 
   describe "#rails_version_satisfied_by?" do
     it "checks whether the gem version constraint is satisfied by the Rails version" do
