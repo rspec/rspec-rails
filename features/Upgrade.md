@@ -60,6 +60,10 @@ This needs to move from before the action to after. For example:
     get :edit, :id => "37"
     response.should render_template("edit")
 
+    # rspec-rails-2 with expect syntax
+    get :edit, :id => "37"
+    expect(response).to render_template("edit")
+
 rspec-1 had to monkey patch Rails to get render_template to work before the
 action, and this broke a couple of times with Rails releases (requiring urgent
 fix releases in RSpec). Part of the philosophy of rspec-rails-2 is to rely on
