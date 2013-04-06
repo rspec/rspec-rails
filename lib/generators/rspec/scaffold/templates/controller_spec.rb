@@ -23,7 +23,7 @@ describe <%= controller_class_name %>Controller do
 
   # This should return the minimal set of attributes required to create a valid
   # <%= class_name %>. As you add validations to <%= class_name %>, be sure to
-  # update the return value of this method accordingly.
+  # adjust the attributes here as well.
   let(:valid_attributes) { <%= formatted_hash(example_valid_attributes) %> }
 
   # This should return the minimal set of values that should be in the session
