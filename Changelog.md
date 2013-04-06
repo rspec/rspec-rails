@@ -1,3 +1,10 @@
+### dev
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.13.1...master)
+
+Enhancements
+
+* Fix spacing in the install generator template (Taiki ONO)
+
 ### 2.13.1
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.13.0...v2.13.1)
 
