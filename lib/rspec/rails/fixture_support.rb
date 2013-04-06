@@ -4,6 +4,7 @@ module RSpec
       module FixtureSupport
         extend ActiveSupport::Concern
         include RSpec::Rails::SetupAndTeardownAdapter
+        include RSpec::Rails::MiniTestLifecycleHooks if RSpec::Rails.rails_version_satisfied_by?('>= 4.0.0.beta1')
         include RSpec::Rails::TestUnitAssertionAdapter
         include ActiveRecord::TestFixtures
 
