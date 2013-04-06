@@ -1,12 +1,9 @@
-### dev
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.13.0...master)
+### 2.13.1
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.13.0...v2.13.1)
 
 Bug fixes
 
 * View specs are no longer generated if no template engine is specified (Kevin Glowacz)
-
-Enhancements
-
 * `ActionController::Base.allow_forgery_protection` is set to its original
   value after each example. (Mark Dimas)
 * `patch` is supported in routing specs. (Chris Your)
