@@ -20,7 +20,7 @@ the following guidelines:
 # spec
 request.cookies['foo'] = 'bar'
 get :some_action
-response.cookies['foo'].should eq('modified bar')
+expect(response.cookies['foo']).to eq('modified bar')
 
 # controller
 def some_action

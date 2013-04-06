@@ -36,11 +36,11 @@ already ran. For example:
       end
 
       it "does something" do
-        @widget.should do_something
+        expect(@widget).to do_something
       end
         
       it "does something else" do
-        @widget.should do_something_else
+        expect(@widget).to do_something_else
       end
     end
 
