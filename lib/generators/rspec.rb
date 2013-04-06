@@ -1,4 +1,5 @@
 require 'rails/generators/named_base'
+require 'rspec/rails/rails_version'
 
 module Rspec
   module Generators
@@ -7,7 +8,7 @@ module Rspec
         @_rspec_source_root ||= File.expand_path(File.join(File.dirname(__FILE__), 'rspec', generator_name, 'templates'))
       end
 
-      if RSpec::Rails::Version.rails_version?('< 3.1')
+      if RSpec::Rails.rails_version_satisfied_by?('< 3.1')
         def module_namespacing
           yield if block_given?
         end

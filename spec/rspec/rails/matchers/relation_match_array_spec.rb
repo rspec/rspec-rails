@@ -5,7 +5,7 @@ describe "ActiveSupport::Relation =~ matcher" do
 
   let!(:models) { Array.new(3) { MockableModel.create } }
 
-  if RSpec::Rails::Version.rails_version?('>= 4.0.0.beta1')
+  if RSpec::Rails.rails_version_satisfied_by?('>= 4.0.0.beta1')
     it "verifies that the scope returns the records on the right hand side, regardless of order" do
       MockableModel.all.should =~ models.reverse
     end
