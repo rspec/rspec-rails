@@ -3,7 +3,7 @@ require "spec_helper"
 describe RSpec::Rails, "version" do
   before do
     if RSpec::Rails.instance_variable_defined?(:@rails_version)
-      RSpec::Rails.remove_instance_variable(:@rails_version)
+      RSpec::Rails.send(:remove_instance_variable, :@rails_version)
     end
   end
 
