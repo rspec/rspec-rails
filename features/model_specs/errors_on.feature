@@ -10,7 +10,7 @@ Feature: errors_on
         validates_presence_of :name
 
         # In Rails 4, mass assignment protection is implemented on controllers
-        attr_accessible :name if Gem::Requirement.new('< 4').satisfied_by?(Gem::Version.new(::Rails.version.to_s))
+        attr_accessible :name if RSpec::Rails.rails_version_satisfied_by?('< 4.0.0.beta1')
 
         validates_length_of :name, :minimum => 10, :on => :publication
       end
