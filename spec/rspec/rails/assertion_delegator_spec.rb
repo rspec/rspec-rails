@@ -27,4 +27,17 @@ describe RSpec::Rails::AssertionDelegator do
     expect(klass.new).to have_thing(:a)
     expect(klass.new).not_to have_thing(:b)
   end
+
+  it "does not delegate method_missing" do
+    assertions = Module.new {
+      def method_missing(method, *args)
+      end
+    }
+
+    klass = Class.new {
+      include RSpec::Rails::AssertionDelegator.new(assertions)
+    }
+
+    expect { klass.new.abc123 }.to raise_error(NoMethodError)
+  end
 end
