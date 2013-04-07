@@ -103,7 +103,7 @@ Feature: helper spec
     describe WidgetsHelper do
       describe "#link_to_widget" do
         it "links to a widget using its name" do
-          widget = Widget.new(:name => "This Widget")
+          widget = Widget.create!(:name => "This Widget")
           expect(helper.link_to_widget(widget)).to include("This Widget")
           expect(helper.link_to_widget(widget)).to include(widget_path(widget))
         end
