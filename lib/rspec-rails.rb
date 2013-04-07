@@ -11,4 +11,13 @@ module RSpec
       end
     end
   end
+
+  def self.check_pending
+    begin
+      ActiveRecord::Migration.check_pending!
+    rescue ActiveRecord::PendingMigrationError => error
+      puts "\e[31m#{error}\e[0m"
+      exit
+    end
+  end
 end
