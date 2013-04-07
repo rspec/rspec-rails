@@ -8,7 +8,7 @@ generate('helper things')
 generate('scaffold widget name:string category:string instock:boolean foo_id:integer bar_id:integer --force')
 generate('observer widget')
 generate('scaffold gadget') # scaffold with no attributes
-generate('scaffold admin/accounts name:string') # scaffold with nested resource
+generate('scaffold admin/account name:string') # scaffold with nested resource
 
 generate('controller things custom_action')
 
