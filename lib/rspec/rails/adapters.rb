@@ -25,6 +25,7 @@ module RSpec
 
           assertion_modules.each do |mod|
             mod.instance_methods.each do |method|
+              next if method == :method_missing
               class_eval <<-EOM, __FILE__, __LINE__ + 1
                 def #{method}(*args, &block)
                   assertion_instance.send(:#{method}, *args, &block)

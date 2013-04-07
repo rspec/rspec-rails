@@ -11,6 +11,7 @@ module RSpec::Rails
     include RSpec::Rails::Matchers::RedirectTo
     include RSpec::Rails::Matchers::RenderTemplate
     include RSpec::Rails::Matchers::RoutingMatchers
+    include RSpec::Rails::AssertionDelegator.new(ActionDispatch::Assertions::RoutingAssertions)
 
     module ClassMethods
       # @private
@@ -64,17 +65,26 @@ module RSpec::Rails
         metadata[:example_group][:described_class].class_eval(&body)
 
         before do
-          @orig_routes, @routes = @routes, ActionDispatch::Routing::RouteSet.new
-          @routes.draw { resources :anonymous }
+          @orig_routes = self.routes
+          self.routes  = ActionDispatch::Routing::RouteSet.new.tap { |r|
+            r.draw { resources :anonymous }
+          }
         end
 
         after do
-          @routes, @orig_routes = @orig_routes, nil
+          self.routes  = @orig_routes
+          @orig_routes = nil
         end
       end
     end
 
     attr_reader :controller, :routes
+
+    # @api private
+    def routes=(routes)
+      @routes = routes
+      assertion_instance.instance_variable_set(:@routes, routes)
+    end
 
     module BypassRescue
       def rescue_with_handler(exception)
@@ -107,7 +117,9 @@ module RSpec::Rails
     # If method is a named_route, delegates to the RouteSet associated with
     # this controller.
     def method_missing(method, *args, &block)
-      if @orig_routes && @orig_routes.named_routes.helpers.include?(method)
+      if @routes && @routes.named_routes.helpers.include?(method)
+        controller.send(method, *args, &block)
+      elsif @orig_routes && @orig_routes.named_routes.helpers.include?(method)
         controller.send(method, *args, &block)
       else
         super
@@ -120,7 +132,7 @@ module RSpec::Rails
       metadata[:type] = :controller
 
       before do
-        @routes = ::Rails.application.routes
+        self.routes = ::Rails.application.routes
       end
 
       around do |ex|
