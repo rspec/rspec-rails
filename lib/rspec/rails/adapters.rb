@@ -38,17 +38,17 @@ module RSpec
     end
 
     # MiniTest::Unit::LifecycleHooks
-    module MiniTestLifecycleHooks
+    module MiniTestLifecycleAdapter
       extend ActiveSupport::Concern
 
       included do |group|
-        group.before { before_setup }
-        group.after  { after_teardown }
+        group.before { after_setup }
+        group.after  { before_teardown }
 
         group.around do |example|
-          after_setup
+          before_setup
           example.run
-          before_teardown
+          after_teardown
         end
       end
 
