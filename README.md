@@ -67,7 +67,7 @@ describe PostsController do
     it "responds successfully with an HTTP 200 status code" do
       get :index
       expect(response).to be_success
-      expect(response.code).to eq(200)
+      expect(response.status).to eq(200)
     end
 
     it "renders the index template" do
@@ -97,7 +97,8 @@ spec](#feature-specs).
 
 ## <a id="request-spec"></a>Request Specs
 
-Request specs live in spec/requests, spec/api and spec/integration, and mix in behavior
+Request specs live in spec/requests, spec/features, spec/api and
+spec/integration, and mix in behavior
 [ActionDispatch::Integration::Runner](http://api.rubyonrails.org/classes/ActionDispatch/Integration/Runner.html),
 which is the basis for [Rails' integration
 tests](http://guides.rubyonrails.org/testing.html#integration-testing).  The
@@ -123,7 +124,9 @@ end
 ```
 
 This example uses only standard Rails and RSpec API's, but many RSpec/Rails
-users like to use extension libraries like [FactoryGirl](https://github.com/thoughtbot/factory_girl) and [Capybara](https://github.com/jnicklas/capybara):
+users like to use extension libraries like
+[FactoryGirl](https://github.com/thoughtbot/factory_girl) and
+[Capybara](https://github.com/jnicklas/capybara):
 
 ```ruby
 require 'spec_helper'
@@ -145,7 +148,10 @@ which can be encoded into the underlying factory definition without requiring
 changes to this example.
 
 Among other benefits, Capybara binds the form post to the generated HTML, which
-means we don't need to specify them separately.
+means we don't need to specify them separately.  Note that Capybara's DSL as
+shown is, by default, only available in specs in the spec/features directory.
+For more information, see the [Capybara integration
+docs](http://rubydoc.info/gems/rspec-rails/file/Capybara.md).
 
 There are several other Ruby libs that implement the factory pattern or provide
 a DSL for request specs (a.k.a. acceptance or integration specs), but
