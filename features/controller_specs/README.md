@@ -13,8 +13,8 @@ specify expected outcomes such as:
 
 To specify outcomes, you can use:
 
-* standard rspec matchers (`expect(response.code).to eq(200)`)
-* standard test/unit assertions (`assert_equal 200, response.code`)
+* standard rspec matchers (`expect(response.status).to eq(200)`)
+* standard test/unit assertions (`assert_equal 200, response.status`)
 * rails assertions (`assert_response 200`)
 * rails-specific matchers:
   * `expect(response).to render_template(wraps assert_template)`

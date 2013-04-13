@@ -9,7 +9,7 @@ Feature: controller spec
         describe "GET index" do
           it "has a 200 status code" do
             get :index
-            expect(response.code).to eq("200")
+            expect(response.status).to eq(200)
           end
         end
       end
