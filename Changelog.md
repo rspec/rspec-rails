@@ -1,10 +1,3 @@
-### dev
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.13.1...master)
-
-Enhancements
-
-* Fix spacing in the install generator template (Taiki ONO)
-
 ### 2.13.1
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.13.0...v2.13.1)
 
@@ -17,6 +10,7 @@ Bug fixes
 * `patch` is supported in routing specs. (Chris Your)
 * Routing assertions are supported in controller specs in Rails 4. (Andy
   Lindeman)
+* Fix spacing in the install generator template (Taiki ONO)
 
 ### 2.13.0 / 2013-02-23
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.12.2...v2.13.0)
