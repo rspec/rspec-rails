@@ -26,6 +26,11 @@ end
 
 gem 'sqlite3', '~> 1.3.6'
 
+# Capybara 2.1 requires Ruby >= 1.9.3
+if RUBY_VERSION < '1.9.3'
+  gem 'capybara', '>= 2.0.0', '< 2.1.0'
+end
+
 custom_gemfile = File.expand_path("../Gemfile-custom", __FILE__)
 eval File.read(custom_gemfile) if File.exist?(custom_gemfile)
 
