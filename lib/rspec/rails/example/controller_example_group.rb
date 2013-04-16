@@ -76,6 +76,22 @@ module RSpec::Rails
           @orig_routes = nil
         end
       end
+
+      # Specifies the routeset that will be used for the example group. This
+      # is most useful when testing Rails engines.
+      #
+      # @example
+      #
+      #     describe MyEngine::PostsController do
+      #       routes { MyEngine::Engine.routes }
+      #
+      #       # ...
+      #     end
+      def routes(&blk)
+        before do
+          self.routes = blk.call
+        end
+      end
     end
 
     attr_reader :controller, :routes
