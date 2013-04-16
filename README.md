@@ -1,34 +1,58 @@
 # rspec-rails [![Build Status](https://secure.travis-ci.org/rspec/rspec-rails.png?branch=master)](http://travis-ci.org/rspec/rspec-rails) [![Code Climate](https://codeclimate.com/github/rspec/rspec-rails.png)](https://codeclimate.com/github/rspec/rspec-rails)
 
-**rspec-rails 2** is a testing framework for Rails 3.x and 4.x.
+**rspec-rails** is a testing framework for Rails 3.x and 4.x.
 
-Use **[rspec-rails 1](http://github.com/dchelimsky/rspec-rails)** for Rails 2.x.
+Use **[rspec-rails 1.x](http://github.com/dchelimsky/rspec-rails)** for Rails
+2.x.
 
-## Install
+## Installation
 
-Add `rspec-rails` to the `:test` and `:development` groups in the Gemfile:
+Add `rspec-rails` to **both** the `:development` and `:test` groups in the
+`Gemfile`:
 
 ```ruby
-group :test, :development do
-  gem "rspec-rails", "~> 2.0"
+group :development, :test do
+  gem 'rspec-rails', '~> 2.0'
 end
 ```
 
-It needs to be in the `:development` group to expose generators and rake
-tasks without having to type `RAILS_ENV=test`.
+Download and install by running:
 
-Now you can run:
+```
+bundle install
+```
+
+Initialize the `spec/` directory (where specs will reside) with:
 
 ```
 rails generate rspec:install
 ```
 
-This adds the spec directory and some skeleton files, including
-the "rake spec" task.
+To run your specs, use the `rspec` command:
+
+```
+bundle exec rspec
+
+# Run only model specs
+bundle exec rspec spec/models
+
+# Run only specs for AccountsController
+bundle exec rspec spec/controllers/accounts_controller_spec.rb
+```
+
+Specs can also be run via `rake spec`, though this command may be slower to
+start than the `rspec` command.
+
+In Rails 4, you may want to create a binstub for the `rspec` command so it can
+be run via `bin/rspec`:
+
+```
+bundle binstubs rspec-core
+```
 
 ### Generators
 
-Once installed, RSpec will generate spec file instead of Test::Unit test files
+Once installed, RSpec will generate spec files instead of Test::Unit test files
 when commands like `rails generate model` and `rails generate controller` are
 used.
 
