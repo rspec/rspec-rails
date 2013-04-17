@@ -17,6 +17,7 @@
   - render_views.feature
   - anonymous_controller.feature
   - bypass_rescue.feature
+  - engine_routes.feature
 - matchers:
   - new_record_matcher.feature
   - render_template_matcher.feature
@@ -37,3 +38,4 @@
   - route_to_matcher.feature
   - be_routable_matcher.feature
   - named_routes.feature
+  - engine_routes.feature
