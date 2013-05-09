@@ -5,7 +5,7 @@ RSpec::configure do |c|
   c.backtrace_exclusion_patterns << /lib\/rspec\/rails/
 end
 
-require 'rspec/rails/rails_version'
+require 'rails/version'
 require 'rspec/rails/extensions'
 require 'rspec/rails/view_rendering'
 require 'rspec/rails/adapters'
