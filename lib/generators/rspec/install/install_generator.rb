@@ -1,5 +1,3 @@
-require 'rspec/rails/rails_version'
-
 module Rspec
   module Generators
     class InstallGenerator < ::Rails::Generators::Base

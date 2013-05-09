@@ -16,7 +16,7 @@ describe Rspec::Generators::InstallGenerator do
     File.read( file('spec/spec_helper.rb') ).should =~ /^require 'rspec\/autorun'$/m
   end
 
-  if RSpec::Rails.rails_version_satisfied_by?('>= 4.0.0.beta1')
+  if ::Rails::VERSION::STRING >= '4'
     it "generates spec/spec_helper.rb with a check for pending migrations" do
       run_generator
       File.read( file('spec/spec_helper.rb') ).should =~ /ActiveRecord::Migration\.check_pending!/m
