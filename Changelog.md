@@ -1,6 +1,12 @@
 ### dev
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.13.1...master)
 
+Bug fixes
+
+* `let` definitions may override methods defined in modules brought in via
+  `config.include` in controller specs. Fixes regression introduced in 2.13.
+  (Andy Lindeman, Jon Rowe)
+
 ### 2.13.1 / 2013-04-27
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.13.0...v2.13.1)
 
