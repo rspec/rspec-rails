@@ -142,9 +142,11 @@ module RSpec::Rails
       end
     end
 
-    included do
-      subject { controller }
+    def subject
+      controller
+    end
 
+    included do
       metadata[:type] = :controller
 
       before do
