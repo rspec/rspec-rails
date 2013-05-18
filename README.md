@@ -121,7 +121,7 @@ spec](#feature-specs).
 
 ## <a id="request-spec"></a>Request Specs
 
-Request specs live in spec/requests, spec/features, spec/api and
+Request specs live in spec/requests, spec/api and
 spec/integration, and mix in behavior
 [ActionDispatch::Integration::Runner](http://api.rubyonrails.org/classes/ActionDispatch/Integration/Runner.html),
 which is the basis for [Rails' integration
