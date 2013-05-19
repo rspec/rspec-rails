@@ -56,6 +56,10 @@ Once installed, RSpec will generate spec files instead of Test::Unit test files
 when commands like `rails generate model` and `rails generate controller` are
 used.
 
+Also, individual specs can be generated using the same pattern as `rails generate rspec:install`
+For example, `rails generate rspec:model NAME` will generate a model spec in `spec/models/NAME_spec.rb`
+
+For more information, see [list of all generators](https://github.com/rspec/rspec-rails/blob/master/features/Generators.md) 
 
 ## Model Specs
 
