@@ -44,13 +44,8 @@ when /master/
   gem "rails-observers", :git => "git://github.com/rails/rails-observers"
   gem 'sass-rails', :git => "git://github.com/rails/sass-rails.git"
   gem 'coffee-rails', :git => "git://github.com/rails/coffee-rails.git"
-when /3-0-stable/
-  gem "rails", :git => "git://github.com/rails/rails.git", :branch => "3-0-stable"
-  gem "arel",  :git => "git://github.com/rails/arel.git", :branch => "2-0-stable"
-when /3-1-stable/
-  gem "rails", :git => "git://github.com/rails/rails.git", :branch => "3-1-stable"
-when /3-2-stable/
-  gem "rails", :git => "git://github.com/rails/rails.git", :branch => "3-2-stable"
+when /stable$/
+  gem "rails", :git => "git://github.com/rails/rails.git", :branch => version
 when nil, false, ""
   gem "rails", "3.2.13"
 else
