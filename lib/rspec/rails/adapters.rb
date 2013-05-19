@@ -9,6 +9,7 @@ module RSpec
       def initialize(*assertion_modules)
         assertion_class = Class.new(SimpleDelegator) do
           include Test::Unit::Assertions
+          include ::RSpec::Rails::MinitestCounters
           assertion_modules.each { |mod| include mod }
         end
 
@@ -62,6 +63,19 @@ module RSpec
       end
 
       def after_teardown
+      end
+    end
+
+    # @api private
+    module MinitestCounters
+      # @api private
+      def assertions
+        @assertions ||= 0
+      end
+
+      # @api private
+      def assertions=(assertions)
+        @assertions = assertions
       end
     end
 
@@ -126,6 +140,7 @@ module RSpec
 
       class AssertionDelegator
         include Test::Unit::Assertions
+        include ::RSpec::Rails::MinitestCounters
       end
 
       # @api private
