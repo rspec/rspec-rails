@@ -6,7 +6,7 @@ require 'spec_helper'
 # describe <%= class_name %>Helper do
 #   describe "string concat" do
 #     it "concats two strings with spaces" do
-#       helper.concat_strings("this","that").should == "this that"
+#       expect(helper.concat_strings("this","that")).to eq("this that")
 #     end
 #   end
 # end
