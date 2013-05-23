@@ -82,7 +82,7 @@ module RSpec::Rails
 
       # @deprecated Use `view` instead.
       def template
-        RSpec.deprecate("template","view")
+        RSpec.deprecate("template", :replacement => "view")
         view
       end
 

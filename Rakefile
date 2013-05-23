@@ -3,7 +3,7 @@ begin
   Bundler.setup
   Bundler::GemHelper.install_tasks
 rescue
-  raise "You need to install a bundle first. Try 'thor version:use 3.1.3'"
+  raise "You need to install a bundle first. Try 'thor version:use 3.2.13'"
 end
 
 require 'yaml'
