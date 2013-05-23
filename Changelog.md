@@ -6,6 +6,11 @@ Enhancements
 * Prelimiarily support Rails 4.1 by updating adapters to support Minitest 5.0.
   (Andy Lindeman)
 
+Bug fixes
+
+* `rake stats` runs correctly when spec files exist at the top level of the
+  spec/ directory. (Benjamin Fleischer)
+
 ### 2.13.2 / 2013-05-18
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.13.1...v2.13.2)
 
