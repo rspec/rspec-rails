@@ -41,7 +41,7 @@ module RSpec
 
         # @deprecated Use `render_views` instead.
         def integrate_views
-          RSpec.deprecate("integrate_views","render_views")
+          RSpec.deprecate("integrate_views", :replacement => "render_views")
           render_views
         end
 

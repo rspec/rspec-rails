@@ -18,7 +18,7 @@ module Rspec
 
       # @deprecated Use `--webrat` instead.
       def webrat?
-        RSpec.deprecate("the --webrat-matchers option", "--webrat") if options[:webrat_matchers]
+        RSpec.deprecate("the --webrat-matchers option", :replacement => "--webrat") if options[:webrat_matchers]
         options[:webrat] || options[:webrat_matchers]
       end
 
