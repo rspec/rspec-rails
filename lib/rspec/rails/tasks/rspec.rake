@@ -14,7 +14,10 @@ RSpec::Core::RakeTask.new(:spec => spec_prereq)
 
 namespace :spec do
   def types
-    dirs = Dir['./spec/**/*_spec.rb'].map { |f| f.sub(/^\.\/(spec\/\w+)\/.*/, '\\1') }.uniq
+    dirs = Dir['./spec/**/*_spec.rb'].
+      map { |f| f.sub(/^\.\/(spec\/\w+)\/.*/, '\\1') }.
+      uniq.
+      select { |f| File.directory?(f) }
     Hash[dirs.map { |d| [d.split('/').last, d] }]
   end
 
