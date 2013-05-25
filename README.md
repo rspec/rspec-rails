@@ -28,6 +28,11 @@ Initialize the `spec/` directory (where specs will reside) with:
 rails generate rspec:install
 ```
 
+This adds the spec directory and some skeleton files, including the "rake spec"
+task. Any ruby file in `spec/support` will be included with `require`. All
+files in spec/ and subdirectories that end with `_spec.rb` will be run as
+specs.
+
 To run your specs, use the `rspec` command:
 
 ```
