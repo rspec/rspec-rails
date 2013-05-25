@@ -22,6 +22,10 @@ Bug fixes
 * Code that checks Rails version numbers is more robust in cases where Rails is
   not fully loaded. (Andy Lindeman)
 
+Enhancements
+
+* Document how the spec/support directory works. (Sam Phippen)
+
 ### 2.13.1 / 2013-04-27
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.13.0...v2.13.1)
 
