@@ -1,5 +1,5 @@
-### dev
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.13.2...master)
+### 2.14.0.rc1 / 2013-05-27
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.13.2...v2.14.0.rc1)
 
 Enhancements
 
