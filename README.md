@@ -57,7 +57,7 @@ when commands like `rails generate model` and `rails generate controller` are
 used.
 
 You may also invoke invoke RSpec generators independently. For instance,
-running `rspec generate rspec:model` will generate a model spec. For more
+running `rails generate rspec:model` will generate a model spec. For more
 information, see [list of all
 generators](https://www.relishapp.com/rspec/rspec-rails/docs/generators).
 
