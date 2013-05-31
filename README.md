@@ -402,7 +402,7 @@ expect(:get => "/widgets/1/edit").not_to be_routable
 and subsets of tests (e.g., `rake spec:models`).
 
 A full list of the available rake tasks can be seen by running `rake -T | grep
-rspec`.
+spec`.
 
 ## Customizing `rake` tasks
 
