@@ -28,6 +28,9 @@ Initialize the `spec/` directory (where specs will reside) with:
 rails generate rspec:install
 ```
 
+This adds `spec/spec_helper.rb` and `.rspec` files that are used for
+configuration. See those files for more information.
+
 To run your specs, use the `rspec` command:
 
 ```
