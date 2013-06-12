@@ -29,3 +29,16 @@ RSpec.configure do |config|
   end
   config.order = :random
 end
+
+shared_context "with mock syntax" do |syntax|
+  orig_syntax = nil
+
+  before(:all) do
+    orig_syntax = RSpec::Mocks.configuration.syntax
+    RSpec::Mocks.configuration.syntax = syntax
+  end
+
+  after(:all) do
+    RSpec::Mocks.configuration.syntax = orig_syntax
+  end
+end
