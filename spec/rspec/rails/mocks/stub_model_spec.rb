@@ -150,5 +150,17 @@ describe "stub_model" do
       end
     end
 
+    [[:should, :expect], [:should], [:expect]].each do |syntax|
+      context "with mock syntax #{syntax.inspect}" do
+        include_context "with mock syntax", syntax
+        it "stubs a model" do
+          stub_model(MockableModel)
+        end
+        it "mocks a model" do
+          mock_model(MockableModel)
+        end
+      end
+    end
+
   end
 end
