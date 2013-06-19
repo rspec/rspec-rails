@@ -22,3 +22,4 @@ The same generator pattern is available for all specs:
 * mailer
 * observer
 * integration
+* feature
