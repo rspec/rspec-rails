@@ -15,10 +15,16 @@ describe Rspec::Generators::FeatureGenerator do
         run_generator %w(posts)
       end
       describe 'the spec' do
-        subject { file('spec/features/posts_spec.rb') }
-        it { should exist }
-        it { should contain(/require 'spec_helper'/) }
-        it { should contain(/feature "Posts"/) }
+        subject(:feature_spec) { file('spec/features/posts_spec.rb') }
+        it "exists" do
+          expect(feature_spec).to exist
+        end
+        it "contains 'spec_helper'" do
+          expect(feature_spec).to contain(/require 'spec_helper'/)
+        end
+        it "contains the feature" do
+          expect(feature_spec).to contain(/feature "Posts"/)
+        end
       end
     end
 
@@ -27,8 +33,10 @@ describe Rspec::Generators::FeatureGenerator do
         run_generator %w(posts --no-feature-specs)
       end
       describe "the spec" do
-        subject { file('spec/features/posts_spec.rb') }
-        it { should_not exist }
+        subject(:feature_spec) { file('spec/features/posts_spec.rb') }
+        it "does not exist" do
+          expect(feature_spec).to_not exist
+        end
       end
     end
   end
