@@ -3,7 +3,7 @@ module RSpec
     if defined?(ActiveRecord)
       module Extensions
         module ActiveRecord
-          # Extension to enhance `should have` on AR Model classes
+          # Extension to enhance `to have` on AR Model classes
           #
           # @example
           #
@@ -32,7 +32,7 @@ end
 
 if defined?(::ActiveModel)
   module ::ActiveModel::Validations
-    # Extension to enhance `should have` on AR Model instances.  Calls
+    # Extension to enhance `to have` on AR Model instances.  Calls
     # model.valid? in order to prepare the object's errors object. Accepts
     # a :context option to specify the validation context.
     #
