@@ -29,7 +29,7 @@ module RSpec::Rails::Matchers
     #
     # @example
     #
-    #     response.should redirect_to(:action => "new")
+    #     expect(response).to redirect_to(:action => "new")
     def redirect_to(target)
       RedirectTo.new(self, target)
     end

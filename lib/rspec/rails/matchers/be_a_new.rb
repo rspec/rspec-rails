@@ -17,7 +17,7 @@ module RSpec::Rails::Matchers
     #
     #     it "assigns a new Thing with the submitted attributes" do
     #       post :create, :thing => { :name => "Illegal Value" }
-    #       assigns(:thing).should be_a_new(Thing).with(:name => nil)
+    #       expect(assigns).to(:thing) be_a_new(Thing).with(:name => nil)
     #     end
     def with(expected_attributes)
       attributes.merge!(expected_attributes)

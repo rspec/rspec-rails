@@ -14,7 +14,7 @@ module RSpec::Rails::Matchers
           @expected.merge!(:controller => controller, :action => action)
         end
       end
-      
+
       # @api private
       def matches?(verb_to_path_map)
         @actual = @verb_to_path_map = verb_to_path_map
@@ -45,12 +45,12 @@ module RSpec::Rails::Matchers
     #
     # @example
     #
-    #     { :get => "/things/special" }.should route_to(
+    #     expect(:get => "/things/special").to route_to(
     #       :controller => "things",
     #       :action     => "special"
     #     )
     #
-    #     { :get => "/things/special" }.should route_to("things#special")
+    #     expect(:get => "/things/special").to route_to("things#special")
     #
     # @see http://api.rubyonrails.org/classes/ActionDispatch/Assertions/RoutingAssertions.html#method-i-assert_recognizes
     def route_to(*expected)
@@ -89,9 +89,9 @@ module RSpec::Rails::Matchers
     # @example
     #
     # You can use route helpers provided by rspec-rails.
-    #     {:get =>  "/a/path"}.should be_routable
-    #     {:post => "/another/path"}.should be_routable
-    #     {:put => "/yet/another/path"}.should_not be_routable
+    #     expect(:get  => "/a/path").to be_routable
+    #     expect(:post => "/another/path").to be_routable
+    #     expect(:put  => "/yet/another/path").to be_routable
     def be_routable
       BeRoutableMatcher.new(self)
     end

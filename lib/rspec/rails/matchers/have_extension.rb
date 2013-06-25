@@ -7,7 +7,7 @@ module RSpec::Rails::Matchers
 
     # @api private
     #
-    # Enhances the failure message for `should have(n)` matchers
+    # Enhances the failure message for `to have(n)` matchers
     def failure_message_for_should_with_errors_on_extensions
       return "expected #{relativities[@relativity]}#{@expected} errors on :#{@args[0]}, got #{@actual}" if @collection_name == :errors_on
       return "expected #{relativities[@relativity]}#{@expected} error on :#{@args[0]}, got #{@actual}"  if @collection_name == :error_on
@@ -16,7 +16,7 @@ module RSpec::Rails::Matchers
 
     # @api private
     #
-    # Enhances the description for `should have(n)` matchers
+    # Enhances the description for `to have(n)` matchers
     def description_with_errors_on_extensions
       return "have #{relativities[@relativity]}#{@expected} errors on :#{@args[0]}" if @collection_name == :errors_on
       return "have #{relativities[@relativity]}#{@expected} error on :#{@args[0]}"  if @collection_name == :error_on

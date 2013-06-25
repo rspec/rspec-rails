@@ -30,7 +30,7 @@ module RSpec::Rails::Matchers
     #
     # @example
     #
-    #     response.should have_rendered("new")
+    #     expect(response).to have_rendered("new")
     def have_rendered(options, message=nil)
       RenderTemplateMatcher.new(self, options, message)
     end

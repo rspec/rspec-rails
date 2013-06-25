@@ -33,7 +33,7 @@ module RSpec::Rails::Matchers
   # @example
   #
   #     thing = Thing.new
-  #     thing.should be_valid
+  #     expect(thing).to be_valid
   def be_valid(*args)
     BeValid.new(*args)
   end
