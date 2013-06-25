@@ -40,12 +40,12 @@ if defined?(::ActiveModel)
     #
     # @example
     #
-    #     model.should have(:no).errors_on(:attribute)
-    #     model.should have(1).error_on(:attribute)
-    #     model.should have(n).errors_on(:attribute)
-    #     model.should have(n).errors_on(:attribute, :context => :create)
+    #     expect(model).to have(:no).errors_on(:attribute)
+    #     expect(model).to have(1).error_on(:attribute)
+    #     expect(model).to have(n).errors_on(:attribute)
+    #     expect(model).to have(n).errors_on(:attribute, :context => :create)
     #
-    #     model.errors_on(:attribute).should include("can't be blank")
+    #     expect(model.errors_on(:attribute)).to include("can't be blank")
     def errors_on(attribute, options = {})
       valid_args = [options[:context]].compact
       self.valid?(*valid_args)
