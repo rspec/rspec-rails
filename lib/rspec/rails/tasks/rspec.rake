@@ -13,13 +13,13 @@ desc "Run all specs in spec directory (excluding plugin specs)"
 RSpec::Core::RakeTask.new(:spec => spec_prereq)
 
 namespace :spec do
-  def types
-    dirs = Dir['./spec/**/*_spec.rb'].
-      map { |f| f.sub(/^\.\/(spec\/\w+)\/.*/, '\\1') }.
-      uniq.
-      select { |f| File.directory?(f) }
-    Hash[dirs.map { |d| [d.split('/').last, d] }]
-  end
+  types = begin
+            dirs = Dir['./spec/**/*_spec.rb'].
+              map { |f| f.sub(/^\.\/(spec\/\w+)\/.*/, '\\1') }.
+              uniq.
+              select { |f| File.directory?(f) }
+            Hash[dirs.map { |d| [d.split('/').last, d] }]
+          end
 
   types.each do |type, dir|
     desc "Run the code examples in #{dir}"
