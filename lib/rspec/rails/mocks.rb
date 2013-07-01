@@ -12,8 +12,7 @@ module RSpec
         # Stubs `persisted?` to return false and `id` to return nil
         # @return self
         def as_new_record
-          self.stub(:persisted?) { false }
-          self.stub(:id) { nil }
+          RSpec::Rails::Mocks.add_stubs(self, :persisted? => false, :id => nil)
           self
         end
 
@@ -32,8 +31,7 @@ module RSpec
       module ActiveRecordInstanceMethods
         # Stubs `persisted?` to return `false` and `id` to return `nil`.
         def destroy
-          self.stub(:persisted?) { false }
-          self.stub(:id) { nil }
+          RSpec::Rails::Mocks.add_stubs(self, :persisted? => false, :id => nil)
         end
 
         # Transforms the key to a method and calls it.
@@ -44,6 +42,15 @@ module RSpec
         # Returns the opposite of `persisted?`
         def new_record?
           !persisted?
+        end
+      end
+
+      # Adds a hash of stubs in {method => result} format to a target.
+      # Does not depend on either :should or :expect syntax modes.
+      def self.add_stubs(target, stubs)
+        stubs.each do |method, value|
+          matcher = ::RSpec::Mocks::Matchers::Receive.new(method, nil).and_return(value)
+          matcher.setup_allowance(target)
         end
       end
 
@@ -96,7 +103,8 @@ EOM
                                     :valid? => true,
                                     :blank? => false)
 
-        double("#{model_class.name}_#{stubs[:id]}", stubs).tap do |m|
+        double("#{model_class.name}_#{stubs[:id]}").tap do |m|
+          RSpec::Rails::Mocks.add_stubs(m, stubs)
           m.singleton_class.class_eval do
             include ActiveModelInstanceMethods
             include ActiveRecordInstanceMethods if defined?(ActiveRecord)
@@ -106,7 +114,7 @@ EOM
           if defined?(ActiveRecord)
             [:save, :update_attributes, :update].each do |key|
               if stubs[key] == false
-                m.errors.stub(:empty? => false)
+                RSpec::Rails::Mocks.add_stubs(m.errors, :empty? => false)
               end
             end
           end
@@ -150,8 +158,7 @@ EOM
       module ActiveModelStubExtensions
         # Stubs `persisted` to return false and `id` to return nil
         def as_new_record
-          self.stub(:persisted?)  { false }
-          self.stub(:id)          { nil }
+          RSpec::Rails::Mocks.add_stubs(self, :persisted? => false, :id => nil)
           self
         end
 
@@ -223,7 +230,7 @@ EOM
           stubs.each do |k,v|
             m.__send__("#{k}=", stubs.delete(k)) if m.respond_to?("#{k}=")
           end
-          m.stub(stubs)
+          RSpec::Rails::Mocks.add_stubs(m, stubs)
           yield m if block_given?
         end
       end
