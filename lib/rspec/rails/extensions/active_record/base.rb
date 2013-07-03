@@ -11,7 +11,7 @@ module RSpec
           #     ModelClass.should have(1).record
           #     ModelClass.should have(n).records
           def records
-            find(:all)
+            all
           end
           alias :record :records
         end
