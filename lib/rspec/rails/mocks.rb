@@ -12,8 +12,8 @@ module RSpec
         # Stubs `persisted?` to return false and `id` to return nil
         # @return self
         def as_new_record
-          self.stub(:persisted?) { false }
-          self.stub(:id) { nil }
+          RSpec::Mocks.allow_message(self, :persisted?).and_return(false)
+          RSpec::Mocks.allow_message(self, :id).and_return(nil)
           self
         end
 
@@ -32,8 +32,8 @@ module RSpec
       module ActiveRecordInstanceMethods
         # Stubs `persisted?` to return `false` and `id` to return `nil`.
         def destroy
-          self.stub(:persisted?) { false }
-          self.stub(:id) { nil }
+          RSpec::Mocks.allow_message(self, :persisted?).and_return(false)
+          RSpec::Mocks.allow_message(self, :id).and_return(nil)
         end
 
         # Transforms the key to a method and calls it.
@@ -106,7 +106,7 @@ EOM
           if defined?(ActiveRecord)
             [:save, :update_attributes, :update].each do |key|
               if stubs[key] == false
-                m.errors.stub(:empty? => false)
+                RSpec::Mocks.allow_message(m.errors, :empty?).and_return(false)
               end
             end
           end
@@ -150,8 +150,8 @@ EOM
       module ActiveModelStubExtensions
         # Stubs `persisted` to return false and `id` to return nil
         def as_new_record
-          self.stub(:persisted?)  { false }
-          self.stub(:id)          { nil }
+          RSpec::Mocks.allow_message(self, :persisted?).and_return(false)
+          RSpec::Mocks.allow_message(self, :id).and_return(nil)
           self
         end
 
@@ -223,7 +223,11 @@ EOM
           stubs.each do |k,v|
             m.__send__("#{k}=", stubs.delete(k)) if m.respond_to?("#{k}=")
           end
-          m.stub(stubs)
+
+          stubs.each do |message, return_val|
+            RSpec::Mocks.allow_message(m, message).and_return(return_val)
+          end
+
           yield m if block_given?
         end
       end
