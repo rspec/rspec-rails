@@ -9,9 +9,11 @@ module RSpec::Rails
     it { should be_included_in_files_in('.\\spec\\helpers\\') }
 
     it "provides a controller_path based on the helper module's name" do
+      example = double
+      example.stub_chain(:example_group, :described_class) { FoosHelper }
+
       helper_spec = Object.new.extend HelperExampleGroup
-      helper_spec.stub_chain(:example, :example_group, :described_class).and_return(FoosHelper)
-      helper_spec.__send__(:_controller_path).should == "foos"
+      helper_spec.__send__(:_controller_path, example).should == "foos"
     end
 
     it "adds :type => :helper to the metadata" do
