@@ -220,12 +220,13 @@ EOM
             stubs = stubs.reverse_merge(:persisted? => !!stubs[:id])
           end
           stubs = stubs.reverse_merge(:blank? => false)
-          stubs.each do |k,v|
-            m.__send__("#{k}=", stubs.delete(k)) if m.respond_to?("#{k}=")
-          end
 
-          stubs.each do |message, return_val|
-            RSpec::Mocks.allow_message(m, message).and_return(return_val)
+          stubs.each do |message, return_value|
+            if m.respond_to?("#{message}=")
+              m.__send__("#{message}=", return_value)
+            else
+              RSpec::Mocks.allow_message(m, message).and_return(return_value)
+            end
           end
 
           yield m if block_given?
