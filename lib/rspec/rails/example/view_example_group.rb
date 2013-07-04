@@ -102,10 +102,6 @@ module RSpec::Rails
 
     private
 
-      def _default_file_to_render
-        example.example_group.top_level_description
-      end
-
       def _default_render_options
         if ::Rails::VERSION::STRING >= '3.2'
           # pluck the handler, format, and locale out of, eg, posts/index.de.html.haml
@@ -159,6 +155,10 @@ module RSpec::Rails
         controller.controller_path = _controller_path
         controller.request.path_parameters[:controller] = _controller_path
         controller.request.path_parameters[:action]     = _inferred_action unless _inferred_action =~ /^_/
+      end
+
+      let(:_default_file_to_render) do |example|
+        example.example_group.top_level_description
       end
     end
   end

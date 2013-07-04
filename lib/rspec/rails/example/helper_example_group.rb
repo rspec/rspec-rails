@@ -25,15 +25,15 @@ module RSpec::Rails
 
     private
 
-    def _controller_path
+    def _controller_path(example)
       example.example_group.described_class.to_s.sub(/Helper/,'').underscore
     end
 
     included do
       metadata[:type] = :helper
 
-      before do
-        controller.controller_path = _controller_path
+      before do |example|
+        controller.controller_path = _controller_path(example)
       end
     end
   end
