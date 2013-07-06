@@ -7,6 +7,8 @@ Bug fixes
   (Fujimura Daisuke)
 * Reverts fix for out-of-order `let` definitions in controller specs after the
   issue was fixed upstream in rspec-core. (Andy Lindeman)
+* Fixes deprecation warning when using `expect(Model).to have(n).records` with
+  Rails 4. (Andy Lindeman)
 
 ### 2.14.0.rc1 / 2013-05-27
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.13.2...v2.14.0.rc1)
