@@ -10,8 +10,14 @@ module RSpec
           #     ModelClass.should have(:no).records
           #     ModelClass.should have(1).record
           #     ModelClass.should have(n).records
-          def records
-            find(:all)
+          if ::Rails::VERSION::STRING >= '4'
+            def records
+              all.to_a
+            end
+          else
+            def records
+              find(:all)
+            end
           end
           alias :record :records
         end
