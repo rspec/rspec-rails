@@ -14,3 +14,4 @@ bin
 .DS_Store
 Gemfile-custom
 .rbenv-version
+.rbx
