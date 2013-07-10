@@ -1,5 +1,5 @@
-### dev
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.14.0...master)
+### Development
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.14.0...2-99-maintenance)
 
 Bug fixes
 
