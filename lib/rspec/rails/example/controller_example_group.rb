@@ -135,7 +135,7 @@ module RSpec::Rails
     def method_missing(method, *args, &block)
       if @routes && @routes.named_routes.helpers.include?(method)
         controller.send(method, *args, &block)
-      elsif @orig_routes && @orig_routes.named_routes.helpers.include?(method)
+      elsif defined?(@orig_routes) && @orig_routes && @orig_routes.named_routes.helpers.include?(method)
         controller.send(method, *args, &block)
       else
         super
