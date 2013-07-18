@@ -20,7 +20,7 @@ module RSpec::Rails::Matchers
   # @example
   #
   #     get :new
-  #     expect(assigns).to(:thing) be_new_record
+  #     expect(assigns(:thing)).to be_new_record
   def be_new_record
     BeANewRecord.new
   end
