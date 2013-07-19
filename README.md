@@ -438,7 +438,7 @@ for more info on Capybara integration.
 See [http://github.com/rspec/rspec-dev](http://github.com/rspec/rspec-dev).
 
 For `rspec-rails`-specific development information, see
-[DEV-README](https://github.com/rspec/rspec-rails/blob/master/DEV-README.md).
+[README_DEV](https://github.com/rspec/rspec-rails/blob/master/README_DEV.md).
 
 # Also see
 
