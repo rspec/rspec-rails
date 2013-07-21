@@ -59,7 +59,7 @@ Once installed, RSpec will generate spec files instead of Test::Unit test files
 when commands like `rails generate model` and `rails generate controller` are
 used.
 
-You may also invoke invoke RSpec generators independently. For instance,
+You may also invoke RSpec generators independently. For instance,
 running `rails generate rspec:model` will generate a model spec. For more
 information, see [list of all
 generators](https://www.relishapp.com/rspec/rspec-rails/docs/generators).
