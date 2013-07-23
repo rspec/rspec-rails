@@ -1,3 +1,4 @@
+@capybara
 Feature: feature spec
 
   Feature specs are high-level tests meant to exercise slices of functionality
