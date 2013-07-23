@@ -58,14 +58,14 @@ describe "stub_model" do
       context "default" do
         it "returns false" do
           model = stub_model(model_class)
-          model.new_record?.should be_false
+          model.new_record?.should be_falsey
         end
       end
 
       context "with as_new_record" do
         it "returns true" do
           model = stub_model(model_class).as_new_record
-          model.new_record?.should be_true
+          model.new_record?.should be_truthy
         end
       end
     end
