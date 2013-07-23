@@ -29,6 +29,8 @@ gem 'sqlite3', '~> 1.3.6'
 # Capybara 2.1 requires Ruby >= 1.9.3
 if RUBY_VERSION < '1.9.3'
   gem 'capybara', '>= 2.0.0', '< 2.1.0'
+else
+  gem 'capybara', :github => 'thomas-holmes/capybara', :branch => 'support-rspec-3'
 end
 
 if RUBY_VERSION < '1.9.2'
