@@ -18,9 +18,9 @@ Feature: mock_model
 
       describe "mock_model('Car') with no Car constant in existence" do
         it "generates a constant" do
-          expect(Object.const_defined?(:Car)).to be_false
+          expect(Object.const_defined?(:Car)).to be_falsey
           mock_model("Car")
-          expect(Object.const_defined?(:Car)).to be_true
+          expect(Object.const_defined?(:Car)).to be_truthy
         end
 
         describe "generates an object that ..." do
@@ -115,7 +115,7 @@ Feature: mock_model
 
         it "supports stubs for methods that do exist" do
           expect(widget.save).to eq(true)
-          expect(widget.update_attributes).to be_false
+          expect(widget.update_attributes).to be_falsey
         end
 
         describe "#errors" do

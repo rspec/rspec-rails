@@ -11,7 +11,7 @@ describe "configuration" do
 
   describe "#render_views?" do
     it "is false by default" do
-      RSpec.configuration.render_views?.should be_false
+      RSpec.configuration.render_views?.should be_falsey
     end
   end
 
@@ -20,7 +20,7 @@ describe "configuration" do
       RSpec.configuration.render_views = false
       RSpec.configuration.render_views
 
-      RSpec.configuration.render_views?.should be_true
+      RSpec.configuration.render_views?.should be_truthy
     end
   end
 end

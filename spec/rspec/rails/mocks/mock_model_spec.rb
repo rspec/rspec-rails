@@ -131,7 +131,7 @@ describe "mock_model(RealModel)" do
     end
     
     it "can be stubbed" do
-      mock_model(MockableModel, :is_a? => true).is_a?(:Foo).should be_true
+      mock_model(MockableModel, :is_a? => true).is_a?(:Foo).should be_truthy
     end
   end
 
@@ -149,7 +149,7 @@ describe "mock_model(RealModel)" do
     end
     
     it "can be stubbed" do
-      mock_model(MockableModel, :kind_of? => true).kind_of?(:Foo).should be_true
+      mock_model(MockableModel, :kind_of? => true).kind_of?(:Foo).should be_truthy
     end
   end
 
@@ -167,7 +167,7 @@ describe "mock_model(RealModel)" do
     end
     
     it "can be stubbed" do
-      mock_model(MockableModel, :instance_of? => true).instance_of?(:Foo).should be_true
+      mock_model(MockableModel, :instance_of? => true).instance_of?(:Foo).should be_truthy
     end
   end
 
@@ -257,7 +257,7 @@ describe "mock_model(RealModel)" do
     end
     
     it "can be stubbed" do
-      mock_model(MockableModel, :respond_to? => true).respond_to?(:foo).should be_true
+      mock_model(MockableModel, :respond_to? => true).respond_to?(:foo).should be_truthy
     end
   end
   

@@ -144,7 +144,7 @@ Feature: anonymous controller
         it "invokes the callback" do
           get :index
 
-          expect(assigns[:callback_invoked]).to be_true
+          expect(assigns[:callback_invoked]).to be_truthy
         end
       end
       """

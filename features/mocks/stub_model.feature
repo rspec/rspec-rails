@@ -21,7 +21,7 @@ Feature: stub_model
         end
         
         it "stubs :random_attribute" do
-          expect(widget.random_attribute).to be_true
+          expect(widget.random_attribute).to be_truthy
         end
         
         it "returns false for new_record? if :id is set" do
