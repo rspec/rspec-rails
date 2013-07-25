@@ -1,14 +1,18 @@
 require 'delegate'
 require 'active_support/concern'
-require 'test/unit/assertions'
 
 module RSpec
   module Rails
+    module Assertions
+      require 'test/unit/assertions'
+      include Test::Unit::Assertions
+    end
+
     class AssertionDelegator < Module
       # @api private
       def initialize(*assertion_modules)
         assertion_class = Class.new(SimpleDelegator) do
-          include Test::Unit::Assertions
+          include ::RSpec::Rails::Assertions
           include ::RSpec::Rails::MinitestCounters
           assertion_modules.each { |mod| include mod }
         end
@@ -122,7 +126,7 @@ module RSpec
         # examples without exposing non-assertion methods in Test::Unit or
         # Minitest.
         def assertion_method_names
-          Test::Unit::Assertions.public_instance_methods.select{|m| m.to_s =~ /^(assert|flunk)/} +
+          ::RSpec::Rails::Assertions.public_instance_methods.select{|m| m.to_s =~ /^(assert|flunk)/} +
             [:build_message]
         end
 
@@ -139,7 +143,7 @@ module RSpec
       end
 
       class AssertionDelegator
-        include Test::Unit::Assertions
+        include ::RSpec::Rails::Assertions
         include ::RSpec::Rails::MinitestCounters
       end
 
