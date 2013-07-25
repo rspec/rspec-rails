@@ -18,11 +18,11 @@ describe RSpec::Rails::TestUnitAssertionAdapter do
     end
   end
 
-  it "does not expose internal methods of MiniTest" do
+  it "does not expose internal methods of Minitest" do
     methods.should_not include("_assertions")
   end
 
-  it "does not expose MiniTest's message method" do
+  it "does not expose Minitest's message method" do
     methods.should_not include("message")
   end
 end
