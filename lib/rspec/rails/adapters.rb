@@ -48,8 +48,8 @@ module RSpec
       end
     end
 
-    # MiniTest::Unit::LifecycleHooks
-    module MiniTestLifecycleAdapter
+    # Minitest::Test::LifecycleHooks
+    module MinitestLifecycleAdapter
       extend ActiveSupport::Concern
 
       included do |group|
