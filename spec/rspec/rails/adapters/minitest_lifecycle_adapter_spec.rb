@@ -1,10 +1,10 @@
 require "spec_helper"
 
-describe RSpec::Rails::MinitestLifecycleAdapter do
+describe RSpec::Rails::Adapters::MinitestLifecycleAdapter do
   it "invokes minitest lifecycle hooks at the appropriate times" do
     invocations = []
     example_group = RSpec::Core::ExampleGroup.describe("MinitestHooks") do
-      include RSpec::Rails::MinitestLifecycleAdapter
+      include RSpec::Rails::Adapters::MinitestLifecycleAdapter
 
       define_method(:before_setup)    { invocations << :before_setup }
       define_method(:after_setup)     { invocations << :after_setup }

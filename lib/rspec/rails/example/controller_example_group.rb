@@ -11,7 +11,7 @@ module RSpec::Rails
     include RSpec::Rails::Matchers::RedirectTo
     include RSpec::Rails::Matchers::RenderTemplate
     include RSpec::Rails::Matchers::RoutingMatchers
-    include RSpec::Rails::AssertionDelegator.new(ActionDispatch::Assertions::RoutingAssertions)
+    include RSpec::Rails::Adapters::AssertionDelegator.new(ActionDispatch::Assertions::RoutingAssertions)
 
     module ClassMethods
       # @private

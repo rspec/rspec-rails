@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe RSpec::Rails::SetupAndTeardownAdapter do
+describe RSpec::Rails::Adapters::SetupAndTeardownAdapter do
   describe "::setup" do
     it "registers before hooks in the order setup is received" do
       klass = Class.new do
-        include RSpec::Rails::SetupAndTeardownAdapter
+        include RSpec::Rails::Adapters::SetupAndTeardownAdapter
         def self.foo; "foo"; end
         def self.bar; "bar"; end
       end
@@ -17,7 +17,7 @@ describe RSpec::Rails::SetupAndTeardownAdapter do
 
     it "registers prepend_before hooks for the Rails' setup methods" do
       klass = Class.new do
-        include RSpec::Rails::SetupAndTeardownAdapter
+        include RSpec::Rails::Adapters::SetupAndTeardownAdapter
         def self.setup_fixtures; "setup fixtures"  end
         def self.setup_controller_request_and_response; "setup controller"  end
       end
