@@ -123,8 +123,7 @@ specs](https://www.relishapp.com/rspec/rspec-rails/docs/controller-specs).
 in controller specs. If you wish to assert against the contents of the rendered
 view in a controller spec, enable
 [render\_views](https://www.relishapp.com/rspec/rspec-rails/docs/controller-specs/render-views)
-or use a higher-level [request spec](#request-specs) or [feature
-spec](#feature-specs).
+or use a higher-level [request spec](#request-specs).
 
 ## <a id="request-spec"></a>Request Specs
 
