@@ -11,7 +11,12 @@ Feature: ActiveRecord::Relation match array
 
       describe Widget do
         let!(:widgets) { Array.new(3) { Widget.create } }
-        subject { Widget.scoped }
+
+        if ::Rails::VERSION::STRING >= '4'
+          subject { Widget.all }
+        else
+          subject { Widget.scoped }
+        end
 
         it "returns all widgets in any order" do
           expect(subject).to match_array(widgets)
