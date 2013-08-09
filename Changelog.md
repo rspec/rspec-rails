@@ -10,6 +10,9 @@ Bug fixes
 
 * Fixes "warning: instance variable @orig\_routes not initialized" raised by
   controller specs when `--warnings` are enabled. (Andy Lindeman)
+* Where possible, check against the version of ActiveRecord, rather than
+  Rails. It is possible to use some of rspec-rails without all of Rails.
+  (Darryl Pogue)
 
 ### 2.14.0 / 2013-07-06
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.14.0.rc1...v2.14.0)
