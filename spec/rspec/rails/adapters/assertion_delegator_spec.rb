@@ -1,9 +1,9 @@
 require "spec_helper"
 
-describe RSpec::Rails::AssertionDelegator do
+describe RSpec::Rails::Adapters::AssertionDelegator do
   it "provides a module that delegates assertion methods to an isolated class" do
     klass = Class.new {
-      include RSpec::Rails::AssertionDelegator.new(Test::Unit::Assertions)
+      include RSpec::Rails::Adapters::AssertionDelegator.new(RSpec::Rails::Adapters::Assertions)
     }
 
     expect(klass.new).to respond_to(:assert)
@@ -17,7 +17,7 @@ describe RSpec::Rails::AssertionDelegator do
     }
 
     klass = Class.new {
-      include RSpec::Rails::AssertionDelegator.new(assertions)
+      include RSpec::Rails::Adapters::AssertionDelegator.new(assertions)
 
       def things
         [:a]
@@ -35,7 +35,7 @@ describe RSpec::Rails::AssertionDelegator do
     }
 
     klass = Class.new {
-      include RSpec::Rails::AssertionDelegator.new(assertions)
+      include RSpec::Rails::Adapters::AssertionDelegator.new(assertions)
     }
 
     expect { klass.new.abc123 }.to raise_error(NoMethodError)

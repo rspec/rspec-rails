@@ -6,7 +6,7 @@ module RSpec::Rails
     include RSpec::Rails::RailsExampleGroup
     include RSpec::Rails::Matchers::RoutingMatchers
     include RSpec::Rails::Matchers::RoutingMatchers::RouteHelpers
-    include RSpec::Rails::AssertionDelegator.new(ActionDispatch::Assertions::RoutingAssertions)
+    include RSpec::Rails::Adapters::AssertionDelegator.new(ActionDispatch::Assertions::RoutingAssertions)
 
     module ClassMethods
       # Specifies the routeset that will be used for the example group. This
