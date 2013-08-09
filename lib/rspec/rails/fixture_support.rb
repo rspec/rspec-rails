@@ -5,7 +5,7 @@ module RSpec
         extend ActiveSupport::Concern
         include RSpec::Rails::SetupAndTeardownAdapter
         include RSpec::Rails::MinitestLifecycleAdapter if ::ActiveRecord::VERSION::STRING > '4'
-        include RSpec::Rails::TestUnitAssertionAdapter
+        include RSpec::Rails::MinitestAssertionAdapter
         include ActiveRecord::TestFixtures
 
         included do

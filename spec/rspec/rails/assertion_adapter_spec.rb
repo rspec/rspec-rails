@@ -1,7 +1,7 @@
 require "spec_helper"
 
-describe RSpec::Rails::TestUnitAssertionAdapter do
-  include RSpec::Rails::TestUnitAssertionAdapter
+describe RSpec::Rails::MinitestAssertionAdapter do
+  include RSpec::Rails::MinitestAssertionAdapter
 
   RSpec::Rails::Assertions.public_instance_methods.select{|m| m.to_s =~ /^(assert|flunk|refute)/}.each do |m|
     if m.to_s == "assert_equal"
