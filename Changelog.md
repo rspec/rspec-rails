@@ -1,6 +1,11 @@
 ### Development
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.14.0...2-99-maintenance)
 
+Deprecations
+
+* Deprecates autotest integration in favor of the `rspec-autotest` gem. (Andy
+  Lindeman)
+
 Bug fixes
 
 * Fixes "warning: instance variable @orig\_routes not initialized" raised by
