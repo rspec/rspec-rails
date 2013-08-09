@@ -28,7 +28,7 @@ gem 'sqlite3', '~> 1.3.6'
 
 # Capybara versions that support RSpec 3 only support RUBY_VERSION >= 1.9.3
 if RUBY_VERSION >= '1.9.3'
-  gem 'capybara', :github => 'thomas-holmes/capybara', :branch => 'support-rspec-3'
+  gem 'capybara', :github => 'jnicklas/capybara'
 end
 
 if RUBY_VERSION < '1.9.2'
