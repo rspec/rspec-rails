@@ -120,7 +120,8 @@ module RSpec
       end
     end
 
-    module TestUnitAssertionAdapter
+    # @private
+    module MinitestAssertionAdapter
       extend ActiveSupport::Concern
 
       module ClassMethods
@@ -160,5 +161,11 @@ module RSpec
         define_assertion_delegators
       end
     end
+
+    # Backwards compatibility. It's unlikely that anyone is using this
+    # constant, but we had forgotten to mark it as `@private` earlier
+    #
+    # @private
+    TestUnitAssertionAdapter = MinitestAssertionAdapter
   end
 end
