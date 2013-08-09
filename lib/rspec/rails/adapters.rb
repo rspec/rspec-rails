@@ -3,15 +3,13 @@ require 'active_support/concern'
 
 module RSpec
   module Rails
-    module Assertions
-      if ::Rails::VERSION::STRING >= '4.1.0'
-        gem 'minitest'
-        require 'minitest/assertions'
-        include Minitest::Assertions
-      else
-        require 'test/unit/assertions'
-        include Test::Unit::Assertions
-      end
+    if ::Rails::VERSION::STRING >= '4.1.0'
+      gem 'minitest'
+      require 'minitest/assertions'
+      Assertions = Minitest::Assertions
+    else
+      require 'test/unit/assertions'
+      Assertions = Test::Unit::Assertions
     end
 
     class AssertionDelegator < Module
