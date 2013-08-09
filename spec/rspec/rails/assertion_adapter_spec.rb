@@ -3,7 +3,7 @@ require "spec_helper"
 describe RSpec::Rails::TestUnitAssertionAdapter do
   include RSpec::Rails::TestUnitAssertionAdapter
 
-  RSpec::Rails::Assertions.public_instance_methods.select{|m| m.to_s =~ /^(assert|flunk)/}.each do |m|
+  RSpec::Rails::Assertions.public_instance_methods.select{|m| m.to_s =~ /^(assert|flunk|refute)/}.each do |m|
     if m.to_s == "assert_equal"
       it "exposes #{m} to host examples" do
         assert_equal 3,3
