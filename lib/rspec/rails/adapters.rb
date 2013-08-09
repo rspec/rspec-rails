@@ -130,7 +130,7 @@ module RSpec
         # examples without exposing non-assertion methods in Test::Unit or
         # Minitest.
         def assertion_method_names
-          ::RSpec::Rails::Assertions.public_instance_methods.select{|m| m.to_s =~ /^(assert|flunk)/} +
+          ::RSpec::Rails::Assertions.public_instance_methods.select{|m| m.to_s =~ /^(assert|flunk|refute)/} +
             [:build_message]
         end
 
