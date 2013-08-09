@@ -1,6 +1,11 @@
 ### Development
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.14.0...master)
 
+Breaking Changes for 3.0.0:
+
+* Extracts `autotest` and `autotest-rails` support to `rspec-autotest` gem.
+  (Andy Lindeman)
+
 Bug fixes
 
 * Fixes "warning: instance variable @orig\_routes not initialized" raised by
