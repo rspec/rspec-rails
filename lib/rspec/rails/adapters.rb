@@ -12,6 +12,7 @@ module RSpec
       Assertions = Test::Unit::Assertions
     end
 
+    # @api private
     class AssertionDelegator < Module
       # @api private
       def initialize(*assertion_modules)
@@ -46,7 +47,9 @@ module RSpec
       end
     end
 
-    # Minitest::Test::LifecycleHooks
+    # Adapts example groups for `Minitest::Test::LifecycleHooks`
+    #
+    # @api private
     module MinitestLifecycleAdapter
       extend ActiveSupport::Concern
 
@@ -87,6 +90,7 @@ module RSpec
       end
     end
 
+    # @api private
     module SetupAndTeardownAdapter
       extend ActiveSupport::Concern
 
@@ -147,6 +151,7 @@ module RSpec
         end
       end
 
+      # @api private
       class AssertionDelegator
         include ::RSpec::Rails::Assertions
         include ::RSpec::Rails::MinitestCounters
@@ -165,7 +170,7 @@ module RSpec
     # Backwards compatibility. It's unlikely that anyone is using this
     # constant, but we had forgotten to mark it as `@private` earlier
     #
-    # @private
+    # @api private
     TestUnitAssertionAdapter = MinitestAssertionAdapter
   end
 end
