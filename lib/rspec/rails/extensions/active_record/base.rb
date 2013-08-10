@@ -10,7 +10,7 @@ module RSpec
           #     ModelClass.should have(:no).records
           #     ModelClass.should have(1).record
           #     ModelClass.should have(n).records
-          if ::Rails::VERSION::STRING >= '4'
+          if ::ActiveRecord::VERSION::STRING >= '4'
             def records
               all.to_a
             end
