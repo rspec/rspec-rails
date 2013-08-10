@@ -6,6 +6,10 @@ Breaking Changes for 3.0.0:
 * Extracts `autotest` and `autotest-rails` support to `rspec-autotest` gem.
   (Andy Lindeman)
 
+Enhancements
+
+* Supports Rails 4.1 and Minitest 5. (Patrick Van Stee)
+
 Bug fixes
 
 * Fixes "warning: instance variable @orig\_routes not initialized" raised by
