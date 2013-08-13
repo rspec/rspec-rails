@@ -17,6 +17,8 @@ Bug fixes
 * Where possible, check against the version of ActiveRecord, rather than
   Rails. It is possible to use some of rspec-rails without all of Rails.
   (Darryl Pogue)
+* Explicitly depends on `activemodel`. This allows libraries that do not bring
+  in all of `rails` to use `rspec-rails`. (John Firebaugh)
 
 ### 2.14.0 / 2013-07-06
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.14.0.rc1...v2.14.0)
