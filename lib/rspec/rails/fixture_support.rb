@@ -4,8 +4,8 @@ module RSpec
       module FixtureSupport
         extend ActiveSupport::Concern
         include RSpec::Rails::SetupAndTeardownAdapter
-        include RSpec::Rails::MiniTestLifecycleAdapter if ::ActiveRecord::VERSION::STRING > '4'
-        include RSpec::Rails::TestUnitAssertionAdapter
+        include RSpec::Rails::MinitestLifecycleAdapter if ::ActiveRecord::VERSION::STRING > '4'
+        include RSpec::Rails::MinitestAssertionAdapter
         include ActiveRecord::TestFixtures
 
         included do
