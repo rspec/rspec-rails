@@ -1,14 +1,23 @@
 require 'delegate'
 require 'active_support/concern'
-require 'test/unit/assertions'
 
 module RSpec
   module Rails
+    if ::Rails::VERSION::STRING >= '4.1.0'
+      gem 'minitest'
+      require 'minitest/assertions'
+      Assertions = Minitest::Assertions
+    else
+      require 'test/unit/assertions'
+      Assertions = Test::Unit::Assertions
+    end
+
+    # @api private
     class AssertionDelegator < Module
       # @api private
       def initialize(*assertion_modules)
         assertion_class = Class.new(SimpleDelegator) do
-          include Test::Unit::Assertions
+          include ::RSpec::Rails::Assertions
           include ::RSpec::Rails::MinitestCounters
           assertion_modules.each { |mod| include mod }
         end
@@ -38,8 +47,10 @@ module RSpec
       end
     end
 
-    # MiniTest::Unit::LifecycleHooks
-    module MiniTestLifecycleAdapter
+    # Adapts example groups for `Minitest::Test::LifecycleHooks`
+    #
+    # @api private
+    module MinitestLifecycleAdapter
       extend ActiveSupport::Concern
 
       included do |group|
@@ -79,6 +90,7 @@ module RSpec
       end
     end
 
+    # @api private
     module SetupAndTeardownAdapter
       extend ActiveSupport::Concern
 
@@ -112,7 +124,8 @@ module RSpec
       end
     end
 
-    module TestUnitAssertionAdapter
+    # @private
+    module MinitestAssertionAdapter
       extend ActiveSupport::Concern
 
       module ClassMethods
@@ -122,7 +135,7 @@ module RSpec
         # examples without exposing non-assertion methods in Test::Unit or
         # Minitest.
         def assertion_method_names
-          Test::Unit::Assertions.public_instance_methods.select{|m| m.to_s =~ /^(assert|flunk)/} +
+          ::RSpec::Rails::Assertions.public_instance_methods.select{|m| m.to_s =~ /^(assert|flunk|refute)/} +
             [:build_message]
         end
 
@@ -138,8 +151,9 @@ module RSpec
         end
       end
 
+      # @api private
       class AssertionDelegator
-        include Test::Unit::Assertions
+        include ::RSpec::Rails::Assertions
         include ::RSpec::Rails::MinitestCounters
       end
 
@@ -152,5 +166,11 @@ module RSpec
         define_assertion_delegators
       end
     end
+
+    # Backwards compatibility. It's unlikely that anyone is using this
+    # constant, but we had forgotten to mark it as `@private` earlier
+    #
+    # @api private
+    TestUnitAssertionAdapter = MinitestAssertionAdapter
   end
 end

@@ -360,9 +360,8 @@ describe "mock_model(RealModel)" do
   end
 
   describe "ActiveModel Lint tests" do
-    require 'test/unit/assertions'
     require 'active_model/lint'
-    include RSpec::Rails::TestUnitAssertionAdapter
+    include RSpec::Rails::MinitestAssertionAdapter
     include ActiveModel::Lint::Tests
 
     # to_s is to support ruby-1.9
