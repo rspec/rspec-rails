@@ -15,51 +15,51 @@ RSpec::configure do |c|
 
   c.include RSpec::Rails::ControllerExampleGroup,
     :type          => :controller,
-    :example_group => lambda { |example_group, metadata|
+    :example_group => lambda { |example_group, metadata = {}|
       metadata[:type].nil? && c.escaped_path(%w[spec controllers]) =~ example_group[:file_path]
     }
 
   c.include RSpec::Rails::HelperExampleGroup,
     :type          => :helper,
-    :example_group => lambda { |example_group, metadata|
+    :example_group => lambda { |example_group, metadata = {}|
       metadata[:type].nil? && c.escaped_path(%w[spec helpers]) =~ example_group[:file_path]
     }
 
   if defined?(RSpec::Rails::MailerExampleGroup)
     c.include RSpec::Rails::MailerExampleGroup,
       :type          => :mailer,
-      :example_group => lambda { |example_group, metadata|
+      :example_group => lambda { |example_group, metadata = {}|
         metadata[:type].nil? && c.escaped_path(%w[spec mailers]) =~ example_group[:file_path]
       }
   end
 
   c.include RSpec::Rails::ModelExampleGroup,
     :type          => :model,
-    :example_group => lambda { |example_group, metadata|
+    :example_group => lambda { |example_group, metadata = {}|
       metadata[:type].nil? && c.escaped_path(%w[spec models]) =~ example_group[:file_path]
     }
 
   c.include RSpec::Rails::RequestExampleGroup,
     :type          => :request,
-    :example_group => lambda { |example_group, metadata|
+    :example_group => lambda { |example_group, metadata = {}|
       metadata[:type].nil? && c.escaped_path(%w[spec (requests|integration|api)]) =~ example_group[:file_path]
     }
 
   c.include RSpec::Rails::RoutingExampleGroup,
     :type          => :routing,
-    :example_group => lambda { |example_group, metadata|
+    :example_group => lambda { |example_group, metadata = {}|
       metadata[:type].nil? && c.escaped_path(%w[spec routing]) =~ example_group[:file_path]
     }
 
   c.include RSpec::Rails::ViewExampleGroup,
     :type          => :view,
-    :example_group => lambda { |example_group, metadata|
+    :example_group => lambda { |example_group, metadata = {}|
       metadata[:type].nil? && c.escaped_path(%w[spec views]) =~ example_group[:file_path]
     }
 
   c.include RSpec::Rails::FeatureExampleGroup,
     :type          => :feature,
-    :example_group => lambda { |example_group, metadata|
+    :example_group => lambda { |example_group, metadata = {}|
       metadata[:type].nil? && c.escaped_path(%w[spec features]) =~ example_group[:file_path]
     }
 end
