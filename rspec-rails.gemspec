@@ -21,10 +21,11 @@ Gem::Specification.new do |s|
   s.rdoc_options     = ["--charset=UTF-8"]
   s.require_path     = "lib"
 
-  s.add_runtime_dependency(%q<activesupport>, [">= 3.0"])
-  s.add_runtime_dependency(%q<activemodel>, [">= 3.0"])
-  s.add_runtime_dependency(%q<actionpack>, [">= 3.0"])
-  s.add_runtime_dependency(%q<railties>, [">= 3.0"])
+  s.add_runtime_dependency "activesupport", ">= 3.0"
+  s.add_runtime_dependency "activemodel",   ">= 3.0"
+  s.add_runtime_dependency "actionpack",    ">= 3.0"
+  s.add_runtime_dependency "railties",      ">= 3.0"
+
   %w[core expectations mocks].each do |name|
     if RSpec::Rails::Version::STRING =~ /[a-zA-Z]+/ # prerelease builds
       s.add_runtime_dependency "rspec-#{name}", "= #{RSpec::Rails::Version::STRING}"
@@ -32,6 +33,7 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency "rspec-#{name}", "~> #{RSpec::Rails::Version::STRING.split('.')[0..1].concat(['0']).join('.')}"
     end
   end
+  s.add_runtime_dependency "rspec-collection_matchers"
 
   s.add_development_dependency 'rake',     '~> 10.0.0'
   s.add_development_dependency 'cucumber', '~> 1.3.5'
