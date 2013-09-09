@@ -25,7 +25,7 @@ describe ::ActiveModel::Validations do
           object = klass.new
           object.name = ""
 
-          expect(object).to have(1).error_on(:name)
+          expect(object.error_on(:name).size).to eq 1
         end
       end
 
@@ -34,7 +34,7 @@ describe ::ActiveModel::Validations do
           object = klass.new
           object.name = "Ywen"
 
-          expect(object).to have(:no).error_on(:name)
+          expect(object.error_on(:name).size).to eq 0
         end
       end
     end
