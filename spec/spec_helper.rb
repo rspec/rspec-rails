@@ -1,3 +1,4 @@
+require 'rspec/collection_matchers'
 require 'rails/all'
 
 module RSpecRails
