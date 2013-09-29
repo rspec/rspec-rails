@@ -16,5 +16,11 @@ module Helpers
     m
   end
 
+  def with_isolated_config
+    config = RSpec.configuration
+    yield config.dup if block_given?
+    RSpec.configuration = config
+  end
+
   RSpec.configure {|c| c.include self}
 end
