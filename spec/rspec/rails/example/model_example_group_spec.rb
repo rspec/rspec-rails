@@ -11,5 +11,7 @@ module RSpec::Rails
       end
       group.metadata[:type].should eq(:model)
     end
+    
+    it_behaves_like "runs metadata hooks of :type =>", :model, ModelExampleGroup
   end
 end

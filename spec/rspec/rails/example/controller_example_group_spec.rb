@@ -96,5 +96,7 @@ module RSpec::Rails
         controller_class.superclass.should eq(ApplicationController)
       end
     end
+
+    it_behaves_like "runs metadata hooks of :type =>", :controller, ControllerExampleGroup
   end
 end

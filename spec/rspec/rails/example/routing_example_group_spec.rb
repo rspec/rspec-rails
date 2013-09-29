@@ -28,5 +28,7 @@ module RSpec::Rails
         example.foo_path.should == "foo"
       end
     end
+
+    it_behaves_like "runs metadata hooks of :type =>", :routing, RoutingExampleGroup
   end
 end

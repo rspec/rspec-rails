@@ -17,5 +17,7 @@ module RSpec::Rails
       end
       group.metadata[:type].should eq(:mailer)
     end
+
+    it_behaves_like "runs metadata hooks of :type =>", :mailer, MailerExampleGroup
   end
 end
