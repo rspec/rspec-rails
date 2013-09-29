@@ -5,6 +5,7 @@ module RSpec::Rails
 
     included do
       metadata[:type] = :model
+      hooks.register_globals(self, RSpec.configuration.hooks)
     end
   end
 end

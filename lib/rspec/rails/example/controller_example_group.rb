@@ -146,6 +146,7 @@ module RSpec::Rails
       subject { controller }
 
       metadata[:type] = :controller
+      hooks.register_globals(self, RSpec.configuration.hooks)
 
       before do
         self.routes = ::Rails.application.routes

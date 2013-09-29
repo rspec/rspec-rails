@@ -7,6 +7,8 @@ if defined?(ActionMailer)
 
       included do
         metadata[:type] = :mailer
+        hooks.register_globals(self, RSpec.configuration.hooks)
+
         include ::Rails.application.routes.url_helpers
         options = ::Rails.configuration.action_mailer.default_url_options
         options.each { |key, value| default_url_options[key] = value } if options

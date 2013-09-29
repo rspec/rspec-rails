@@ -7,6 +7,7 @@ module RSpec::Rails
 
     included do
       metadata[:type] = :feature
+      hooks.register_globals(self, RSpec.configuration.hooks)
 
       app = ::Rails.application
       if app.respond_to?(:routes)
