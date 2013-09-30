@@ -31,7 +31,6 @@ module RSpec::Rails
 
     included do
       metadata[:type] = :routing
-      hooks.register_globals(self, RSpec.configuration.hooks)
 
       before do
         self.routes = ::Rails.application.routes

@@ -143,7 +143,6 @@ module RSpec::Rails
       include ExampleMethods
 
       metadata[:type] = :view
-      hooks.register_globals(self, RSpec.configuration.hooks)
 
       helper(*_default_helpers)
 

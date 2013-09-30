@@ -10,12 +10,6 @@ module RSpec
       include RSpec::Rails::MinitestLifecycleAdapter if ::Rails::VERSION::STRING >= '4'
       include RSpec::Rails::MinitestAssertionAdapter
       include RSpec::Rails::Matchers
-
-      def set_metadata_type(type)
-        metadata[:type] = type
-        hooks.register_globals(self, RSpec.configuration.hooks)
-      end
-
     end
   end
 end

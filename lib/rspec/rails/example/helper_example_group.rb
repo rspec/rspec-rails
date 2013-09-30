@@ -31,7 +31,6 @@ module RSpec::Rails
 
     included do
       metadata[:type] = :helper
-      hooks.register_globals(self, RSpec.configuration.hooks)
 
       before do |example|
         controller.controller_path = _controller_path(example)
