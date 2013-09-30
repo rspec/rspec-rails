@@ -1,6 +1,6 @@
 require "spec_helper"
 
-class ::ApplicationController
+class ::ApplicationController < ActionController::Base
 end
 
 module RSpec::Rails
