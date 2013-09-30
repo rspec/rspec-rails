@@ -3,6 +3,7 @@ require 'rails/all'
 
 module RSpecRails
   class Application < ::Rails::Application
+    self.config.secret_key_base = 'ASecretString' if config.respond_to? :secret_key_base
   end
 end
 
