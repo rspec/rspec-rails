@@ -134,7 +134,7 @@ module RSpec::Rails
     # If method is a named_route, delegates to the RouteSet associated with
     # this controller.
     def method_missing(method, *args, &block)
-      if @routes && @routes.named_routes.helpers.include?(method)
+      if defined?(@routes) && @routes.named_routes.helpers.include?(method)
         controller.send(method, *args, &block)
       elsif defined?(@orig_routes) && @orig_routes && @orig_routes.named_routes.helpers.include?(method)
         controller.send(method, *args, &block)
