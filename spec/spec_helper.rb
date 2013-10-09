@@ -3,6 +3,7 @@ require 'rails/all'
 
 module RSpecRails
   class Application < ::Rails::Application
+    self.config.secret_key_base = 'ASecretString' if config.respond_to? :secret_key_base
   end
 end
 
@@ -18,15 +19,17 @@ class RSpec::Core::ExampleGroup
 end
 
 RSpec.configure do |config|
+  real_world = nil
+
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.filter_run :focus
   config.run_all_when_everything_filtered = true
   config.before(:each) do
-    @real_world = RSpec.world
+    real_world = RSpec.world
     RSpec.instance_variable_set(:@world, RSpec::Core::World.new)
   end
   config.after(:each) do
-    RSpec.instance_variable_set(:@world, @real_world)
+    RSpec.instance_variable_set(:@world, real_world)
   end
   config.order = :random
 end
