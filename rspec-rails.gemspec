@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.license     = "MIT"
   s.authors     = ["David Chelimsky", "Andy Lindeman"]
-  s.email       = "rspec-users@rubyforge.org"
+  s.email       = "rspec@googlegroups.com"
   s.homepage    = "http://github.com/rspec/rspec-rails"
   s.summary     = "rspec-rails-#{RSpec::Rails::Version::STRING}"
   s.description = "RSpec for Rails"
