@@ -196,15 +196,18 @@ module RSpec::Rails
       end
 
       it 'is accessible to hooks' do
-        run_count = 0
-        group = RSpec::Core::ExampleGroup.describe 'a view', :type => :view do
-          before do
+        with_isolated_config do
+          run_count = 0
+          RSpec.configuration.before(:each, :type => :view) do
             allow(view).to receive(:a_stubbed_helper) { :value }
+            run_count += 1
           end
-          specify { run_count += 1 }
+          group = RSpec::Core::ExampleGroup.describe 'a view', :type => :view do
+            specify { true }
+          end
+          group.run NullObject.new
+          expect(run_count).to eq 1
         end
-        group.run NullObject.new
-        expect(run_count).to eq 1
       end
     end
 
