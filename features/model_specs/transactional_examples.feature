@@ -62,7 +62,7 @@ Feature: transactional examples
 
       RSpec.configure do |c|
         c.use_transactional_examples = false
-        c.order = "default"
+        c.order = "defined"
       end
 
       describe Widget do
