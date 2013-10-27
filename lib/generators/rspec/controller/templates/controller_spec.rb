@@ -7,7 +7,7 @@ describe <%= class_name %>Controller do
   describe "GET '<%= action %>'" do
     it "returns http success" do
       get '<%= action %>'
-      response.should be_success
+      expect(response).to be_success
     end
   end
 

@@ -13,9 +13,9 @@ describe "<%= ns_table_name %>/new" do
     render
 
 <% if webrat? -%>
-    rendered.should have_selector("form", :action => <%= table_name %>_path, :method => "post") do |form|
+    expect(rendered).to have_selector("form", :action => <%= table_name %>_path, :method => "post") do |form|
 <% for attribute in output_attributes -%>
-      form.should have_selector("<%= attribute.input_type -%>#<%= ns_file_name %>_<%= attribute.name %>", :name => "<%= ns_file_name %>[<%= attribute.name %>]")
+      expect(form).to have_selector("<%= attribute.input_type -%>#<%= ns_file_name %>_<%= attribute.name %>", :name => "<%= ns_file_name %>[<%= attribute.name %>]")
 <% end -%>
     end
 <% else -%>

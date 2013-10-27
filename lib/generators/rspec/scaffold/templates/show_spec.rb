@@ -19,9 +19,9 @@ describe "<%= ns_table_name %>/show" do
 <% end -%>
 <% for attribute in output_attributes -%>
 <% if webrat? -%>
-    rendered.should contain(<%= value_for(attribute) %>.to_s)
+    expect(rendered).to contain(<%= value_for(attribute) %>.to_s)
 <% else -%>
-    rendered.should match(/<%= eval(value_for(attribute)) %>/)
+    expect(rendered).to match(/<%= eval(value_for(attribute)) %>/)
 <% end -%>
 <% end -%>
   end

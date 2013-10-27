@@ -23,7 +23,7 @@ describe "<%= ns_table_name %>/index" do
 <% end -%>
 <% for attribute in output_attributes -%>
 <% if webrat? -%>
-    rendered.should have_selector("tr>td", :content => <%= value_for(attribute) %>.to_s, :count => 2)
+    expect(rendered).to have_selector("tr>td", :content => <%= value_for(attribute) %>.to_s, :count => 2)
 <% else -%>
     assert_select "tr>td", :text => <%= value_for(attribute) %>.to_s, :count => 2
 <% end -%>

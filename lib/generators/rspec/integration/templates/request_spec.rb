@@ -9,7 +9,7 @@ describe "<%= class_name.pluralize %>" do
       # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
       get <%= index_helper %>_path
 <% end -%>
-      response.status.should be(200)
+      expect(response.status).to be(200)
     end
   end
 end
