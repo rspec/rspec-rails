@@ -9,17 +9,30 @@ module RSpec::Rails
     include RSpec::Rails::Matchers::RenderTemplate
 
     module ClassMethods
-      def _default_helper
-        base = metadata[:example_group][:description].split('/')[0..-2].join('/')
-        (base.camelize + 'Helper').constantize if base
+      def _base
+        metadata[:example_group][:description].split('/')[0..-2].join('/').camelize
+      end
+
+      def _controller
+        (_base + 'Controller').constantize
+      rescue NameError
+        nil
+      end
+
+      def _helper(name)
+        base_name = name.sub(/Controller$/,'')
+        (base_name + 'Helper').constantize
       rescue NameError
         nil
       end
 
       def _default_helpers
-        helpers = [_default_helper].compact
-        helpers << ApplicationHelper if Object.const_defined?('ApplicationHelper')
-        helpers
+        helpers = []
+        _controller.ancestors.each do |ancestor|
+          break if ancestor == ActionController::Base
+          helpers << _helper(ancestor.name)
+        end if _controller
+        helpers.compact
       end
     end
 
