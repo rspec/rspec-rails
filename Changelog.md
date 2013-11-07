@@ -1,10 +1,18 @@
-### Development
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.14.0...master)
+### 3.0.0 Development
+[full changelog](http://github.com/rspec/rspec-rails/compare/2-99-maintenance...master)
 
 Breaking Changes for 3.0.0:
 
 * Extracts `autotest` and `autotest-rails` support to `rspec-autotest` gem.
   (Andy Lindeman)
+
+### 2.99.0.beta1 / 2013-11-07
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.14.0...v2.99.0.beta1)
+
+Deprecations
+
+* Deprecates autotest integration in favor of the `rspec-autotest` gem. (Andy
+  Lindeman)
 
 Enhancements
 
