@@ -21,6 +21,12 @@ Gem::Specification.new do |s|
   s.rdoc_options     = ["--charset=UTF-8"]
   s.require_path     = "lib"
 
+  private_key = File.expand_path('~/.gem/rspec-gem-private_key.pem')
+  if File.exists?(private_key)
+    s.signing_key = private_key
+    s.cert_chain = [File.expand_path('~/.gem/rspec-gem-public_cert.pem')]
+  end
+
   s.add_runtime_dependency(%q<activesupport>, [">= 3.0"])
   s.add_runtime_dependency(%q<activemodel>, [">= 3.0"])
   s.add_runtime_dependency(%q<actionpack>, [">= 3.0"])

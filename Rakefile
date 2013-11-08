@@ -131,3 +131,13 @@ task :relish, :version do |t, args|
 end
 
 task :default => [:spec, "clobber:app", "generate:app", "generate:stuff", :smoke, :cucumber]
+
+task :verify_private_key_present do
+  private_key = File.expand_path('~/.gem/rspec-gem-private_key.pem')
+  unless File.exists?(private_key)
+    raise "Your private key is not present. This gem should not be built without that."
+  end
+end
+
+task :build => :verify_private_key_present
+
