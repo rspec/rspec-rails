@@ -19,4 +19,13 @@ describe RSpec::Rails::MinitestLifecycleAdapter do
       :before_setup, :after_setup, :example, :before_teardown, :after_teardown
     ])
   end
+
+  it "allows let variables named 'send'" do
+    run_result = ::RSpec::Core::ExampleGroup.describe do
+      let(:send) { "WHAT" }
+      specify { expect(send).to eq "WHAT" }
+    end.run NullObject.new
+
+    expect(run_result).to be true
+  end
 end
