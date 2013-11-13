@@ -102,9 +102,9 @@ module RSpec
         def setup(*methods)
           methods.each do |method|
             if method.to_s =~ /^setup_(fixtures|controller_request_and_response)$/
-              prepend_before { send method }
+              prepend_before { __send__ method }
             else
-              before         { send method }
+              before         { __send__ method }
             end
           end
         end
@@ -114,7 +114,7 @@ module RSpec
         # Wraps `teardown` calls from within Rails' testing framework in
         # `after` hooks.
         def teardown(*methods)
-          methods.each { |method| after { send method } }
+          methods.each { |method| after { __send__ method } }
         end
       end
 
