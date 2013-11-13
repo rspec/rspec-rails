@@ -11,6 +11,7 @@ Bug fixes
 * Supports Rails 4.1 and Minitest 5. (Patrick Van Stee)
 * Explicitly depends on `activemodel`. This allows libraries that do not bring
   in all of `rails` to use `rspec-rails`. (John Firebaugh)
+* Use `__send__` rather than `send` to prevent naming collisions (Bradley Schaefer)
 
 ### 2.14.0 / 2013-07-06
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.14.0.rc1...v2.14.0)
