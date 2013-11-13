@@ -36,11 +36,9 @@ module RSpec
           assertion_modules.each do |mod|
             mod.public_instance_methods.each do |method|
               next if method == :method_missing || method == "method_missing"
-              class_eval <<-EOM, __FILE__, __LINE__ + 1
-                def #{method}(*args, &block)
-                  assertion_instance.send(:#{method}, *args, &block)
-                end
-              EOM
+              define_method(method.to_sym) do |*args, &block|
+                  assertion_instance.send(method.to_sym, *args, &block)
+              end
             end
           end
         end
@@ -142,11 +140,9 @@ module RSpec
         # @api private
         def define_assertion_delegators
           assertion_method_names.each do |m|
-            class_eval <<-CODE, __FILE__, __LINE__ + 1
-              def #{m}(*args, &block)
-                assertion_delegator.send :#{m}, *args, &block
-              end
-            CODE
+            define_method(m.to_sym) do |*args, &block|
+              assertion_delegator.send(m.to_sym, *args, &block)
+            end
           end
         end
       end
