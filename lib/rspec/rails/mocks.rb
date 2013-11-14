@@ -110,39 +110,41 @@ EOM
               end
             end
           end
-          m.__send__(:__mock_proxy).instance_eval(<<-CODE, __FILE__, __LINE__)
-            def @object.is_a?(other)
-              #{model_class}.ancestors.include?(other)
-            end unless #{stubs.has_key?(:is_a?)}
 
-            def @object.kind_of?(other)
-              #{model_class}.ancestors.include?(other)
-            end unless #{stubs.has_key?(:kind_of?)}
+          msingleton = m.singleton_class
+          msingleton.__send__(:define_method, :is_a?) do |other|
+            model_class.ancestors.include?(other)
+          end unless stubs.has_key?(:is_a?)
 
-            def @object.instance_of?(other)
-              other == #{model_class}
-            end unless #{stubs.has_key?(:instance_of?)}
+          msingleton.__send__(:define_method, :kind_of?) do |other|
+            model_class.ancestors.include?(other)
+          end unless stubs.has_key?(:kind_of?)
 
-            def @object.__model_class_has_column?(method_name)
-              #{model_class}.respond_to?(:column_names) && #{model_class}.column_names.include?(method_name.to_s)
-            end
+          msingleton.__send__(:define_method, :instance_of?) do |other|
+            other == model_class
+          end unless stubs.has_key?(:instance_of?)
 
-            def @object.respond_to?(method_name, include_private=false)
-              __model_class_has_column?(method_name) ? true : super
-            end unless #{stubs.has_key?(:respond_to?)}
+          msingleton.__send__(:define_method, :__model_class_has_column?) do |method_name|
+            model_class.respond_to?(:column_names) && model_class.column_names.include?(method_name.to_s)
+          end
 
-            def @object.method_missing(m, *a, &b)
-              respond_to?(m) ? null_object? ? self : nil : super
-            end
+          msingleton.__send__(:define_method, :respond_to?) do |method_name, *args|
+          include_private = args.first || false
+            __model_class_has_column?(method_name) ? true : super(method_name, include_private)
+          end unless stubs.has_key?(:respond_to?)
 
-            def @object.class
-              #{model_class}
-            end unless #{stubs.has_key?(:class)}
+          msingleton.__send__(:define_method, :method_missing) do |m, *a, &b|
+            respond_to?(m) ? null_object? ? self : nil : super(m, *a, &b)
+          end
 
-            def @object.to_s
-              "#{model_class.name}_#{to_param}"
-            end unless #{stubs.has_key?(:to_s)}
-          CODE
+          msingleton.__send__(:define_method, :class) do
+            model_class
+          end unless stubs.has_key?(:class)
+
+          mock_param = to_param
+          msingleton.__send__(:define_method, :to_s) do
+            "#{model_class.name}_#{mock_param}"
+          end unless stubs.has_key?(:to_s)
           yield m if block_given?
         end
       end
