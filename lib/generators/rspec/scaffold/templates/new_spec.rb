@@ -12,19 +12,10 @@ describe "<%= ns_table_name %>/new" do
   it "renders new <%= ns_file_name %> form" do
     render
 
-<% if webrat? -%>
-    expect(rendered).to have_selector("form", :action => <%= table_name %>_path, :method => "post") do |form|
-<% for attribute in output_attributes -%>
-      expect(form).to have_selector("<%= attribute.input_type -%>#<%= ns_file_name %>_<%= attribute.name %>", :name => "<%= ns_file_name %>[<%= attribute.name %>]")
-<% end -%>
-    end
-<% else -%>
-    # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form[action=?][method=?]", <%= index_helper %>_path, "post" do
 <% for attribute in output_attributes -%>
       assert_select "<%= attribute.input_type -%>#<%= ns_file_name %>_<%= attribute.name %>[name=?]", "<%= ns_file_name %>[<%= attribute.name %>]"
 <% end -%>
     end
-<% end -%>
   end
 end

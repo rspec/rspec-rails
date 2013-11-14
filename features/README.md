@@ -1,10 +1,11 @@
-rspec-rails extends Rails' built-in testing framework to support rspec examples
-for requests, controllers, models, views, helpers, mailers and routing.
+rspec-rails extends Rails' built-in testing framework to support rspec
+examples for requests, controllers, models, views, helpers, mailers and
+routing.
 
-## Rails-3
+## Rails
 
-rspec-rails-2 supports rails-3.0.0 and later. For earlier versions of Rails,
-you need [rspec-rails-1.3](http://rspec.info).
+rspec-rails 3 supports Rails 3.x and 4.x. For earlier versions of Rails, you
+need [rspec-rails 1](https://github.com/dchelimsky/rspec-rails).
 
 ## Install
 
@@ -23,7 +24,7 @@ This installs the following gems:
 Add rspec-rails to the :test and :development groups in the Gemfile:
 
     group :test, :development do
-      gem "rspec-rails", "~> 2.4"
+      gem "rspec-rails", "~> 2.14"
     end
 
 It needs to be in the :development group to expose generators and rake tasks
@@ -35,15 +36,6 @@ Now you can run:
 
 This adds the spec directory and some skeleton files, including a .rspec
 file.
-
-## Webrat and Capybara
-
-You can choose between webrat or capybara for simulating a browser, automating
-a browser, or setting expectations using the matchers they supply. Just add
-your preference to the Gemfile:
-
-    gem "webrat"
-    gem "capybara"
 
 ## Issues
 

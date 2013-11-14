@@ -14,8 +14,6 @@ module Rspec
 
       class_option :controller_specs, :type => :boolean, :default => true,  :desc => "Generate controller specs"
       class_option :view_specs,       :type => :boolean, :default => true,  :desc => "Generate view specs"
-      class_option :webrat,           :type => :boolean, :default => false, :desc => "Use webrat methods/matchers"
-      class_option :webrat_matchers,  :type => :boolean, :default => false, :desc => "Use webrat methods/matchers (deprecated - use --webrat)"
       class_option :helper_specs,     :type => :boolean, :default => true,  :desc => "Generate helper specs"
       class_option :routing_specs,    :type => :boolean, :default => true,  :desc => "Generate routing specs"
 
@@ -45,12 +43,6 @@ module Rspec
       hook_for :integration_tool, :as => :integration
 
       protected
-
-        # @deprecated Use `--webrat` instead.
-        def webrat?
-          RSpec.deprecate("--webrat-matchers", :replacement => "--webrat") if options[:webrat_matchers]
-          options[:webrat] || options[:webrat_matchers]
-        end
 
         def copy_view(view)
           template "#{view}_spec.rb",

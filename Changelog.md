@@ -5,6 +5,10 @@ Bug fixes
 
 * Use `__send__` rather than `send` to prevent naming collisions (Bradley Schaefer)
 
+Breaking Changes for 3.0.0:
+
+* Removes the `--webrat` option for the request spec generator (Andy Lindeman)
+
 ### 3.0.0.beta1 / 2013-11-07
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.beta1...v3.0.0.beta1)
 
