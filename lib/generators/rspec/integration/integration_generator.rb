@@ -10,15 +10,16 @@ module Rspec
       def generate_request_spec
         return unless options[:request_specs]
 
+        RSpec.deprecate("the --webrat-matchers option", :replacement => nil) if options[:webrat_matchers]
+        RSpec.deprecate("the --webrat option", :replacement => nil) if options[:webrat]
+
         template 'request_spec.rb',
                  File.join('spec/requests', class_path, "#{table_name}_spec.rb")
       end
 
     protected
 
-      # @deprecated Use `--webrat` instead.
       def webrat?
-        RSpec.deprecate("the --webrat-matchers option", :replacement => "--webrat") if options[:webrat_matchers]
         options[:webrat] || options[:webrat_matchers]
       end
 
