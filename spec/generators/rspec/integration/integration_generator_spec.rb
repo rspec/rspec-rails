@@ -20,25 +20,13 @@ describe Rspec::Generators::IntegrationGenerator do
   end
 
   describe 'are generated' do
-    describe 'without webrat matchers by default' do
-      before do
-        run_generator %w(posts)
-      end
-      subject { file('spec/requests/posts_spec.rb') }
-      it { should exist }
-      it { should contain(/require 'spec_helper'/) }
-      it { should contain(/describe "GET \/posts"/) }
-      it { should contain(/get posts_index_path/) }
+    before do
+      run_generator %w(posts)
     end
-    describe 'with webrat matchers' do
-      before do
-        run_generator %w(posts --webrat)
-      end
-      subject { file('spec/requests/posts_spec.rb') }
-      it { should exist }
-      it { should contain(/require 'spec_helper'/) }
-      it { should contain(/describe "GET \/posts"/) }
-      it { should contain(/visit posts_index_path/) }
-    end
+    subject { file('spec/requests/posts_spec.rb') }
+    it { should exist }
+    it { should contain(/require 'spec_helper'/) }
+    it { should contain(/describe "GET \/posts"/) }
+    it { should contain(/get posts_index_path/) }
   end
 end
