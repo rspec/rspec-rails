@@ -12,7 +12,7 @@ Add `rspec-rails` to **both** the `:development` and `:test` groups in the
 
 ```ruby
 group :development, :test do
-  gem 'rspec-rails', '~> 2.0'
+  gem 'rspec-rails', '~> 3.0.0.beta'
 end
 ```
 
