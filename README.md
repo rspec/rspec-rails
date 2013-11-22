@@ -12,7 +12,7 @@ Add `rspec-rails` to **both** the `:development` and `:test` groups in the
 
 ```ruby
 group :development, :test do
-  gem 'rspec-rails', '~> 2.0'
+  gem 'rspec-rails', '~> 3.0.0.beta'
 end
 ```
 
@@ -189,7 +189,24 @@ FactoryGirl and Capybara seem to be the most widely used. Whether you choose
 these or other libs, we strongly recommend using something for each of these
 roles.
 
-# View specs
+## <a id="feature-specs"></a>Feature Specs
+
+Feature specs live in spec/features, and mix in functionality from the
+capybara gem.
+
+Feature specs test your application from the outside by simulating a browser.
+capybara is used to manage the simulated browser.
+
+To use feature specs, add `capybara` to `Gemfile`:
+
+```ruby
+gem "capybara"
+```
+
+For more information, see the [cucumber scenarios for feature
+specs](https://www.relishapp.com/rspec/rspec-rails/v/3-0/docs/feature-specs/feature-spec).
+
+## View specs
 
 View specs live in spec/views, and mix in ActionView::TestCase::Behavior.
 
@@ -416,21 +433,6 @@ However, you must first clear the task that rspec-rails defined:
 ```ruby
 task("spec").clear
 ```
-
-### Webrat and Capybara
-
-You can choose between webrat or capybara for simulating a browser, automating
-a browser, or setting expectations using the matchers they supply. Just add
-your preference to the Gemfile:
-
-```ruby
-gem "webrat"
-# ... or ...
-gem "capybara"
-```
-
-See [http://rubydoc.info/gems/rspec-rails/file/Capybara.md](http://rubydoc.info/gems/rspec-rails/file/Capybara.md)
-for more info on Capybara integration.
 
 # Contribute
 
