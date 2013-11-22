@@ -30,6 +30,7 @@ describe Rspec::Generators::IntegrationGenerator do
       it { should contain(/describe "GET \/posts"/) }
       it { should contain(/get posts_index_path/) }
     end
+
     describe 'with webrat matchers' do
       before do
         run_generator %w(posts --webrat)
@@ -39,6 +40,18 @@ describe Rspec::Generators::IntegrationGenerator do
       it { should contain(/require 'spec_helper'/) }
       it { should contain(/describe "GET \/posts"/) }
       it { should contain(/visit posts_index_path/) }
+    end
+
+    describe 'the webrat option' do
+      it 'is deprecated when invoked as --webrat' do
+        RSpec.should_receive(:deprecate, :with => "the --webrat option", :replacement => nil)
+        run_generator %w(posts --webrat)
+      end
+
+      it 'is deprecated when invoked as --webrat-matchers' do
+        RSpec.should_receive(:deprecate, :with => "the --webrat-matchers option", :replacement => nil)
+        run_generator %w(posts --webrat-matchers)
+      end
     end
   end
 end

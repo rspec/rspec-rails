@@ -135,4 +135,16 @@ describe Rspec::Generators::ScaffoldGenerator do
       it { should_not exist }
     end
   end
+
+  describe 'the webrat option' do
+    it 'is deprecated when invoked as --webrat' do
+      RSpec.should_receive(:deprecate, :with => "the --webrat option", :replacement => nil)
+      run_generator %w(posts --webrat)
+    end
+
+    it 'is deprecated when invoked as --webrat-matchers' do
+      RSpec.should_receive(:deprecate, :with => "the --webrat-matchers option", :replacement => nil)
+      run_generator %w(posts --webrat-matchers)
+    end
+  end
 end

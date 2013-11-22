@@ -22,6 +22,9 @@ module Rspec
       def generate_controller_spec
         return unless options[:controller_specs]
 
+        RSpec.deprecate("the --webrat-matchers option", :replacement => nil) if options[:webrat_matchers]
+        RSpec.deprecate("the --webrat option", :replacement => nil) if options[:webrat]
+
         template 'controller_spec.rb',
                  File.join('spec/controllers', controller_class_path, "#{controller_file_name}_controller_spec.rb")
       end
@@ -46,9 +49,7 @@ module Rspec
 
       protected
 
-        # @deprecated Use `--webrat` instead.
         def webrat?
-          RSpec.deprecate("--webrat-matchers", :replacement => "--webrat") if options[:webrat_matchers]
           options[:webrat] || options[:webrat_matchers]
         end
 
