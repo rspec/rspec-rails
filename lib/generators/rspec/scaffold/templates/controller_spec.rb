@@ -36,6 +36,7 @@ describe <%= controller_class_name %>Controller do
 <% unless options[:singleton] -%>
   describe "GET index" do
     it "assigns all <%= table_name.pluralize %> as @<%= table_name.pluralize %>" do
+      <%= file_name %>
       get :index, {}, valid_session
       expect(assigns(:<%= table_name %>)).to eq([<%= file_name %>])
     end
