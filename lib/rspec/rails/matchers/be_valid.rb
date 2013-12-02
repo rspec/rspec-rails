@@ -17,7 +17,7 @@ module RSpec::Rails::Matchers
       if actual.respond_to?(:errors)
         errors = if actual.errors.respond_to?(:full_messages)
           actual.errors.full_messages
-        elsif actual.respond_to?(:errors)
+        else
           actual.errors
         end
 
