@@ -31,10 +31,11 @@ describe <%= controller_class_name %>Controller do
   # <%= controller_class_name %>Controller. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
+  let(:<%= file_name %>) { <%= class_name %>.create! valid_attributes }
+
 <% unless options[:singleton] -%>
   describe "GET index" do
     it "assigns all <%= table_name.pluralize %> as @<%= table_name.pluralize %>" do
-      <%= file_name %> = <%= class_name %>.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns(:<%= table_name %>)).to eq([<%= file_name %>])
     end
@@ -43,7 +44,6 @@ describe <%= controller_class_name %>Controller do
 <% end -%>
   describe "GET show" do
     it "assigns the requested <%= ns_file_name %> as @<%= ns_file_name %>" do
-      <%= file_name %> = <%= class_name %>.create! valid_attributes
       get :show, {:id => <%= file_name %>.to_param}, valid_session
       expect(assigns(:<%= ns_file_name %>)).to eq(<%= file_name %>)
     end
@@ -58,7 +58,6 @@ describe <%= controller_class_name %>Controller do
 
   describe "GET edit" do
     it "assigns the requested <%= ns_file_name %> as @<%= ns_file_name %>" do
-      <%= file_name %> = <%= class_name %>.create! valid_attributes
       get :edit, {:id => <%= file_name %>.to_param}, valid_session
       expect(assigns(:<%= ns_file_name %>)).to eq(<%= file_name %>)
     end
@@ -85,17 +84,17 @@ describe <%= controller_class_name %>Controller do
     end
 
     describe "with invalid params" do
-      it "assigns a newly created but unsaved <%= ns_file_name %> as @<%= ns_file_name %>" do
+      before :each do
         # Trigger the behavior that occurs when invalid params are submitted
         <%= class_name %>.any_instance.stub(:save).and_return(false)
         post :create, {:<%= ns_file_name %> => <%= formatted_hash(example_invalid_attributes) %>}, valid_session
+      end
+
+      it "assigns a newly created but unsaved <%= ns_file_name %> as @<%= ns_file_name %>" do
         expect(assigns(:<%= ns_file_name %>)).to be_a_new(<%= class_name %>)
       end
 
       it "re-renders the 'new' template" do
-        # Trigger the behavior that occurs when invalid params are submitted
-        <%= class_name %>.any_instance.stub(:save).and_return(false)
-        post :create, {:<%= ns_file_name %> => <%= formatted_hash(example_invalid_attributes) %>}, valid_session
         expect(response).to render_template("new")
       end
     end
@@ -104,7 +103,6 @@ describe <%= controller_class_name %>Controller do
   describe "PUT update" do
     describe "with valid params" do
       it "updates the requested <%= ns_file_name %>" do
-        <%= file_name %> = <%= class_name %>.create! valid_attributes
         # Assuming there are no other <%= table_name %> in the database, this
         # specifies that the <%= class_name %> created on the previous line
         # receives the :update_attributes message with whatever params are
@@ -118,32 +116,28 @@ describe <%= controller_class_name %>Controller do
       end
 
       it "assigns the requested <%= ns_file_name %> as @<%= ns_file_name %>" do
-        <%= file_name %> = <%= class_name %>.create! valid_attributes
         put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => valid_attributes}, valid_session
         expect(assigns(:<%= ns_file_name %>)).to eq(<%= file_name %>)
       end
 
       it "redirects to the <%= ns_file_name %>" do
-        <%= file_name %> = <%= class_name %>.create! valid_attributes
         put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => valid_attributes}, valid_session
         expect(response).to redirect_to(<%= file_name %>)
       end
     end
 
     describe "with invalid params" do
-      it "assigns the <%= ns_file_name %> as @<%= ns_file_name %>" do
-        <%= file_name %> = <%= class_name %>.create! valid_attributes
+      before :each do
         # Trigger the behavior that occurs when invalid params are submitted
         <%= class_name %>.any_instance.stub(:save).and_return(false)
         put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => <%= formatted_hash(example_invalid_attributes) %>}, valid_session
+      end
+
+      it "assigns the <%= ns_file_name %> as @<%= ns_file_name %>" do
         expect(assigns(:<%= ns_file_name %>)).to eq(<%= file_name %>)
       end
 
       it "re-renders the 'edit' template" do
-        <%= file_name %> = <%= class_name %>.create! valid_attributes
-        # Trigger the behavior that occurs when invalid params are submitted
-        <%= class_name %>.any_instance.stub(:save).and_return(false)
-        put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => <%= formatted_hash(example_invalid_attributes) %>}, valid_session
         expect(response).to render_template("edit")
       end
     end
@@ -151,14 +145,12 @@ describe <%= controller_class_name %>Controller do
 
   describe "DELETE destroy" do
     it "destroys the requested <%= ns_file_name %>" do
-      <%= file_name %> = <%= class_name %>.create! valid_attributes
       expect {
         delete :destroy, {:id => <%= file_name %>.to_param}, valid_session
       }.to change(<%= class_name %>, :count).by(-1)
     end
 
     it "redirects to the <%= table_name %> list" do
-      <%= file_name %> = <%= class_name %>.create! valid_attributes
       delete :destroy, {:id => <%= file_name %>.to_param}, valid_session
       expect(response).to redirect_to(<%= index_helper %>_url)
     end
