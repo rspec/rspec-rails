@@ -31,7 +31,7 @@ module RSpec::Rails::Matchers
       end
 
       # @api private
-      def failure_message_for_should
+      def failure_message
         rescued_exception.message
       end
 
@@ -73,11 +73,11 @@ module RSpec::Rails::Matchers
         end
       end
 
-      def failure_message_for_should
+      def failure_message
         "expected #{@actual.inspect} to be routable"
       end
 
-      def failure_message_for_should_not
+      def failure_message_when_negated
         "expected #{@actual.inspect} not to be routable, but it routes to #{@routing_options.inspect}"
       end
     end

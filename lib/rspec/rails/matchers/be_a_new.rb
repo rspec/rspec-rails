@@ -25,7 +25,7 @@ module RSpec::Rails::Matchers
     end
 
     # @api private
-    def failure_message_for_should
+    def failure_message
       [].tap do |message|
         unless actual.is_a?(expected) && actual.new_record?
           message << "expected #{actual.inspect} to be a new #{expected.inspect}"
