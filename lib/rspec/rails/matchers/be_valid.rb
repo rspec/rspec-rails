@@ -13,8 +13,15 @@ module RSpec::Rails::Matchers
     # @api private
     def failure_message_for_should
       message = "expected #{actual.inspect} to be valid"
+
       if actual.respond_to?(:errors)
-        message << ", but got errors: #{actual.errors.full_messages.join(', ')}"
+        errors = if actual.errors.respond_to?(:full_messages)
+          actual.errors.full_messages
+        else
+          actual.errors
+        end
+
+        message << ", but got errors: #{errors.map(&:to_s).join(', ')}"
       end
 
       message
