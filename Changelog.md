@@ -5,6 +5,10 @@ Bug fixes
 
 * Use `__send__` rather than `send` to prevent naming collisions (Bradley Schaefer)
 
+Enhancements
+
+* Improve be_valid matcher for non-ActiveModel::Errors implementations (Ben Hamill)
+
 Breaking Changes for 3.0.0:
 
 * Removes the `--webrat` option for the request spec generator (Andy Lindeman)
