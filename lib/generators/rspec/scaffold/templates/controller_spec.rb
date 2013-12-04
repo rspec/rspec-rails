@@ -87,14 +87,14 @@ describe <%= controller_class_name %>Controller do
     describe "with invalid params" do
       it "assigns a newly created but unsaved <%= ns_file_name %> as @<%= ns_file_name %>" do
         # Trigger the behavior that occurs when invalid params are submitted
-        <%= class_name %>.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(<%= class_name %>).to receive(:save).and_return(false)
         post :create, {:<%= ns_file_name %> => <%= formatted_hash(example_invalid_attributes) %>}, valid_session
         expect(assigns(:<%= ns_file_name %>)).to be_a_new(<%= class_name %>)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        <%= class_name %>.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(<%= class_name %>).to receive(:save).and_return(false)
         post :create, {:<%= ns_file_name %> => <%= formatted_hash(example_invalid_attributes) %>}, valid_session
         expect(response).to render_template("new")
       end
@@ -134,7 +134,7 @@ describe <%= controller_class_name %>Controller do
       it "assigns the <%= ns_file_name %> as @<%= ns_file_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        <%= class_name %>.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(<%= class_name %>).to receive(:save).and_return(false)
         put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => <%= formatted_hash(example_invalid_attributes) %>}, valid_session
         expect(assigns(:<%= ns_file_name %>)).to eq(<%= file_name %>)
       end
@@ -142,7 +142,7 @@ describe <%= controller_class_name %>Controller do
       it "re-renders the 'edit' template" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
-        <%= class_name %>.any_instance.stub(:save).and_return(false)
+        allow_any_instance_of(<%= class_name %>).to receive(:save).and_return(false)
         put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => <%= formatted_hash(example_invalid_attributes) %>}, valid_session
         expect(response).to render_template("edit")
       end
