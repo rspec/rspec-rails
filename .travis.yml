@@ -7,8 +7,8 @@ rvm:
   - 1.9.3
   - 2.0.0
 env:
-  - RAILS_VERSION=4.0.0
-  - RAILS_VERSION=3.2.13
+  - RAILS_VERSION=4.0.2
+  - RAILS_VERSION=3.2.16
   - RAILS_VERSION=3.1.12
   - RAILS_VERSION=3.0.20
   - RAILS_VERSION=4-0-stable
@@ -33,8 +33,8 @@ matrix:
     - rvm: 1.9.2
       env: RAILS_VERSION=4-0-stable
     - rvm: 1.8.7
-      env: RAILS_VERSION=4.0.0
+      env: RAILS_VERSION=4.0.2
     - rvm: 1.9.2
-      env: RAILS_VERSION=4.0.0
+      env: RAILS_VERSION=4.0.2
   allow_failures:
     - env: RAILS_VERSION=master
