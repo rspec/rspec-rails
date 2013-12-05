@@ -13,7 +13,7 @@ describe Rspec::Generators::InstallGenerator do
 
   it "generates spec/spec_helper.rb" do
     run_generator
-    File.read( file('spec/spec_helper.rb') ).should =~ /^require 'rspec\/autorun'$/m
+    File.read( file('spec/spec_helper.rb') ).should =~ /^require 'rspec\/rails'$/m
   end
 
   if ::Rails::VERSION::STRING >= '4'
