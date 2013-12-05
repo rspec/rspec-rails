@@ -4,7 +4,7 @@ gemspec
 
 %w[rspec rspec-core rspec-expectations rspec-mocks].each do |lib|
   library_path = File.expand_path("../../#{lib}", __FILE__)
-  if File.exist?(library_path)
+  if File.exist?(library_path) && !ENV['USE_GIT_REPOS']
     gem lib, :path => library_path
   elsif ENV["CI"] || ENV["USE_GIT_REPOS"]
     gem lib, :git => "git://github.com/rspec/#{lib}.git", :branch => '2-99-maintenance'
