@@ -17,16 +17,16 @@ describe Rspec::Generators::ControllerGenerator do
       end
 
       describe 'the spec' do
-        it { should exist }
-        it { should contain(/require 'spec_helper'/) }
-        it { should contain(/describe PostsController/) }
+        it { is_expected.to exist }
+        it { is_expected.to contain(/require 'spec_helper'/) }
+        it { is_expected.to contain(/describe PostsController/) }
       end
     end
     describe 'skipped with a flag' do
       before do
         run_generator %w(posts --no-controller_specs)
       end
-      it { should_not exist }
+      it { is_expected.not_to exist }
     end
   end
 
@@ -38,7 +38,7 @@ describe Rspec::Generators::ControllerGenerator do
         end
         describe 'index.html.erb' do
           subject { file('spec/views/posts/index.html.erb_spec.rb') }
-          it { should_not exist }
+          it { is_expected.not_to exist }
         end
       end
       describe 'with no actions' do
@@ -47,7 +47,7 @@ describe Rspec::Generators::ControllerGenerator do
         end
         describe 'index.html.erb' do
           subject { file('spec/views/posts/index.html.erb_spec.rb') }
-          it { should_not exist }
+          it { is_expected.not_to exist }
         end
       end
 
@@ -58,7 +58,7 @@ describe Rspec::Generators::ControllerGenerator do
 
         describe 'index.html.erb' do
           subject { file('spec/views/posts/index.html._spec.rb') }
-          it { should_not exist }
+          it { is_expected.not_to exist }
         end
       end
     end
@@ -70,15 +70,15 @@ describe Rspec::Generators::ControllerGenerator do
         end
         describe 'index.html.erb' do
           subject { file('spec/views/posts/index.html.erb_spec.rb') }
-          it { should exist }
-          it { should contain(/require 'spec_helper'/) }
-          it { should contain(/describe "posts\/index.html.erb"/) }
+          it { is_expected.to exist }
+          it { is_expected.to contain(/require 'spec_helper'/) }
+          it { is_expected.to contain(/describe "posts\/index.html.erb"/) }
         end
         describe 'show.html.erb' do
           subject { file('spec/views/posts/show.html.erb_spec.rb') }
-          it { should exist }
-          it { should contain(/require 'spec_helper'/) }
-          it { should contain(/describe "posts\/show.html.erb"/) }
+          it { is_expected.to exist }
+          it { is_expected.to contain(/require 'spec_helper'/) }
+          it { is_expected.to contain(/describe "posts\/show.html.erb"/) }
         end
       end
       describe 'with haml' do
@@ -87,9 +87,9 @@ describe Rspec::Generators::ControllerGenerator do
         end
         describe 'index.html.haml' do
           subject { file('spec/views/posts/index.html.haml_spec.rb') }
-          it { should exist }
-          it { should contain(/require 'spec_helper'/) }
-          it { should contain(/describe "posts\/index.html.haml"/) }
+          it { is_expected.to exist }
+          it { is_expected.to contain(/require 'spec_helper'/) }
+          it { is_expected.to contain(/describe "posts\/index.html.haml"/) }
         end
       end
     end
