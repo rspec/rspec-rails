@@ -2,8 +2,8 @@ require "spec_helper"
 
 module RSpec::Rails
   describe FeatureExampleGroup do
-    it { should be_included_in_files_in('./spec/features/') }
-    it { should be_included_in_files_in('.\\spec\\features\\') }
+    it { is_expected.to be_included_in_files_in('./spec/features/') }
+    it { is_expected.to be_included_in_files_in('.\\spec\\features\\') }
 
     it "adds :type => :feature to the metadata" do
       group = RSpec::Core::ExampleGroup.describe do

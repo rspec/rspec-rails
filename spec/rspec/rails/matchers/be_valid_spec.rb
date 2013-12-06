@@ -20,7 +20,7 @@ describe "be_valid matcher" do
   end
 
   it "includes a failure message for the negative case" do
-    post.stub(:valid?) { true }
+    allow(post).to receive(:valid?) { true }
     expect {
       expect(post).not_to be_valid
     }.to raise_exception(/expected .* not to be valid/)
@@ -33,12 +33,12 @@ describe "be_valid matcher" do
   end
 
   it "includes the validation context if provided" do
-    post.should_receive(:valid?).with(:create) { true }
+    expect(post).to receive(:valid?).with(:create) { true }
     expect(post).to be_valid(:create)
   end
 
   it "does not include the validation context if not provided" do
-    post.should_receive(:valid?).with(no_args) { true }
+    expect(post).to receive(:valid?).with(no_args) { true }
     expect(post).to be_valid
   end
 end

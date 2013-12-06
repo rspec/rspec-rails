@@ -8,7 +8,7 @@ describe "stub_model" do
         model = stub_model(model_class) do |block_arg|
           @block_arg = block_arg
         end
-        model.should be(@block_arg)
+        expect(model).to be(@block_arg)
       end
     end
 
@@ -16,14 +16,14 @@ describe "stub_model" do
       context "default" do
         it "returns true" do
           model = stub_model(model_class)
-          model.should be_persisted
+          expect(model).to be_persisted
         end
       end
 
       context "with as_new_record" do
         it "returns false" do
           model = stub_model(model_class).as_new_record
-          model.should_not be_persisted
+          expect(model).not_to be_persisted
         end
       end
     end
@@ -31,12 +31,12 @@ describe "stub_model" do
     it "increments the value returned by to_param" do
       first = stub_model(model_class)
       second = stub_model(model_class)
-      second.to_param.to_i.should == (first.to_param.to_i + 1)
+      expect(second.to_param.to_i).to eq(first.to_param.to_i + 1)
     end
 
     describe "#blank?" do
       it "is false" do
-        stub_model(model_class).should_not be_blank
+        expect(stub_model(model_class)).not_to be_blank
       end
     end
   end
@@ -58,79 +58,79 @@ describe "stub_model" do
       context "default" do
         it "returns false" do
           model = stub_model(model_class)
-          model.new_record?.should be_falsey
+          expect(model.new_record?).to be_falsey
         end
       end
 
       context "with as_new_record" do
         it "returns true" do
           model = stub_model(model_class).as_new_record
-          model.new_record?.should be_truthy
+          expect(model.new_record?).to be_truthy
         end
       end
     end
 
     describe "defaults" do
       it "has an id" do
-        stub_model(MockableModel).id.should be > 0
+        expect(stub_model(MockableModel).id).to be > 0
       end
 
       it "says it is not a new record" do
-        stub_model(MockableModel).should_not be_new_record
+        expect(stub_model(MockableModel)).not_to be_new_record
       end
     end
 
     describe "#as_new_record" do
       it "has a nil id" do
-        stub_model(MockableModel).as_new_record.id.should be(nil)
+        expect(stub_model(MockableModel).as_new_record.id).to be(nil)
       end
     end
 
     it "raises when hitting the db" do
-      lambda do
+      expect do
         stub_model(MockableModel).connection
-      end.should raise_error(RSpec::Rails::IllegalDataAccessException, /stubbed models are not allowed to access the database/)
+      end.to raise_error(RSpec::Rails::IllegalDataAccessException, /stubbed models are not allowed to access the database/)
     end
 
     it "increments the id" do
       first = stub_model(model_class)
       second = stub_model(model_class)
-      second.id.should == (first.id + 1)
+      expect(second.id).to eq(first.id + 1)
     end
 
     it "accepts a stub id" do
-      stub_model(MockableModel, :id => 37).id.should == 37
+      expect(stub_model(MockableModel, :id => 37).id).to eq(37)
     end
 
     it "says it is a new record when id is set to nil" do
-      stub_model(MockableModel, :id => nil).should be_new_record
+      expect(stub_model(MockableModel, :id => nil)).to be_new_record
     end
 
     it "accepts a stub for save" do
-      stub_model(MockableModel, :save => false).save.should be(false)
+      expect(stub_model(MockableModel, :save => false).save).to be(false)
     end
 
     describe "alternate primary key" do
       it "has the correct primary_key name" do
-        stub_model(AlternatePrimaryKeyModel).class.primary_key.to_s.should eq('my_id')
+        expect(stub_model(AlternatePrimaryKeyModel).class.primary_key.to_s).to eq('my_id')
       end
 
       it "has a primary_key" do
-        stub_model(AlternatePrimaryKeyModel).my_id.should be > 0
+        expect(stub_model(AlternatePrimaryKeyModel).my_id).to be > 0
       end
 
       it "says it is not a new record" do
         stub_model(AlternatePrimaryKeyModel) do |m|
-          m.should_not be_new_record
+          expect(m).not_to be_new_record
         end
       end
 
       it "says it is a new record if primary_key is nil" do
-        stub_model(AlternatePrimaryKeyModel, :my_id => nil).should be_new_record
+        expect(stub_model(AlternatePrimaryKeyModel, :my_id => nil)).to be_new_record
       end
 
       it "accepts a stub for the primary_key" do
-        stub_model(AlternatePrimaryKeyModel, :my_id => 5).my_id.should == 5
+        expect(stub_model(AlternatePrimaryKeyModel, :my_id => 5).my_id).to eq(5)
       end
     end
 
@@ -142,11 +142,11 @@ describe "stub_model" do
       end
 
       it "passes associated_model == mock" do
-        @stub_model.should == @real.mockable_model
+        expect(@stub_model).to eq(@real.mockable_model)
       end
 
       it "passes mock == associated_model" do
-        @real.mockable_model.should == @stub_model
+        expect(@real.mockable_model).to eq(@stub_model)
       end
     end
 

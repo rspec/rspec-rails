@@ -9,15 +9,15 @@ describe "errors_on" do
 
   it "calls valid?" do
     model = klass.new
-    model.should_receive(:valid?)
+    expect(model).to receive(:valid?)
     model.errors_on(:foo)
   end
 
   it "returns the errors on that attribute" do
     model = klass.new
-    model.stub(:errors) do
+    allow(model).to receive(:errors) do
       { :foo => ['a', 'b'] }
     end
-    model.errors_on(:foo).should eq(['a','b'])
+    expect(model.errors_on(:foo)).to eq(['a','b'])
   end
 end

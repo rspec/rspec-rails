@@ -13,16 +13,16 @@ describe RSpec::Rails::MinitestAssertionAdapter do
       end
     else
       it "exposes #{m} to host examples" do
-        methods.should include(m)
+        expect(methods).to include(m)
       end
     end
   end
 
   it "does not expose internal methods of Minitest" do
-    methods.should_not include("_assertions")
+    expect(methods).not_to include("_assertions")
   end
 
   it "does not expose Minitest's message method" do
-    methods.should_not include("message")
+    expect(methods).not_to include("message")
   end
 end

@@ -14,8 +14,8 @@ describe Rspec::Generators::ObserverGenerator do
   end
 
   describe 'the spec' do
-    it { should exist }
-    it { should contain(/require 'spec_helper'/) }
-    it { should contain(/describe PostsObserver/) }
+    it { is_expected.to exist }
+    it { is_expected.to contain(/require 'spec_helper'/) }
+    it { is_expected.to contain(/describe PostsObserver/) }
   end
 end

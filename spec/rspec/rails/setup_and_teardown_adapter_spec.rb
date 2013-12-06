@@ -8,8 +8,8 @@ describe RSpec::Rails::SetupAndTeardownAdapter do
         def self.foo; "foo"; end
         def self.bar; "bar"; end
       end
-      klass.should_receive(:before).ordered { |&block| block.call.should eq "foo" }
-      klass.should_receive(:before).ordered { |&block| block.call.should eq "bar" }
+      expect(klass).to receive(:before).ordered { |&block| expect(block.call).to eq "foo" }
+      expect(klass).to receive(:before).ordered { |&block| expect(block.call).to eq "bar" }
 
       klass.setup :foo
       klass.setup :bar
@@ -22,8 +22,8 @@ describe RSpec::Rails::SetupAndTeardownAdapter do
         def self.setup_controller_request_and_response; "setup controller"  end
       end
 
-      klass.should_receive(:prepend_before) { |&block| block.call.should eq "setup fixtures" }
-      klass.should_receive(:prepend_before) { |&block| block.call.should eq "setup controller" }
+      expect(klass).to receive(:prepend_before) { |&block| expect(block.call).to eq "setup fixtures" }
+      expect(klass).to receive(:prepend_before) { |&block| expect(block.call).to eq "setup controller" }
 
       klass.setup :setup_fixtures
       klass.setup :setup_controller_request_and_response
