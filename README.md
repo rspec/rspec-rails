@@ -250,9 +250,7 @@ and the layout explicitly.  For example:
 render :template => "events/show", :layout => "layouts/application"
 ```
 
-## `assign(key, val)`
-
-Use this to assign values to instance variables in the view:
+To assign a value to an instance variable in the view do the following:
 
 ```ruby
 assign(:widget, stub_model(Widget))
