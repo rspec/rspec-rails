@@ -5,32 +5,32 @@ module RSpec::Rails
     module ::FoosHelper; end
     subject { HelperExampleGroup }
 
-    it { should be_included_in_files_in('./spec/helpers/') }
-    it { should be_included_in_files_in('.\\spec\\helpers\\') }
+    it { is_expected.to be_included_in_files_in('./spec/helpers/') }
+    it { is_expected.to be_included_in_files_in('.\\spec\\helpers\\') }
 
     it "provides a controller_path based on the helper module's name" do
       example = double
       example.stub_chain(:example_group, :described_class) { FoosHelper }
 
       helper_spec = Object.new.extend HelperExampleGroup
-      helper_spec.__send__(:_controller_path, example).should == "foos"
+      expect(helper_spec.__send__(:_controller_path, example)).to eq("foos")
     end
 
     it "adds :type => :helper to the metadata" do
       group = RSpec::Core::ExampleGroup.describe do
         include HelperExampleGroup
       end
-      group.metadata[:type].should eq(:helper)
+      expect(group.metadata[:type]).to eq(:helper)
     end
 
     describe "#helper" do
       it "returns the instance of AV::Base provided by AV::TC::Behavior" do
         helper_spec = Object.new.extend HelperExampleGroup
-        helper_spec.should_receive(:view_assigns)
+        expect(helper_spec).to receive(:view_assigns)
         av_tc_b_view = double('_view')
-        av_tc_b_view.should_receive(:assign)
-        helper_spec.stub(:_view) { av_tc_b_view }
-        helper_spec.helper.should eq(av_tc_b_view)
+        expect(av_tc_b_view).to receive(:assign)
+        allow(helper_spec).to receive(:_view) { av_tc_b_view }
+        expect(helper_spec.helper).to eq(av_tc_b_view)
       end
 
       before do
@@ -48,7 +48,7 @@ module RSpec::Rails
             ActionView::Base.new
           end
         end
-        group.new.helper.should be_kind_of(ApplicationHelper)
+        expect(group.new.helper).to be_kind_of(ApplicationHelper)
       end
     end
   end
@@ -57,9 +57,9 @@ module RSpec::Rails
     describe "determine_default_helper_class" do
       it "returns the helper module passed to describe" do
         helper_spec = Object.new.extend HelperExampleGroup::ClassMethods
-        helper_spec.stub(:described_class) { FoosHelper }
-        helper_spec.determine_default_helper_class("ignore this").
-          should eq(FoosHelper)
+        allow(helper_spec).to receive(:described_class) { FoosHelper }
+        expect(helper_spec.determine_default_helper_class("ignore this")).
+          to eq(FoosHelper)
       end
     end
   end

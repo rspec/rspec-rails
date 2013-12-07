@@ -8,23 +8,23 @@ describe Rspec::Generators::InstallGenerator do
 
   it "generates .rspec" do
     run_generator
-    file('.rspec').should exist
+    expect(file('.rspec')).to exist
   end
 
   it "generates spec/spec_helper.rb" do
     run_generator
-    File.read( file('spec/spec_helper.rb') ).should =~ /^require 'rspec\/rails'$/m
+    expect(File.read( file('spec/spec_helper.rb') )).to match(/^require 'rspec\/rails'$/m)
   end
 
   if ::Rails::VERSION::STRING >= '4'
     it "generates spec/spec_helper.rb with a check for pending migrations" do
       run_generator
-      File.read( file('spec/spec_helper.rb') ).should =~ /ActiveRecord::Migration\.check_pending!/m
+      expect(File.read( file('spec/spec_helper.rb') )).to match(/ActiveRecord::Migration\.check_pending!/m)
     end
   else
     it "generates spec/spec_helper.rb without a check for pending migrations" do
       run_generator
-      File.read( file('spec/spec_helper.rb') ).should_not =~ /ActiveRecord::Migration\.check_pending!/m
+      expect(File.read( file('spec/spec_helper.rb') )).not_to match(/ActiveRecord::Migration\.check_pending!/m)
     end
   end
 end

@@ -24,6 +24,6 @@ end
 describe "should have_xxx" do
   it "works with ActiveRecord::Associations::CollectionProxy" do
     owner = CollectionOwner.new
-    owner.associated_items.should have_some_quality
+    expect(owner.associated_items).to have_some_quality
   end
 end

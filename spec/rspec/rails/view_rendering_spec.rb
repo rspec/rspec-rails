@@ -14,11 +14,11 @@ module RSpec::Rails
     context "default" do
       context "ActionController::Base" do
         it "does not render views" do
-          group.new.render_views?.should be_falsey
+          expect(group.new.render_views?).to be_falsey
         end
 
         it "does not render views in a nested group" do
-          group.describe{}.new.render_views?.should be_falsey
+          expect(group.describe{}.new.render_views?).to be_falsey
         end
       end
 
@@ -28,7 +28,7 @@ module RSpec::Rails
             def example.controller
               ActionController::Metal.new
             end
-            example.render_views?.should be_truthy
+            expect(example.render_views?).to be_truthy
           end
         end
       end
@@ -38,27 +38,27 @@ module RSpec::Rails
       context "with no args" do
         it "tells examples to render views" do
           group.render_views
-          group.new.render_views?.should be_truthy
+          expect(group.new.render_views?).to be_truthy
         end
       end
 
       context "with true" do
         it "tells examples to render views" do
           group.render_views true
-          group.new.render_views?.should be_truthy
+          expect(group.new.render_views?).to be_truthy
         end
       end
 
       context "with false" do
         it "tells examples not to render views" do
           group.render_views false
-          group.new.render_views?.should be_falsey
+          expect(group.new.render_views?).to be_falsey
         end
 
         it "overrides the global config if render_views is enabled there" do
-          RSpec.configuration.stub(:render_views?).and_return true
+          allow(RSpec.configuration).to receive(:render_views?).and_return true
           group.render_views false
-          group.new.render_views?.should be_falsey
+          expect(group.new.render_views?).to be_falsey
         end
       end
 
@@ -70,40 +70,40 @@ module RSpec::Rails
         context "with no args" do
           it "tells examples to render views" do
             nested_group.render_views
-            nested_group.new.render_views?.should be_truthy
+            expect(nested_group.new.render_views?).to be_truthy
           end
         end
 
         context "with true" do
           it "tells examples to render views" do
             nested_group.render_views true
-            nested_group.new.render_views?.should be_truthy
+            expect(nested_group.new.render_views?).to be_truthy
           end
         end
 
         context "with false" do
           it "tells examples not to render views" do
             nested_group.render_views false
-            nested_group.new.render_views?.should be_falsey
+            expect(nested_group.new.render_views?).to be_falsey
           end
         end
 
         it "leaves the parent group as/is" do
           group.render_views
           nested_group.render_views false
-          group.new.render_views?.should be_truthy
+          expect(group.new.render_views?).to be_truthy
         end
 
         it "overrides the value inherited from the parent group" do
           group.render_views
           nested_group.render_views false
-          nested_group.new.render_views?.should be_falsey
+          expect(nested_group.new.render_views?).to be_falsey
         end
 
         it "passes override to children" do
           group.render_views
           nested_group.render_views false
-          nested_group.describe{}.new.render_views?.should be_falsey
+          expect(nested_group.describe{}.new.render_views?).to be_falsey
         end
       end
     end

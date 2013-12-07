@@ -7,21 +7,21 @@ require "spec_helper"
 
     context "given a hash" do
       it "delegates to assert_template" do
-        self.should_receive(:assert_template).with({:this => "hash"}, "this message")
+        expect(self).to receive(:assert_template).with({:this => "hash"}, "this message")
         expect("response").to send(template_expectation, {:this => "hash"}, "this message")
       end
     end
 
     context "given a string" do
       it "delegates to assert_template" do
-        self.should_receive(:assert_template).with("this string", "this message")
+        expect(self).to receive(:assert_template).with("this string", "this message")
         expect("response").to send(template_expectation, "this string", "this message")
       end
     end
 
     context "given a symbol" do
       it "converts to_s and delegates to assert_template" do
-        self.should_receive(:assert_template).with("template_name", "this message")
+        expect(self).to receive(:assert_template).with("template_name", "this message")
         expect("response").to send(template_expectation, :template_name, "this message")
       end
     end

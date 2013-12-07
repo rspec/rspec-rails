@@ -11,12 +11,12 @@ describe "be_a_new matcher" do
     end
     context "right class" do
       it "passes" do
-        record.should be_a_new(record.class)
+        expect(record).to be_a_new(record.class)
       end
     end
     context "wrong class" do
       it "fails" do
-        record.should_not be_a_new(String)
+        expect(record).not_to be_a_new(String)
       end
     end
   end
@@ -29,12 +29,12 @@ describe "be_a_new matcher" do
     end
     context "right class" do
       it "fails" do
-        record.should_not be_a_new(record.class)
+        expect(record).not_to be_a_new(record.class)
       end
     end
     context "wrong class" do
       it "fails" do
-        record.should_not be_a_new(String)
+        expect(record).not_to be_a_new(String)
       end
     end
   end
@@ -57,24 +57,24 @@ describe "be_a_new matcher" do
 
       context "all attributes same" do
         it "passes" do
-          record.should be_a_new(record.class).with(:foo => 'foo', :bar => 'bar')
+          expect(record).to be_a_new(record.class).with(:foo => 'foo', :bar => 'bar')
         end
       end
 
       context "one attribute same" do
         it "passes" do
-          record.should be_a_new(record.class).with(:foo => 'foo')
+          expect(record).to be_a_new(record.class).with(:foo => 'foo')
         end
       end
 
       context "no attributes same" do
         it "fails" do
           expect {
-            record.should be_a_new(record.class).with(:zoo => 'zoo', :car => 'car')
+            expect(record).to be_a_new(record.class).with(:zoo => 'zoo', :car => 'car')
           }.to raise_error {|e|
-            e.message.should match(/attributes {.*} were not set on #{record.inspect}/)
-            e.message.should match(/"zoo"=>"zoo"/)
-            e.message.should match(/"car"=>"car"/)
+            expect(e.message).to match(/attributes {.*} were not set on #{record.inspect}/)
+            expect(e.message).to match(/"zoo"=>"zoo"/)
+            expect(e.message).to match(/"car"=>"car"/)
           }
         end
       end
@@ -82,7 +82,7 @@ describe "be_a_new matcher" do
       context "one attribute value not the same" do
         it "fails" do
           expect {
-            record.should be_a_new(record.class).with(:foo => 'bar')
+            expect(record).to be_a_new(record.class).with(:foo => 'bar')
           }.to raise_error(
             %Q(attribute {"foo"=>"bar"} was not set on #{record.inspect})
           )
@@ -108,7 +108,7 @@ describe "be_a_new matcher" do
       context "all attributes same" do
         it "fails" do
           expect {
-            record.should be_a_new(String).with(:foo => 'foo', :bar => 'bar')
+            expect(record).to be_a_new(String).with(:foo => 'foo', :bar => 'bar')
           }.to raise_error(
             "expected #{record.inspect} to be a new String"
           )
@@ -118,11 +118,11 @@ describe "be_a_new matcher" do
       context "no attributes same" do
         it "fails" do
           expect {
-            record.should be_a_new(String).with(:zoo => 'zoo', :car => 'car')
+            expect(record).to be_a_new(String).with(:zoo => 'zoo', :car => 'car')
           }.to raise_error {|e|
-            e.message.should match(/expected #{record.inspect} to be a new String and attributes {.*} were not set on #{record.inspect}/)
-            e.message.should match(/"zoo"=>"zoo"/)
-            e.message.should match(/"car"=>"car"/)
+            expect(e.message).to match(/expected #{record.inspect} to be a new String and attributes {.*} were not set on #{record.inspect}/)
+            expect(e.message).to match(/"zoo"=>"zoo"/)
+            expect(e.message).to match(/"car"=>"car"/)
           }
         end
       end
@@ -130,7 +130,7 @@ describe "be_a_new matcher" do
       context "one attribute value not the same" do
         it "fails" do
           expect {
-            record.should be_a_new(String).with(:foo => 'bar')
+            expect(record).to be_a_new(String).with(:foo => 'bar')
           }.to raise_error(
             "expected #{record.inspect} to be a new String and " +
             %Q(attribute {"foo"=>"bar"} was not set on #{record.inspect})

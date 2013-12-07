@@ -7,7 +7,7 @@ describe "be_new_record" do
     let(:record) { double('record', :persisted? => false) }
 
     it "passes" do
-      record.should be_new_record
+      expect(record).to be_new_record
     end
 
     it "fails with custom failure message" do
@@ -21,7 +21,7 @@ describe "be_new_record" do
     let(:record) { double('record', :persisted? => true) }
 
     it "fails" do
-      record.should_not be_new_record
+      expect(record).not_to be_new_record
     end
 
     it "fails with custom failure message" do

@@ -5,8 +5,8 @@ end
 
 module RSpec::Rails
   describe ControllerExampleGroup do
-    it { should be_included_in_files_in('./spec/controllers/') }
-    it { should be_included_in_files_in('.\\spec\\controllers\\') }
+    it { is_expected.to be_included_in_files_in('./spec/controllers/') }
+    it { is_expected.to be_included_in_files_in('.\\spec\\controllers\\') }
 
     let(:group) do
       RSpec::Core::ExampleGroup.describe do
@@ -15,19 +15,19 @@ module RSpec::Rails
     end
 
     it "includes routing matchers" do
-      group.included_modules.should include(RSpec::Rails::Matchers::RoutingMatchers)
+      expect(group.included_modules).to include(RSpec::Rails::Matchers::RoutingMatchers)
     end
 
     it "adds :type => :controller to the metadata" do
-      group.metadata[:type].should eq(:controller)
+      expect(group.metadata[:type]).to eq(:controller)
     end
 
     context "with implicit subject" do
       it "uses the controller as the subject" do
         controller = double('controller')
         example = group.new
-        example.stub(:controller => controller)
-        example.subject.should == controller
+        allow(example).to receive_messages(:controller => controller)
+        expect(example.subject).to eq(controller)
       end
     end
 
@@ -35,7 +35,7 @@ module RSpec::Rails
       it "uses the specified subject instead of the controller" do
         group.subject { 'explicit' }
         example = group.new
-        example.subject.should == 'explicit'
+        expect(example.subject).to eq('explicit')
       end
     end
 
@@ -48,10 +48,10 @@ module RSpec::Rails
 
       it "delegates named route helpers to the underlying controller" do
         controller = double('controller')
-        controller.stub(:foos_url).and_return('http://test.host/foos')
+        allow(controller).to receive(:foos_url).and_return('http://test.host/foos')
 
         example = group.new
-        example.stub(:controller => controller)
+        allow(example).to receive_messages(:controller => controller)
 
         # As in the routing example spec, this is pretty invasive, but not sure
         # how to do it any other way as the correct operation relies on before
@@ -60,7 +60,7 @@ module RSpec::Rails
         routes.draw { resources :foos }
         example.instance_variable_set(:@orig_routes, routes)
 
-        example.foos_url.should eq('http://test.host/foos')
+        expect(example.foos_url).to eq('http://test.host/foos')
       end
     end
 
@@ -77,23 +77,23 @@ module RSpec::Rails
 
     describe "with inferred anonymous controller" do
       before do
-        group.stub(:controller_class).and_return(Class.new)
+        allow(group).to receive(:controller_class).and_return(Class.new)
       end
 
       it "infers the anonymous controller class when infer_base_class_for_anonymous_controllers is true" do
-        RSpec.configuration.stub(:infer_base_class_for_anonymous_controllers?).and_return(true)
+        allow(RSpec.configuration).to receive(:infer_base_class_for_anonymous_controllers?).and_return(true)
         group.controller { }
 
         controller_class = group.metadata[:example_group][:described_class]
-        controller_class.superclass.should eq(group.controller_class)
+        expect(controller_class.superclass).to eq(group.controller_class)
       end
 
       it "sets the anonymous controller class to ApplicationController when infer_base_class_for_anonymous_controllers is false" do
-        RSpec.configuration.stub(:infer_base_class_for_anonymous_controllers?).and_return(false)
+        allow(RSpec.configuration).to receive(:infer_base_class_for_anonymous_controllers?).and_return(false)
         group.controller { }
 
         controller_class = group.metadata[:example_group][:described_class]
-        controller_class.superclass.should eq(ApplicationController)
+        expect(controller_class.superclass).to eq(ApplicationController)
       end
     end
   end

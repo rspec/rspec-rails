@@ -2,14 +2,14 @@ require "spec_helper"
 
 module RSpec::Rails
   describe ViewExampleGroup do
-    it { should be_included_in_files_in('./spec/views/') }
-    it { should be_included_in_files_in('.\\spec\\views\\') }
+    it { is_expected.to be_included_in_files_in('./spec/views/') }
+    it { is_expected.to be_included_in_files_in('.\\spec\\views\\') }
 
     it "adds :type => :view to the metadata" do
       group = RSpec::Core::ExampleGroup.describe do
         include ViewExampleGroup
       end
-      group.metadata[:type].should eq(:view)
+      expect(group.metadata[:type]).to eq(:view)
     end
 
     describe 'automatic inclusion of helpers' do
@@ -18,7 +18,7 @@ module RSpec::Rails
 
       it 'includes the helper with the same name' do
         group = RSpec::Core::ExampleGroup.describe 'things/show.html.erb'
-        group.should_receive(:helper).with(ThingsHelper)
+        expect(group).to receive(:helper).with(ThingsHelper)
         group.class_eval do
           include ViewExampleGroup
         end
@@ -26,7 +26,7 @@ module RSpec::Rails
 
       it 'includes the namespaced helper with the same name' do
         group = RSpec::Core::ExampleGroup.describe 'namespaced/things/show.html.erb'
-        group.should_receive(:helper).with(Namespaced::ThingsHelper)
+        expect(group).to receive(:helper).with(Namespaced::ThingsHelper)
         group.class_eval do
           include ViewExampleGroup
         end
@@ -34,11 +34,11 @@ module RSpec::Rails
 
       it 'operates normally when no helper with the same name exists' do
         raise 'unexpected constant found' if Object.const_defined?('ClocksHelper')
-        lambda {
+        expect {
           RSpec::Core::ExampleGroup.describe 'clocks/show.html.erb' do
             include ViewExampleGroup
           end
-        }.should_not raise_error
+        }.not_to raise_error
       end
 
       context 'application helper exists' do
@@ -57,7 +57,7 @@ module RSpec::Rails
 
         it 'includes the application helper' do
           group = RSpec::Core::Example.describe 'bars/new.html.erb'
-          group.should_receive(:helper).with(ApplicationHelper)
+          expect(group).to receive(:helper).with(ApplicationHelper)
           group.class_eval do
             include ViewExampleGroup
           end
@@ -79,11 +79,11 @@ module RSpec::Rails
         end
 
         it 'operates normally' do
-          lambda {
+          expect {
             RSpec::Core::ExampleGroup.describe 'foos/edit.html.erb' do
               include ViewExampleGroup
             end
-          }.should_not raise_error
+          }.not_to raise_error
         end
       end
     end
@@ -109,19 +109,19 @@ module RSpec::Rails
 
       context "given no input" do
         it "sends render(:template => (described file)) to the view" do
-          view_spec.stub(:_default_file_to_render) { "widgets/new" }
+          allow(view_spec).to receive(:_default_file_to_render) { "widgets/new" }
           view_spec.render
-          view_spec.received.first.should == [{:template => "widgets/new"},{}, nil]
+          expect(view_spec.received.first).to eq([{:template => "widgets/new"},{}, nil])
         end
 
         it "converts the filename components into render options" do
-          view_spec.stub(:_default_file_to_render) { "widgets/new.en.html.erb" }
+          allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.html.erb" }
           view_spec.render
 
           if ::Rails::VERSION::STRING >= '3.2'
-            view_spec.received.first.should == [{:template => "widgets/new", :locales=>['en'], :formats=>['html'], :handlers=>['erb']}, {}, nil]
+            expect(view_spec.received.first).to eq([{:template => "widgets/new", :locales=>['en'], :formats=>['html'], :handlers=>['erb']}, {}, nil])
           else
-            view_spec.received.first.should == [{:template => "widgets/new.en.html.erb"}, {}, nil]
+            expect(view_spec.received.first).to eq([{:template => "widgets/new.en.html.erb"}, {}, nil])
           end
         end
       end
@@ -129,14 +129,14 @@ module RSpec::Rails
       context "given a string" do
         it "sends string as the first arg to render" do
           view_spec.render('arbitrary/path')
-          view_spec.received.first.should == ["arbitrary/path", {}, nil]
+          expect(view_spec.received.first).to eq(["arbitrary/path", {}, nil])
         end
       end
 
       context "given a hash" do
         it "sends the hash as the first arg to render" do
           view_spec.render(:foo => 'bar')
-          view_spec.received.first.should == [{:foo => "bar"}, {}, nil]
+          expect(view_spec.received.first).to eq([{:foo => "bar"}, {}, nil])
         end
       end
     end
@@ -152,7 +152,7 @@ module RSpec::Rails
       end
 
       it 'delegates to the controller' do
-        view_spec.controller.should_receive(:params).and_return({})
+        expect(view_spec.controller).to receive(:params).and_return({})
         view_spec.params[:foo] = 1
       end
     end
@@ -165,19 +165,19 @@ module RSpec::Rails
       end
       context "with a common _default_file_to_render" do
         it "it returns the directory" do
-          view_spec.stub(:_default_file_to_render).
+          allow(view_spec).to receive(:_default_file_to_render).
             and_return("things/new.html.erb")
-          view_spec.__send__(:_controller_path).
-            should == "things"
+          expect(view_spec.__send__(:_controller_path)).
+            to eq("things")
         end
       end
 
       context "with a nested _default_file_to_render" do
         it "it returns the directory path" do
-          view_spec.stub(:_default_file_to_render).
+          allow(view_spec).to receive(:_default_file_to_render).
             and_return("admin/things/new.html.erb")
-          view_spec.__send__(:_controller_path).
-            should == "admin/things"
+          expect(view_spec.__send__(:_controller_path)).
+            to eq("admin/things")
         end
       end
     end
@@ -191,8 +191,8 @@ module RSpec::Rails
 
       it "delegates to _view" do
         view = double("view")
-        view_spec.stub(:_view) { view }
-        view_spec.view.should == view
+        allow(view_spec).to receive(:_view) { view }
+        expect(view_spec.view).to eq(view)
       end
     end
 
@@ -204,15 +204,15 @@ module RSpec::Rails
         end.new
       end
 
-      before { RSpec.stub(:deprecate) }
+      before { allow(RSpec).to receive(:deprecate) }
 
       it "is deprecated" do
-        RSpec.should_receive(:deprecate)
+        expect(RSpec).to receive(:deprecate)
         view_spec.template
       end
 
       it "delegates to #view" do
-        view_spec.should_receive(:view)
+        expect(view_spec).to receive(:view)
         view_spec.template
       end
     end
