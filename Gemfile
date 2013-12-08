@@ -33,6 +33,12 @@ if RUBY_VERSION < '1.9.2'
   gem 'nokogiri', '~> 1.5.0'
 end
 
+if RUBY_VERSION <= '1.8.7'
+  # cucumber and gherkin require rubyzip as a runtime dependency on 1.8.7
+  # Only < 1.0 supports 1.8.7
+  gem 'rubyzip', '< 1.0'
+end
+
 custom_gemfile = File.expand_path("../Gemfile-custom", __FILE__)
 eval File.read(custom_gemfile) if File.exist?(custom_gemfile)
 
