@@ -36,7 +36,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake',     '~> 10.0.0'
   s.add_development_dependency 'cucumber', '~> 1.3.5'
   s.add_development_dependency 'aruba',    '~> 0.4.11'
-  s.add_development_dependency 'ZenTest',  '4.9.0'
+  s.add_development_dependency 'ZenTest',  '~> 4.9.5'
   s.add_development_dependency 'ammeter',  '0.2.5'
   s.add_development_dependency 'capybara', '>= 2.0.0'
 end
