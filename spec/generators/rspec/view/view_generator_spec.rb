@@ -13,8 +13,8 @@ describe Rspec::Generators::ViewGenerator do
     it 'generates a spec for the supplied action' do
       run_generator %w(posts index)
       file('spec/views/posts/index.html.erb_spec.rb').tap do |f|
-        f.should contain(/require 'spec_helper'/)
-        f.should contain(/describe "posts\/index"/)
+        expect(f).to contain(/require 'spec_helper'/)
+        expect(f).to contain(/describe "posts\/index"/)
       end
     end
 
@@ -22,8 +22,8 @@ describe Rspec::Generators::ViewGenerator do
       it 'generates a spec for the supplied action' do
         run_generator %w(admin/posts index)
         file('spec/views/admin/posts/index.html.erb_spec.rb').tap do |f|
-          f.should contain(/require 'spec_helper'/)
-          f.should contain(/describe "admin\/posts\/index"/)
+          expect(f).to contain(/require 'spec_helper'/)
+          expect(f).to contain(/describe "admin\/posts\/index"/)
         end
       end
     end
@@ -33,8 +33,8 @@ describe Rspec::Generators::ViewGenerator do
     it 'generates a spec for the supplied action' do
       run_generator %w(posts index --template_engine haml)
       file('spec/views/posts/index.html.haml_spec.rb').tap do |f|
-        f.should contain(/require 'spec_helper'/)
-        f.should contain(/describe "posts\/index"/)
+        expect(f).to contain(/require 'spec_helper'/)
+        expect(f).to contain(/describe "posts\/index"/)
       end
     end
   end

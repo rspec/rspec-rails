@@ -5,7 +5,7 @@ describe "mock_model(RealModel)" do
     context "that does not represent an existing constant" do
       it "class says it's name" do
         model = mock_model("Foo")
-        model.class.name.should eq("Foo")
+        expect(model.class.name).to eq("Foo")
       end
     end
 
@@ -13,7 +13,7 @@ describe "mock_model(RealModel)" do
       context "that extends ActiveModel::Naming" do
         it "treats the constant as the class" do
           model = mock_model("MockableModel")
-          model.class.name.should eq("MockableModel")
+          expect(model.class.name).to eq("MockableModel")
         end
       end
 
@@ -41,7 +41,7 @@ describe "mock_model(RealModel)" do
     end
 
     it "is named using the stubbed id value" do
-      @model.instance_variable_get(:@name).should == "MockableModel_1"
+      expect(@model.instance_variable_get(:@name)).to eq("MockableModel_1")
     end
   end
 
@@ -49,7 +49,7 @@ describe "mock_model(RealModel)" do
     it "sets persisted to false" do
       model = mock_model(MockableModel)
       model.destroy
-      model.should_not be_persisted
+      expect(model).not_to be_persisted
     end
   end
 
@@ -57,21 +57,21 @@ describe "mock_model(RealModel)" do
     context "default" do
       it "is empty" do
         model = mock_model(MockableModel)
-        model.errors.should be_empty
+        expect(model.errors).to be_empty
       end
     end
 
     context "with :save => false" do
       it "is not empty" do
         model = mock_model(MockableModel, :save => false)
-        model.errors.should_not be_empty
+        expect(model.errors).not_to be_empty
       end
     end
 
     context "with :update_attributes => false" do
       it "is not empty" do
         model = mock_model(MockableModel, :save => false)
-        model.errors.should_not be_empty
+        expect(model.errors).not_to be_empty
       end
     end
   end
@@ -80,7 +80,7 @@ describe "mock_model(RealModel)" do
     it "does not mutate its parameters" do
       params = {:a => 'b'}
       mock_model(MockableModel, params)
-      params.should == {:a => 'b'}
+      expect(params).to eq({:a => 'b'})
     end
   end
 
@@ -92,11 +92,11 @@ describe "mock_model(RealModel)" do
     end
 
     it "passes: associated_model == mock" do
-      @mock_model.should == @real.mockable_model
+      expect(@mock_model).to eq(@real.mockable_model)
     end
 
     it "passes: mock == associated_model" do
-      @real.mockable_model.should == @mock_model
+      expect(@real.mockable_model).to eq(@mock_model)
     end
   end
 
@@ -108,11 +108,11 @@ describe "mock_model(RealModel)" do
     end
 
     it "passes: associated_model == mock" do
-      @mock_model.should == @real.nonexistent_model
+      expect(@mock_model).to eq(@real.nonexistent_model)
     end
 
     it "passes: mock == associated_model" do
-      @real.nonexistent_model.should == @mock_model
+      expect(@real.nonexistent_model).to eq(@mock_model)
     end
   end
 
@@ -122,15 +122,15 @@ describe "mock_model(RealModel)" do
     end
 
     it "says it is_a?(RealModel)" do
-      @model.is_a?(SubMockableModel).should be(true)
+      expect(@model.is_a?(SubMockableModel)).to be(true)
     end
 
     it "says it is_a?(OtherModel) if RealModel is an ancestors" do
-      @model.is_a?(MockableModel).should be(true)
+      expect(@model.is_a?(MockableModel)).to be(true)
     end
 
     it "can be stubbed" do
-      mock_model(MockableModel, :is_a? => true).is_a?(:Foo).should be_truthy
+      expect(mock_model(MockableModel, :is_a? => true).is_a?(:Foo)).to be_truthy
     end
   end
 
@@ -140,15 +140,15 @@ describe "mock_model(RealModel)" do
     end
 
     it "says it is kind_of? if RealModel is" do
-      @model.kind_of?(SubMockableModel).should be(true)
+      expect(@model.kind_of?(SubMockableModel)).to be(true)
     end
 
     it "says it is kind_of? if RealModel's ancestor is" do
-      @model.kind_of?(MockableModel).should be(true)
+      expect(@model.kind_of?(MockableModel)).to be(true)
     end
 
     it "can be stubbed" do
-      mock_model(MockableModel, :kind_of? => true).kind_of?(:Foo).should be_truthy
+      expect(mock_model(MockableModel, :kind_of? => true).kind_of?(:Foo)).to be_truthy
     end
   end
 
@@ -158,22 +158,22 @@ describe "mock_model(RealModel)" do
     end
 
     it "says it is instance_of? if RealModel is" do
-      @model.instance_of?(SubMockableModel).should be(true)
+      expect(@model.instance_of?(SubMockableModel)).to be(true)
     end
 
     it "does not say it instance_of? if RealModel isn't, even if it's ancestor is" do
-      @model.instance_of?(MockableModel).should be(false)
+      expect(@model.instance_of?(MockableModel)).to be(false)
     end
 
     it "can be stubbed" do
-      mock_model(MockableModel, :instance_of? => true).instance_of?(:Foo).should be_truthy
+      expect(mock_model(MockableModel, :instance_of? => true).instance_of?(:Foo)).to be_truthy
     end
   end
 
   describe "#respond_to?" do
     context "with an ActiveRecord model" do
       before(:each) do
-        MockableModel.stub(:column_names).and_return(["column_a", "column_b"])
+        allow(MockableModel).to receive(:column_names).and_return(["column_a", "column_b"])
         @model = mock_model(MockableModel)
       end
 
@@ -185,57 +185,57 @@ describe "mock_model(RealModel)" do
 
       context "without as_null_object" do
         it "says it will respond_to?(key) if RealModel has the attribute 'key'" do
-          @model.respond_to?("column_a").should be(true)
+          expect(@model.respond_to?("column_a")).to be(true)
         end
         it "stubs column accessor (with string)" do
           @model.respond_to?("column_a")
-          @model.column_a.should be_nil
+          expect(@model.column_a).to be_nil
         end
         it "stubs column accessor (with symbol)" do
           @model.respond_to?(:column_a)
-          @model.column_a.should be_nil
+          expect(@model.column_a).to be_nil
         end
         it "does not stub column accessor if already stubbed in declaration (with string)" do
           model = mock_model(MockableModel, "column_a" => "a")
           model.respond_to?("column_a")
-          model.column_a.should eq("a")
+          expect(model.column_a).to eq("a")
         end
         it "does not stub column accessor if already stubbed in declaration (with symbol)" do
           model = mock_model(MockableModel, :column_a => "a")
           model.respond_to?("column_a")
-          model.column_a.should eq("a")
+          expect(model.column_a).to eq("a")
         end
         it "does not stub column accessor if already stubbed after declaration (with string)" do
-          @model.stub("column_a" => "a")
+          allow(@model).to receive_messages("column_a" => "a")
           @model.respond_to?("column_a")
-          @model.column_a.should eq("a")
+          expect(@model.column_a).to eq("a")
         end
         it "does not stub column accessor if already stubbed after declaration (with symbol)" do
-          @model.stub(:column_a => "a")
+          allow(@model).to receive_messages(:column_a => "a")
           @model.respond_to?("column_a")
-          @model.column_a.should eq("a")
+          expect(@model.column_a).to eq("a")
         end
         it "says it will not respond_to?(key) if RealModel does not have the attribute 'key'" do
-          @model.respond_to?("column_c").should be(false)
+          expect(@model.respond_to?("column_c")).to be(false)
         end
         it "says it will not respond_to?(xxx_before_type_cast)" do
-          @model.respond_to?("title_before_type_cast").should be(false)
+          expect(@model.respond_to?("title_before_type_cast")).to be(false)
         end
       end
 
       context "with as_null_object" do
         it "says it will respond_to?(key) if RealModel has the attribute 'key'" do
-          @model.as_null_object.respond_to?("column_a").should be(true)
+          expect(@model.as_null_object.respond_to?("column_a")).to be(true)
         end
         it "says it will respond_to?(key) even if RealModel does not have the attribute 'key'" do
-          @model.as_null_object.respond_to?("column_c").should be(true)
+          expect(@model.as_null_object.respond_to?("column_c")).to be(true)
         end
         it "says it will not respond_to?(xxx_before_type_cast)" do
-          @model.as_null_object.respond_to?("title_before_type_cast").should be(false)
+          expect(@model.as_null_object.respond_to?("title_before_type_cast")).to be(false)
         end
         it "returns self for any unprepared message" do
           @model.as_null_object.tap do |x|
-            x.non_existant_message.should be(@model)
+            expect(x.non_existant_message).to be(@model)
           end
         end
       end
@@ -244,39 +244,39 @@ describe "mock_model(RealModel)" do
     context "with a non-ActiveRecord model" do
       it "responds as normal" do
         model = NonActiveRecordModel.new
-        model.should respond_to(:to_param)
+        expect(model).to respond_to(:to_param)
       end
 
       context "with as_null_object" do
         it "says it will not respond_to?(xxx_before_type_cast)" do
           model = NonActiveRecordModel.new.as_null_object
-          model.respond_to?("title_before_type_cast").should be(false)
+          expect(model.respond_to?("title_before_type_cast")).to be(false)
         end
       end
     end
 
     it "can be stubbed" do
-      mock_model(MockableModel, :respond_to? => true).respond_to?(:foo).should be_truthy
+      expect(mock_model(MockableModel, :respond_to? => true).respond_to?(:foo)).to be_truthy
     end
   end
 
   describe "#class" do
     it "returns the mocked model" do
-      mock_model(MockableModel).class.should eq(MockableModel)
+      expect(mock_model(MockableModel).class).to eq(MockableModel)
     end
 
     it "can be stubbed" do
-      mock_model(MockableModel, :class => String).class.should be(String)
+      expect(mock_model(MockableModel, :class => String).class).to be(String)
     end
   end
 
   describe "#to_s" do
     it "returns (model.name)_(model#to_param)" do
-      mock_model(MockableModel).to_s.should == "MockableModel_#{to_param}"
+      expect(mock_model(MockableModel).to_s).to eq("MockableModel_#{to_param}")
     end
 
     it "can be stubbed" do
-      mock_model(MockableModel, :to_s => "this string").to_s.should == "this string"
+      expect(mock_model(MockableModel, :to_s => "this string").to_s).to eq("this string")
     end
   end
 
@@ -284,7 +284,7 @@ describe "mock_model(RealModel)" do
     context "default" do
       it "returns false" do
         @model = mock_model(SubMockableModel)
-        @model.destroyed?.should be(false)
+        expect(@model.destroyed?).to be(false)
       end
     end
   end
@@ -293,7 +293,7 @@ describe "mock_model(RealModel)" do
     context "default" do
       it "returns false" do
         @model = mock_model(SubMockableModel)
-        @model.marked_for_destruction?.should be(false)
+        expect(@model.marked_for_destruction?).to be(false)
       end
     end
   end
@@ -301,19 +301,19 @@ describe "mock_model(RealModel)" do
   describe "#persisted?" do
     context "with default identifier" do
       it "returns true" do
-        mock_model(MockableModel).should be_persisted
+        expect(mock_model(MockableModel)).to be_persisted
       end
     end
 
     context "with explicit identifier via :id" do
       it "returns true" do
-        mock_model(MockableModel, :id => 37).should be_persisted
+        expect(mock_model(MockableModel, :id => 37)).to be_persisted
       end
     end
 
     context "with id => nil" do
       it "returns false" do
-        mock_model(MockableModel, :id => nil).should_not be_persisted
+        expect(mock_model(MockableModel, :id => nil)).not_to be_persisted
       end
     end
   end
@@ -321,13 +321,13 @@ describe "mock_model(RealModel)" do
   describe "#valid?" do
     context "default" do
       it "returns true" do
-        mock_model(MockableModel).should be_valid
+        expect(mock_model(MockableModel)).to be_valid
       end
     end
 
     context "stubbed with false" do
       it "returns false" do
-        mock_model(MockableModel, :valid? => false).should_not be_valid
+        expect(mock_model(MockableModel, :valid? => false)).not_to be_valid
       end
     end
   end
@@ -335,26 +335,26 @@ describe "mock_model(RealModel)" do
   describe "#as_new_record" do
     it "says it is a new record" do
       m = mock_model(MockableModel)
-      m.as_new_record.should be_new_record
+      expect(m.as_new_record).to be_new_record
     end
 
     it "says it is not persisted" do
       m = mock_model(MockableModel)
-      m.as_new_record.should_not be_persisted
+      expect(m.as_new_record).not_to be_persisted
     end
 
     it "has a nil id" do
-      mock_model(MockableModel).as_new_record.id.should be(nil)
+      expect(mock_model(MockableModel).as_new_record.id).to be(nil)
     end
 
     it "returns nil for #to_param" do
-      mock_model(MockableModel).as_new_record.to_param.should be(nil)
+      expect(mock_model(MockableModel).as_new_record.to_param).to be(nil)
     end
   end
 
   describe "#blank?" do
     it "is false" do
-      mock_model(MockableModel).should_not be_blank
+      expect(mock_model(MockableModel)).not_to be_blank
     end
   end
 

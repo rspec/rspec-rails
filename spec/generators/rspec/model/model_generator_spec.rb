@@ -11,8 +11,8 @@ describe Rspec::Generators::ModelGenerator do
 
   it 'runs both the model and fixture tasks' do
     gen = generator %w(posts)
-    gen.should_receive :create_model_spec
-    gen.should_receive :create_fixture_file
+    expect(gen).to receive :create_model_spec
+    expect(gen).to receive :create_fixture_file
     capture(:stdout) { gen.invoke_all }
   end
 
@@ -25,15 +25,15 @@ describe Rspec::Generators::ModelGenerator do
       describe 'the spec' do
         subject { file('spec/models/posts_spec.rb') }
 
-        it { should exist }
-        it { should contain(/require 'spec_helper'/) }
-        it { should contain(/describe Posts/) }
+        it { is_expected.to exist }
+        it { is_expected.to contain(/require 'spec_helper'/) }
+        it { is_expected.to contain(/describe Posts/) }
       end
 
       describe 'the fixtures' do
         subject { file('spec/fixtures/posts.yml') }
 
-        it { should contain(Regexp.new('# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html')) }
+        it { is_expected.to contain(Regexp.new('# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html')) }
       end
     end
 
@@ -45,7 +45,7 @@ describe Rspec::Generators::ModelGenerator do
       describe 'the fixtures' do
         subject { file('spec/fixtures/posts.yml') }
 
-        it { should_not exist }
+        it { is_expected.not_to exist }
       end
     end
   end

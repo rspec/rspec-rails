@@ -12,7 +12,7 @@ describe "redirect_to" do
 
       it "passes" do
         expect do
-          response.should redirect_to("destination")
+          expect(response).to redirect_to("destination")
         end.to_not raise_exception
       end
     end
@@ -24,7 +24,7 @@ describe "redirect_to" do
 
       it "uses failure message from assert_redirected_to" do
         expect do
-          response.should redirect_to("destination")
+          expect(response).to redirect_to("destination")
         end.to raise_exception("this message")
       end
     end
@@ -36,7 +36,7 @@ describe "redirect_to" do
 
       it "raises that exception" do
         expect do
-          response.should redirect_to("destination")
+          expect(response).to redirect_to("destination")
         end.to raise_exception("oops")
       end
     end
@@ -50,7 +50,7 @@ describe "redirect_to" do
 
       it "passes" do
         expect do
-          response.should_not redirect_to("destination")
+          expect(response).not_to redirect_to("destination")
         end.to_not raise_exception
       end
     end
@@ -60,7 +60,7 @@ describe "redirect_to" do
 
       it "fails with custom failure message" do
         expect do
-          response.should_not redirect_to("destination")
+          expect(response).not_to redirect_to("destination")
         end.to raise_exception(/expected not to redirect to \"destination\", but did/)
       end
     end
@@ -72,7 +72,7 @@ describe "redirect_to" do
 
       it "raises that exception" do
         expect do
-          response.should_not redirect_to("destination")
+          expect(response).not_to redirect_to("destination")
         end.to raise_exception("oops")
       end
     end
