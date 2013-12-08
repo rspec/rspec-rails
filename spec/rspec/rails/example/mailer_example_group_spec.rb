@@ -8,14 +8,14 @@ module RSpec::Rails
       Rails.stub_chain(:configuration, :action_mailer, :default_url_options).and_return({})
     end
 
-    it { should be_included_in_files_in('./spec/mailers/') }
-    it { should be_included_in_files_in('.\\spec\\mailers\\') }
+    it { is_expected.to be_included_in_files_in('./spec/mailers/') }
+    it { is_expected.to be_included_in_files_in('.\\spec\\mailers\\') }
 
     it "adds :type => :mailer to the metadata" do
       group = RSpec::Core::ExampleGroup.describe do
         include MailerExampleGroup
       end
-      group.metadata[:type].should eq(:mailer)
+      expect(group.metadata[:type]).to eq(:mailer)
     end
   end
 end

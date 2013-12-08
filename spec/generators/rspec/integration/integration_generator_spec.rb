@@ -15,7 +15,7 @@ describe Rspec::Generators::IntegrationGenerator do
     end
     describe 'index.html.erb' do
       subject { file('spec/requests/posts_spec.rb') }
-      it { should_not exist }
+      it { is_expected.not_to exist }
     end
   end
 
@@ -25,10 +25,10 @@ describe Rspec::Generators::IntegrationGenerator do
         run_generator %w(posts)
       end
       subject { file('spec/requests/posts_spec.rb') }
-      it { should exist }
-      it { should contain(/require 'spec_helper'/) }
-      it { should contain(/describe "GET \/posts"/) }
-      it { should contain(/get posts_index_path/) }
+      it { is_expected.to exist }
+      it { is_expected.to contain(/require 'spec_helper'/) }
+      it { is_expected.to contain(/describe "GET \/posts"/) }
+      it { is_expected.to contain(/get posts_index_path/) }
     end
 
     describe 'with webrat matchers' do
@@ -44,12 +44,12 @@ describe Rspec::Generators::IntegrationGenerator do
 
     describe 'the webrat option' do
       it 'is deprecated when invoked as --webrat' do
-        RSpec.should_receive(:deprecate, :with => "the --webrat option", :replacement => nil)
+        expect(RSpec).to receive(:deprecate).with("the --webrat option", :replacement => nil)
         run_generator %w(posts --webrat)
       end
 
       it 'is deprecated when invoked as --webrat-matchers' do
-        RSpec.should_receive(:deprecate, :with => "the --webrat-matchers option", :replacement => nil)
+        expect(RSpec).to receive(:deprecate).with("the --webrat-matchers option", :replacement => nil)
         run_generator %w(posts --webrat-matchers)
       end
     end

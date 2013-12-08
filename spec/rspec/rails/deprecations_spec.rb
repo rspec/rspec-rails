@@ -10,7 +10,7 @@ describe "rspec-rails-2 deprecations" do
       end
 
       it "is deprecated" do
-        RSpec.should_receive(:deprecate)
+        expect(RSpec).to receive(:deprecate)
         group.integrate_views
       end
     end
