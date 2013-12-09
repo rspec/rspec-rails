@@ -8,7 +8,13 @@ module RSpec
       require 'minitest/assertions'
       Assertions = Minitest::Assertions
     else
-      require 'test/unit/assertions'
+      begin
+        require 'test/unit/assertions'
+      rescue LoadError
+        # work around for Rubinius not having a std std-lib
+        require 'rubysl-test-unit' if defined?(RUBY_ENGINE) && RUBY_ENGINE == 'rbx'
+        require 'test/unit/assertions'
+      end
       Assertions = Test::Unit::Assertions
     end
 
