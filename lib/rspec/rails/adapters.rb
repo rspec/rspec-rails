@@ -99,7 +99,7 @@ module RSpec
         # hooks.
         def setup(*methods)
           methods.each do |method|
-            if method.to_s =~ /^setup_(fixtures|controller_request_and_response)$/
+            if method.to_s =~ /^setup_(with_controller|fixtures|controller_request_and_response)$/
               prepend_before { __send__ method }
             else
               before         { __send__ method }
