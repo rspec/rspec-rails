@@ -33,7 +33,7 @@ describe Rspec::Generators::ModelGenerator do
       describe 'the fixtures' do
         subject { file('spec/fixtures/posts.yml') }
 
-        it { is_expected.to contain(Regexp.new('# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html')) }
+        it { is_expected.to contain(Regexp.new('# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html')) }
       end
     end
 
