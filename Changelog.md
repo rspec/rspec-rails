@@ -9,6 +9,9 @@ Bug fixes
 Deprecations
 
 * Deprecates the `--webrat` option to the scaffold and request spec generator (Andy Lindeman)
+* Deprecates the use of `Capybara::DSL` (e.g., `visit`) in controller specs.
+  It is more appropriate to use capybara in feature specs (`spec/features`)
+  instead. (Andy Lindeman)
 
 ### 2.99.0.beta1 / 2013-11-07
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.14.0...v2.99.0.beta1)
