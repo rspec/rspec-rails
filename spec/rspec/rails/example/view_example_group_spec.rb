@@ -91,7 +91,7 @@ module RSpec::Rails
     describe "#render" do
       let(:view_spec) do
         Class.new do
-          module Local
+          local = Module.new do
             def received
               @received ||= []
             end
@@ -102,7 +102,7 @@ module RSpec::Rails
               {}
             end
           end
-          include Local
+          include local
           include ViewExampleGroup::ExampleMethods
         end.new
       end
