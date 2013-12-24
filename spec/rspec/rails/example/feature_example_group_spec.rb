@@ -14,8 +14,10 @@ module RSpec::Rails
     end
 
     it "includes Rails route helpers" do
-      Rails.application.routes.draw do
-        get "/foo", :as => :foo, :to => "foo#bar"
+      with_isolated_stderr do
+        Rails.application.routes.draw do
+          get "/foo", :as => :foo, :to => "foo#bar"
+        end
       end
 
       group = RSpec::Core::ExampleGroup.describe do
