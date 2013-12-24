@@ -4,8 +4,8 @@ module RSpec::Rails
   describe MailerExampleGroup do
     module ::Rails; end
     before do
-      Rails.stub_chain(:application, :routes, :url_helpers).and_return(Rails)
-      Rails.stub_chain(:configuration, :action_mailer, :default_url_options).and_return({})
+      expect(Rails).to receive_message_chain(:application, :routes, :url_helpers).and_return(Rails)
+      expect(Rails).to receive_message_chain(:configuration, :action_mailer, :default_url_options).and_return({})
     end
 
     it { is_expected.to be_included_in_files_in('./spec/mailers/') }
