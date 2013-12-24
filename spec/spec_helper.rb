@@ -6,6 +6,7 @@ module RSpecRails
   end
 end
 
+require 'rspec/support/spec'
 require 'rspec/rails'
 require 'ammeter/init'
 
