@@ -388,6 +388,31 @@ Feature: anonymous controller
     When I run `rspec spec`
     Then the examples should all pass
 
+  Scenario: draw custom routes for defined controllers
+    Given a file named "spec/controllers/application_controller_spec.rb" with:
+    """ruby
+    require "spec_helper"
+
+    class FoosController < ApplicationController; end
+
+    describe ApplicationController do
+      controller FoosController do
+        def custom
+          render :text => "custom called"
+        end
+      end
+
+      specify "a custom action can be requested if routes are drawn manually" do
+        routes.draw { get "custom" => "foos#custom" }
+
+        get :custom
+        expect(response.body).to eq "custom called"
+      end
+    end
+    """
+    When I run `rspec spec`
+    Then the examples should all pass
+
   Scenario: refer to application routes in the controller under test
     Given a file named "spec/controllers/application_controller_spec.rb" with:
     """ruby
