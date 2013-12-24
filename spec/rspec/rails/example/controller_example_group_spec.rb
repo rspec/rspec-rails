@@ -34,8 +34,10 @@ module RSpec::Rails
 
     context "with explicit subject" do
       it "uses the specified subject instead of the controller" do
-        group.subject { 'explicit' }
-        example = group.new
+        sub_group = group.describe do
+          subject { 'explicit' }
+        end
+        example = sub_group.new
         expect(example.subject).to eq('explicit')
       end
     end
