@@ -12,6 +12,9 @@ Enhancements
 Breaking Changes for 3.0.0:
 
 * Removes the `--webrat` option for the request spec generator (Andy Lindeman)
+* Methods from `Capybara::DSL` (e.g., `visit`) are no longer available in
+  controller specs. It is more appropriate to use capybara in feature specs
+  (`spec/features`) instead. (Andy Lindeman)
 
 ### 3.0.0.beta1 / 2013-11-07
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.beta1...v3.0.0.beta1)
