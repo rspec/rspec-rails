@@ -59,8 +59,11 @@ module RSpec::Rails
         # As in the routing example spec, this is pretty invasive, but not sure
         # how to do it any other way as the correct operation relies on before
         # hooks
-        routes = ActionDispatch::Routing::RouteSet.new
-        routes.draw { resources :foos }
+        routes = nil
+        with_isolated_stderr do
+          routes = ActionDispatch::Routing::RouteSet.new
+          routes.draw { resources :foos }
+        end
         example.instance_variable_set(:@orig_routes, routes)
 
         expect(example.foos_url).to eq('http://test.host/foos')
