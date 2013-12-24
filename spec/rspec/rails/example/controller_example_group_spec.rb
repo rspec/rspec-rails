@@ -96,51 +96,25 @@ module RSpec::Rails
         expect(controller_class.superclass).to eq(ApplicationController)
       end
 
-      it "sets the name as the name inferred class" do
-        allow(RSpec.configuration).to receive(:infer_base_class_for_anonymous_controllers?).and_return(true)
-        class ::FoosController < ::ApplicationController; end;
-        # allow(group).to receive(:controller_class).and_return(Class.new{ def name; "FoosController"; end })
-        allow(group).to receive(:controller_class).and_return(::FoosController)
-        group.controller { }
+    end
 
+    describe "controller name" do
+
+      it "sets the name as AnonymousController if it's anonymous" do
+        group.controller { }
+        controller_class = group.metadata[:example_group][:described_class]
+        expect(controller_class.name).to eq "AnonymousController"
+      end
+
+      it "sets the name according to defined controller if it is not anonymous" do
+        class ::FoosController < ::ApplicationController; end;
+        group.controller(::FoosController){ }
         controller_class = group.metadata[:example_group][:described_class]
         expect(controller_class.name).to eq "FoosController"
-        #TODO unndefine ::FoosController
+        Object.send(:remove_const, :FoosController)
       end
 
     end
-
-    # describe "basic methods of inferred controller" do
-
-    #   before do
-    #     # stub_const('FoosController', Class.new)
-    #     # class FoosController < ::ApplicationController
-    #     # end
-    #     group.class_eval do
-    #       controller(Class.new) { }
-    #     end
-    #   end
-
-    #   it "responds to inferred controller_name" do
-    #     # example = group.new
-    #     # controller = example.instance_variable_get('@controller')
-    #     # expect(controller.controller_name).to eq("foos")
-    #     controller_class = group.metadata[:example_group][:described_class]
-    #     expect(controller_class.controller_name).to eq("foos")
-
-    #     # controller = double('controller')
-    #     # allow(controller).to receive(:foos_url).and_return('http://test.host/foos')
-
-    #     # example = group.new
-    #     # allow(example).to receive_messages(:controller => controller)
-
-    #     # # As in the routing example spec, this is pretty invasive, but not sure
-    #     # # how to do it any other way as the correct operation relies on before
-    #     # # hooks
-
-    #     # expect(example.foos_url).to eq('http://test.host/foos')
-    #   end
-    # end
 
   end
 end

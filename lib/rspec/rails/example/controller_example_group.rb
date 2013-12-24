@@ -60,26 +60,18 @@ module RSpec::Rails
                          ApplicationController
 
         metadata[:example_group][:described_class] = Class.new(base_class) do
-          # def self.name; self.get_name(base_class);  end
           def self.name
-            superclass == ApplicationController ? "AnonymousController" : superclass.to_s
-          end
-
-          def controller_name
-            self.class.name.demodulize.sub(/Controller$/, '').underscore
+            superclass == ApplicationController ?
+              "AnonymousController" : superclass.to_s
           end
         end
         metadata[:example_group][:described_class].class_eval(&body)
 
         orig_routes = nil
-        # resource_name = metadata[:example_group][:described_class].superclass.controller_name
         before do
           orig_routes = self.routes
-          # resource_name = self.respond_to?(:controller_name) ? self.controller_name : "anonymous"
           resource_name = self.instance_variable_get("@controller").controller_name
-          # resource_name = base_class.kind_of?(ApplicationController) ? "anonymous" : self.name.demodulize.sub(/Controller$/, '').underscore
           self.routes  = ActionDispatch::Routing::RouteSet.new.tap { |r|
-            # r.draw { resources :"#{resource_name}" }
             r.draw { resources :"#{resource_name}" }
           }
         end
