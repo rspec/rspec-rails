@@ -70,9 +70,10 @@ module RSpec::Rails
         orig_routes = nil
         before do
           orig_routes = self.routes
-          resource_name = self.instance_variable_get("@controller").controller_name
+          resource_name = @controller.respond_to?(:controller_name) ?
+            @controller.controller_name.to_sym : :anonymous
           self.routes  = ActionDispatch::Routing::RouteSet.new.tap { |r|
-            r.draw { resources :"#{resource_name}" }
+            r.draw { resources resource_name }
           }
         end
 

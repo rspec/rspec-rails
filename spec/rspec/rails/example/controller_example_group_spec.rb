@@ -95,26 +95,26 @@ module RSpec::Rails
         controller_class = group.metadata[:example_group][:described_class]
         expect(controller_class.superclass).to eq(ApplicationController)
       end
-
     end
 
     describe "controller name" do
+      let(:controller_class) { group.metadata[:example_group][:described_class]}
 
       it "sets the name as AnonymousController if it's anonymous" do
         group.controller { }
-        controller_class = group.metadata[:example_group][:described_class]
         expect(controller_class.name).to eq "AnonymousController"
       end
 
       it "sets the name according to defined controller if it is not anonymous" do
-        class ::FoosController < ::ApplicationController; end;
-        group.controller(::FoosController){ }
-        controller_class = group.metadata[:example_group][:described_class]
+        stub_const "FoosController", Class.new(::ApplicationController)
+        group.controller(FoosController){ }
         expect(controller_class.name).to eq "FoosController"
-        Object.send(:remove_const, :FoosController)
       end
 
+      it "sets name as AnonymousController if defined as ApplicationController" do
+        group.controller(ApplicationController){ }
+        expect(controller_class.name).to eq "AnonymousController"
+      end
     end
-
   end
 end
