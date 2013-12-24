@@ -73,7 +73,7 @@ module RSpec::Rails
         end
 
         after do
-          if @application_helper
+          if defined?(@application_helper)
             ApplicationHelper = @application_helper
           end
         end
