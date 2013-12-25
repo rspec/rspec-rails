@@ -1,23 +1,23 @@
 Feature: anonymous controller
 
-  Use the `controller` method to define an anonymous controller derived from
-  `ApplicationController`. This is useful for specifying behavior like global
-  error handling.
+  Use the `controller` method to define an anonymous controller
+  that will inherit from the described class. This is useful for
+  specifying behavior like global error handling.
 
-  To specify a different base class, you can pass the class explicitly to the
-  controller method:
+  To specify a different base class you can pass the class explicitly
+  to the controller method:
 
       controller(BaseController)
 
-  You can also configure RSpec to use the described class:
+  You can disable base type inference:
 
-      RSpec.configure do |c|
-        c.infer_base_class_for_anonymous_controllers = true
+      Rspec.configure do |c|
+        c.infer_base_class_for_anonymous_controllers = false
       end
 
       describe BaseController do
         controller { ... }
-        # ^^ creates an anonymous subclass of `BaseController`
+        # ^^ creates an anonymous subclass of `ApplicationController`
 
   Scenario: specify error handling in ApplicationController
     Given a file named "spec/controllers/application_controller_spec.rb" with:
@@ -96,10 +96,6 @@ Feature: anonymous controller
     Given a file named "spec/controllers/base_class_can_be_inferred_spec.rb" with:
       """ruby
       require "spec_helper"
-
-      RSpec.configure do |c|
-        c.infer_base_class_for_anonymous_controllers = true
-      end
 
       class ApplicationController < ActionController::Base; end
 

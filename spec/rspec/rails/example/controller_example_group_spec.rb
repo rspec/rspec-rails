@@ -80,6 +80,10 @@ module RSpec::Rails
         allow(group).to receive(:controller_class).and_return(Class.new)
       end
 
+      it "defaults to inferring anonymous controller class" do
+        expect(RSpec.configuration.infer_base_class_for_anonymous_controllers).to be_truthy
+      end
+
       it "infers the anonymous controller class when infer_base_class_for_anonymous_controllers is true" do
         allow(RSpec.configuration).to receive(:infer_base_class_for_anonymous_controllers?).and_return(true)
         group.controller { }
