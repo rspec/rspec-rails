@@ -60,15 +60,20 @@ module RSpec::Rails
                          ApplicationController
 
         metadata[:example_group][:described_class] = Class.new(base_class) do
-          def self.name; "AnonymousController"; end
+          def self.name
+            superclass == ApplicationController ?
+              "AnonymousController" : superclass.to_s
+          end
         end
         metadata[:example_group][:described_class].class_eval(&body)
 
         orig_routes = nil
         before do
           orig_routes = self.routes
+          resource_name = @controller.respond_to?(:controller_name) ?
+            @controller.controller_name.to_sym : :anonymous
           self.routes  = ActionDispatch::Routing::RouteSet.new.tap { |r|
-            r.draw { resources :anonymous }
+            r.draw { resources resource_name }
           }
         end
 
@@ -93,6 +98,7 @@ module RSpec::Rails
           self.routes = blk.call
         end
       end
+
     end
 
     attr_reader :controller, :routes

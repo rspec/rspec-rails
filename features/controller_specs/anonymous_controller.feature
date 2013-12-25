@@ -120,6 +120,39 @@ Feature: anonymous controller
     When I run `rspec spec`
     Then the examples should all pass
 
+  Scenario: get name and controller_name from the described class
+    Given a file named "spec/controllers/get_name_and_controller_name_from_described_class_spec.rb" with:
+    """ruby
+    require "spec_helper"
+
+    class ApplicationController < ActionController::Base; end
+    class FoosController < ApplicationController; end
+
+    describe "FoosController controller_name" do
+      controller FoosController do        
+        def index
+          @name = self.class.name
+          @controller_name = controller_name
+          render :text => "Hello World"
+        end
+      end
+
+      before do
+        get :index
+      end
+
+      it "gets the class name as described" do
+        expect(assigns[:name]).to eq('FoosController')
+      end
+
+      it "gets the controller_name as described" do
+        expect(assigns[:controller_name]).to eq('foos')
+      end
+    end
+    """
+    When I run `rspec spec`
+    Then the examples should all pass
+
   Scenario: invoke around filter in base class
     Given a file named "spec/controllers/application_controller_around_filter_spec.rb" with:
       """ruby
@@ -343,6 +376,31 @@ Feature: anonymous controller
 
       specify "a custom action can be requested if routes are drawn manually" do
         routes.draw { get "custom" => "anonymous#custom" }
+
+        get :custom
+        expect(response.body).to eq "custom called"
+      end
+    end
+    """
+    When I run `rspec spec`
+    Then the examples should all pass
+
+  Scenario: draw custom routes for defined controllers
+    Given a file named "spec/controllers/application_controller_spec.rb" with:
+    """ruby
+    require "spec_helper"
+
+    class FoosController < ApplicationController; end
+
+    describe ApplicationController do
+      controller FoosController do
+        def custom
+          render :text => "custom called"
+        end
+      end
+
+      specify "a custom action can be requested if routes are drawn manually" do
+        routes.draw { get "custom" => "foos#custom" }
 
         get :custom
         expect(response.body).to eq "custom called"
