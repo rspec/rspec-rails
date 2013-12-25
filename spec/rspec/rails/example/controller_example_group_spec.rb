@@ -98,7 +98,7 @@ module RSpec::Rails
     end
 
     describe "controller name" do
-      let(:controller_class) { group.metadata[:example_group][:described_class]}
+      let(:controller_class) { group.metadata[:example_group][:described_class] }
 
       it "sets the name as AnonymousController if it's anonymous" do
         group.controller { }
@@ -107,12 +107,12 @@ module RSpec::Rails
 
       it "sets the name according to defined controller if it is not anonymous" do
         stub_const "FoosController", Class.new(::ApplicationController)
-        group.controller(FoosController){ }
+        group.controller(FoosController) { }
         expect(controller_class.name).to eq "FoosController"
       end
 
       it "sets name as AnonymousController if defined as ApplicationController" do
-        group.controller(ApplicationController){ }
+        group.controller(ApplicationController) { }
         expect(controller_class.name).to eq "AnonymousController"
       end
     end

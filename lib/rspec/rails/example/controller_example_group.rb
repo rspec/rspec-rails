@@ -98,7 +98,6 @@ module RSpec::Rails
           self.routes = blk.call
         end
       end
-
     end
 
     attr_reader :controller, :routes

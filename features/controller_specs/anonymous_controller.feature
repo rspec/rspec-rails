@@ -122,34 +122,34 @@ Feature: anonymous controller
 
   Scenario: get name and controller_name from the described class
     Given a file named "spec/controllers/get_name_and_controller_name_from_described_class_spec.rb" with:
-    """ruby
-    require "spec_helper"
+      """ruby
+      require "spec_helper"
 
-    class ApplicationController < ActionController::Base; end
-    class FoosController < ApplicationController; end
+      class ApplicationController < ActionController::Base; end
+      class FoosController < ApplicationController; end
 
-    describe "FoosController controller_name" do
-      controller FoosController do        
-        def index
-          @name = self.class.name
-          @controller_name = controller_name
-          render :text => "Hello World"
+      describe "FoosController controller_name" do
+        controller FoosController do        
+          def index
+            @name = self.class.name
+            @controller_name = controller_name
+            render :text => "Hello World"
+          end
+        end
+
+        before do
+          get :index
+        end
+
+        it "gets the class name as described" do
+          expect(assigns[:name]).to eq('FoosController')
+        end
+
+        it "gets the controller_name as described" do
+          expect(assigns[:controller_name]).to eq('foos')
         end
       end
-
-      before do
-        get :index
-      end
-
-      it "gets the class name as described" do
-        expect(assigns[:name]).to eq('FoosController')
-      end
-
-      it "gets the controller_name as described" do
-        expect(assigns[:controller_name]).to eq('foos')
-      end
-    end
-    """
+      """
     When I run `rspec spec`
     Then the examples should all pass
 
@@ -186,251 +186,251 @@ Feature: anonymous controller
 
   Scenario: anonymous controllers only create resource routes
     Given a file named "spec/controllers/application_controller_spec.rb" with:
-    """ruby
-    require "spec_helper"
+      """ruby
+      require "spec_helper"
 
-    describe ApplicationController do
-      controller do
-        def index
-          render :text => "index called"
+      describe ApplicationController do
+        controller do
+          def index
+            render :text => "index called"
+          end
+
+          def create
+            render :text => "create called"
+          end
+
+          def new
+            render :text => "new called"
+          end
+
+          def show
+            render :text => "show called"
+          end
+
+          def edit
+            render :text => "edit called"
+          end
+
+          def update
+            render :text => "update called"
+          end
+
+          def destroy
+            render :text => "destroy called"
+          end
+
+          def willerror
+            render :text => "will not render"
+          end
         end
 
-        def create
-          render :text => "create called"
+        describe "#index" do
+          it "responds to GET" do
+            get :index
+            expect(response.body).to eq "index called"
+          end
+
+          it "also responds to POST" do
+            post :index
+            expect(response.body).to eq "index called"
+          end
+
+          it "also responds to PUT" do
+            put :index
+            expect(response.body).to eq "index called"
+          end
+
+          it "also responds to DELETE" do
+            delete :index
+            expect(response.body).to eq "index called"
+          end
         end
 
-        def new
-          render :text => "new called"
-        end
-
-        def show
-          render :text => "show called"
-        end
-
-        def edit
-          render :text => "edit called"
-        end
-
-        def update
-          render :text => "update called"
-        end
-
-        def destroy
-          render :text => "destroy called"
-        end
-
-        def willerror
-          render :text => "will not render"
-        end
-      end
-
-      describe "#index" do
-        it "responds to GET" do
-          get :index
-          expect(response.body).to eq "index called"
-        end
-
-        it "also responds to POST" do
-          post :index
-          expect(response.body).to eq "index called"
-        end
-
-        it "also responds to PUT" do
-          put :index
-          expect(response.body).to eq "index called"
-        end
-
-        it "also responds to DELETE" do
-          delete :index
-          expect(response.body).to eq "index called"
-        end
-      end
-
-      describe "#create" do
-        it "responds to POST" do
-          post :create
-          expect(response.body).to eq "create called"
-        end
-
-        # And the rest...
-        %w{get post put delete}.each do |calltype|
-          it "responds to #{calltype}" do
-            send(calltype, :create)
+        describe "#create" do
+          it "responds to POST" do
+            post :create
             expect(response.body).to eq "create called"
           end
-        end
-      end
 
-      describe "#new" do
-        it "responds to GET" do
-          get :new
-          expect(response.body).to eq "new called"
+          # And the rest...
+          %w{get post put delete}.each do |calltype|
+            it "responds to #{calltype}" do
+              send(calltype, :create)
+              expect(response.body).to eq "create called"
+            end
+          end
         end
 
-        # And the rest...
-        %w{get post put delete}.each do |calltype|
-          it "responds to #{calltype}" do
-            send(calltype, :new)
+        describe "#new" do
+          it "responds to GET" do
+            get :new
             expect(response.body).to eq "new called"
           end
-        end
-      end
 
-      describe "#edit" do
-        it "responds to GET" do
-          get :edit, :id => "anyid"
-          expect(response.body).to eq "edit called"
-        end
-
-        it "requires the :id parameter" do
-          expect { get :edit }.to raise_error(ActionController::RoutingError)
+          # And the rest...
+          %w{get post put delete}.each do |calltype|
+            it "responds to #{calltype}" do
+              send(calltype, :new)
+              expect(response.body).to eq "new called"
+            end
+          end
         end
 
-        # And the rest...
-        %w{get post put delete}.each do |calltype|
-          it "responds to #{calltype}" do
-            send(calltype, :edit, {:id => "anyid"})
+        describe "#edit" do
+          it "responds to GET" do
+            get :edit, :id => "anyid"
             expect(response.body).to eq "edit called"
           end
-        end
-      end
 
-      describe "#show" do
-        it "responds to GET" do
-          get :show, :id => "anyid"
-          expect(response.body).to eq "show called"
+          it "requires the :id parameter" do
+            expect { get :edit }.to raise_error(ActionController::RoutingError)
+          end
+
+          # And the rest...
+          %w{get post put delete}.each do |calltype|
+            it "responds to #{calltype}" do
+              send(calltype, :edit, {:id => "anyid"})
+              expect(response.body).to eq "edit called"
+            end
+          end
         end
 
-        it "requires the :id parameter" do
-          expect { get :show }.to raise_error(ActionController::RoutingError)
-        end
-
-        # And the rest...
-        %w{get post put delete}.each do |calltype|
-          it "responds to #{calltype}" do
-            send(calltype, :show, {:id => "anyid"})
+        describe "#show" do
+          it "responds to GET" do
+            get :show, :id => "anyid"
             expect(response.body).to eq "show called"
           end
-        end
-      end
 
-      describe "#update" do
-        it "responds to PUT" do
-          put :update, :id => "anyid"
-          expect(response.body).to eq "update called"
+          it "requires the :id parameter" do
+            expect { get :show }.to raise_error(ActionController::RoutingError)
+          end
+
+          # And the rest...
+          %w{get post put delete}.each do |calltype|
+            it "responds to #{calltype}" do
+              send(calltype, :show, {:id => "anyid"})
+              expect(response.body).to eq "show called"
+            end
+          end
         end
 
-        it "requires the :id parameter" do
-          expect { put :update }.to raise_error(ActionController::RoutingError)
-        end
-
-        # And the rest...
-        %w{get post put delete}.each do |calltype|
-          it "responds to #{calltype}" do
-            send(calltype, :update, {:id => "anyid"})
+        describe "#update" do
+          it "responds to PUT" do
+            put :update, :id => "anyid"
             expect(response.body).to eq "update called"
           end
-        end
-      end
 
-      describe "#destroy" do
-        it "responds to DELETE" do
-          delete :destroy, :id => "anyid"
-          expect(response.body).to eq "destroy called"
+          it "requires the :id parameter" do
+            expect { put :update }.to raise_error(ActionController::RoutingError)
+          end
+
+          # And the rest...
+          %w{get post put delete}.each do |calltype|
+            it "responds to #{calltype}" do
+              send(calltype, :update, {:id => "anyid"})
+              expect(response.body).to eq "update called"
+            end
+          end
         end
 
-        it "requires the :id parameter" do
-          expect { delete :destroy }.to raise_error(ActionController::RoutingError)
-        end
-
-        # And the rest...
-        %w{get post put delete}.each do |calltype|
-          it "responds to #{calltype}" do
-            send(calltype, :destroy, {:id => "anyid"})
+        describe "#destroy" do
+          it "responds to DELETE" do
+            delete :destroy, :id => "anyid"
             expect(response.body).to eq "destroy called"
+          end
+
+          it "requires the :id parameter" do
+            expect { delete :destroy }.to raise_error(ActionController::RoutingError)
+          end
+
+          # And the rest...
+          %w{get post put delete}.each do |calltype|
+            it "responds to #{calltype}" do
+              send(calltype, :destroy, {:id => "anyid"})
+              expect(response.body).to eq "destroy called"
+            end
+          end
+        end
+
+        describe "#willerror" do
+          it "cannot be called" do
+            expect { get :willerror }.to raise_error(ActionController::RoutingError)
           end
         end
       end
-
-      describe "#willerror" do
-        it "cannot be called" do
-          expect { get :willerror }.to raise_error(ActionController::RoutingError)
-        end
-      end
-    end
-    """
+      """
     When I run `rspec spec`
     Then the examples should all pass
 
   Scenario: draw custom routes for anonymous controllers
     Given a file named "spec/controllers/application_controller_spec.rb" with:
-    """ruby
-    require "spec_helper"
+      """ruby
+      require "spec_helper"
 
-    describe ApplicationController do
-      controller do
-        def custom
-          render :text => "custom called"
+      describe ApplicationController do
+        controller do
+          def custom
+            render :text => "custom called"
+          end
+        end
+
+        specify "a custom action can be requested if routes are drawn manually" do
+          routes.draw { get "custom" => "anonymous#custom" }
+
+          get :custom
+          expect(response.body).to eq "custom called"
         end
       end
-
-      specify "a custom action can be requested if routes are drawn manually" do
-        routes.draw { get "custom" => "anonymous#custom" }
-
-        get :custom
-        expect(response.body).to eq "custom called"
-      end
-    end
-    """
+      """
     When I run `rspec spec`
     Then the examples should all pass
 
   Scenario: draw custom routes for defined controllers
     Given a file named "spec/controllers/application_controller_spec.rb" with:
-    """ruby
-    require "spec_helper"
+      """ruby
+      require "spec_helper"
 
-    class FoosController < ApplicationController; end
+      class FoosController < ApplicationController; end
 
-    describe ApplicationController do
-      controller FoosController do
-        def custom
-          render :text => "custom called"
+      describe ApplicationController do
+        controller FoosController do
+          def custom
+            render :text => "custom called"
+          end
+        end
+
+        specify "a custom action can be requested if routes are drawn manually" do
+          routes.draw { get "custom" => "foos#custom" }
+
+          get :custom
+          expect(response.body).to eq "custom called"
         end
       end
-
-      specify "a custom action can be requested if routes are drawn manually" do
-        routes.draw { get "custom" => "foos#custom" }
-
-        get :custom
-        expect(response.body).to eq "custom called"
-      end
-    end
-    """
+      """
     When I run `rspec spec`
     Then the examples should all pass
 
   Scenario: refer to application routes in the controller under test
     Given a file named "spec/controllers/application_controller_spec.rb" with:
-    """ruby
-    require "spec_helper"
+      """ruby
+      require "spec_helper"
 
-    Rails.application.routes.draw do
-      match "/login" => "sessions#new", :as => "login", :via => "get"
-    end
+      Rails.application.routes.draw do
+        match "/login" => "sessions#new", :as => "login", :via => "get"
+      end
 
-    describe ApplicationController do
-      controller do
-        def index
-          redirect_to login_url
+      describe ApplicationController do
+        controller do
+          def index
+            redirect_to login_url
+          end
+        end
+
+        it "redirects to the login page" do
+          get :index
+          expect(response).to redirect_to("/login")
         end
       end
-
-      it "redirects to the login page" do
-        get :index
-        expect(response).to redirect_to("/login")
-      end
-    end
-    """
+      """
     When I run `rspec spec`
     Then the examples should all pass
