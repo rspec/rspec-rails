@@ -8,6 +8,8 @@ Bug fixes
 Enhancements
 
 * Improve be_valid matcher for non-ActiveModel::Errors implementations (Ben Hamill)
+* Named "anonymous" controllers now expose the derivied `controller_name`
+  and draw routes accordingly. (Billy Chan)
 
 Breaking Changes for 3.0.0:
 
