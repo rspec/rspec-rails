@@ -17,6 +17,8 @@ Breaking Changes for 3.0.0:
 * Methods from `Capybara::DSL` (e.g., `visit`) are no longer available in
   controller specs. It is more appropriate to use capybara in feature specs
   (`spec/features`) instead. (Andy Lindeman)
+* `infer_base_class_for_anonymous_controllers` is
+  enabled by default. (Thomas Holmes)
 
 ### 3.0.0.beta1 / 2013-11-07
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.beta1...v3.0.0.beta1)
