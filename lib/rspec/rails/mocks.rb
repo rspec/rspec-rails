@@ -29,6 +29,19 @@ module RSpec
         end
       end
 
+      # Starting with Rails 4.1, ActiveRecord associations are inversible
+      # by default. This class represents an association from the mocked
+      # model's perspective.
+      #
+      # @private
+      class Association
+        attr_accessor :target, :inversed
+
+        def initialize(association_name)
+          @association_name = association_name
+        end
+      end
+
       module ActiveRecordInstanceMethods
         # Stubs `persisted?` to return `false` and `id` to return `nil`.
         def destroy
@@ -44,6 +57,15 @@ module RSpec
         # Returns the opposite of `persisted?`
         def new_record?
           !persisted?
+        end
+
+        # Returns an object representing an association from the mocked
+        # model's perspective. For use by Rails internally only.
+        def association(association_name)
+          unless defined?(@associations)
+            @associations = Hash.new { |h, k| h[k] = Association.new(k) }
+          end
+          @associations[association_name]
         end
       end
 

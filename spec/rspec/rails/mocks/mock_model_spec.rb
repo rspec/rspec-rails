@@ -53,6 +53,29 @@ describe "mock_model(RealModel)" do
     end
   end
 
+  describe "association" do
+    it "constructs a mock association object" do
+      model = mock_model(MockableModel)
+      expect(model.association(:association_name)).to be
+    end
+
+    it "returns a different association object for each association name" do
+      model = mock_model(MockableModel)
+      posts = model.association(:posts)
+      authors = model.association(:authors)
+
+      expect(posts).not_to equal(authors)
+    end
+
+    it "returns the same association model each time for the same association name" do
+      model = mock_model(MockableModel)
+      posts1 = model.association(:posts)
+      posts2 = model.association(:posts)
+
+      expect(posts1).to equal(posts2)
+    end
+  end
+
   describe "errors" do
     context "default" do
       it "is empty" do
