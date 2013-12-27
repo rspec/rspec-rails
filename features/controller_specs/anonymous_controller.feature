@@ -9,7 +9,9 @@ Feature: anonymous controller
 
       controller(BaseController)
 
-  You can disable base type inference:
+  You can also disable base type inference, in which case anonymous
+  controllers will inherit from `ApplicationController` instead of
+  the described class by default:
 
       Rspec.configure do |c|
         c.infer_base_class_for_anonymous_controllers = false
@@ -17,7 +19,9 @@ Feature: anonymous controller
 
       describe BaseController do
         controller { ... }
-        # ^^ creates an anonymous subclass of `ApplicationController`
+        # ^^ would normally create an anonymous subclass of `BaseController`,
+        # but since `infer_base_class_for_anonymous_controllers` is disabled,
+        # it creates a subclass of `ApplicationController` instead
 
   Scenario: specify error handling in ApplicationController
     Given a file named "spec/controllers/application_controller_spec.rb" with:
