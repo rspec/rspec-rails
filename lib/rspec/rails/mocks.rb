@@ -62,9 +62,7 @@ module RSpec
         # Returns an object representing an association from the mocked
         # model's perspective. For use by Rails internally only.
         def association(association_name)
-          unless defined?(@associations)
-            @associations = Hash.new { |h, k| h[k] = Association.new(k) }
-          end
+          @associations ||= Hash.new { |h, k| h[k] = Association.new(k) }
           @associations[association_name]
         end
       end
