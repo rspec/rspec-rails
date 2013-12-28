@@ -4,6 +4,7 @@
 Bug fixes
 
 * Use `__send__` rather than `send` to prevent naming collisions (Bradley Schaefer)
+* Supports Rails 4.1. (Andy Lindeman)
 
 Enhancements
 
