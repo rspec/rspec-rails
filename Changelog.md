@@ -8,7 +8,7 @@ Bug fixes
 * Where possible, check against the version of ActiveRecord, rather than
   Rails. It is possible to use some of rspec-rails without all of Rails.
   (Darryl Pogue)
-* Supports Rails 4.1 and Minitest 5. (Patrick Van Stee)
+* Supports Rails 4.1 and Minitest 5. (Patrick Van Stee, Andy Lindeman)
 * Explicitly depends on `activemodel`. This allows libraries that do not bring
   in all of `rails` to use `rspec-rails`. (John Firebaugh)
 * Use `__send__` rather than `send` to prevent naming collisions (Bradley Schaefer)
