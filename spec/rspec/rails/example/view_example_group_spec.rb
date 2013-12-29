@@ -231,5 +231,7 @@ module RSpec::Rails
         view_spec.template
       end
     end
+
+    it_behaves_like "runs metadata hooks of :type =>", :view, ViewExampleGroup
   end
 end

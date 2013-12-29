@@ -28,5 +28,7 @@ module RSpec::Rails
         expect(example.foo_path).to eq("foo")
       end
     end
+
+    it_behaves_like "runs metadata hooks of :type =>", :routing, RoutingExampleGroup
   end
 end

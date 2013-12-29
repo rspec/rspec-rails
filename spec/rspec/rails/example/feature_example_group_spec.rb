@@ -52,5 +52,7 @@ module RSpec::Rails
         expect(group.new.visit("/foo")).to eq("success: /foo")
       end
     end
+
+    it_behaves_like "runs metadata hooks of :type =>", :feature, FeatureExampleGroup
   end
 end

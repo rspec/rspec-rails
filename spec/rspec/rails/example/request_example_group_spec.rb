@@ -13,5 +13,7 @@ module RSpec::Rails
       end
       expect(group.metadata[:type]).to eq(:request)
     end
+
+    it_behaves_like "runs metadata hooks of :type =>", :request, RequestExampleGroup
   end
 end

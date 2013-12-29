@@ -51,6 +51,8 @@ module RSpec::Rails
         expect(group.new.helper).to be_kind_of(ApplicationHelper)
       end
     end
+
+    it_behaves_like "runs metadata hooks of :type =>", :helper, HelperExampleGroup
   end
 
   describe HelperExampleGroup::ClassMethods do

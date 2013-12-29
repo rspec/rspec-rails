@@ -1,6 +1,6 @@
 require "spec_helper"
 
-class ::ApplicationController
+class ::ApplicationController < ActionController::Base
 end
 
 module RSpec::Rails
@@ -120,5 +120,7 @@ module RSpec::Rails
         expect(controller_class.name).to eq "AnonymousController"
       end
     end
+
+    it_behaves_like "runs metadata hooks of :type =>", :controller, ControllerExampleGroup
   end
 end
