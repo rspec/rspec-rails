@@ -10,8 +10,8 @@ Feature: view spec
       describe "widgets/index" do
         it "displays all the widgets" do
           assign(:widgets, [
-            stub_model(Widget, :name => "slicer"),
-            stub_model(Widget, :name => "dicer")
+            Widget.create!(:name => "slicer"),
+            Widget.create!(:name => "dicer")
           ])
 
           render
@@ -34,8 +34,8 @@ Feature: view spec
         context "with 2 widgets" do
           before(:each) do
             assign(:widgets, [
-              stub_model(Widget, :name => "slicer"),
-              stub_model(Widget, :name => "dicer")
+              Widget.create!(:name => "slicer"),
+              Widget.create!(:name => "dicer")
             ])
           end
 
@@ -58,7 +58,7 @@ Feature: view spec
 
       describe "rendering the widget template" do
         it "displays the widget" do
-          assign(:widget, stub_model(Widget, :name => "slicer"))
+          assign(:widget, Widget.create!(:name => "slicer"))
 
           render :template => "widgets/widget.html.erb"
 
@@ -112,7 +112,7 @@ Feature: view spec
 
       describe "rendering locals in a partial" do
         it "displays the widget" do
-          widget = stub_model(Widget, :name => "slicer")
+          widget = Widget.create!(:name => "slicer")
 
           render :partial => "widgets/widget.html.erb", :locals => {:widget => widget}
 
@@ -134,7 +134,7 @@ Feature: view spec
 
       describe "rendering locals in a partial" do
         it "displays the widget" do
-          widget = stub_model(Widget, :name => "slicer")
+          widget = Widget.create!(:name => "slicer")
 
           render "widgets/widget", :widget => widget
 
