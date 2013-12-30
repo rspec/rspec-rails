@@ -9,9 +9,42 @@ rescue LoadError
 end
 
 if defined?(Capybara)
+  module RSpec::Rails::DeprecatedCapybaraDSL
+    include ::Capybara::DSL
+
+    def self.included(mod)
+      mod.extend(ClassMethods)
+      super
+    end
+
+    module ClassMethods
+      def include(mod)
+        if mod == ::Capybara::DSL
+          self.class_variable_set(:@@_rspec_capybara_included_explicitly, true)
+        end
+
+        super
+      end
+    end
+
+    ::Capybara::DSL.instance_methods(false).each do |method|
+      # capybara internally calls `page`, skip to avoid a duplicate
+      # deprecation warning
+      next if method.to_s == 'page'
+
+      define_method method do |*args, &blk|
+        unless self.class.class_variable_defined?(:@@_rspec_capybara_included_explicitly)
+          RSpec.deprecate "Using the capybara method `#{method}` in controller specs",
+            :replacement => "feature specs (spec/features)"
+        end
+        super(*args, &blk)
+      end
+    end
+  end
+
   RSpec.configure do |c|
     if defined?(Capybara::DSL)
-      c.include Capybara::DSL, :type => :controller
+      c.include ::RSpec::Rails::DeprecatedCapybaraDSL, :type => :controller
       c.include Capybara::DSL, :type => :feature
     end
 
@@ -20,9 +53,7 @@ if defined?(Capybara)
       c.include Capybara::RSpecMatchers, :type => :helper
       c.include Capybara::RSpecMatchers, :type => :mailer
       c.include Capybara::RSpecMatchers, :type => :controller
-      c.include Capybara::RSpecMatchers, :example_group => {
-        :file_path => c.escaped_path(%w[spec features])
-      }
+      c.include Capybara::RSpecMatchers, :type => :feature
     end
 
     unless defined?(Capybara::RSpecMatchers) || defined?(Capybara::DSL)

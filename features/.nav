@@ -19,6 +19,7 @@
   - anonymous_controller.feature
   - bypass_rescue.feature
   - engine_routes.feature
+  - capybara.feature
 - matchers:
   - new_record_matcher.feature
   - render_template_matcher.feature
