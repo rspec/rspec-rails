@@ -21,6 +21,8 @@ Breaking Changes for 3.0.0:
   (`spec/features`) instead. (Andy Lindeman)
 * `infer_base_class_for_anonymous_controllers` is
   enabled by default. (Thomas Holmes)
+* Methods `mock_model` and `stub_model` are no longer in `rspec-rails`. These
+  methods are moved to `rspec-rails-model_mocks`. (Thomas Holmes)
 
 ### 3.0.0.beta1 / 2013-11-07
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.beta1...v3.0.0.beta1)
