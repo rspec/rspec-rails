@@ -41,24 +41,38 @@ module RSpec::Rails
 
     describe "#controller" do
       before do
+        orig_before_each_hooks = group.hooks[:before][:each].send(:hooks).dup
         group.class_eval do
           controller(Class.new) { }
         end
+        @anonymous_controller_before_each_hook = (group.hooks[:before][:each].send(:hooks) - orig_before_each_hooks).first
       end
 
-      it "delegates named route helpers to the underlying controller" do
+      it "delegates anonymous route helpers to the controller" do
+        controller = double('controller')
+        allow(controller).to receive(:anonymous_url).and_return('http://test.host/anonymous')
+
+        example = group.new
+        allow(example).to receive_messages(:controller => controller)
+
+        @anonymous_controller_before_each_hook.run(example)
+
+        expect(example.anonymous_url).to eq('http://test.host/anonymous')
+      end
+
+
+      it "delegates application route helpers to the controller" do
         controller = double('controller')
         allow(controller).to receive(:foos_url).and_return('http://test.host/foos')
 
         example = group.new
         allow(example).to receive_messages(:controller => controller)
 
-        # As in the routing example spec, this is pretty invasive, but not sure
-        # how to do it any other way as the correct operation relies on before
-        # hooks
         routes = ActionDispatch::Routing::RouteSet.new
         routes.draw { resources :foos }
-        example.instance_variable_set(:@orig_routes, routes)
+        example.instance_variable_set(:@routes, routes)
+
+        @anonymous_controller_before_each_hook.run(example)
 
         expect(example.foos_url).to eq('http://test.host/foos')
       end
