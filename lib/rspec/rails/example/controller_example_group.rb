@@ -68,9 +68,8 @@ module RSpec::Rails
         end
         metadata[:example_group][:described_class].class_eval(&body)
 
-        orig_routes = nil
         before do
-          orig_routes = self.routes
+          @orig_routes = self.routes
           resource_name = @controller.respond_to?(:controller_name) ?
             @controller.controller_name.to_sym : :anonymous
           self.routes  = ActionDispatch::Routing::RouteSet.new.tap { |r|
@@ -79,7 +78,7 @@ module RSpec::Rails
         end
 
         after do
-          self.routes  = orig_routes
+          self.routes  = @orig_routes
           @orig_routes = nil
         end
       end
