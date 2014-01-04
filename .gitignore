@@ -15,3 +15,5 @@ bin
 Gemfile-custom
 .rbenv-version
 .rbx
+/.ruby-gemset
+/.ruby-version
