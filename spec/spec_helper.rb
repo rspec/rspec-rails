@@ -19,10 +19,11 @@ class RSpec::Core::ExampleGroup
 end
 
 RSpec.configure do |config|
-  real_world = nil
-
   config.filter_run :focus
   config.run_all_when_everything_filtered = true
+  config.order = :random
+
+  real_world = nil
   config.before(:each) do
     real_world = RSpec.world
     RSpec.instance_variable_set(:@world, RSpec::Core::World.new)
@@ -30,5 +31,4 @@ RSpec.configure do |config|
   config.after(:each) do
     RSpec.instance_variable_set(:@world, real_world)
   end
-  config.order = :random
 end
