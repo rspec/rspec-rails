@@ -1,6 +1,7 @@
 require "spec_helper"
 
 class ::ApplicationController
+  def self.abstract?; false; end
 end
 
 module RSpec::Rails
@@ -117,6 +118,14 @@ module RSpec::Rails
 
       it "sets name as AnonymousController if defined as ApplicationController" do
         group.controller(ApplicationController) { }
+        expect(controller_class.name).to eq "AnonymousController"
+      end
+
+      it "sets name as AnonymousController the controller is abstract" do
+        abstract_controller = Class.new(::ApplicationController)
+        def abstract_controller.abstract?; true; end
+
+        group.controller(abstract_controller) { }
         expect(controller_class.name).to eq "AnonymousController"
       end
     end

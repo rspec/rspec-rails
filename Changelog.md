@@ -5,12 +5,12 @@ Bug fixes
 
 * Use `__send__` rather than `send` to prevent naming collisions (Bradley Schaefer)
 * Supports Rails 4.1. (Andy Lindeman)
+* Routes are drawn correctly for anonymous controllers with abstract
+  parents. (Billy Chan)
 
 Enhancements
 
 * Improve be_valid matcher for non-ActiveModel::Errors implementations (Ben Hamill)
-* Named "anonymous" controllers now expose the derivied `controller_name`
-  and draw routes accordingly. (Billy Chan)
 
 Breaking Changes for 3.0.0:
 

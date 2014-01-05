@@ -62,8 +62,11 @@ module RSpec::Rails
 
         metadata[:example_group][:described_class] = Class.new(base_class) do
           def self.name
-            superclass == ApplicationController ?
-              "AnonymousController" : superclass.to_s
+            if superclass == ApplicationController || superclass.abstract?
+              "AnonymousController"
+            else
+              superclass.to_s
+            end
           end
         end
         metadata[:example_group][:described_class].class_eval(&body)
