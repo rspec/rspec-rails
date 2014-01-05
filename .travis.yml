@@ -43,7 +43,7 @@ matrix:
       env: RAILS_VERSION=4.0.2
   allow_failures:
     - env: RAILS_VERSION=master
-+before_install:
+before_install:
   - gem update bundler
   - bundle --version
   - gem update --system 2.1.11
