@@ -10,7 +10,9 @@ task :default => :spec
 task :stats => "spec:statsetup"
 
 desc "Run all specs in spec directory (excluding plugin specs)"
-RSpec::Core::RakeTask.new(:spec => spec_prereq)
+RSpec::Core::RakeTask.new(:spec => spec_prereq) do |t|
+  t.rspec_path = 'bin/rspec' if File.exists?('bin/rspec')
+end
 
 namespace :spec do
   types = begin
@@ -24,6 +26,7 @@ namespace :spec do
   types.each do |type, dir|
     desc "Run the code examples in #{dir}"
     RSpec::Core::RakeTask.new(type => spec_prereq) do |t|
+      t.rspec_path = 'bin/rspec' if File.exists?('bin/rspec')
       t.pattern = "./#{dir}/**/*_spec.rb"
     end
   end
