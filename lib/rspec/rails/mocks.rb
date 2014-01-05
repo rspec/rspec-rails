@@ -87,12 +87,13 @@ module RSpec
       #   * A String representing a Class that extends ActiveModel::Naming
       #   * A Class that extends ActiveModel::Naming
       def mock_model(string_or_model_class, stubs = {})
+        RSpec.deprecate("`mock_model`", :replacement => "the `rspec-activemodel-mocks` gem")
         if String === string_or_model_class
           if Object.const_defined?(string_or_model_class)
             model_class = Object.const_get(string_or_model_class)
           else
             model_class = Object.const_set(string_or_model_class, Class.new do
-              extend ActiveModel::Naming
+              extend ::ActiveModel::Naming
               def self.primary_key; :id; end
             end)
           end
@@ -100,7 +101,7 @@ module RSpec
           model_class = string_or_model_class
         end
 
-        unless model_class.kind_of? ActiveModel::Naming
+        unless model_class.kind_of? ::ActiveModel::Naming
           raise ArgumentError.new <<-EOM
 The mock_model method can only accept as its first argument:
   * A String representing a Class that does not exist
@@ -122,8 +123,8 @@ EOM
           m.singleton_class.class_eval do
             include ActiveModelInstanceMethods
             include ActiveRecordInstanceMethods if defined?(ActiveRecord)
-            include ActiveModel::Conversion
-            include ActiveModel::Validations
+            include ::ActiveModel::Conversion
+            include ::ActiveModel::Validations
           end
           if defined?(ActiveRecord)
             [:save, :update_attributes, :update].each do |key|
@@ -230,6 +231,7 @@ EOM
       #     stub_model(Person, :to_param => 37)
       #     stub_model(Person) {|person| person.first_name = "David"}
       def stub_model(model_class, stubs={})
+        RSpec.deprecate("`stub_model`", :replacement => "the `rspec-activemodel-mocks` gem")
         model_class.new.tap do |m|
           m.extend ActiveModelStubExtensions
           if defined?(ActiveRecord) && model_class < ActiveRecord::Base
@@ -267,4 +269,12 @@ EOM
   end
 end
 
-RSpec.configuration.include RSpec::Rails::Mocks
+# We need to check if rspec-activemodel-mocks is in use on this side due
+# to Rails defaults. Because rspec-activemodel-mocks does not depend on
+# rspec-rails, bundler is likely to require rspec-activemodel-mocks before
+# rspec-rails when Bundler.require is performed. This will result in the
+# user still getting a deprecation message even when they are doing
+# everything right.
+unless defined?(RSpec::ActiveModel::Mocks::Mocks)
+  RSpec.configuration.include RSpec::Rails::Mocks
+end
