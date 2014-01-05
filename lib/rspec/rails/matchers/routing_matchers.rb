@@ -35,6 +35,10 @@ module RSpec::Rails::Matchers
         rescued_exception.message
       end
 
+      def failure_message_when_negated
+        "expected #{@actual.inspect} not to route to #{@expected.inspect}"
+      end
+
       def description
         "route #{@actual.inspect} to #{@expected.inspect}"
       end
