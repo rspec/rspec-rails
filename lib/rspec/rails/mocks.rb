@@ -85,6 +85,7 @@ module RSpec
       #   * A String representing a Class that extends ActiveModel::Naming
       #   * A Class that extends ActiveModel::Naming
       def mock_model(string_or_model_class, stubs = {})
+        RSpec.deprecate("The mock_model method", :replacement => "the gem `rspec-activemodel-mocks` starting in RSpec 3")
         if String === string_or_model_class
           if Object.const_defined?(string_or_model_class)
             model_class = Object.const_get(string_or_model_class)
@@ -228,6 +229,7 @@ EOM
       #     stub_model(Person, :to_param => 37)
       #     stub_model(Person) {|person| person.first_name = "David"}
       def stub_model(model_class, stubs={})
+        RSpec.deprecate("The stub_model method", :replacement => "the gem `rspec-activemodel-mocks` starting in RSpec 3")
         model_class.new.tap do |m|
           m.extend ActiveModelStubExtensions
           if defined?(ActiveRecord) && model_class < ActiveRecord::Base
