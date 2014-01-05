@@ -20,7 +20,7 @@ if defined?(Capybara)
     module ClassMethods
       def include(mod)
         if mod == ::Capybara::DSL
-          self.class_variable_set(:@@_rspec_capybara_included_explicitly, true)
+          class_variable_set(:@@_rspec_capybara_included_explicitly, true)
         end
 
         super
