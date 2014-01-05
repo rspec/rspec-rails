@@ -102,7 +102,7 @@ describe "route_to" do
       it "fails with custom message" do
         expect do
           expect({:get => "path"}).not_to route_to("these" => "options")
-        end.to raise_error(/expected .* not to route to .*/)
+        end.to raise_error(/expected {:get=>"path"} not to route to {"these"=>"options"}/)
       end
     end
 
