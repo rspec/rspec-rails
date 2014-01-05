@@ -13,8 +13,8 @@ Breaking Changes for 3.0.0:
 * `infer_base_class_for_anonymous_controllers` is
   enabled by default. (Thomas Holmes)
 * Capybara 2.2.0 or above is required for feature specs. (Andy Lindeman)
-* Methods `mock_model` and `stub_model` are no longer in `rspec-rails`. These
-  methods are moved to `rspec-activemodel-mocks`. (Thomas Holmes)
+* Extracts the `mock_model` and `stub_model` methods to the
+  `rspec-activemodel-mocks` gem. (Thomas Holmes)
 
 Enhancements:
 
