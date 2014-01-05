@@ -60,15 +60,15 @@ module RSpec::Rails
         end
         base_class ||= ApplicationController
 
-        metadata[:example_group][:described_class] = Class.new(base_class)
-
-        metadata[:example_group][:described_class].class_eval do
+        metadata[:example_group][:described_class] = Class.new(base_class) do
           def self.name
-            superclass == ApplicationController || superclass.abstract? ?
-            "AnonymousController" : superclass.to_s
+            if superclass == ApplicationController || superclass.abstract?
+              "AnonymousController"
+            else
+              superclass.to_s
+            end
           end
         end
-
         metadata[:example_group][:described_class].class_eval(&body)
 
         before do

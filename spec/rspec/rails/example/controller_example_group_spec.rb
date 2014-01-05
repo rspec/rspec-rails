@@ -122,8 +122,10 @@ module RSpec::Rails
       end
 
       it "sets name as AnonymousController the controller is abstract" do
-        stub_const "BarsController", Class.new(::ApplicationController) { def self.abstract?; true; end }
-        group.controller(BarsController) { }
+        abstract_controller = Class.new(::ApplicationController)
+        def abstract_controller.abstract?; true; end
+
+        group.controller(abstract_controller) { }
         expect(controller_class.name).to eq "AnonymousController"
       end
     end
