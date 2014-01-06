@@ -1,3 +1,4 @@
+require 'active_support'
 require 'active_support/core_ext/module/aliasing'
 require 'rspec/matchers/built_in/have'
 
