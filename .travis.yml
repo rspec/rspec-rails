@@ -2,45 +2,39 @@ script: "bin/rake --trace 2>&1"
 bundler_args: "--binstubs --without documentation"
 before_install: gem install bundler
 rvm:
-  - 1.8.7
-  - 1.9.2
-  - 1.9.3
-  - 2.0.0
   - 2.1.0
+  - 2.0.0
+  - 1.9.3
+  - 1.9.2
+  - 1.8.7
 env:
+  - RAILS_VERSION=master
   - RAILS_VERSION=4.0.2
+  - RAILS_VERSION=4-0-stable
   - RAILS_VERSION=3.2.16
+  - RAILS_VERSION=3-2-stable
   - RAILS_VERSION=3.1.12
   - RAILS_VERSION=3.0.20
-  - RAILS_VERSION=4-0-stable
-  - RAILS_VERSION=3-2-stable
-  - RAILS_VERSION=3-1-stable
-  - RAILS_VERSION=3-0-stable
-  - RAILS_VERSION=master
 matrix:
   exclude:
     # 3.0.x is not supported on MRI 2.0.0
     - rvm: 2.0.0
       env: RAILS_VERSION=3.0.20
-    - rvm: 2.0.0
-      env: RAILS_VERSION=3-0-stable
     - rvm: 2.1.0
       env: RAILS_VERSION=3.0.20
-    - rvm: 2.1.0
-      env: RAILS_VERSION=3-0-stable
     # 4.0.x is not supported on MRI 1.8.7 or 1.9.2
     - rvm: 1.8.7
       env: RAILS_VERSION=master
     - rvm: 1.9.2
       env: RAILS_VERSION=master
     - rvm: 1.8.7
-      env: RAILS_VERSION=4-0-stable
+      env: RAILS_VERSION=4.0.2
     - rvm: 1.9.2
-      env: RAILS_VERSION=4-0-stable
+      env: RAILS_VERSION=4.0.2
     - rvm: 1.8.7
-      env: RAILS_VERSION=4.0.2
+      env: RAILS_VERSION=4-0-stable
     - rvm: 1.9.2
-      env: RAILS_VERSION=4.0.2
+      env: RAILS_VERSION=4-0-stable
   allow_failures:
     - env: RAILS_VERSION=master
 before_install:
