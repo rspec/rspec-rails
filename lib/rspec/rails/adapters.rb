@@ -1,4 +1,5 @@
 require 'delegate'
+require 'active_support'
 require 'active_support/concern'
 
 module RSpec

@@ -1,5 +1,4 @@
 require "spec_helper"
-require 'active_support/all'
 require 'rspec/rails/matchers/be_valid'
 
 describe "be_valid matcher" do
