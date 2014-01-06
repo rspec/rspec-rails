@@ -5,6 +5,7 @@ Bug fixes
 
 * Use `__send__` rather than `send` to prevent naming collisions (Bradley Schaefer)
 * Supports Rails 4.1. (Andy Lindeman)
+* Loads ActiveSupport properly to support changes in Rails 4.1. (Andy Lindeman)
 
 Deprecations
 
