@@ -36,7 +36,7 @@ Feature: render_template matcher
 
       describe "gadgets/index" do
         it "renders the index template" do
-          assign(:gadgets, [stub_model(Gadget)])
+          assign(:gadgets, [Gadget.create!])
           render
 
           expect(view).to render_template(:index)

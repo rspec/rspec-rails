@@ -11,8 +11,8 @@ Feature: stub template
       describe "gadgets/list" do
         it "renders the gadget partial for each gadget" do
           assign(:gadgets, [
-            mock_model(Gadget, :id => 1, :name => "First"),
-            mock_model(Gadget, :id => 2, :name => "Second")
+            double(:name => "First"),
+            double(:name => "Second")
           ])
           stub_template "gadgets/_gadget.html.erb" => "<%= gadget.name %><br/>"
           render
@@ -36,7 +36,7 @@ Feature: stub template
 
       describe "gadgets/edit" do
         before(:each) do
-          @gadget = assign(:gadget, stub_model(Gadget))
+          @gadget = assign(:gadget, Gadget.create!)
         end
 
         it "renders the form partial" do
