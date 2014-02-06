@@ -85,20 +85,46 @@ module RSpec::Rails
         expect(RSpec.configuration.infer_base_class_for_anonymous_controllers).to be_truthy
       end
 
-      it "infers the anonymous controller class when infer_base_class_for_anonymous_controllers is true" do
-        allow(RSpec.configuration).to receive(:infer_base_class_for_anonymous_controllers?).and_return(true)
-        group.controller { }
+      context "when infer_base_class_for_anonymous_controllers is true" do
+        before do
+          allow(RSpec.configuration).to receive(:infer_base_class_for_anonymous_controllers?).and_return(true)
+        end
 
-        controller_class = group.metadata[:example_group][:described_class]
-        expect(controller_class.superclass).to eq(group.controller_class)
+        it "infers the anonymous controller class" do
+          group.controller { }
+
+          controller_class = group.metadata[:example_group][:described_class]
+          expect(controller_class.superclass).to eq(group.controller_class)
+        end
+
+        it "infers the anonymous controller class when no ApplicationController is present" do
+          hide_const '::ApplicationController'
+          group.controller { }
+
+          controller_class = group.metadata[:example_group][:described_class]
+          expect(controller_class.superclass).to eq(group.controller_class)
+        end
       end
 
-      it "sets the anonymous controller class to ApplicationController when infer_base_class_for_anonymous_controllers is false" do
-        allow(RSpec.configuration).to receive(:infer_base_class_for_anonymous_controllers?).and_return(false)
-        group.controller { }
+      context "when infer_base_class_for_anonymous_controllers is false" do
+        before do
+          allow(RSpec.configuration).to receive(:infer_base_class_for_anonymous_controllers?).and_return(false)
+        end
 
-        controller_class = group.metadata[:example_group][:described_class]
-        expect(controller_class.superclass).to eq(ApplicationController)
+        it "sets the anonymous controller class to ApplicationController" do
+          group.controller { }
+
+          controller_class = group.metadata[:example_group][:described_class]
+          expect(controller_class.superclass).to eq(ApplicationController)
+        end
+
+        it "sets the anonymous controller class to ActiveController::Base when no ApplicationController is present" do
+          hide_const '::ApplicationController'
+          group.controller { }
+
+          controller_class = group.metadata[:example_group][:described_class]
+          expect(controller_class.superclass).to eq(ActionController::Base)
+        end
       end
     end
 

@@ -58,11 +58,12 @@ module RSpec::Rails
         if RSpec.configuration.infer_base_class_for_anonymous_controllers?
           base_class ||= controller_class
         end
-        base_class ||= ApplicationController
+        base_class ||= defined?(ApplicationController) ? ApplicationController : ActionController::Base
 
         metadata[:example_group][:described_class] = Class.new(base_class) do
           def self.name
-            if superclass == ApplicationController || superclass.abstract?
+            root_controller = defined?(ApplicationController) ? ApplicationController : ActionController::Base
+            if superclass == root_controller || superclass.abstract?
               "AnonymousController"
             else
               superclass.to_s
