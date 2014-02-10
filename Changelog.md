@@ -8,6 +8,8 @@ Bug fixes
 * Routes are drawn correctly for anonymous controllers with abstract
   parents. (Billy Chan)
 * Loads ActiveSupport properly to support changes in Rails 4.1. (Andy Lindeman)
+* Anonymous controllers inherit from `ActionController::Base` if `ApplicationController`
+  is not present. (Jon Rowe)
 
 Enhancements
 
