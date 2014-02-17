@@ -10,6 +10,7 @@ Bug fixes
 * Loads ActiveSupport properly to support changes in Rails 4.1. (Andy Lindeman)
 * Anonymous controllers inherit from `ActionController::Base` if `ApplicationController`
   is not present. (Jon Rowe)
+* Require `rspec/collection_matchers` when `rspec/rails` is required. (Yuji Nakayama)
 
 Enhancements
 

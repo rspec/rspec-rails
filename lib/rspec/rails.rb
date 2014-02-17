@@ -1,4 +1,5 @@
 require 'rspec/core'
+require 'rspec/collection_matchers'
 
 RSpec::configure do |c|
   c.backtrace_exclusion_patterns << /vendor\//
