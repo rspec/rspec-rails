@@ -1,3 +1,6 @@
+### 3.0.0.rc1 Development
+[full changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.beta2...master)
+
 ### 3.0.0.beta2 / 2014-02-17
 [full changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.beta1...v3.0.0.beta2)
 
