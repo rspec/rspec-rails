@@ -1,5 +1,5 @@
-### Unreleased
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.beta1...2-99-maintenance)
+### 2.99.0.beta2 / 2014-02-17
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.beta1...v2.99.0.beta2)
 
 Bug fixes
 
