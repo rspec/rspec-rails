@@ -34,6 +34,24 @@ Breaking Changes for 3.0.0:
 * Extracts `autotest` and `autotest-rails` support to `rspec-autotest` gem.
   (Andy Lindeman)
 
+### 2.99.0.beta2 / 2014-02-17
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.beta1...v2.99.0.beta2)
+
+Bug fixes
+
+* Use `__send__` rather than `send` to prevent naming collisions (Bradley Schaefer)
+* Supports Rails 4.1. (Andy Lindeman)
+* Loads ActiveSupport properly to support changes in Rails 4.1. (Andy Lindeman)
+* Anonymous controllers inherit from `ActionController::Base` if `ApplicationController`
+  is not present. (Jon Rowe)
+
+Deprecations
+
+* Deprecates the `--webrat` option to the scaffold and request spec generator (Andy Lindeman)
+* Deprecates the use of `Capybara::DSL` (e.g., `visit`) in controller specs.
+  It is more appropriate to use capybara in feature specs (`spec/features`)
+  instead. (Andy Lindeman)
+
 ### 2.99.0.beta1 / 2013-11-07
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.14.0...v2.99.0.beta1)
 
