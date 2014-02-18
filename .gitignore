@@ -17,3 +17,5 @@ Gemfile-custom
 .rbx
 /.ruby-gemset
 /.ruby-version
+bundle
+.bundle
