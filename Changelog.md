@@ -1,23 +1,8 @@
 ### 3.0.0.rc1 Development
-[full changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.beta2...master)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.beta2...master)
 
 ### 3.0.0.beta2 / 2014-02-17
-[full changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.beta1...v3.0.0.beta2)
-
-Bug fixes
-
-* Use `__send__` rather than `send` to prevent naming collisions (Bradley Schaefer)
-* Supports Rails 4.1. (Andy Lindeman)
-* Routes are drawn correctly for anonymous controllers with abstract
-  parents. (Billy Chan)
-* Loads ActiveSupport properly to support changes in Rails 4.1. (Andy Lindeman)
-* Anonymous controllers inherit from `ActionController::Base` if `ApplicationController`
-  is not present. (Jon Rowe)
-* Require `rspec/collection_matchers` when `rspec/rails` is required. (Yuji Nakayama)
-
-Enhancements
-
-* Improve be_valid matcher for non-ActiveModel::Errors implementations (Ben Hamill)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.beta1...v3.0.0.beta2)
 
 Breaking Changes for 3.0.0:
 
@@ -29,8 +14,23 @@ Breaking Changes for 3.0.0:
   enabled by default. (Thomas Holmes)
 * Capybara 2.2.0 or above is required for feature specs. (Andy Lindeman)
 
+Enhancements:
+
+* Improve `be_valid` matcher for non-ActiveModel::Errors implementations (Ben Hamill)
+
+Bug Fixes:
+
+* Use `__send__` rather than `send` to prevent naming collisions (Bradley Schaefer)
+* Supports Rails 4.1. (Andy Lindeman)
+* Routes are drawn correctly for anonymous controllers with abstract
+  parents. (Billy Chan)
+* Loads ActiveSupport properly to support changes in Rails 4.1. (Andy Lindeman)
+* Anonymous controllers inherit from `ActionController::Base` if `ApplicationController`
+  is not present. (Jon Rowe)
+* Require `rspec/collection_matchers` when `rspec/rails` is required. (Yuji Nakayama)
+
 ### 3.0.0.beta1 / 2013-11-07
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.beta1...v3.0.0.beta1)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.beta1...v3.0.0.beta1)
 
 Breaking Changes for 3.0.0:
 
@@ -38,9 +38,16 @@ Breaking Changes for 3.0.0:
   (Andy Lindeman)
 
 ### 2.99.0.beta2 / 2014-02-17
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.beta1...v2.99.0.beta2)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.beta1...v2.99.0.beta2)
 
-Bug fixes
+Deprecations:
+
+* Deprecates the `--webrat` option to the scaffold and request spec generator (Andy Lindeman)
+* Deprecates the use of `Capybara::DSL` (e.g., `visit`) in controller specs.
+  It is more appropriate to use capybara in feature specs (`spec/features`)
+  instead. (Andy Lindeman)
+
+Bug Fixes:
 
 * Use `__send__` rather than `send` to prevent naming collisions (Bradley Schaefer)
 * Supports Rails 4.1. (Andy Lindeman)
@@ -48,26 +55,19 @@ Bug fixes
 * Anonymous controllers inherit from `ActionController::Base` if `ApplicationController`
   is not present. (Jon Rowe)
 
-Deprecations
-
-* Deprecates the `--webrat` option to the scaffold and request spec generator (Andy Lindeman)
-* Deprecates the use of `Capybara::DSL` (e.g., `visit`) in controller specs.
-  It is more appropriate to use capybara in feature specs (`spec/features`)
-  instead. (Andy Lindeman)
-
 ### 2.99.0.beta1 / 2013-11-07
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.14.0...v2.99.0.beta1)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.14.0...v2.99.0.beta1)
 
-Deprecations
+Deprecations:
 
 * Deprecates autotest integration in favor of the `rspec-autotest` gem. (Andy
   Lindeman)
 
-Enhancements
+Enhancements:
 
 * Supports Rails 4.1 and Minitest 5. (Patrick Van Stee)
 
-Bug fixes
+Bug Fixes:
 
 * Fixes "warning: instance variable @orig\_routes not initialized" raised by
   controller specs when `--warnings` are enabled. (Andy Lindeman)
@@ -77,8 +77,23 @@ Bug fixes
 * Explicitly depends on `activemodel`. This allows libraries that do not bring
   in all of `rails` to use `rspec-rails`. (John Firebaugh)
 
+### 2.14.1 / 2013-12-29
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.14.0...v2.14.1)
+
+Bug Fixes:
+
+* Fixes "warning: instance variable @orig\_routes not initialized" raised by
+  controller specs when `--warnings` are enabled. (Andy Lindeman)
+* Where possible, check against the version of ActiveRecord, rather than
+  Rails. It is possible to use some of rspec-rails without all of Rails.
+  (Darryl Pogue)
+* Supports Rails 4.1 and Minitest 5. (Patrick Van Stee, Andy Lindeman)
+* Explicitly depends on `activemodel`. This allows libraries that do not bring
+  in all of `rails` to use `rspec-rails`. (John Firebaugh)
+* Use `__send__` rather than `send` to prevent naming collisions (Bradley Schaefer)
+
 ### 2.14.0 / 2013-07-06
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.14.0.rc1...v2.14.0)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.14.0.rc1...v2.14.0)
 
 Bug fixes
 
@@ -90,7 +105,7 @@ Bug fixes
   Rails 4. (Andy Lindeman)
 
 ### 2.14.0.rc1 / 2013-05-27
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.13.2...v2.14.0.rc1)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.13.2...v2.14.0.rc1)
 
 Enhancements
 
@@ -103,7 +118,7 @@ Bug fixes
   spec/ directory. (Benjamin Fleischer)
 
 ### 2.13.2 / 2013-05-18
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.13.1...v2.13.2)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.13.1...v2.13.2)
 
 Bug fixes
 
@@ -118,7 +133,7 @@ Enhancements
 * Document how the spec/support directory works. (Sam Phippen)
 
 ### 2.13.1 / 2013-04-27
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.13.0...v2.13.1)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.13.0...v2.13.1)
 
 Bug fixes
 
@@ -132,7 +147,7 @@ Bug fixes
 * Fix spacing in the install generator template (Taiki ONO)
 
 ### 2.13.0 / 2013-02-23
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.12.2...v2.13.0)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.12.2...v2.13.0)
 
 Enhancements
 
@@ -147,7 +162,7 @@ Enhancements
   (Rudolf Schmidt)
 
 ### 2.12.2 / 2013-01-12
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.12.1...v2.12.2)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.12.1...v2.12.2)
 
 Bug fixes
 
@@ -159,7 +174,7 @@ Bug fixes
   Lindeman)
 
 ### 2.12.1 / 2013-01-07
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.12.0...v2.12.1)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.12.0...v2.12.1)
 
 Bug fixes
 
@@ -174,7 +189,7 @@ Bug fixes
   and generation of URLs from other contexts. (Andy Lindeman)
 
 ### 2.12.0 / 2012-11-12
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.11.4...v2.12.0)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.11.4...v2.12.0)
 
 Enhancements
 
@@ -195,7 +210,7 @@ Bug fixes
 * Failures message for `be_new_record` are more useful (Andy Lindeman)
 
 ### 2.11.4 / 2012-10-14
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.11.0...v2.11.4)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.11.0...v2.11.4)
 
 Capybara-2.0 integration support:
 
@@ -209,7 +224,7 @@ for background.
 2.11.1, .2, .3 were yanked due to errant documentation.
 
 ### 2.11.0 / 2012-07-07
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.10.1...v2.11.0)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.10.1...v2.11.0)
 
 Enhancements
 
@@ -228,7 +243,7 @@ Bug fixes
   loads (Andy Lindeman)
 
 ### 2.10.1 / 2012-05-03
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.10.0...v2.10.1)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.10.0...v2.10.1)
 
 Bug fixes
 
@@ -238,7 +253,7 @@ Bug fixes
   Rails already does this (Jack Dempsey)
 
 ### 2.10.0 / 2012-05-03
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.9.0...v2.10.0)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.9.0...v2.10.0)
 
 Bug fixes
 
@@ -253,7 +268,7 @@ Bug fixes
   Strother)
 
 ### 2.9.0 / 2012-03-17
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.8.1...v2.9.0)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.8.1...v2.9.0)
 
 Enhancements
 
@@ -268,7 +283,7 @@ Bug fixes
 
 ### 2.8.1 / 2012-01-04
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.8.0...v2.8.1)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.8.0...v2.8.1)
 
 NOTE: there was a change in rails-3.2.0.rc2 which broke compatibility with
 stub_model in rspec-rails. This release fixes that issue, but it means that
@@ -281,7 +296,7 @@ you'll have to upgrade to rspec-rails-2.8.1 when you upgrade to rails >=
 
 ### 2.8.0 / 2012-01-04
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.8.0.rc2...v2.8.0)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.8.0.rc2...v2.8.0)
 
 * Enhancements
     * Eliminate deprecation warnings in generated view specs in Rails 3.2
@@ -291,7 +306,7 @@ you'll have to upgrade to rspec-rails-2.8.1 when you upgrade to rails >=
 
 ### 2.8.0.rc2 / 2011-12-19
 
-[full changelog](http://github.com/rspec/rspec-mocks/compare/v2.8.0.rc1...v2.8.0.rc2)
+[Full Changelog](http://github.com/rspec/rspec-mocks/compare/v2.8.0.rc1...v2.8.0.rc2)
 
 * Enhancements
     * Add session hash to generated controller specs (Thiago Almeida)
@@ -303,7 +318,7 @@ you'll have to upgrade to rspec-rails-2.8.1 when you upgrade to rails >=
 
 ### 2.8.0.rc1 / 2011-11-06
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.7.0...v2.8.0.rc1)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.7.0...v2.8.0.rc1)
 
 * Enhancements
     * Removed unnecessary "config.mock_with :rspec" from spec_helper.rb (Paul
@@ -319,7 +334,7 @@ you'll have to upgrade to rspec-rails-2.8.1 when you upgrade to rails >=
 
 ### 2.7.0 / 2011-10-16
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.6.1...v2.7.0)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.6.1...v2.7.0)
 
 * Enhancements
   * `ActiveRecord::Relation` can use the `=~` matcher (Andy Lindeman)
@@ -344,7 +359,7 @@ you'll have to upgrade to rspec-rails-2.8.1 when you upgrade to rails >=
 
 ### 2.6.1 / 2011-05-25
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.6.0...v2.6.1)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.6.0...v2.6.1)
 
 This release is compatible with rails-3.1.0.rc1, but not rails-3.1.0.beta1
 
@@ -355,7 +370,7 @@ This release is compatible with rails-3.1.0.rc1, but not rails-3.1.0.beta1
 
 ### 2.6.0 / 2011-05-12
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.5.0...v2.6.0)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.5.0...v2.6.0)
 
 * Enhancements
   * rails 3 shortcuts for routing specs (Joe Fiorini)
@@ -379,7 +394,7 @@ This release is compatible with rails-3.1.0.rc1, but not rails-3.1.0.beta1
 
 ### 2.5.0 / 2011-02-05
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.4.1...v2.5.0)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.4.1...v2.5.0)
 
 * Enhancements
   * use index_helper instead of table_name when generating specs (Reza
@@ -394,7 +409,7 @@ This release is compatible with rails-3.1.0.rc1, but not rails-3.1.0.beta1
 
 ### 2.4.1 / 2011-01-03
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.4.0...v2.4.1)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.4.0...v2.4.1)
 
 * Bug fixes
   * fixed bug caused by including some Rails modules before RSpec's
@@ -402,7 +417,7 @@ This release is compatible with rails-3.1.0.rc1, but not rails-3.1.0.beta1
 
 ### 2.4.0 / 2011-01-02
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.3.1...v2.4.0)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.3.1...v2.4.0)
 
 * Enhancements
   * include ApplicationHelper in helper object in helper specs
@@ -422,7 +437,7 @@ This release is compatible with rails-3.1.0.rc1, but not rails-3.1.0.beta1
 
 ### 2.3.1 / 2010-12-16
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.3.0...v2.3.1)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.3.0...v2.3.1)
 
 * Bug fixes
   * respond_to? correctly handles 2 args
@@ -430,7 +445,7 @@ This release is compatible with rails-3.1.0.rc1, but not rails-3.1.0.beta1
 
 ### 2.3.0 / 2010-12-12
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.2.1...v2.3.0)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.2.1...v2.3.0)
 
 * Changes
   * Generator no longer generates autotest/autodiscover.rb, as it is no longer
@@ -438,7 +453,7 @@ This release is compatible with rails-3.1.0.rc1, but not rails-3.1.0.beta1
 
 ### 2.2.1 / 2010-12-01
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.2.0...v2.2.1)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.2.0...v2.2.1)
 
 * Bug fixes
   * Depend on railties, activesupport, and actionpack instead of rails (Piotr
@@ -450,7 +465,7 @@ This release is compatible with rails-3.1.0.rc1, but not rails-3.1.0.beta1
 
 ### 2.2.0 / 2010-11-28
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.1.0...v2.2.0)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.1.0...v2.2.0)
 
 * Enhancements
   * Added stub_template in view specs
@@ -465,7 +480,7 @@ This release is compatible with rails-3.1.0.rc1, but not rails-3.1.0.beta1
 
 ### 2.1.0 / 2010-11-07
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.1...v2.1.0)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.0.1...v2.1.0)
 
 * Enhancements
   * Move errors_on to ActiveModel to support other AM-compliant ORMs
@@ -476,7 +491,7 @@ This release is compatible with rails-3.1.0.rc1, but not rails-3.1.0.beta1
 
 ### 2.0.1 / 2010-10-15
 
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.0.0...v2.0.1)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.0.0...v2.0.1)
 
 * Enhancements
   * Add option to not generate request spec (--skip-request-specs)
@@ -489,7 +504,7 @@ This release is compatible with rails-3.1.0.rc1, but not rails-3.1.0.beta1
 
 ### 2.0.0 / 2010-10-10
 
-[full changelog](https://github.com/rspec/rspec-rails/compare/ea6bdef...v2.0.0)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/ea6bdef...v2.0.0)
 
 * Enhancements
   * ControllerExampleGroup uses controller as the implicit subject by default (Paul Rosania)
