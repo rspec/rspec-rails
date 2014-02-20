@@ -15,7 +15,11 @@ describe "<%= ns_table_name %>/edit" do
 
     assert_select "form[action=?][method=?]", <%= ns_file_name %>_path(@<%= ns_file_name %>), "post" do
 <% for attribute in output_attributes -%>
+  <%- if attribute.reference? -%>
+      assert_select "<%= attribute.input_type -%>#<%= ns_file_name %>_<%= attribute.column_name %>[name=?]", "<%= ns_file_name %>[<%= attribute.column_name %>]"
+  <%- else -%>
       assert_select "<%= attribute.input_type -%>#<%= ns_file_name %>_<%= attribute.name %>[name=?]", "<%= ns_file_name %>[<%= attribute.name %>]"
+  <%- end -%>
 <% end -%>
     end
   end
