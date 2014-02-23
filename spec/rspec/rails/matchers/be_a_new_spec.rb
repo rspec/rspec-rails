@@ -72,7 +72,7 @@ describe "be_a_new matcher" do
           expect {
             expect(record).to be_a_new(record.class).with(:zoo => 'zoo', :car => 'car')
           }.to raise_error {|e|
-            expect(e.message).to match(/attributes {.*} were not set on #{record.inspect}/)
+            expect(e.message).to match(/attributes \{.*\} were not set on #{Regexp.escape record.inspect}/)
             expect(e.message).to match(/"zoo"=>"zoo"/)
             expect(e.message).to match(/"car"=>"car"/)
           }
@@ -120,7 +120,7 @@ describe "be_a_new matcher" do
           expect {
             expect(record).to be_a_new(String).with(:zoo => 'zoo', :car => 'car')
           }.to raise_error {|e|
-            expect(e.message).to match(/expected #{record.inspect} to be a new String and attributes {.*} were not set on #{record.inspect}/)
+            expect(e.message).to match(/expected #{Regexp.escape record.inspect} to be a new String and attributes \{.*\} were not set on #{Regexp.escape record.inspect}/)
             expect(e.message).to match(/"zoo"=>"zoo"/)
             expect(e.message).to match(/"car"=>"car"/)
           }
