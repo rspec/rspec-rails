@@ -10,7 +10,7 @@ module RSpec::Rails
 
     it "provides a controller_path based on the helper module's name" do
       example = double
-      example.stub_chain(:example_group, :described_class) { FoosHelper }
+      allow(example).to receive_message_chain(:example_group, :described_class) { FoosHelper }
 
       helper_spec = Object.new.extend HelperExampleGroup
       expect(helper_spec.__send__(:_controller_path, example)).to eq("foos")
