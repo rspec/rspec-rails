@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
 
   s.files            = `git ls-files -- lib/*`.split("\n")
   s.files           += %w[README.md License.txt Changelog.md Capybara.md .yardopts .document]
-  s.test_files       = `git ls-files -- {spec,features}/*`.split("\n")
+  s.test_files       = []
   s.rdoc_options     = ["--charset=UTF-8"]
   s.require_path     = "lib"
 
