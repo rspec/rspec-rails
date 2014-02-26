@@ -20,6 +20,7 @@ namespace :spec do
           end
 
   task :prepare do
+    ENV['RACK_ENV'] = ENV['RAILS_ENV'] = 'test'
     if Rails.configuration.generators.options[:rails][:orm] == :active_record
       if ::Rails::VERSION::STRING.to_f < 4.1
         Rake::Task["test:prepare"].invoke
