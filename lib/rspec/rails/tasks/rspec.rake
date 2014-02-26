@@ -3,7 +3,13 @@ if default = Rake.application.instance_variable_get('@tasks')['default']
   default.prerequisites.delete('test')
 end
 
-spec_prereq = Rails.configuration.generators.options[:rails][:orm] == :active_record ?  "test:prepare" : :noop
+if Rails.configuration.generators.options[:rails][:orm] == :active_record &&
+  Rake::Task.task_defined?("test:prepare")
+  spec_prereq = "test:prepare"
+else
+  spec_prereq = :noop
+end
+
 task :noop do; end
 task :default => :spec
 
