@@ -21,7 +21,9 @@ namespace :spec do
 
   task :prepare do
     if Rails.configuration.generators.options[:rails][:orm] == :active_record
-      Rake::Task["test:prepare"].invoke
+      if ::Rails::VERSION::STRING.to_f < 4.1
+        Rake::Task["test:prepare"].invoke
+      end
     end
   end
 
