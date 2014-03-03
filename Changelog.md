@@ -1,6 +1,11 @@
 ### 3.0.0.rc1 Development
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.beta2...master)
 
+Breaking Changes for 3.0.0:
+
+* Extracts the `mock_model` and `stub_model` methods to the
+  `rspec-activemodel-mocks` gem. (Thomas Holmes)
+
 ### 3.0.0.beta2 / 2014-02-17
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.beta1...v3.0.0.beta2)
 
@@ -13,8 +18,6 @@ Breaking Changes for 3.0.0:
 * `infer_base_class_for_anonymous_controllers` is
   enabled by default. (Thomas Holmes)
 * Capybara 2.2.0 or above is required for feature specs. (Andy Lindeman)
-* Extracts the `mock_model` and `stub_model` methods to the
-  `rspec-activemodel-mocks` gem. (Thomas Holmes)
 
 Enhancements:
 
