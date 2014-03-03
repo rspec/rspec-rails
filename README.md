@@ -371,7 +371,7 @@ expect(object).to be_a_new(Widget)
 ```
 
 
-Passes if the object is a `Widget` and returns true for `new_record?`
+Passes if the object is a `Widget` and returns false for `persisted?`
 
 ## `render_template`
 * Delegates to Rails' assert_template.

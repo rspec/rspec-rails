@@ -6,7 +6,7 @@ describe "be_a_new matcher" do
   context "new record" do
     let(:record) do
       Class.new do
-        def new_record?; true; end
+        def persisted?; false; end
       end.new
     end
     context "right class" do
@@ -24,7 +24,7 @@ describe "be_a_new matcher" do
   context "existing record" do
     let(:record) do
       Class.new do
-        def new_record?; false; end
+        def persisted?; true; end
       end.new
     end
     context "right class" do
@@ -51,7 +51,7 @@ describe "be_a_new matcher" do
             @attributes.stringify_keys
           end
 
-          def new_record?; true; end
+          def persisted?; false; end
         end.new(:foo => 'foo', :bar => 'bar')
       end
 
@@ -101,7 +101,7 @@ describe "be_a_new matcher" do
             @attributes.stringify_keys
           end
 
-          def new_record?; false; end
+          def persisted?; true; end
         end.new(:foo => 'foo', :bar => 'bar')
       end
 

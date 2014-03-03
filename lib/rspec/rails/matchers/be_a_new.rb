@@ -8,7 +8,7 @@ module RSpec::Rails::Matchers
     # @api private
     def matches?(actual)
       @actual = actual
-      actual.is_a?(expected) && actual.new_record? && attributes_match?(actual)
+      actual.is_a?(expected) && !actual.persisted? && attributes_match?(actual)
     end
 
     # Use this to specify the specific attributes to match on the new record.
@@ -27,7 +27,7 @@ module RSpec::Rails::Matchers
     # @api private
     def failure_message
       [].tap do |message|
-        unless actual.is_a?(expected) && actual.new_record?
+        unless actual.is_a?(expected) && !actual.persisted?
           message << "expected #{actual.inspect} to be a new #{expected.inspect}"
         end
         unless attributes_match?(actual)
