@@ -1,6 +1,11 @@
 ### 2.99.0.rc1 Development
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.beta2...2-99-maintenance)
 
+Deprecations
+
+* Deprecates `stub_model` and `mock_model` in favor of the
+  `rspec-activemodel-mocks` gem. (Thomas Holmes)
+
 ### 2.99.0.beta2 / 2014-02-17
 [full changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.beta1...v2.99.0.beta2)
 
