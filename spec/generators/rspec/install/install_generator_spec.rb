@@ -16,11 +16,17 @@ describe Rspec::Generators::InstallGenerator do
     expect(File.read( file('spec/spec_helper.rb') )).to match(/^require 'rspec\/rails'$/m)
   end
 
-  if ::Rails::VERSION::STRING >= '4'
-    it "generates spec/spec_helper.rb with a check for pending migrations" do
-      run_generator
-      expect(File.read( file('spec/spec_helper.rb') )).to match(/ActiveRecord::Migration\.check_pending!/m)
-    end
+  case ::Rails::VERSION::STRING.to_f
+    when 4.1
+      it "generates spec/spec_helper.rb with a check for maintaining schema" do
+        run_generator
+        expect(File.read( file('spec/spec_helper.rb') )).to match(/ActiveRecord::Migration\.maintain_test_schema!/m)
+      end
+    when 4.0
+      it "generates spec/spec_helper.rb with a check for pending migrations" do
+        run_generator
+        expect(File.read( file('spec/spec_helper.rb') )).to match(/ActiveRecord::Migration\.check_pending!/m)
+      end
   else
     it "generates spec/spec_helper.rb without a check for pending migrations" do
       run_generator
