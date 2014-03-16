@@ -10,7 +10,7 @@ module RSpec::Rails
 
     module ClassMethods
       def _default_helper
-        base = metadata[:example_group][:description].split('/')[0..-2].join('/')
+        base = metadata[:description].split('/')[0..-2].join('/')
         (base.camelize + 'Helper').constantize if base
       rescue NameError
         nil

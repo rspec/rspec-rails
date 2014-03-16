@@ -5,15 +5,7 @@ module Helpers
   end
 
   def metadata_with(additional_metadata)
-    m = RSpec::Core::Metadata.new
-    m.process("example group")
-
-    group_metadata = additional_metadata.delete(:example_group)
-    if group_metadata
-      m[:example_group].merge!(group_metadata)
-    end
-    m.merge!(additional_metadata)
-    m
+    ::RSpec.describe("example group").metadata.merge(additional_metadata)
   end
 
   def with_isolated_config

@@ -98,7 +98,7 @@ module RSpec::Rails
         it "infers the anonymous controller class" do
           group.controller { }
 
-          controller_class = group.metadata[:example_group][:described_class]
+          controller_class = group.metadata[:described_class]
           expect(controller_class.superclass).to eq(group.controller_class)
         end
 
@@ -106,7 +106,7 @@ module RSpec::Rails
           hide_const '::ApplicationController'
           group.controller { }
 
-          controller_class = group.metadata[:example_group][:described_class]
+          controller_class = group.metadata[:described_class]
           expect(controller_class.superclass).to eq(group.controller_class)
         end
       end
@@ -119,7 +119,7 @@ module RSpec::Rails
         it "sets the anonymous controller class to ApplicationController" do
           group.controller { }
 
-          controller_class = group.metadata[:example_group][:described_class]
+          controller_class = group.metadata[:described_class]
           expect(controller_class.superclass).to eq(ApplicationController)
         end
 
@@ -127,14 +127,14 @@ module RSpec::Rails
           hide_const '::ApplicationController'
           group.controller { }
 
-          controller_class = group.metadata[:example_group][:described_class]
+          controller_class = group.metadata[:described_class]
           expect(controller_class.superclass).to eq(ActionController::Base)
         end
       end
     end
 
     describe "controller name" do
-      let(:controller_class) { group.metadata[:example_group][:described_class] }
+      let(:controller_class) { group.metadata[:described_class] }
 
       it "sets the name as AnonymousController if it's anonymous" do
         group.controller { }
