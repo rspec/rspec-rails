@@ -115,6 +115,7 @@ EOM
         stubs = stubs.reverse_merge(:persisted? => !!stubs[:id],
                                     :destroyed? => false,
                                     :marked_for_destruction? => false,
+                                    :has_attribute? => false,
                                     :valid? => true,
                                     :blank? => false)
 
