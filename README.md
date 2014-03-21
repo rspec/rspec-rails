@@ -119,12 +119,13 @@ end
 For more information, see [cucumber scenarios for controller
 specs](https://www.relishapp.com/rspec/rspec-rails/docs/controller-specs).
 
-**Note:** To encourage more isolated testing, *views are not rendered by default
-in controller specs*. If you are verifying discrete view logic, use a [view spec](#view-specs).
-If you are verifying the behavior of a controller and view together, consider a [request spec](#request-specs).
-You can use
+**Note:** To encourage more isolated testing, views are not rendered by default
+in controller specs. If you are verifying discrete view logic, use a
+[view spec](#view-specs).  If you are verifying the behaviour of a controller and
+view together, consider a [request spec](#request-specs). You can use
 [render\_views](https://www.relishapp.com/rspec/rspec-rails/docs/controller-specs/render-views)
-if you must verify the rendered view contents within a controller spec.
+if you must verify the rendered view contents within a controller spec, but this is
+not recommended.
 
 ## <a id="request-spec"></a>Request Specs
 
