@@ -33,3 +33,5 @@ RSpec.configure do |config|
     RSpec.instance_variable_set(:@world, real_world)
   end
 end
+
+RSpec::Rails.infer_spec_type_from_file_location!

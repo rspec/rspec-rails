@@ -9,5 +9,3 @@ require 'rspec/rails/example/model_example_group'
 require 'rspec/rails/example/feature_example_group'
 
 require 'rspec/rails/configuration'
-
-RSpec::Rails.infer_spec_type_from_file_location!
