@@ -150,6 +150,10 @@ EOM
               #{model_class}.respond_to?(:column_names) && #{model_class}.column_names.include?(method_name.to_s)
             end
 
+            def @object.has_attribute?(attr_name)
+              __model_class_has_column?(attr_name)
+            end unless #{stubs.has_key?(:has_attribute?)}
+
             def @object.respond_to?(method_name, include_private=false)
               __model_class_has_column?(method_name) ? true : super
             end unless #{stubs.has_key?(:respond_to?)}
