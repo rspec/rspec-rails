@@ -3,7 +3,7 @@ require 'spec_helper'
 # Generators are not automatically loaded by Rails
 require 'generators/rspec/mailer/mailer_generator'
 
-describe Rspec::Generators::MailerGenerator do
+describe Rspec::Generators::MailerGenerator, :type => :generator do
   # Tell the generator where to put its output (what it thinks of as Rails.root)
   destination File.expand_path("../../../../../tmp", __FILE__)
 
