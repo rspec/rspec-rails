@@ -7,3 +7,5 @@ require 'rspec/rails/example/mailer_example_group'
 require 'rspec/rails/example/routing_example_group'
 require 'rspec/rails/example/model_example_group'
 require 'rspec/rails/example/feature_example_group'
+
+require 'rspec/rails/infer_type_configuration'
