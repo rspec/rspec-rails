@@ -55,7 +55,7 @@ when /master/
 when /stable$/
   gem "rails", :git => "git://github.com/rails/rails.git", :branch => version
 when nil, false, ""
-  gem "rails", "4.0.2"
+  gem "rails", "4.0.4"
 else
   gem "rails", version
 end
