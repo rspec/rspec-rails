@@ -14,3 +14,5 @@ require 'rspec/rails/matchers'
 require 'rspec/rails/fixture_support'
 require 'rspec/rails/example'
 require 'rspec/rails/vendor/capybara'
+
+require 'rspec/rails/configuration'
