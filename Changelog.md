@@ -1,5 +1,5 @@
-### Development
-[full changelog](http://github.com/rspec/rspec-rails/compare/v2.14.1...2-14-maintenance)
+### 2.14.2 / 2014-03-22
+[full changelog](http://github.com/rspec/rspec-rails/compare/v2.14.1...v2.14.2)
 
 Bug fixes
 
