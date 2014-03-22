@@ -194,6 +194,33 @@ describe "mock_model(RealModel)" do
     end
   end
 
+  describe "#has_attribute?" do
+    context "with an ActiveRecord model" do
+      before(:each) do
+        MockableModel.stub(:column_names).and_return(["column_a", "column_b"])
+        @model = mock_model(MockableModel)
+      end
+
+      it "has a given attribute if the underlying model has column of the same name" do
+        expect(@model.has_attribute?("column_a")).to be_true
+        expect(@model.has_attribute?("column_b")).to be_true
+        expect(@model.has_attribute?("column_c")).to be_false
+      end
+
+      it "accepts symbols" do
+        expect(@model.has_attribute?(:column_a)).to be_true
+        expect(@model.has_attribute?(:column_b)).to be_true
+        expect(@model.has_attribute?(:column_c)).to be_false
+      end
+
+      it "allows has_attribute? to be explicitly stubbed" do
+        @model = mock_model(MockableModel, :has_attribute? => false)
+        expect(@model.has_attribute?(:column_a)).to be_false
+        expect(@model.has_attribute?(:column_b)).to be_false
+      end
+    end
+  end
+
   describe "#respond_to?" do
     context "with an ActiveRecord model" do
       before(:each) do
