@@ -3,7 +3,7 @@ require 'spec_helper'
 # Generators are not automatically loaded by rails
 require 'generators/rspec/feature/feature_generator'
 
-describe Rspec::Generators::FeatureGenerator do
+describe Rspec::Generators::FeatureGenerator, :type => :generator do
   # Tell the generator where to put its output (what it thinks of as Rails.root)
   destination File.expand_path("../../../../../temp", __FILE__)
 

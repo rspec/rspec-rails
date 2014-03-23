@@ -2,7 +2,7 @@ require 'spec_helper'
 
 require 'generators/rspec/scaffold/scaffold_generator'
 
-describe Rspec::Generators::ScaffoldGenerator do
+describe Rspec::Generators::ScaffoldGenerator, :type => :generator do
   destination File.expand_path("../../../../../tmp", __FILE__)
 
   before { prepare_destination }

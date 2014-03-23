@@ -3,7 +3,7 @@ require 'spec_helper'
 # Generators are not automatically loaded by Rails
 require 'generators/rspec/observer/observer_generator'
 
-describe Rspec::Generators::ObserverGenerator do
+describe Rspec::Generators::ObserverGenerator, :type => :generator do
   # Tell the generator where to put its output (what it thinks of as Rails.root)
   destination File.expand_path("../../../../../tmp", __FILE__)
 

@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'generators/rspec/install/install_generator'
 
-describe Rspec::Generators::InstallGenerator do
+describe Rspec::Generators::InstallGenerator, :type => :generator do
   destination File.expand_path("../../../../../tmp", __FILE__)
 
   before { prepare_destination }
