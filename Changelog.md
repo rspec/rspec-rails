@@ -5,6 +5,10 @@ Breaking Changes for 3.0.0:
 
 * Extracts the `mock_model` and `stub_model` methods to the
   `rspec-activemodel-mocks` gem. (Thomas Holmes)
+* Spec types are no longer inferred by location, they instead need to be
+  explicitly tagged. The old behaviour is enabled by
+  `RSpec::Rails.infer_spec_type_from_file_location!`, which is still supplied
+  in the default generated `spec_helper.rb`. (Xavier Shay)
 
 ### 3.0.0.beta2 / 2014-02-17
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.beta1...v3.0.0.beta2)
