@@ -21,7 +21,7 @@ Feature: view spec infers controller path and action
       require "spec_helper"
 
       describe "widgets/new" do
-        it "infers the controller path" do
+        it "infers the controller action" do
           expect(controller.request.path_parameters[:action]).to eq("new")
         end
       end
