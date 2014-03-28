@@ -19,6 +19,7 @@ module Helpers
       c.add_setting :fixture_path
     end
     yield
+  ensure
     RSpec.configuration = original_config
   end
 
