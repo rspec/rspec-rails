@@ -39,10 +39,6 @@ if RUBY_VERSION <= '1.8.7'
   gem 'rubyzip', '< 1.0'
 end
 
-# For now, only ammeter master is compatible with RSpec 3. This line can be
-# removed once an RSpec 3-compatible version is pushed to rubygems.
-gem 'ammeter', :github => 'alexrothenberg/ammeter', :ref => 'f81c99070f6badf3d5835d3a17c821159230a2d9'
-
 custom_gemfile = File.expand_path("../Gemfile-custom", __FILE__)
 eval File.read(custom_gemfile) if File.exist?(custom_gemfile)
 
