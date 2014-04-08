@@ -141,7 +141,7 @@ a black box approach.
 require 'spec_helper'
 describe "home page" do
   it "displays the user's username after successful login" do
-    user = User.create!(:username => "jdoe", :password => "secret")
+    user = User.create!(username: "jdoe", password: "secret")
     get "/login"
     assert_select "form.login" do
       assert_select "input[name=?]", "username"
@@ -149,8 +149,8 @@ describe "home page" do
       assert_select "input[type=?]", "submit"
     end
 
-    post "/login", :username => "jdoe", :password => "secret"
-    assert_select ".header .username", :text => "jdoe"
+    post "/login", username: "jdoe", password: "secret"
+    assert_select ".header .username", text: "jdoe"
   end
 end
 ```
@@ -164,13 +164,13 @@ users like to use extension libraries like
 require 'spec_helper'
 describe "home page" do
   it "displays the user's username after successful login" do
-    user = FactoryGirl.create(:user, :username => "jdoe", :password => "secret")
+    user = FactoryGirl.create(:user, username: "jdoe", password: "secret")
     visit "/login"
-    fill_in "Username", :with => "jdoe"
-    fill_in "Password", :with => "secret"
+    fill_in "Username", with: "jdoe"
+    fill_in "Password", with: "secret"
     click_button "Log in"
 
-    expect(page).to have_selector(".header .username", :text => "jdoe")
+    expect(page).to have_selector(".header .username", text: "jdoe")
   end
 end
 ```
@@ -218,14 +218,14 @@ describe "events/index" do
   it "renders _event partial for each event" do
     assign(:events, [stub_model(Event), stub_model(Event)])
     render
-    expect(view).to render_template(:partial => "_event", :count => 2)
+    expect(view).to render_template(partial: "_event", count: 2)
   end
 end
 
 describe "events/show" do
   it "displays the event location" do
     assign(:event, stub_model(Event,
-      :location => "Chicago"
+      location: "Chicago"
     ))
     render
     expect(rendered).to include("Chicago")
@@ -249,7 +249,7 @@ To provide a layout for the render, you'll need to specify _both_ the template
 and the layout explicitly.  For example:
 
 ```ruby
-render :template => "events/show", :layout => "layouts/application"
+render template: "events/show", layout: "layouts/application"
 ```
 
 ## `assign(key, val)`
@@ -321,15 +321,15 @@ Routing specs live in spec/routing.
 require 'spec_helper'
 describe "routing to profiles" do
   it "routes /profile/:username to profile#show for username" do
-    expect(:get => "/profiles/jsmith").to route_to(
-      :controller => "profiles",
-      :action => "show",
-      :username => "jsmith"
+    expect(get: "/profiles/jsmith").to route_to(
+      controller: "profiles",
+      action: "show",
+      username: "jsmith"
     )
   end
 
   it "does not expose a list of profiles" do
-    expect(:get => "/profiles").not_to be_routable
+    expect(get: "/profiles").not_to be_routable
   end
 end
 ```
@@ -388,7 +388,7 @@ expect(response).to render_template("new")
 In view specs, apply to the view object:
 
 ```ruby
-expect(view).to render_template(:partial => "_form", :locals => { :widget => widget } )
+expect(view).to render_template(partial: "_form", locals: { widget: widget } )
 ```
 
 ## `redirect_to`
@@ -405,7 +405,7 @@ expect(response).to redirect_to(widgets_path)
 * Available in routing and controller specs.
 
 ```ruby
-expect(:get => "/widgets").to route_to(:controller => "widgets", :action => "index")
+expect(get: "/widgets").to route_to(controller: "widgets", action: "index")
 ```
 
 ## `be_routable`
@@ -414,7 +414,7 @@ Passes if the path is recognized by Rails' routing. This is primarily intended
 to be used with `not_to` to specify routes that should not be routable.
 
 ```ruby
-expect(:get => "/widgets/1/edit").not_to be_routable
+expect(get: "/widgets/1/edit").not_to be_routable
 ```
 
 # `rake` tasks
