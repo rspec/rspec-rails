@@ -25,7 +25,7 @@ module RSpec::Rails::Matchers
           @scope.assert_recognizes(
             @expected,
             {:method => verb_to_path_map.keys.first, :path => path},
-            Rack::Utils::parse_query(query)
+            Rack::Utils::parse_nested_query(query)
           )
         end
       end
