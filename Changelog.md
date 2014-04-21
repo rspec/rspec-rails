@@ -10,6 +10,10 @@ Breaking Changes for 3.0.0:
   `config.infer_spec_type_from_file_location!`, which is still supplied
   in the default generated `spec_helper.rb`. (Xavier Shay)
 
+Bug Fixes:
+
+* Fix an inconsistency in the generated scaffold specs for a controller. (Andy Waite)
+
 ### 3.0.0.beta2 / 2014-02-17
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.beta1...v3.0.0.beta2)
 
