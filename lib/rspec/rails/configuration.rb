@@ -1,7 +1,22 @@
 module RSpec
   module Rails
     # @private
-    def self.add_rspec_rails_config_api_to(config)
+    def self.initialize_configuration(config)
+      config.backtrace_exclusion_patterns << /vendor\//
+      config.backtrace_exclusion_patterns << /lib\/rspec\/rails/
+
+      config.include RSpec::Rails::ControllerExampleGroup, :type => :controller
+      config.include RSpec::Rails::HelperExampleGroup,     :type => :helper
+      config.include RSpec::Rails::ModelExampleGroup,      :type => :model
+      config.include RSpec::Rails::RequestExampleGroup,    :type => :request
+      config.include RSpec::Rails::RoutingExampleGroup,    :type => :routing
+      config.include RSpec::Rails::ViewExampleGroup,       :type => :view
+      config.include RSpec::Rails::FeatureExampleGroup,    :type => :feature
+
+      if defined?(RSpec::Rails::MailerExampleGroup)
+        config.include RSpec::Rails::MailerExampleGroup, :type => :mailer
+      end
+
       # controller settings
       config.add_setting :infer_base_class_for_anonymous_controllers, :default => true
 
@@ -34,137 +49,24 @@ module RSpec
       end
 
       def config.infer_spec_type_from_file_location!
-        def self.escaped_path(*parts)
-          Regexp.compile(parts.join('[\\\/]') + '[\\\/]')
+        {
+          :controller => %w[spec controllers],
+          :helper     => %w[spec helpers],
+          :mailer     => %w[spec mailers],
+          :model      => %w[spec models],
+          :request    => %w[spec (requests|integration|api)],
+          :routing    => %w[spec routing],
+          :view       => %w[spec views],
+          :feature    => %w[spec features]
+        }.each do |type, dir_parts|
+          escaped_path = Regexp.compile(dir_parts.join('[\\\/]') + '[\\\/]')
+          define_derived_metadata(:file_path => escaped_path) do |metadata|
+            metadata[:type] ||= type
+          end
         end
-
-        controller_path_regex = self.escaped_path(%w[spec controllers])
-        self.include RSpec::Rails::ControllerExampleGroup,
-          :type          => :controller,
-          :file_path     => lambda { |file_path, metadata|
-            metadata[:type].nil? && controller_path_regex =~ file_path
-          }
-
-        helper_path_regex = self.escaped_path(%w[spec helpers])
-        self.include RSpec::Rails::HelperExampleGroup,
-          :type          => :helper,
-          :file_path     => lambda { |file_path, metadata|
-            metadata[:type].nil? && helper_path_regex =~ file_path
-          }
-
-        mailer_path_regex = self.escaped_path(%w[spec mailers])
-        if defined?(RSpec::Rails::MailerExampleGroup)
-          self.include RSpec::Rails::MailerExampleGroup,
-            :type          => :mailer,
-            :file_path     => lambda { |file_path, metadata|
-              metadata[:type].nil? && mailer_path_regex =~ file_path
-            }
-        end
-
-        model_path_regex = self.escaped_path(%w[spec models])
-        self.include RSpec::Rails::ModelExampleGroup,
-          :type          => :model,
-          :file_path     => lambda { |file_path, metadata|
-            metadata[:type].nil? && model_path_regex =~ file_path
-          }
-
-        request_path_regex = self.escaped_path(%w[spec (requests|integration|api)])
-        self.include RSpec::Rails::RequestExampleGroup,
-          :type          => :request,
-          :file_path     => lambda { |file_path, metadata|
-            metadata[:type].nil? && request_path_regex =~ file_path
-          }
-
-        routing_path_regex = self.escaped_path(%w[spec routing])
-        self.include RSpec::Rails::RoutingExampleGroup,
-          :type          => :routing,
-          :file_path     => lambda { |file_path, metadata|
-            metadata[:type].nil? && routing_path_regex =~ file_path
-          }
-
-        view_path_regex = self.escaped_path(%w[spec views])
-        self.include RSpec::Rails::ViewExampleGroup,
-          :type          => :view,
-          :file_path     => lambda { |file_path, metadata|
-            metadata[:type].nil? && view_path_regex =~ file_path
-          }
-
-        feature_example_regex = self.escaped_path(%w[spec features])
-        self.include RSpec::Rails::FeatureExampleGroup,
-          :type          => :feature,
-          :file_path     => lambda { |file_path, metadata|
-            metadata[:type].nil? && feature_example_regex =~ file_path
-          }
       end
     end
+
+    initialize_configuration RSpec.configuration
   end
-end
-
-RSpec.configure do |c|
-  RSpec::Rails.add_rspec_rails_config_api_to(c)
-
-  c.backtrace_exclusion_patterns << /vendor\//
-  c.backtrace_exclusion_patterns << /lib\/rspec\/rails/
-
-  def c.escaped_path(*parts)
-    Regexp.compile(parts.join('[\\\/]') + '[\\\/]')
-  end
-
-  controller_path_regex = c.escaped_path(%w[spec controllers])
-  c.include RSpec::Rails::ControllerExampleGroup,
-    :type          => :controller,
-    :file_path     => lambda { |file_path, metadata|
-      metadata[:type].nil? && controller_path_regex =~ file_path
-    }
-
-  helper_path_regex = c.escaped_path(%w[spec helpers])
-  c.include RSpec::Rails::HelperExampleGroup,
-    :type          => :helper,
-    :file_path     => lambda { |file_path, metadata|
-      metadata[:type].nil? && helper_path_regex =~ file_path
-    }
-
-  mailer_path_regex = c.escaped_path(%w[spec mailers])
-  if defined?(RSpec::Rails::MailerExampleGroup)
-    c.include RSpec::Rails::MailerExampleGroup,
-      :type          => :mailer,
-      :file_path     => lambda { |file_path, metadata|
-        metadata[:type].nil? && mailer_path_regex =~ file_path
-      }
-  end
-
-  model_path_regex = c.escaped_path(%w[spec models])
-  c.include RSpec::Rails::ModelExampleGroup,
-    :type          => :model,
-    :file_path     => lambda { |file_path, metadata|
-      metadata[:type].nil? && model_path_regex =~ file_path
-    }
-
-  request_path_regex = c.escaped_path(%w[spec (requests|integration|api)])
-  c.include RSpec::Rails::RequestExampleGroup,
-    :type          => :request,
-    :file_path     => lambda { |file_path, metadata|
-      metadata[:type].nil? && request_path_regex =~ file_path
-    }
-
-  routing_path_regex = c.escaped_path(%w[spec routing])
-  c.include RSpec::Rails::RoutingExampleGroup,
-    :type          => :routing,
-    :file_path     => lambda { |file_path, metadata|
-      metadata[:type].nil? && routing_path_regex =~ file_path
-    }
-
-  view_path_regex = c.escaped_path(%w[spec views])
-  c.include RSpec::Rails::ViewExampleGroup,
-    :type          => :view,
-    :file_path     => lambda { |file_path, metadata|
-      metadata[:type].nil? && view_path_regex =~ file_path
-    }
-
-  feature_example_regex = c.escaped_path(%w[spec features])
-  c.include RSpec::Rails::FeatureExampleGroup,
-    :type          => :feature,
-    :file_path     => lambda { |file_path, metadata|
-      metadata[:type].nil? && feature_example_regex =~ file_path
-    }
 end
