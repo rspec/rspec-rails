@@ -8,11 +8,17 @@ Breaking Changes for 3.0.0:
 * Spec types are no longer inferred by location, they instead need to be
   explicitly tagged. The old behaviour is enabled by
   `config.infer_spec_type_from_file_location!`, which is still supplied
-  in the default generated `spec_helper.rb`. (Xavier Shay)
+  in the default generated `spec_helper.rb`. (Xavier Shay, Myron Marston)
+* `controller` macro in controller specs no longer mutates
+  `:described_class` metadata. It still overrides the subject and sets
+  the controller, though. (Myron Marston)
 
 Bug Fixes:
 
 * Fix an inconsistency in the generated scaffold specs for a controller. (Andy Waite)
+* Ensure `config.before(:all, :type => <type>)` hooks run before groups
+  of the given type, even when the type is inferred by the file
+  location. (Jon Rowe, Myron Marston)
 
 ### 3.0.0.beta2 / 2014-02-17
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.beta1...v3.0.0.beta2)
