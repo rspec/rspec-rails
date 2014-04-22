@@ -38,7 +38,6 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency "rspec-#{name}", "~> #{RSpec::Rails::Version::STRING.split('.')[0..1].concat(['0']).join('.')}"
     end
   end
-  s.add_runtime_dependency "rspec-collection_matchers"
 
   s.add_development_dependency 'rake',     '~> 10.0.0'
   s.add_development_dependency 'cucumber', '~> 1.3.5'
