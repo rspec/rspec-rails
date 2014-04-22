@@ -5,13 +5,6 @@ module RSpec::Rails
     it_behaves_like "an rspec-rails example group mixin", :routing,
       './spec/routing/', '.\\spec\\routing\\'
 
-    it "adds :type => :routing to the metadata" do
-      group = RSpec::Core::ExampleGroup.describe do
-        include RoutingExampleGroup
-      end
-      expect(group.metadata[:type]).to eq(:routing)
-    end
-
     describe "named routes" do
       it "delegates them to the route_set" do
         group = RSpec::Core::ExampleGroup.describe do

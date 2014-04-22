@@ -5,13 +5,6 @@ module RSpec::Rails
     it_behaves_like "an rspec-rails example group mixin", :view,
       './spec/views/', '.\\spec\\views\\'
 
-    it "adds :type => :view to the metadata" do
-      group = RSpec::Core::ExampleGroup.describe do
-        include ViewExampleGroup
-      end
-      expect(group.metadata[:type]).to eq(:view)
-    end
-
     describe 'automatic inclusion of helpers' do
       module ::ThingsHelper; end
       module ::Namespaced; module ThingsHelper; end; end

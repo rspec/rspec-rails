@@ -31,6 +31,12 @@ shared_examples_for "an rspec-rails example group mixin" do |type, *paths|
     with_isolated_config(&ex)
   end
 
+  it "adds does not add `:type` metadata on inclusion" do
+    mixin = self.mixin
+    group = RSpec.describe { include mixin }
+    expect(group.metadata).not_to include(:type)
+  end
+
   context 'when `infer_spec_type_from_file_location!` is configured' do
     before { RSpec.configuration.infer_spec_type_from_file_location! }
 

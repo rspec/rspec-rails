@@ -6,8 +6,6 @@ module RSpec::Rails
     DEFAULT_HOST = "www.example.com"
 
     included do
-      metadata[:type] = :feature
-
       app = ::Rails.application
       if app.respond_to?(:routes)
         include app.routes.url_helpers     if app.routes.respond_to?(:url_helpers)

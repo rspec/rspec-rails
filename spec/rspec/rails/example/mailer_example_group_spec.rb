@@ -10,12 +10,5 @@ module RSpec::Rails
 
     it_behaves_like "an rspec-rails example group mixin", :mailer,
       './spec/mailers/', '.\\spec\\mailers\\'
-
-    it "adds :type => :mailer to the metadata" do
-      group = RSpec::Core::ExampleGroup.describe do
-        include MailerExampleGroup
-      end
-      expect(group.metadata[:type]).to eq(:mailer)
-    end
   end
 end

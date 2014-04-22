@@ -5,14 +5,6 @@ module RSpec::Rails
     it_behaves_like "an rspec-rails example group mixin", :feature,
       './spec/features/', '.\\spec\\features\\'
 
-    it "adds :type => :feature to the metadata" do
-      group = RSpec::Core::ExampleGroup.describe do
-        include FeatureExampleGroup
-      end
-
-      expect(group.metadata[:type]).to eq(:feature)
-    end
-
     it "includes Rails route helpers" do
       with_isolated_stderr do
         Rails.application.routes.draw do

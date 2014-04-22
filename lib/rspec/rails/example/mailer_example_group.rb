@@ -6,7 +6,6 @@ if defined?(ActionMailer)
       include ActionMailer::TestCase::Behavior
 
       included do
-        metadata[:type] = :mailer
         include ::Rails.application.routes.url_helpers
         options = ::Rails.configuration.action_mailer.default_url_options
         options.each { |key, value| default_url_options[key] = value } if options

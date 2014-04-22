@@ -16,13 +16,6 @@ module RSpec::Rails
       expect(helper_spec.__send__(:_controller_path, example)).to eq("foos")
     end
 
-    it "adds :type => :helper to the metadata" do
-      group = RSpec::Core::ExampleGroup.describe do
-        include HelperExampleGroup
-      end
-      expect(group.metadata[:type]).to eq(:helper)
-    end
-
     describe "#helper" do
       it "returns the instance of AV::Base provided by AV::TC::Behavior" do
         helper_spec = Object.new.extend HelperExampleGroup

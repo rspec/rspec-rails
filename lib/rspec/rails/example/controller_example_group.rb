@@ -151,8 +151,6 @@ module RSpec::Rails
     included do
       subject { controller }
 
-      metadata[:type] = :controller
-
       before do
         self.routes = ::Rails.application.routes
       end

@@ -19,10 +19,6 @@ module RSpec::Rails
       expect(group.included_modules).to include(RSpec::Rails::Matchers::RoutingMatchers)
     end
 
-    it "adds :type => :controller to the metadata" do
-      expect(group.metadata[:type]).to eq(:controller)
-    end
-
     context "with implicit subject" do
       it "uses the controller as the subject" do
         controller = double('controller')
