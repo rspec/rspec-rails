@@ -2,8 +2,8 @@ require "spec_helper"
 
 module RSpec::Rails
   describe RoutingExampleGroup do
-    it { is_expected.to be_included_in_files_in('./spec/routing/') }
-    it { is_expected.to be_included_in_files_in('.\\spec\\routing\\') }
+    it_behaves_like "an rspec-rails example group mixin", :routing,
+      './spec/routing/', '.\\spec\\routing\\'
 
     it "adds :type => :routing to the metadata" do
       group = RSpec::Core::ExampleGroup.describe do

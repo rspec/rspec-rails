@@ -6,8 +6,8 @@ end
 
 module RSpec::Rails
   describe ControllerExampleGroup do
-    it { is_expected.to be_included_in_files_in('./spec/controllers/') }
-    it { is_expected.to be_included_in_files_in('.\\spec\\controllers\\') }
+    it_behaves_like "an rspec-rails example group mixin", :controller,
+      './spec/controllers/', '.\\spec\\controllers\\'
 
     let(:group) do
       RSpec::Core::ExampleGroup.describe do

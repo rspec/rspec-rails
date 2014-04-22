@@ -5,8 +5,8 @@ module RSpec::Rails
     module ::FoosHelper; end
     subject { HelperExampleGroup }
 
-    it { is_expected.to be_included_in_files_in('./spec/helpers/') }
-    it { is_expected.to be_included_in_files_in('.\\spec\\helpers\\') }
+    it_behaves_like "an rspec-rails example group mixin", :helper,
+      './spec/helpers/', '.\\spec\\helpers\\'
 
     it "provides a controller_path based on the helper module's name" do
       example = double
