@@ -8,24 +8,18 @@ module RSpec
       attr_accessor :controller
 
       module ClassMethods
-        def metadata_for_rspec_rails
-          metadata[:rspec_rails] = metadata[:rspec_rails] ? metadata[:rspec_rails].dup : {}
-        end
-
         # @see RSpec::Rails::ControllerExampleGroup
         def render_views(true_or_false=true)
-          metadata_for_rspec_rails[:render_views] = true_or_false
-        end
-
-        # @deprecated Use `render_views` instead.
-        def integrate_views
-          RSpec.deprecate("integrate_views", :replacement => "render_views")
-          render_views
+          @render_views = true_or_false
         end
 
         # @api private
         def render_views?
-          metadata_for_rspec_rails.fetch(:render_views) do
+          return @render_views if defined?(@render_views)
+
+          if superclass.respond_to?(:render_views?)
+            superclass.render_views?
+          else
             RSpec.configuration.render_views?
           end
         end

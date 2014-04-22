@@ -62,6 +62,20 @@ module RSpec::Rails
         end
       end
 
+      it 'propogates to examples in nested groups properly' do
+        value = :unset
+
+        group.class_exec do
+          render_views
+
+          describe "nested" do
+            it { value = render_views? }
+          end
+        end.run(double.as_null_object)
+
+        expect(value).to eq(true)
+      end
+
       context "in a nested group" do
         let(:nested_group) do
           group.describe{}
