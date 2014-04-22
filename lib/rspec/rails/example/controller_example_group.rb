@@ -56,7 +56,7 @@ module RSpec::Rails
         end
         base_class ||= defined?(ApplicationController) ? ApplicationController : ActionController::Base
 
-        metadata[:described_class] = Class.new(base_class) do
+        new_controller_class = Class.new(base_class) do
           def self.name
             root_controller = defined?(ApplicationController) ? ApplicationController : ActionController::Base
             if superclass == root_controller || superclass.abstract?
@@ -66,7 +66,8 @@ module RSpec::Rails
             end
           end
         end
-        metadata[:described_class].class_eval(&body)
+        new_controller_class.class_eval(&body)
+        (class << self; self; end).__send__(:define_method, :controller_class) { new_controller_class }
 
         before do
           @orig_routes = self.routes
