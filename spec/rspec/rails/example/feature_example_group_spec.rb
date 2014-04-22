@@ -2,16 +2,8 @@ require "spec_helper"
 
 module RSpec::Rails
   describe FeatureExampleGroup do
-    it { is_expected.to be_included_in_files_in('./spec/features/') }
-    it { is_expected.to be_included_in_files_in('.\\spec\\features\\') }
-
-    it "adds :type => :feature to the metadata" do
-      group = RSpec::Core::ExampleGroup.describe do
-        include FeatureExampleGroup
-      end
-
-      expect(group.metadata[:type]).to eq(:feature)
-    end
+    it_behaves_like "an rspec-rails example group mixin", :feature,
+      './spec/features/', '.\\spec\\features\\'
 
     it "includes Rails route helpers" do
       with_isolated_stderr do

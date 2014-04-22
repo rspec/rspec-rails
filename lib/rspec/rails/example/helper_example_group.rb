@@ -30,8 +30,6 @@ module RSpec::Rails
     end
 
     included do
-      metadata[:type] = :helper
-
       before do |example|
         controller.controller_path = _controller_path(example)
       end

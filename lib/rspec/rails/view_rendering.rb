@@ -1,27 +1,5 @@
 require 'action_view/testing/resolvers'
 
-RSpec.configure do |config|
-  # This allows us to expose `render_views` as a config option even though it
-  # breaks the convention of other options by using `render_views` as a
-  # command (i.e. render_views = true), where it would normally be used as a
-  # getter. This makes it easier for rspec-rails users because we use
-  # `render_views` directly in example groups, so this aligns the two APIs,
-  # but requires this workaround:
-  config.add_setting :rendering_views, :default => false
-
-  def config.render_views=(val)
-    self.rendering_views = val
-  end
-
-  def config.render_views
-    self.rendering_views = true
-  end
-
-  def config.render_views?
-    rendering_views
-  end
-end
-
 module RSpec
   module Rails
     module ViewRendering
@@ -30,24 +8,18 @@ module RSpec
       attr_accessor :controller
 
       module ClassMethods
-        def metadata_for_rspec_rails
-          metadata[:rspec_rails] = metadata[:rspec_rails] ? metadata[:rspec_rails].dup : {}
-        end
-
         # @see RSpec::Rails::ControllerExampleGroup
         def render_views(true_or_false=true)
-          metadata_for_rspec_rails[:render_views] = true_or_false
-        end
-
-        # @deprecated Use `render_views` instead.
-        def integrate_views
-          RSpec.deprecate("integrate_views", :replacement => "render_views")
-          render_views
+          @render_views = true_or_false
         end
 
         # @api private
         def render_views?
-          metadata_for_rspec_rails.fetch(:render_views) do
+          return @render_views if defined?(@render_views)
+
+          if superclass.respond_to?(:render_views?)
+            superclass.render_views?
+          else
             RSpec.configuration.render_views?
           end
         end

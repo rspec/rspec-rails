@@ -2,15 +2,8 @@ require "spec_helper"
 
 module RSpec::Rails
   describe ViewExampleGroup do
-    it { is_expected.to be_included_in_files_in('./spec/views/') }
-    it { is_expected.to be_included_in_files_in('.\\spec\\views\\') }
-
-    it "adds :type => :view to the metadata" do
-      group = RSpec::Core::ExampleGroup.describe do
-        include ViewExampleGroup
-      end
-      expect(group.metadata[:type]).to eq(:view)
-    end
+    it_behaves_like "an rspec-rails example group mixin", :view,
+      './spec/views/', '.\\spec\\views\\'
 
     describe 'automatic inclusion of helpers' do
       module ::ThingsHelper; end

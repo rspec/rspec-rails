@@ -30,8 +30,6 @@ module RSpec::Rails
     end
 
     included do
-      metadata[:type] = :routing
-
       before do
         self.routes = ::Rails.application.routes
       end

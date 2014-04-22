@@ -5,8 +5,8 @@ module RSpec::Rails
     module ::FoosHelper; end
     subject { HelperExampleGroup }
 
-    it { is_expected.to be_included_in_files_in('./spec/helpers/') }
-    it { is_expected.to be_included_in_files_in('.\\spec\\helpers\\') }
+    it_behaves_like "an rspec-rails example group mixin", :helper,
+      './spec/helpers/', '.\\spec\\helpers\\'
 
     it "provides a controller_path based on the helper module's name" do
       example = double
@@ -14,13 +14,6 @@ module RSpec::Rails
 
       helper_spec = Object.new.extend HelperExampleGroup
       expect(helper_spec.__send__(:_controller_path, example)).to eq("foos")
-    end
-
-    it "adds :type => :helper to the metadata" do
-      group = RSpec::Core::ExampleGroup.describe do
-        include HelperExampleGroup
-      end
-      expect(group.metadata[:type]).to eq(:helper)
     end
 
     describe "#helper" do
