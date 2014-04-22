@@ -1,7 +1,3 @@
-RSpec.configure do |config|
-  config.add_setting :infer_base_class_for_anonymous_controllers, :default => true
-end
-
 module RSpec::Rails
   module ControllerExampleGroup
     extend ActiveSupport::Concern
