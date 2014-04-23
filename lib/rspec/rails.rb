@@ -1,5 +1,4 @@
 require 'rspec/core'
-require 'rspec/collection_matchers'
 require 'rails/version'
 require 'rspec/rails/extensions'
 require 'rspec/rails/view_rendering'

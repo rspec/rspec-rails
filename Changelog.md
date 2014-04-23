@@ -12,6 +12,9 @@ Breaking Changes for 3.0.0:
 * `controller` macro in controller specs no longer mutates
   `:described_class` metadata. It still overrides the subject and sets
   the controller, though. (Myron Marston)
+* Stop depending on or requiring `rspec-collection_matchers`. Users who
+  want those matchers should add the gem to their Gemfile and require it
+  themselves. (Myron Marston)
 
 Bug Fixes:
 
