@@ -59,11 +59,16 @@ module RSpec::Rails
         base_class ||= RSpec.configuration.infer_base_class_for_anonymous_controllers? ?
                          controller_class :
                          root_controller
+        base_class ||= root_controller
 
-        metadata[:example_group][:described_class] = Class.new(base_class) do
+        new_controller_class = Class.new(base_class) do
           def self.name; "AnonymousController"; end
         end
-        metadata[:example_group][:described_class].class_eval(&body)
+        new_controller_class.class_eval(&body)
+
+        (class << self; self; end).__send__(:define_method, :controller_class) { new_controller_class }
+        metadata[:example_group].delete(:described_class)
+        metadata[:example_group].extend DescribedClassDeprecation.new(new_controller_class)
 
         before do
           @orig_routes = self.routes
@@ -75,6 +80,25 @@ module RSpec::Rails
         after do
           self.routes  = @orig_routes
           @orig_routes = nil
+        end
+      end
+
+      class DescribedClassDeprecation < Module
+        def initialize(value)
+          module_eval do
+            define_method :store_computed do |key|
+              return super(key) unless key == :described_class
+
+              RSpec.warn_deprecation(<<-EOS.gsub(/^\s+\|/,''))
+                |In RSpec 3, the `controller { }` macro no longer changes
+                |`described_class` to refer to the generated anonymous controller
+                |class. Instead of `described_class`, use `controller_class` to
+                |access the generated anonymous class.
+                |(`described_class` called from #{::RSpec::CallerFilter.first_non_rspec_line}.)
+              EOS
+              store(:described_class, value)
+            end
+          end
         end
       end
 
