@@ -6,8 +6,7 @@
 - RailsVersions.md (Rails versions)
 - directory_structure.feature
 - model_specs:
-  - errors_on.feature
-  - records.feature
+  - transactional_examples.feature
 - mocks:
   - mock_model.feature
   - stub_model.feature
