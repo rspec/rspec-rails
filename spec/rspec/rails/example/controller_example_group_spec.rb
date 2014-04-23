@@ -8,11 +8,13 @@ module RSpec::Rails
     it { is_expected.to be_included_in_files_in('./spec/controllers/') }
     it { is_expected.to be_included_in_files_in('.\\spec\\controllers\\') }
 
-    let(:group) do
-      RSpec::Core::ExampleGroup.describe do
+    def group_for(klass)
+      RSpec::Core::ExampleGroup.describe klass do
         include ControllerExampleGroup
       end
     end
+
+    let(:group) { group_for ApplicationController }
 
     it "includes routing matchers" do
       expect(group.included_modules).to include(RSpec::Rails::Matchers::RoutingMatchers)
@@ -54,6 +56,7 @@ module RSpec::Rails
         allow(example).to receive(:controller).and_return(controller)
 
         # As in the routing example spec, this is pretty invasive, but not sure
+        #
         # how to do it any other way as the correct operation relies on before
         # hooks
         routes = ActionDispatch::Routing::RouteSet.new
@@ -76,49 +79,41 @@ module RSpec::Rails
     end
 
     describe "with inferred anonymous controller" do
-      before do
-        allow(group).to receive(:controller_class).and_return(Class.new)
-      end
+      around { |ex| with_isolated_config(&ex) }
+      let(:anonymous_klass) { Class.new }
+      let(:group) { group_for(anonymous_klass) }
 
       context "when infer_base_class_for_anonymous_controllers is true" do
         before do
-          allow(RSpec.configuration).to receive(:infer_base_class_for_anonymous_controllers?).and_return(true)
+          RSpec.configuration.infer_base_class_for_anonymous_controllers = true
         end
 
         it "infers the anonymous controller class" do
           group.controller { }
-
-          controller_class = group.metadata[:example_group][:described_class]
-          expect(controller_class.superclass).to eq(group.controller_class)
+          expect(group.controller_class.superclass).to eq(anonymous_klass)
         end
 
         it "infers the anonymous controller class when no ApplicationController is present" do
           hide_const '::ApplicationController'
           group.controller { }
-
-          controller_class = group.metadata[:example_group][:described_class]
-          expect(controller_class.superclass).to eq(group.controller_class)
+          expect(group.controller_class.superclass).to eq(anonymous_klass)
         end
       end
 
       context "when infer_base_class_for_anonymous_controllers is false" do
         before do
-          allow(RSpec.configuration).to receive(:infer_base_class_for_anonymous_controllers?).and_return(false)
+          RSpec.configuration.infer_base_class_for_anonymous_controllers = false
         end
 
         it "sets the anonymous controller class to ApplicationController" do
           group.controller { }
-
-          controller_class = group.metadata[:example_group][:described_class]
-          expect(controller_class.superclass).to eq(ApplicationController)
+          expect(group.controller_class.superclass).to eq(ApplicationController)
         end
 
         it "sets the anonymous controller class to ActiveController::Base when no ApplicationController is present" do
           hide_const '::ApplicationController'
           group.controller { }
-
-          controller_class = group.metadata[:example_group][:described_class]
-          expect(controller_class.superclass).to eq(ActionController::Base)
+          expect(group.controller_class.superclass).to eq(ActionController::Base)
         end
       end
     end

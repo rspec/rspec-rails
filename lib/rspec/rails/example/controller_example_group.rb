@@ -59,6 +59,7 @@ module RSpec::Rails
         base_class ||= RSpec.configuration.infer_base_class_for_anonymous_controllers? ?
                          controller_class :
                          root_controller
+        base_class ||= root_controller
 
         metadata[:example_group][:described_class] = Class.new(base_class) do
           def self.name; "AnonymousController"; end

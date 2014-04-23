@@ -25,8 +25,9 @@ module Helpers
       c.add_setting :use_instantiated_fixtures
       c.add_setting :global_fixtures
       c.add_setting :fixture_path
+      c.add_setting :infer_base_class_for_anonymous_controllers, :default => false
     end
-    yield
+    yield RSpec.configuration
     RSpec.configuration = original_config
   end
 
