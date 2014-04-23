@@ -16,7 +16,7 @@ Feature: Directory Structure
     Then the example should pass
     And the output should not contain:
       """
-      Implicitly inferring spec type via file location is deprecated.
+      rspec-rails 3 will no longer automatically infer an example group's spec type
       """
 
   Scenario: Inferring spec type from directories is deprecated
@@ -36,5 +36,5 @@ Feature: Directory Structure
     Then the example should pass
     And the output should contain:
       """
-      Implicitly inferring spec type via file location is deprecated.
+      rspec-rails 3 will no longer automatically infer an example group's spec type
       """
