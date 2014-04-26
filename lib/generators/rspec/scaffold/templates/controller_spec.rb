@@ -87,14 +87,16 @@ describe <%= controller_class_name %>Controller do
     describe "with invalid params" do
       it "assigns a newly created but unsaved <%= ns_file_name %> as @<%= ns_file_name %>" do
         # Trigger the behavior that occurs when invalid params are submitted
-        allow_any_instance_of(<%= class_name %>).to receive(:save).and_return(false)
+        <%= file_name %> = double('<%= file_name %>')
+        allow(<%= class_name %>).to receive(:new).and_return(<%= file_name %>)
+        allow(<%= file_name %>).to receive(:save).and_return(false)
         post :create, {:<%= ns_file_name %> => <%= formatted_hash(example_invalid_attributes) %>}, valid_session
-        expect(assigns(:<%= ns_file_name %>)).to be_a_new(<%= class_name %>)
+        expect(assigns(:<%= ns_file_name %>)).to eq(<%= file_name %>)
       end
 
       it "re-renders the 'new' template" do
         # Trigger the behavior that occurs when invalid params are submitted
-        allow_any_instance_of(<%= class_name %>).to receive(:save).and_return(false)
+        allow(<%= class_name %>).to receive_message_chain(:new, :save).and_return(false)
         post :create, {:<%= ns_file_name %> => <%= formatted_hash(example_invalid_attributes) %>}, valid_session
         expect(response).to render_template("new")
       end
@@ -109,10 +111,11 @@ describe <%= controller_class_name %>Controller do
         # specifies that the <%= class_name %> created on the previous line
         # receives the :update_attributes message with whatever params are
         # submitted in the request.
+        expect(<%= class_name %>).to receive(:find).and_return(<%= file_name %>)
         <%- if ::Rails::VERSION::STRING >= '4' -%>
-        expect_any_instance_of(<%= class_name %>).to receive(:update).with(<%= formatted_hash(example_params_for_update) %>)
+        expect(<%= file_name %>).to receive(:update).with(<%= formatted_hash(example_params_for_update) %>)
         <%- else -%>
-        expect_any_instance_of(<%= class_name %>).to receive(:update_attributes).with(<%= formatted_hash(example_params_for_update) %>)
+        expect(<%= file_name %>).to receive(:update_attributes).with(<%= formatted_hash(example_params_for_update) %>)
         <%- end -%>
         put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => <%= formatted_hash(example_params_for_update) %>}, valid_session
       end
@@ -134,10 +137,11 @@ describe <%= controller_class_name %>Controller do
       it "assigns the <%= ns_file_name %> as @<%= ns_file_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
+        allow(<%= class_name %>).to receive(:find).and_return(<%= file_name %>)
         <%- if ::Rails::VERSION::STRING >= '4' -%>
-        allow_any_instance_of(<%= class_name %>).to receive(:update).and_return(false)
+        allow(<%= class_name %>).to receive_message_chain(:update).and_return(false)
         <%- else -%>
-        allow_any_instance_of(<%= class_name %>).to receive(:update_attributes).and_return(false)
+        allow(<%= class_name %>).to receive_message_chain(:update_attributes).and_return(false)
         <%- end -%>
         put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => <%= formatted_hash(example_invalid_attributes) %>}, valid_session
         expect(assigns(:<%= ns_file_name %>)).to eq(<%= file_name %>)
@@ -147,9 +151,9 @@ describe <%= controller_class_name %>Controller do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         # Trigger the behavior that occurs when invalid params are submitted
         <%- if ::Rails::VERSION::STRING >= '4' -%>
-        allow_any_instance_of(<%= class_name %>).to receive(:update).and_return(false)
+        allow(<%= class_name %>).to receive_message_chain(:find, :update).and_return(false)
         <%- else -%>
-        allow_any_instance_of(<%= class_name %>).to receive(:update_attributes).and_return(false)
+        allow(<%= class_name %>).to receive_message_chain(:find, :update_attributes).and_return(false)
         <%- end -%>
         put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => <%= formatted_hash(example_invalid_attributes) %>}, valid_session
         expect(response).to render_template("edit")
