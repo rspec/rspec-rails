@@ -28,7 +28,6 @@ Gem::Specification.new do |s|
   end
 
   s.add_runtime_dependency(%q<activesupport>, [">= 3.0"])
-  s.add_runtime_dependency(%q<activemodel>, [">= 3.0"])
   s.add_runtime_dependency(%q<actionpack>, [">= 3.0"])
   s.add_runtime_dependency(%q<railties>, [">= 3.0"])
   %w[core expectations mocks support].each do |name|
