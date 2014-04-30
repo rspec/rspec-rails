@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'rubygems'
 
 require 'generators/rspec/scaffold/scaffold_generator'
 
@@ -72,18 +73,20 @@ describe Rspec::Generators::ScaffoldGenerator, :type => :generator do
       end
     end
 
-    describe 'with reference attribute' do
-      before { run_generator %w(posts title:string author:references) }
-      describe 'edit' do
-        subject { file("spec/views/posts/edit.html.erb_spec.rb") }
-        it { is_expected.to contain(/assert_select "input#(.*)_author_id\[name=\?\]", "\1\[author_id\]/) }
-        it { is_expected.to contain(/assert_select "input#(.*)_title\[name=\?\]", "\1\[title\]/) }
-      end
+    if ENV['RAILS_VERSION'] && Gem::Version.new(ENV['RAILS_VERSION']) >= Gem::Version.new('4.0.0')
+      describe 'with reference attribute' do
+        before { run_generator %w(posts title:string author:references) }
+        describe 'edit' do
+          subject { file("spec/views/posts/edit.html.erb_spec.rb") }
+          it { is_expected.to contain(/assert_select "input#(.*)_author_id\[name=\?\]", "\1\[author_id\]/) }
+          it { is_expected.to contain(/assert_select "input#(.*)_title\[name=\?\]", "\1\[title\]/) }
+        end
 
-      describe 'new' do
-        subject { file("spec/views/posts/new.html.erb_spec.rb") }
-        it { is_expected.to contain(/assert_select "input#(.*)_author_id\[name=\?\]", "\1\[author_id\]"/) }
-        it { is_expected.to contain(/assert_select "input#(.*)_title\[name=\?\]", "\1\[title\]/) }
+        describe 'new' do
+          subject { file("spec/views/posts/new.html.erb_spec.rb") }
+          it { is_expected.to contain(/assert_select "input#(.*)_author_id\[name=\?\]", "\1\[author_id\]"/) }
+          it { is_expected.to contain(/assert_select "input#(.*)_title\[name=\?\]", "\1\[title\]/) }
+        end
       end
     end
 
