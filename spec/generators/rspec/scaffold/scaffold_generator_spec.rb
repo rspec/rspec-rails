@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'rubygems'
 
 require 'generators/rspec/scaffold/scaffold_generator'
 
@@ -73,7 +72,7 @@ describe Rspec::Generators::ScaffoldGenerator, :type => :generator do
       end
     end
 
-    if ENV['RAILS_VERSION'] && Gem::Version.new(ENV['RAILS_VERSION']) >= Gem::Version.new('4.0.0')
+    if Rails.version.to_f >= 4.0
       describe 'with reference attribute' do
         before { run_generator %w(posts title:string author:references) }
         describe 'edit' do

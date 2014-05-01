@@ -15,7 +15,8 @@ describe "<%= ns_table_name %>/edit" do
 
     assert_select "form[action=?][method=?]", <%= ns_file_name %>_path(@<%= ns_file_name %>), "post" do
 <% for attribute in output_attributes -%>
-      assert_select "<%= attribute.input_type -%>#<%= ns_file_name %>_<%= attribute.respond_to?(:column_name) ? attribute.column_name : attribute.name %>[name=?]", "<%= ns_file_name %>[<%= attribute.respond_to?(:column_name) ? attribute.column_name : attribute.name %>]"
+      <%- name = attribute.respond_to?(:column_name) ? attribute.column_name : attribute.name %>
+      assert_select "<%= attribute.input_type -%>#<%= ns_file_name %>_<%= name %>[name=?]", "<%= ns_file_name %>[<%= name %>]"
 <% end -%>
     end
   end
