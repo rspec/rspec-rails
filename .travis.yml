@@ -1,6 +1,9 @@
 script: "bin/rake --trace 2>&1"
 bundler_args: "--binstubs --without documentation"
-before_install: gem install bundler
+before_install:
+  # Downgrade bundler to work around https://github.com/bundler/bundler/issues/3004
+  - gem install bundler -v=1.5.3
+  - alias bundle="bundle _1.5.3_"
 rvm:
   - 2.1.0
   - 2.0.0
@@ -43,3 +46,5 @@ matrix:
       env: RAILS_VERSION=4.1.0.rc1
   allow_failures:
     - env: RAILS_VERSION=master
+    # Until https://github.com/travis-ci/travis-ci/issues/2220 is fixed
+    - rvm: 2.1.0
