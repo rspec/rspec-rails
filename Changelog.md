@@ -15,6 +15,12 @@ Breaking Changes for 3.0.0:
 * Stop depending on or requiring `rspec-collection_matchers`. Users who
   want those matchers should add the gem to their Gemfile and require it
   themselves. (Myron Marston)
+* Removes runtime dependency on `ActiveModel`. (Rodrigo Rosenfeld Rosas)
+
+Enhancements:
+
+* Supports Rails 4.x reference attribute ids in generated scaffold for view
+  specs. (Giovanni Cappellotto)
 
 Bug Fixes:
 
