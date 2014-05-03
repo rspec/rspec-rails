@@ -27,7 +27,7 @@ describe "route_to" do
 
     it "routes without extra options" do
       expect(self).to receive(:assert_recognizes).with(
-        {:controller => "controller", :action => "action"}, 
+        {:controller => "controller", :action => "action"},
         {:method=> :get, :path=>"path" },
         {}
       )
@@ -50,6 +50,15 @@ describe "route_to" do
         {'queryitem' => 'queryvalue', 'qi2' => 'qv2'}
       )
       expect(get("path?queryitem=queryvalue&qi2=qv2")).to route_to("controller#action", :queryitem => 'queryvalue', :qi2 => 'qv2')
+    end
+
+    it "routes with nested query parameters" do
+      expect(self).to receive(:assert_recognizes).with(
+        {:controller => "controller", :action => "action", 'queryitem' => {'qi2' => 'qv2'}},
+        {:method=> :get, :path=>"path"},
+        {'queryitem' => {'qi2' => 'qv2'} }
+      )
+      expect(get("path?queryitem[qi2]=qv2")).to route_to("controller#action", 'queryitem' => { 'qi2' => 'qv2' })
     end
 
   end
