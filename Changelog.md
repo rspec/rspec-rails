@@ -28,6 +28,8 @@ Bug Fixes:
 * Ensure `config.before(:all, :type => <type>)` hooks run before groups
   of the given type, even when the type is inferred by the file
   location. (Jon Rowe, Myron Marston)
+* Switch to parsing params with `Rack::Utils::parse_nested_query` to match Rails.
+  (Tim Watson)
 
 ### 3.0.0.beta2 / 2014-02-17
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.beta1...v3.0.0.beta2)
