@@ -7,7 +7,50 @@ RSpec.describe "have_http_status" do
     ActionController::TestResponse.new(opts.fetch(:status))
   end
 
+  shared_examples_for "supports different response instances" do
+    context "given an ActionDispatch::Response" do
+      it "returns true for a response with the same code" do
+        response = ::ActionDispatch::Response.new(code)
+
+        expect( matcher.matches?(response) ).to be(true)
+      end
+    end
+
+    context "given an ActionDispatch::TestResponse" do
+      it "returns true for a response with the same code" do
+        response = ::ActionDispatch::TestResponse.new(code)
+
+        expect( matcher.matches?(response) ).to be(true)
+      end
+    end
+
+    context "given something that acts as a Capybara::Session" do
+      it "returns true for a response with the same code" do
+        response = instance_double(
+          ::Capybara::Session,
+          :status_code => code,
+          :response_headers => {},
+          :body => ""
+        )
+
+        expect( matcher.matches?(response) ).to be(true)
+      end
+    end
+
+    it "raises an ArgumentError given another type" do
+      response = Object.new
+
+      expect{ matcher.matches?(response) }.to raise_error(ArgumentError)
+    end
+  end
+
   context "with a numeric status code" do
+    it_behaves_like "supports different response instances" do
+      subject(:matcher) { have_http_status(code) }
+
+      let(:code) { 209 }
+    end
+
     describe "matching a response" do
       it "returns true for a response with the same code" do
         any_numeric_code  = 209
@@ -50,6 +93,12 @@ RSpec.describe "have_http_status" do
     # see http://guides.rubyonrails.org/layouts_and_rendering.html#the-status-option
     let(:created_code) { 201 }
     let(:created_symbolic_status) { :created }
+
+    it_behaves_like "supports different response instances" do
+      subject(:matcher) { have_http_status(created_symbolic_status) }
+
+      let(:code) { created_code }
+    end
 
     describe "matching a response" do
       it "returns true for a response with the equivalent code" do
@@ -109,6 +158,12 @@ RSpec.describe "have_http_status" do
 
     subject(:have_error_status) { have_http_status(:error) }
 
+    it_behaves_like "supports different response instances" do
+      subject(:matcher) { have_error_status }
+
+      let(:code) { 555 }
+    end
+
     describe "matching a response" do
       it "returns true for a response with a 5xx status code" do
         any_5xx_code = 555
@@ -160,6 +215,12 @@ RSpec.describe "have_http_status" do
     # - https://github.com/rack/rack/blob/master/lib/rack/response.rb
 
     subject(:have_success_status) { have_http_status(:success) }
+
+    it_behaves_like "supports different response instances" do
+      subject(:matcher) { have_success_status }
+
+      let(:code) { 222 }
+    end
 
     describe "matching a response" do
       it "returns true for a response with a 2xx status code" do
@@ -213,6 +274,12 @@ RSpec.describe "have_http_status" do
 
     subject(:have_missing_status) { have_http_status(:missing) }
 
+    it_behaves_like "supports different response instances" do
+      subject(:matcher) { have_missing_status }
+
+      let(:code) { 404 }
+    end
+
     describe "matching a response" do
       it "returns true for a response with a 404 status code" do
         not_found_status = 404
@@ -264,6 +331,12 @@ RSpec.describe "have_http_status" do
     # - https://github.com/rack/rack/blob/master/lib/rack/response.rb
 
     subject(:have_redirect_status) { have_http_status(:redirect) }
+
+    it_behaves_like "supports different response instances" do
+      subject(:matcher) { have_redirect_status }
+
+      let(:code) { 333 }
+    end
 
     describe "matching a response" do
       it "returns true for a response with a 3xx status code" do

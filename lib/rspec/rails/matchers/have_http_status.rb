@@ -25,31 +25,20 @@ module RSpec::Rails::Matchers
     end
 
     # @private
-    # Hack to support `Capybara::Session` without having to load Capybara or
-    # catch `NameError`s for the undefined constants
-    #
-    # Checks if the provided object responds to the interfaces:
-    # - `status_code`
-    # - `response_headers`
-    #
-    # @return [Boolean]
-    ActsAsCapybaraSession = lambda { |o|
-      o.respond_to?(:status_code) && o.respond_to?(:response_headers)
-    }
-
-    # @private
     # Conversion function to coerce the provided object into an
     # `ActionDispatch::TestResponse`.
     #
     # @param obj [Object] object to convert to a response
     # @return [ActionDispatch::TestResponse]
     def as_test_response(obj)
-      case obj
-      when ::ActionDispatch::Response
+      if ::ActionDispatch::Response === obj
         ::ActionDispatch::TestResponse.from_response(obj)
-      when ::ActionDispatch::TestResponse
+      elsif ::ActionDispatch::TestResponse === obj
         obj
-      when ActsAsCapybaraSession
+      elsif obj.respond_to?(:status_code) && obj.respond_to?(:response_headers)
+        # Acts As Capybara Session
+        # Hack to support `Capybara::Session` without having to load Capybara or
+        # catch `NameError`s for the undefined constants
         ::ActionDispatch::TestResponse.new.tap{ |resp|
           resp.status  = obj.status_code
           resp.headers = obj.response_headers
