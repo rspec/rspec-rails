@@ -116,7 +116,7 @@ module RSpec::Rails
     end
 
     # Extends the controller with a module that overrides
-    # `rescue_with_handler` to raise the exception passed to it.  Use this to
+    # `rescue_with_handler` to raise the exception passed to it. Use this to
     # specify that an action _should_ raise an exception given appropriate
     # conditions.
     #
