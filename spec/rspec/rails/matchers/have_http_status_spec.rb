@@ -37,10 +37,10 @@ RSpec.describe "have_http_status" do
       end
     end
 
-    it "raises an ArgumentError given another type" do
+    it "returns false given another type" do
       response = Object.new
 
-      expect{ matcher.matches?(response) }.to raise_error(ArgumentError)
+      expect( matcher.matches?(response) ).to be(false)
     end
   end
 

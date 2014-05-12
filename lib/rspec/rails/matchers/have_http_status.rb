@@ -45,7 +45,7 @@ module RSpec::Rails::Matchers
           resp.body    = obj.body
         }
       else
-        raise ArgumentError, "Invalid response type: #{obj}"
+        raise TypeError, "Invalid response type: #{obj}"
       end
     end
     module_function :as_test_response
@@ -74,6 +74,8 @@ module RSpec::Rails::Matchers
         response = as_test_response(response)
         @actual = response.response_code
         expected == @actual
+      rescue TypeError => _ignored
+        false
       end
 
       # @return [String] explaining why the match failed
@@ -118,6 +120,8 @@ module RSpec::Rails::Matchers
         response = as_test_response(response)
         @actual = response.response_code
         expected == @actual
+      rescue TypeError => _ignored
+        false
       end
 
       # @return [String] explaining why the match failed
@@ -205,6 +209,8 @@ module RSpec::Rails::Matchers
         response = as_test_response(response)
         @actual = response.response_code
         response.send("#{expected}?")
+      rescue TypeError => _ignored
+        false
       end
 
       # @return [String] explaining why the match failed
