@@ -81,8 +81,8 @@ module RSpec::Rails::Matchers
       # @param [Object] response object providing an http code to match
       # @return [Boolean] `true` if the numeric code matched the `response` code
       def matches?(response)
-        response = as_test_response(response)
-        @actual = response.response_code
+        test_response = as_test_response(response)
+        @actual = test_response.response_code
         expected == @actual
       rescue TypeError => _ignored
         @invalid_response = response
@@ -131,8 +131,8 @@ module RSpec::Rails::Matchers
       # @return [Boolean] `true` if Rack's associated numeric HTTP code matched
       #   the `response` code
       def matches?(response)
-        response = as_test_response(response)
-        @actual = response.response_code
+        test_response = as_test_response(response)
+        @actual = test_response.response_code
         expected == @actual
       rescue TypeError => _ignored
         @invalid_response = response
@@ -228,9 +228,9 @@ module RSpec::Rails::Matchers
       # @return [Boolean] `true` if Rack's associated numeric HTTP code matched
       #   the `response` code
       def matches?(response)
-        response = as_test_response(response)
-        @actual = response.response_code
-        response.send("#{expected}?")
+        test_response = as_test_response(response)
+        @actual = test_response.response_code
+        test_response.send("#{expected}?")
       rescue TypeError => _ignored
         @invalid_response = response
         false
