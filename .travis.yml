@@ -1,3 +1,7 @@
+before_script:
+  # Rails 4.x complains with a bundler rails binstub in PROJECT_ROOT/bin/
+  - rm -f bin/rails
+  - bundle exec rails --version
 script: "bin/rake --trace 2>&1"
 bundler_args: "--binstubs --without documentation"
 before_install:
