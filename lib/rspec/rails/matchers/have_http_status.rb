@@ -169,27 +169,40 @@ module RSpec::Rails::Matchers
 
     private
 
+      # @return [Symbol] representing the actual http numeric code
+      def actual_status
+        if actual
+          @actual_status ||= compute_status_from(actual)
+        end
+      end
+
       # Reverse lookup of the Rack status code symbol based on the numeric http
       # code
       #
-      # @return [Symbol] representing the actual http numeric code
-      def actual_status
-        status, _ = Rack::Utils::SYMBOL_TO_STATUS_CODE.find{ |_, c| c == actual }
+      # @param code [Fixnum] http status code to look up
+      # @return [Symbol] representing the http numeric code
+      def compute_status_from(code)
+        status, _ = Rack::Utils::SYMBOL_TO_STATUS_CODE.find{ |_, c| c == code }
         status
       end
 
       # @return [String] pretty format the actual response status
       def pp_actual
-        if status = actual_status
-          "#{status.inspect} (#{actual})"
-        else
-          actual.to_s
-        end
+        pp_status(actual_status, actual)
       end
 
       # @return [String] pretty format the expected status and associated code
       def pp_expected
-        "#{expected_status.inspect} (#{expected})"
+        pp_status(expected_status, expected)
+      end
+
+      # @return [String] pretty format the actual response status
+      def pp_status(status, code)
+        if status
+          "#{status.inspect} (#{code})"
+        else
+          code.to_s
+        end
       end
 
       # Sets `expected` to the numeric http code based on the Rack
@@ -267,12 +280,8 @@ module RSpec::Rails::Matchers
 
       # @return [String] formating the expected status and associated code(s)
       def type_message
-        msg = if expected == :error
-                "an error"
-              else
-                "a #{expected}"
-              end
-        msg + " status code (#{type_codes})"
+        @type_message ||= (expected == :error ? "an error" : "a #{expected}") +
+          " status code (#{type_codes})"
       end
 
       # @return [String] formatting the associated code(s) for the various
@@ -299,16 +308,16 @@ module RSpec::Rails::Matchers
         # @see https://github.com/rails/rails/blob/ca200378/actionpack/lib/action_dispatch/testing/test_response.rb#L17-L27
         # @see https://github.com/rails/rails/blob/ca200378/actionpack/lib/action_dispatch/http/response.rb#L74
         # @see https://github.com/rack/rack/blob/ce4a3959/lib/rack/response.rb#L119-L122
-        case expected
-        when :error
-          "5xx"
-        when :success
-          "2xx"
-        when :missing
-          "404"
-        when :redirect
-          "3xx"
-        end
+        @type_codes ||= case expected
+                        when :error
+                          "5xx"
+                        when :success
+                          "2xx"
+                        when :missing
+                          "404"
+                        when :redirect
+                          "3xx"
+                        end
       end
     end
   end
