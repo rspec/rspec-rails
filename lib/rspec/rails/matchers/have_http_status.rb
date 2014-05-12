@@ -24,7 +24,7 @@ module RSpec::Rails::Matchers
       end
     end
 
-    # @private
+    # @api private
     # Conversion function to coerce the provided object into an
     # `ActionDispatch::TestResponse`.
     #
@@ -59,7 +59,7 @@ module RSpec::Rails::Matchers
       end
     end
 
-    # @private
+    # @api private
     # Provides an implementation for `have_http_status` matching against
     # numeric http status codes.
     #
@@ -104,7 +104,7 @@ module RSpec::Rails::Matchers
       end
     end
 
-    # @private
+    # @api private
     # Provides an implementation for `have_http_status` matching against
     # Rack symbol http status codes.
     #
@@ -192,7 +192,7 @@ module RSpec::Rails::Matchers
       end
     end
 
-    # @private
+    # @api private
     # Provides an implementation for `have_http_status` matching against
     # `ActionDispatch::TestResponse` http status category queries.
     #
