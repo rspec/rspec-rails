@@ -85,6 +85,14 @@ RSpec.describe "have_http_status" do
       end
     end
 
+    it "describes responding with the numeric status code" do
+      any_numeric_code  = 209
+      have_numeric_code = have_http_status(any_numeric_code)
+
+      expect(have_numeric_code.description).
+        to eq("respond with numeric status code 209")
+    end
+
     it "has a failure message reporting the expected and actual status codes" do
       any_numeric_code  = 209
       have_numeric_code = have_http_status(any_numeric_code)
@@ -132,6 +140,14 @@ RSpec.describe "have_http_status" do
 
         expect( have_symbolic_status.matches?(response) ).to be(false)
       end
+    end
+
+    it "describes responding by the symbolic and associated numeric status code" do
+      any_symbolic_status  = created_symbolic_status
+      have_symbolic_status = have_http_status(any_symbolic_status)
+
+      expect(have_symbolic_status.description).
+        to eq("respond with status code :created (201)")
     end
 
     it "has a failure message reporting the expected and actual statuses" do
@@ -196,6 +212,11 @@ RSpec.describe "have_http_status" do
       end
     end
 
+    it "describes responding with an error status code" do
+      expect(have_error_status.description).
+        to eq("respond with an error status code (5xx)")
+    end
+
     it "has a failure message reporting the expected and actual status codes" do
       client_error_code = 400
       response          = create_response(:status => client_error_code)
@@ -252,6 +273,11 @@ RSpec.describe "have_http_status" do
 
         expect( have_success_status.matches?(response) ).to be(false)
       end
+    end
+
+    it "describes responding with a success status code" do
+      expect(have_success_status.description).
+        to eq("respond with a success status code (2xx)")
     end
 
     it "has a failure message reporting the expected and actual status codes" do
@@ -312,6 +338,11 @@ RSpec.describe "have_http_status" do
       end
     end
 
+    it "describes responding with a missing status code" do
+      expect(have_missing_status.description).
+        to eq("respond with a missing status code (404)")
+    end
+
     it "has a failure message reporting the expected and actual status codes" do
       non_missing_status = 400
       response           = create_response(:status => non_missing_status)
@@ -368,6 +399,11 @@ RSpec.describe "have_http_status" do
 
         expect( have_redirect_status.matches?(response) ).to be(false)
       end
+    end
+
+    it "describes responding with a redirect status code" do
+      expect(have_redirect_status.description).
+        to eq("respond with a redirect status code (3xx)")
     end
 
     it "has a failure message reporting the expected and actual status codes" do

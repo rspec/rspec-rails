@@ -89,6 +89,11 @@ module RSpec::Rails::Matchers
         false
       end
 
+      # @return [String]
+      def description
+        "respond with numeric status code #{expected}"
+      end
+
       # @return [String] explaining why the match failed
       def failure_message
         invalid_response_type_message ||
@@ -139,17 +144,22 @@ module RSpec::Rails::Matchers
         false
       end
 
+      # @return [String]
+      def description
+        "respond with status code #{pp_expected}"
+      end
+
       # @return [String] explaining why the match failed
       def failure_message
         invalid_response_type_message ||
-        "expected the response to have status code #{expected_message} but it" +
-          " was #{format_actual}"
+        "expected the response to have status code #{pp_expected} but it" +
+          " was #{pp_actual}"
       end
 
       # @return [String] explaining why the match failed
       def failure_message_when_negated
         invalid_response_type_message ||
-        "expected the response not to have status code #{expected_message} " +
+        "expected the response not to have status code #{pp_expected} " +
           "but it did"
       end
 
@@ -158,15 +168,6 @@ module RSpec::Rails::Matchers
       private :expected_status
 
     private
-
-      # @return [String] pretty format the actual response status
-      def format_actual
-        if status = actual_status
-          "#{status.inspect} (#{actual})"
-        else
-          actual.to_s
-        end
-      end
 
       # Reverse lookup of the Rack status code symbol based on the numeric http
       # code
@@ -177,8 +178,17 @@ module RSpec::Rails::Matchers
         status
       end
 
-      # @return [String] formating the expected status and associated code
-      def expected_message
+      # @return [String] pretty format the actual response status
+      def pp_actual
+        if status = actual_status
+          "#{status.inspect} (#{actual})"
+        else
+          actual.to_s
+        end
+      end
+
+      # @return [String] pretty format the expected status and associated code
+      def pp_expected
         "#{expected_status.inspect} (#{expected})"
       end
 
@@ -234,6 +244,11 @@ module RSpec::Rails::Matchers
       rescue TypeError => _ignored
         @invalid_response = response
         false
+      end
+
+      # @return [String]
+      def description
+        "respond with #{type_message}"
       end
 
       # @return [String] explaining why the match failed
