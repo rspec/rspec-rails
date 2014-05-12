@@ -42,6 +42,22 @@ RSpec.describe "have_http_status" do
 
       expect( matcher.matches?(response) ).to be(false)
     end
+
+    it "has a failure message reporting it was given another type" do
+      response = Object.new
+
+      expect{ matcher.matches?(response) }.
+        to change(matcher, :failure_message).
+        to("expected a response object, but an instance of Object was received")
+    end
+
+    it "has a negated failure message reporting it was given another type" do
+      response = Object.new
+
+      expect{ matcher.matches?(response) }.
+        to change(matcher, :failure_message_when_negated).
+        to("expected a response object, but an instance of Object was received")
+    end
   end
 
   context "with a numeric status code" do

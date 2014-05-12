@@ -50,6 +50,15 @@ module RSpec::Rails::Matchers
     end
     module_function :as_test_response
 
+    # @return [String, nil] a formatted failure message if `@invalid_response`
+    #   is present, `nil` otherwise
+    def invalid_response_type_message
+      if @invalid_response
+        "expected a response object, but an instance of " +
+        "#{@invalid_response.class} was received"
+      end
+    end
+
     # @private
     # Provides an implementation for `have_http_status` matching against
     # numeric http status codes.
@@ -66,6 +75,7 @@ module RSpec::Rails::Matchers
       def initialize(code)
         @expected = code.to_i
         @actual = nil
+        @invalid_response = nil
       end
 
       # @param [Object] response object providing an http code to match
@@ -75,17 +85,20 @@ module RSpec::Rails::Matchers
         @actual = response.response_code
         expected == @actual
       rescue TypeError => _ignored
+        @invalid_response = response
         false
       end
 
       # @return [String] explaining why the match failed
       def failure_message
+        invalid_response_type_message ||
         "expected the response to have status code #{expected.inspect}" +
           " but it was #{actual.inspect}"
       end
 
       # @return [String] explaining why the match failed
       def failure_message_when_negated
+        invalid_response_type_message ||
         "expected the response not to have status code #{expected.inspect}" +
           " but it did"
       end
@@ -108,6 +121,7 @@ module RSpec::Rails::Matchers
       def initialize(status)
         @expected_status = status
         @actual = nil
+        @invalid_response = nil
         unless set_expected_code!
           raise ArgumentError, "Invalid HTTP status: #{status.inspect}"
         end
@@ -121,22 +135,20 @@ module RSpec::Rails::Matchers
         @actual = response.response_code
         expected == @actual
       rescue TypeError => _ignored
+        @invalid_response = response
         false
       end
 
       # @return [String] explaining why the match failed
       def failure_message
-        actual_message = if status = actual_status
-                           "#{status.inspect} (#{actual})"
-                         else
-                           actual.to_s
-                         end
+        invalid_response_type_message ||
         "expected the response to have status code #{expected_message} but it" +
-          " was #{actual_message}"
+          " was #{format_actual}"
       end
 
       # @return [String] explaining why the match failed
       def failure_message_when_negated
+        invalid_response_type_message ||
         "expected the response not to have status code #{expected_message} " +
           "but it did"
       end
@@ -146,6 +158,15 @@ module RSpec::Rails::Matchers
       private :expected_status
 
     private
+
+      # @return [String] pretty format the actual response status
+      def format_actual
+        if status = actual_status
+          "#{status.inspect} (#{actual})"
+        else
+          actual.to_s
+        end
+      end
 
       # Reverse lookup of the Rack status code symbol based on the numeric http
       # code
@@ -201,6 +222,7 @@ module RSpec::Rails::Matchers
         end
         @expected = type
         @actual = nil
+        @invalid_response = nil
       end
 
       # @return [Boolean] `true` if Rack's associated numeric HTTP code matched
@@ -210,16 +232,19 @@ module RSpec::Rails::Matchers
         @actual = response.response_code
         response.send("#{expected}?")
       rescue TypeError => _ignored
+        @invalid_response = response
         false
       end
 
       # @return [String] explaining why the match failed
       def failure_message
+        invalid_response_type_message ||
         "expected the response to have #{type_message} but it was #{actual}"
       end
 
       # @return [String] explaining why the match failed
       def failure_message_when_negated
+        invalid_response_type_message ||
         "expected the response not to have #{type_message} but it was #{actual}"
       end
 
