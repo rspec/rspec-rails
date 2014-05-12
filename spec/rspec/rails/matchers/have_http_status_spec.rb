@@ -27,7 +27,7 @@ RSpec.describe "have_http_status" do
     context "given something that acts as a Capybara::Session" do
       it "returns true for a response with the same code" do
         response = instance_double(
-          ::Capybara::Session,
+          '::Capybara::Session',
           :status_code => code,
           :response_headers => {},
           :body => ""
