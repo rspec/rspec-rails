@@ -57,9 +57,9 @@ when /stable$/
 when nil, false, ""
   if RUBY_VERSION < '1.9.3'
     # Rails 4+ requires 1.9.3+, so on earlier versions default to the last 3.x release.
-    gem "rails", "3.2.17"
+    gem "rails", "~> 3.2.17"
   else
-    gem "rails", "4.0.4"
+    gem "rails", "~> 4.0.4"
   end
 else
   gem "rails", version
