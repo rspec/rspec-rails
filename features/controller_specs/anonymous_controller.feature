@@ -1,29 +1,35 @@
 Feature: anonymous controller
 
-  Use the `controller` method to define an anonymous controller
-  that will inherit from the described class. This is useful for
-  specifying behavior like global error handling.
+  Use the `controller` method to define an anonymous controller that will
+  inherit from the described class. This is useful for specifying behavior like
+  global error handling.
 
-  To specify a different base class you can pass the class explicitly
-  to the controller method:
+  To specify a different base class you can pass the class explicitly to the
+  controller method:
 
-      controller(BaseController)
+  ```ruby
+  controller(BaseController)
+  ```
 
-  You can also disable base type inference, in which case anonymous
-  controllers will inherit from `ApplicationController` instead of
-  the described class by default:
+  You can also disable base type inference, in which case anonymous controllers
+  will inherit from `ApplicationController` instead of the described class by
+  default:
 
-      Rspec.configure do |c|
-        c.infer_base_class_for_anonymous_controllers = false
-      end
+  ```ruby
+  Rspec.configure do |c|
+    c.infer_base_class_for_anonymous_controllers = false
+  end
 
-      describe BaseController do
-        controller { ... }
-        # ^^ would normally create an anonymous subclass of `BaseController`,
-        # but since `infer_base_class_for_anonymous_controllers` is disabled,
-        # it creates a subclass of `ApplicationController` instead
+  describe BaseController do
+    controller { ... }
+    =begin
+      ^^ would normally create an anonymous subclass of `BaseController`,
+      but since `infer_base_class_for_anonymous_controllers` is disabled,
+      it creates a subclass of `ApplicationController` instead
+    =end
+  ```
 
-  Scenario: specify error handling in ApplicationController
+  Scenario: Specify error handling in `ApplicationController`
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
       require "spec_helper"
@@ -40,7 +46,7 @@ Feature: anonymous controller
         end
       end
 
-      describe ApplicationController do
+      RSpec.describe ApplicationController do
         controller do
           def index
             raise ApplicationController::AccessDenied
@@ -58,7 +64,7 @@ Feature: anonymous controller
     When I run `rspec spec`
     Then the examples should all pass
 
-  Scenario: specify error handling in subclass of ApplicationController
+  Scenario: Specify error handling in subclass of `ApplicationController`
     Given a file named "spec/controllers/application_controller_subclass_spec.rb" with:
       """ruby
       require "spec_helper"
@@ -78,7 +84,7 @@ Feature: anonymous controller
         end
       end
 
-      describe ApplicationControllerSubclass do
+      RSpec.describe ApplicationControllerSubclass do
         controller(ApplicationControllerSubclass) do
           def index
             raise ApplicationController::AccessDenied
@@ -96,7 +102,7 @@ Feature: anonymous controller
     When I run `rspec spec`
     Then the examples should all pass
 
-  Scenario: infer base class from the described class
+  Scenario: Infer base class from the described class
     Given a file named "spec/controllers/base_class_can_be_inferred_spec.rb" with:
       """ruby
       require "spec_helper"
@@ -105,7 +111,7 @@ Feature: anonymous controller
 
       class ApplicationControllerSubclass < ApplicationController; end
 
-      describe ApplicationControllerSubclass do
+      RSpec.describe ApplicationControllerSubclass do
         controller do
           def index
             render :text => "Hello World"
@@ -120,7 +126,7 @@ Feature: anonymous controller
     When I run `rspec spec`
     Then the examples should all pass
 
-  Scenario: get name and controller_name from the described class
+  Scenario: Use `name` and `controller_name` from the described class
     Given a file named "spec/controllers/get_name_and_controller_name_from_described_class_spec.rb" with:
       """ruby
       require "spec_helper"
@@ -128,8 +134,8 @@ Feature: anonymous controller
       class ApplicationController < ActionController::Base; end
       class FoosController < ApplicationController; end
 
-      describe "FoosController controller_name" do
-        controller FoosController do        
+      RSpec.describe "FoosController controller_name" do
+        controller FoosController do
           def index
             @name = self.class.name
             @controller_name = controller_name
@@ -153,7 +159,7 @@ Feature: anonymous controller
     When I run `rspec spec`
     Then the examples should all pass
 
-  Scenario: invoke around filter in base class
+  Scenario: Invoke `around_filter` and `around_action` in base class
     Given a file named "spec/controllers/application_controller_around_filter_spec.rb" with:
       """ruby
       require "spec_helper"
@@ -167,7 +173,7 @@ Feature: anonymous controller
         end
       end
 
-      describe ApplicationController do
+      RSpec.describe ApplicationController do
         controller do
           def index
             render :nothing => true
@@ -184,12 +190,12 @@ Feature: anonymous controller
     When I run `rspec spec`
     Then the examples should all pass
 
-  Scenario: anonymous controllers only create resource routes
+  Scenario: Anonymous controllers only create resource routes
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
       require "spec_helper"
 
-      describe ApplicationController do
+      RSpec.describe ApplicationController do
         controller do
           def index
             render :text => "index called"
@@ -362,12 +368,12 @@ Feature: anonymous controller
     When I run `rspec spec`
     Then the examples should all pass
 
-  Scenario: draw custom routes for anonymous controllers
+  Scenario: Draw custom routes for anonymous controllers
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
       require "spec_helper"
 
-      describe ApplicationController do
+      RSpec.describe ApplicationController do
         controller do
           def custom
             render :text => "custom called"
@@ -385,14 +391,14 @@ Feature: anonymous controller
     When I run `rspec spec`
     Then the examples should all pass
 
-  Scenario: draw custom routes for defined controllers
+  Scenario: Draw custom routes for defined controllers
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
       require "spec_helper"
 
       class FoosController < ApplicationController; end
 
-      describe ApplicationController do
+      RSpec.describe ApplicationController do
         controller FoosController do
           def custom
             render :text => "custom called"
@@ -410,7 +416,7 @@ Feature: anonymous controller
     When I run `rspec spec`
     Then the examples should all pass
 
-  Scenario: refer to application routes in the controller under test
+  Scenario: Refer to application routes in the controller under test
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
       require "spec_helper"
@@ -419,7 +425,7 @@ Feature: anonymous controller
         match "/login" => "sessions#new", :as => "login", :via => "get"
       end
 
-      describe ApplicationController do
+      RSpec.describe ApplicationController do
         controller do
           def index
             redirect_to login_url
