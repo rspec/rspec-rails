@@ -13,13 +13,30 @@ specify expected outcomes such as:
 
 To specify outcomes, you can use:
 
-* standard rspec matchers (`expect(response.status).to eq(200)`)
-* standard test/unit assertions (`assert_equal 200, response.status`)
-* rails assertions (`assert_response 200`)
-* rails-specific matchers:
-  * `expect(response).to render_template(wraps assert_template)`
-  * `expect(response).to redirect_to(wraps assert_redirected_to)`
-  * `expect(assigns(:widget)).to be_a_new(Widget)`
+- standard rspec matchers (`expect(response.status).to eq(200)`)
+- standard test/unit assertions (`assert_equal 200, response.status`)
+- rails assertions (`assert_response 200`)
+- rails-specific matchers:
+  - [`render_template`](matchers/render-template-matcher)
+
+    ```ruby
+    expect(response).to render_template(:new)   # wraps assert_template
+    ```
+  - [`redirect_to`](matchers/redirect-to-matcher)
+
+    ```ruby
+    expect(response).to redirect_to(location)   # wraps assert_redirected_to
+    ```
+  - [`have_status`](matchers/have-status-matcher)
+
+    ```ruby
+    expect(response).to have_status(:created)
+    ```
+  - [`be_a_new`](#)
+
+    ```ruby
+    expect(assigns(:widget)).to be_a_new(Widget)
+    ```
 
 ## Examples
 

@@ -417,6 +417,31 @@ to be used with `not_to` to specify routes that should not be routable.
 expect(:get => "/widgets/1/edit").not_to be_routable
 ```
 
+## `have_http_status`
+
+* Passes if `response` has a matching HTTP status code
+* The following symbolic status codes are allowed:
+  - `Rack::Utils::SYMBOL_TO_STATUS_CODE`
+  - One of the defined `ActionDispatch::TestResponse` aliases:
+    - `:error`
+    - `:missing`
+    - `:redirect`
+    - `:success`
+* Available in controller, feature, and request specs.
+
+In controller and request specs, apply to the `response` object:
+
+```ruby
+expect(response).to have_http_status(201)
+expect(response).not_to have_http_status(:created)
+```
+
+In feature specs, apply to the `page` object:
+
+```ruby
+expect(page).to have_http_status(:success)
+```
+
 # `rake` tasks
 
 `rspec-rails` defines rake tasks to run the entire test suite (`rake spec`)
