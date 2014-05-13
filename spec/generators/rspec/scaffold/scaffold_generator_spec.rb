@@ -13,7 +13,7 @@ describe Rspec::Generators::ScaffoldGenerator, :type => :generator do
     describe 'with no options' do
       before { run_generator %w(posts) }
       it { is_expected.to contain(/require 'spec_helper'/) }
-      it { is_expected.to contain(/describe PostsController/) }
+      it { is_expected.to contain(/describe PostsController, :type => :controller/) }
       it { is_expected.to contain(%({ "these" => "params" })) }
     end
 
@@ -33,17 +33,18 @@ describe Rspec::Generators::ScaffoldGenerator, :type => :generator do
   describe 'namespaced controller spec' do
     subject { file('spec/controllers/admin/posts_controller_spec.rb') }
     before  { run_generator %w(admin/posts) }
-    it { is_expected.to contain(/describe Admin::PostsController/)}
+    it { is_expected.to contain(/describe Admin::PostsController, :type => :controller/)}
   end
 
   describe 'view specs' do
     describe 'with no options' do
       before { run_generator %w(posts) }
+
       describe 'edit' do
         subject { file("spec/views/posts/edit.html.erb_spec.rb") }
         it { is_expected.to exist }
         it { is_expected.to contain(/require 'spec_helper'/) }
-        it { is_expected.to contain(/describe "(.*)\/edit"/) }
+        it { is_expected.to contain(/describe "(.*)\/edit", :type => :view/) }
         it { is_expected.to contain(/it "renders the edit (.*) form"/) }
       end
 
@@ -51,7 +52,7 @@ describe Rspec::Generators::ScaffoldGenerator, :type => :generator do
         subject { file("spec/views/posts/index.html.erb_spec.rb") }
         it { is_expected.to exist }
         it { is_expected.to contain(/require 'spec_helper'/) }
-        it { is_expected.to contain(/describe "(.*)\/index"/) }
+        it { is_expected.to contain(/describe "(.*)\/index", :type => :view/) }
         it { is_expected.to contain(/it "renders a list of (.*)"/) }
       end
 
@@ -59,7 +60,7 @@ describe Rspec::Generators::ScaffoldGenerator, :type => :generator do
         subject { file("spec/views/posts/new.html.erb_spec.rb") }
         it { is_expected.to exist }
         it { is_expected.to contain(/require 'spec_helper'/) }
-        it { is_expected.to contain(/describe "(.*)\/new"/) }
+        it { is_expected.to contain(/describe "(.*)\/new", :type => :view/) }
         it { is_expected.to contain(/it "renders new (.*) form"/) }
       end
 
@@ -67,7 +68,7 @@ describe Rspec::Generators::ScaffoldGenerator, :type => :generator do
         subject { file("spec/views/posts/show.html.erb_spec.rb") }
         it { is_expected.to exist }
         it { is_expected.to contain(/require 'spec_helper'/) }
-        it { is_expected.to contain(/describe "(.*)\/show"/) }
+        it { is_expected.to contain(/describe "(.*)\/show", :type => :view/) }
         it { is_expected.to contain(/it "renders attributes in <p>"/) }
       end
     end
@@ -143,7 +144,7 @@ describe Rspec::Generators::ScaffoldGenerator, :type => :generator do
     describe 'with default options' do
       before { run_generator %w(posts) }
       it { is_expected.to contain(/require "spec_helper"/) }
-      it { is_expected.to contain(/describe PostsController/) }
+      it { is_expected.to contain(/describe PostsController, :type => :routing/) }
       it { is_expected.to contain(/describe "routing"/) }
     end
 

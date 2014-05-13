@@ -7,7 +7,7 @@ describe Rspec::Generators::FeatureGenerator, :type => :generator do
   # Tell the generator where to put its output (what it thinks of as Rails.root)
   destination File.expand_path("../../../../../temp", __FILE__)
 
-  before { prepare_destination } 
+  before { prepare_destination }
 
   describe 'feature specs' do
     describe 'are generated independently from the command line' do
@@ -23,7 +23,7 @@ describe Rspec::Generators::FeatureGenerator, :type => :generator do
           expect(feature_spec).to contain(/require 'spec_helper'/)
         end
         it "contains the feature" do
-          expect(feature_spec).to contain(/feature "Posts"/)
+          expect(feature_spec).to contain(/feature "Posts", :type => :feature/)
         end
       end
     end

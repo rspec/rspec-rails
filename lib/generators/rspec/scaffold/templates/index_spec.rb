@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 <% output_attributes = attributes.reject{|attribute| [:datetime, :timestamp, :time, :date].index(attribute.type) } -%>
-describe "<%= ns_table_name %>/index" do
+describe "<%= ns_table_name %>/index", :type => :view do
   before(:each) do
     assign(:<%= table_name %>, [
 <% [1,2].each_with_index do |id, model_index| -%>

@@ -25,6 +25,7 @@ Enhancements:
 
 * Supports Rails 4.x reference attribute ids in generated scaffold for view
   specs. (Giovanni Cappellotto)
+* Add spec type metadata to generator templates. (Aaron Kromer)
 
 Bug Fixes:
 

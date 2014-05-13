@@ -19,7 +19,7 @@ require 'spec_helper'
 # that an instance is receiving a specific message.
 
 <% module_namespacing do -%>
-describe <%= controller_class_name %>Controller do
+describe <%= controller_class_name %>Controller, :type => :controller do
 
   # This should return the minimal set of attributes required to create a valid
   # <%= class_name %>. As you add validations to <%= class_name %>, be sure to

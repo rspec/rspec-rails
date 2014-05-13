@@ -16,6 +16,6 @@ describe Rspec::Generators::ObserverGenerator, :type => :generator do
   describe 'the spec' do
     it { is_expected.to exist }
     it { is_expected.to contain(/require 'spec_helper'/) }
-    it { is_expected.to contain(/describe PostsObserver/) }
+    it { is_expected.to contain(/describe PostsObserver, :type => :observer/) }
   end
 end

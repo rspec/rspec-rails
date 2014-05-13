@@ -1,7 +1,7 @@
 require "spec_helper"
 
 <% module_namespacing do -%>
-describe <%= class_name %> do
+describe <%= class_name %>, :type => :mailer do
 <% for action in actions -%>
   describe "<%= action %>" do
     let(:mail) { <%= class_name %>.<%= action %> }
