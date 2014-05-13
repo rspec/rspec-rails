@@ -18,7 +18,7 @@ describe Rspec::Generators::HelperGenerator, :type => :generator do
     describe 'the spec' do
       it { is_expected.to exist }
       it { is_expected.to contain(/require 'spec_helper'/) }
-      it { is_expected.to contain(/describe PostsHelper/) }
+      it { is_expected.to contain(/describe PostsHelper, :type => :helper/) }
     end
   end
   describe 'skipped with a flag' do

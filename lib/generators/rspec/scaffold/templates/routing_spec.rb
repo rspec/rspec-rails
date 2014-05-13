@@ -1,7 +1,7 @@
 require "spec_helper"
 
 <% module_namespacing do -%>
-describe <%= controller_class_name %>Controller do
+describe <%= controller_class_name %>Controller, :type => :routing do
   describe "routing" do
 
 <% unless options[:singleton] -%>

@@ -11,7 +11,7 @@ require 'spec_helper'
 #   end
 # end
 <% module_namespacing do -%>
-describe <%= class_name %>Helper do
+describe <%= class_name %>Helper, :type => :helper do
   pending "add some examples to (or delete) #{__FILE__}"
 end
 <% end -%>
