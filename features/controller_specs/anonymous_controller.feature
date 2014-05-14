@@ -416,6 +416,45 @@ Feature: anonymous controller
     When I run `rspec spec`
     Then the examples should all pass
 
+  Scenario: Works with namespaced controllers
+    Given a file named "spec/controllers/namespaced_controller_spec.rb" with:
+      """ruby
+      require "spec_helper"
+
+      class ApplicationController < ActionController::Base; end
+      module TopLevel
+        module InnerSpace
+          class FoosController < ApplicationController; end
+        end
+      end
+
+      RSpec.describe TopLevel::InnerSpace::FoosController do
+        controller do
+          def index
+            @name = self.class.name
+            @controller_name = controller_name
+            render :text => "Hello World"
+          end
+        end
+
+        it "creates an anonymous controller derived from the namespace" do
+          expect(controller).to be_a_kind_of(TopLevel::InnerSpace::FoosController)
+        end
+
+        it "gets the class name as described" do
+          expect{ get :index }.to change{ assigns[:name] }.
+            to eq('TopLevel::InnerSpace::FoosController')
+        end
+
+        it "gets the controller_name as described" do
+          expect{ get :index }.to change{ assigns[:controller_name] }.
+            to eq('foos')
+        end
+      end
+      """
+    When I run `rspec spec`
+    Then the examples should all pass
+
   Scenario: Refer to application routes in the controller under test
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
