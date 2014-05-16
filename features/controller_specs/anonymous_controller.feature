@@ -479,3 +479,37 @@ Feature: anonymous controller
       """
     When I run `rspec spec`
     Then the examples should all pass
+
+  Scenario: Allows redirects to the controller under test
+    Given a file named "spec/controllers/application_controller_spec.rb" with:
+      """ruby
+      require "spec_helper"
+
+      RSpec.describe ApplicationController do
+        controller do
+          def index
+            redirect_to :action => :new
+          end
+
+          def create
+            redirect_to :protocol => 'https'
+          end
+
+          def new
+            render :text => "new called"
+          end
+        end
+
+        it "redirects to the new resource page" do
+          get :index
+          expect(response).to redirect_to(:action => :new)
+        end
+
+        it "forces https for resource creation" do
+          post :create
+          expect(response.location).to start_with("https://")
+        end
+      end
+      """
+    When I run `rspec spec`
+    Then the examples should all pass
