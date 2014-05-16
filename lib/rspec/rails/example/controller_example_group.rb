@@ -73,9 +73,18 @@ module RSpec::Rails
           @orig_routes = self.routes
           resource_name = @controller.respond_to?(:controller_name) ?
             @controller.controller_name.to_sym : :anonymous
-          self.routes  = ActionDispatch::Routing::RouteSet.new.tap { |r|
-            r.draw { resources resource_name }
-          }
+          resource_path = @controller.respond_to?(:controller_path) ?
+            @controller.controller_path : resource_name.to_s
+          resource_module = resource_path.rpartition('/').first.presence
+          resource_as = 'anonymous_' + resource_path.tr('/', '_')
+          self.routes = ActionDispatch::Routing::RouteSet.new.tap do |r|
+            r.draw do
+              resources resource_name,
+                :as => resource_as,
+                :module => resource_module,
+                :path => resource_path
+            end
+          end
         end
 
         after do

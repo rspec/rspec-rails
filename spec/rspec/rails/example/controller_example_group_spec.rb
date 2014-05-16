@@ -147,13 +147,36 @@ module RSpec::Rails
         expect(controller_class.name).to eq "AnonymousController"
       end
 
-      it "sets name as AnonymousController the controller is abstract" do
+      it "sets name as AnonymousController if the controller is abstract" do
         abstract_controller = Class.new(::ApplicationController)
         def abstract_controller.abstract?; true; end
 
         group.controller(abstract_controller) { }
         expect(controller_class.name).to eq "AnonymousController"
       end
+    end
+
+    context "in a namespace" do
+      describe "controller name" do
+        let(:controller_class) { group.controller_class }
+
+        it "sets the name according to the defined controller namespace if it is not anonymous" do
+          stub_const "A::B::FoosController", Class.new(::ApplicationController)
+          group.controller(A::B::FoosController) { }
+          expect(controller_class.name).to eq "A::B::FoosController"
+        end
+
+        it "sets the name as 'AnonymousController' if the controller is abstract" do
+          abstract_controller = Class.new(::ApplicationController)
+          def abstract_controller.abstract?; true; end
+          stub_const "A::B::FoosController", abstract_controller
+
+          group.controller(A::B::FoosController) { }
+          expect(controller_class.name).to eq "AnonymousController"
+        end
+      end
+
+      pending "sets up resourceful routes on the example"
     end
   end
 end

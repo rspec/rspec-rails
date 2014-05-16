@@ -1,10 +1,6 @@
 ### 3.0.0.rc1 Development
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.beta2...master)
 
-Enhancements:
-
-* Add `have_http_status` matcher. (Aaron Kromer)
-
 Breaking Changes for 3.0.0:
 
 * Extracts the `mock_model` and `stub_model` methods to the
@@ -25,6 +21,7 @@ Enhancements:
 
 * Supports Rails 4.x reference attribute ids in generated scaffold for view
   specs. (Giovanni Cappellotto)
+* Add `have_http_status` matcher. (Aaron Kromer)
 * Add spec type metadata to generator templates. (Aaron Kromer)
 
 Bug Fixes:
@@ -35,6 +32,7 @@ Bug Fixes:
   location. (Jon Rowe, Myron Marston)
 * Switch to parsing params with `Rack::Utils::parse_nested_query` to match Rails.
   (Tim Watson)
+* Fix incorrect namespacing of anonymous controller routes. (Aaron Kromer)
 
 ### 3.0.0.beta2 / 2014-02-17
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.beta1...v3.0.0.beta2)
