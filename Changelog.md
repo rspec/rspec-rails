@@ -63,12 +63,29 @@ Bug Fixes:
 * Require `rspec/collection_matchers` when `rspec/rails` is required. (Yuji Nakayama)
 
 ### 3.0.0.beta1 / 2013-11-07
-[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.beta1...v3.0.0.beta1)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.rc1...v3.0.0.beta1)
 
 Breaking Changes for 3.0.0:
 
 * Extracts `autotest` and `autotest-rails` support to `rspec-autotest` gem.
   (Andy Lindeman)
+
+### 2.99.0.rc1 / 2014-05-18
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.beta2...v2.99.0.rc1)
+
+Deprecations
+
+* Deprecates `stub_model` and `mock_model` in favor of the
+  `rspec-activemodel-mocks` gem. (Thomas Holmes)
+* Issue a deprecation to instruct users to configure
+  `config.infer_spec_type_from_file_location!` during the
+  upgrade process since spec type inference is opt-in in 3.0.
+  (Jon Rowe)
+* Issue a deprecation when `described_class` is accessed in a controller
+  example group that has used the `controller { }` macro to generate an
+  anonymous controller class, since in 2.x, `described_class` would
+  return that generated class but in 3.0 it will continue returning the
+  class passed to `describe`. (Myron Marston)
 
 ### 2.99.0.beta2 / 2014-02-17
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.beta1...v2.99.0.beta2)
