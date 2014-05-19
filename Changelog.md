@@ -1,3 +1,10 @@
+### 3.0.0 development
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.rc1...master)
+
+Bug Fixes:
+
+* Fix an issue with fixture support when `ActiveRecord` isn't loaded. (Jon Rowe)
+
 ### 3.0.0.rc1 / 2014-05-18
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.beta2...v3.0.0.rc1)
 
