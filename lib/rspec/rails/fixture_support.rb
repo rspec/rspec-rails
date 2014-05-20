@@ -1,7 +1,7 @@
 module RSpec
   module Rails
-    if defined?(ActiveRecord::TestFixtures)
-      module FixtureSupport
+    module FixtureSupport
+      if defined?(ActiveRecord::TestFixtures)
         extend ActiveSupport::Concern
         include RSpec::Rails::SetupAndTeardownAdapter
         include RSpec::Rails::MinitestLifecycleAdapter if ::ActiveRecord::VERSION::STRING > '4'
