@@ -69,6 +69,12 @@ module RSpec::Rails
         new_controller_class.class_eval(&body)
         (class << self; self; end).__send__(:define_method, :controller_class) { new_controller_class }
 
+        # The following `before` and `after` blocks are essentially a modified
+        # version of `with_routing`. An `around` hook for this would be ideal,
+        # however, those do not share state the same as `before` and `after`
+        # hooks.
+        #
+        # See http://api.rubyonrails.org/classes/ActionDispatch/Assertions/RoutingAssertions.html#method-i-with_routing
         before do
           @orig_routes = self.routes
           resource_name = @controller.respond_to?(:controller_name) ?
@@ -77,13 +83,17 @@ module RSpec::Rails
             @controller.controller_path : resource_name.to_s
           resource_module = resource_path.rpartition('/').first.presence
           resource_as = 'anonymous_' + resource_path.tr('/', '_')
-          self.routes = ActionDispatch::Routing::RouteSet.new.tap do |r|
-            r.draw do
-              resources resource_name,
-                :as => resource_as,
-                :module => resource_module,
-                :path => resource_path
-            end
+          _routes = self.routes = ActionDispatch::Routing::RouteSet.new
+          _routes.draw do
+            resources resource_name,
+              :as => resource_as,
+              :module => resource_module,
+              :path => resource_path
+          end
+
+          @controller.singleton_class.send(:include, _routes.url_helpers)
+          @controller.view_context_class = Class.new(@controller.view_context_class) do
+            include _routes.url_helpers
           end
         end
 
