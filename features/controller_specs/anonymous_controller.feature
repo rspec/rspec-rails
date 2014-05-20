@@ -475,6 +475,16 @@ Feature: anonymous controller
           get :index
           expect(response).to redirect_to("/login")
         end
+
+        it "redirects to the login URL helper" do
+          get :index
+          expect(response).to redirect_to(login_url)
+        end
+
+        it "redirects to the login path helper" do
+          get :index
+          expect(response).to redirect_to(login_path)
+        end
       end
       """
     When I run `rspec spec`
