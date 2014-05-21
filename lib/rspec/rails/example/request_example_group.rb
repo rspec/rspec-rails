@@ -1,4 +1,5 @@
 module RSpec::Rails
+  # Container class for request spec functionality.
   module RequestExampleGroup
     extend ActiveSupport::Concern
     include RSpec::Rails::RailsExampleGroup
@@ -8,6 +9,7 @@ module RSpec::Rails
     include RSpec::Rails::Matchers::RenderTemplate
     include ActionController::TemplateAssertions
 
+    # Delegates to `Rails.application`.
     def app
       ::Rails.application
     end

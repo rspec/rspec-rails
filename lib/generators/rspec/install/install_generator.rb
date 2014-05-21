@@ -1,5 +1,6 @@
 module Rspec
   module Generators
+    # @private
     class InstallGenerator < ::Rails::Generators::Base
 
       desc <<DESC

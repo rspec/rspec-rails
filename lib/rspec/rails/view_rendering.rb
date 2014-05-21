@@ -2,11 +2,13 @@ require 'action_view/testing/resolvers'
 
 module RSpec
   module Rails
+    # Helpers for optionally rendering views in controller specs.
     module ViewRendering
       extend ActiveSupport::Concern
 
       attr_accessor :controller
 
+      # DSL methods
       module ClassMethods
         # @see RSpec::Rails::ControllerExampleGroup
         def render_views(true_or_false=true)
@@ -32,6 +34,8 @@ module RSpec
 
       # Delegates find_all to the submitted path set and then returns templates
       # with modified source
+      #
+      # @private
       class EmptyTemplatePathSetDecorator < ::ActionView::Resolver
         attr_reader :original_path_set
 
@@ -39,7 +43,6 @@ module RSpec
           @original_path_set = original_path_set
         end
 
-        # @api private
         def find_all(*args)
           original_path_set.find_all(*args).collect do |template|
             ::ActionView::Template.new(
@@ -55,19 +58,21 @@ module RSpec
         end
       end
 
+      # @private
       class EmptyTemplateHandler
         def self.call(template)
           %("")
         end
       end
 
+      # Used to null out view rendering in controller specs.
+      #
+      # @private
       module EmptyTemplates
-        # @api private
         def prepend_view_path(new_path)
           lookup_context.view_paths.unshift(*_path_decorator(new_path))
         end
 
-        # @api private
         def append_view_path(new_path)
           lookup_context.view_paths.push(*_path_decorator(new_path))
         end

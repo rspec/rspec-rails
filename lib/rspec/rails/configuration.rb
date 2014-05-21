@@ -13,7 +13,7 @@ module RSpec
       config.include RSpec::Rails::ViewExampleGroup,       :type => :view
       config.include RSpec::Rails::FeatureExampleGroup,    :type => :feature
 
-      if defined?(RSpec::Rails::MailerExampleGroup)
+      if defined?(ActionMailer)
         config.include RSpec::Rails::MailerExampleGroup, :type => :mailer
       end
 
@@ -36,18 +36,26 @@ module RSpec
       # but requires this workaround:
       config.add_setting :rendering_views, :default => false
 
+      # @private
+      # TODO: How to YARD this? Not actually private.
       def config.render_views=(val)
         self.rendering_views = val
       end
 
+      # @private
+      # TODO: How to YARD this? Not actually private.
       def config.render_views
         self.rendering_views = true
       end
 
+      # @private
+      # TODO: How to YARD this? Not actually private.
       def config.render_views?
         rendering_views
       end
 
+      # @private
+      # TODO: How to YARD this? Not actually private.
       def config.infer_spec_type_from_file_location!
         {
           :controller => %w[spec controllers],

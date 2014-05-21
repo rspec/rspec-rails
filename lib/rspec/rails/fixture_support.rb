@@ -1,5 +1,6 @@
 module RSpec
   module Rails
+    # @private
     module FixtureSupport
       if defined?(ActiveRecord::TestFixtures)
         extend ActiveSupport::Concern

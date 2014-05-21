@@ -2,6 +2,7 @@ require 'generators/rspec'
 
 module Rspec
   module Generators
+    # @private
     class ModelGenerator < Base
       argument :attributes, :type => :array, :default => [], :banner => "field:type field:type"
       class_option :fixture, :type => :boolean

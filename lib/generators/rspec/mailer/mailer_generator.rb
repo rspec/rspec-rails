@@ -2,6 +2,7 @@ require 'generators/rspec'
 
 module Rspec
   module Generators
+    # @private
     class MailerGenerator < Base
       argument :actions, :type => :array, :default => [], :banner => "method method"
 

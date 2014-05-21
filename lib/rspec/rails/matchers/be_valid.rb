@@ -1,16 +1,15 @@
 module RSpec::Rails::Matchers
+  # @private
   class BeValid < RSpec::Matchers::BuiltIn::Be
     def initialize(*args)
       @args = args
     end
 
-    # @api private
     def matches?(actual)
       @actual = actual
       actual.valid?(*@args)
     end
 
-    # @api private
     def failure_message
       message = "expected #{actual.inspect} to be valid"
 
@@ -27,7 +26,6 @@ module RSpec::Rails::Matchers
       message
     end
 
-    # @api private
     def failure_message_when_negated
       "expected #{actual.inspect} not to be valid"
     end
@@ -38,7 +36,6 @@ module RSpec::Rails::Matchers
   # is not given, a default message is shown listing each error.
   #
   # @example
-  #
   #     thing = Thing.new
   #     expect(thing).to be_valid
   def be_valid(*args)

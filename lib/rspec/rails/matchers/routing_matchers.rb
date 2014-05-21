@@ -1,7 +1,9 @@
 module RSpec::Rails::Matchers
+  # Matchers to help with specs for routing code.
   module RoutingMatchers
     extend RSpec::Matchers::DSL
 
+    # @private
     class RouteToMatcher < RSpec::Matchers::BuiltIn::BaseMatcher
 
       def initialize(scope, *expected)
@@ -15,7 +17,6 @@ module RSpec::Rails::Matchers
         end
       end
 
-      # @api private
       def matches?(verb_to_path_map)
         @actual = @verb_to_path_map = verb_to_path_map
         # assert_recognizes does not consider ActionController::RoutingError an
@@ -30,7 +31,6 @@ module RSpec::Rails::Matchers
         end
       end
 
-      # @api private
       def failure_message
         rescued_exception.message
       end
@@ -61,13 +61,13 @@ module RSpec::Rails::Matchers
       RouteToMatcher.new(self, *expected)
     end
 
+    # @private
     class BeRoutableMatcher < RSpec::Matchers::BuiltIn::BaseMatcher
 
       def initialize(scope)
         @scope = scope
       end
 
-      # @api private
       def matches?(path)
         @actual = path
         match_unless_raises ActionController::RoutingError do
@@ -90,9 +90,7 @@ module RSpec::Rails::Matchers
     # the declarations in `config/routes.rb`. Delegates to
     # `RouteSet#recognize_path`.
     #
-    # @example
-    #
-    # You can use route helpers provided by rspec-rails.
+    # @example You can use route helpers provided by rspec-rails.
     #     expect(:get  => "/a/path").to be_routable
     #     expect(:post => "/another/path").to be_routable
     #     expect(:put  => "/yet/another/path").to be_routable
@@ -100,7 +98,17 @@ module RSpec::Rails::Matchers
       BeRoutableMatcher.new(self)
     end
 
+    # Helpers for matching different route types.
     module RouteHelpers
+      # @!method get
+      # @!method post
+      # @!method put
+      # @!method patch
+      # @!method delete
+      # @!method options
+      # @!method head
+      #
+      # Shorthand method for matching this type of route.
       %w(get post put patch delete options head).each do |method|
         define_method method do |path|
           { method.to_sym => path }

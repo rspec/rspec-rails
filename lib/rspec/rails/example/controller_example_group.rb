@@ -1,4 +1,5 @@
 module RSpec::Rails
+  # Container module for controller spec functionality.
   module ControllerExampleGroup
     extend ActiveSupport::Concern
     include RSpec::Rails::RailsExampleGroup
@@ -9,6 +10,7 @@ module RSpec::Rails
     include RSpec::Rails::Matchers::RoutingMatchers
     include RSpec::Rails::AssertionDelegator.new(ActionDispatch::Assertions::RoutingAssertions)
 
+    # Class-level DSL for controller specs.
     module ClassMethods
       # @private
       def controller_class
@@ -28,7 +30,6 @@ module RSpec::Rails
       #   within the block.
       #
       # @example
-      #
       #     describe ApplicationController do
       #       controller do
       #         def index
@@ -97,7 +98,6 @@ module RSpec::Rails
       # is most useful when testing Rails engines.
       #
       # @example
-      #
       #     describe MyEngine::PostsController do
       #       routes { MyEngine::Engine.routes }
       #
@@ -112,12 +112,13 @@ module RSpec::Rails
 
     attr_reader :controller, :routes
 
-    # @api private
+    # @private
     def routes=(routes)
       @routes = routes
       assertion_instance.instance_variable_set(:@routes, routes)
     end
 
+    # @private
     module BypassRescue
       def rescue_with_handler(exception)
         raise exception
@@ -130,7 +131,6 @@ module RSpec::Rails
     # conditions.
     #
     # @example
-    #
     #     describe ProfilesController do
     #       it "raises a 403 when a non-admin user tries to view another user's profile" do
     #         profile = create_profile

@@ -3,6 +3,7 @@ require 'rails/generators/resource_helpers'
 
 module Rspec
   module Generators
+    # @private
     class ScaffoldGenerator < Base
       include ::Rails::Generators::ResourceHelpers
       source_paths << File.expand_path("../../helper/templates", __FILE__)

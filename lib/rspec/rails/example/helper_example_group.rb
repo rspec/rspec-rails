@@ -1,14 +1,15 @@
 require 'rspec/rails/view_assigns'
 
 module RSpec::Rails
+  # Container module for helper specs.
   module HelperExampleGroup
     extend ActiveSupport::Concern
     include RSpec::Rails::RailsExampleGroup
     include ActionView::TestCase::Behavior
     include RSpec::Rails::ViewAssigns
 
+    # @private
     module ClassMethods
-      # @api private
       def determine_default_helper_class(ignore)
         described_class
       end

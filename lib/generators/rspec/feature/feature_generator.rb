@@ -2,6 +2,7 @@ require 'generators/rspec'
 
 module Rspec
   module Generators
+    # @private
     class FeatureGenerator < Base
       class_option :feature_specs, :type => :boolean, :default => true, :desc => "Generate feature specs"
 

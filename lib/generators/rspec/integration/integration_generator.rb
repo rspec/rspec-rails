@@ -2,6 +2,7 @@ require 'generators/rspec'
 
 module Rspec
   module Generators
+    # @private
     class IntegrationGenerator < Base
       class_option :request_specs,   :type => :boolean, :default => true,  :desc => "Generate request specs"
 
