@@ -1,22 +1,29 @@
 module RSpec::Rails::Matchers
-  # @private
+  # @api private
+  #
+  # Matcher class for `be_a_new`. Should not be instantiated directly.
+  #
+  # @see RSpec::Rails::Matchers#be_a_new
   class BeANew < RSpec::Matchers::BuiltIn::BaseMatcher
+    # @private
     def initialize(expected)
       @expected = expected
     end
 
+    # @private
     def matches?(actual)
       @actual = actual
       actual.is_a?(expected) && actual.new_record? && attributes_match?(actual)
     end
 
-    # This is part of our public interface, it is documented as part of
-    # #be_a_new below.
+    # @api public
+    # @see RSpec::Rails::Matchers#be_a_new
     def with(expected_attributes)
       attributes.merge!(expected_attributes)
       self
     end
 
+    # @private
     def failure_message
       [].tap do |message|
         unless actual.is_a?(expected) && actual.new_record?
