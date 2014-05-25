@@ -12,8 +12,8 @@ module RSpec
 
       # @!method render_views=(val)
       #
-      # When set to true, controller specs will render the relevant view as
-      # well. Defaults to false.
+      # When set to `true`, controller specs will render the relevant view as
+      # well. Defaults to `false`.
 
       # @!method render_views(val)
       # Enables view rendering for controllers specs.
@@ -65,8 +65,8 @@ module RSpec
 
       # This allows us to expose `render_views` as a config option even though it
       # breaks the convention of other options by using `render_views` as a
-      # command (i.e. render_views = true), where it would normally be used as a
-      # getter. This makes it easier for rspec-rails users because we use
+      # command (i.e. `render_views = true`), where it would normally be used
+      # as a getter. This makes it easier for rspec-rails users because we use
       # `render_views` directly in example groups, so this aligns the two APIs,
       # but requires this workaround:
       config.add_setting :rendering_views, :default => false
