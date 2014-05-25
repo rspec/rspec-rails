@@ -113,6 +113,8 @@ module RSpec::Rails
     attr_reader :controller, :routes
 
     # @private
+    #
+    # RSpec Rails uses this to make Rails routes easily available to specs.
     def routes=(routes)
       @routes = routes
       assertion_instance.instance_variable_set(:@routes, routes)
