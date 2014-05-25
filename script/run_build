@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -ex
+
+function check_documentation_coverage {
+  bin/yard stats --list-undoc --exclude lib/generators | ruby -e "
+    while line = gets
+      coverage ||= line[/([\d\.]+)% documented/, 1]
+      puts line
+    end
+
+    unless Float(coverage) == 100
+      puts \"\n\nMissing documentation coverage (currently at #{coverage}%)\"
+      exit(1)
+    end
+  "
+}
+
+bin/rake --trace
+check_documentation_coverage
