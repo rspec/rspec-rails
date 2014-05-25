@@ -1,7 +1,6 @@
 module RSpec
   module Rails
-    # Helpers for working with views, specifically for settings instance
-    # variables to be made available to views.
+    # Helpers for making instance variables available to views.
     module ViewAssigns
       # Assigns a value to an instance variable in the scope of the
       # view being rendered.
