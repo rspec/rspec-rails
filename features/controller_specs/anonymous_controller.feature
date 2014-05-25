@@ -16,17 +16,19 @@ Feature: anonymous controller
   default:
 
   ```ruby
-  Rspec.configure do |c|
+  RSpec.configure do |c|
     c.infer_base_class_for_anonymous_controllers = false
   end
 
   describe BaseController do
-    controller { ... }
-    =begin
-      ^^ would normally create an anonymous subclass of `BaseController`,
-      but since `infer_base_class_for_anonymous_controllers` is disabled,
-      it creates a subclass of `ApplicationController` instead
-    =end
+    controller do
+      def index; end
+
+      ​# this normally creates an anonymous `BaseController` subclass, but
+      ​# since `infer_base_class_for_anonymous_controllers` is disabled,
+      ​# it creates a subclass of `ApplicationController` instead
+    end
+  end
   ```
 
   Scenario: Specify error handling in `ApplicationController`
