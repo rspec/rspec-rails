@@ -3,7 +3,7 @@
 set -ex
 
 function check_documentation_coverage {
-  bin/yard stats --list-undoc --exclude lib/generators | ruby -e "
+  bin/yard stats --list-undoc | ruby -e "
     while line = gets
       coverage ||= line[/([\d\.]+)% documented/, 1]
       puts line
