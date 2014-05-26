@@ -3,7 +3,7 @@ before_script:
   - rm -f bin/rails
   - bundle exec rails --version
 script: "script/run_build 2>&1"
-bundler_args: "--binstubs --without documentation"
+bundler_args: "--binstubs"
 before_install:
   # Downgrade bundler to work around https://github.com/bundler/bundler/issues/3004
   - gem install bundler -v=1.5.3
