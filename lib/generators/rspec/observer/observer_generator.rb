@@ -2,6 +2,7 @@ require 'generators/rspec'
 
 module Rspec
   module Generators
+    # @private
     class ObserverGenerator < Base
       def generate_observer_spec
         template 'observer_spec.rb',

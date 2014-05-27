@@ -2,8 +2,8 @@ before_script:
   # Rails 4.x complains with a bundler rails binstub in PROJECT_ROOT/bin/
   - rm -f bin/rails
   - bundle exec rails --version
-script: "bin/rake --trace 2>&1"
-bundler_args: "--binstubs --without documentation"
+script: "script/run_build 2>&1"
+bundler_args: "--binstubs"
 before_install:
   # Downgrade bundler to work around https://github.com/bundler/bundler/issues/3004
   - gem install bundler -v=1.5.3

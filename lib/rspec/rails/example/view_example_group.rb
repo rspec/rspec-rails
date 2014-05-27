@@ -1,6 +1,7 @@
 require 'rspec/rails/view_assigns'
 
 module RSpec::Rails
+  # Container class for view spec functionality.
   module ViewExampleGroup
     extend ActiveSupport::Concern
     include RSpec::Rails::RailsExampleGroup
@@ -8,6 +9,7 @@ module RSpec::Rails
     include RSpec::Rails::ViewAssigns
     include RSpec::Rails::Matchers::RenderTemplate
 
+    # @private
     module ClassMethods
       def _default_helper
         base = metadata[:description].split('/')[0..-2].join('/')
@@ -23,6 +25,7 @@ module RSpec::Rails
       end
     end
 
+    # DSL exposed to view specs.
     module ExampleMethods
       # @overload render
       # @overload render({:partial => path_to_file})
@@ -65,15 +68,13 @@ module RSpec::Rails
       # help isolate view examples from partials rendered by the view template
       # that is the subject of the example.
       #
-      # @example
-      #
       #     stub_template("widgets/_widget.html.erb" => "This content.")
       def stub_template(hash)
         view.view_paths.unshift(ActionView::FixtureResolver.new(hash))
       end
 
       # Provides access to the params hash that will be available within the
-      # view:
+      # view.
       #
       #     params[:foo] = 'bar'
       def params

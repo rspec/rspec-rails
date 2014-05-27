@@ -1,8 +1,10 @@
 module RSpec::Rails
+  # Container module for routing spec functionality.
   module FeatureExampleGroup
     extend ActiveSupport::Concern
     include RSpec::Rails::RailsExampleGroup
 
+    # Default host to be used in Rails route helpers if none is specified.
     DEFAULT_HOST = "www.example.com"
 
     included do
@@ -17,6 +19,9 @@ module RSpec::Rails
       end
     end
 
+    # Shim to check for presence of Capybara. Will delegate if present, raise
+    # if not. We assume here that in most cases `visit` will be the first
+    # Capybara method called in a spec.
     def visit(*)
       if defined?(super)
         super

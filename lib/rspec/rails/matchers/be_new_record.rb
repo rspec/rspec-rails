@@ -1,7 +1,6 @@
 module RSpec::Rails::Matchers
+  # @private
   class BeANewRecord < RSpec::Matchers::BuiltIn::BaseMatcher
-
-    # @api private
     def matches?(actual)
       !actual.persisted?
     end
@@ -18,7 +17,6 @@ module RSpec::Rails::Matchers
   # Passes if actual returns `false` for `persisted?`.
   #
   # @example
-  #
   #     get :new
   #     expect(assigns(:thing)).to be_new_record
   def be_new_record

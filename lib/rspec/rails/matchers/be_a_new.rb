@@ -1,30 +1,29 @@
 module RSpec::Rails::Matchers
+  # @api private
+  #
+  # Matcher class for `be_a_new`. Should not be instantiated directly.
+  #
+  # @see RSpec::Rails::Matchers#be_a_new
   class BeANew < RSpec::Matchers::BuiltIn::BaseMatcher
-
+    # @private
     def initialize(expected)
       @expected = expected
     end
 
-    # @api private
+    # @private
     def matches?(actual)
       @actual = actual
       actual.is_a?(expected) && actual.new_record? && attributes_match?(actual)
     end
 
-    # Use this to specify the specific attributes to match on the new record.
-    #
-    # @example
-    #
-    #     it "assigns a new Thing with the submitted attributes" do
-    #       post :create, :thing => { :name => "Illegal Value" }
-    #       expect(assigns).to(:thing) be_a_new(Thing).with(:name => nil)
-    #     end
+    # @api public
+    # @see RSpec::Rails::Matchers#be_a_new
     def with(expected_attributes)
       attributes.merge!(expected_attributes)
       self
     end
 
-    # @api private
+    # @private
     def failure_message
       [].tap do |message|
         unless actual.is_a?(expected) && actual.new_record?
@@ -63,8 +62,10 @@ module RSpec::Rails::Matchers
   # `persisted?`. Typically used to specify instance variables assigned to
   # views by controller actions
   #
-  # @example
+  # Use the `with` method to specify the specific attributes to match on the
+  # new record.
   #
+  # @example
   #     get :new
   #     assigns(:thing).should be_a_new(Thing)
   #

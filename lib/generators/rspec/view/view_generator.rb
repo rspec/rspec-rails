@@ -2,6 +2,7 @@ require 'generators/rspec'
 
 module Rspec
   module Generators
+    # @private
     class ViewGenerator < Base
       argument :actions, :type => :array, :default => [], :banner => "action action"
 

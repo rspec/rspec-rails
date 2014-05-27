@@ -7,6 +7,8 @@ module RSpec
     if ::Rails::VERSION::STRING >= '4.1.0'
       gem 'minitest'
       require 'minitest/assertions'
+      # Constant aliased to either Minitest or TestUnit, depending on what is
+      # loaded.
       Assertions = Minitest::Assertions
     else
       begin
@@ -16,12 +18,13 @@ module RSpec
         require 'rubysl-test-unit' if defined?(RUBY_ENGINE) && RUBY_ENGINE == 'rbx'
         require 'test/unit/assertions'
       end
+      # Constant aliased to either Minitest or TestUnit, depending on what is
+      # loaded.
       Assertions = Test::Unit::Assertions
     end
 
-    # @api private
+    # @private
     class AssertionDelegator < Module
-      # @api private
       def initialize(*assertion_modules)
         assertion_class = Class.new(SimpleDelegator) do
           include ::RSpec::Rails::Assertions
@@ -30,12 +33,10 @@ module RSpec
         end
 
         super() do
-          # @api private
           define_method :build_assertion_instance do
             assertion_class.new(self)
           end
 
-          # @api private
           def assertion_instance
             @assertion_instance ||= build_assertion_instance
           end
@@ -54,7 +55,7 @@ module RSpec
 
     # Adapts example groups for `Minitest::Test::LifecycleHooks`
     #
-    # @api private
+    # @private
     module MinitestLifecycleAdapter
       extend ActiveSupport::Concern
 
@@ -82,26 +83,22 @@ module RSpec
       end
     end
 
-    # @api private
+    # @private
     module MinitestCounters
-      # @api private
       def assertions
         @assertions ||= 0
       end
 
-      # @api private
       def assertions=(assertions)
         @assertions = assertions
       end
     end
 
-    # @api private
+    # @private
     module SetupAndTeardownAdapter
       extend ActiveSupport::Concern
 
       module ClassMethods
-        # @api private
-        #
         # Wraps `setup` calls from within Rails' testing framework in `before`
         # hooks.
         def setup(*methods)
@@ -123,7 +120,6 @@ module RSpec
         end
       end
 
-      # @api private
       def method_name
         @example
       end
@@ -133,9 +129,8 @@ module RSpec
     module MinitestAssertionAdapter
       extend ActiveSupport::Concern
 
+      # @private
       module ClassMethods
-        # @api private
-        #
         # Returns the names of assertion methods that we want to expose to
         # examples without exposing non-assertion methods in Test::Unit or
         # Minitest.
@@ -144,7 +139,6 @@ module RSpec
             [:build_message]
         end
 
-        # @api private
         def define_assertion_delegators
           assertion_method_names.each do |m|
             define_method(m.to_sym) do |*args, &block|
@@ -154,13 +148,11 @@ module RSpec
         end
       end
 
-      # @api private
       class AssertionDelegator
         include ::RSpec::Rails::Assertions
         include ::RSpec::Rails::MinitestCounters
       end
 
-      # @api private
       def assertion_delegator
         @assertion_delegator ||= AssertionDelegator.new
       end
@@ -173,7 +165,7 @@ module RSpec
     # Backwards compatibility. It's unlikely that anyone is using this
     # constant, but we had forgotten to mark it as `@private` earlier
     #
-    # @api private
+    # @private
     TestUnitAssertionAdapter = MinitestAssertionAdapter
   end
 end

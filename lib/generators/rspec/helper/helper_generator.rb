@@ -2,6 +2,7 @@ require 'generators/rspec'
 
 module Rspec
   module Generators
+    # @private
     class HelperGenerator < Base
       class_option :helper_specs, :type => :boolean, :default => true
 

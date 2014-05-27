@@ -1,5 +1,7 @@
 module RSpec::Rails::Matchers
+  # Matcher for template rendering.
   module RenderTemplate
+    # @private
     class RenderTemplateMatcher < RSpec::Matchers::BuiltIn::BaseMatcher
 
       def initialize(scope, expected, message=nil)
@@ -26,10 +28,9 @@ module RSpec::Rails::Matchers
       end
     end
 
-    # Delegates to `assert_template`
+    # Delegates to `assert_template`.
     #
     # @example
-    #
     #     expect(response).to have_rendered("new")
     def have_rendered(options, message=nil)
       RenderTemplateMatcher.new(self, options, message)
