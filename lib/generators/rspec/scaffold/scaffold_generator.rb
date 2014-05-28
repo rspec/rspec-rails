@@ -50,36 +50,6 @@ module Rspec
                    File.join("spec/views", controller_file_path, "#{view}.html.#{options[:template_engine]}_spec.rb")
         end
 
-        def example_valid_attributes
-          # Only take the first attribute so this hash does not become unweildy and large in the
-          # generated controller spec. It is the responsibility of the user to keep the the valid
-          # attributes method up-to-date as they add validations.
-          @example_valid_attributes ||=
-            if attributes.any?
-              { attributes.first.name => attributes.first.default.to_s }
-            else
-              { }
-            end
-        end
-
-        def example_invalid_attributes
-          @example_invalid_attributes ||=
-            if attributes.any?
-              { attributes.first.name => "invalid value" }
-            else
-              { }
-            end
-        end
-
-        def example_params_for_update
-          @example_params_for_update ||=
-            if example_valid_attributes.any?
-              example_valid_attributes
-            else
-              { "these" => "params" }
-            end
-        end
-
         def formatted_hash(hash)
           formatted = hash.inspect
           formatted.gsub!("{", "{ ")
