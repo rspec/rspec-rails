@@ -27,10 +27,10 @@ To specify outcomes, you can use:
     ```ruby
     expect(response).to redirect_to(location)   # wraps assert_redirected_to
     ```
-  - [`have_status`](matchers/have-status-matcher)
+  - [`have_http_status`](matchers/have-http-status-matcher)
 
     ```ruby
-    expect(response).to have_status(:created)
+    expect(response).to have_http_status(:created)
     ```
   - [`be_a_new`](#)
 
