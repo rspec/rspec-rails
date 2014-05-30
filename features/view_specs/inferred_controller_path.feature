@@ -3,7 +3,7 @@ Feature: view spec infers controller path and action
   Scenario: infer controller path
     Given a file named "spec/views/widgets/new.html.erb_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe "widgets/new" do
         it "infers the controller path" do
@@ -18,7 +18,7 @@ Feature: view spec infers controller path and action
   Scenario: infer action
     Given a file named "spec/views/widgets/new.html.erb_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe "widgets/new" do
         it "infers the controller action" do
@@ -32,7 +32,7 @@ Feature: view spec infers controller path and action
   Scenario: do not infer action in a partial
     Given a file named "spec/views/widgets/_form.html.erb_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe "widgets/_form" do
         it "includes a link to new" do

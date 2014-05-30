@@ -3,7 +3,7 @@ Feature: controller spec
   Scenario: simple passing example
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe WidgetsController do
         describe "GET index" do
@@ -20,7 +20,7 @@ Feature: controller spec
   Scenario: controller is exposed to global before hooks
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       RSpec.configure {|c| c.before { expect(controller).not_to be_nil }}
 
@@ -37,7 +37,7 @@ Feature: controller spec
   Scenario: controller is extended with a helper module
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       module MyHelper
         def my_variable

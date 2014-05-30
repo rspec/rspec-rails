@@ -6,7 +6,7 @@ Feature: stub template
   Scenario: stub template that does not exist
     Given a file named "spec/views/gadgets/list.html.erb_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe "gadgets/list" do
         it "renders the gadget partial for each gadget" do
@@ -32,7 +32,7 @@ Feature: stub template
   Scenario: stub template that exists
     Given a file named "spec/views/gadgets/edit.html.erb_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe "gadgets/edit" do
         before(:each) do

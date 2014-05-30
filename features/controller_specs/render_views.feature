@@ -6,7 +6,7 @@ Feature: render_views
   Scenario: render_views directly in a single group
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe WidgetsController do
         render_views
@@ -25,7 +25,7 @@ Feature: render_views
   Scenario: render_views on and off in nested groups
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe WidgetsController do
         context "with render_views" do
@@ -98,7 +98,7 @@ Feature: render_views
       """
     And a file named "spec/controllers/widgets_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe WidgetsController do
         describe "GET index" do
@@ -111,4 +111,3 @@ Feature: render_views
       """
     When I run `rspec spec`
     Then the examples should all pass
-    

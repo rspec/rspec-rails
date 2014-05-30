@@ -53,7 +53,7 @@ Feature: Directory Structure
   In RSpec 3, this behavior must be explicitly enabled:
 
   ```ruby
-  ​# spec/spec_helper.rb
+  ​# spec/rails_helper.rb
   RSpec.configure do |config|
     config.infer_spec_type_from_file_location!
   end
@@ -105,11 +105,11 @@ Feature: Directory Structure
       ├── models
       │   ├── author_spec.rb
       │   ├── book_spec.rb
+      ├── rails_helper.rb
       ├── requests
       │   ├── books_spec.rb
       ├── routing
       │   └── books_routing_spec.rb
-      ├── spec_helper.rb
       └── tasks
       │   ├── irc_spec.rb
       └── views
@@ -118,7 +118,7 @@ Feature: Directory Structure
   Scenario: Standard Rails specs must specify the `:type` metadata
     Given a file named "spec/functional/widgets_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       RSpec.describe WidgetsController, :type => :controller do
         it "responds successfully" do
@@ -133,7 +133,7 @@ Feature: Directory Structure
   Scenario: Non-rails related specs do not require `:type` metadata by default
     Given a file named "spec/ledger/entry_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       Entry = Struct.new(:description, :us_cents)
 
@@ -149,7 +149,7 @@ Feature: Directory Structure
   Scenario: Inferring spec type from the file location adds the appropriate metadata
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       RSpec.configure do |config|
         config.infer_spec_type_from_file_location!
@@ -168,7 +168,7 @@ Feature: Directory Structure
   Scenario: Specs in canonical directories can override their inferred types
     Given a file named "spec/routing/duckduck_routing_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       Rails.application.routes.draw do
         get "/example" => redirect("http://example.com")

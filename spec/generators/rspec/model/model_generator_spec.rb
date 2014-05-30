@@ -26,7 +26,7 @@ describe Rspec::Generators::ModelGenerator, :type => :generator do
         subject { file('spec/models/posts_spec.rb') }
 
         it { is_expected.to exist }
-        it { is_expected.to contain(/require 'spec_helper'/) }
+        it { is_expected.to contain(/require 'rails_helper'/) }
         it { is_expected.to contain(/describe Posts, :type => :model/) }
       end
 

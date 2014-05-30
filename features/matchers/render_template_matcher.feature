@@ -12,7 +12,7 @@ Feature: render_template matcher
   Scenario: render_template with three possible options
     Given a file named "spec/controllers/gadgets_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe GadgetsController do
         describe "GET #index" do
@@ -32,7 +32,7 @@ Feature: render_template matcher
   Scenario: render_template in a view spec
     Given a file named "spec/views/gadgets/index.html.erb_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe "gadgets/index" do
         it "renders the index template" do

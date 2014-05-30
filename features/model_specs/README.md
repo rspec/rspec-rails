@@ -7,7 +7,7 @@ behavior and expectations.
 
 ## Examples
 
-    require "spec_helper"
+    require "rails_helper"
     
     describe Post do
       context "with 2 or more comments" do

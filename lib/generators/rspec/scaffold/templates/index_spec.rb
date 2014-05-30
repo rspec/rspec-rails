@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 <% output_attributes = attributes.reject{|attribute| [:datetime, :timestamp, :time, :date].index(attribute.type) } -%>
 describe "<%= ns_table_name %>/index", :type => :view do

@@ -7,7 +7,7 @@ Feature: engine routes
   Scenario: specify engine route
     Given a file named "spec/routing/engine_routes_spec.rb" with:
     """ruby
-    require "spec_helper"
+    require "rails_helper"
 
     # A very simple Rails engine
     module MyEngine

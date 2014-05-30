@@ -9,7 +9,7 @@ Feature: `have_http_status` matcher
   Scenario: Checking a numeric response code
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       RSpec.describe ApplicationController, :type => :controller do
 
@@ -34,7 +34,7 @@ Feature: `have_http_status` matcher
   Scenario: Checking a symbolic response code
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       RSpec.describe ApplicationController, :type => :controller do
 
@@ -59,7 +59,7 @@ Feature: `have_http_status` matcher
   Scenario: Checking a general response code
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       RSpec.describe ApplicationController, :type => :controller do
 
@@ -84,7 +84,7 @@ Feature: `have_http_status` matcher
   Scenario: Using in a controller spec
     Given a file named "spec/controllers/gadgets_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       RSpec.describe GadgetsController, :type => :controller do
 
@@ -103,7 +103,7 @@ Feature: `have_http_status` matcher
   Scenario: Using in a request spec
     Given a file named "spec/requests/gadgets/widget_management_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       RSpec.describe "Widget management", :type => :request do
 
@@ -128,7 +128,7 @@ Feature: `have_http_status` matcher
   Scenario: Using in a feature spec
     Given a file named "spec/features/widget_management_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       feature "Widget management", :type => :feature do
 

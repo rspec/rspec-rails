@@ -5,7 +5,7 @@ Feature: view spec
   Scenario: passing spec that renders the described view file
     Given a file named "spec/views/widgets/index.html.erb_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe "widgets/index" do
         it "displays all the widgets" do
@@ -27,7 +27,7 @@ Feature: view spec
   Scenario: passing spec with before and nesting
     Given a file named "spec/views/widgets/index.html.erb_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe "widgets/index" do
 
@@ -54,7 +54,7 @@ Feature: view spec
   Scenario: passing spec with explicit template rendering
     Given a file named "spec/views/widgets/widget.html.erb_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe "rendering the widget template" do
         it "displays the widget" do
@@ -76,7 +76,7 @@ Feature: view spec
   Scenario: passing spec with a description that includes the format and handler
     Given a file named "spec/views/widgets/widget.xml.erb_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe "widgets/widget.html.erb" do
         it "renders the HTML template" do
@@ -108,7 +108,7 @@ Feature: view spec
   Scenario: passing spec with rendering of locals in a partial
     Given a file named "spec/views/widgets/_widget.html.erb_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe "rendering locals in a partial" do
         it "displays the widget" do
@@ -130,7 +130,7 @@ Feature: view spec
   Scenario: passing spec with rendering of locals in an implicit partial
     Given a file named "spec/views/widgets/_widget.html.erb_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe "rendering locals in a partial" do
         it "displays the widget" do
@@ -152,7 +152,7 @@ Feature: view spec
   Scenario: passing spec with rendering of text
     Given a file named "spec/views/widgets/direct.html.erb_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe "rendering text directly" do
         it "displays the given text" do
@@ -175,7 +175,7 @@ Feature: view spec
       """
     And a file named "spec/views/secrets/index.html.erb_spec.rb" with:
       """ruby
-      require 'spec_helper'
+      require 'rails_helper'
 
       describe 'secrets/index' do
         before do
@@ -194,7 +194,7 @@ Feature: view spec
   Scenario: request.path_parameters should match Rails by using symbols for keys
     Given a file named "spec/views/widgets/index.html.erb_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe "controller.request.path_parameters" do
         it "matches the Rails environment by using symbols for keys" do

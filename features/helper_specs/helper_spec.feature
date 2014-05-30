@@ -16,7 +16,7 @@ Feature: helper spec
   Scenario: helper method that returns a value
     Given a file named "spec/helpers/application_helper_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe ApplicationHelper do
         describe "#page_title" do
@@ -40,7 +40,7 @@ Feature: helper spec
   Scenario: helper method that accesses an instance variable
     Given a file named "spec/helpers/application_helper_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe ApplicationHelper do
         describe "#page_title" do
@@ -65,7 +65,7 @@ Feature: helper spec
   Scenario: application helper is included in helper object
     Given a file named "spec/helpers/widgets_helper_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe WidgetsHelper do
         describe "#widget_title" do
@@ -98,7 +98,7 @@ Feature: helper spec
   Scenario: url helpers are defined
     Given a file named "spec/helpers/widgets_helper_spec.rb" with:
     """ruby
-    require "spec_helper"
+    require "rails_helper"
 
     describe WidgetsHelper do
       describe "#link_to_widget" do

@@ -18,7 +18,7 @@ Feature: feature spec
   Scenario: specify creating a Widget by driving the application with capybara
     Given a file named "spec/features/widget_management_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       feature "Widget management" do
         scenario "User creates a new widget" do

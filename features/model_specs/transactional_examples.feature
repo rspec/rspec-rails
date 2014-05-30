@@ -8,7 +8,7 @@ Feature: transactional examples
   Scenario: run in transactions (default)
     Given a file named "spec/models/widget_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe Widget do
         it "has none to begin with" do
@@ -31,7 +31,7 @@ Feature: transactional examples
   Scenario: run in transactions (explicit)
     Given a file named "spec/models/widget_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       RSpec.configure do |c|
         c.use_transactional_examples = true
@@ -58,7 +58,7 @@ Feature: transactional examples
   Scenario: disable transactions (explicit)
     Given a file named "spec/models/widget_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       RSpec.configure do |c|
         c.use_transactional_examples = false
@@ -88,7 +88,7 @@ Feature: transactional examples
   Scenario: run in transactions with fixture
     Given a file named "spec/models/thing_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe Thing do
         fixtures :things
