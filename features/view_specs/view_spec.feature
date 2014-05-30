@@ -167,7 +167,15 @@ Feature: view spec
     Then the examples should all pass
 
   Scenario: passing view spec that stubs a helper method
-    Given a file named "app/views/secrets/index.html.erb" with:
+    Given a file named "app/helpers/application_helper.rb" with:
+      """ruby
+      module ApplicationHelper
+        def admin?
+          false
+        end
+      end
+      """
+    And a file named "app/views/secrets/index.html.erb" with:
       """
       <%- if admin? %>
         <h1>Secret admin area</h1>
@@ -179,7 +187,7 @@ Feature: view spec
 
       describe 'secrets/index' do
         before do
-          view.stub(:admin?).and_return(true)
+          allow(view).to receive(:admin?).and_return(true)
         end
 
         it 'checks for admin access' do

@@ -110,6 +110,7 @@ Feature: Directory Structure
       │   ├── books_spec.rb
       ├── routing
       │   └── books_routing_spec.rb
+      ├── spec_helper.rb
       └── tasks
       │   ├── irc_spec.rb
       └── views
@@ -133,7 +134,7 @@ Feature: Directory Structure
   Scenario: Non-rails related specs do not require `:type` metadata by default
     Given a file named "spec/ledger/entry_spec.rb" with:
       """ruby
-      require "rails_helper"
+      require "spec_helper"
 
       Entry = Struct.new(:description, :us_cents)
 

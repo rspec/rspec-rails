@@ -47,7 +47,7 @@ Before do
     end
   end
 
-  ["spec/rails_helper.rb"].each do |file_or_dir|
+  ["spec/spec_helper.rb", "spec/rails_helper.rb"].each do |file_or_dir|
     write_symlink("tmp/example_app/#{file_or_dir}")
   end
 end
