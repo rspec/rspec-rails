@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "<%= class_name.pluralize %>", :type => :request do
+RSpec.describe "<%= class_name.pluralize %>", :type => :request do
   describe "GET /<%= table_name %>" do
     it "works! (now write some real specs)" do
       get <%= index_helper %>_path
