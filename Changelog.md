@@ -76,12 +76,17 @@ Bug Fixes:
 * Require `rspec/collection_matchers` when `rspec/rails` is required. (Yuji Nakayama)
 
 ### 3.0.0.beta1 / 2013-11-07
-[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.rc1...v3.0.0.beta1)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0...v3.0.0.beta1)
 
 Breaking Changes for 3.0.0:
 
 * Extracts `autotest` and `autotest-rails` support to `rspec-autotest` gem.
   (Andy Lindeman)
+
+### 2.99.0 / 2014-06-01
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.rc1...v2.99.0)
+
+No changes. Just taking it out of pre-release.
 
 ### 2.99.0.rc1 / 2014-05-18
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.beta2...v2.99.0.rc1)
