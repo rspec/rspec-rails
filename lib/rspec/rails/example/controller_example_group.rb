@@ -67,7 +67,7 @@ module RSpec::Rails
             end
           end
         end
-        new_controller_class.class_eval(&body)
+        new_controller_class.class_exec(&body)
         (class << self; self; end).__send__(:define_method, :controller_class) { new_controller_class }
 
         before do

@@ -134,7 +134,7 @@ module RSpec::Rails
 
       def _include_controller_helpers
         helpers = controller._helpers
-        view.singleton_class.class_eval do
+        view.singleton_class.class_exec do
           include helpers unless included_modules.include?(helpers)
         end
       end

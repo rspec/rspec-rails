@@ -12,7 +12,7 @@ module RSpec::Rails
       it 'includes the helper with the same name' do
         group = RSpec::Core::ExampleGroup.describe 'things/show.html.erb'
         expect(group).to receive(:helper).with(ThingsHelper)
-        group.class_eval do
+        group.class_exec do
           include ViewExampleGroup
         end
       end
@@ -20,7 +20,7 @@ module RSpec::Rails
       it 'includes the namespaced helper with the same name' do
         group = RSpec::Core::ExampleGroup.describe 'namespaced/things/show.html.erb'
         expect(group).to receive(:helper).with(Namespaced::ThingsHelper)
-        group.class_eval do
+        group.class_exec do
           include ViewExampleGroup
         end
       end
@@ -51,7 +51,7 @@ module RSpec::Rails
         it 'includes the application helper' do
           group = RSpec::Core::Example.describe 'bars/new.html.erb'
           expect(group).to receive(:helper).with(ApplicationHelper)
-          group.class_eval do
+          group.class_exec do
             include ViewExampleGroup
           end
         end

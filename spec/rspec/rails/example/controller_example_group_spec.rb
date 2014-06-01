@@ -42,7 +42,7 @@ module RSpec::Rails
 
     describe "#controller" do
       before do
-        group.class_eval do
+        group.class_exec do
           controller(Class.new) { }
         end
       end
