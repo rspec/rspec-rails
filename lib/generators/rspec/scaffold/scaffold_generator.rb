@@ -135,14 +135,18 @@ module Rspec
         end
 
         def value_for(attribute)
+          raw_value_for(attribute).inspect
+        end
+
+        def raw_value_for(attribute)
           case attribute.type
           when :string
-            "#{attribute.name.titleize}".inspect
+            attribute.name.titleize
           when :integer
             @attribute_id_map ||= {}
-            @attribute_id_map[attribute] ||= @attribute_id_map.keys.size.next.to_s
+            @attribute_id_map[attribute] ||= @attribute_id_map.keys.size.next
           else
-            attribute.default.inspect
+            attribute.default
           end
         end
 
