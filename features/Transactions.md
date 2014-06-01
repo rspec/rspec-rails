@@ -1,4 +1,4 @@
-When you run `rails generate rspec:install`, the `spec/spec_helper.rb` file
+When you run `rails generate rspec:install`, the `spec/rails_helper.rb` file
 includes the following configuration:
 
     RSpec.configure do |config|

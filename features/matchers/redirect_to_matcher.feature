@@ -10,7 +10,7 @@ Feature: redirect_to matcher
   Scenario: redirect_to with four possible options
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe WidgetsController do
 

@@ -25,7 +25,7 @@ describe Rspec::Generators::IntegrationGenerator, :type => :generator do
     end
     subject { file('spec/requests/posts_spec.rb') }
     it { is_expected.to exist }
-    it { is_expected.to contain(/require 'spec_helper'/) }
+    it { is_expected.to contain(/require 'rails_helper'/) }
     it { is_expected.to contain(/describe "Posts", :type => :request/) }
     it { is_expected.to contain(/describe "GET \/posts"/) }
     it { is_expected.to contain(/get posts_index_path/) }

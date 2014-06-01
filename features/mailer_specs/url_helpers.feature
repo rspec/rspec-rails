@@ -7,7 +7,7 @@ Feature: URL helpers in mailer examples
       """
     And a file named "spec/mailers/notifications_spec.rb" with:
       """ruby
-      require 'spec_helper'
+      require 'rails_helper'
 
       describe Notifications do
         it 'should have access to URL helpers' do
@@ -25,7 +25,7 @@ Feature: URL helpers in mailer examples
       """
     And a file named "spec/mailers/notifications_spec.rb" with:
       """ruby
-      require 'spec_helper'
+      require 'rails_helper'
 
       describe Notifications do
         it 'should have access to URL helpers' do

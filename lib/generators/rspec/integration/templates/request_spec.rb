@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe "<%= class_name.pluralize %>", :type => :request do
   describe "GET /<%= table_name %>" do

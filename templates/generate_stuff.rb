@@ -14,5 +14,7 @@ generate('controller things custom_action')
 
 file "app/views/things/custom_action.html.erb", "This is a template for a custom action.", {:force=>true}
 
+gsub_file 'spec/spec_helper.rb', /^=(begin|end)/, ''
+
 run('rake db:migrate')
 run('rake db:migrate RAILS_ENV=test')

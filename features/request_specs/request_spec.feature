@@ -26,7 +26,7 @@ Feature: request spec
   Scenario: specify managing a Widget with Rails integration methods
     Given a file named "spec/requests/widget_management_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe "Widget management" do
 

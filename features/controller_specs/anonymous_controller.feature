@@ -34,7 +34,7 @@ Feature: anonymous controller
   Scenario: Specify error handling in `ApplicationController`
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       class ApplicationController < ActionController::Base
         class AccessDenied < StandardError; end
@@ -69,7 +69,7 @@ Feature: anonymous controller
   Scenario: Specify error handling in subclass of `ApplicationController`
     Given a file named "spec/controllers/application_controller_subclass_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       class ApplicationController < ActionController::Base
         class AccessDenied < StandardError; end
@@ -107,7 +107,7 @@ Feature: anonymous controller
   Scenario: Infer base class from the described class
     Given a file named "spec/controllers/base_class_can_be_inferred_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       class ApplicationController < ActionController::Base; end
 
@@ -131,7 +131,7 @@ Feature: anonymous controller
   Scenario: Use `name` and `controller_name` from the described class
     Given a file named "spec/controllers/get_name_and_controller_name_from_described_class_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       class ApplicationController < ActionController::Base; end
       class FoosController < ApplicationController; end
@@ -164,7 +164,7 @@ Feature: anonymous controller
   Scenario: Invoke `around_filter` and `around_action` in base class
     Given a file named "spec/controllers/application_controller_around_filter_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       class ApplicationController < ActionController::Base
         around_filter :an_around_filter
@@ -195,7 +195,7 @@ Feature: anonymous controller
   Scenario: Anonymous controllers only create resource routes
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       RSpec.describe ApplicationController do
         controller do
@@ -373,7 +373,7 @@ Feature: anonymous controller
   Scenario: Draw custom routes for anonymous controllers
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       RSpec.describe ApplicationController do
         controller do
@@ -396,7 +396,7 @@ Feature: anonymous controller
   Scenario: Draw custom routes for defined controllers
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       class FoosController < ApplicationController; end
 
@@ -421,7 +421,7 @@ Feature: anonymous controller
   Scenario: Works with namespaced controllers
     Given a file named "spec/controllers/namespaced_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       class ApplicationController < ActionController::Base; end
       module TopLevel
@@ -460,7 +460,7 @@ Feature: anonymous controller
   Scenario: Refer to application routes in the controller under test
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       Rails.application.routes.draw do
         match "/login" => "sessions#new", :as => "login", :via => "get"

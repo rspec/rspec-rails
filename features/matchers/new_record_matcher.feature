@@ -9,7 +9,7 @@ Feature: be_a_new matcher
   Scenario: example spec with four be_a_new possibilities 
     Given a file named "spec/models/widget_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       describe Widget do
         context "when initialized" do

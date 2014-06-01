@@ -16,7 +16,7 @@ describe Rspec::Generators::MailerGenerator, :type => :generator do
         run_generator %w(posts index show)
       end
       it { is_expected.to exist }
-      it { is_expected.to contain(/require "spec_helper"/) }
+      it { is_expected.to contain(/require "rails_helper"/) }
       it { is_expected.to contain(/describe "index" do/) }
       it { is_expected.to contain(/describe "show" do/) }
     end
@@ -25,7 +25,7 @@ describe Rspec::Generators::MailerGenerator, :type => :generator do
         run_generator %w(posts)
       end
       it { is_expected.to exist }
-      it { is_expected.to contain(/require "spec_helper"/) }
+      it { is_expected.to contain(/require "rails_helper"/) }
       it { is_expected.to contain(/pending "add some examples to \(or delete\)/) }
     end
   end

@@ -1,6 +1,12 @@
 ### 3.0.0 development
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.rc1...master)
 
+Enhancements:
+
+* Separate RSpec configuration in `spec_helper` from Rails setup and associated
+  configuration options. Moving Rails specific settings and options to
+  `rails_helper`. (Aaron Kromer)
+
 Bug Fixes:
 
 * Fix an issue with fixture support when `ActiveRecord` isn't loaded. (Jon Rowe)

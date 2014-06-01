@@ -18,7 +18,7 @@ describe Rspec::Generators::ControllerGenerator, :type => :generator do
 
       describe 'the spec' do
         it { is_expected.to exist }
-        it { is_expected.to contain(/require 'spec_helper'/) }
+        it { is_expected.to contain(/require 'rails_helper'/) }
         it { is_expected.to contain(/describe PostsController/) }
         it { is_expected.to contain(/describe PostsController, :type => :controller/) }
       end
@@ -72,13 +72,13 @@ describe Rspec::Generators::ControllerGenerator, :type => :generator do
         describe 'index.html.erb' do
           subject { file('spec/views/posts/index.html.erb_spec.rb') }
           it { is_expected.to exist }
-          it { is_expected.to contain(/require 'spec_helper'/) }
+          it { is_expected.to contain(/require 'rails_helper'/) }
           it { is_expected.to contain(/describe "posts\/index.html.erb", :type => :view/) }
         end
         describe 'show.html.erb' do
           subject { file('spec/views/posts/show.html.erb_spec.rb') }
           it { is_expected.to exist }
-          it { is_expected.to contain(/require 'spec_helper'/) }
+          it { is_expected.to contain(/require 'rails_helper'/) }
           it { is_expected.to contain(/describe "posts\/show.html.erb", :type => :view/) }
         end
       end
@@ -89,7 +89,7 @@ describe Rspec::Generators::ControllerGenerator, :type => :generator do
         describe 'index.html.haml' do
           subject { file('spec/views/posts/index.html.haml_spec.rb') }
           it { is_expected.to exist }
-          it { is_expected.to contain(/require 'spec_helper'/) }
+          it { is_expected.to contain(/require 'rails_helper'/) }
           it { is_expected.to contain(/describe "posts\/index.html.haml", :type => :view/) }
         end
       end

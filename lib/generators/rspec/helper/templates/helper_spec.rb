@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 # Specs in this file have access to a helper object that includes
 # the <%= class_name %>Helper. For example:

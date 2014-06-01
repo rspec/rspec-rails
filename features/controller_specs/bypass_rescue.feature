@@ -26,7 +26,7 @@ Feature: bypass rescue
   Scenario: standard exception handling using `rescue_from`
     Given a file named "spec/controllers/gadgets_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       require 'controllers/gadgets_controller_spec_context'
 
@@ -51,7 +51,7 @@ Feature: bypass rescue
   Scenario: bypass `rescue_from` handling with `bypass_rescue`
     Given a file named "spec/controllers/gadgets_controller_spec.rb" with:
       """ruby
-      require "spec_helper"
+      require "rails_helper"
 
       require 'controllers/gadgets_controller_spec_context'
 

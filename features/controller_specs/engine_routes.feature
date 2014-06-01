@@ -7,7 +7,7 @@ Feature: engine routes for controllers
   Scenario: specify engine route
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
     """ruby
-    require "spec_helper"
+    require "rails_helper"
 
     # A very simple Rails engine
     module MyEngine
