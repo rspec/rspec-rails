@@ -1,3 +1,8 @@
+### 2.99.0 / 2014-06-01
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.rc1...v2.99.0)
+
+No changes. Just taking it out of pre-release.
+
 ### 2.99.0.rc1 / 2014-05-18
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.beta2...v2.99.0.rc1)
 
