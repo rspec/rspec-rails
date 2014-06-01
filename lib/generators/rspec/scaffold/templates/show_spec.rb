@@ -15,7 +15,7 @@ RSpec.describe "<%= ns_table_name %>/show", :type => :view do
   it "renders attributes in <p>" do
     render
 <% for attribute in output_attributes -%>
-    expect(rendered).to match(/<%= eval(value_for(attribute)) %>/)
+    expect(rendered).to match(/<%= raw_value_for(attribute) %>/)
 <% end -%>
   end
 end
