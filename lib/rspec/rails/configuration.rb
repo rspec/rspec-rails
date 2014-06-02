@@ -53,6 +53,11 @@ module RSpec
         config.include RSpec::Rails::MailerExampleGroup, :type => :mailer
       end
 
+      # Adds `travel`, `travel_to` and `travel_back` methods
+      if defined?(ActiveSupport::Testing::TimeHelpers)
+        config.include ActiveSupport::Testing::TimeHelpers
+      end
+
       # controller settings
       config.add_setting :infer_base_class_for_anonymous_controllers, :default => true
 
