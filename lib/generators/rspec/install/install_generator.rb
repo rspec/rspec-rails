@@ -1,3 +1,5 @@
+require "rspec/support"
+require "rspec/core"
 RSpec::Support.require_rspec_core "project_initializer"
 
 module Rspec
