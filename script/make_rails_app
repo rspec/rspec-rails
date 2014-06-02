@@ -1,0 +1,26 @@
+#!/bin/bash
+set -e
+set -x
+unset BUNDLE_GEMFILE
+RR_DIR=`pwd`
+dir=`mktemp -d rspec-test.XXXXXXXXX`
+cd $dir
+rails new rspec-test
+cd rspec-test
+pwd
+cat >> Gemfile << EOD
+
+gem "rspec-rails", :path => "$RR_DIR"
+
+gem "rspec-core", :github => "rspec/rspec-core", :require => false
+gem "rspec-expectations", :github => "rspec/rspec-expectations", :require => false
+gem "rspec-mocks", :github => "rspec/rspec-mocks", :require => false
+gem "rspec-support", :github => "rspec/rspec-support", :require => false
+
+EOD
+
+bundle install
+rails generate rspec:install
+
+cd $RR_DIR
+rm -rf $dir

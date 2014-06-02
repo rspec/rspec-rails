@@ -18,3 +18,5 @@ function check_documentation_coverage {
 
 bin/rake --trace
 check_documentation_coverage
+
+./script/make_rails_app
