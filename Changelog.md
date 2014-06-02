@@ -1,3 +1,10 @@
+### 3.0.1 / 2014-06-02
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0...v3.0.1)
+
+Bug Fixes:
+
+* Fix missing require in `rails g rspec:install`. (Sam Phippen)
+
 ### 3.0.0 / 2014-06-01
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.rc1...v3.0.0)
 
