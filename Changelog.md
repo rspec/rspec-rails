@@ -1,3 +1,10 @@
+### 3.0.2 development
+
+Enhancements:
+
+* Add support for Rails 4.1 time helper methods `travel`, `travel_to`
+  and `travel_back`. (Wojciech Wnętrzak)
+
 ### 3.0.0 / 2014-06-01
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.rc1...v3.0.0)
 
