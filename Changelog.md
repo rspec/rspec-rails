@@ -1,11 +1,11 @@
-### 3.0.0 development
-[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.rc1...master)
+### 3.0.0 / 2014-06-01
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.rc1...v3.0.0)
 
 Enhancements:
 
-* Separate RSpec configuration in `spec_helper` from Rails setup and associated
-  configuration options. Moving Rails specific settings and options to
-  `rails_helper`. (Aaron Kromer)
+* Separate RSpec configuration in generated `spec_helper` from Rails setup
+  and associated configuration options. Moving Rails specific settings and
+  options to `rails_helper`. (Aaron Kromer)
 
 Bug Fixes:
 
