@@ -2,15 +2,8 @@ source "https://rubygems.org"
 
 gemspec
 
-branch = File.read(File.expand_path("../maintenance-branch", __FILE__)).chomp
-%w[rspec rspec-core rspec-expectations rspec-mocks rspec-support].each do |lib|
-  library_path = File.expand_path("../../#{lib}", __FILE__)
-  if File.exist?(library_path) && !ENV['USE_GIT_REPOS']
-    gem lib, :path => library_path
-  else
-    gem lib, :git => "git://github.com/rspec/#{lib}.git", :branch => branch
-  end
-end
+rspec_dependencies_gemfile = File.expand_path("../Gemfile-rspec-dependencies", __FILE__)
+eval_gemfile rspec_dependencies_gemfile
 
 ### deps for rdoc.info
 group :documentation do
@@ -41,7 +34,7 @@ if RUBY_VERSION <= '1.8.7'
 end
 
 custom_gemfile = File.expand_path("../Gemfile-custom", __FILE__)
-eval File.read(custom_gemfile) if File.exist?(custom_gemfile)
+eval_gemfile custom_gemfile if File.exist?(custom_gemfile)
 
 version_file = File.expand_path("../.rails-version", __FILE__)
 case version = ENV['RAILS_VERSION'] || (File.exist?(version_file) && File.read(version_file).chomp)
