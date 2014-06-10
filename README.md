@@ -100,7 +100,7 @@ switch to the new helpers:
 1. Move the existing `spec_helper.rb` to `rails_helper.rb`:
 
     ```ruby
-    git move spec/spec_helper.rb spec/rails_helper.rb
+    git mv spec/spec_helper.rb spec/rails_helper.rb
     ```
 
 2. Run the installation rake task opting to not replace `rails_helper.rb`:
