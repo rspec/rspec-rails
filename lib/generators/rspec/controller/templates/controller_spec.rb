@@ -7,7 +7,7 @@ RSpec.describe <%= class_name %>Controller, :type => :controller do
   describe "GET '<%= action %>'" do
     it "returns http success" do
       get '<%= action %>'
-      expect(response).to be_success
+      expect(response).to have_http_status(:success)
     end
   end
 
