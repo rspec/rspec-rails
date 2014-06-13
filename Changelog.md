@@ -1,6 +1,10 @@
 ### Development
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.1...master)
 
+Enhancements:
+
+* Switch to using the `have_http_status` matcher in spec generators. (Aaron Kromer, #1086)
+
 Bug Fixes:
 
 * Suppress warning in `SetupAndTeardownAdapter`. (André Arko, #1085)
