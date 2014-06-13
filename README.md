@@ -62,7 +62,26 @@ bundle binstubs rspec-core
 For detailed information on the RSpec 3.x upgrade process see the
 [RSpec Upgrade docs](https://relishapp.com/rspec/docs/upgrade).
 
-There is another `rspec-rails` specific change to be aware of:
+There are two particular `rspec-rails` specific changes to be aware of:
+
+> File-type inference disabled by default
+
+Previously we automatically inferred spec type from a file location, this
+was a surprising behaviour for new users and undesirable for some veteran users
+so from RSpec 3 onwards this behaviour must be explicitly opted into with:
+
+```Ruby
+RSpec.configure do |config|
+  config.infer_spec_type_from_file_location!
+end
+```
+
+This change was made to accomplish our general goals of acting with the principle
+of least surprise and removing magic from RSpec. See [the directory structure
+documentation](https://www.relishapp.com/rspec/rspec-rails/v/3-0/docs/directory-structure)
+for more details.
+
+The other `rspec-rails` specific change is:
 
 > The default helper files created in RSpec 3.x have changed
 
