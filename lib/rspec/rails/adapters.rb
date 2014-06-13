@@ -120,6 +120,10 @@ module RSpec
         end
       end
 
+      def initialize
+        @example = nil
+      end
+
       def method_name
         @example
       end
