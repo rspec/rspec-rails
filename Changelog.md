@@ -1,9 +1,16 @@
+### Development
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.1...master)
+
+Bug Fixes:
+
+* Suppress warning in `SetupAndTeardownAdapter`. (André Arko, #1085)
+
 ### 3.0.1 / 2014-06-02
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0...v3.0.1)
 
 Bug Fixes:
 
-* Fix missing require in `rails g rspec:install`. (Sam Phippen)
+* Fix missing require in `rails g rspec:install`. (Sam Phippen, #1058)
 
 ### 3.0.0 / 2014-06-01
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0.rc1...v3.0.0)
