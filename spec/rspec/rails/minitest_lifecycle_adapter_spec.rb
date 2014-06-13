@@ -12,7 +12,7 @@ describe RSpec::Rails::MinitestLifecycleAdapter do
       define_method(:after_teardown)  { invocations << :after_teardown }
     end
 
-    example = example_group.example("foo") { invocations << :example }
+    example_group.example("foo") { invocations << :example }
     example_group.run(NullObject.new)
 
     expect(invocations).to eq([
