@@ -26,6 +26,7 @@ DESC
 
       def copy_rails_files
         template 'spec/rails_helper.rb'
+        template 'spec/active_record_helper.rb'
       end
 
     private
