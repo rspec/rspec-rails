@@ -109,9 +109,9 @@ describe "route_to" do
   context "with should_not" do
     context "when assert_recognizes passes" do
       it "fails with custom message" do
-        expect do
+        expect{
           expect({:get => "path"}).not_to route_to("these" => "options")
-        end.to raise_error(/expected {:get=>"path"} not to route to {"these"=>"options"}/)
+        }.to raise_error(/expected \{:get=>"path"\} not to route to \{"these"=>"options"\}/)
       end
     end
 

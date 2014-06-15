@@ -1,8 +1,9 @@
 require 'aruba/cucumber'
 
 module ArubaExt
-  def run(cmd)
-    super(cmd =~ /^rspec/ ? "bin/#{cmd}" : cmd)
+  def run(cmd, timeout = nil)
+    exec_cmd = cmd =~ /^rspec/ ? "bin/#{cmd}" : cmd
+    super(exec_cmd, timeout)
   end
 end
 
