@@ -12,7 +12,7 @@ shared_examples_for "an rspec-rails example group mixin" do |type, *paths|
       Dir.mktmpdir("rspec-rails-app-root") do |dir|
         Dir.chdir(dir) do
           path.mkpath
-          spec_file = File.open(file, "w") do |f|
+          File.open(file, "w") do |f|
             f.write("$_new_group = #{group_definition}")
           end
 
