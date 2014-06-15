@@ -6,7 +6,7 @@ Feature: feature spec
   external interface, usually web pages.
 
   Feature specs require the [capybara](http://github.com/jnicklas/capybara)
-  gem, version 2.0.0 or later. Refer to the [capybara API
+  gem, version 2.2.0 or later. Refer to the [capybara API
   documentation](http://rubydoc.info/github/jnicklas/capybara/master) for more
   information on the methods and matchers that can be used in feature specs.
 
