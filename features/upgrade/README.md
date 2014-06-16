@@ -3,86 +3,11 @@
 For detailed information on the general RSpec 3.x upgrade process see the [RSpec
 Upgrade docs](https://relishapp.com/rspec/docs/upgrade).
 
-There are three particular `rspec-rails` specific changes to be aware of:
+There are several changes specific to `rspec-rails` to be aware of:
 
-<a name="pending-migration-checks"></a>
-## Rails 4.x `ActiveRecord::Migration` pending migration checks
-
-If you are not using `ActiveRecord` you do not need to worry about these
-settings.
-
-Users of Rails 4.x can now take advantage of improved schema migration and sync
-abilities. Prior to RSpec 3, users were required to manually run migrations in
-both the development and test environments. Additionally, the behavior differed
-depending on if the specs were run via `rake` or via the standalone `rspec`
-command.
-
-With the release of Rails 4, new APIs have been exposed on
-`ActiveRecord::Migration`. This allows RSpec to take advantage of these new
-standard migration checks, mirroring behavior across the board.
-
-  - Rails 4.0.x
-
-    Add the following to the top of the `rails_helper` file after Rails has
-    been required:
-
-    ```ruby
-    ActiveRecord::Migration.check_pending!
-    ```
-
-    This will raise an exception if there are any pending schema changes. Users
-    will still be required to manually keep the development and test
-    environments in sync.
-
-  - Rails 4.1+
-
-    With this release there was an exciting new feature. Users no longer need
-    to keep the development and test environments in sync. To take advantage of
-    this add the following to the top of the `rails_helper` file after Rails
-    has been required:
-
-    ```ruby
-    ActiveRecord::Migration.maintain_test_schema!
-    ```
-
-    What this does is that rather than just raising when the test schema has
-    pending migrations, Rails will try to load the schema. An exception will
-    now only be raised if there are pending migrations afterwards the schema
-    has been loaded.
-
-    There are a few things you still need to be aware of with this:
-      - you still need to run the migrations manually, except now you just run
-        them in your development environment
-      - if you have not initialized the schema an exception will be raised
-        stating you need to run `rake db:migrate` first
-
-If you wish to opt-out of checking the pending migrations, you should set this
-on the Rails side. To do this, add the following to your
-`config/environments/test.rb` file:
-
-```ruby
-config.active_record.maintain_test_schema = false
-```
-
-New RSpec projects don't need to worry about these commands as the `rails
-generate rspec:install` will add them for you.
-
-<a name="file-type-inference-disabled"></a>
-## File-type inference disabled by default
-
-Previously we automatically inferred spec type from a file location, this
-was a surprising behaviour for new users and undesirable for some veteran users
-so from RSpec 3 onwards this behaviour must be explicitly opted into with:
-
-```Ruby
-RSpec.configure do |config|
-  config.infer_spec_type_from_file_location!
-end
-```
-
-This change was made to accomplish our general goals of acting with the principle
-of least surprise and removing magic from RSpec. See [the directory structure
-documentation](https://www.relishapp.com/rspec/rspec-rails/v/3-0/docs/directory-structure) for more details.
+- [Default helper files created in RSpec 3.x have changed](#default-helper-files)
+- [File-type inference disabled by default](#file-type-inference-disabled)
+- [Rails 4.x `ActiveRecord::Migration` pending migration checks](#pending-migration-checks)
 
 <a name="default-helper-files"></a>
 ## Default helper files created in RSpec 3.x have changed
@@ -148,3 +73,82 @@ switch to the new helpers:
 
 4. Find/replace instances of `require 'spec_helper'` with
    `require 'rails_helper'` in any specs which rely on Rails.
+
+<a name="file-type-inference-disabled"></a>
+## File-type inference disabled by default
+
+Previously we automatically inferred spec type from a file location, this
+was a surprising behaviour for new users and undesirable for some veteran users
+so from RSpec 3 onwards this behaviour must be explicitly opted into with:
+
+```Ruby
+RSpec.configure do |config|
+  config.infer_spec_type_from_file_location!
+end
+```
+
+This change was made to accomplish our general goals of acting with the principle
+of least surprise and removing magic from RSpec. See [the directory structure
+documentation](https://www.relishapp.com/rspec/rspec-rails/v/3-0/docs/directory-structure) for more details.
+
+<a name="pending-migration-checks"></a>
+## Rails 4.x `ActiveRecord::Migration` pending migration checks
+
+If you are not using `ActiveRecord` you do not need to worry about these
+settings.
+
+Users of Rails 4.x can now take advantage of improved schema migration and sync
+abilities. Prior to RSpec 3, users were required to manually run migrations in
+both the development and test environments. Additionally, the behavior differed
+depending on if the specs were run via `rake` or via the standalone `rspec`
+command.
+
+With the release of Rails 4, new APIs have been exposed on
+`ActiveRecord::Migration`. This allows RSpec to take advantage of these new
+standard migration checks, mirroring behavior across the board.
+
+  - Rails 4.0.x
+
+    Add the following to the top of the `rails_helper` file after Rails has
+    been required:
+
+    ```ruby
+    ActiveRecord::Migration.check_pending!
+    ```
+
+    This will raise an exception if there are any pending schema changes. Users
+    will still be required to manually keep the development and test
+    environments in sync.
+
+  - Rails 4.1+
+
+    With this release there was an exciting new feature. Users no longer need
+    to keep the development and test environments in sync. To take advantage of
+    this add the following to the top of the `rails_helper` file after Rails
+    has been required:
+
+    ```ruby
+    ActiveRecord::Migration.maintain_test_schema!
+    ```
+
+    What this does is that rather than just raising when the test schema has
+    pending migrations, Rails will try to load the schema. An exception will
+    now only be raised if there are pending migrations afterwards the schema
+    has been loaded.
+
+    There are a few things you still need to be aware of with this:
+      - you still need to run the migrations manually, except now you just run
+        them in your development environment
+      - if you have not initialized the schema an exception will be raised
+        stating you need to run `rake db:migrate` first
+
+If you wish to opt-out of checking the pending migrations, you should set this
+on the Rails side. To do this, add the following to your
+`config/environments/test.rb` file:
+
+```ruby
+config.active_record.maintain_test_schema = false
+```
+
+New RSpec projects don't need to worry about these commands as the `rails
+generate rspec:install` will add them for you.
