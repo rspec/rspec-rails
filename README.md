@@ -64,9 +64,9 @@ For detailed information on the general RSpec 3.x upgrade process see the
 
 There are three particular `rspec-rails` specific changes to be aware of:
 
-1. [Rails 4.x `ActiveRecord::Migration` pending migration checks](https://www.relishapp.com/rspec/rspec-rails/docs/upgrade#pending-migration-checks)
+1. [The default helper files created in RSpec 3.x have changed](https://www.relishapp.com/rspec/rspec-rails/docs/upgrade#default-helper-files)
 2. [File-type inference disabled by default](https://www.relishapp.com/rspec/rspec-rails/docs/upgrade#file-type-inference-disabled)
-3. [The default helper files created in RSpec 3.x have changed](https://www.relishapp.com/rspec/rspec-rails/docs/upgrade#default-helper-files)
+3. [Rails 4.x `ActiveRecord::Migration` pending migration checks](https://www.relishapp.com/rspec/rspec-rails/docs/upgrade#pending-migration-checks)
 
 Please see the [RSpec Rails Upgrade
 docs](https://www.relishapp.com/rspec/rspec-rails/docs/upgrade) for full
