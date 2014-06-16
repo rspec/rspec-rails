@@ -5,6 +5,7 @@ Upgrade docs](https://relishapp.com/rspec/docs/upgrade).
 
 There are three particular `rspec-rails` specific changes to be aware of:
 
+<a name="pending-migration-checks"></a>
 ## Rails 4.x `ActiveRecord::Migration` pending migration checks
 
 If you are not using `ActiveRecord` you do not need to worry about these
@@ -66,6 +67,7 @@ config.active_record.maintain_test_schema = false
 New RSpec projects don't need to worry about these commands as the `rails
 generate rspec:install` will add them for you.
 
+<a name="file-type-inference-disabled"></a>
 ## File-type inference disabled by default
 
 Previously we automatically inferred spec type from a file location, this
@@ -82,6 +84,7 @@ This change was made to accomplish our general goals of acting with the principl
 of least surprise and removing magic from RSpec. See [the directory structure
 documentation](https://www.relishapp.com/rspec/rspec-rails/v/3-0/docs/directory-structure) for more details.
 
+<a name="default-helper-files"></a>
 ## Default helper files created in RSpec 3.x have changed
 
 In prior versions, only a single `spec_helper.rb` file was generated. This file
@@ -95,10 +98,12 @@ This change was made to accomplish two general goals:
 - Provide an out-of-the-box way to avoid loading Rails for those specs that do
   not require it
 
+<a name="generators"></a>
 ### Generators
 
 Generators run in RSpec 3.x will require `rails_helper` and not `spec_helper`.
 
+<a name="upgrading-an-existing-app"></a>
 ### Upgrading an Existing App
 
 For most existing apps, one of the following upgrade paths is sufficient to
