@@ -4,8 +4,6 @@
 Enhancements:
 
 * Switch to using the `have_http_status` matcher in spec generators. (Aaron Kromer, #1086)
-* Bump Capybara dependency to 2.3.0 which is the proper version implementing
-  RSpec 3 APIs. (Diego Plentz, #1091)
 
 Bug Fixes:
 
