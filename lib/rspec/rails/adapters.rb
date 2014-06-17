@@ -5,7 +5,11 @@ require 'active_support/concern'
 module RSpec
   module Rails
     if ::Rails::VERSION::STRING >= '4.1.0'
-      gem 'minitest'
+      if defined?(Kernel.gem)
+        gem 'minitest'
+      else
+        require 'minitest'
+      end
       require 'minitest/assertions'
       # Constant aliased to either Minitest or TestUnit, depending on what is
       # loaded.
