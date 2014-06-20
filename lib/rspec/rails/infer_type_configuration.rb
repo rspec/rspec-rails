@@ -7,8 +7,16 @@ RSpec.configure do |config|
     @infer_spec_type_from_file_location ||= false
   end
 
+  def config.suppress_spec_type_deprecation_warning!
+    @suppress_spec_type_deprecation_warning = true
+  end
+
+  def config.suppress_spec_type_deprecation_warning?
+    @suppress_spec_type_deprecation_warning ||= false
+  end
+
   config.before do
-    unless config.infer_spec_type_from_file_location?
+    unless config.infer_spec_type_from_file_location? || config.suppress_spec_type_deprecation_warning?
       RSpec.warn_deprecation(<<-EOS.gsub(/^\s+\|/,''))
        |rspec-rails 3 will no longer automatically infer an example group's spec type
        |from the file location. You can explicitly opt-in to this feature using this
