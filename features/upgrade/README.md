@@ -88,8 +88,8 @@ end
 ```
 
 This change was made to accomplish our general goals of acting with the principle
-of least surprise and removing magic from RSpec. See [the directory structure
-documentation](https://www.relishapp.com/rspec/rspec-rails/v/3-0/docs/directory-structure) for more details.
+of least surprise and making RSpec configuration more explicit. See [the
+directory structure documentation](https://www.relishapp.com/rspec/rspec-rails/v/3-0/docs/directory-structure) for more details.
 
 <a name="pending-migration-checks"></a>
 ## Rails 4.x `ActiveRecord::Migration` pending migration checks
@@ -136,14 +136,17 @@ standard migration checks, mirroring behavior across the board.
     now only be raised if there are pending migrations afterwards the schema
     has been loaded.
 
-    There are a few things you still need to be aware of with this:
-      - you still need to run the migrations manually, except now you just run
-        them in your development environment
-      - if you have not initialized the schema an exception will be raised
-        stating you need to run `rake db:migrate` first
+    There are a few caveates to be aware of when using this:
 
-If you wish to opt-out of checking the pending migrations, you should set this
-on the Rails side. To do this, add the following to your
+      - Migrations still need to be run manually; although now this only has to
+        be done in the 'development' environment
+      - An exception will be raised If the schema has not been initialized. The
+        exception will provide instructions stating `rake db:migrate` needs to
+        be run.
+
+It is possible to opt-out of checking for pending migrations. Since this is
+actually a feature of Rails, the change needs to be done as part of the Rails
+configuration. To do this, add the following to your
 `config/environments/test.rb` file:
 
 ```ruby
@@ -151,4 +154,4 @@ config.active_record.maintain_test_schema = false
 ```
 
 New RSpec projects don't need to worry about these commands as the `rails
-generate rspec:install` will add them for you.
+generate rspec:install` will add them automatically.
