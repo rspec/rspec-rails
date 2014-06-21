@@ -8,6 +8,7 @@ Enhancements:
 Bug Fixes:
 
 * Suppress warning in `SetupAndTeardownAdapter`. (André Arko, #1085)
+* Remove dependency on Rubygems. (Andre Arko & Doc Riteze, #1099)
 
 ### 3.0.1 / 2014-06-02
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.0...v3.0.1)
