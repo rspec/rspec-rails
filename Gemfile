@@ -36,25 +36,5 @@ end
 custom_gemfile = File.expand_path("../Gemfile-custom", __FILE__)
 eval_gemfile custom_gemfile if File.exist?(custom_gemfile)
 
-version_file = File.expand_path("../.rails-version", __FILE__)
-case version = ENV['RAILS_VERSION'] || (File.exist?(version_file) && File.read(version_file).chomp)
-when /master/
-  gem "rails", :git => "git://github.com/rails/rails.git"
-  gem "arel", :git => "git://github.com/rails/arel.git"
-  gem "journey", :git => "git://github.com/rails/journey.git"
-  gem "activerecord-deprecated_finders", :git => "git://github.com/rails/activerecord-deprecated_finders.git"
-  gem "rails-observers", :git => "git://github.com/rails/rails-observers"
-  gem 'sass-rails', :git => "git://github.com/rails/sass-rails.git"
-  gem 'coffee-rails', :git => "git://github.com/rails/coffee-rails.git"
-when /stable$/
-  gem "rails", :git => "git://github.com/rails/rails.git", :branch => version
-when nil, false, ""
-  if RUBY_VERSION < '1.9.3'
-    # Rails 4+ requires 1.9.3+, so on earlier versions default to the last 3.x release.
-    gem "rails", "~> 3.2.17"
-  else
-    gem "rails", "~> 4.0.4"
-  end
-else
-  gem "rails", version
-end
+rails_dependencies_gemfile = File.expand_path("../Gemfile-rails-dependencies", __FILE__)
+eval_gemfile rails_dependencies_gemfile
