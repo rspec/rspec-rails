@@ -11,11 +11,6 @@ describe Rspec::Generators::InstallGenerator, :type => :generator do
     expect(file('.rspec')).to exist
   end
 
-  it "generates spec/active_record_helper.rb" do
-    run_generator
-    expect(File.read( file('spec/active_record_helper.rb') )).to match(/^require 'active_record'$/m)
-  end
-
   it "generates spec/rails_helper.rb" do
     run_generator
     expect(File.read( file('spec/rails_helper.rb') )).to match(/^require 'rspec\/rails'$/m)
