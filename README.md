@@ -102,7 +102,7 @@ behavior of models (usually ActiveRecord-based) in the application. For example:
 ```ruby
 require "rails_helper"
 
-describe User do
+RSpec.describe User do
   it "orders by last name" do
     lindeman = User.create!(first_name: "Andy", last_name: "Lindeman")
     chelimsky = User.create!(first_name: "David", last_name: "Chelimsky")
@@ -123,7 +123,7 @@ to describe behavior of Rails controllers. For example:
 ```ruby
 require "rails_helper"
 
-describe PostsController do
+RSpec.describe PostsController do
   describe "GET #index" do
     it "responds successfully with an HTTP 200 status code" do
       get :index
@@ -169,7 +169,8 @@ a black box approach.
 
 ```ruby
 require 'rails_helper'
-describe "home page" do
+
+RSpec.describe "home page" do
   it "displays the user's username after successful login" do
     user = User.create!(:username => "jdoe", :password => "secret")
     get "/login"
@@ -192,7 +193,8 @@ users like to use extension libraries like
 
 ```ruby
 require 'rails_helper'
-describe "home page" do
+
+RSpec.describe "home page" do
   it "displays the user's username after successful login" do
     user = FactoryGirl.create(:user, :username => "jdoe", :password => "secret")
     visit "/login"
@@ -244,7 +246,8 @@ View specs live in spec/views, and mix in ActionView::TestCase::Behavior.
 
 ```ruby
 require 'rails_helper'
-describe "events/index" do
+
+RSpec.describe "events/index" do
   it "renders _event partial for each event" do
     assign(:events, [stub_model(Event), stub_model(Event)])
     render
@@ -252,7 +255,7 @@ describe "events/index" do
   end
 end
 
-describe "events/show" do
+RSpec.describe "events/show" do
   it "displays the event location" do
     assign(:event, stub_model(Event,
       :location => "Chicago"
@@ -349,7 +352,8 @@ Routing specs live in spec/routing.
 
 ```ruby
 require 'rails_helper'
-describe "routing to profiles" do
+
+RSpec.describe "routing to profiles" do
   it "routes /profile/:username to profile#show for username" do
     expect(:get => "/profiles/jsmith").to route_to(
       :controller => "profiles",
@@ -377,7 +381,8 @@ with `ApplicationHelper` (if present).
 
 ```ruby
 require 'rails_helper'
-describe EventsHelper do
+
+RSpec.describe EventsHelper do
   describe "#link_to_event" do
     it "displays the title, and formatted date" do
       event = Event.new("Ruby Kaigi", Date.new(2010, 8, 27))
