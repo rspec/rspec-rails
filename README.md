@@ -35,11 +35,19 @@ This adds the following files which are used for configuration:
 
 Check the comments in each file for more information.
 
-To run your specs, use the `rspec` command:
+Use the `rspec` command to run your specs:
 
 ```
 bundle exec rspec
+```
 
+By default the above will run all `_spec.rb` files in the `spec` directory. For
+more details about this see the [RSpec spec file
+docs](https://www.relishapp.com/rspec/rspec-core/docs/spec-files).
+
+To run only a subset of these specs use the following command:
+
+```
 # Run only model specs
 bundle exec rspec spec/models
 
