@@ -83,51 +83,6 @@ details.
 **NOTE:** Generators run in RSpec 3.x will now require `rails_helper` instead
 of `spec_helper`.
 
-### Upgrading an Existing App
-
-For most existing apps, one of the following upgrade paths is sufficient to
-switch to the new helpers:
-
-#### _I need to move things over in stages_
-
-1. Create a new `rails_helper.rb` with the following content:
-
-    ```ruby
-    require 'spec_helper'
-    ```
-
-2. As necessary, replace `require 'spec_helper'` with `require 'rails_helper'`
-   in the specs.
-
-3. When ready, move any Rails specific code and setup from `spec_helper.rb` to
-   `rails_helper.rb`.
-
-#### _I'm ready to just switch completely_
-
-1. Move the existing `spec_helper.rb` to `rails_helper.rb`:
-
-    ```ruby
-    git mv spec/spec_helper.rb spec/rails_helper.rb
-    ```
-
-2. Run the installation rake task opting to not replace `rails_helper.rb`:
-
-    ```console
-    $ bin/rails generate rspec:install
-          create  .rspec
-           exist  spec
-          create  spec/spec_helper.rb
-        conflict  spec/rails_helper.rb
-    Overwrite my_app/spec/rails_helper.rb? (enter "h"for help) [Ynaqdh] n
-            skip  spec/rails_helper.rb
-    ```
-
-3. Move any non-Rails RSpec configurations and customizations from your
-   `rails_helper.rb` to `spec_helper.rb`.
-
-4. Find/replace instances of `require 'spec_helper'` with
-   `require 'rails_helper'` in any specs which rely on Rails.
-
 ### Generators
 
 Once installed, RSpec will generate spec files instead of Test::Unit test files
