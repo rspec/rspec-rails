@@ -9,13 +9,13 @@ before_install:
   - gem install bundler -v=1.5.3
   - alias bundle="bundle _1.5.3_"
 rvm:
-  # Use fuzzy matching to work around https://github.com/travis-ci/travis-ci/issues/2220
-  - 2.1
+  - 2.1.2
+  - 2.1.1
+  - 2.1.0
   - 2.0.0
   - 1.9.3
   - 1.9.2
-  # Specifically call out MRI to work around https://github.com/travis-ci/travis-ci/issues/2217
-  - ruby-1.8.7
+  - 1.8.7
 env:
   - RAILS_VERSION=master
   - RAILS_VERSION='~> 4.1.0'
@@ -31,32 +31,34 @@ matrix:
     # 3.0.x is not supported on MRI 2.0+
     - rvm: 2.0.0
       env: RAILS_VERSION='~> 3.0.20'
-    - rvm: 2.1
+    - rvm: 2.1.0
+      env: RAILS_VERSION='~> 3.0.20'
+    - rvm: 2.1.1
+      env: RAILS_VERSION='~> 3.0.20'
+    - rvm: 2.1.2
       env: RAILS_VERSION='~> 3.0.20'
     # 4.0.x is not supported on MRI ruby-1.8.7 or 1.9.2
-    - rvm: ruby-1.8.7
+    - rvm: 1.8.7
       env: RAILS_VERSION='~> 4.0.4'
     - rvm: 1.9.2
       env: RAILS_VERSION='~> 4.0.4'
-    - rvm: ruby-1.8.7
+    - rvm: 1.8.7
       env: RAILS_VERSION=4-0-stable
     - rvm: 1.9.2
       env: RAILS_VERSION=4-0-stable
     # 4.1.x is not supported on MRI ruby-1.8.7 or 1.9.2
-    - rvm: ruby-1.8.7
+    - rvm: 1.8.7
       env: RAILS_VERSION='~> 4.1.0'
     - rvm: 1.9.2
       env: RAILS_VERSION='~> 4.1.0'
-    - rvm: ruby-1.8.7
+    - rvm: 1.8.7
       env: RAILS_VERSION=4-1-stable
     - rvm: 1.9.2
       env: RAILS_VERSION=4-1-stable
     # master is not supported on MRI ruby-1.8.7 or 1.9.2
-    - rvm: ruby-1.8.7
+    - rvm: 1.8.7
       env: RAILS_VERSION=master
     - rvm: 1.9.2
       env: RAILS_VERSION=master
   allow_failures:
     - env: RAILS_VERSION=master
-    # Until https://github.com/travis-ci/travis-ci/issues/2220 is fixed
-    - rvm: 2.1.0
