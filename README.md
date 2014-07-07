@@ -96,13 +96,19 @@ generators](https://www.relishapp.com/rspec/rspec-rails/docs/generators).
 
 ## Model Specs
 
-Model specs reside in the `spec/models` folder. Use model specs to describe
-behavior of models (usually ActiveRecord-based) in the application. For example:
+Use model specs to describe behavior of models (usually ActiveRecord-based) in
+the application.
+
+Model specs default to residing in the `spec/models` folder. Tagging any
+context with the metadata `:type => :model` treats it's examples as model
+specs.
+
+For example:
 
 ```ruby
 require "rails_helper"
 
-RSpec.describe User do
+RSpec.describe User, :type => :model do
   it "orders by last name" do
     lindeman = User.create!(first_name: "Andy", last_name: "Lindeman")
     chelimsky = User.create!(first_name: "David", last_name: "Chelimsky")
@@ -117,13 +123,18 @@ specs](https://www.relishapp.com/rspec/rspec-rails/docs/model-specs).
 
 ## Controller Specs
 
-Controller specs reside in the `spec/controllers` folder. Use controller specs
-to describe behavior of Rails controllers. For example:
+Use controller specs to describe behavior of Rails controllers.
+
+Controller specs default to residing in the `spec/controllers` folder. Tagging
+any context with the metadata `:type => :controller` treats it's examples as
+controller specs.
+
+For example:
 
 ```ruby
 require "rails_helper"
 
-RSpec.describe PostsController do
+RSpec.describe PostsController, :type => :controller do
   describe "GET #index" do
     it "responds successfully with an HTTP 200 status code" do
       get :index
@@ -159,18 +170,22 @@ not recommended.
 
 ## <a id="request-spec"></a>Request Specs
 
-Request specs live in spec/requests, spec/api and
-spec/integration, and mix in behavior
+Use request specs to specify one or more request/response cycles from end to
+end using a black box approach.
+
+Request specs default to residing in the `spec/requests`, `spec/api`, and
+`spec/integration` directories. Tagging any context with the metadata `:type =>
+:request` treats it's examples as request specs.
+
+Request specs mix in behavior from
 [ActionDispatch::Integration::Runner](http://api.rubyonrails.org/classes/ActionDispatch/Integration/Runner.html),
 which is the basis for [Rails' integration
-tests](http://guides.rubyonrails.org/testing.html#integration-testing).  The
-intent is to specify one or more request/response cycles from end to end using
-a black box approach.
+tests](http://guides.rubyonrails.org/testing.html#integration-testing).
 
 ```ruby
 require 'rails_helper'
 
-RSpec.describe "home page" do
+RSpec.describe "home page", :type => :request do
   it "displays the user's username after successful login" do
     user = User.create!(:username => "jdoe", :password => "secret")
     get "/login"
@@ -194,7 +209,7 @@ users like to use extension libraries like
 ```ruby
 require 'rails_helper'
 
-RSpec.describe "home page" do
+RSpec.describe "home page", :type => :request do
   it "displays the user's username after successful login" do
     user = FactoryGirl.create(:user, :username => "jdoe", :password => "secret")
     visit "/login"
@@ -225,13 +240,15 @@ roles.
 
 ## <a id="feature-specs"></a>Feature Specs
 
-Feature specs live in spec/features, and mix in functionality from the
-capybara gem.
-
 Feature specs test your application from the outside by simulating a browser.
 capybara is used to manage the simulated browser.
 
-To use feature specs, add `capybara` to `Gemfile`:
+Feature specs default to residing in the `spec/features` folder. Tagging any
+context with the metadata `:type => :feature` treats it's examples as
+feature specs.
+
+Feature specs mix in functionality from the capybara gem, thus they require
+`capybara` to use. To use feature specs, add `capybara` to the `Gemfile`:
 
 ```ruby
 gem "capybara"
@@ -242,12 +259,15 @@ specs](https://www.relishapp.com/rspec/rspec-rails/v/3-0/docs/feature-specs/feat
 
 ## View specs
 
-View specs live in spec/views, and mix in ActionView::TestCase::Behavior.
+View specs default to residing in the `spec/views` folder. Tagging any context
+with the metadata `:type => :view` treats it's examples as view specs.
+
+View specs mix in `ActionView::TestCase::Behavior`.
 
 ```ruby
 require 'rails_helper'
 
-RSpec.describe "events/index" do
+RSpec.describe "events/index", :type => :view do
   it "renders _event partial for each event" do
     assign(:events, [stub_model(Event), stub_model(Event)])
     render
@@ -255,7 +275,7 @@ RSpec.describe "events/index" do
   end
 end
 
-RSpec.describe "events/show" do
+RSpec.describe "events/show", :type => :view do
   it "displays the event location" do
     assign(:event, stub_model(Event,
       :location => "Chicago"
@@ -348,12 +368,14 @@ expect(rendered).to xxx
 
 # Routing specs
 
-Routing specs live in spec/routing.
+Routing specs default to residing in the `spec/routing` folder. Tagging any
+context with the metadata `:type => :routing` treats it's examples as routing
+specs.
 
 ```ruby
 require 'rails_helper'
 
-RSpec.describe "routing to profiles" do
+RSpec.describe "routing to profiles", :type => :routing do
   it "routes /profile/:username to profile#show for username" do
     expect(:get => "/profiles/jsmith").to route_to(
       :controller => "profiles",
@@ -374,15 +396,18 @@ end
 
 # Helper specs
 
-Helper specs live in spec/helpers, and mix in ActionView::TestCase::Behavior.
+Helper specs default to residing in the `spec/helpers` folder. Tagging any
+context with the metadata `:type => :helper` treats it's examples as helper
+specs.
 
-Provides a `helper` object which mixes in the helper module being spec'd, along
-with `ApplicationHelper` (if present).
+Helper specs mix in ActionView::TestCase::Behavior. A `helper` object is
+provided which mixes in the helper module being spec'd, along with
+`ApplicationHelper` (if present).
 
 ```ruby
 require 'rails_helper'
 
-RSpec.describe EventsHelper do
+RSpec.describe EventsHelper, :type => :helper do
   describe "#link_to_event" do
     it "displays the title, and formatted date" do
       event = Event.new("Ruby Kaigi", Date.new(2010, 8, 27))
