@@ -161,12 +161,12 @@ For more information, see [cucumber scenarios for controller
 specs](https://www.relishapp.com/rspec/rspec-rails/docs/controller-specs).
 
 **Note:** To encourage more isolated testing, views are not rendered by default
-in controller specs. If you are verifying discrete view logic, use a
-[view spec](#view-specs).  If you are verifying the behaviour of a controller and
-view together, consider a [request spec](#request-specs). You can use
+in controller specs. If you are verifying discrete view logic, use a [view
+spec](#view-specs). If you are verifying the behaviour of a controller and view
+together, consider a [request spec](#request-specs). You can use
 [render\_views](https://www.relishapp.com/rspec/rspec-rails/docs/controller-specs/render-views)
-if you must verify the rendered view contents within a controller spec, but this is
-not recommended.
+if you must verify the rendered view contents within a controller spec, but
+this is not recommended.
 
 ## Request Specs
 
@@ -227,7 +227,7 @@ which can be encoded into the underlying factory definition without requiring
 changes to this example.
 
 Among other benefits, Capybara binds the form post to the generated HTML, which
-means we don't need to specify them separately.  Note that Capybara's DSL as
+means we don't need to specify them separately. Note that Capybara's DSL as
 shown is, by default, only available in specs in the spec/features directory.
 For more information, see the [Capybara integration
 docs](http://rubydoc.info/gems/rspec-rails/file/Capybara.md).
@@ -245,8 +245,8 @@ Feature specs test your application from the outside by simulating a browser.
 simulated browser.
 
 Feature specs default to residing in the `spec/features` folder. Tagging any
-context with the metadata `:type => :feature` treats it's examples as
-feature specs.
+context with the metadata `:type => :feature` treats it's examples as feature
+specs.
 
 Feature specs mix in functionality from the capybara gem, thus they require
 `capybara` to use. To use feature specs, add `capybara` to the `Gemfile`:
@@ -300,7 +300,7 @@ spec'ing a partial that is included across different controllers, you _may_
 need to override these values before rendering the view.
 
 To provide a layout for the render, you'll need to specify _both_ the template
-and the layout explicitly.  For example:
+and the layout explicitly. For example:
 
 ```ruby
 render :template => "events/show", :layout => "layouts/application"
@@ -315,8 +315,8 @@ assign(:widget, stub_model(Widget))
 render
 ```
 
-The code above assigns `stub_model(Widget)` to the `@widget` variable in the view, and then
-renders the view.
+The code above assigns `stub_model(Widget)` to the `@widget` variable in the
+view, and then renders the view.
 
 Note that because view specs mix in `ActionView::TestCase` behavior, any
 instance variables you set will be transparently propagated into your views
@@ -393,7 +393,8 @@ end
 
 ### Upgrade note
 
-`route_for` from rspec-rails-1.x is gone. Use `route_to` and `be_routable` instead.
+`route_for` from rspec-rails-1.x is gone. Use `route_to` and `be_routable`
+instead.
 
 ## Helper specs
 
@@ -433,7 +434,6 @@ types. Most simply delegate to their equivalent Rails' assertions.
 ```ruby
 expect(object).to be_a_new(Widget)
 ```
-
 
 Passes if the object is a `Widget` and returns true for `new_record?`
 
