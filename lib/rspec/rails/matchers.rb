@@ -1,8 +1,11 @@
 require 'rspec/core/warnings'
 require 'rspec/expectations'
 
-module RSpec::Rails
-  module Matchers
+module RSpec
+  module Rails
+    # Container module for Rails specific matchers.
+    module Matchers
+    end
   end
 end
 

@@ -142,3 +142,10 @@ end
 
 task :build => :verify_private_key_present
 
+if RUBY_VERSION.to_f > 1.8
+  require 'rubocop/rake_task'
+  desc 'Run RuboCop on the lib directory'
+  RuboCop::RakeTask.new(:rubocop) do |task|
+    task.patterns = ['lib/**/*.rb']
+  end
+end

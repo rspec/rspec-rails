@@ -24,8 +24,24 @@ function documentation_enforced {
   fi
 }
 
+function style_and_lint_enforced {
+ if [ -x ./bin/rubocop ]; then
+   return 0
+ else
+   return 1
+ fi
+}
+
+function check_style_and_lint {
+  bin/rubocop lib
+}
+
 bin/rake --trace
 
 if documentation_enforced; then
   check_documentation_coverage
+fi
+
+if style_and_lint_enforced; then
+  check_style_and_lint
 fi

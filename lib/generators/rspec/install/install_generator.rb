@@ -6,7 +6,6 @@ module Rspec
   module Generators
     # @private
     class InstallGenerator < ::Rails::Generators::Base
-
       desc <<DESC
 Description:
     Copy rspec files to your application.

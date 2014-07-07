@@ -14,4 +14,3 @@ RSpec.configure do |rspec|
     end
   end
 end
-
