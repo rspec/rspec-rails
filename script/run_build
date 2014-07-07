@@ -16,5 +16,16 @@ function check_documentation_coverage {
   "
 }
 
+function documentation_enforced {
+  if [ -x ./bin/yard ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
 bin/rake --trace
-check_documentation_coverage
+
+if documentation_enforced; then
+  check_documentation_coverage
+fi
