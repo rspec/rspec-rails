@@ -306,7 +306,7 @@ and the layout explicitly.  For example:
 render :template => "events/show", :layout => "layouts/application"
 ```
 
-## `assign(key, val)`
+### `assign(key, val)`
 
 Use this to assign values to instance variables in the view:
 
@@ -332,7 +332,7 @@ RSpec doesn't officially support this pattern, which only works as a
 side-effect of the inclusion of `ActionView::TestCase`. Be aware that it may be
 made unavailable in the future.
 
-### Upgrade note
+#### Upgrade note
 
 ```ruby
 # rspec-rails-1.x
@@ -342,7 +342,7 @@ assigns[key] = value
 assign(key, value)
 ```
 
-## `rendered`
+### `rendered`
 
 This represents the rendered view.
 
@@ -351,7 +351,7 @@ render
 expect(rendered).to match /Some text expected to appear on the page/
 ```
 
-### Upgrade note
+#### Upgrade note
 
 ```ruby
 # rspec-rails-1.x
@@ -367,7 +367,7 @@ render
 expect(rendered).to xxx
 ```
 
-# Routing specs
+## Routing specs
 
 Routing specs default to residing in the `spec/routing` folder. Tagging any
 context with the metadata `:type => :routing` treats it's examples as routing
@@ -395,7 +395,7 @@ end
 
 `route_for` from rspec-rails-1.x is gone. Use `route_to` and `be_routable` instead.
 
-# Helper specs
+## Helper specs
 
 Helper specs default to residing in the `spec/helpers` folder. Tagging any
 context with the metadata `:type => :helper` treats it's examples as helper
@@ -420,12 +420,12 @@ RSpec.describe EventsHelper, :type => :helper do
 end
 ```
 
-# Matchers
+## Matchers
 
 Several domain-specific matchers are provided to each of the example group
 types. Most simply delegate to their equivalent Rails' assertions.
 
-## `be_a_new`
+### `be_a_new`
 
 - Available in all specs
 - Primarily intended for controller specs
@@ -437,7 +437,7 @@ expect(object).to be_a_new(Widget)
 
 Passes if the object is a `Widget` and returns true for `new_record?`
 
-## `render_template`
+### `render_template`
 
 - Delegates to Rails' `assert_template`
 - Available in request, controller, and view specs
@@ -454,7 +454,7 @@ In view specs, apply to the `view` object:
 expect(view).to render_template(:partial => "_form", :locals => { :widget => widget } )
 ```
 
-## `redirect_to`
+### `redirect_to`
 
 - Delegates to `assert_redirect`
 - Available in request and controller specs
@@ -463,7 +463,7 @@ expect(view).to render_template(:partial => "_form", :locals => { :widget => wid
 expect(response).to redirect_to(widgets_path)
 ```
 
-## `route_to`
+### `route_to`
 
 - Delegates to Rails' `assert_routing`
 - Available in routing and controller specs
@@ -472,7 +472,7 @@ expect(response).to redirect_to(widgets_path)
 expect(:get => "/widgets").to route_to(:controller => "widgets", :action => "index")
 ```
 
-## `be_routable`
+### `be_routable`
 
 Passes if the path is recognized by Rails' routing. This is primarily intended
 to be used with `not_to` to specify standard CRUD routes which should not be
@@ -482,7 +482,7 @@ routable.
 expect(:get => "/widgets/1/edit").not_to be_routable
 ```
 
-## `have_http_status`
+### `have_http_status`
 
 - Passes if `response` has a matching HTTP status code
 - The following symbolic status codes are allowed:
@@ -507,7 +507,7 @@ In feature specs, apply to the `page` object:
 expect(page).to have_http_status(:success)
 ```
 
-# `rake` tasks
+## `rake` tasks
 
 Several rake tasks are provided as a convience for working with RSpec. To run
 the entire spec suite use `rake spec`. To run a subset of specs use the
@@ -516,7 +516,7 @@ associated type task, for example `rake spec:models`.
 A full list of the available rake tasks can be seen by running `rake -T | grep
 spec`.
 
-## Customizing `rake` tasks
+### Customizing `rake` tasks
 
 If you want to customize the behavior of `rake spec`, you may [define your own
 task in the `Rakefile` for your
@@ -527,14 +527,14 @@ However, you must first clear the task that rspec-rails defined:
 task("spec").clear
 ```
 
-# Contribute
+## Contribute
 
 See [http://github.com/rspec/rspec-dev](http://github.com/rspec/rspec-dev).
 
 For `rspec-rails`-specific development information, see
 [README_DEV](https://github.com/rspec/rspec-rails/blob/master/README_DEV.md).
 
-# Also see
+## Also see
 
 * [http://github.com/rspec/rspec](http://github.com/rspec/rspec)
 * [http://github.com/rspec/rspec-core](http://github.com/rspec/rspec-core)
