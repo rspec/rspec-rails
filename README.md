@@ -201,8 +201,8 @@ RSpec.describe "home page", :type => :request do
 end
 ```
 
-This example uses only standard Rails and RSpec API's, but many RSpec/Rails
-users like to use extension libraries like
+The above example uses only standard Rails and RSpec API's, but many
+RSpec/Rails users like to use extension libraries like
 [FactoryGirl](https://github.com/thoughtbot/factory_girl) and
 [Capybara](https://github.com/jnicklas/capybara):
 
@@ -241,7 +241,8 @@ roles.
 ## Feature Specs
 
 Feature specs test your application from the outside by simulating a browser.
-capybara is used to manage the simulated browser.
+[`capybara`](https://github.com/jnicklas/capybara) is used to manage the
+simulated browser.
 
 Feature specs default to residing in the `spec/features` folder. Tagging any
 context with the metadata `:type => :feature` treats it's examples as
@@ -287,7 +288,7 @@ end
 ```
 
 View specs infer the controller name and path from the path to the view
-template. e.g. if the template is "events/index.html.erb" then:
+template. e.g. if the template is `events/index.html.erb` then:
 
 ```ruby
 controller.controller_path == "events"
@@ -337,7 +338,7 @@ made unavailable in the future.
 # rspec-rails-1.x
 assigns[key] = value
 
-# rspec-rails-2.x
+# rspec-rails-2.x+
 assign(key, value)
 ```
 
@@ -357,11 +358,11 @@ expect(rendered).to match /Some text expected to appear on the page/
 render
 response.should xxx
 
-# rspec-rails-2.x
+# rspec-rails-2.x+
 render
 rendered.should xxx
 
-# rspec-rails-2.x with expect syntax
+# rspec-rails-2.x+ with expect syntax
 render
 expect(rendered).to xxx
 ```
@@ -421,12 +422,13 @@ end
 
 # Matchers
 
-rspec-rails exposes domain-specific matchers to each of the example group types. Most
-of them simply delegate to Rails' assertions.
+Several domain-specific matchers are provided to each of the example group
+types. Most simply delegate to their equivalent Rails' assertions.
 
 ## `be_a_new`
-* Available in all specs.
-* Primarily intended for controller specs
+
+- Available in all specs
+- Primarily intended for controller specs
 
 ```ruby
 expect(object).to be_a_new(Widget)
@@ -436,24 +438,26 @@ expect(object).to be_a_new(Widget)
 Passes if the object is a `Widget` and returns true for `new_record?`
 
 ## `render_template`
-* Delegates to Rails' assert_template.
-* Available in request, controller, and view specs.
 
-In request and controller specs, apply to the response object:
+- Delegates to Rails' `assert_template`
+- Available in request, controller, and view specs
+
+In request and controller specs, apply to the `response` object:
 
 ```ruby
 expect(response).to render_template("new")
 ```
 
-In view specs, apply to the view object:
+In view specs, apply to the `view` object:
 
 ```ruby
 expect(view).to render_template(:partial => "_form", :locals => { :widget => widget } )
 ```
 
 ## `redirect_to`
-* Delegates to assert_redirect
-* Available in request and controller specs.
+
+- Delegates to `assert_redirect`
+- Available in request and controller specs
 
 ```ruby
 expect(response).to redirect_to(widgets_path)
@@ -461,8 +465,8 @@ expect(response).to redirect_to(widgets_path)
 
 ## `route_to`
 
-* Delegates to Rails' assert_routing.
-* Available in routing and controller specs.
+- Delegates to Rails' `assert_routing`
+- Available in routing and controller specs
 
 ```ruby
 expect(:get => "/widgets").to route_to(:controller => "widgets", :action => "index")
@@ -471,7 +475,8 @@ expect(:get => "/widgets").to route_to(:controller => "widgets", :action => "ind
 ## `be_routable`
 
 Passes if the path is recognized by Rails' routing. This is primarily intended
-to be used with `not_to` to specify routes that should not be routable.
+to be used with `not_to` to specify standard CRUD routes which should not be
+routable.
 
 ```ruby
 expect(:get => "/widgets/1/edit").not_to be_routable
@@ -479,15 +484,15 @@ expect(:get => "/widgets/1/edit").not_to be_routable
 
 ## `have_http_status`
 
-* Passes if `response` has a matching HTTP status code
-* The following symbolic status codes are allowed:
+- Passes if `response` has a matching HTTP status code
+- The following symbolic status codes are allowed:
   - `Rack::Utils::SYMBOL_TO_STATUS_CODE`
   - One of the defined `ActionDispatch::TestResponse` aliases:
     - `:error`
     - `:missing`
     - `:redirect`
     - `:success`
-* Available in controller, feature, and request specs.
+- Available in controller, feature, and request specs.
 
 In controller and request specs, apply to the `response` object:
 
@@ -504,8 +509,9 @@ expect(page).to have_http_status(:success)
 
 # `rake` tasks
 
-`rspec-rails` defines rake tasks to run the entire test suite (`rake spec`)
-and subsets of tests (e.g., `rake spec:models`).
+Several rake tasks are provided as a convience for working with RSpec. To run
+the entire spec suite use `rake spec`. To run a subset of specs use the
+associated type task, for example `rake spec:models`.
 
 A full list of the available rake tasks can be seen by running `rake -T | grep
 spec`.
