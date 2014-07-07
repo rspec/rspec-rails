@@ -168,7 +168,7 @@ view together, consider a [request spec](#request-specs). You can use
 if you must verify the rendered view contents within a controller spec, but this is
 not recommended.
 
-## <a id="request-spec"></a>Request Specs
+## Request Specs
 
 Use request specs to specify one or more request/response cycles from end to
 end using a black box approach.
@@ -238,7 +238,7 @@ FactoryGirl and Capybara seem to be the most widely used. Whether you choose
 these or other libs, we strongly recommend using something for each of these
 roles.
 
-## <a id="feature-specs"></a>Feature Specs
+## Feature Specs
 
 Feature specs test your application from the outside by simulating a browser.
 capybara is used to manage the simulated browser.
