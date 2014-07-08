@@ -75,6 +75,8 @@ There are three particular `rspec-rails` specific changes to be aware of:
 1. [The default helper files created in RSpec 3.x have changed](https://www.relishapp.com/rspec/rspec-rails/docs/upgrade#default-helper-files)
 2. [File-type inference disabled by default](https://www.relishapp.com/rspec/rspec-rails/docs/upgrade#file-type-inference-disabled)
 3. [Rails 4.x `ActiveRecord::Migration` pending migration checks](https://www.relishapp.com/rspec/rspec-rails/docs/upgrade#pending-migration-checks)
+4. Extraction of `stub_model` and `mock_model` to
+   [`rspec-activemodel-mocks`](https://github.com/rspec/rspec-activemodel-mocks)
 
 Please see the [RSpec Rails Upgrade
 docs](https://www.relishapp.com/rspec/rspec-rails/docs/upgrade) for full
@@ -270,7 +272,7 @@ require 'rails_helper'
 
 RSpec.describe "events/index", :type => :view do
   it "renders _event partial for each event" do
-    assign(:events, [stub_model(Event), stub_model(Event)])
+    assign(:events, [double(Event), double(Event)])
     render
     expect(view).to render_template(:partial => "_event", :count => 2)
   end
@@ -278,9 +280,7 @@ end
 
 RSpec.describe "events/show", :type => :view do
   it "displays the event location" do
-    assign(:event, stub_model(Event,
-      :location => "Chicago"
-    ))
+    assign(:event, Event.new(:location => "Chicago"))
     render
     expect(rendered).to include("Chicago")
   end
@@ -311,12 +311,12 @@ render :template => "events/show", :layout => "layouts/application"
 Use this to assign values to instance variables in the view:
 
 ```ruby
-assign(:widget, stub_model(Widget))
+assign(:widget, Widget.new)
 render
 ```
 
-The code above assigns `stub_model(Widget)` to the `@widget` variable in the
-view, and then renders the view.
+The code above assigns `Widget.new` to the `@widget` variable in the view, and
+then renders the view.
 
 Note that because view specs mix in `ActionView::TestCase` behavior, any
 instance variables you set will be transparently propagated into your views
@@ -324,7 +324,7 @@ instance variables you set will be transparently propagated into your views
 available in views). For example:
 
 ```ruby
-@widget = stub_model(Widget)
+@widget = Widget.new
 render # @widget is available inside the view
 ```
 
