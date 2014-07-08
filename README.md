@@ -35,11 +35,19 @@ This adds the following files which are used for configuration:
 
 Check the comments in each file for more information.
 
-To run your specs, use the `rspec` command:
+Use the `rspec` command to run your specs:
 
 ```
 bundle exec rspec
+```
 
+By default the above will run all `_spec.rb` files in the `spec` directory. For
+more details about this see the [RSpec spec file
+docs](https://www.relishapp.com/rspec/rspec-core/docs/spec-files).
+
+To run only a subset of these specs use the following command:
+
+```
 # Run only model specs
 bundle exec rspec spec/models
 
@@ -67,6 +75,8 @@ There are three particular `rspec-rails` specific changes to be aware of:
 1. [The default helper files created in RSpec 3.x have changed](https://www.relishapp.com/rspec/rspec-rails/docs/upgrade#default-helper-files)
 2. [File-type inference disabled by default](https://www.relishapp.com/rspec/rspec-rails/docs/upgrade#file-type-inference-disabled)
 3. [Rails 4.x `ActiveRecord::Migration` pending migration checks](https://www.relishapp.com/rspec/rspec-rails/docs/upgrade#pending-migration-checks)
+4. Extraction of `stub_model` and `mock_model` to
+   [`rspec-activemodel-mocks`](https://github.com/rspec/rspec-activemodel-mocks)
 
 Please see the [RSpec Rails Upgrade
 docs](https://www.relishapp.com/rspec/rspec-rails/docs/upgrade) for full
@@ -74,51 +84,6 @@ details.
 
 **NOTE:** Generators run in RSpec 3.x will now require `rails_helper` instead
 of `spec_helper`.
-
-### Upgrading an Existing App
-
-For most existing apps, one of the following upgrade paths is sufficient to
-switch to the new helpers:
-
-#### _I need to move things over in stages_
-
-1. Create a new `rails_helper.rb` with the following content:
-
-    ```ruby
-    require 'spec_helper'
-    ```
-
-2. As necessary, replace `require 'spec_helper'` with `require 'rails_helper'`
-   in the specs.
-
-3. When ready, move any Rails specific code and setup from `spec_helper.rb` to
-   `rails_helper.rb`.
-
-#### _I'm ready to just switch completely_
-
-1. Move the existing `spec_helper.rb` to `rails_helper.rb`:
-
-    ```ruby
-    git mv spec/spec_helper.rb spec/rails_helper.rb
-    ```
-
-2. Run the installation rake task opting to not replace `rails_helper.rb`:
-
-    ```console
-    $ bin/rails generate rspec:install
-          create  .rspec
-           exist  spec
-          create  spec/spec_helper.rb
-        conflict  spec/rails_helper.rb
-    Overwrite my_app/spec/rails_helper.rb? (enter "h"for help) [Ynaqdh] n
-            skip  spec/rails_helper.rb
-    ```
-
-3. Move any non-Rails RSpec configurations and customizations from your
-   `rails_helper.rb` to `spec_helper.rb`.
-
-4. Find/replace instances of `require 'spec_helper'` with
-   `require 'rails_helper'` in any specs which rely on Rails.
 
 ### Generators
 
@@ -133,13 +98,19 @@ generators](https://www.relishapp.com/rspec/rspec-rails/docs/generators).
 
 ## Model Specs
 
-Model specs reside in the `spec/models` folder. Use model specs to describe
-behavior of models (usually ActiveRecord-based) in the application. For example:
+Use model specs to describe behavior of models (usually ActiveRecord-based) in
+the application.
+
+Model specs default to residing in the `spec/models` folder. Tagging any
+context with the metadata `:type => :model` treats it's examples as model
+specs.
+
+For example:
 
 ```ruby
 require "rails_helper"
 
-describe User do
+RSpec.describe User, :type => :model do
   it "orders by last name" do
     lindeman = User.create!(first_name: "Andy", last_name: "Lindeman")
     chelimsky = User.create!(first_name: "David", last_name: "Chelimsky")
@@ -154,18 +125,23 @@ specs](https://www.relishapp.com/rspec/rspec-rails/docs/model-specs).
 
 ## Controller Specs
 
-Controller specs reside in the `spec/controllers` folder. Use controller specs
-to describe behavior of Rails controllers. For example:
+Use controller specs to describe behavior of Rails controllers.
+
+Controller specs default to residing in the `spec/controllers` folder. Tagging
+any context with the metadata `:type => :controller` treats it's examples as
+controller specs.
+
+For example:
 
 ```ruby
 require "rails_helper"
 
-describe PostsController do
+RSpec.describe PostsController, :type => :controller do
   describe "GET #index" do
     it "responds successfully with an HTTP 200 status code" do
       get :index
       expect(response).to be_success
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(200)
     end
 
     it "renders the index template" do
@@ -187,26 +163,31 @@ For more information, see [cucumber scenarios for controller
 specs](https://www.relishapp.com/rspec/rspec-rails/docs/controller-specs).
 
 **Note:** To encourage more isolated testing, views are not rendered by default
-in controller specs. If you are verifying discrete view logic, use a
-[view spec](#view-specs).  If you are verifying the behaviour of a controller and
-view together, consider a [request spec](#request-specs). You can use
+in controller specs. If you are verifying discrete view logic, use a [view
+spec](#view-specs). If you are verifying the behaviour of a controller and view
+together, consider a [request spec](#request-specs). You can use
 [render\_views](https://www.relishapp.com/rspec/rspec-rails/docs/controller-specs/render-views)
-if you must verify the rendered view contents within a controller spec, but this is
-not recommended.
+if you must verify the rendered view contents within a controller spec, but
+this is not recommended.
 
-## <a id="request-spec"></a>Request Specs
+## Request Specs
 
-Request specs live in spec/requests, spec/api and
-spec/integration, and mix in behavior
+Use request specs to specify one or more request/response cycles from end to
+end using a black box approach.
+
+Request specs default to residing in the `spec/requests`, `spec/api`, and
+`spec/integration` directories. Tagging any context with the metadata `:type =>
+:request` treats it's examples as request specs.
+
+Request specs mix in behavior from
 [ActionDispatch::Integration::Runner](http://api.rubyonrails.org/classes/ActionDispatch/Integration/Runner.html),
 which is the basis for [Rails' integration
-tests](http://guides.rubyonrails.org/testing.html#integration-testing).  The
-intent is to specify one or more request/response cycles from end to end using
-a black box approach.
+tests](http://guides.rubyonrails.org/testing.html#integration-testing).
 
 ```ruby
 require 'rails_helper'
-describe "home page" do
+
+RSpec.describe "home page", :type => :request do
   it "displays the user's username after successful login" do
     user = User.create!(:username => "jdoe", :password => "secret")
     get "/login"
@@ -222,14 +203,15 @@ describe "home page" do
 end
 ```
 
-This example uses only standard Rails and RSpec API's, but many RSpec/Rails
-users like to use extension libraries like
+The above example uses only standard Rails and RSpec API's, but many
+RSpec/Rails users like to use extension libraries like
 [FactoryGirl](https://github.com/thoughtbot/factory_girl) and
 [Capybara](https://github.com/jnicklas/capybara):
 
 ```ruby
 require 'rails_helper'
-describe "home page" do
+
+RSpec.describe "home page", :type => :request do
   it "displays the user's username after successful login" do
     user = FactoryGirl.create(:user, :username => "jdoe", :password => "secret")
     visit "/login"
@@ -247,7 +229,7 @@ which can be encoded into the underlying factory definition without requiring
 changes to this example.
 
 Among other benefits, Capybara binds the form post to the generated HTML, which
-means we don't need to specify them separately.  Note that Capybara's DSL as
+means we don't need to specify them separately. Note that Capybara's DSL as
 shown is, by default, only available in specs in the spec/features directory.
 For more information, see the [Capybara integration
 docs](http://rubydoc.info/gems/rspec-rails/file/Capybara.md).
@@ -258,15 +240,18 @@ FactoryGirl and Capybara seem to be the most widely used. Whether you choose
 these or other libs, we strongly recommend using something for each of these
 roles.
 
-## <a id="feature-specs"></a>Feature Specs
-
-Feature specs live in spec/features, and mix in functionality from the
-capybara gem.
+## Feature Specs
 
 Feature specs test your application from the outside by simulating a browser.
-capybara is used to manage the simulated browser.
+[`capybara`](https://github.com/jnicklas/capybara) is used to manage the
+simulated browser.
 
-To use feature specs, add `capybara` to `Gemfile`:
+Feature specs default to residing in the `spec/features` folder. Tagging any
+context with the metadata `:type => :feature` treats it's examples as feature
+specs.
+
+Feature specs mix in functionality from the capybara gem, thus they require
+`capybara` to use. To use feature specs, add `capybara` to the `Gemfile`:
 
 ```ruby
 gem "capybara"
@@ -277,23 +262,25 @@ specs](https://www.relishapp.com/rspec/rspec-rails/v/3-0/docs/feature-specs/feat
 
 ## View specs
 
-View specs live in spec/views, and mix in ActionView::TestCase::Behavior.
+View specs default to residing in the `spec/views` folder. Tagging any context
+with the metadata `:type => :view` treats it's examples as view specs.
+
+View specs mix in `ActionView::TestCase::Behavior`.
 
 ```ruby
 require 'rails_helper'
-describe "events/index" do
+
+RSpec.describe "events/index", :type => :view do
   it "renders _event partial for each event" do
-    assign(:events, [stub_model(Event), stub_model(Event)])
+    assign(:events, [double(Event), double(Event)])
     render
     expect(view).to render_template(:partial => "_event", :count => 2)
   end
 end
 
-describe "events/show" do
+RSpec.describe "events/show", :type => :view do
   it "displays the event location" do
-    assign(:event, stub_model(Event,
-      :location => "Chicago"
-    ))
+    assign(:event, Event.new(:location => "Chicago"))
     render
     expect(rendered).to include("Chicago")
   end
@@ -301,7 +288,7 @@ end
 ```
 
 View specs infer the controller name and path from the path to the view
-template. e.g. if the template is "events/index.html.erb" then:
+template. e.g. if the template is `events/index.html.erb` then:
 
 ```ruby
 controller.controller_path == "events"
@@ -313,23 +300,23 @@ spec'ing a partial that is included across different controllers, you _may_
 need to override these values before rendering the view.
 
 To provide a layout for the render, you'll need to specify _both_ the template
-and the layout explicitly.  For example:
+and the layout explicitly. For example:
 
 ```ruby
 render :template => "events/show", :layout => "layouts/application"
 ```
 
-## `assign(key, val)`
+### `assign(key, val)`
 
 Use this to assign values to instance variables in the view:
 
 ```ruby
-assign(:widget, stub_model(Widget))
+assign(:widget, Widget.new)
 render
 ```
 
-The code above assigns `stub_model(Widget)` to the `@widget` variable in the view, and then
-renders the view.
+The code above assigns `Widget.new` to the `@widget` variable in the view, and
+then renders the view.
 
 Note that because view specs mix in `ActionView::TestCase` behavior, any
 instance variables you set will be transparently propagated into your views
@@ -337,7 +324,7 @@ instance variables you set will be transparently propagated into your views
 available in views). For example:
 
 ```ruby
-@widget = stub_model(Widget)
+@widget = Widget.new
 render # @widget is available inside the view
 ```
 
@@ -345,17 +332,17 @@ RSpec doesn't officially support this pattern, which only works as a
 side-effect of the inclusion of `ActionView::TestCase`. Be aware that it may be
 made unavailable in the future.
 
-### Upgrade note
+#### Upgrade note
 
 ```ruby
 # rspec-rails-1.x
 assigns[key] = value
 
-# rspec-rails-2.x
+# rspec-rails-2.x+
 assign(key, value)
 ```
 
-## `rendered`
+### `rendered`
 
 This represents the rendered view.
 
@@ -364,29 +351,32 @@ render
 expect(rendered).to match /Some text expected to appear on the page/
 ```
 
-### Upgrade note
+#### Upgrade note
 
 ```ruby
 # rspec-rails-1.x
 render
 response.should xxx
 
-# rspec-rails-2.x
+# rspec-rails-2.x+
 render
 rendered.should xxx
 
-# rspec-rails-2.x with expect syntax
+# rspec-rails-2.x+ with expect syntax
 render
 expect(rendered).to xxx
 ```
 
-# Routing specs
+## Routing specs
 
-Routing specs live in spec/routing.
+Routing specs default to residing in the `spec/routing` folder. Tagging any
+context with the metadata `:type => :routing` treats it's examples as routing
+specs.
 
 ```ruby
 require 'rails_helper'
-describe "routing to profiles" do
+
+RSpec.describe "routing to profiles", :type => :routing do
   it "routes /profile/:username to profile#show for username" do
     expect(:get => "/profiles/jsmith").to route_to(
       :controller => "profiles",
@@ -403,18 +393,23 @@ end
 
 ### Upgrade note
 
-`route_for` from rspec-rails-1.x is gone. Use `route_to` and `be_routable` instead.
+`route_for` from rspec-rails-1.x is gone. Use `route_to` and `be_routable`
+instead.
 
-# Helper specs
+## Helper specs
 
-Helper specs live in spec/helpers, and mix in ActionView::TestCase::Behavior.
+Helper specs default to residing in the `spec/helpers` folder. Tagging any
+context with the metadata `:type => :helper` treats it's examples as helper
+specs.
 
-Provides a `helper` object which mixes in the helper module being spec'd, along
-with `ApplicationHelper` (if present).
+Helper specs mix in ActionView::TestCase::Behavior. A `helper` object is
+provided which mixes in the helper module being spec'd, along with
+`ApplicationHelper` (if present).
 
 ```ruby
 require 'rails_helper'
-describe EventsHelper do
+
+RSpec.describe EventsHelper, :type => :helper do
   describe "#link_to_event" do
     it "displays the title, and formatted date" do
       event = Event.new("Ruby Kaigi", Date.new(2010, 8, 27))
@@ -426,75 +421,78 @@ describe EventsHelper do
 end
 ```
 
-# Matchers
+## Matchers
 
-rspec-rails exposes domain-specific matchers to each of the example group types. Most
-of them simply delegate to Rails' assertions.
+Several domain-specific matchers are provided to each of the example group
+types. Most simply delegate to their equivalent Rails' assertions.
 
-## `be_a_new`
-* Available in all specs.
-* Primarily intended for controller specs
+### `be_a_new`
+
+- Available in all specs
+- Primarily intended for controller specs
 
 ```ruby
 expect(object).to be_a_new(Widget)
 ```
 
-
 Passes if the object is a `Widget` and returns true for `new_record?`
 
-## `render_template`
-* Delegates to Rails' assert_template.
-* Available in request, controller, and view specs.
+### `render_template`
 
-In request and controller specs, apply to the response object:
+- Delegates to Rails' `assert_template`
+- Available in request, controller, and view specs
+
+In request and controller specs, apply to the `response` object:
 
 ```ruby
 expect(response).to render_template("new")
 ```
 
-In view specs, apply to the view object:
+In view specs, apply to the `view` object:
 
 ```ruby
 expect(view).to render_template(:partial => "_form", :locals => { :widget => widget } )
 ```
 
-## `redirect_to`
-* Delegates to assert_redirect
-* Available in request and controller specs.
+### `redirect_to`
+
+- Delegates to `assert_redirect`
+- Available in request and controller specs
 
 ```ruby
 expect(response).to redirect_to(widgets_path)
 ```
 
-## `route_to`
+### `route_to`
 
-* Delegates to Rails' assert_routing.
-* Available in routing and controller specs.
+- Delegates to Rails' `assert_routing`
+- Available in routing and controller specs
 
 ```ruby
 expect(:get => "/widgets").to route_to(:controller => "widgets", :action => "index")
 ```
 
-## `be_routable`
+### `be_routable`
 
 Passes if the path is recognized by Rails' routing. This is primarily intended
-to be used with `not_to` to specify routes that should not be routable.
+to be used with `not_to` to specify standard CRUD routes which should not be
+routable.
 
 ```ruby
 expect(:get => "/widgets/1/edit").not_to be_routable
 ```
 
-## `have_http_status`
+### `have_http_status`
 
-* Passes if `response` has a matching HTTP status code
-* The following symbolic status codes are allowed:
+- Passes if `response` has a matching HTTP status code
+- The following symbolic status codes are allowed:
   - `Rack::Utils::SYMBOL_TO_STATUS_CODE`
   - One of the defined `ActionDispatch::TestResponse` aliases:
     - `:error`
     - `:missing`
     - `:redirect`
     - `:success`
-* Available in controller, feature, and request specs.
+- Available in controller, feature, and request specs.
 
 In controller and request specs, apply to the `response` object:
 
@@ -509,15 +507,16 @@ In feature specs, apply to the `page` object:
 expect(page).to have_http_status(:success)
 ```
 
-# `rake` tasks
+## `rake` tasks
 
-`rspec-rails` defines rake tasks to run the entire test suite (`rake spec`)
-and subsets of tests (e.g., `rake spec:models`).
+Several rake tasks are provided as a convience for working with RSpec. To run
+the entire spec suite use `rake spec`. To run a subset of specs use the
+associated type task, for example `rake spec:models`.
 
 A full list of the available rake tasks can be seen by running `rake -T | grep
 spec`.
 
-## Customizing `rake` tasks
+### Customizing `rake` tasks
 
 If you want to customize the behavior of `rake spec`, you may [define your own
 task in the `Rakefile` for your
@@ -528,14 +527,14 @@ However, you must first clear the task that rspec-rails defined:
 task("spec").clear
 ```
 
-# Contribute
+## Contribute
 
 See [http://github.com/rspec/rspec-dev](http://github.com/rspec/rspec-dev).
 
 For `rspec-rails`-specific development information, see
 [README_DEV](https://github.com/rspec/rspec-rails/blob/master/README_DEV.md).
 
-# Also see
+## Also see
 
 * [http://github.com/rspec/rspec](http://github.com/rspec/rspec)
 * [http://github.com/rspec/rspec-core](http://github.com/rspec/rspec-core)
