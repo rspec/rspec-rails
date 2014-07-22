@@ -1,5 +1,4 @@
 module RSpec
-
   module Rails
     # Fake class to document RSpec Rails configuration options. In practice,
     # these are dynamically added to the normal RSpec configuration object.
@@ -39,7 +38,7 @@ module RSpec
     # @private
     def self.initialize_configuration(config)
       config.backtrace_exclusion_patterns << /vendor\//
-      config.backtrace_exclusion_patterns << /lib\/rspec\/rails/
+      config.backtrace_exclusion_patterns << %r{ lib/rspec/rails }
 
       config.include RSpec::Rails::ControllerExampleGroup, :type => :controller
       config.include RSpec::Rails::HelperExampleGroup,     :type => :helper
@@ -57,7 +56,7 @@ module RSpec
       config.add_setting :infer_base_class_for_anonymous_controllers, :default => true
 
       # fixture support
-      config.include     RSpec::Rails::FixtureSupport
+      config.include RSpec::Rails::FixtureSupport
       config.add_setting :use_transactional_fixtures, :alias_with => :use_transactional_examples
       config.add_setting :use_instantiated_fixtures
       config.add_setting :global_fixtures
