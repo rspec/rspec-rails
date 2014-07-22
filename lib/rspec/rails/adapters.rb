@@ -89,12 +89,9 @@ module RSpec
 
     # @private
     module MinitestCounters
+      attr_writer :assertions
       def assertions
         @assertions ||= 0
-      end
-
-      def assertions=(assertions)
-        @assertions = assertions
       end
     end
 
@@ -143,8 +140,12 @@ module RSpec
         # examples without exposing non-assertion methods in Test::Unit or
         # Minitest.
         def assertion_method_names
-          ::RSpec::Rails::Assertions.public_instance_methods.select{|m| m.to_s =~ /^(assert|flunk|refute)/} +
-            [:build_message]
+          methods = ::RSpec::Rails::Assertions.
+            public_instance_methods.
+            select do |m|
+              m.to_s =~ /^(assert|flunk|refute)/
+            end
+          methods + [:build_message]
         end
 
         def define_assertion_delegators

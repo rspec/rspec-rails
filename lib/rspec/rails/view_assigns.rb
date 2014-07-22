@@ -35,12 +35,11 @@ module RSpec
         super.merge(_encapsulated_assigns)
       end
 
-      private
+    private
 
       def _encapsulated_assigns
         @_encapsulated_assigns ||= {}
       end
-
     end
   end
 end

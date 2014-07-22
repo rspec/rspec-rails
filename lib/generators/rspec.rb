@@ -27,10 +27,10 @@ module Rails
     class GeneratedAttribute
       def input_type
         @input_type ||= if type == :text
-          "textarea"
-        else
-          "input"
-        end
+                          "textarea"
+                        else
+                          "input"
+                        end
       end
     end
   end

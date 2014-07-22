@@ -11,7 +11,7 @@ module RSpec
       # DSL methods
       module ClassMethods
         # @see RSpec::Rails::ControllerExampleGroup
-        def render_views(true_or_false=true)
+        def render_views(true_or_false = true)
           @render_views = true_or_false
         end
 
@@ -44,15 +44,13 @@ module RSpec
         end
 
         def find_all(*args)
-          original_path_set.find_all(*args).collect do |template|
+          original_path_set.find_all(*args).map do |template|
             ::ActionView::Template.new(
               "",
               template.identifier,
               EmptyTemplateHandler,
-              {
-                :virtual_path => template.virtual_path,
-                :format => template.formats
-              }
+              :virtual_path => template.virtual_path,
+              :format => template.formats
             )
           end
         end
@@ -60,7 +58,7 @@ module RSpec
 
       # @private
       class EmptyTemplateHandler
-        def self.call(template)
+        def self.call(_template)
           %("")
         end
       end
@@ -77,7 +75,7 @@ module RSpec
           lookup_context.view_paths.push(*_path_decorator(new_path))
         end
 
-        private
+      private
 
         def _path_decorator(path)
           EmptyTemplatePathSetDecorator.new(ActionView::PathSet.new(Array.wrap(path)))
