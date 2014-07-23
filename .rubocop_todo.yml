@@ -1,0 +1,53 @@
+# Warns when the class is excessively long.
+ClassLength:
+  Max: 100
+
+# Over time we'd like to get this down, but this is what we're at now.
+CyclomaticComplexity:
+  Max: 10
+
+# Over time we'd like to get this down, but this is what we're at now.
+LineLength:
+  Max: 186
+
+# Over time we'd like to get this down, but this is what we're at now.
+MethodLength:
+  Max: 50
+
+################################################################################
+# Individual File Exclusions
+################################################################################
+
+AllCops:
+  Exclude:
+    # Templates are really ERB which Rubocop does not parse
+    - 'lib/generators/rspec/*/templates/**/*'
+
+FileName:
+  Exclude:
+    # I'm not sure why yet but we break convention for this one file
+    - lib/rspec-rails.rb
+
+GuardClause:
+  Exclude:
+    # This is getting triggered since the `unless` clause is the last
+    # statement, which doesn't matter since it's the initializer. If it's
+    # possible to break this up cleanly we can remove this exclude
+    - lib/rspec/rails/matchers/have_http_status.rb
+
+HandleExceptions:
+  Exclude:
+    # RSpec is tightly coupled to capybara right now, this should be
+    # re-evaluted in the future. For now we allow the empty rescue
+    - lib/rspec/rails/vendor/capybara.rb
+
+IfUnlessModifier:
+  Exclude:
+    # Allow single line statement as the style matches the remainder of the file
+    - lib/rspec/rails/vendor/capybara.rb
+
+PerlBackrefs:
+  Exclude:
+    # We probably can refactor the backref out, but for now excluding it since
+    # we can't use named matches in 1.8.7
+    - lib/generators/rspec/scaffold/scaffold_generator.rb

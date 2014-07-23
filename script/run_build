@@ -16,5 +16,32 @@ function check_documentation_coverage {
   "
 }
 
+function documentation_enforced {
+  if [ -x ./bin/yard ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+function style_and_lint_enforced {
+ if [ -x ./bin/rubocop ]; then
+   return 0
+ else
+   return 1
+ fi
+}
+
+function check_style_and_lint {
+  bin/rubocop lib
+}
+
 bin/rake --trace
-check_documentation_coverage
+
+if documentation_enforced; then
+  check_documentation_coverage
+fi
+
+if style_and_lint_enforced; then
+  check_style_and_lint
+fi

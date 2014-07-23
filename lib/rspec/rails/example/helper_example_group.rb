@@ -1,38 +1,40 @@
 require 'rspec/rails/view_assigns'
 
-module RSpec::Rails
-  # Container module for helper specs.
-  module HelperExampleGroup
-    extend ActiveSupport::Concern
-    include RSpec::Rails::RailsExampleGroup
-    include ActionView::TestCase::Behavior
-    include RSpec::Rails::ViewAssigns
+module RSpec
+  module Rails
+    # Container module for helper specs.
+    module HelperExampleGroup
+      extend ActiveSupport::Concern
+      include RSpec::Rails::RailsExampleGroup
+      include ActionView::TestCase::Behavior
+      include RSpec::Rails::ViewAssigns
 
-    # @private
-    module ClassMethods
-      def determine_default_helper_class(ignore)
-        described_class
+      # @private
+      module ClassMethods
+        def determine_default_helper_class(_ignore)
+          described_class
+        end
       end
-    end
 
-    # Returns an instance of ActionView::Base with the helper being specified
-    # mixed in, along with any of the built-in rails helpers.
-    def helper
-      _view.tap do |v|
-        v.extend(ApplicationHelper) if defined?(ApplicationHelper)
-        v.assign(view_assigns)
+      # Returns an instance of ActionView::Base with the helper being specified
+      # mixed in, along with any of the built-in rails helpers.
+      def helper
+        _view.tap do |v|
+          v.extend(ApplicationHelper) if defined?(ApplicationHelper)
+          v.assign(view_assigns)
+        end
       end
-    end
 
     private
 
-    def _controller_path(example)
-      example.example_group.described_class.to_s.sub(/Helper/,'').underscore
-    end
+      def _controller_path(example)
+        example.example_group.described_class.to_s.sub(/Helper/, '').underscore
+      end
 
-    included do
-      before do |example|
-        controller.controller_path = _controller_path(example)
+      included do
+        before do |example|
+          controller.controller_path = _controller_path(example)
+        end
       end
     end
   end
