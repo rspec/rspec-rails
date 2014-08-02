@@ -25,7 +25,8 @@ AllCops:
 
 FileName:
   Exclude:
-    # I'm not sure why yet but we break convention for this one file
+    # We break convention here so that when bundler requires the gem, which
+    # uses the gem name, things work without user configuration.
     - lib/rspec-rails.rb
 
 GuardClause:
