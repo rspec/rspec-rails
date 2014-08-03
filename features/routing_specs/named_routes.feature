@@ -7,7 +7,7 @@ Feature: named routes
       """ruby
       require "rails_helper"
 
-      describe "routes to the widgets controller" do
+      RSpec.describe "routes to the widgets controller" do
         it "routes a named route" do
           expect(:get => new_widget_path).
             to route_to(:controller => "widgets", :action => "new")

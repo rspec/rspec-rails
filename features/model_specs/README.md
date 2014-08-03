@@ -8,8 +8,8 @@ behavior and expectations.
 ## Examples
 
     require "rails_helper"
-    
-    describe Post do
+
+    RSpec.describe Post do
       context "with 2 or more comments" do
         it "orders them in reverse chronologically" do
           post = Post.create!

@@ -9,7 +9,7 @@ Feature: ActiveRecord::Relation match array
       """ruby
       require "rails_helper"
 
-      describe Widget do
+      RSpec.describe Widget do
         let!(:widgets) { Array.new(3) { Widget.create } }
 
         if ::Rails::VERSION::STRING >= '4'

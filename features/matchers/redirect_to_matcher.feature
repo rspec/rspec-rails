@@ -12,7 +12,7 @@ Feature: redirect_to matcher
       """ruby
       require "rails_helper"
 
-      describe WidgetsController do
+      RSpec.describe WidgetsController do
 
         describe "#create" do
           subject { post :create, :widget => { :name => "Foo" } }

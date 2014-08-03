@@ -25,7 +25,7 @@ Feature: engine routes
       end
     end
 
-    describe MyEngine::WidgetsController do
+    RSpec.describe MyEngine::WidgetsController do
       routes { MyEngine::Engine.routes }
 
       it "routes to the list of all widgets" do

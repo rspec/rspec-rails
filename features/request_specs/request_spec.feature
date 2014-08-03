@@ -28,7 +28,7 @@ Feature: request spec
       """ruby
       require "rails_helper"
 
-      describe "Widget management" do
+      RSpec.describe "Widget management" do
 
         it "creates a Widget and redirects to the Widget's page" do
           get "/widgets/new"
