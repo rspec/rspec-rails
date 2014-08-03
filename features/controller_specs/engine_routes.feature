@@ -34,7 +34,7 @@ Feature: engine routes for controllers
       end
     end
 
-    describe MyEngine::WidgetsController do
+    RSpec.describe MyEngine::WidgetsController do
       routes { MyEngine::Engine.routes }
 
       it "redirects to a random widget" do

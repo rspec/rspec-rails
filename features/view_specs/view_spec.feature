@@ -7,7 +7,7 @@ Feature: view spec
       """ruby
       require "rails_helper"
 
-      describe "widgets/index" do
+      RSpec.describe "widgets/index" do
         it "displays all the widgets" do
           assign(:widgets, [
             Widget.create!(:name => "slicer"),
@@ -29,7 +29,7 @@ Feature: view spec
       """ruby
       require "rails_helper"
 
-      describe "widgets/index" do
+      RSpec.describe "widgets/index" do
 
         context "with 2 widgets" do
           before(:each) do
@@ -56,7 +56,7 @@ Feature: view spec
       """ruby
       require "rails_helper"
 
-      describe "rendering the widget template" do
+      RSpec.describe "rendering the widget template" do
         it "displays the widget" do
           assign(:widget, Widget.create!(:name => "slicer"))
 
@@ -78,7 +78,7 @@ Feature: view spec
       """ruby
       require "rails_helper"
 
-      describe "widgets/widget.html.erb" do
+      RSpec.describe "widgets/widget.html.erb" do
         it "renders the HTML template" do
           render
 
@@ -86,7 +86,7 @@ Feature: view spec
         end
       end
 
-      describe "widgets/widget.xml.erb" do
+      RSpec.describe "widgets/widget.xml.erb" do
         it "renders the XML template" do
           render
 
@@ -110,7 +110,7 @@ Feature: view spec
       """ruby
       require "rails_helper"
 
-      describe "rendering locals in a partial" do
+      RSpec.describe "rendering locals in a partial" do
         it "displays the widget" do
           widget = Widget.create!(:name => "slicer")
 
@@ -132,7 +132,7 @@ Feature: view spec
       """ruby
       require "rails_helper"
 
-      describe "rendering locals in a partial" do
+      RSpec.describe "rendering locals in a partial" do
         it "displays the widget" do
           widget = Widget.create!(:name => "slicer")
 
@@ -154,7 +154,7 @@ Feature: view spec
       """ruby
       require "rails_helper"
 
-      describe "rendering text directly" do
+      RSpec.describe "rendering text directly" do
         it "displays the given text" do
 
           render :text => "This is directly rendered"
@@ -185,7 +185,7 @@ Feature: view spec
       """ruby
       require 'rails_helper'
 
-      describe 'secrets/index' do
+      RSpec.describe 'secrets/index' do
         before do
           allow(view).to receive(:admin?).and_return(true)
         end
@@ -204,7 +204,7 @@ Feature: view spec
       """ruby
       require "rails_helper"
 
-      describe "controller.request.path_parameters" do
+      RSpec.describe "controller.request.path_parameters" do
         it "matches the Rails environment by using symbols for keys" do
           [:controller, :action].each { |k| expect(controller.request.path_parameters.keys).to include(k) }
         end

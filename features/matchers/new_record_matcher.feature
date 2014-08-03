@@ -11,7 +11,7 @@ Feature: be_a_new matcher
       """ruby
       require "rails_helper"
 
-      describe Widget do
+      RSpec.describe Widget do
         context "when initialized" do
           subject(:widget) { Widget.new }
 
