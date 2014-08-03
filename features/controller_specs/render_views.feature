@@ -99,6 +99,7 @@ Feature: render_views
     And a file named "spec/controllers/widgets_controller_spec.rb" with:
       """ruby
       require "rails_helper"
+      require "support/render_views"
 
       RSpec.describe WidgetsController do
         describe "GET index" do
