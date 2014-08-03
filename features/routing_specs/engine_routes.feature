@@ -6,33 +6,33 @@ Feature: engine routes
   @unsupported-on-rails-3-0
   Scenario: specify engine route
     Given a file named "spec/routing/engine_routes_spec.rb" with:
-    """ruby
-    require "rails_helper"
+      """ruby
+      require "rails_helper"
 
-    # A very simple Rails engine
-    module MyEngine
-      class Engine < ::Rails::Engine
-        isolate_namespace MyEngine
-      end
+      # A very simple Rails engine
+      module MyEngine
+        class Engine < ::Rails::Engine
+          isolate_namespace MyEngine
+        end
 
-      Engine.routes.draw do
-        resources :widgets, :only => [:index]
-      end
+        Engine.routes.draw do
+          resources :widgets, :only => [:index]
+        end
 
-      class WidgetsController < ::ActionController::Base
-        def index
+        class WidgetsController < ::ActionController::Base
+          def index
+          end
         end
       end
-    end
 
-    RSpec.describe MyEngine::WidgetsController do
-      routes { MyEngine::Engine.routes }
+      RSpec.describe MyEngine::WidgetsController do
+        routes { MyEngine::Engine.routes }
 
-      it "routes to the list of all widgets" do
-        expect(:get => widgets_path).
-          to route_to(:controller => "my_engine/widgets", :action => "index")
+        it "routes to the list of all widgets" do
+          expect(:get => widgets_path).
+            to route_to(:controller => "my_engine/widgets", :action => "index")
+        end
       end
-    end
-    """
+      """
     When I run `rspec spec`
     Then the examples should all pass

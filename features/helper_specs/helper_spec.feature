@@ -97,26 +97,26 @@ Feature: helper spec
 
   Scenario: url helpers are defined
     Given a file named "spec/helpers/widgets_helper_spec.rb" with:
-    """ruby
-    require "rails_helper"
+      """ruby
+      require "rails_helper"
 
-    RSpec.describe WidgetsHelper do
-      describe "#link_to_widget" do
-        it "links to a widget using its name" do
-          widget = Widget.create!(:name => "This Widget")
-          expect(helper.link_to_widget(widget)).to include("This Widget")
-          expect(helper.link_to_widget(widget)).to include(widget_path(widget))
+      RSpec.describe WidgetsHelper do
+        describe "#link_to_widget" do
+          it "links to a widget using its name" do
+            widget = Widget.create!(:name => "This Widget")
+            expect(helper.link_to_widget(widget)).to include("This Widget")
+            expect(helper.link_to_widget(widget)).to include(widget_path(widget))
+          end
         end
       end
-    end
-    """
+      """
     And a file named "app/helpers/widgets_helper.rb" with:
-    """ruby
-    module WidgetsHelper
-      def link_to_widget(widget)
-        link_to(widget.name, widget_path(widget))
+      """ruby
+      module WidgetsHelper
+        def link_to_widget(widget)
+          link_to(widget.name, widget_path(widget))
+        end
       end
-    end
-    """
+      """
     When I run `rspec spec/helpers/widgets_helper_spec.rb`
     Then the examples should all pass
