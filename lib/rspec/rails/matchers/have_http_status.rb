@@ -128,9 +128,7 @@ module RSpec
             @expected_status = status
             @actual = nil
             @invalid_response = nil
-            unless set_expected_code!
-              raise ArgumentError, "Invalid HTTP status: #{status.inspect}"
-            end
+            set_expected_code!
           end
 
           # @param [Object] response object providing an http code to match
@@ -211,9 +209,13 @@ module RSpec
           # `expected_status` status
           #
           # @see Rack::Utils::SYMBOL_TO_STATUS_CODE
-          # @return [nil] if an associated code could not be found
+          # @raise [ArgumentError] if an associated code could not be found
           def set_expected_code!
-            @expected ||= Rack::Utils::SYMBOL_TO_STATUS_CODE[expected_status]
+            @expected ||=
+              Rack::Utils::SYMBOL_TO_STATUS_CODE.fetch(expected_status) do
+                raise ArgumentError,
+                      "Invalid HTTP status: #{expected_status.inspect}"
+              end
           end
         end
 
