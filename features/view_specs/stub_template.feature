@@ -8,7 +8,7 @@ Feature: stub template
       """ruby
       require "rails_helper"
 
-      describe "gadgets/list" do
+      RSpec.describe "gadgets/list" do
         it "renders the gadget partial for each gadget" do
           assign(:gadgets, [
             double(:name => "First"),
@@ -34,7 +34,7 @@ Feature: stub template
       """ruby
       require "rails_helper"
 
-      describe "gadgets/edit" do
+      RSpec.describe "gadgets/edit" do
         before(:each) do
           @gadget = assign(:gadget, Gadget.create!)
         end

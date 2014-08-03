@@ -5,7 +5,7 @@ Feature: view spec infers controller path and action
       """ruby
       require "rails_helper"
 
-      describe "widgets/new" do
+      RSpec.describe "widgets/new" do
         it "infers the controller path" do
           expect(controller.request.path_parameters[:controller]).to eq("widgets")
           expect(controller.controller_path).to eq("widgets")
@@ -20,7 +20,7 @@ Feature: view spec infers controller path and action
       """ruby
       require "rails_helper"
 
-      describe "widgets/new" do
+      RSpec.describe "widgets/new" do
         it "infers the controller action" do
           expect(controller.request.path_parameters[:action]).to eq("new")
         end
@@ -34,7 +34,7 @@ Feature: view spec infers controller path and action
       """ruby
       require "rails_helper"
 
-      describe "widgets/_form" do
+      RSpec.describe "widgets/_form" do
         it "includes a link to new" do
           expect(controller.request.path_parameters[:action]).to be_nil
         end
