@@ -40,7 +40,7 @@ To specify outcomes, you can use:
 
 ## Examples
 
-    describe TeamsController do
+    RSpec.describe TeamsController do
       describe "GET index" do
         it "assigns @teams" do
           team = Team.create

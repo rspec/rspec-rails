@@ -20,7 +20,7 @@ Feature: anonymous controller
     c.infer_base_class_for_anonymous_controllers = false
   end
 
-  describe BaseController do
+  RSpec.describe BaseController do
     controller do
       def index; end
 

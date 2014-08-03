@@ -18,7 +18,7 @@ Feature: helper spec
       """ruby
       require "rails_helper"
 
-      describe ApplicationHelper do
+      RSpec.describe ApplicationHelper do
         describe "#page_title" do
           it "returns the default title" do
             expect(helper.page_title).to eq("RSpec is your friend")
@@ -42,7 +42,7 @@ Feature: helper spec
       """ruby
       require "rails_helper"
 
-      describe ApplicationHelper do
+      RSpec.describe ApplicationHelper do
         describe "#page_title" do
           it "returns the instance variable" do
             assign(:title, "My Title")
@@ -67,7 +67,7 @@ Feature: helper spec
       """ruby
       require "rails_helper"
 
-      describe WidgetsHelper do
+      RSpec.describe WidgetsHelper do
         describe "#widget_title" do
           it "includes the app name" do
             assign(:title, "This Widget")
@@ -97,26 +97,26 @@ Feature: helper spec
 
   Scenario: url helpers are defined
     Given a file named "spec/helpers/widgets_helper_spec.rb" with:
-    """ruby
-    require "rails_helper"
+      """ruby
+      require "rails_helper"
 
-    describe WidgetsHelper do
-      describe "#link_to_widget" do
-        it "links to a widget using its name" do
-          widget = Widget.create!(:name => "This Widget")
-          expect(helper.link_to_widget(widget)).to include("This Widget")
-          expect(helper.link_to_widget(widget)).to include(widget_path(widget))
+      RSpec.describe WidgetsHelper do
+        describe "#link_to_widget" do
+          it "links to a widget using its name" do
+            widget = Widget.create!(:name => "This Widget")
+            expect(helper.link_to_widget(widget)).to include("This Widget")
+            expect(helper.link_to_widget(widget)).to include(widget_path(widget))
+          end
         end
       end
-    end
-    """
+      """
     And a file named "app/helpers/widgets_helper.rb" with:
-    """ruby
-    module WidgetsHelper
-      def link_to_widget(widget)
-        link_to(widget.name, widget_path(widget))
+      """ruby
+      module WidgetsHelper
+        def link_to_widget(widget)
+          link_to(widget.name, widget_path(widget))
+        end
       end
-    end
-    """
+      """
     When I run `rspec spec/helpers/widgets_helper_spec.rb`
     Then the examples should all pass
