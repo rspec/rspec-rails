@@ -29,13 +29,6 @@ FileName:
     # uses the gem name, things work without user configuration.
     - lib/rspec-rails.rb
 
-GuardClause:
-  Exclude:
-    # This is getting triggered since the `unless` clause is the last
-    # statement, which doesn't matter since it's the initializer. If it's
-    # possible to break this up cleanly we can remove this exclude
-    - lib/rspec/rails/matchers/have_http_status.rb
-
 HandleExceptions:
   Exclude:
     # RSpec is tightly coupled to capybara right now, this should be
