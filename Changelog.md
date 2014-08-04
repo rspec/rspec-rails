@@ -1,3 +1,10 @@
+### Development
+
+Deprecations
+
+* Deprecates `RSpec::Configuration#escaped_path`, this was an internal API that
+  was removed in `3.0.0`. (Jon Rowe, #1138)
+
 ### 2.99.0 / 2014-06-01
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v2.99.0.rc1...v2.99.0)
 
