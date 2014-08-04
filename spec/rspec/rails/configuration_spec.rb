@@ -23,4 +23,11 @@ describe "configuration" do
       expect(RSpec.configuration.render_views?).to be_truthy
     end
   end
+
+  describe "#escaped_path" do
+    specify "is deprecated" do
+      expect_deprecation_with_call_site(__FILE__, __LINE__ + 1)
+      RSpec.configuration.escaped_path
+    end
+  end
 end
