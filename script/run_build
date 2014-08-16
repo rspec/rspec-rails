@@ -3,12 +3,13 @@
 set -ex
 source script/functions.sh
 
-function run_acceptance_suite {
-  bin/rake acceptance --trace
-}
+# Allow repos to override the default functions and add their own
+if [ -f script/custom_build_functions.sh ]; then
+  source script/custom_build_functions.sh
+fi
 
 run_specs_and_record_done
-run_acceptance_suite
+run_cukes
 
 if documentation_enforced; then
   check_documentation_coverage
@@ -19,7 +20,7 @@ if style_and_lint_enforced; then
 fi
 
 if is_mri; then
-  run_specs_one_by_one
+  run_all_spec_suites
 else
   echo "Skipping the rest of the build on non-MRI rubies"
 fi

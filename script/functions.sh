@@ -154,3 +154,15 @@ function check_documentation_coverage {
 function check_style_and_lint {
   bin/rubocop lib
 }
+
+function run_all_spec_suites {
+  run_specs_one_by_one
+  run_spec_suite_for "rspec-core"
+  run_spec_suite_for "rspec-expectations"
+  run_spec_suite_for "rspec-mocks"
+  run_spec_suite_for "rspec-rails"
+
+  if rspec_support_compatible; then
+    run_spec_suite_for "rspec-support"
+  fi
+}
