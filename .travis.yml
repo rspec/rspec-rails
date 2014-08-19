@@ -24,11 +24,6 @@ sudo: false
 
 bundler_args: "--binstubs --path ../bundle --retry=3 --jobs=3"
 
-before_install:
-  # Downgrade bundler to work around https://github.com/bundler/bundler/issues/3004
-  - gem install bundler -v=1.5.3
-  - alias bundle="bundle _1.5.3_"
-
 before_script:
   # Rails 4.x complains with a bundler rails binstub in PROJECT_ROOT/bin/
   - rm -f bin/rails
