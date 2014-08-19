@@ -1,13 +1,5 @@
-before_script:
-  # Rails 4.x complains with a bundler rails binstub in PROJECT_ROOT/bin/
-  - rm -f bin/rails
-  - bundle exec rails --version
-script: "script/run_build 2>&1"
-bundler_args: "--binstubs --path ../bundle"
-before_install:
-  # Downgrade bundler to work around https://github.com/bundler/bundler/issues/3004
-  - gem install bundler -v=1.5.3
-  - alias bundle="bundle _1.5.3_"
+language: ruby
+
 rvm:
   - 2.1.2
   - 2.1.1
@@ -16,6 +8,7 @@ rvm:
   - 1.9.3
   - 1.9.2
   - 1.8.7
+
 env:
   - RAILS_VERSION=master
   - RAILS_VERSION='~> 4.1.0'
@@ -26,6 +19,23 @@ env:
   - RAILS_VERSION=3-2-stable
   - RAILS_VERSION='~> 3.1.12'
   - RAILS_VERSION='~> 3.0.20'
+
+sudo: false
+
+bundler_args: "--binstubs --path ../bundle --retry=3 --jobs=3"
+
+before_install:
+  # Downgrade bundler to work around https://github.com/bundler/bundler/issues/3004
+  - gem install bundler -v=1.5.3
+  - alias bundle="bundle _1.5.3_"
+
+before_script:
+  # Rails 4.x complains with a bundler rails binstub in PROJECT_ROOT/bin/
+  - rm -f bin/rails
+  - bundle exec rails --version
+
+script: "script/run_build 2>&1"
+
 matrix:
   exclude:
     # 3.0.x is not supported on MRI 2.0+
