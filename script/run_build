@@ -1,42 +1,15 @@
 #!/bin/bash
 
 set -ex
+source script/functions.sh
 
-function check_documentation_coverage {
-  bin/yard stats --list-undoc | ruby -e "
-    while line = gets
-      coverage ||= line[/([\d\.]+)% documented/, 1]
-      puts line
-    end
+# Allow repos to override the default functions and add their own
+if [ -f script/custom_build_functions.sh ]; then
+  source script/custom_build_functions.sh
+fi
 
-    unless Float(coverage) == 100
-      puts \"\n\nMissing documentation coverage (currently at #{coverage}%)\"
-      exit(1)
-    end
-  "
-}
-
-function documentation_enforced {
-  if [ -x ./bin/yard ]; then
-    return 0
-  else
-    return 1
-  fi
-}
-
-function style_and_lint_enforced {
- if [ -x ./bin/rubocop ]; then
-   return 0
- else
-   return 1
- fi
-}
-
-function check_style_and_lint {
-  bin/rubocop lib
-}
-
-bin/rake --trace
+run_specs_and_record_done
+run_cukes
 
 if documentation_enforced; then
   check_documentation_coverage
@@ -44,4 +17,10 @@ fi
 
 if style_and_lint_enforced; then
   check_style_and_lint
+fi
+
+if is_mri; then
+  run_all_spec_suites
+else
+  echo "Skipping the rest of the build on non-MRI rubies"
 fi

@@ -22,7 +22,9 @@ env:
 
 sudo: false
 
-bundler_args: "--binstubs --path ../bundle --retry=3 --jobs=3"
+bundler_args: "--binstubs --without documentation --path ../bundle --retry=3 --jobs=3"
+
+before_install: "script/clone_all_rspec_repos"
 
 before_script:
   # Rails 4.x complains with a bundler rails binstub in PROJECT_ROOT/bin/
@@ -67,3 +69,4 @@ matrix:
       env: RAILS_VERSION=master
   allow_failures:
     - env: RAILS_VERSION=master
+  fast_finish: true
