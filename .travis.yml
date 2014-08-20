@@ -10,6 +10,7 @@ rvm:
   - 1.8.7
 
 env:
+  - RAILS_VERSION='~> 4.2.0.beta1'
   - RAILS_VERSION=master
   - RAILS_VERSION='~> 4.1.0'
   - RAILS_VERSION=4-1-stable
@@ -44,7 +45,7 @@ matrix:
       env: RAILS_VERSION='~> 3.0.20'
     - rvm: 2.1.2
       env: RAILS_VERSION='~> 3.0.20'
-    # 4.0.x is not supported on MRI ruby-1.8.7 or 1.9.2
+    # 4.x is not supported on MRI ruby-1.8.7 or 1.9.2
     - rvm: 1.8.7
       env: RAILS_VERSION='~> 4.0.4'
     - rvm: 1.9.2
@@ -53,7 +54,6 @@ matrix:
       env: RAILS_VERSION=4-0-stable
     - rvm: 1.9.2
       env: RAILS_VERSION=4-0-stable
-    # 4.1.x is not supported on MRI ruby-1.8.7 or 1.9.2
     - rvm: 1.8.7
       env: RAILS_VERSION='~> 4.1.0'
     - rvm: 1.9.2
@@ -62,6 +62,10 @@ matrix:
       env: RAILS_VERSION=4-1-stable
     - rvm: 1.9.2
       env: RAILS_VERSION=4-1-stable
+    - rvm: 1.8.7
+      env: RAILS_VERSION='~> 4.2.0.beta1'
+    - rvm: 1.9.2
+      env: RAILS_VERSION='~> 4.2.0.beta1'
     # master is not supported on MRI ruby-1.8.7 or 1.9.2
     - rvm: 1.8.7
       env: RAILS_VERSION=master
