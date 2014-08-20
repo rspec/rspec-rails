@@ -16,5 +16,5 @@ file "app/views/things/custom_action.html.erb", "This is a template for a custom
 
 gsub_file 'spec/spec_helper.rb', /^=(begin|end)/, ''
 
-run('rake db:migrate')
-run('rake db:migrate RAILS_ENV=test')
+run('bin/rake db:migrate')
+run('bin/rake db:migrate RAILS_ENV=test')
