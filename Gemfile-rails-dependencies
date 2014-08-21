@@ -8,6 +8,8 @@ when /master/
   gem "rails-observers", :git => "git://github.com/rails/rails-observers"
   gem 'sass-rails', :git => "git://github.com/rails/sass-rails.git"
   gem 'coffee-rails', :git => "git://github.com/rails/coffee-rails.git"
+  gem 'rack', :git => 'git://github.com/rack/rack.git'
+  gem 'i18n', :git => 'git://github.com/svenfuchs/i18n.git', :branch => 'master'
 when /stable$/
   gem "rails", :git => "git://github.com/rails/rails.git", :branch => version
 when nil, false, ""

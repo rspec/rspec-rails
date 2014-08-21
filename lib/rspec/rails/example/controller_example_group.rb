@@ -158,9 +158,7 @@ module RSpec
       # If method is a named_route, delegates to the RouteSet associated with
       # this controller.
       def method_missing(method, *args, &block)
-        if defined?(@routes) && @routes.named_routes.helpers.include?(method)
-          controller.send(method, *args, &block)
-        elsif defined?(@orig_routes) && @orig_routes && @orig_routes.named_routes.helpers.include?(method)
+        if route_available?(method)
           controller.send(method, *args, &block)
         else
           super
@@ -182,6 +180,23 @@ module RSpec
           ensure
             ActionController::Base.allow_forgery_protection = previous_allow_forgery_protection_value
           end
+        end
+      end
+
+    private
+
+      def route_available?(method)
+        (defined?(@routes) && route_defined?(routes, method)) ||
+          (defined?(@orig_routes) && route_defined?(@orig_routes, method))
+      end
+
+      def route_defined?(routes, method)
+        return false if routes.nil?
+
+        if routes.named_routes.respond_to?(:route_defined?)
+          routes.named_routes.route_defined?(method)
+        else
+          routes.named_routes.helpers.include?(method)
         end
       end
     end
