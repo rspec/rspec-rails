@@ -14,7 +14,6 @@ I18n.enforce_available_locales = true if I18n.respond_to?(:enforce_available_loc
 require 'rspec/support/spec'
 require 'rspec/rails'
 require 'ammeter/init'
-require 'support/ammeter_shim'
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
 
