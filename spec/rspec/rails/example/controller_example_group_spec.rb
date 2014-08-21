@@ -41,30 +41,45 @@ module RSpec::Rails
     end
 
     describe "#controller" do
-      before do
-        group.class_exec do
-          controller(Class.new) { }
-        end
-      end
-
-      it "delegates named route helpers to the underlying controller" do
-        controller = double('controller')
-        allow(controller).to receive(:foos_url).and_return('http://test.host/foos')
-
-        example = group.new
-        allow(example).to receive_messages(:controller => controller)
-
-        # As in the routing example spec, this is pretty invasive, but not sure
-        # how to do it any other way as the correct operation relies on before
-        # hooks
+      let(:controller) { double('controller') }
+      let(:example) { group.new }
+      let(:routes) do
         routes = nil
         with_isolated_stderr do
           routes = ActionDispatch::Routing::RouteSet.new
           routes.draw { resources :foos }
         end
-        example.instance_variable_set(:@orig_routes, routes)
+        routes
+      end
 
+      before do
+        group.class_exec do
+          controller(Class.new) { }
+        end
+
+        allow(controller).to receive(:foos_url).and_return('http://test.host/foos')
+        allow(example).to receive_messages(:controller => controller)
+        example.instance_variable_set(:@orig_routes, routes)
+      end
+
+      it "delegates named route helpers to the underlying controller" do
         expect(example.foos_url).to eq('http://test.host/foos')
+      end
+
+      if Rails.version.to_f >= 4.2
+        it "calls NamedRouteCollection#route_defined? when it checks that given route is defined or not" do
+          expect(routes.named_routes).to receive(:route_defined?).and_return(true)
+          expect(routes.named_routes).not_to receive(:helpers)
+
+          example.foos_url
+        end
+      else
+        it "calls NamedRouteCollection#helpers#include? when it checks that given route is defined or not" do
+          expect(routes.named_routes).to \
+            receive_message_chain(:helpers, :include?).with(:foos_url).and_return(true)
+
+          example.foos_url
+        end
       end
     end
 

@@ -9,6 +9,8 @@ Enhancements:
 
 Bug Fixes:
 
+* Fix controller route lookup for Rails 4.2. (Tomohiro Hashidate, #1142)
+
 ### 3.0.2 / 2014-07-21
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.1...v3.0.2)
 
