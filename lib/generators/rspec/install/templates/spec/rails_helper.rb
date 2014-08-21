@@ -20,6 +20,7 @@ require 'rspec/rails'
 #
 # Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
+<% if defined?(::ActiveRecord) -%>
 <% if ::Rails::VERSION::STRING >= '4.1' -%>
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
@@ -31,7 +32,9 @@ ActiveRecord::Migration.maintain_test_schema!
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
 <% end -%>
+<% end -%>
 RSpec.configure do |config|
+<% if defined?(::ActiveRecord) -%>
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -40,6 +43,7 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
+<% end -%>
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.

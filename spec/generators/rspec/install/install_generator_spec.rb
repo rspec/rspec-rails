@@ -18,26 +18,78 @@ describe Rspec::Generators::InstallGenerator, :type => :generator do
     )
   end
 
-  it "generates spec/rails_helper.rb" do
-    run_generator
-    expect(File.read( file('spec/rails_helper.rb') )).to match(/^require 'rspec\/rails'$/m)
-  end
+  context "generates spec/rails_helper.rb" do
+    specify "requiring respec/rails" do
+      run_generator
+      expect(File.read( file('spec/rails_helper.rb') )).
+        to match(/^require 'rspec\/rails'$/m)
+    end
 
-  case ::Rails::VERSION::STRING.to_f
+    case ::Rails::VERSION::STRING.to_f
     when 4.1
-      it "generates spec/rails_helper.rb with a check for maintaining schema" do
+      specify "checking for maintaining the schema" do
         run_generator
-        expect(File.read( file('spec/rails_helper.rb') )).to match(/ActiveRecord::Migration\.maintain_test_schema!/m)
+        expect(File.read( file('spec/rails_helper.rb') )).
+          to match(/ActiveRecord::Migration\.maintain_test_schema!/m)
       end
     when 4.0
-      it "generates spec/rails_helper.rb with a check for pending migrations" do
+      specify "checking for pending migrations" do
         run_generator
-        expect(File.read( file('spec/rails_helper.rb') )).to match(/ActiveRecord::Migration\.check_pending!/m)
+        expect(File.read( file('spec/rails_helper.rb') )).
+          to match(/ActiveRecord::Migration\.check_pending!/m)
       end
-  else
-    it "generates spec/rails_helper.rb without a check for pending migrations" do
-      run_generator
-      expect(File.read( file('spec/rails_helper.rb') )).not_to match(/ActiveRecord::Migration\.check_pending!/m)
+    else
+      specify "without a check for pending migrations" do
+        run_generator
+        expect(File.read( file('spec/rails_helper.rb') )).
+          not_to match(/ActiveRecord::Migration\.check_pending!/m)
+      end
     end
   end
+
+  context "generates spec/rails_helper.rb", "without ActiveRecord available" do
+    before do
+      hide_const("ActiveRecord")
+    end
+
+    it "requires respec/rails" do
+      run_generator
+      expect(File.read( file('spec/rails_helper.rb') )).
+        to match(/^require 'rspec\/rails'$/m)
+    end
+
+    it "does not include config.fixture_path" do
+      run_generator
+      expect(File.read( file('spec/rails_helper.rb') )).
+        not_to match(/config\.fixture_path/m)
+    end
+
+    it "does not include config.use_transactional_fixtures" do
+      run_generator
+      expect(File.read( file('spec/rails_helper.rb') )).
+        not_to match(/config\.use_transactional_fixtures/m)
+    end
+
+    case ::Rails::VERSION::STRING.to_f
+      when 4.1
+        it "does not check for maintaining test schema" do
+          run_generator
+          expect(File.read( file('spec/rails_helper.rb') )).
+            not_to match(/ActiveRecord::Migration\.maintain_test_schema!/m)
+        end
+      when 4.0
+        it "does not check for pending migrations" do
+          run_generator
+          expect(File.read( file('spec/rails_helper.rb') )).
+            not_to match(/ActiveRecord::Migration\.check_pending!/m)
+        end
+    else
+      it "does not check for pending migrations" do
+        run_generator
+        expect(File.read( file('spec/rails_helper.rb') )).
+          not_to match(/ActiveRecord::Migration\.check_pending!/m)
+      end
+    end
+  end
+
 end
