@@ -1,4 +1,4 @@
-# This file was generated on 2014-08-19T19:39:53-04:00 from the rspec-dev repo.
+# This file was generated on 2014-08-22T10:02:11-07:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 # This file contains defaults for RSpec projects. Individual projects
@@ -115,6 +115,9 @@ SpaceAroundEqualsInParameterDefault:
 
 # We don't care about single vs double qoutes.
 StringLiterals:
+  Enabled: false
+
+Style/TrailingComma:
   Enabled: false
 
 TrivialAccessors:
