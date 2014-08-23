@@ -3,7 +3,11 @@ rspec_dependencies_gemfile = File.join(rspec_rails_repo_path, 'Gemfile-rspec-dep
 rails_dependencies_gemfile = File.join(rspec_rails_repo_path, 'Gemfile-rails-dependencies')
 bundle_install_path = File.join(rspec_rails_repo_path, '..', 'bundle')
 maintenance_branch_file = File.join(rspec_rails_repo_path, 'maintenance-branch')
-travis_retry_script = File.join(rspec_rails_repo_path, 'templates', 'travis_retry_bundle_install.sh')
+travis_retry_script = File.join(
+  rspec_rails_repo_path,
+  'example_app_generator',
+  'travis_retry_bundle_install.sh'
+)
 function_script_file = File.join(rspec_rails_repo_path, 'script/functions.sh')
 
 in_root do
