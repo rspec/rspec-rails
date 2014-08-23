@@ -13,7 +13,7 @@ describe Rspec::Generators::ModelGenerator, :type => :generator do
     gen = generator %w(posts)
     expect(gen).to receive :create_model_spec
     expect(gen).to receive :create_fixture_file
-    capture(:stdout) { gen.invoke_all }
+    gen.invoke_all
   end
 
   describe 'the generated files' do
