@@ -40,7 +40,3 @@ eval_gemfile custom_gemfile if File.exist?(custom_gemfile)
 
 rails_dependencies_gemfile = File.expand_path("../Gemfile-rails-dependencies", __FILE__)
 eval_gemfile rails_dependencies_gemfile
-
-
-# TODO: Delete this once a new patch is released
-gem 'ammeter', :git => 'git://github.com/cupakromer/ammeter.git', :branch => 'support-ruby-187'
