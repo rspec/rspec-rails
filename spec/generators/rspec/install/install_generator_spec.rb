@@ -1,10 +1,10 @@
 require 'spec_helper'
 require 'generators/rspec/install/install_generator'
 
-describe Rspec::Generators::InstallGenerator, :type => :generator do
+RSpec.describe Rspec::Generators::InstallGenerator, :type => :generator do
   destination File.expand_path("../../../../../tmp", __FILE__)
 
-  def check_active_record_schema
+  def use_active_record_migration
     match(/ActiveRecord::Migration\./m)
   end
 
@@ -64,13 +64,12 @@ describe Rspec::Generators::InstallGenerator, :type => :generator do
       expect(rails_helper).to use_transactional_fixtures
     end
 
-    case ::Rails::VERSION::STRING.to_f
-    when 4.1
+    if RSpec::Rails::FeatureCheck.can_maintain_test_schema?
       specify "checking for maintaining the schema" do
         run_generator
         expect(rails_helper).to maintain_test_schema
       end
-    when 4.0
+    elsif RSpec::Rails.FeatureCheck.can_check_pending_migrations?
       specify "checking for pending migrations" do
         run_generator
         expect(rails_helper).to check_pending_migrations
@@ -78,7 +77,7 @@ describe Rspec::Generators::InstallGenerator, :type => :generator do
     else
       specify "without a check for pending migrations" do
         run_generator
-        expect(rails_helper).not_to check_active_record_schema
+        expect(rails_helper).not_to use_active_record_migration
       end
     end
   end
@@ -103,24 +102,11 @@ describe Rspec::Generators::InstallGenerator, :type => :generator do
       expect(rails_helper).not_to use_transactional_fixtures
     end
 
-    case ::Rails::VERSION::STRING.to_f
-    when 4.1
-      it "does not check for maintaining test schema" do
-        run_generator
-        expect(rails_helper).not_to maintain_test_schema
-        expect(rails_helper).not_to check_active_record_schema
-      end
-    when 4.0
-      it "does not check for pending migrations" do
-        run_generator
-        expect(rails_helper).not_to check_pending_migrations
-        expect(rails_helper).not_to check_active_record_schema
-      end
-    else
-      it "does not check for pending migrations" do
-        run_generator
-        expect(rails_helper).not_to check_active_record_schema
-      end
+    it "does not check use active record migration options" do
+      run_generator
+      expect(rails_helper).not_to use_active_record_migration
+      expect(rails_helper).not_to maintain_test_schema
+      expect(rails_helper).not_to check_pending_migrations
     end
   end
 

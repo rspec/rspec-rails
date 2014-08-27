@@ -20,21 +20,19 @@ require 'rspec/rails'
 #
 # Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
-<% if defined?(::ActiveRecord) -%>
-<% if ::Rails::VERSION::STRING >= '4.1' -%>
+<% if RSpec::Rails::FeatureCheck.can_maintain_test_schema? -%>
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
-<% elsif ::Rails::VERSION::STRING >= '4' -%>
+<% elsif RSpec::Rails::FeatureCheck.can_check_pending_migrations? -%>
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
-ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
+ActiveRecord::Migration.check_pending!
 
 <% end -%>
-<% end -%>
 RSpec.configure do |config|
-<% if defined?(::ActiveRecord) -%>
+<% if RSpec::Rails::FeatureCheck.has_active_record? -%>
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 

@@ -1,6 +1,7 @@
 require "rspec/support"
 require "rspec/core"
 RSpec::Support.require_rspec_core "project_initializer"
+require "rspec/rails/feature_check"
 
 module Rspec
   module Generators
