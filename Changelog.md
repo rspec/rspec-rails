@@ -6,6 +6,7 @@ Enhancements:
 * Switch to using the `have_http_status` matcher in spec generators. (Aaron Kromer, #1086)
 * Update `rails_helper` generator to allow users to opt-in to auto-loading
   `spec/support` files instead of forcing it upon them. (Aaron Kromer, #1136)
+* Include generator for `ActiveJob`. (Abdelkader Boudih, #1155)
 
 Bug Fixes:
 
