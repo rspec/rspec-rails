@@ -23,3 +23,4 @@ The same generator pattern is available for all specs:
 * observer
 * integration
 * feature
+* job
