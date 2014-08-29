@@ -1,0 +1,9 @@
+run('bin/rspec spec -cfdoc') || abort
+run('bin/rake --backtrace spec') || abort
+run('bin/rake --backtrace spec:requests') || abort
+run('bin/rake --backtrace spec:models') || abort
+run('bin/rake --backtrace spec:views') || abort
+run('bin/rake --backtrace spec:controllers') || abort
+run('bin/rake --backtrace spec:helpers') || abort
+run('bin/rake --backtrace spec:mailers') || abort
+run("bin/rake --backtrace stats") || abort

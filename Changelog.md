@@ -7,6 +7,8 @@ Enhancements:
 * Update `rails_helper` generator to allow users to opt-in to auto-loading
   `spec/support` files instead of forcing it upon them. (Aaron Kromer, #1136)
 * Include generator for `ActiveJob`. (Abdelkader Boudih, #1155)
+* Improve support for non-ActiveRecord apps by not loading ActiveRecord related
+  settings in the generated `rails_helper`. (Aaron Kromer, #1150)
 
 Bug Fixes:
 
