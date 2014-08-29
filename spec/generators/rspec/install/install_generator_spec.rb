@@ -69,7 +69,7 @@ RSpec.describe Rspec::Generators::InstallGenerator, :type => :generator do
         run_generator
         expect(rails_helper).to maintain_test_schema
       end
-    elsif RSpec::Rails.FeatureCheck.can_check_pending_migrations?
+    elsif RSpec::Rails::FeatureCheck.can_check_pending_migrations?
       specify "checking for pending migrations" do
         run_generator
         expect(rails_helper).to check_pending_migrations
