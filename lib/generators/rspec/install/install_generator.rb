@@ -36,9 +36,26 @@ DESC
           :report_stream => StringIO.new
         )
         initializer.run
-        gsub_file File.join(tmpdir, 'spec', 'spec_helper.rb'),
+
+        spec_helper_path = File.join(tmpdir, 'spec', 'spec_helper.rb')
+
+        replace_generator_command(spec_helper_path)
+        remove_warnings_configuration(spec_helper_path)
+      end
+
+      def replace_generator_command(spec_helper_path)
+        gsub_file spec_helper_path,
                   'rspec --init',
                   'rails generate rspec:install',
+                  :verbose => false
+      end
+
+      def remove_warnings_configuration(spec_helper_path)
+        empty_line = '^\n'
+        comment_line = '^\s*#.+\n'
+        gsub_file spec_helper_path,
+                  /#{empty_line}(#{comment_line})+\s+config\.warnings = true\n/,
+                  '',
                   :verbose => false
       end
     end
