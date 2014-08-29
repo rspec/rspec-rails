@@ -9,6 +9,7 @@ Enhancements:
 * Include generator for `ActiveJob`. (Abdelkader Boudih, #1155)
 * Improve support for non-ActiveRecord apps by not loading ActiveRecord related
   settings in the generated `rails_helper`. (Aaron Kromer, #1150)
+* Remove Ruby warnings as a suggested configuration. (Aaron Kromer, #1163)
 
 Bug Fixes:
 
