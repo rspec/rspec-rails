@@ -70,6 +70,12 @@ generate('scaffold admin/account name:string') # scaffold with nested resource
 
 generate('controller things custom_action')
 
+begin
+  require 'active_job'
+  generate('job upload_backups')
+rescue LoadError
+end
+
 file "app/views/things/custom_action.html.erb",
      "This is a template for a custom action.",
      :force => true
