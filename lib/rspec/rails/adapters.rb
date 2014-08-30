@@ -121,7 +121,8 @@ module RSpec
         end
       end
 
-      def initialize
+      def initialize(*args)
+        super
         @example = nil
       end
 
