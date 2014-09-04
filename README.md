@@ -102,7 +102,7 @@ Use model specs to describe behavior of models (usually ActiveRecord-based) in
 the application.
 
 Model specs default to residing in the `spec/models` folder. Tagging any
-context with the metadata `:type => :model` treats it's examples as model
+context with the metadata `:type => :model` treats its examples as model
 specs.
 
 For example:
@@ -128,7 +128,7 @@ specs](https://www.relishapp.com/rspec/rspec-rails/docs/model-specs).
 Use controller specs to describe behavior of Rails controllers.
 
 Controller specs default to residing in the `spec/controllers` folder. Tagging
-any context with the metadata `:type => :controller` treats it's examples as
+any context with the metadata `:type => :controller` treats its examples as
 controller specs.
 
 For example:
@@ -177,7 +177,7 @@ end using a black box approach.
 
 Request specs default to residing in the `spec/requests`, `spec/api`, and
 `spec/integration` directories. Tagging any context with the metadata `:type =>
-:request` treats it's examples as request specs.
+:request` treats its examples as request specs.
 
 Request specs mix in behavior from
 [ActionDispatch::Integration::Runner](http://api.rubyonrails.org/classes/ActionDispatch/Integration/Runner.html),
@@ -247,7 +247,7 @@ Feature specs test your application from the outside by simulating a browser.
 simulated browser.
 
 Feature specs default to residing in the `spec/features` folder. Tagging any
-context with the metadata `:type => :feature` treats it's examples as feature
+context with the metadata `:type => :feature` treats its examples as feature
 specs.
 
 Feature specs mix in functionality from the capybara gem, thus they require
@@ -263,7 +263,7 @@ specs](https://www.relishapp.com/rspec/rspec-rails/v/3-0/docs/feature-specs/feat
 ## View specs
 
 View specs default to residing in the `spec/views` folder. Tagging any context
-with the metadata `:type => :view` treats it's examples as view specs.
+with the metadata `:type => :view` treats its examples as view specs.
 
 View specs mix in `ActionView::TestCase::Behavior`.
 
@@ -370,7 +370,7 @@ expect(rendered).to xxx
 ## Routing specs
 
 Routing specs default to residing in the `spec/routing` folder. Tagging any
-context with the metadata `:type => :routing` treats it's examples as routing
+context with the metadata `:type => :routing` treats its examples as routing
 specs.
 
 ```ruby
@@ -399,7 +399,7 @@ instead.
 ## Helper specs
 
 Helper specs default to residing in the `spec/helpers` folder. Tagging any
-context with the metadata `:type => :helper` treats it's examples as helper
+context with the metadata `:type => :helper` treats its examples as helper
 specs.
 
 Helper specs mix in ActionView::TestCase::Behavior. A `helper` object is
