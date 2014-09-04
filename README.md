@@ -370,7 +370,7 @@ expect(rendered).to xxx
 ## Routing specs
 
 Routing specs default to residing in the `spec/routing` folder. Tagging any
-context with the metadata `:type => :routing` treats it's examples as routing
+context with the metadata `:type => :routing` treats its examples as routing
 specs.
 
 ```ruby
