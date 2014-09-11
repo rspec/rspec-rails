@@ -1,8 +1,9 @@
 require 'spec_helper'
+require 'pathname'
 
 RSpec.describe "Verify required rspec dependencies" do
 
-  tmp_root = RSpec::Core::RubyProject.root.join("tmp")
+  tmp_root = Pathname.new(RSpec::Core::RubyProject.root).join("tmp")
 
   before{ FileUtils.mkdir_p tmp_root }
 
