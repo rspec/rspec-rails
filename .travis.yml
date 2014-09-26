@@ -2,6 +2,7 @@ language: ruby
 
 rvm:
   - 1.8.7
+  - 2.1.3
   - 2.1.2
   - 2.1.1
   - 2.1.0
@@ -44,6 +45,8 @@ matrix:
     - rvm: 2.1.1
       env: RAILS_VERSION='~> 3.0.20'
     - rvm: 2.1.2
+      env: RAILS_VERSION='~> 3.0.20'
+    - rvm: 2.1.3
       env: RAILS_VERSION='~> 3.0.20'
     # 4.x is not supported on MRI ruby-1.8.7 or 1.9.2
     - rvm: 1.8.7
