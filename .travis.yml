@@ -11,7 +11,7 @@ rvm:
   - 1.9.2
 
 env:
-  - RAILS_VERSION='~> 4.2.0.beta1'
+  - RAILS_VERSION='~> 4.2.0.beta2'
   - RAILS_VERSION=master
   - RAILS_VERSION='~> 4.1.0'
   - RAILS_VERSION=4-1-stable
@@ -66,9 +66,9 @@ matrix:
     - rvm: 1.9.2
       env: RAILS_VERSION=4-1-stable
     - rvm: 1.8.7
-      env: RAILS_VERSION='~> 4.2.0.beta1'
+      env: RAILS_VERSION='~> 4.2.0.beta2'
     - rvm: 1.9.2
-      env: RAILS_VERSION='~> 4.2.0.beta1'
+      env: RAILS_VERSION='~> 4.2.0.beta2'
     # master is not supported on MRI ruby-1.8.7 or 1.9.2
     - rvm: 1.8.7
       env: RAILS_VERSION=master
