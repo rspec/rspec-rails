@@ -16,6 +16,10 @@ module Rspec
           template "fixture", File.join("spec/fixtures", @path)
         end
       end
+
+      def generate_preview_files
+        template "preview.rb", File.join("spec/mailers/previews", class_path, "#{file_name}_preview.rb")
+      end
     end
   end
 end
