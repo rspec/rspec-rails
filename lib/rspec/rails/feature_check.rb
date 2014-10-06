@@ -29,6 +29,14 @@ module RSpec
       def has_active_record_migration?
         has_active_record? && defined?(::ActiveRecord::Migration)
       end
+
+      def has_action_mailer?
+        defined?(::ActionMailer)
+      end
+
+      def has_action_mailer_preview?
+        has_action_mailer? && defined?(::ActionMailer::Preview)
+      end
     end
     # rubocop:enable Style/IndentationConsistency
   end
