@@ -54,7 +54,7 @@ RSpec.describe Rspec::Generators::InstallGenerator, :type => :generator do
   end
 
   context "generates spec/rails_helper.rb" do
-    specify "requiring respec/rails" do
+    specify "requiring rspec/rails" do
       run_generator
       expect(rails_helper).to require_rspec_rails
     end
@@ -92,7 +92,7 @@ RSpec.describe Rspec::Generators::InstallGenerator, :type => :generator do
       hide_const("ActiveRecord")
     end
 
-    it "requires respec/rails" do
+    it "requires rspec/rails" do
       run_generator
       expect(rails_helper).to require_rspec_rails
     end
