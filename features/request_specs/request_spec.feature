@@ -4,6 +4,9 @@ Feature: request spec
   designed to drive behavior through the full stack, including routing
   (provided by Rails) and without stubbing (that's up to you).
 
+  Request specs are marked by `:type => :request` or if you have set
+  `config.infer_spec_type_from_file_location!` by placing them in `spec/requests`.
+
   With request specs, you can:
 
   * specify a single request
@@ -28,7 +31,7 @@ Feature: request spec
       """ruby
       require "rails_helper"
 
-      RSpec.describe "Widget management" do
+      RSpec.describe "Widget management", :type => :request do
 
         it "creates a Widget and redirects to the Widget's page" do
           get "/widgets/new"
