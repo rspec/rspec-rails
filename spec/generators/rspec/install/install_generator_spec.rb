@@ -32,10 +32,33 @@ RSpec.describe Rspec::Generators::InstallGenerator, :type => :generator do
     match(/config\.use_transactional_fixtures/m)
   end
 
-  before { prepare_destination }
+  def add_preview_path
+    match(/config\.action_mailer.preview_path/m)
+  end
+
+  def create_configuration_file
+    FileUtils.mkdir_p("#{destination_root}/config/environments/")
+    open("#{destination_root}/config/environments/development.rb", 'w') do |f|
+      conf = if ::Rails.version.to_f < 4.1
+        'ExampleApp::Application.configure do'
+      else
+        'Rails.application.configure do'
+      end
+      f.write <<-EOT
+        #{conf}
+        end
+      EOT
+    end
+  end
+
+  before do
+    prepare_destination
+    create_configuration_file
+  end
 
   let(:rails_helper) { content_for('spec/rails_helper.rb') }
   let(:spec_helper) { content_for('spec/spec_helper.rb') }
+  let(:developmentrb) { content_for('config/environments/development.rb')  }
 
   it "generates .rspec" do
     run_generator
@@ -51,6 +74,11 @@ RSpec.describe Rspec::Generators::InstallGenerator, :type => :generator do
   it "does not configure warnings in the spec/spec_helper.rb" do
     run_generator
     expect(spec_helper).not_to match(/\bconfig.warnings\b/m)
+  end
+
+  it 'adds configuration for mailer preview in development.rb' do
+    run_generator
+    expect(developmentrb).to add_preview_path
   end
 
   context "generates spec/rails_helper.rb" do
