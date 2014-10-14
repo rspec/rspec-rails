@@ -203,7 +203,7 @@ RSpec.describe "home page", :type => :request do
 end
 ```
 
-The above example uses only standard Rails and RSpec API's, but many
+The above example uses only standard Rails and RSpec APIs, but many
 RSpec/Rails users like to use extension libraries like
 [FactoryGirl](https://github.com/thoughtbot/factory_girl) and
 [Capybara](https://github.com/jnicklas/capybara):
