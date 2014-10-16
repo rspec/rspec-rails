@@ -5,6 +5,9 @@ Feature: feature spec
   through an application. They should drive the application only via its
   external interface, usually web pages.
 
+  Feature specs are marked by `:type => :feature` or if you have set
+  `config.infer_spec_type_from_file_location!` by placing them in `spec/features`.
+
   Feature specs require the [capybara](http://github.com/jnicklas/capybara)
   gem, version 2.2.0 or later (we recommend 2.3.0 or later to avoid some
   deprecation warnings). Refer to the [capybara API
@@ -14,7 +17,8 @@ Feature: feature spec
   The `feature` and `scenario` DSL correspond to `describe` and `it`,
   respectively. These methods are simply aliases that allow feature specs to
   read more as [customer tests](http://c2.com/cgi/wiki?CustomerTest) and
-  [acceptance tests](http://c2.com/cgi/wiki?AcceptanceTest).
+  [acceptance tests](http://c2.com/cgi/wiki?AcceptanceTest). They set
+  `:type => :feature` automatically for you.
 
   Scenario: specify creating a Widget by driving the application with capybara
     Given a file named "spec/features/widget_management_spec.rb" with:
