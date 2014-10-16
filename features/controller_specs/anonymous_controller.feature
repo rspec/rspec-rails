@@ -20,7 +20,7 @@ Feature: anonymous controller
     c.infer_base_class_for_anonymous_controllers = false
   end
 
-  RSpec.describe BaseController do
+  RSpec.describe BaseController, :type => :controller do
     controller do
       def index; end
 
@@ -48,7 +48,7 @@ Feature: anonymous controller
         end
       end
 
-      RSpec.describe ApplicationController do
+      RSpec.describe ApplicationController, :type => :controller do
         controller do
           def index
             raise ApplicationController::AccessDenied
@@ -86,7 +86,7 @@ Feature: anonymous controller
         end
       end
 
-      RSpec.describe ApplicationControllerSubclass do
+      RSpec.describe ApplicationControllerSubclass, :type => :controller do
         controller(ApplicationControllerSubclass) do
           def index
             raise ApplicationController::AccessDenied
@@ -113,7 +113,7 @@ Feature: anonymous controller
 
       class ApplicationControllerSubclass < ApplicationController; end
 
-      RSpec.describe ApplicationControllerSubclass do
+      RSpec.describe ApplicationControllerSubclass, :type => :controller do
         controller do
           def index
             render :text => "Hello World"
@@ -136,7 +136,7 @@ Feature: anonymous controller
       class ApplicationController < ActionController::Base; end
       class FoosController < ApplicationController; end
 
-      RSpec.describe "FoosController controller_name" do
+      RSpec.describe "FoosController controller_name", :type => :controller do
         controller FoosController do
           def index
             @name = self.class.name
@@ -175,7 +175,7 @@ Feature: anonymous controller
         end
       end
 
-      RSpec.describe ApplicationController do
+      RSpec.describe ApplicationController, :type => :controller do
         controller do
           def index
             render :nothing => true
@@ -197,7 +197,7 @@ Feature: anonymous controller
       """ruby
       require "rails_helper"
 
-      RSpec.describe ApplicationController do
+      RSpec.describe ApplicationController, :type => :controller do
         controller do
           def index
             render :text => "index called"
@@ -375,7 +375,7 @@ Feature: anonymous controller
       """ruby
       require "rails_helper"
 
-      RSpec.describe ApplicationController do
+      RSpec.describe ApplicationController, :type => :controller do
         controller do
           def custom
             render :text => "custom called"
@@ -400,7 +400,7 @@ Feature: anonymous controller
 
       class FoosController < ApplicationController; end
 
-      RSpec.describe ApplicationController do
+      RSpec.describe ApplicationController, :type => :controller do
         controller FoosController do
           def custom
             render :text => "custom called"
@@ -430,7 +430,7 @@ Feature: anonymous controller
         end
       end
 
-      RSpec.describe TopLevel::InnerSpace::FoosController do
+      RSpec.describe TopLevel::InnerSpace::FoosController, :type => :controller do
         controller do
           def index
             @name = self.class.name
@@ -466,7 +466,7 @@ Feature: anonymous controller
         match "/login" => "sessions#new", :as => "login", :via => "get"
       end
 
-      RSpec.describe ApplicationController do
+      RSpec.describe ApplicationController, :type => :controller do
         controller do
           def index
             redirect_to login_url

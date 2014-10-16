@@ -9,7 +9,7 @@ behavior and expectations.
 
     require "rails_helper"
 
-    RSpec.describe Post do
+    RSpec.describe Post, :type => :model do
       context "with 2 or more comments" do
         it "orders them in reverse chronologically" do
           post = Post.create!

@@ -5,7 +5,7 @@ Feature: controller spec
       """ruby
       require "rails_helper"
 
-      RSpec.describe WidgetsController do
+      RSpec.describe WidgetsController, :type => :controller do
         describe "GET index" do
           it "has a 200 status code" do
             get :index
@@ -24,7 +24,7 @@ Feature: controller spec
 
       RSpec.configure {|c| c.before { expect(controller).not_to be_nil }}
 
-      RSpec.describe WidgetsController do
+      RSpec.describe WidgetsController, :type => :controller do
         describe "GET index" do
           it "doesn't matter" do
           end
@@ -46,7 +46,7 @@ Feature: controller spec
 
       RSpec.configure {|c| c.include MyHelper }
 
-      RSpec.describe WidgetsController do
+      RSpec.describe WidgetsController, :type => :controller do
         let(:my_variable) { 'is a value' }
 
         describe 'something' do

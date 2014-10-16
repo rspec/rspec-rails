@@ -18,7 +18,7 @@ Feature: helper spec
       """ruby
       require "rails_helper"
 
-      RSpec.describe ApplicationHelper do
+      RSpec.describe ApplicationHelper, :type => :helper do
         describe "#page_title" do
           it "returns the default title" do
             expect(helper.page_title).to eq("RSpec is your friend")
@@ -42,7 +42,7 @@ Feature: helper spec
       """ruby
       require "rails_helper"
 
-      RSpec.describe ApplicationHelper do
+      RSpec.describe ApplicationHelper, :type => :helper do
         describe "#page_title" do
           it "returns the instance variable" do
             assign(:title, "My Title")
@@ -67,7 +67,7 @@ Feature: helper spec
       """ruby
       require "rails_helper"
 
-      RSpec.describe WidgetsHelper do
+      RSpec.describe WidgetsHelper, :type => :helper do
         describe "#widget_title" do
           it "includes the app name" do
             assign(:title, "This Widget")
@@ -100,7 +100,7 @@ Feature: helper spec
       """ruby
       require "rails_helper"
 
-      RSpec.describe WidgetsHelper do
+      RSpec.describe WidgetsHelper, :type => :helper do
         describe "#link_to_widget" do
           it "links to a widget using its name" do
             widget = Widget.create!(:name => "This Widget")
