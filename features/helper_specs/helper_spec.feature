@@ -1,7 +1,7 @@
 Feature: helper spec
 
-  Helper specs live in `spec/helpers`, or any example group with `:type =>
-  :helper`.
+  Helper specs are marked by `:type => :helper` or if you have set
+  `config.infer_spec_type_from_file_location!` by placing them in `spec/helpers`.
 
   Helper specs expose a `helper` object, which includes the helper module being
   specified, the `ApplicationHelper` module (if there is one) and all of the

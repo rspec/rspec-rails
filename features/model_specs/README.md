@@ -1,5 +1,5 @@
-Model specs live in `spec/models` or any example group with
-`:type => :model`.
+Model specs are marked by `:type => :model` or if you have set
+`config.infer_spec_type_from_file_location!` by placing them in `spec/models`.
 
 A model spec is a thin wrapper for an ActiveSupport::TestCase, and includes all
 of the behavior and assertions that it provides, in addition to RSpec's own
