@@ -1,5 +1,5 @@
-Model specs live in `spec/models` or any example group with
-`:type => :model`.
+Model specs are marked by `:type => :model` or if you have set
+`config.infer_spec_type_from_file_location!` by placing them in `spec/models`.
 
 A model spec is a thin wrapper for an ActiveSupport::TestCase, and includes all
 of the behavior and assertions that it provides, in addition to RSpec's own
@@ -9,7 +9,7 @@ behavior and expectations.
 
     require "rails_helper"
 
-    RSpec.describe Post do
+    RSpec.describe Post, :type => :model do
       context "with 2 or more comments" do
         it "orders them in reverse chronologically" do
           post = Post.create!

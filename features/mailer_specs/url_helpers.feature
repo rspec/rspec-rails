@@ -1,5 +1,8 @@
 Feature: URL helpers in mailer examples
 
+  Mailer specs are marked by `:type => :mailer` or if you have set
+  `config.infer_spec_type_from_file_location!` by placing them in `spec/mailer`.
+
   Scenario: using URL helpers with default options
     Given a file named "config/initializers/mailer_defaults.rb" with:
       """ruby
@@ -9,7 +12,7 @@ Feature: URL helpers in mailer examples
       """ruby
       require 'rails_helper'
 
-      RSpec.describe Notifications do
+      RSpec.describe Notifications, :type => :mailer do
         it 'should have access to URL helpers' do
           expect { gadgets_url }.not_to raise_error
         end
@@ -27,7 +30,7 @@ Feature: URL helpers in mailer examples
       """ruby
       require 'rails_helper'
 
-      RSpec.describe Notifications do
+      RSpec.describe Notifications, :type => :mailer do
         it 'should have access to URL helpers' do
           expect { gadgets_url :host => 'example.com' }.not_to raise_error
           expect { gadgets_url }.to raise_error
