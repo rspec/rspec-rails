@@ -1,4 +1,4 @@
-# This file was generated on 2014-09-26T16:56:14+10:00 from the rspec-dev repo.
+# This file was generated on 2014-10-29T23:56:23-07:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 # idea taken from: http://blog.headius.com/2010/03/jruby-startup-time-tips.html
@@ -27,6 +27,47 @@ travis_retry() {
   }
 
   return $result
+}
+
+# Taken from https://github.com/vcr/vcr/commit/fa96819c92b783ec0c794f788183e170e4f684b2
+# and https://github.com/vcr/vcr/commit/040aaac5370c68cd13c847c076749cd547a6f9b1
+nano_cmd="$(type -p gdate date | head -1)"
+nano_format="+%s%N"
+[ "$(uname -s)" != "Darwin" ] || nano_format="${nano_format/%N/000000000}"
+
+travis_time_start() {
+  travis_timer_id=$(printf %08x $(( RANDOM * RANDOM )))
+  travis_start_time=$($nano_cmd -u "$nano_format")
+  printf "travis_time:start:%s\r\e[0m" $travis_timer_id
+}
+
+travis_time_finish() {
+  local travis_end_time=$($nano_cmd -u "$nano_format")
+  local duration=$(($travis_end_time-$travis_start_time))
+  printf "travis_time:end:%s:start=%s,finish=%s,duration=%s\r\e[0m" \
+    $travis_timer_id $travis_start_time $travis_end_time $duration
+}
+
+fold() {
+  local name="$1"
+  local status=0
+  shift 1
+  if [ -n "$TRAVIS" ]; then
+    printf "travis_fold:start:%s\r\e[0m" "$name"
+    travis_time_start
+  fi
+
+  "$@" || status=$?
+
+  [ -z "$TRAVIS" ] || travis_time_finish
+
+  if [ "$status" -eq 0 ]; then
+    if [ -n "$TRAVIS" ]; then
+      printf "travis_fold:end:%s\r\e[0m" "$name"
+    fi
+  else
+    STATUS="$status"
+  fi
 }
 
 function is_mri {
@@ -140,12 +181,18 @@ function run_spec_suite_for {
 function check_documentation_coverage {
   bin/yard stats --list-undoc | ruby -e "
     while line = gets
+      has_warnings ||= line.start_with?('[warn]:')
       coverage ||= line[/([\d\.]+)% documented/, 1]
       puts line
     end
 
     unless Float(coverage) == 100
       puts \"\n\nMissing documentation coverage (currently at #{coverage}%)\"
+      exit(1)
+    end
+
+    if has_warnings
+      puts \"\n\nYARD emitted documentation warnings.\"
       exit(1)
     end
   "
@@ -156,13 +203,13 @@ function check_style_and_lint {
 }
 
 function run_all_spec_suites {
-  run_specs_one_by_one
-  run_spec_suite_for "rspec-core"
-  run_spec_suite_for "rspec-expectations"
-  run_spec_suite_for "rspec-mocks"
-  run_spec_suite_for "rspec-rails"
+  fold "one-by-one specs" run_specs_one_by_one
+  fold "rspec-core specs" run_spec_suite_for "rspec-core"
+  fold "rspec-expectations specs" run_spec_suite_for "rspec-expectations"
+  fold "rspec-mocks specs" run_spec_suite_for "rspec-mocks"
+  fold "rspec-rails specs" run_spec_suite_for "rspec-rails"
 
   if rspec_support_compatible; then
-    run_spec_suite_for "rspec-support"
+    fold "rspec-support specs" run_spec_suite_for "rspec-support"
   fi
 }
