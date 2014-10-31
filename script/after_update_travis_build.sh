@@ -1,3 +1,5 @@
 #!/bin/bash
-set -e -x
+set -e
+
+echo "Restoring custom Travis config"
 mv .travis.yml{.update_backup,}
