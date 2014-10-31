@@ -8,5 +8,5 @@ function run_cukes {
 # Since we are already implicitly testing them we do not need to run their spec
 # suites explicitly.
 function run_all_spec_suites {
-  run_specs_one_by_one
+  fold "one-by-one specs" run_specs_one_by_one
 }

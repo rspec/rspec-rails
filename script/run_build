@@ -1,8 +1,8 @@
 #!/bin/bash
-# This file was generated on 2014-09-26T16:56:14+10:00 from the rspec-dev repo.
+# This file was generated on 2014-10-30T08:23:40-07:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
-set -e -x
+set -e
 source script/functions.sh
 
 # Allow repos to override the default functions and add their own
@@ -10,15 +10,15 @@ if [ -f script/custom_build_functions.sh ]; then
   source script/custom_build_functions.sh
 fi
 
-run_specs_and_record_done
-run_cukes
+fold "specs" run_specs_and_record_done
+fold "cukes" run_cukes
 
 if documentation_enforced; then
-  check_documentation_coverage
+  fold "doc check" check_documentation_coverage
 fi
 
 if style_and_lint_enforced; then
-  check_style_and_lint
+  fold "rubocop" check_style_and_lint
 fi
 
 if is_mri; then

@@ -1,79 +1,13 @@
-# This file was generated on 2014-09-26T16:56:14+10:00 from the rspec-dev repo.
+# This file was generated on 2014-10-30T08:23:40-07:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
+
+source script/travis_functions.sh
+source script/predicate_functions.sh
 
 # idea taken from: http://blog.headius.com/2010/03/jruby-startup-time-tips.html
 export JRUBY_OPTS="${JRUBY_OPTS} -X-C" # disable JIT since these processes are so short lived
 SPECS_HAVE_RUN_FILE=specs.out
 MAINTENANCE_BRANCH=`cat maintenance-branch`
-
-# Taken from:
-# https://github.com/travis-ci/travis-build/blob/e9314616e182a23e6a280199cd9070bfc7cae548/lib/travis/build/script/templates/header.sh#L34-L53
-travis_retry() {
-  local result=0
-  local count=1
-  while [ $count -le 3 ]; do
-    [ $result -ne 0 ] && {
-      echo -e "\n\033[33;1mThe command \"$@\" failed. Retrying, $count of 3.\033[0m\n" >&2
-    }
-    "$@"
-    result=$?
-    [ $result -eq 0 ] && break
-    count=$(($count + 1))
-    sleep 1
-  done
-
-  [ $count -eq 3 ] && {
-    echo "\n\033[33;1mThe command \"$@\" failed 3 times.\033[0m\n" >&2
-  }
-
-  return $result
-}
-
-function is_mri {
-  if ruby -e "exit(!defined?(RUBY_ENGINE) || RUBY_ENGINE == 'ruby')"; then
-    # RUBY_ENGINE only returns 'ruby' on MRI.
-    # MRI 1.8.7 lacks the constant but all other rubies have it (including JRuby in 1.8 mode)
-    return 0
-  else
-    return 1
-  fi;
-}
-
-function is_mri_192 {
-  if is_mri; then
-    if ruby -e "exit(RUBY_VERSION == '1.9.2')"; then
-      return 0
-    else
-      return 1
-    fi
-  else
-    return 1
-  fi
-}
-
-function rspec_support_compatible {
-  if [ "$MAINTENANCE_BRANCH" != "2-99-maintenance" ] && [ "$MAINTENANCE_BRANCH" != "2-14-maintenance" ]; then
-    return 0
-  else
-    return 1
-  fi
-}
-
-function documentation_enforced {
-  if [ -x ./bin/yard ]; then
-    return 0
-  else
-    return 1
-  fi
-}
-
-function style_and_lint_enforced {
- if [ -x ./bin/rubocop ]; then
-   return 0
- else
-   return 1
- fi
-}
 
 function clone_repo {
   if [ ! -d $1 ]; then # don't clone if the dir is already there
@@ -90,6 +24,7 @@ function run_specs_and_record_done {
     rspec_bin=script/rspec_with_simplecov
   fi;
 
+  echo "${PWD}/bin/rspec"
   $rspec_bin spec --backtrace --format progress --profile --format progress --out $SPECS_HAVE_RUN_FILE
 }
 
@@ -101,6 +36,8 @@ function run_cukes {
     # Note that we delay setting this until we run the cukes because we've seen
     # spec failures in our spec suite due to problems with this mode.
     export JAVA_OPTS='-client -XX:+TieredCompilation -XX:TieredStopAtLevel=1'
+
+    echo "${PWD}/bin/cucumber"
 
     if is_mri_192; then
       # For some reason we get SystemStackError on 1.9.2 when using
@@ -118,6 +55,8 @@ function run_cukes {
 }
 
 function run_specs_one_by_one {
+  echo "Running each spec file, one-by-one..."
+
   for file in `find spec -iname '*_spec.rb'`; do
     bin/rspec $file -b --format progress
   done
@@ -125,10 +64,8 @@ function run_specs_one_by_one {
 
 function run_spec_suite_for {
   if [ ! -f ../$1/$SPECS_HAVE_RUN_FILE ]; then # don't rerun specs that have already run
-    pushd ../$1
-    echo
     echo "Running specs for $1"
-    echo
+    pushd ../$1
     unset BUNDLE_GEMFILE
     bundle_install_flags=`cat .travis.yml | grep bundler_args | tr -d '"' | grep -o " .*"`
     travis_retry eval "bundle install $bundle_install_flags"
@@ -138,8 +75,11 @@ function run_spec_suite_for {
 }
 
 function check_documentation_coverage {
+  echo "bin/yard stats --list-undoc"
+
   bin/yard stats --list-undoc | ruby -e "
     while line = gets
+      has_warnings ||= line.start_with?('[warn]:')
       coverage ||= line[/([\d\.]+)% documented/, 1]
       puts line
     end
@@ -148,21 +88,27 @@ function check_documentation_coverage {
       puts \"\n\nMissing documentation coverage (currently at #{coverage}%)\"
       exit(1)
     end
+
+    if has_warnings
+      puts \"\n\nYARD emitted documentation warnings.\"
+      exit(1)
+    end
   "
 }
 
 function check_style_and_lint {
+  echo "bin/rubucop lib"
   bin/rubocop lib
 }
 
 function run_all_spec_suites {
-  run_specs_one_by_one
-  run_spec_suite_for "rspec-core"
-  run_spec_suite_for "rspec-expectations"
-  run_spec_suite_for "rspec-mocks"
-  run_spec_suite_for "rspec-rails"
+  fold "one-by-one specs" run_specs_one_by_one
+  fold "rspec-core specs" run_spec_suite_for "rspec-core"
+  fold "rspec-expectations specs" run_spec_suite_for "rspec-expectations"
+  fold "rspec-mocks specs" run_spec_suite_for "rspec-mocks"
+  fold "rspec-rails specs" run_spec_suite_for "rspec-rails"
 
   if rspec_support_compatible; then
-    run_spec_suite_for "rspec-support"
+    fold "rspec-support specs" run_spec_suite_for "rspec-support"
   fi
 }
