@@ -71,7 +71,7 @@ RSpec.describe <%= controller_class_name %>Controller, :type => :controller do
   end
 
   describe "POST create" do
-    describe "with valid params" do
+    context "with valid params" do
       it "creates a new <%= class_name %>" do
         expect {
           post :create, {:<%= ns_file_name %> => valid_attributes}, valid_session
@@ -90,7 +90,7 @@ RSpec.describe <%= controller_class_name %>Controller, :type => :controller do
       end
     end
 
-    describe "with invalid params" do
+    context "with invalid params" do
       it "assigns a newly created but unsaved <%= ns_file_name %> as @<%= ns_file_name %>" do
         post :create, {:<%= ns_file_name %> => invalid_attributes}, valid_session
         expect(assigns(:<%= ns_file_name %>)).to be_a_new(<%= class_name %>)
@@ -104,7 +104,7 @@ RSpec.describe <%= controller_class_name %>Controller, :type => :controller do
   end
 
   describe "PUT update" do
-    describe "with valid params" do
+    context "with valid params" do
       let(:new_attributes) {
         skip("Add a hash of attributes valid for your model")
       }
@@ -129,7 +129,7 @@ RSpec.describe <%= controller_class_name %>Controller, :type => :controller do
       end
     end
 
-    describe "with invalid params" do
+    context "with invalid params" do
       it "assigns the <%= ns_file_name %> as @<%= ns_file_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => invalid_attributes}, valid_session
