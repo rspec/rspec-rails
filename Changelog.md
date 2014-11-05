@@ -10,6 +10,7 @@ Enhancements:
 * Improve support for non-ActiveRecord apps by not loading ActiveRecord related
   settings in the generated `rails_helper`. (Aaron Kromer, #1150)
 * Remove Ruby warnings as a suggested configuration. (Aaron Kromer, #1163)
+* Improve the semantics of the controller spec for scaffolds. (Griffin Smith, #1204)
 
 Bug Fixes:
 
