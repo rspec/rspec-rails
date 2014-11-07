@@ -11,6 +11,7 @@ Enhancements:
   settings in the generated `rails_helper`. (Aaron Kromer, #1150)
 * Remove Ruby warnings as a suggested configuration. (Aaron Kromer, #1163)
 * Improve the semantics of the controller spec for scaffolds. (Griffin Smith, #1204)
+* Use `#method` syntax in all generated controller specs. (Griffin Smith, #1206)
 
 Bug Fixes:
 
