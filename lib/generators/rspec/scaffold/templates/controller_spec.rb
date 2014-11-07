@@ -38,7 +38,7 @@ RSpec.describe <%= controller_class_name %>Controller, :type => :controller do
   let(:valid_session) { {} }
 
 <% unless options[:singleton] -%>
-  describe "GET index" do
+  describe "GET #index" do
     it "assigns all <%= table_name.pluralize %> as @<%= table_name.pluralize %>" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
       get :index, {}, valid_session
@@ -47,7 +47,7 @@ RSpec.describe <%= controller_class_name %>Controller, :type => :controller do
   end
 
 <% end -%>
-  describe "GET show" do
+  describe "GET #show" do
     it "assigns the requested <%= ns_file_name %> as @<%= ns_file_name %>" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
       get :show, {:id => <%= file_name %>.to_param}, valid_session
@@ -55,14 +55,14 @@ RSpec.describe <%= controller_class_name %>Controller, :type => :controller do
     end
   end
 
-  describe "GET new" do
+  describe "GET #new" do
     it "assigns a new <%= ns_file_name %> as @<%= ns_file_name %>" do
       get :new, {}, valid_session
       expect(assigns(:<%= ns_file_name %>)).to be_a_new(<%= class_name %>)
     end
   end
 
-  describe "GET edit" do
+  describe "GET #edit" do
     it "assigns the requested <%= ns_file_name %> as @<%= ns_file_name %>" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
       get :edit, {:id => <%= file_name %>.to_param}, valid_session
@@ -70,7 +70,7 @@ RSpec.describe <%= controller_class_name %>Controller, :type => :controller do
     end
   end
 
-  describe "POST create" do
+  describe "POST #create" do
     context "with valid params" do
       it "creates a new <%= class_name %>" do
         expect {
@@ -103,7 +103,7 @@ RSpec.describe <%= controller_class_name %>Controller, :type => :controller do
     end
   end
 
-  describe "PUT update" do
+  describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
         skip("Add a hash of attributes valid for your model")
@@ -144,7 +144,7 @@ RSpec.describe <%= controller_class_name %>Controller, :type => :controller do
     end
   end
 
-  describe "DELETE destroy" do
+  describe "DELETE #destroy" do
     it "destroys the requested <%= ns_file_name %>" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
       expect {
