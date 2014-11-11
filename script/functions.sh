@@ -1,4 +1,4 @@
-# This file was generated on 2014-10-30T08:23:40-07:00 from the rspec-dev repo.
+# This file was generated on 2014-11-10T23:52:07-08:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 source script/travis_functions.sh
@@ -11,7 +11,7 @@ MAINTENANCE_BRANCH=`cat maintenance-branch`
 
 function clone_repo {
   if [ ! -d $1 ]; then # don't clone if the dir is already there
-    travis_retry eval "git clone git://github.com/rspec/$1 --depth 1 --branch $MAINTENANCE_BRANCH"
+    fold "cloning $1" travis_retry eval "git clone git://github.com/rspec/$1 --depth 1 --branch $MAINTENANCE_BRANCH"
   fi;
 }
 
@@ -24,7 +24,6 @@ function run_specs_and_record_done {
     rspec_bin=script/rspec_with_simplecov
   fi;
 
-  echo "${PWD}/bin/rspec"
   $rspec_bin spec --backtrace --format progress --profile --format progress --out $SPECS_HAVE_RUN_FILE
 }
 
@@ -36,8 +35,6 @@ function run_cukes {
     # Note that we delay setting this until we run the cukes because we've seen
     # spec failures in our spec suite due to problems with this mode.
     export JAVA_OPTS='-client -XX:+TieredCompilation -XX:TieredStopAtLevel=1'
-
-    echo "${PWD}/bin/cucumber"
 
     if is_mri_192; then
       # For some reason we get SystemStackError on 1.9.2 when using
@@ -55,8 +52,6 @@ function run_cukes {
 }
 
 function run_specs_one_by_one {
-  echo "Running each spec file, one-by-one..."
-
   for file in `find spec -iname '*_spec.rb'`; do
     bin/rspec $file -b --format progress
   done
@@ -64,8 +59,10 @@ function run_specs_one_by_one {
 
 function run_spec_suite_for {
   if [ ! -f ../$1/$SPECS_HAVE_RUN_FILE ]; then # don't rerun specs that have already run
-    echo "Running specs for $1"
     pushd ../$1
+    echo
+    echo "Running specs for $1"
+    echo
     unset BUNDLE_GEMFILE
     bundle_install_flags=`cat .travis.yml | grep bundler_args | tr -d '"' | grep -o " .*"`
     travis_retry eval "bundle install $bundle_install_flags"
@@ -75,8 +72,6 @@ function run_spec_suite_for {
 }
 
 function check_documentation_coverage {
-  echo "bin/yard stats --list-undoc"
-
   bin/yard stats --list-undoc | ruby -e "
     while line = gets
       has_warnings ||= line.start_with?('[warn]:')
@@ -97,7 +92,6 @@ function check_documentation_coverage {
 }
 
 function check_style_and_lint {
-  echo "bin/rubucop lib"
   bin/rubocop lib
 }
 
