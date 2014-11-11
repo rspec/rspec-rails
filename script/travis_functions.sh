@@ -1,4 +1,4 @@
-# This file was generated on 2014-10-30T08:23:40-07:00 from the rspec-dev repo.
+# This file was generated on 2014-11-11T00:06:26-08:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 # Taken from:
@@ -63,4 +63,6 @@ fold() {
   else
     STATUS="$status"
   fi
+
+  return $status
 }
