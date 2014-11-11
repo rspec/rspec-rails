@@ -1,4 +1,4 @@
-# This file was generated on 2014-10-30T08:23:40-07:00 from the rspec-dev repo.
+# This file was generated on 2014-11-11T00:06:26-08:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 source script/travis_functions.sh
@@ -11,7 +11,7 @@ MAINTENANCE_BRANCH=`cat maintenance-branch`
 
 function clone_repo {
   if [ ! -d $1 ]; then # don't clone if the dir is already there
-    travis_retry eval "git clone git://github.com/rspec/$1 --depth 1 --branch $MAINTENANCE_BRANCH"
+    fold "cloning $1" travis_retry eval "git clone git://github.com/rspec/$1 --depth 1 --branch $MAINTENANCE_BRANCH"
   fi;
 }
 
@@ -87,6 +87,19 @@ function check_documentation_coverage {
     unless Float(coverage) == 100
       puts \"\n\nMissing documentation coverage (currently at #{coverage}%)\"
       exit(1)
+    end
+
+    if has_warnings
+      puts \"\n\nYARD emitted documentation warnings.\"
+      exit(1)
+    end
+  "
+
+  # Some warnings only show up when generating docs, so do that as well.
+  bin/yard doc --no-cache | ruby -e "
+    while line = gets
+      has_warnings ||= line.start_with?('[warn]:')
+      puts line
     end
 
     if has_warnings
