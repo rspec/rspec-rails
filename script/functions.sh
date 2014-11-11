@@ -1,4 +1,4 @@
-# This file was generated on 2014-10-30T08:23:40-07:00 from the rspec-dev repo.
+# This file was generated on 2014-11-11T10:28:08-08:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 source script/travis_functions.sh
@@ -91,6 +91,20 @@ function check_documentation_coverage {
 
     if has_warnings
       puts \"\n\nYARD emitted documentation warnings.\"
+      exit(1)
+    end
+  "
+
+  # Some warnings only show up when generating docs, so do that as well.
+  bin/yard doc --no-cache | ruby -e "
+    while line = gets
+      has_warnings ||= line.start_with?('[warn]:')
+      has_errors   ||= line.start_with?('[error]:')
+      puts line
+    end
+
+    if has_warnings || has_errors
+      puts \"\n\nYARD emitted documentation warnings or errors.\"
       exit(1)
     end
   "
