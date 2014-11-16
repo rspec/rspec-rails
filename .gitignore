@@ -10,7 +10,7 @@ bin
 *.rbc
 .yardoc
 .bundle
-.rails-version
+.rails-version*
 .DS_Store
 Gemfile-custom
 .rbenv-version
@@ -19,3 +19,4 @@ Gemfile-custom
 /.ruby-version
 bundle
 .bundle
+specs.out
