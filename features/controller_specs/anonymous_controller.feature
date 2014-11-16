@@ -291,7 +291,7 @@ Feature: anonymous controller
           end
 
           it "requires the :id parameter" do
-            expect { get :edit }.to raise_error(ActionController::RoutingError)
+            expect { get :edit }.to raise_error(ActionController::UrlGenerationError)
           end
 
           # And the rest...
@@ -310,7 +310,7 @@ Feature: anonymous controller
           end
 
           it "requires the :id parameter" do
-            expect { get :show }.to raise_error(ActionController::RoutingError)
+            expect { get :show }.to raise_error(ActionController::UrlGenerationError)
           end
 
           # And the rest...
@@ -329,7 +329,7 @@ Feature: anonymous controller
           end
 
           it "requires the :id parameter" do
-            expect { put :update }.to raise_error(ActionController::RoutingError)
+            expect { put :update }.to raise_error(ActionController::UrlGenerationError)
           end
 
           # And the rest...
@@ -348,7 +348,7 @@ Feature: anonymous controller
           end
 
           it "requires the :id parameter" do
-            expect { delete :destroy }.to raise_error(ActionController::RoutingError)
+            expect { delete :destroy }.to raise_error(ActionController::UrlGenerationError)
           end
 
           # And the rest...
@@ -362,7 +362,7 @@ Feature: anonymous controller
 
         describe "#willerror" do
           it "cannot be called" do
-            expect { get :willerror }.to raise_error(ActionController::RoutingError)
+            expect { get :willerror }.to raise_error(ActionController::UrlGenerationError)
           end
         end
       end
