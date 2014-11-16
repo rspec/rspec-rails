@@ -1,0 +1,33 @@
+# This file was generated on 2014-11-15T14:32:55+11:00 from the rspec-dev repo.
+# DO NOT modify it by hand as your changes will get lost the next time it is generated.
+
+version: "{build}"
+
+# This will build all PRs targetting matching branches.
+# Without this, each PR builds twice -- once for the PR branch HEAD,
+# and once for the merge commit that github creates for each mergable PR.
+branches:
+  only:
+    - master
+    - /.*-maintenance$/
+
+# Disable normal Windows builds in favor of our test script.
+build: off
+
+install:
+  - SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
+  - ruby --version
+  - gem --version
+  - gem install bundler
+  - bundler --version
+  - bundle install
+  - cinst ansicon
+
+test_script:
+  - bundle exec rspec
+
+environment:
+  matrix:
+    # ruby_version: '20' doesn't work for some reason
+    - ruby_version: '193'
+    - ruby_version: '21'
