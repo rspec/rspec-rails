@@ -198,6 +198,12 @@ Feature: anonymous controller
       """ruby
       require "rails_helper"
 
+      if defined?(ActionController::UrlGenerationError)
+        ExpectedRoutingError = ActionController::UrlGenerationError
+      else
+        ExpectedRoutingError = ActionController::RoutingError
+      end
+
       RSpec.describe ApplicationController, :type => :controller do
         controller do
           def index
@@ -292,9 +298,7 @@ Feature: anonymous controller
           end
 
           it "requires the :id parameter" do
-            expect { get :edit }.to raise_error(
-              ActionController::UrlGenerationError
-            )
+            expect { get :edit }.to raise_error(ExpectedRoutingError)
           end
 
           # And the rest...
@@ -313,9 +317,7 @@ Feature: anonymous controller
           end
 
           it "requires the :id parameter" do
-            expect { get :show }.to raise_error(
-              ActionController::UrlGenerationError
-            )
+            expect { get :show }.to raise_error(ExpectedRoutingError)
           end
 
           # And the rest...
@@ -334,9 +336,7 @@ Feature: anonymous controller
           end
 
           it "requires the :id parameter" do
-            expect { put :update }.to raise_error(
-              ActionController::UrlGenerationError
-            )
+            expect { put :update }.to raise_error(ExpectedRoutingError)
           end
 
           # And the rest...
@@ -355,9 +355,7 @@ Feature: anonymous controller
           end
 
           it "requires the :id parameter" do
-            expect { delete :destroy }.to raise_error(
-              ActionController::UrlGenerationError
-            )
+            expect { delete :destroy }.to raise_error(ExpectedRoutingError)
           end
 
           # And the rest...
@@ -371,9 +369,7 @@ Feature: anonymous controller
 
         describe "#willerror" do
           it "cannot be called" do
-            expect { get :willerror }.to raise_error(
-              ActionController::UrlGenerationError
-            )
+            expect { get :willerror }.to raise_error(ExpectedRoutingError)
           end
         end
       end
