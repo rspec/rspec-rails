@@ -24,9 +24,9 @@ Feature: anonymous controller
     controller do
       def index; end
 
-      ​# this normally creates an anonymous `BaseController` subclass, but
-      ​# since `infer_base_class_for_anonymous_controllers` is disabled,
-      ​# it creates a subclass of `ApplicationController` instead
+      ​# this normally creates an anonymous `BaseController` subclass,
+      ​# however since `infer_base_class_for_anonymous_controllers` is
+      ​# disabled, it creates a subclass of `ApplicationController`
     end
   end
   ```
@@ -66,7 +66,7 @@ Feature: anonymous controller
     When I run `rspec spec`
     Then the examples should all pass
 
-  Scenario: Specify error handling in subclass of `ApplicationController`
+  Scenario: Specify error handling in a subclass
     Given a file named "spec/controllers/application_controller_subclass_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -75,9 +75,10 @@ Feature: anonymous controller
         class AccessDenied < StandardError; end
       end
 
-      class ApplicationControllerSubclass < ApplicationController
+      class FoosController < ApplicationController
 
-        rescue_from ApplicationController::AccessDenied, :with => :access_denied
+        rescue_from ApplicationController::AccessDenied,
+                    :with => :access_denied
 
       private
 
@@ -86,8 +87,8 @@ Feature: anonymous controller
         end
       end
 
-      RSpec.describe ApplicationControllerSubclass, :type => :controller do
-        controller(ApplicationControllerSubclass) do
+      RSpec.describe FoosController, :type => :controller do
+        controller(FoosController) do
           def index
             raise ApplicationController::AccessDenied
           end
@@ -111,17 +112,17 @@ Feature: anonymous controller
 
       class ApplicationController < ActionController::Base; end
 
-      class ApplicationControllerSubclass < ApplicationController; end
+      class FoosController < ApplicationController; end
 
-      RSpec.describe ApplicationControllerSubclass, :type => :controller do
+      RSpec.describe FoosController, :type => :controller do
         controller do
           def index
             render :text => "Hello World"
           end
         end
 
-        it "creates an anonymous controller derived from ApplicationControllerSubclass" do
-          expect(controller).to be_a_kind_of(ApplicationControllerSubclass)
+        it "creates anonymous controller derived from FoosController" do
+          expect(controller).to be_a_kind_of(FoosController)
         end
       end
       """
@@ -136,7 +137,7 @@ Feature: anonymous controller
       class ApplicationController < ActionController::Base; end
       class FoosController < ApplicationController; end
 
-      RSpec.describe "FoosController controller_name", :type => :controller do
+      RSpec.describe "Access controller names", :type => :controller do
         controller FoosController do
           def index
             @name = self.class.name
@@ -291,7 +292,9 @@ Feature: anonymous controller
           end
 
           it "requires the :id parameter" do
-            expect { get :edit }.to raise_error(ActionController::UrlGenerationError)
+            expect { get :edit }.to raise_error(
+              ActionController::UrlGenerationError
+            )
           end
 
           # And the rest...
@@ -310,7 +313,9 @@ Feature: anonymous controller
           end
 
           it "requires the :id parameter" do
-            expect { get :show }.to raise_error(ActionController::UrlGenerationError)
+            expect { get :show }.to raise_error(
+              ActionController::UrlGenerationError
+            )
           end
 
           # And the rest...
@@ -329,7 +334,9 @@ Feature: anonymous controller
           end
 
           it "requires the :id parameter" do
-            expect { put :update }.to raise_error(ActionController::UrlGenerationError)
+            expect { put :update }.to raise_error(
+              ActionController::UrlGenerationError
+            )
           end
 
           # And the rest...
@@ -348,7 +355,9 @@ Feature: anonymous controller
           end
 
           it "requires the :id parameter" do
-            expect { delete :destroy }.to raise_error(ActionController::UrlGenerationError)
+            expect { delete :destroy }.to raise_error(
+              ActionController::UrlGenerationError
+            )
           end
 
           # And the rest...
@@ -362,7 +371,9 @@ Feature: anonymous controller
 
         describe "#willerror" do
           it "cannot be called" do
-            expect { get :willerror }.to raise_error(ActionController::UrlGenerationError)
+            expect { get :willerror }.to raise_error(
+              ActionController::UrlGenerationError
+            )
           end
         end
       end
@@ -382,7 +393,7 @@ Feature: anonymous controller
           end
         end
 
-        specify "a custom action can be requested if routes are drawn manually" do
+        specify "manually draw the route to request a custom action" do
           routes.draw { get "custom" => "anonymous#custom" }
 
           get :custom
@@ -407,7 +418,7 @@ Feature: anonymous controller
           end
         end
 
-        specify "a custom action can be requested if routes are drawn manually" do
+        specify "manually draw the route to request a custom action" do
           routes.draw { get "custom" => "foos#custom" }
 
           get :custom
@@ -424,13 +435,14 @@ Feature: anonymous controller
       require "rails_helper"
 
       class ApplicationController < ActionController::Base; end
-      module TopLevel
-        module InnerSpace
+
+      module Outer
+        module Inner
           class FoosController < ApplicationController; end
         end
       end
 
-      RSpec.describe TopLevel::InnerSpace::FoosController, :type => :controller do
+      RSpec.describe Outer::Inner::FoosController, :type => :controller do
         controller do
           def index
             @name = self.class.name
@@ -439,18 +451,20 @@ Feature: anonymous controller
           end
         end
 
-        it "creates an anonymous controller derived from the namespace" do
-          expect(controller).to be_a_kind_of(TopLevel::InnerSpace::FoosController)
+        it "creates anonymous controller derived from the namespace" do
+          expect(controller).to be_a_kind_of(Outer::Inner::FoosController)
         end
 
         it "gets the class name as described" do
-          expect{ get :index }.to change{ assigns[:name] }.
-            to eq('TopLevel::InnerSpace::FoosController')
+          expect{ get :index }.to change{
+            assigns[:name]
+          }.to eq('Outer::Inner::FoosController')
         end
 
         it "gets the controller_name as described" do
-          expect{ get :index }.to change{ assigns[:controller_name] }.
-            to eq('foos')
+          expect{ get :index }.to change{
+            assigns[:controller_name]
+          }.to eq('foos')
         end
       end
       """
