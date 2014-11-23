@@ -23,7 +23,7 @@ describe Rspec::Generators::FeatureGenerator, :type => :generator do
           expect(feature_spec).to contain(/require 'rails_helper'/)
         end
         it "contains the feature" do
-          expect(feature_spec).to contain(/feature "Posts", :type => :feature/)
+          expect(feature_spec).to contain(/^RSpec.feature "Posts", :type => :feature/)
         end
       end
     end
