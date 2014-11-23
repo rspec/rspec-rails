@@ -1,3 +1,11 @@
+### 3.2.0 Development
+[Full Changelog](http://github.com/rspec/rspec-core/compare/v3.1.7...master)
+
+Bug Fixes:
+
+* Fix `rspec:feature` generator to use `RSpec` namespace preventing errors when
+  monkey-patching is disabled. (Rebecca Skinner, #1231)
+
 ### 3.1.0 / 2014-09-04
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.0.2...v3.1.0)
 
