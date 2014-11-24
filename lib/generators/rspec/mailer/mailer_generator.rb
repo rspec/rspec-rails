@@ -1,4 +1,5 @@
 require 'generators/rspec'
+require "rspec/rails/feature_check"
 
 module Rspec
   module Generators
