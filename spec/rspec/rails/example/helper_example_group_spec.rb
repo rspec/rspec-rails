@@ -8,6 +8,19 @@ module RSpec::Rails
     it_behaves_like "an rspec-rails example group mixin", :helper,
       './spec/helpers/', '.\\spec\\helpers\\'
 
+    context "ActionView::TestCase::Behavior" do
+      subject do
+        group = RSpec::Core::ExampleGroup.describe ::FoosHelper do
+          include HelperExampleGroup
+        end
+        group.new
+      end
+
+      it "mixes in ActionView::TestCase::Behavior" do
+        expect(subject).to be_an(ActionView::TestCase::Behavior)
+      end
+    end
+
     describe "#controller_class" do
       subject do
         group = RSpec::Core::ExampleGroup.describe ::FoosHelper do

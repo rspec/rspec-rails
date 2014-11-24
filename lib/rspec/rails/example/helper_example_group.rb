@@ -6,6 +6,7 @@ module RSpec
     module HelperExampleGroup
       extend ActiveSupport::Concern
       include RSpec::Rails::RailsExampleGroup
+      include ActionView::TestCase::Behavior
 
       def assign(instance_variable_name, value)
         [helper, controller].each do |object|
