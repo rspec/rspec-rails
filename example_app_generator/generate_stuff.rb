@@ -1,3 +1,5 @@
+require 'rspec/rails/feature_check'
+
 module ExampleAppHooks
   DEFAULT_SOURCE_PATH = File.expand_path('..', __FILE__)
 
@@ -66,6 +68,32 @@ generate('controller wombats index') # plural
 generate('controller welcome index') # singular
 generate('integration_test widgets')
 generate('mailer Notifications signup')
+if ::RSpec::Rails::FeatureCheck.has_action_mailer_preview?
+  create_file "spec/support/default_preview_path.rb", <<-EOS.strip_heredoc
+    ENV['RAILS_ENV'] = 'development'
+
+    CONFIG_PATH = File.expand_path('../../../config',  __FILE__)
+    APP_PATH = File.expand_path(File.join(CONFIG_PATH, 'application'))
+    # Default rails setup
+    require File.join(CONFIG_PATH, 'boot')
+    require 'rails/all'
+    require File.join(CONFIG_PATH, 'environment')
+
+    puts Rails.application.config.action_mailer.preview_path
+  EOS
+  create_file "spec/verify_mailer_preview_path_spec.rb", <<-EOS.strip_heredoc
+    RSpec.describe 'Verifying the railtie sets the preview path' do
+      it 'is set to the rspec path' do
+        exec_script = File.expand_path(
+          File.join(__FILE__, '../support/default_preview_path.rb')
+        )
+        expect(%x(ruby #\{exec_script\}).chomp).to eq(
+          "#\{::Rails.root\}/spec/mailers/previews"
+        )
+      end
+    end
+  EOS
+end
 generate('model thing name:string')
 generate('helper things')
 generate('scaffold widget name:string category:string instock:boolean foo_id:integer bar_id:integer --force')
