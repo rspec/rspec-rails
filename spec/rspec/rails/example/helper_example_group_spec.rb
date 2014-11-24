@@ -2,7 +2,9 @@ require "spec_helper"
 
 module RSpec::Rails
   describe HelperExampleGroup do
-    module ::FoosHelper; end
+    module ::FoosHelper
+      def foo; end
+    end
     subject { HelperExampleGroup }
 
     it_behaves_like "an rspec-rails example group mixin", :helper,
@@ -92,6 +94,10 @@ module RSpec::Rails
       it "returns a view context associated with the controller" do
         expect(subject).to be_an(ActionView::Base)
         expect(subject.controller).to be_an(ActionController::Base)
+      end
+
+      it "returns a view context extended with the described helper module" do
+        expect(subject).to respond_to(:foo)
       end
     end
 

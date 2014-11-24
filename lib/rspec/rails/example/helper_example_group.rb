@@ -30,7 +30,11 @@ module RSpec
 
         let(:controller) { controller_class.new }
 
-        let(:helper) { controller.view_context }
+        let(:helper) do
+          view_context = controller.view_context
+          view_context.extend(described_class)
+          view_context
+        end
 
         subject { helper }
       end
