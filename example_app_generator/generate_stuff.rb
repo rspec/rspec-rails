@@ -49,6 +49,11 @@ module ExampleAppHooks
   end
 end
 
+def generate(*)
+  super
+  $?.success? || abort
+end
+
 # Generally polluting `main` is bad as it monkey patches all objects. In this
 # context, `self` is an _instance_ of a `Rails::Generators::AppGenerator`. So
 # this won't pollute anything.
