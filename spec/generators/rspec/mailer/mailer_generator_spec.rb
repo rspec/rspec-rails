@@ -46,4 +46,15 @@ describe Rspec::Generators::MailerGenerator, :type => :generator do
       it { is_expected.to contain(/Posts#show/) }
     end
   end
+
+  describe 'a preview is generated for each action', :skip => !RSpec::Rails::FeatureCheck.has_action_mailer_preview? do
+    subject { file('spec/mailers/previews/posts_preview.rb') }
+    before do
+      run_generator %w(posts index show)
+    end
+    it { is_expected.to exist }
+    it { is_expected.to contain(/class PostsPreview < ActionMailer::Preview/) }
+    it { is_expected.to contain(/def index/) }
+    it { is_expected.to contain(/def show/) }
+  end
 end

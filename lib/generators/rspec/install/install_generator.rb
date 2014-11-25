@@ -41,6 +41,7 @@ DESC
 
         replace_generator_command(spec_helper_path)
         remove_warnings_configuration(spec_helper_path)
+        insert_configuration_for_mailer_preview
       end
 
       def replace_generator_command(spec_helper_path)
@@ -57,6 +58,12 @@ DESC
                   /#{empty_line}(#{comment_line})+\s+config\.warnings = true\n/,
                   '',
                   :verbose => false
+      end
+
+      def insert_configuration_for_mailer_preview
+        application(nil, :env => 'development') do
+          'config.action_mailer.preview_path = "#{::Rails.root}/spec/mailers/previews"'
+        end
       end
     end
   end
