@@ -32,6 +32,7 @@ module RSpec
 
         let(:helper) do
           view_context = controller.view_context
+          view_context.extend(ApplicationHelper) if defined?(ApplicationHelper)
           view_context.extend(described_class)
           view_context
         end

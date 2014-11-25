@@ -2,9 +2,8 @@ require "spec_helper"
 
 module RSpec::Rails
   describe HelperExampleGroup do
-    module ::FoosHelper
-      def foo; end
-    end
+    module ::FoosHelper; end
+
     subject { HelperExampleGroup }
 
     it_behaves_like "an rspec-rails example group mixin", :helper,
@@ -97,7 +96,25 @@ module RSpec::Rails
       end
 
       it "returns a view context extended with the described helper module" do
-        expect(subject).to respond_to(:foo)
+        expect(subject).to be_a(FoosHelper)
+      end
+
+      context "ApplicationHelper exists" do
+        let!(:application_helper) { Module.new }
+
+        before { stub_const("ApplicationHelper", application_helper) }
+
+        it "returns a view context extended with the ApplicationHelper" do
+          expect(subject).to be_an(application_helper)
+        end
+
+        it "does not override the described module's methods" do
+          singleton_class = (class << subject; self; end)
+          higher_priority_mixin = singleton_class.ancestors.find do |ancestor|
+            ancestor == FoosHelper || ancestor == application_helper
+          end
+          expect(higher_priority_mixin).to eq(FoosHelper)
+        end
       end
     end
 
