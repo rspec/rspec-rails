@@ -100,7 +100,7 @@ generate('scaffold widget name:string category:string instock:boolean foo_id:int
 generate('observer widget')
 generate('scaffold gadget') # scaffold with no attributes
 generate('scaffold admin/account name:string') # scaffold with nested resource
-
+generate('rspec:feature gadget')
 generate('controller things custom_action')
 
 begin
