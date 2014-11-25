@@ -7,6 +7,7 @@ module RSpec
       extend ActiveSupport::Concern
       include RSpec::Rails::RailsExampleGroup
       include ActionView::TestCase::Behavior
+      include RSpec::Rails::ViewAssigns
 
       def assign(instance_variable_name, value)
         [helper, controller].each do |object|
@@ -32,6 +33,7 @@ module RSpec
 
         let(:helper) do
           @controller = controller
+          view.assign(view_assigns)
           view.extend(ApplicationHelper) if defined?(ApplicationHelper)
           view.extend(described_class)
           view
