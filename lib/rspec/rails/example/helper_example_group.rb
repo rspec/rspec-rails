@@ -19,8 +19,8 @@ module RSpec
       included do
         let(:controller_class) do
           controller_class_name = described_class.name.gsub("Helper", "Controller")
-          if self.class.const_defined?("::#{controller_class_name}")
-            self.class.const_get(controller_class_name.to_sym)
+          if Object.const_defined?(controller_class_name)
+            Object.const_get(controller_class_name.to_sym)
           elsif defined?(ApplicationController)
             ApplicationController
           else
