@@ -1,6 +1,11 @@
 ### 3.2.0 Development
 [Full Changelog](http://github.com/rspec/rspec-core/compare/v3.1.7...master)
 
+Enhancements:
+
+* Include generator for `ActionMailer` mailer previews (Takashi Nakagawa, #1185)
+* Configure the `ActionMailer` preview path via a Railtie (Aaron Kromer, #1236)
+
 Bug Fixes:
 
 * Fix `rspec:feature` generator to use `RSpec` namespace preventing errors when
