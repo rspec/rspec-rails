@@ -22,5 +22,3 @@ when nil, false, ""
 else
   gem "rails", version
 end
-
-gem 'arel', '<= 6.0.0.beta2'
