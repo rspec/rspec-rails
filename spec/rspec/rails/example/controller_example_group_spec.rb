@@ -169,6 +169,16 @@ module RSpec::Rails
         group.controller(abstract_controller) { }
         expect(controller_class.name).to eq "AnonymousController"
       end
+
+      it "sets name as AnonymousController if it inherits outer group's anonymous controller" do
+        outer_group = group_for ApplicationController
+        outer_group.controller { }
+
+        inner_group = group.describe { }
+        inner_group.controller(outer_group.controller_class) { }
+
+        expect(inner_group.controller_class.name).to eq "AnonymousController"
+      end
     end
 
     context "in a namespace" do

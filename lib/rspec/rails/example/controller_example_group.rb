@@ -64,7 +64,7 @@ module RSpec
               if superclass == root_controller || superclass.abstract?
                 "AnonymousController"
               else
-                superclass.to_s
+                superclass.name
               end
             end
           end
