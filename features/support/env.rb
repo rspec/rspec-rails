@@ -1,4 +1,5 @@
 require 'aruba/cucumber'
+require 'fileutils'
 
 module ArubaExt
   def run(cmd, timeout = nil)
@@ -17,38 +18,21 @@ unless File.directory?('./tmp/example_app')
   system "rake generate:app generate:stuff"
 end
 
-def aruba_path(file_or_dir)
-  File.expand_path("../../../#{file_or_dir.sub('example_app','aruba')}", __FILE__)
-end
-
-def example_app_path(file_or_dir)
-  File.expand_path("../../../#{file_or_dir}", __FILE__)
-end
-
-def write_symlink(file_or_dir)
-  source = example_app_path(file_or_dir)
-  target = aruba_path(file_or_dir)
-  system "ln -s #{source} #{target}"
-end
-
-def copy(file_or_dir)
-  source = example_app_path(file_or_dir)
-  target = aruba_path(file_or_dir)
-  system "cp -r #{source} #{target}"
-end
-
 Before do
-  steps %Q{
-    Given a directory named "spec"
-  }
+  example_app_dir = 'tmp/example_app'
+  # Per default Aruba will create a directory tmp/aruba where it performs its file operations.
+  # https://github.com/cucumber/aruba/blob/v0.6.1/README.md#use-a-different-working-directory
+  aruba_dir = 'tmp/aruba'
 
-  Dir['tmp/example_app/*'].each do |file_or_dir|
-    if !(file_or_dir =~ /spec$/)
-      write_symlink(file_or_dir)
-    end
-  end
+  # Remove the previous aruba workspace.
+  FileUtils.rm_rf(aruba_dir) if File.exist?(aruba_dir)
 
-  ["spec/spec_helper.rb", "spec/rails_helper.rb"].each do |file_or_dir|
-    write_symlink("tmp/example_app/#{file_or_dir}")
+  # We want fresh `example_app` project with empty `spec` dir except helpers.
+  # FileUtils.cp_r on Ruby 1.9.2 doesn't preserve permissions.
+  system('cp', '-r', example_app_dir, aruba_dir)
+  helpers = %w[spec/spec_helper.rb spec/rails_helper.rb]
+  Dir["#{aruba_dir}/spec/*"].each do |path|
+    next if helpers.any? { |helper| path.end_with?(helper) }
+    FileUtils.rm_rf(path)
   end
 end
