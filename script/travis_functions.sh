@@ -1,4 +1,4 @@
-# This file was generated on 2014-12-26T22:23:09-08:00 from the rspec-dev repo.
+# This file was generated on 2014-12-27T13:03:38-05:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 # Taken from:
@@ -52,7 +52,8 @@ fold() {
     travis_time_start
   fi
 
-  "$@" || status=$?
+  "$@"
+  status=$?
 
   [ -z "$TRAVIS" ] || travis_time_finish
 
