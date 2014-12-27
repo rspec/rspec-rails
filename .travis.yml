@@ -2,6 +2,7 @@ language: ruby
 
 rvm:
   - 1.8.7
+  - 2.2
   - 2.1
   - 2.0.0
   - 1.9.3
@@ -39,6 +40,8 @@ matrix:
       env: RAILS_VERSION='~> 3.0.20'
     - rvm: 2.1
       env: RAILS_VERSION='~> 3.0.20'
+    - rvm: 2.2
+      env: RAILS_VERSION='~> 3.0.20'
     # 4.x is not supported on MRI ruby-1.8.7 or 1.9.2
     - rvm: 1.8.7
       env: RAILS_VERSION='~> 4.0.4'
@@ -64,6 +67,17 @@ matrix:
       env: RAILS_VERSION=4-2-stable
     - rvm: 1.9.2
       env: RAILS_VERSION=4-2-stable
+    # MRI 2.2 is not supported on a few versions
+    - rvm: 2.2
+      env: RAILS_VERSION='~> 3.1.12'
+    - rvm: 2.2
+      env: RAILS_VERSION='~> 3.2.17'
+    - rvm: 2.2
+      env: RAILS_VERSION=3-2-stable
+    - rvm: 2.2
+      env: RAILS_VERSION='~> 4.0.4'
+    - rvm: 2.2
+      env: RAILS_VERSION=4-0-stable
   allow_failures:
     # Allow Rails 4.2.0 to fail until https://github.com/rails/rails-dom-testing/issues/28 is resolved
     - env: RAILS_VERSION='~> 4.2.0'
