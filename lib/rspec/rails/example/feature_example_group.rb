@@ -44,3 +44,13 @@ RSpec.configure do |c|
   c.alias_example_to :scenario
   c.alias_example_to :xscenario
 end
+
+if defined?(Capybara) && ::Capybara::VERSION.to_f < 2.4
+  # Capybara 2.2 and 2.3 do not use `alias_example_xyz`
+  RSpec.configure do |c|
+    c.alias_example_group_to :feature, :type => :feature, :skip => <<-EOT.squish
+      Capybara < 2.4.0 does not support RSpec's namespace or
+      `config.disable_monkey_patching!` mode. Upgrade to Capybara >= 2.4.0.
+    EOT
+  end
+end
