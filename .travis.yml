@@ -78,8 +78,4 @@ matrix:
       env: RAILS_VERSION='~> 4.0.4'
     - rvm: 2.2
       env: RAILS_VERSION=4-0-stable
-  allow_failures:
-    # Allow Rails 4.2.0 to fail until https://github.com/rails/rails-dom-testing/issues/28 is resolved
-    - env: RAILS_VERSION='~> 4.2.0'
-    - env: RAILS_VERSION=4-2-stable
   fast_finish: true
