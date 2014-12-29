@@ -11,6 +11,10 @@ module RSpec
       generators.integration_tool :rspec
       generators.test_framework :rspec
 
+      generators do
+        ::Rails::Generators.hidden_namespaces.reject! { |namespace| namespace.start_with?("rspec") }
+      end
+
       rake_tasks do
         load "rspec/rails/tasks/rspec.rake"
       end
