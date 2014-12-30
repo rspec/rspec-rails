@@ -6,6 +6,7 @@ Enhancements:
 * Include generator for `ActionMailer` mailer previews (Takashi Nakagawa, #1185)
 * Configure the `ActionMailer` preview path via a Railtie (Aaron Kromer, #1236)
 * Show all RSpec generators when running `rails generate` (Eliot Sykes, #1248)
+* Support Ruby 2.2 with Rails 4.x (Aaron Kromer, #1264)
 
 Bug Fixes:
 
