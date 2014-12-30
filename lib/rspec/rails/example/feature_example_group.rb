@@ -39,7 +39,7 @@ if defined?(Capybara) && ::Capybara::VERSION.to_f < 2.4
   RSpec.configure do |c|
     c.alias_example_group_to :feature, :type => :feature, :skip => <<-EOT.squish
       Capybara < 2.4.0 does not support RSpec's namespace or
-      `config.disable_monkey_patching!` mode. Upgrade to Capybara >= 2.4.0.
+      `config.expose_dsl_globally = false`. Upgrade to Capybara >= 2.4.0.
     EOT
   end
 elsif !RSpec.respond_to?(:feature)
@@ -48,7 +48,7 @@ elsif !RSpec.respond_to?(:feature)
       Feature specs require the Capybara (http://github.com/jnicklas/capybara)
       gem, version 2.2.0 or later. We recommend version 2.4.0 or later to avoid
       some deprecation warnings and have support for
-      `config.disable_monkey_patching!` mode.
+      `config.expose_dsl_globally = false`.
     EOT
     c.alias_example_to :scenario
     c.alias_example_to :xscenario

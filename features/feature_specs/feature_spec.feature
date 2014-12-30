@@ -10,7 +10,7 @@ Feature: Feature spec
 
   Feature specs require the [Capybara](http://github.com/jnicklas/capybara) gem, version 2.2.0 or later. We recommend
   version 2.4.0 or later to avoid some deprecation warnings and have support for
-  [`config.disable_monkey_patching!`](/rspec/rspec-core/docs/configuration/zero-monkey-patching-mode) mode. Refer to the [capybara API<br />
+  [`config.expose_dsl_globally = false`](/rspec/rspec-core/docs/configuration/global-namespace-dsl). Refer to the [capybara API<br />
   documentation](http://rubydoc.info/github/jnicklas/capybara/master) for more information on the methods and matchers that can be
   used in feature specs.
 
@@ -42,7 +42,7 @@ Feature: Feature spec
       """
       Pending:
         Widget management User creates a new widget
-          # Feature specs require the Capybara (http://github.com/jnicklas/capybara) gem, version 2.2.0 or later. We recommend version 2.4.0 or later to avoid some deprecation warnings and have support for `config.disable_monkey_patching!` mode.
+          # Feature specs require the Capybara (http://github.com/jnicklas/capybara) gem, version 2.2.0 or later. We recommend version 2.4.0 or later to avoid some deprecation warnings and have support for `config.expose_dsl_globally = false`.
           # ./spec/features/widget_management_spec.rb:4
       """
 
