@@ -14,6 +14,12 @@ module RSpec
       # Constant aliased to either Minitest or TestUnit, depending on what is
       # loaded.
       Assertions = Minitest::Assertions
+    elsif RUBY_VERSION >= '2.2.0'
+      # Minitest has been removed from ruby core. However, we must be on an
+      # old Rails version and must load the Minitest 4.x gem
+      gem 'minitest' if defined?(Kernel.gem)
+      require 'minitest/unit'
+      Assertions = MiniTest::Assertions
     else
       begin
         require 'test/unit/assertions'
