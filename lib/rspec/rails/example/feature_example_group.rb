@@ -36,6 +36,7 @@ end
 
 unless RSpec.respond_to?(:feature)
   opts = {
+    :capybara_feature => true,
     :type => :feature,
     :skip => <<-EOT.squish
       Feature specs require the Capybara (http://github.com/jnicklas/capybara)
