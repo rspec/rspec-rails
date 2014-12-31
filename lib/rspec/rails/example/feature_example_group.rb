@@ -34,22 +34,27 @@ module RSpec
   end
 end
 
-if defined?(Capybara) && ::Capybara::VERSION.to_f < 2.4
-  # Capybara 2.2 and 2.3 do not use `alias_example_xyz`
-  RSpec.configure do |c|
-    c.alias_example_group_to :feature, :type => :feature, :skip => <<-EOT.squish
-      Capybara < 2.4.0 does not support RSpec's namespace or
-      `config.expose_dsl_globally = false`. Upgrade to Capybara >= 2.4.0.
-    EOT
-  end
-elsif !RSpec.respond_to?(:feature)
-  RSpec.configure do |c|
-    c.alias_example_group_to :feature, :type => :feature, :skip => <<-EOT.squish
+unless RSpec.respond_to?(:feature)
+  opts = {
+    :type => :feature,
+    :skip => <<-EOT.squish
       Feature specs require the Capybara (http://github.com/jnicklas/capybara)
       gem, version 2.2.0 or later. We recommend version 2.4.0 or later to avoid
       some deprecation warnings and have support for
       `config.expose_dsl_globally = false`.
     EOT
+  }
+
+  if defined?(Capybara) && ::Capybara::VERSION.to_f < 2.4
+    # Capybara 2.2 and 2.3 do not use `alias_example_xyz`
+    opts[:skip] = <<-EOT.squish
+      Capybara < 2.4.0 does not support RSpec's namespace or
+      `config.expose_dsl_globally = false`. Upgrade to Capybara >= 2.4.0.
+    EOT
+  end
+
+  RSpec.configure do |c|
+    c.alias_example_group_to :feature, opts
     c.alias_example_to :scenario
     c.alias_example_to :xscenario
   end
