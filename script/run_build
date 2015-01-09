@@ -1,5 +1,5 @@
 #!/bin/bash
-# This file was generated on 2015-01-07T22:08:46-08:00 from the rspec-dev repo.
+# This file was generated on 2015-01-08T19:12:50-08:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 set -e
@@ -21,8 +21,8 @@ if style_and_lint_enforced; then
   fold "rubocop" check_style_and_lint
 fi
 
-if is_mri; then
-  run_all_spec_suites
+if is_jruby_20_mode; then
+  echo "Skipping other specs suites on JRuby 2.0 mode because it is so much slower"
 else
-  echo "Skipping the rest of the build on non-MRI rubies"
+  run_all_spec_suites
 fi
