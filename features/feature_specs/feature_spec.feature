@@ -40,10 +40,11 @@ Feature: Feature spec
     And the output should contain "1 example, 0 failures, 1 pending"
     And the output should contain:
       """
-      Pending:
-        Widget management User creates a new widget
-          # Feature specs require the Capybara (http://github.com/jnicklas/capybara) gem, version 2.2.0 or later. We recommend version 2.4.0 or later to avoid some deprecation warnings and have support for `config.expose_dsl_globally = false`.
-          # ./spec/features/widget_management_spec.rb:4
+      Pending: (Failures listed here are expected and do not affect your suite's status)
+
+        1) Widget management User creates a new widget
+           # Feature specs require the Capybara (http://github.com/jnicklas/capybara) gem, version 2.2.0 or later. We recommend version 2.4.0 or later to avoid some deprecation warnings and have support for `config.expose_dsl_globally = false`.
+           # ./spec/features/widget_management_spec.rb:4
       """
 
   @capybara
