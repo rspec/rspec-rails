@@ -1,6 +1,7 @@
 require 'delegate'
 require 'active_support'
 require 'active_support/concern'
+require 'active_support/core_ext/string'
 
 module RSpec
   module Rails
@@ -15,11 +16,33 @@ module RSpec
       # loaded.
       Assertions = Minitest::Assertions
     elsif RUBY_VERSION >= '2.2.0'
-      # Minitest has been removed from ruby core. However, we must be on an
-      # old Rails version and must load the Minitest 4.x gem
-      gem 'minitest' if defined?(Kernel.gem)
-      require 'minitest/unit'
-      Assertions = MiniTest::Assertions
+      # Minitest / TestUnit has been removed from ruby core. However, we are
+      # on an old Rails version and must load the appropriate gem
+      if ::Rails::VERSION::STRING >= '4.0.0'
+        # ActiveSupport 4.0.x has the minitest '~> 4.2' gem as a dependency
+        # This gem has no `lib/minitest.rb` file.
+        gem 'minitest' if defined?(Kernel.gem)
+        require 'minitest/unit'
+        Assertions = MiniTest::Assertions
+      elsif ::Rails::VERSION::STRING >= '3.2.21'
+        # TODO: Change the above check to >= '3.2.22' once it's released
+        begin
+          require 'test/unit/assertions'
+        rescue LoadError => e
+          raise LoadError, <<-ERR.squish, e.backtrace
+            Ruby 2.2+ has removed test/unit from the core library. Rails
+            requires this as a dependency. Please add test-unit gem to your
+            Gemfile: `gem 'test-unit', '~> 3.0'` (#{e.message})"
+          ERR
+        end
+        Assertions = Test::Unit::Assertions
+      else
+        abort <<-MSG.squish
+          Ruby 2.2+ is not supported on Rails #{::Rails::VERSION::STRING}.
+          Check the Rails release notes for the appropriate update with
+          support.
+        MSG
+      end
     else
       begin
         require 'test/unit/assertions'

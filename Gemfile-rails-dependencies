@@ -24,3 +24,4 @@ else
 end
 
 gem "i18n", '< 0.7.0' if RUBY_VERSION < '1.9.3'
+gem "test-unit" if RUBY_VERSION >= '2.2.0' && version =~ /3[.-]2[.-]/
