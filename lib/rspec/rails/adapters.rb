@@ -28,13 +28,13 @@ module RSpec
         # TODO: Change the above check to >= '3.2.22' once it's released
         begin
           # Test::Unit "helpfully" sets up autoload for its `AutoRunner`.
-          # While we do not use reference it directly, when we load the
-          # `TestCase` classes from ActiveSupport, AS kindly references
-          # `AutoRunner` for everyone.
+          # While we do not reference it directly, when we load the `TestCase`
+          # classes from AS (ActiveSupport), AS kindly references `AutoRunner`
+          # for everyone.
           #
-          # We need to pre-emptively load 'test/unit' and make sure the version
-          # installed has `AutoRunner` (the 3.x line does so far). If so, we
-          # turn it off.
+          # To handle this we need to pre-emptively load 'test/unit' and make
+          # sure the version installed has `AutoRunner` (the 3.x line does to
+          # date). If so, we turn the auto runner off.
           require 'test/unit'
           require 'test/unit/assertions'
           Test::Unit::AutoRunner.need_auto_run = false if defined?(Test::Unit::AutoRunner)
