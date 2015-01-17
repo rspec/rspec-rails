@@ -15,6 +15,15 @@ group :development, :test do
 end
 ```
 
+Want to run against the `master` branch? You'll need to include the dependent
+RSpec repos as well. Add the following to your `Gemfile`:
+
+```ruby
+%w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
+  gem lib, :git => "git://github.com/rspec/#{lib}.git", :branch => 'master'
+end
+```
+
 Download and install by running:
 
 ```
