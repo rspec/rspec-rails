@@ -1,8 +1,12 @@
 require 'rspec/core'
 require 'rails/version'
-require 'rspec/rails/extensions'
-require 'rspec/rails/view_rendering'
+
+# Load any of our adapters and extensions early in the process
 require 'rspec/rails/adapters'
+require 'rspec/rails/extensions'
+
+# Load the rspec-rails parts
+require 'rspec/rails/view_rendering'
 require 'rspec/rails/matchers'
 require 'rspec/rails/fixture_support'
 require 'rspec/rails/example'
