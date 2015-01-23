@@ -34,6 +34,15 @@ module RSpec::Rails
         }.not_to raise_error
       end
 
+      it 'operates normally when the view has no path and there is a Helper class defined' do
+        class ::Helper; end
+        expect {
+          RSpec::Core::ExampleGroup.describe 'show.html.erb' do
+            include ViewExampleGroup
+          end
+        }.not_to raise_error
+      end
+
       context 'application helper exists' do
         before do
           if !Object.const_defined? 'ApplicationHelper'
