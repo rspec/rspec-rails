@@ -7,7 +7,7 @@ Enhancements:
 * Configure the `ActionMailer` preview path via a Railtie (Aaron Kromer, #1236)
 * Show all RSpec generators when running `rails generate` (Eliot Sykes, #1248)
 * Support Ruby 2.2 with Rails 3.2 and 4.x (Aaron Kromer, #1264, #1277)
-* Improve `instance_double` et al to work with dynamic column methods defined
+* Improve `instance_double` to support verifying dynamic column methods defined
   by `ActiveRecord` (Jon Rowe, #1238)
 
 Bug Fixes:
