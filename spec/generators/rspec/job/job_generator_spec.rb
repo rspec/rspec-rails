@@ -16,7 +16,7 @@ RSpec.describe Rspec::Generators::JobGenerator, :type => :generator, :skip => !R
 
     it { is_expected.to exist }
     it { is_expected.to contain(/require 'rails_helper'/) }
-    it { is_expected.to contain(/describe UserJob, :type => :job/) }
+    it { is_expected.to contain(/describe UserJob, #{type_metatag(:job)}/) }
 
   end
 end

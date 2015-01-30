@@ -17,7 +17,7 @@ describe Rspec::Generators::MailerGenerator, :type => :generator do
       end
       it { is_expected.to exist }
       it { is_expected.to contain(/require "rails_helper"/) }
-      it { is_expected.to contain(/^RSpec.describe Posts, :type => :mailer/) }
+      it { is_expected.to contain(/^RSpec.describe Posts, #{type_metatag(:mailer)}/) }
       it { is_expected.to contain(/describe "index" do/) }
       it { is_expected.to contain(/describe "show" do/) }
     end

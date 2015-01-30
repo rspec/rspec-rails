@@ -37,6 +37,18 @@ module RSpec
       def has_action_mailer_preview?
         has_action_mailer? && defined?(::ActionMailer::Preview)
       end
+
+      def has_1_9_hash_syntax?
+        ::Rails::VERSION::STRING > '4.0'
+      end
+
+      def type_metatag(type)
+        if has_1_9_hash_syntax?
+          "type: :#{type}"
+        else
+          ":type => :#{type}"
+        end
+      end
     end
     # rubocop:enable Style/IndentationConsistency
   end

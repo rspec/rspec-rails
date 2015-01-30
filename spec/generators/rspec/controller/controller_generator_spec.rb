@@ -19,7 +19,7 @@ describe Rspec::Generators::ControllerGenerator, :type => :generator do
       describe 'the spec' do
         it { is_expected.to exist }
         it { is_expected.to contain(/require 'rails_helper'/) }
-        it { is_expected.to contain(/^RSpec.describe PostsController, :type => :controller/) }
+        it { is_expected.to contain(/^RSpec.describe PostsController, #{type_metatag(:controller)}/) }
       end
     end
     describe 'skipped with a flag' do
@@ -72,13 +72,13 @@ describe Rspec::Generators::ControllerGenerator, :type => :generator do
           subject { file('spec/views/posts/index.html.erb_spec.rb') }
           it { is_expected.to exist }
           it { is_expected.to contain(/require 'rails_helper'/) }
-          it { is_expected.to contain(/^RSpec.describe "posts\/index.html.erb", :type => :view/) }
+          it { is_expected.to contain(/^RSpec.describe "posts\/index.html.erb", #{type_metatag(:view)}/) }
         end
         describe 'show.html.erb' do
           subject { file('spec/views/posts/show.html.erb_spec.rb') }
           it { is_expected.to exist }
           it { is_expected.to contain(/require 'rails_helper'/) }
-          it { is_expected.to contain(/^RSpec.describe "posts\/show.html.erb", :type => :view/) }
+          it { is_expected.to contain(/^RSpec.describe "posts\/show.html.erb", #{type_metatag(:view)}/) }
         end
       end
       describe 'with haml' do
@@ -89,7 +89,7 @@ describe Rspec::Generators::ControllerGenerator, :type => :generator do
           subject { file('spec/views/posts/index.html.haml_spec.rb') }
           it { is_expected.to exist }
           it { is_expected.to contain(/require 'rails_helper'/) }
-          it { is_expected.to contain(/^RSpec.describe "posts\/index.html.haml", :type => :view/) }
+          it { is_expected.to contain(/^RSpec.describe "posts\/index.html.haml", #{type_metatag(:view)}/) }
         end
       end
     end
