@@ -9,6 +9,8 @@ Enhancements:
 * Support Ruby 2.2 with Rails 3.2 and 4.x (Aaron Kromer, #1264, #1277)
 * Improve `instance_double` to support verifying dynamic column methods defined
   by `ActiveRecord` (Jon Rowe, #1238)
+* Mirror the use of Ruby 1.9 hash syntax for the `type` tags in the spec
+  generators on Rails 4. (Michael Stock, #1292)
 
 Bug Fixes:
 
