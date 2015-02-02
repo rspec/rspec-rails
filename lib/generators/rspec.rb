@@ -7,6 +7,8 @@ module Rspec
   module Generators
     # @private
     class Base < ::Rails::Generators::NamedBase
+      include RSpec::Rails::FeatureCheck
+
       def self.source_root(path = nil)
         if path
           @_rspec_source_root = path

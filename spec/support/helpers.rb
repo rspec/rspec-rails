@@ -1,4 +1,6 @@
 module Helpers
+  include RSpec::Rails::FeatureCheck
+
   def with_isolated_config
     original_config = RSpec.configuration
     RSpec.configuration = RSpec::Core::Configuration.new
