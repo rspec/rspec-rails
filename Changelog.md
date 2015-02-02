@@ -18,7 +18,7 @@ Bug Fixes:
   monkey-patching is disabled. (Rebecca Skinner, #1231)
 * Fix `NoMethodError` caused by calling `RSpec.feature` when Capybara is not
   available or the Capybara version is < 2.4.0. (Aaron Kromer, #1261)
-* Fix `ArgumentError` when when using an anonymous controller which inherits an
+* Fix `ArgumentError` when using an anonymous controller which inherits an
   outer group's anonymous controller. (Yuji Nakayama, #1260)
 * Fix "Test is not a class (TypeError)" error when using a custom `Test` class
   in Rails 4.1 and 4.2. (Aaron Kromer, #1295)
