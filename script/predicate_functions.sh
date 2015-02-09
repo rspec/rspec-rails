@@ -1,4 +1,4 @@
-# This file was generated on 2015-01-08T19:12:50-08:00 from the rspec-dev repo.
+# This file was generated on 2015-02-08T20:55:32-08:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 function is_mri {
@@ -9,18 +9,6 @@ function is_mri {
   else
     return 1
   fi;
-}
-
-function is_jruby_20_mode {
-  if [ -z "$JRUBY_OPTS" ]; then
-    if ruby -e "exit(RUBY_VERSION == '2.0.0')"; then
-      return 0
-    else
-      return 1
-    fi
-  else
-    return 1
-  fi
 }
 
 function is_mri_192 {
