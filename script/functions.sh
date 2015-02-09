@@ -1,12 +1,13 @@
-# This file was generated on 2015-01-08T19:12:50-08:00 from the rspec-dev repo.
+# This file was generated on 2015-02-08T20:55:32-08:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 source $SCRIPT_DIR/travis_functions.sh
 source $SCRIPT_DIR/predicate_functions.sh
 
-# idea taken from: http://blog.headius.com/2010/03/jruby-startup-time-tips.html
-export JRUBY_OPTS="${JRUBY_OPTS} -X-C" # disable JIT since these processes are so short lived
+# If JRUBY_OPTS isn't set, use these.
+# see http://docs.travis-ci.com/user/ci-environment/
+export JRUBY_OPTS=${JRUBY_OPTS:-"--server -Xcompile.invokedynamic=false"}
 SPECS_HAVE_RUN_FILE=specs.out
 MAINTENANCE_BRANCH=`cat maintenance-branch`
 
@@ -58,13 +59,9 @@ function run_cukes {
 function run_specs_one_by_one {
   echo "Running each spec file, one-by-one..."
 
-  if is_mri; then
-    for file in `find spec -iname '*_spec.rb'`; do
-      bin/rspec $file -b --format progress
-    done
-  else
-    echo "Skipping one-by-one specs on non-MRI rubies as they tend to have long boot times"
-  fi
+  for file in `find spec -iname '*_spec.rb'`; do
+    bin/rspec $file -b --format progress
+  done
 }
 
 function run_spec_suite_for {
@@ -73,7 +70,7 @@ function run_spec_suite_for {
     pushd ../$1
     unset BUNDLE_GEMFILE
     bundle_install_flags=`cat .travis.yml | grep bundler_args | tr -d '"' | grep -o " .*"`
-    travis_retry eval "time bundle install $bundle_install_flags"
+    travis_retry eval "bundle install $bundle_install_flags"
     run_specs_and_record_done
     popd
   fi;
@@ -125,12 +122,7 @@ function run_all_spec_suites {
   fold "rspec-core specs" run_spec_suite_for "rspec-core"
   fold "rspec-expectations specs" run_spec_suite_for "rspec-expectations"
   fold "rspec-mocks specs" run_spec_suite_for "rspec-mocks"
-
-  if is_mri; then
-    fold "rspec-rails specs" run_spec_suite_for "rspec-rails"
-  else
-    echo "Skipping rspec-rails specs on non-MRI rubies"
-  fi
+  fold "rspec-rails specs" run_spec_suite_for "rspec-rails"
 
   if rspec_support_compatible; then
     fold "rspec-support specs" run_spec_suite_for "rspec-support"
