@@ -6,6 +6,10 @@ describe "be_routable" do
 
   before { @routes = double("routes") }
 
+  it "provides a description" do
+    expect(be_routable.description).to eq("be routable")
+  end
+
   context "with should" do
     it "passes if routes recognize the path" do
       allow(routes).to receive(:recognize_path) { {} }
