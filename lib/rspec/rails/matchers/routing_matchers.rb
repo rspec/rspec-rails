@@ -84,6 +84,10 @@ module RSpec
           def failure_message_when_negated
             "expected #{@actual.inspect} not to be routable, but it routes to #{@routing_options.inspect}"
           end
+
+          def description
+            "be routable"
+          end
         end
 
         # Passes if the route expression is recognized by the Rails router based on
