@@ -63,7 +63,7 @@ module RSpec
         end
 
         # @private
-        class BeRoutableMatcher < RSpec::Matchers::BuiltIn::BaseMatcher
+        class BeRoutable < RSpec::Matchers::BuiltIn::BaseMatcher
           def initialize(scope)
             @scope = scope
           end
@@ -95,7 +95,7 @@ module RSpec
         #     expect(:post => "/another/path").to be_routable
         #     expect(:put  => "/yet/another/path").to be_routable
         def be_routable
-          BeRoutableMatcher.new(self)
+          BeRoutable.new(self)
         end
 
         # Helpers for matching different route types.
