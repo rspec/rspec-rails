@@ -110,9 +110,9 @@ module RSpec
         #
         #       # ...
         #     end
-        def routes(&blk)
+        def routes
           before do
-            self.routes = blk.call
+            self.routes = yield
           end
         end
       end

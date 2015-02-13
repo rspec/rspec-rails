@@ -53,7 +53,7 @@ namespace :generate do
   end
 end
 
-def in_example_app(*command_opts, &block)
+def in_example_app(*command_opts)
   app_dir = './tmp/example_app'
   if Hash === command_opts.last
     opts = command_opts.pop
@@ -62,7 +62,7 @@ def in_example_app(*command_opts, &block)
   Dir.chdir(app_dir) do
     Bundler.with_clean_env do
       sh *command_opts unless command_opts.empty?
-      block.call if block
+      yield if block_given?
     end
   end
 end
