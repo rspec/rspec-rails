@@ -61,6 +61,8 @@ module RSpec
         require 'rubysl-test-unit' if defined?(RUBY_ENGINE) && RUBY_ENGINE == 'rbx'
         require 'test/unit/assertions'
       end
+      # Turn off test unit's auto runner for those using the gem
+      Test::Unit::AutoRunner.need_auto_run = false if defined?(Test::Unit::AutoRunner)
       # Constant aliased to either Minitest or TestUnit, depending on what is
       # loaded.
       Assertions = Test::Unit::Assertions
