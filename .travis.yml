@@ -88,8 +88,4 @@ matrix:
     # MRI 2.2 is not supported on a few versions
     - rvm: 2.2
       env: RAILS_VERSION='~> 3.1.12'
-  allow_failures:
-    # Until the newest patch release with 2.2 support
-    - rvm: 2.2
-      env: RAILS_VERSION='~> 3.2.17'
   fast_finish: true
