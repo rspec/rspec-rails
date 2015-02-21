@@ -5,6 +5,7 @@ Bug Fixes:
 * Add missing `require` to RSpec generator root fixing an issue where Rail's
   autoload does not find it in some environments. (Aaron Kromer, #1305)
 * `be_routable` matcher now has the correct description. (Tony Ta, #1310)
+* Fix dependency to allow Rails 4.2.x patches / pre-releases (Lucas Mazza, #1318)
 
 ### 3.2.0 / 2015-02-03
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.1.0...v3.2.0)
