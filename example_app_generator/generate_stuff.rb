@@ -1,11 +1,11 @@
 require 'rspec/rails/feature_check'
 
-module ExampleAppHooks
-  DEFAULT_SOURCE_PATH = File.expand_path('..', __FILE__)
+DEFAULT_SOURCE_PATH = File.expand_path('..', __FILE__)
 
+module ExampleAppHooks
   module AR
     def source_paths
-      [DEFAULT_SOURCE_PATH]
+      @__source_paths__ ||= [DEFAULT_SOURCE_PATH]
     end
 
     def setup_tasks
@@ -19,11 +19,15 @@ module ExampleAppHooks
         run('bin/rake db:migrate RAILS_ENV=test')
       end
     end
+
+    def skip_active_record?
+      false
+    end
   end
 
   module NoAR
     def source_paths
-      [File.join(DEFAULT_SOURCE_PATH, 'no_active_record')]
+      @__source_paths__ ||= [File.join(DEFAULT_SOURCE_PATH, 'no_active_record')]
     end
 
     def setup_tasks
@@ -39,6 +43,10 @@ module ExampleAppHooks
 
     def final_tasks
       copy_file 'spec/verify_no_active_record_spec.rb'
+    end
+
+    def skip_active_record?
+      true
     end
   end
 
@@ -56,6 +64,14 @@ def generate(*)
   $?.success? || abort
 end
 
+def using_source_path(path)
+  source_paths.unshift path
+  yield
+ensure
+  # Remove our path munging
+  source_paths.shift
+end
+
 # Generally polluting `main` is bad as it monkey patches all objects. In this
 # context, `self` is an _instance_ of a `Rails::Generators::AppGenerator`. So
 # this won't pollute anything.
@@ -68,32 +84,7 @@ generate('controller wombats index') # plural
 generate('controller welcome index') # singular
 generate('integration_test widgets')
 generate('mailer Notifications signup')
-if ::RSpec::Rails::FeatureCheck.has_action_mailer_preview?
-  create_file "spec/support/default_preview_path.rb", <<-EOS.strip_heredoc
-    ENV['RAILS_ENV'] = 'development'
 
-    CONFIG_PATH = File.expand_path('../../../config',  __FILE__)
-    APP_PATH = File.expand_path(File.join(CONFIG_PATH, 'application'))
-    # Default rails setup
-    require File.join(CONFIG_PATH, 'boot')
-    require 'rails/all'
-    require File.join(CONFIG_PATH, 'environment')
-
-    puts Rails.application.config.action_mailer.preview_path
-  EOS
-  create_file "spec/verify_mailer_preview_path_spec.rb", <<-EOS.strip_heredoc
-    RSpec.describe 'Verifying the railtie sets the preview path' do
-      it 'is set to the rspec path' do
-        exec_script = File.expand_path(
-          File.join(__FILE__, '../support/default_preview_path.rb')
-        )
-        expect(%x(ruby #\{exec_script\}).chomp).to eq(
-          "#\{::Rails.root\}/spec/mailers/previews"
-        )
-      end
-    end
-  EOS
-end
 generate('model thing name:string')
 generate('helper things')
 generate('scaffold widget name:string category:string instock:boolean foo_id:integer bar_id:integer --force')
@@ -112,6 +103,9 @@ end
 file "app/views/things/custom_action.html.erb",
      "This is a template for a custom action.",
      :force => true
+
+# Use the absolute path so we can load it without active record too
+apply File.join(DEFAULT_SOURCE_PATH, 'generate_action_mailer_specs.rb')
 
 gsub_file 'spec/spec_helper.rb', /^=(begin|end)/, ''
 

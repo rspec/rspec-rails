@@ -38,6 +38,11 @@ module RSpec
         has_action_mailer? && defined?(::ActionMailer::Preview)
       end
 
+      def has_action_mailer_show_preview?
+        has_action_mailer_preview? &&
+          ::ActionMailer::Base.respond_to?(:show_previews=)
+      end
+
       def has_1_9_hash_syntax?
         ::Rails::VERSION::STRING > '4.0'
       end
