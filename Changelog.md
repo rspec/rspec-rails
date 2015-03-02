@@ -10,6 +10,7 @@ Bug Fixes:
 
 * Fix auto-including of generic `Helper` object for view specs sitting in the
   `app/views` root (David Daniell, #1289)
+* Remove pre-loading of ActionMailer in the Railtie (Aaron Kromer, #1327)
 
 ### 3.2.1 / 2015-02-23
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.2.0...v3.2.1)
