@@ -1,5 +1,9 @@
 ### Development
 
+Enhancements:
+
+* Add support for PATCH to route specs created via scaffold. (Igor Zubkov, #1336)
+
 ### 3.2.1 / 2015-02-23
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.2.0...v3.2.1)
 
