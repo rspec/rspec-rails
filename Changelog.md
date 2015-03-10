@@ -3,6 +3,8 @@
 Enhancements:
 
 * Add support for PATCH to route specs created via scaffold. (Igor Zubkov, #1336)
+* Improve controller and routing spec calls to `routes` by using `yield`
+  instead of `call`. (Anton Davydov,#1308)
 
 ### 3.2.1 / 2015-02-23
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.2.0...v3.2.1)
