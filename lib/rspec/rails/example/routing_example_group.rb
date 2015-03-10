@@ -24,9 +24,9 @@ module RSpec
         #           route_to(:controller => "my_engine/posts", :action => "index")
         #       end
         #     end
-        def routes(&blk)
+        def routes
           before do
-            self.routes = blk.call
+            self.routes = yield
           end
         end
       end
