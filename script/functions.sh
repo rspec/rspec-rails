@@ -1,4 +1,4 @@
-# This file was generated on 2015-02-24T14:46:40-08:00 from the rspec-dev repo.
+# This file was generated on 2015-03-15T22:57:17-07:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -60,6 +60,7 @@ function run_specs_one_by_one {
   echo "Running each spec file, one-by-one..."
 
   for file in `find spec -iname '*_spec.rb'`; do
+    echo "Running $file"
     bin/rspec $file -b --format progress
   done
 }
