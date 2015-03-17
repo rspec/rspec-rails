@@ -11,8 +11,15 @@ module RSpec
 
       # @private
       module ClassMethods
-        def determine_constant_from_test_name(_ignore)
-          described_class if yield(described_class)
+        if ::Rails::VERSION::MAJOR > 3
+          def determine_constant_from_test_name(_ignore)
+            described_class if yield(described_class)
+          end
+        else
+          def determine_default_helper_class(_ignore)
+            return unless Module === described_class && !(Class === described_class)
+            described_class
+          end
         end
       end
 
