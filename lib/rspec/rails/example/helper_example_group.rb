@@ -11,8 +11,8 @@ module RSpec
 
       # @private
       module ClassMethods
-        def determine_default_helper_class(_ignore)
-          described_class
+        def determine_constant_from_test_name(_ignore)
+          described_class if yield(described_class)
         end
       end
 
