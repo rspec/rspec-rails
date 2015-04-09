@@ -37,7 +37,7 @@ module RSpec
           # date). If so, we turn the auto runner off.
           require 'test/unit'
           require 'test/unit/assertions'
-          Test::Unit::AutoRunner.need_auto_run = false if defined?(Test::Unit::AutoRunner)
+          Test::Unit::AutoRunner.need_auto_run = false if defined?(Test::Unit::AutoRunner.need_auto_run = ())
         rescue LoadError => e
           raise LoadError, <<-ERR.squish, e.backtrace
             Ruby 2.2+ has removed test/unit from the core library. Rails
@@ -62,7 +62,7 @@ module RSpec
         require 'test/unit/assertions'
       end
       # Turn off test unit's auto runner for those using the gem
-      Test::Unit::AutoRunner.need_auto_run = false if defined?(Test::Unit::AutoRunner)
+      Test::Unit::AutoRunner.need_auto_run = false if defined?(Test::Unit::AutoRunner.need_auto_run = ())
       # Constant aliased to either Minitest or TestUnit, depending on what is
       # loaded.
       Assertions = Test::Unit::Assertions
