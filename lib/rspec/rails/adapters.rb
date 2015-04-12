@@ -5,6 +5,19 @@ require 'active_support/core_ext/string'
 
 module RSpec
   module Rails
+    def self.disable_testunit_autorun
+      # `Test::Unit::AutoRunner.need_auto_run=` was introduced to the test-unit
+      # gem in version 2.4.9. Previous to this version `Test::Unit.run=` was
+      # used. The implementation of test-unit included with Ruby has neither
+      # method.
+      if defined?(Test::Unit::AutoRunner.need_auto_run = ())
+        Test::Unit::AutoRunner.need_auto_run = false
+      elsif defined?(Test::Unit.run = ())
+        Test::Unit.run = false
+      end
+    end
+    private_class_method :disable_testunit_autorun
+
     if ::Rails::VERSION::STRING >= '4.1.0'
       if defined?(Kernel.gem)
         gem 'minitest'
@@ -37,7 +50,7 @@ module RSpec
           # date). If so, we turn the auto runner off.
           require 'test/unit'
           require 'test/unit/assertions'
-          Test::Unit::AutoRunner.need_auto_run = false if defined?(Test::Unit::AutoRunner.need_auto_run = ())
+          disable_testunit_autorun
         rescue LoadError => e
           raise LoadError, <<-ERR.squish, e.backtrace
             Ruby 2.2+ has removed test/unit from the core library. Rails
@@ -62,7 +75,7 @@ module RSpec
         require 'test/unit/assertions'
       end
       # Turn off test unit's auto runner for those using the gem
-      Test::Unit::AutoRunner.need_auto_run = false if defined?(Test::Unit::AutoRunner.need_auto_run = ())
+      disable_testunit_autorun
       # Constant aliased to either Minitest or TestUnit, depending on what is
       # loaded.
       Assertions = Test::Unit::Assertions
