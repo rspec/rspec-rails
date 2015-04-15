@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.authors     = ["David Chelimsky", "Andy Lindeman"]
   s.email       = "rspec@googlegroups.com"
   s.homepage    = "http://github.com/rspec/rspec-rails"
-  s.summary     = "rspec-rails-#{RSpec::Rails::Version::STRING}"
-  s.description = "RSpec for Rails"
+  s.summary     = "RSpec for Rails"
+  s.description = "rspec-rails is a testing framework for Rails 3.x and 4.x."
 
   s.rubyforge_project  = "rspec"
 
