@@ -106,6 +106,10 @@ file "app/views/things/custom_action.html.erb",
 
 # Use the absolute path so we can load it without active record too
 apply File.join(DEFAULT_SOURCE_PATH, 'generate_action_mailer_specs.rb')
+using_source_path(File.expand_path('..', __FILE__)) do
+  # rspec-core loads files alphabetically, so we want this to be the first one
+  copy_file 'spec/__verify_fixture_load_order_spec.rb'
+end
 
 gsub_file 'spec/spec_helper.rb', /^=(begin|end)/, ''
 
