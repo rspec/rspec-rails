@@ -27,6 +27,7 @@ module RSpec
     DIRECTORY_MAPPINGS = {
       :controller => %w[spec controllers],
       :helper     => %w[spec helpers],
+      :job        => %w[spec jobs],
       :mailer     => %w[spec mailers],
       :model      => %w[spec models],
       :request    => %w[spec (requests|integration|api)],
@@ -42,6 +43,7 @@ module RSpec
 
       config.include RSpec::Rails::ControllerExampleGroup, :type => :controller
       config.include RSpec::Rails::HelperExampleGroup,     :type => :helper
+      config.include RSpec::Rails::JobExampleGroup,        :type => :job
       config.include RSpec::Rails::ModelExampleGroup,      :type => :model
       config.include RSpec::Rails::RequestExampleGroup,    :type => :request
       config.include RSpec::Rails::RoutingExampleGroup,    :type => :routing
