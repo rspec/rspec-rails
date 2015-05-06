@@ -43,7 +43,6 @@ module RSpec
 
       config.include RSpec::Rails::ControllerExampleGroup, :type => :controller
       config.include RSpec::Rails::HelperExampleGroup,     :type => :helper
-      config.include RSpec::Rails::JobExampleGroup,        :type => :job
       config.include RSpec::Rails::ModelExampleGroup,      :type => :model
       config.include RSpec::Rails::RequestExampleGroup,    :type => :request
       config.include RSpec::Rails::RoutingExampleGroup,    :type => :routing
@@ -52,6 +51,10 @@ module RSpec
 
       if defined?(ActionMailer)
         config.include RSpec::Rails::MailerExampleGroup, :type => :mailer
+      end
+
+      if defined?(ActiveJob)
+        config.include RSpec::Rails::JobExampleGroup, :type => :job
       end
 
       # controller settings
