@@ -5,6 +5,9 @@ Enhancements:
 * Add support for PATCH to route specs created via scaffold. (Igor Zubkov, #1336)
 * Improve controller and routing spec calls to `routes` by using `yield`
   instead of `call`. (Anton Davydov, #1308)
+* Add support for `ActiveJob` specs as standard `RSpec::Rails::RailsExampleGoup`s
+  via both `:type => :job` and inferring type from spec directory `spec/jobs`.
+  (Gabe Martin-Dempesy, #1361)
 
 Bug Fixes:
 

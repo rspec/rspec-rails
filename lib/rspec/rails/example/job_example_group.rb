@@ -3,6 +3,8 @@ module RSpec
     # Container module for job spec functionality. It is only available if
     # ActiveJob has been loaded before it.
     module JobExampleGroup
+      # This blank module is only necessary for YARD processing. It doesn't
+      # handle the conditional `defined?` check below very well.
     end
   end
 end
