@@ -27,6 +27,7 @@ module RSpec
     DIRECTORY_MAPPINGS = {
       :controller => %w[spec controllers],
       :helper     => %w[spec helpers],
+      :job        => %w[spec jobs],
       :mailer     => %w[spec mailers],
       :model      => %w[spec models],
       :request    => %w[spec (requests|integration|api)],
@@ -50,6 +51,10 @@ module RSpec
 
       if defined?(ActionMailer)
         config.include RSpec::Rails::MailerExampleGroup, :type => :mailer
+      end
+
+      if defined?(ActiveJob)
+        config.include RSpec::Rails::JobExampleGroup, :type => :job
       end
 
       # controller settings
