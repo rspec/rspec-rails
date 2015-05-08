@@ -518,7 +518,7 @@ expect(page).to have_http_status(:success)
 
 ## `rake` tasks
 
-Several rake tasks are provided as a convience for working with RSpec. To run
+Several rake tasks are provided as a convenience for working with RSpec. To run
 the entire spec suite use `rake spec`. To run a subset of specs use the
 associated type task, for example `rake spec:models`.
 
