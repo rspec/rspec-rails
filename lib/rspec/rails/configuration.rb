@@ -65,10 +65,10 @@ module RSpec
       config.add_setting :use_instantiated_fixtures
       config.add_setting :global_fixtures
       config.add_setting :fixture_path
+      config.include RSpec::Rails::FixtureSupport, :use_fixtures
 
-      # TODO: We'll need to create a deprecated module in order to properly
-      #  report to gems / projects which are relying on this being loaded
-      #  globally.
+      # We'll need to create a deprecated module in order to properly report to
+      # gems / projects which are relying on this being loaded globally.
       #
       # See rspec/rspec-rails#1355 for history
       #

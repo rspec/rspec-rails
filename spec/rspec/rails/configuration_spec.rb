@@ -133,6 +133,19 @@ RSpec.describe "Configuration" do
     include_examples "infers type from location", :feature, "spec/features"
   end
 
+  it "fixture support is included with metadata `:use_fixtures`" do
+    in_sub_process do
+      RSpec.configuration.global_fixtures = [:foo]
+      RSpec.configuration.fixture_path = "custom/path"
+
+      group = RSpec.describe("Arbitrary Description", :use_fixtures)
+
+      expect(group).to respond_to(:fixture_path)
+      expect(group.fixture_path).to eq("custom/path")
+      expect(group.new.respond_to?(:foo, true)).to be(true)
+    end
+  end
+
   it "metadata `:type => :controller` sets up controller example groups" do
     a_controller_class = Class.new
     stub_const "SomeController", a_controller_class
