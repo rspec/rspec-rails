@@ -8,6 +8,8 @@ Enhancements:
 * Add support for `ActiveJob` specs as standard `RSpec::Rails::RailsExampleGoup`s
   via both `:type => :job` and inferring type from spec directory `spec/jobs`.
   (Gabe Martin-Dempesy, #1361)
+* Include `RSpec::Rails::FixtureSupport` into example groups using metadata
+  `:use_fixtures => true`. (Aaron Kromer, #1372)
 
 Bug Fixes:
 
@@ -16,6 +18,8 @@ Bug Fixes:
 * Remove pre-loading of ActionMailer in the Railtie (Aaron Kromer, #1327)
 * Fix undefined method `need_auto_run=` error when using Ruby 2.1 and Rails 3.2
   without the test-unit gem (Orien Madgwick, #1350)
+* Fix load order issued which causes an undefined method `fixture_path` error
+  when loading rspec-rails after a spec has been created. (Aaron Kromer, #1372)
 
 ### 3.2.1 / 2015-02-23
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.2.0...v3.2.1)
