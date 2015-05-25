@@ -6,6 +6,8 @@ module RSpec
     module ViewRendering
       extend ActiveSupport::Concern
 
+      # @!attribute [r]
+      # Returns the controller object instance under test.
       attr_accessor :controller
 
       # DSL methods

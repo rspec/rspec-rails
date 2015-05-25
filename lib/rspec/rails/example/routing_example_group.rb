@@ -42,6 +42,8 @@ module RSpec
         end
       end
 
+      # @!attribute [r]
+      # @private
       attr_reader :routes
 
       # @private

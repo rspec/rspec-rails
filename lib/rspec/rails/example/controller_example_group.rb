@@ -122,7 +122,13 @@ module RSpec
         end
       end
 
-      attr_reader :controller, :routes
+      # @!attribute [r]
+      # Returns the controller object instance under test.
+      attr_reader :controller
+
+      # @!attribute [r]
+      # Returns the Rails routes used for the spec.
+      attr_reader :routes
 
       # @private
       #
