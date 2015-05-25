@@ -84,23 +84,25 @@ module RSpec
       # but requires this workaround:
       config.add_setting :rendering_views, :default => false
 
-      def config.render_views=(val)
-        self.rendering_views = val
-      end
+      config.instance_exec do
+        def render_views=(val)
+          self.rendering_views = val
+        end
 
-      def config.render_views
-        self.rendering_views = true
-      end
+        def render_views
+          self.rendering_views = true
+        end
 
-      def config.render_views?
-        rendering_views
-      end
+        def render_views?
+          rendering_views
+        end
 
-      def config.infer_spec_type_from_file_location!
-        DIRECTORY_MAPPINGS.each do |type, dir_parts|
-          escaped_path = Regexp.compile(dir_parts.join('[\\\/]') + '[\\\/]')
-          define_derived_metadata(:file_path => escaped_path) do |metadata|
-            metadata[:type] ||= type
+        def infer_spec_type_from_file_location!
+          DIRECTORY_MAPPINGS.each do |type, dir_parts|
+            escaped_path = Regexp.compile(dir_parts.join('[\\\/]') + '[\\\/]')
+            define_derived_metadata(:file_path => escaped_path) do |metadata|
+              metadata[:type] ||= type
+            end
           end
         end
       end
