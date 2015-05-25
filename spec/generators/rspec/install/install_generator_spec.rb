@@ -1,9 +1,8 @@
-require 'spec_helper'
+# Generators are not automatically loaded by Rails
 require 'generators/rspec/install/install_generator'
+require 'support/generators'
 
 RSpec.describe Rspec::Generators::InstallGenerator, :type => :generator do
-  destination File.expand_path("../../../../../tmp", __FILE__)
-
   def use_active_record_migration
     match(/ActiveRecord::Migration\./m)
   end
@@ -32,7 +31,7 @@ RSpec.describe Rspec::Generators::InstallGenerator, :type => :generator do
     match(/config\.use_transactional_fixtures/m)
   end
 
-  before { prepare_destination }
+  setup_default_destination
 
   let(:rails_helper) { content_for('spec/rails_helper.rb') }
   let(:spec_helper) { content_for('spec/spec_helper.rb') }

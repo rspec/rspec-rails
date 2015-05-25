@@ -1,11 +1,9 @@
-require 'spec_helper'
-
+# Generators are not automatically loaded by Rails
 require 'generators/rspec/scaffold/scaffold_generator'
+require 'support/generators'
 
-describe Rspec::Generators::ScaffoldGenerator, :type => :generator do
-  destination File.expand_path("../../../../../tmp", __FILE__)
-
-  before { prepare_destination }
+RSpec.describe Rspec::Generators::ScaffoldGenerator, :type => :generator do
+  setup_default_destination
 
   describe 'standard controller spec' do
     subject { file('spec/controllers/posts_controller_spec.rb') }

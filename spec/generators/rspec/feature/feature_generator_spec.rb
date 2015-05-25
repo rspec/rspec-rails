@@ -1,13 +1,9 @@
-require 'spec_helper'
-
 # Generators are not automatically loaded by rails
 require 'generators/rspec/feature/feature_generator'
+require 'support/generators'
 
-describe Rspec::Generators::FeatureGenerator, :type => :generator do
-  # Tell the generator where to put its output (what it thinks of as Rails.root)
-  destination File.expand_path('../../../../../tmp', __FILE__)
-
-  before { prepare_destination }
+RSpec.describe Rspec::Generators::FeatureGenerator, :type => :generator do
+  setup_default_destination
 
   describe 'feature specs' do
     describe 'are generated independently from the command line' do

@@ -1,13 +1,9 @@
-require 'spec_helper'
-
 # Generators are not automatically loaded by Rails
 require 'generators/rspec/controller/controller_generator'
+require 'support/generators'
 
-describe Rspec::Generators::ControllerGenerator, :type => :generator do
-  # Tell the generator where to put its output (what it thinks of as Rails.root)
-  destination File.expand_path("../../../../../tmp", __FILE__)
-
-  before { prepare_destination }
+RSpec.describe Rspec::Generators::ControllerGenerator, :type => :generator do
+  setup_default_destination
 
   describe 'controller specs' do
     subject { file('spec/controllers/posts_controller_spec.rb') }
