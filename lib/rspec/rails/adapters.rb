@@ -5,6 +5,7 @@ require 'active_support/core_ext/string'
 
 module RSpec
   module Rails
+    # @private
     def self.disable_testunit_autorun
       # `Test::Unit::AutoRunner.need_auto_run=` was introduced to the test-unit
       # gem in version 2.4.9. Previous to this version `Test::Unit.run=` was
