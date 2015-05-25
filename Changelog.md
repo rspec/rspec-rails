@@ -10,6 +10,8 @@ Enhancements:
   (Gabe Martin-Dempesy, #1361)
 * Include `RSpec::Rails::FixtureSupport` into example groups using metadata
   `:use_fixtures => true`. (Aaron Kromer, #1372)
+* Include `rspec:request` generator for generating request specs; this is an
+  alias of `rspec:integration` (Aaron Kromer, #1378)
 
 Bug Fixes:
 

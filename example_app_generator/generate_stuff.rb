@@ -82,6 +82,7 @@ setup_tasks
 generate('rspec:install')
 generate('controller wombats index') # plural
 generate('controller welcome index') # singular
+generate('rspec:request wombats')
 generate('integration_test widgets')
 generate('mailer Notifications signup')
 

@@ -4,7 +4,12 @@ module Rspec
   module Generators
     # @private
     class IntegrationGenerator < Base
-      class_option :request_specs,   :type => :boolean, :default => true,  :desc => "Generate request specs"
+      # Add a deprecation for this class, before rspec-rails 4, to use the
+      # `RequestGenerator` instead
+      class_option :request_specs,
+                   :type => :boolean,
+                   :default => true,
+                   :desc => "Generate request specs"
 
       def generate_request_spec
         return unless options[:request_specs]
