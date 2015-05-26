@@ -8,7 +8,11 @@ module RSpec
 
       # @!attribute [r]
       # Returns the controller object instance under test.
-      attr_accessor :controller
+      attr_reader :controller
+
+      # @private
+      attr_writer :controller
+      private :controller=
 
       # DSL methods
       module ClassMethods
