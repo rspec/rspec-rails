@@ -14,7 +14,7 @@ module RSpec
       module ClassMethods
         def _default_helper
           base = metadata[:description].split('/')[0..-2].join('/')
-          (base.camelize + 'Helper').constantize if base
+          (base.camelize + 'Helper').constantize unless base.to_s.empty?
         rescue NameError
           nil
         end
