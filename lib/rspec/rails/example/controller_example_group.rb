@@ -1,5 +1,10 @@
 module RSpec
   module Rails
+    # @private
+    ControllerAssertionDelegator = RSpec::Rails::AssertionDelegator.new(
+      ActionDispatch::Assertions::RoutingAssertions
+    )
+
     # Container module for controller spec functionality.
     module ControllerExampleGroup
       extend ActiveSupport::Concern
@@ -9,7 +14,7 @@ module RSpec
       include RSpec::Rails::Matchers::RedirectTo
       include RSpec::Rails::Matchers::RenderTemplate
       include RSpec::Rails::Matchers::RoutingMatchers
-      include RSpec::Rails::AssertionDelegator.new(ActionDispatch::Assertions::RoutingAssertions)
+      include ControllerAssertionDelegator
 
       # Class-level DSL for controller specs.
       module ClassMethods
@@ -117,7 +122,13 @@ module RSpec
         end
       end
 
-      attr_reader :controller, :routes
+      # @!attribute [r]
+      # Returns the controller object instance under test.
+      attr_reader :controller
+
+      # @!attribute [r]
+      # Returns the Rails routes used for the spec.
+      attr_reader :routes
 
       # @private
       #
