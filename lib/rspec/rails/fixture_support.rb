@@ -9,6 +9,15 @@ module RSpec
         include RSpec::Rails::MinitestAssertionAdapter
         include ActiveRecord::TestFixtures
 
+        RSpec.configure do |c|
+          c.include RSpec::Rails::FixtureSupport
+          c.add_setting :use_transactional_fixtures
+          c.add_setting :use_transactional_examples, :alias => :use_transactional_fixtures
+          c.add_setting :use_instantiated_fixtures
+          c.add_setting :global_fixtures
+          c.add_setting :fixture_path
+        end
+
         included do
           # TODO: (DC 2011-06-25) this is necessary because fixture_file_upload
           # accesses fixture_path directly on ActiveSupport::TestCase. This is
