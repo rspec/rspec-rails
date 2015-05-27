@@ -12,6 +12,8 @@ Enhancements:
   `:use_fixtures => true`. (Aaron Kromer, #1372)
 * Include `rspec:request` generator for generating request specs; this is an
   alias of `rspec:integration` (Aaron Kromer, #1378)
+* Update `rails_helper` generator with a default check to abort the spec run
+  when the Rails environment is production. (Aaron Kromer, #1383)
 
 Bug Fixes:
 
