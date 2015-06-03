@@ -1,4 +1,4 @@
-### Development
+### 3.2.2 / 2015-06-03
 
 Bug Fixes:
 
