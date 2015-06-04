@@ -29,19 +29,12 @@ module RSpec
     private
 
       def setup_preview_path(app)
-        # If the action mailer railtie isn't loaded the config will not respond
         return unless supports_action_mailer_previews?(app.config)
         options = app.config.action_mailer
         config_default_preview_path(options) if config_preview_path?(options)
       end
 
       def config_preview_path?(options)
-        # This string version check avoids loading the ActionMailer class, as
-        # would happen using `defined?`. This is necessary because the
-        # ActionMailer class only loads it's settings once, at load time. If we
-        # load the class now any settings declared in a config block in an
-        # initializer will be ignored.
-        #
         # We cannot use `respond_to?(:show_previews)` here as it will always
         # return `true`.
         if ::Rails::VERSION::STRING < '4.2'
@@ -59,8 +52,18 @@ module RSpec
       end
 
       def supports_action_mailer_previews?(config)
-        config.respond_to?(:action_mailer) &&
-          config.action_mailer.respond_to?(:preview_path)
+        # These checks avoid loading `ActionMailer`. Using `defined?` has the
+        # side-effect of the class getting loaded if it is available. This is
+        # problematic because loading `ActionMailer::Base` will cause it to
+        # read the config settings; this is the only time the config is read.
+        # If the config is loaded now, any settings declared in a config block
+        # in an initializer will be ignored.
+        #
+        # If the action mailer railtie has not been loaded then `config` will
+        # not respond to the method. However, we cannot use
+        # `config.action_mailer.respond_to?(:preview_path)` here as it will
+        # always return `true`.
+        config.respond_to?(:action_mailer) && ::Rails::VERSION::STRING > '4.1'
       end
     end
   end
