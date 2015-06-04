@@ -16,6 +16,11 @@ Enhancements:
 * Update `rails_helper` generator with a default check to abort the spec run
   when the Rails environment is production. (Aaron Kromer, #1383)
 
+Bug Fixes:
+
+* Fix regression with the railtie resulting in undefined method `preview_path=`
+  on Rails 3.x and 4.0 (Aaron Kromer, #1388)
+
 ### 3.2.2 / 2015-06-03
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.2.1...v3.2.2)
 
