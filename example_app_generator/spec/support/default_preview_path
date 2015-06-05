@@ -32,6 +32,7 @@ require_file_stub 'config/environment' do
     module ExampleApp
       class Application < Rails::Application
         config.eager_load = false
+        config.eager_load_paths.clear
 
         # Don't care if the mailer can't send.
         config.action_mailer.raise_delivery_errors = false unless ENV['NO_ACTION_MAILER']
@@ -58,3 +59,7 @@ if ENV['DEFAULT_URL']
 elsif defined?(::ActionMailer::Preview)
   puts Rails.application.config.action_mailer.preview_path
 end
+
+# This will force the loading of ActionMailer settings to ensure we do not
+# accicentally set something we should not
+ActionMailer::Base.smtp_settings

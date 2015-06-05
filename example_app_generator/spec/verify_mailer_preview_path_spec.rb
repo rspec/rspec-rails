@@ -8,17 +8,25 @@ RSpec.describe 'Action Mailer railtie hook' do
     end
   end
 
+  def as_commandline(ops)
+    cmd, ops = ops.reverse
+    ops ||= {}
+    cmd_parts = ops.map { |k, v| "#{k}=#{v}" } << cmd << '2>&1'
+    cmd_parts.join(' ')
+  end
+
   def capture_exec(*ops)
     io = if RUBY_VERSION.to_f < 1.9
-           IO.popen(ops.join(' '))
+           IO.popen(as_commandline(ops))
          else
            ops << { :err => [:child, :out] }
            IO.popen(ops)
          end
     # Necessary to ignore warnings from Rails code base
-    out =  io.readlines.reject { |line|
-      line =~ /warning: circular argument reference/
-    }.join.chomp
+    out =  io.readlines.
+              reject { |line| line =~ /warning: circular argument reference/ }.
+              join.
+              chomp
     CaptureExec.new(out, $?.exitstatus)
   end
 
@@ -176,8 +184,58 @@ RSpec.describe 'Action Mailer railtie hook' do
       end
     end
   else
-    it 'handles no action mailer preview' do
-      expect(capture_exec(exec_script)).to have_no_preview
+    context 'in the development environment' do
+      let(:custom_env) { { 'RAILS_ENV' => rails_env } }
+      let(:rails_env) { 'development' }
+
+      it 'handles no action mailer preview' do
+        expect(capture_exec(custom_env, exec_script)).to have_no_preview
+      end
+
+      it 'allows initializers to set options' do
+        expect(
+          capture_exec(
+            custom_env.merge('DEFAULT_URL' => 'test-host'),
+            exec_script
+          )
+        ).to eq('test-host')
+      end
+
+      it 'handles action mailer not being available' do
+        expect(
+          capture_exec(
+            custom_env.merge('NO_ACTION_MAILER' => 'true'),
+            exec_script
+          )
+        ).to have_no_preview
+      end
+    end
+
+    context 'in a non-development environment' do
+      let(:custom_env) { { 'RAILS_ENV' => rails_env } }
+      let(:rails_env) { 'test' }
+
+      it 'handles no action mailer preview' do
+        expect(capture_exec(custom_env, exec_script)).to have_no_preview
+      end
+
+      it 'allows initializers to set options' do
+        expect(
+          capture_exec(
+            custom_env.merge('DEFAULT_URL' => 'test-host'),
+            exec_script
+          )
+        ).to eq('test-host')
+      end
+
+      it 'handles action mailer not being available' do
+        expect(
+          capture_exec(
+            custom_env.merge('NO_ACTION_MAILER' => 'true'),
+            exec_script
+          )
+        ).to have_no_preview
+      end
     end
   end
 end
