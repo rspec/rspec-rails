@@ -1,4 +1,5 @@
-### Development
+### 3.2.3 / 2015-06-06
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.2.2...v3.2.3)
 
 Bug Fixes:
 
