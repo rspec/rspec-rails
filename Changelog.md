@@ -1,5 +1,5 @@
 ### Development
-[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.2.2...master)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.2.3...master)
 
 Enhancements:
 
@@ -15,6 +15,9 @@ Enhancements:
   alias of `rspec:integration` (Aaron Kromer, #1378)
 * Update `rails_helper` generator with a default check to abort the spec run
   when the Rails environment is production. (Aaron Kromer, #1383)
+
+### 3.2.3 / 2015-06-06
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.2.2...v3.2.3)
 
 Bug Fixes:
 
