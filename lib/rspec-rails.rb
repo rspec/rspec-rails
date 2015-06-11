@@ -7,7 +7,7 @@ module RSpec
       # private
       module NoActionMailer
         # private
-        def setup_preview_path(config)
+        def setup_preview_path(_config)
         end
       end
 
@@ -22,7 +22,7 @@ module RSpec
         end
 
         # private
-        def show_previews?(options)
+        def show_previews?(_options)
           ::Rails.env.development?
         end
 
@@ -91,7 +91,7 @@ module RSpec
       # This is called after the environment has been loaded but before Rails
       # sets the default for the `preview_path`
       initializer "rspec_rails.action_mailer",
-        :before => "action_mailer.set_configs" do |app|
+                  :before => "action_mailer.set_configs" do |app|
         setup_preview_path app.config
       end
     end
