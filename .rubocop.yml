@@ -55,3 +55,4 @@ ConstantName:
     # We break convention here so that when bundler requires the gem, which
     # uses the gem name, things work without user configuration.
     - lib/rspec-rails.rb
+    - lib/rspec/rails/example/rails_example_group.rb
