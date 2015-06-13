@@ -9,7 +9,11 @@ module RSpec
           # This allows dynamic columns etc to be used on ActiveRecord models when creating instance_doubles
           if defined?(ActiveRecord) && defined?(::RSpec::Mocks)
             ::RSpec::Mocks.configuration.when_declaring_verifying_double do |possible_model|
-              possible_model.target.define_attribute_methods if possible_model.target.respond_to?(:define_attribute_methods)
+              target = possible_model.target
+
+              if target.respond_to?(:define_attribute_methods) && ActiveRecord::Base != target
+                target.define_attribute_methods
+              end
             end
           end
         end
