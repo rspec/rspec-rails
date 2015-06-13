@@ -95,6 +95,11 @@ generate('scaffold admin/account name:string') # scaffold with nested resource
 generate('rspec:feature gadget')
 generate('controller things custom_action')
 
+using_source_path(File.expand_path('..', __FILE__)) do
+  # rspec-core loads files alphabetically, so we want this to be the first one
+  copy_file 'spec/features/model_mocks_integration_spec.rb'
+end
+
 begin
   require 'active_job'
   generate('job upload_backups')
