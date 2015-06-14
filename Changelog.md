@@ -1,10 +1,13 @@
-### 3.3.1 Dev
+### 3.4.0 Dev
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.3.1...master)
+
+### 3.3.1 / 2015-06-14
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.3.0...v3.3.1)
 
 Bug Fixes:
 
 * Fix regression that caused stubbing ActiveRecord model classes to
-  trigger internal errors in rails. (Myron Marston, #1395)
+  trigger internal errors in rails. (Myron Marston, Aaron Kromer, #1395)
 
 ### 3.3.0 / 2015-06-12
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.2.3...v3.3.0)
