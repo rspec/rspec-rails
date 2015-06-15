@@ -1,6 +1,11 @@
 ### 3.4.0 Dev
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.3.1...master)
 
+Bug Fixes:
+
+* Prevent `define_attribute_methods` from being called on abstract classes as
+  part of the verifying double lifecycle. (Jon Rowe, #1396)
+
 ### 3.3.1 / 2015-06-14
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.3.0...v3.3.1)
 
