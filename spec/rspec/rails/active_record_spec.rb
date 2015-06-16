@@ -12,12 +12,23 @@ RSpec.describe "ActiveRecord support" do
     end
   end
 
+  RSpec.shared_examples_for "stubbing abstract classes" do
+    it "allows you to stub abstract classes" do
+      klass = Class.new(ActiveRecord::Base) do
+                self.abstract_class = true
+              end
+      allow(klass).to receive(:find).and_return("stubbed find")
+      expect(klass.find(1)).to eq "stubbed find"
+    end
+  end
+
   context "with partial double verification enabled" do
     before do
       RSpec::Mocks.configuration.verify_partial_doubles = true
     end
 
     include_examples "stubbing ActiveRecord::Base"
+    include_examples "stubbing abstract classes"
   end
 
   context "with partial double verification disabled" do
@@ -26,5 +37,6 @@ RSpec.describe "ActiveRecord support" do
     end
 
     include_examples "stubbing ActiveRecord::Base"
+    include_examples "stubbing abstract classes"
   end
 end
