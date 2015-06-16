@@ -20,3 +20,4 @@ Gemfile-custom
 bundle
 .bundle
 specs.out
+spec/examples.txt
