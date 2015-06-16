@@ -11,8 +11,7 @@ module RSpec
             ::RSpec::Mocks.configuration.when_declaring_verifying_double do |possible_model|
               target = possible_model.target
 
-              if target.respond_to?(:define_attribute_methods) && ActiveRecord::Base != target &&
-                 target.respond_to?(:abstract_class?) && !target.abstract_class?
+              if Class === target && ActiveRecord::Base > target && !target.abstract_class?
                 target.define_attribute_methods
               end
             end
