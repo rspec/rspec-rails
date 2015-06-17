@@ -1,4 +1,6 @@
 require 'rspec/rails/view_assigns'
+require 'rspec/rails/view_spec_methods'
+require 'rspec/rails/view_path_builder'
 
 module RSpec
   module Rails
@@ -159,6 +161,12 @@ module RSpec
           controller.controller_path = _controller_path
           controller.request.path_parameters[:controller] = _controller_path
           controller.request.path_parameters[:action]     = _inferred_action unless _inferred_action =~ /^_/
+          controller.request.path = ViewPathBuilder.new(::Rails.application.routes).path_for(controller.request.path_parameters)
+          ViewSpecMethods.add_to(::ActionView::TestCase::TestController)
+        end
+
+        after do
+          ViewSpecMethods.remove_from(::ActionView::TestCase::TestController)
         end
 
         let(:_default_file_to_render) do |example|
