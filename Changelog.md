@@ -1,10 +1,12 @@
-### 3.3.2 Dev
-[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.3.1...master)
+### 3.3.2 / 2015-06-18
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.3.1...v3.3.2)
 
 Bug Fixes:
 
-* Prevent `define_attribute_methods` from being called on abstract classes as
-  part of the verifying double lifecycle. (Jon Rowe, #1396)
+* Fix regression that caused stubbing abstract ActiveRecord model
+  classes to trigger internal errors in rails due the the verifying
+  double lifecycle wrongly calling `define_attribute_methods` on the
+  abstract AR class. (Jon Rowe, #1396)
 
 ### 3.3.1 / 2015-06-14
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.3.0...v3.3.1)
