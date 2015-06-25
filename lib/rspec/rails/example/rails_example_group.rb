@@ -11,7 +11,7 @@ module RSpec
       include RSpec::Rails::MinitestLifecycleAdapter if ::Rails::VERSION::STRING >= '4'
       include RSpec::Rails::MinitestAssertionAdapter
       include RSpec::Rails::Matchers
-      include RSpec::Rails::FixtureSupport
+      include RSpec::Rails::FixtureSupport if RSpec::Rails::FixtureSupport rescue false 
     end
   end
 end
