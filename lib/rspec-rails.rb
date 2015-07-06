@@ -12,7 +12,7 @@ module RSpec
       generators.test_framework :rspec
 
       generators do
-        ::Rails::Generators.hidden_namespaces.reject! { |namespace| namespace.start_with?("rspec") }
+        ::Rails::Generators.hidden_namespaces.reject! { |namespace| namespace.to_s.start_with?("rspec") }
       end
 
       rake_tasks do
