@@ -1,6 +1,11 @@
 ### 3.4.0 Development
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.3.2...master)
 
+Bug Fixes:
+
+* Fix issue with generators caused by `Rails.configuration.hidden_namespaces`
+  including symbols. (Dan Kohn, #1414)
+
 ### 3.3.2 / 2015-06-18
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.3.1...v3.3.2)
 
