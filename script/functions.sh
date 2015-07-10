@@ -1,4 +1,4 @@
-# This file was generated on 2015-05-05T17:56:26+10:00 from the rspec-dev repo.
+# This file was generated on 2015-07-10T08:35:29-07:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -67,13 +67,22 @@ function run_specs_one_by_one {
 
 function run_spec_suite_for {
   if [ ! -f ../$1/$SPECS_HAVE_RUN_FILE ]; then # don't rerun specs that have already run
-    echo "Running specs for $1"
-    pushd ../$1
-    unset BUNDLE_GEMFILE
-    bundle_install_flags=`cat .travis.yml | grep bundler_args | tr -d '"' | grep -o " .*"`
-    travis_retry eval "bundle install $bundle_install_flags"
-    run_specs_and_record_done
-    popd
+    if [ -d ../$1 ]; then
+      echo "Running specs for $1"
+      pushd ../$1
+      unset BUNDLE_GEMFILE
+      bundle_install_flags=`cat .travis.yml | grep bundler_args | tr -d '"' | grep -o " .*"`
+      travis_retry eval "bundle install $bundle_install_flags"
+      run_specs_and_record_done
+      popd
+    else
+      echo ""
+      echo "WARNING: The ../$1 directory does not exist. Usually the"
+      echo "travis build cds into that directory and run the specs to"
+      echo "ensure the specs still pass with your latest changes, but"
+      echo "we are going to skip that step."
+      echo ""
+    fi;
   fi;
 }
 
@@ -119,7 +128,6 @@ function check_style_and_lint {
 }
 
 function run_all_spec_suites {
-  fold "one-by-one specs" run_specs_one_by_one
   fold "rspec-core specs" run_spec_suite_for "rspec-core"
   fold "rspec-expectations specs" run_spec_suite_for "rspec-expectations"
   fold "rspec-mocks specs" run_spec_suite_for "rspec-mocks"
