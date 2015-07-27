@@ -1,4 +1,4 @@
-# This file was generated on 2015-05-05T17:56:26+10:00 from the rspec-dev repo.
+# This file was generated on 2015-07-10T08:35:29-07:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 # Taken from:
@@ -50,6 +50,8 @@ fold() {
   if [ -n "$TRAVIS" ]; then
     printf "travis_fold:start:%s\r\e[0m" "$name"
     travis_time_start
+  else
+    echo "============= Starting $name ==============="
   fi
 
   "$@"
@@ -60,6 +62,8 @@ fold() {
   if [ "$status" -eq 0 ]; then
     if [ -n "$TRAVIS" ]; then
       printf "travis_fold:end:%s\r\e[0m" "$name"
+    else
+      echo "============= Ending $name ==============="
     fi
   else
     STATUS="$status"
