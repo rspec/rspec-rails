@@ -8,7 +8,7 @@ module Rspec
 
       def generate_feature_spec
         return unless options[:feature_specs]
-        file_name = table_name.split(" ").collect(&:downcase).join("_")
+        file_name = table_name.parameterize.underscore
 
         template 'feature_spec.rb', File.join('spec/features', class_path, "#{file_name}_spec.rb") # file_name?
       end
