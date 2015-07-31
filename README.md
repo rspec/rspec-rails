@@ -105,6 +105,24 @@ running `rails generate rspec:model` will generate a model spec. For more
 information, see [list of all
 generators](https://www.relishapp.com/rspec/rspec-rails/docs/generators).
 
+## Contributing
+
+Once you've set up the environment, you'll need to cd into the working
+directory of whichever repo you want to work in. From there you can run the
+specs and cucumber features, and make patches.
+
+NOTE: You do not need to use rspec-dev to work on a specific RSpec repo. You
+can treat each RSpec repo as an independent project.
+Please see the following files: 
+
+For `rspec-rails`-specific development information, see
+
+* [README_DEV](http://github.com/rspec/rspec-rails/blob/master/README_DEV.md)
+* [CODE_OF_CONDUCT] (https://github.com/rspec/rspec-rails/blob/master/code_of_conduct.md)
+* [BUILD_DETAIL](https://github.com/rspec/rspec-rails/blob/master/BUILD_DETAIL.md)
+* [CONTRIBUTING](https://github.com/rspec/rspec-rails/blob/master/CONTRIBUTING.md)
+
+
 ## Model Specs
 
 Use model specs to describe behavior of models (usually ActiveRecord-based) in
@@ -536,12 +554,6 @@ However, you must first clear the task that rspec-rails defined:
 task("spec").clear
 ```
 
-## Contribute
-
-See [http://github.com/rspec/rspec-dev](http://github.com/rspec/rspec-dev).
-
-For `rspec-rails`-specific development information, see
-[README_DEV](https://github.com/rspec/rspec-rails/blob/master/README_DEV.md).
 
 ## Also see
 
