@@ -113,14 +113,14 @@ specs and cucumber features, and make patches.
 
 NOTE: You do not need to use rspec-dev to work on a specific RSpec repo. You
 can treat each RSpec repo as an independent project.
-Please see the following files: 
+Please see the following files:
 
 For `rspec-rails`-specific development information, see
 
-* [README_DEV](http://github.com/rspec/rspec-rails/blob/master/README_DEV.md)
-* [CODE_OF_CONDUCT] (https://github.com/rspec/rspec-rails/blob/master/code_of_conduct.md)
-* [BUILD_DETAIL](https://github.com/rspec/rspec-rails/blob/master/BUILD_DETAIL.md)
-* [CONTRIBUTING](https://github.com/rspec/rspec-rails/blob/master/CONTRIBUTING.md)
+- [Build details](BUILD_DETAIL.md)
+- [Code of Conduct](CODE_OF_CONDUCT.md)
+- [Detailed contributing guide](CONTRIBUTING.md)
+- [Development setup guide](DEVELOPMENT.md)
 
 
 ## Model Specs
