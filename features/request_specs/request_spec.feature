@@ -50,3 +50,45 @@ Feature: request spec
       """
     When I run `rspec spec/requests/widget_management_spec.rb`
     Then the example should pass
+
+  @unsupported-on-rails-3-0
+  Scenario: requesting a JSON response
+    Given a file named "spec/requests/widget_management_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe "Widget management", :type => :request do
+
+        it "creates a Widget" do
+          headers = {
+            "ACCEPT" => "application/json",     # This is what Rails 4 accepts
+            "HTTP_ACCEPT" => "application/json" # This is what Rails 3 accepts
+          }
+          post "/widgets", { :widget => {:name => "My Widget"} }, headers
+
+          expect(response.content_type).to eq("application/json")
+          expect(response).to have_http_status(:created)
+        end
+
+      end
+      """
+    When I run `rspec spec/requests/widget_management_spec.rb`
+    Then the example should pass
+
+  Scenario: providing JSON data
+    Given a file named "spec/requests/widget_management_spec.rb" with:
+    """ruby
+    require "rails_helper"
+
+    RSpec.describe "Widget management", :type => :request do
+
+      it "creates a Widget and redirects to the Widget's page" do
+        headers = { "CONTENT_TYPE" => "application/json" }
+        post "/widgets", '{ "widget": { "name":"My Widget" } }', headers
+        expect(response).to redirect_to(assigns(:widget))
+      end
+
+    end
+    """
+    When I run `rspec spec/requests/widget_management_spec.rb`
+    Then the example should pass

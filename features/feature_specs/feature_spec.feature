@@ -12,7 +12,8 @@ Feature: Feature spec
   version 2.4.0 or later to avoid some deprecation warnings and have support for
   [`config.expose_dsl_globally = false`](/rspec/rspec-core/docs/configuration/global-namespace-dsl). Refer to the [capybara API<br />
   documentation](http://rubydoc.info/github/jnicklas/capybara/master) for more information on the methods and matchers that can be
-  used in feature specs.
+  used in feature specs. Capybara is intended to simulate browser requests with
+  HTTP. It will primarily send HTML content.
 
   The `feature` and `scenario` DSL correspond to `describe` and `it`, respectively.
   These methods are simply aliases that allow feature specs to read more as
