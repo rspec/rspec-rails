@@ -1,5 +1,5 @@
 #!/bin/bash
-# This file was generated on 2015-07-10T08:35:29-07:00 from the rspec-dev repo.
+# This file was generated on 2015-08-01T02:04:28-04:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 set -e
@@ -9,6 +9,8 @@ source script/functions.sh
 if [ -f script/custom_build_functions.sh ]; then
   source script/custom_build_functions.sh
 fi
+
+fold "binstub check" check_binstubs
 
 fold "specs" run_specs_and_record_done
 fold "cukes" run_cukes
