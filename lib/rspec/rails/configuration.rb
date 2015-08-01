@@ -38,7 +38,7 @@ module RSpec
 
     # @private
     def self.initialize_configuration(config)
-      config.backtrace_exclusion_patterns << /vendor\//
+      config.backtrace_exclusion_patterns << %r{vendor\/}
       config.backtrace_exclusion_patterns << %r{ lib/rspec/rails }
 
       config.include RSpec::Rails::ControllerExampleGroup, :type => :controller
