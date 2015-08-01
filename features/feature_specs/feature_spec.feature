@@ -66,3 +66,22 @@ Feature: Feature spec
       """
     When I run `rspec spec/features/widget_management_spec.rb`
     Then the example should pass
+
+  Scenario: specify creating a Widget via custom content type like JSON
+    Given a file named "spec/features/widget_managment_spec.rb" with:
+    """ruby
+    require "rails_helper"
+
+    RSpec.feature "Widget managment", :type => :feature do
+      scenario "User creates a new Widget with JSON" do
+        POST "/widgets/new"
+
+        fill_in "Name", :with => "My Widget"
+
+        expect(response.content_type).to eq "application/json"
+      end
+    end
+    """
+    When I run `rspec spec/features/widget_managment_spec.rb`
+    Then the example should pass
+
