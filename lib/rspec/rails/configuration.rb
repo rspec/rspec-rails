@@ -41,22 +41,6 @@ module RSpec
       config.backtrace_exclusion_patterns << /vendor\//
       config.backtrace_exclusion_patterns << %r{ lib/rspec/rails }
 
-      config.include RSpec::Rails::ControllerExampleGroup, :type => :controller
-      config.include RSpec::Rails::HelperExampleGroup,     :type => :helper
-      config.include RSpec::Rails::ModelExampleGroup,      :type => :model
-      config.include RSpec::Rails::RequestExampleGroup,    :type => :request
-      config.include RSpec::Rails::RoutingExampleGroup,    :type => :routing
-      config.include RSpec::Rails::ViewExampleGroup,       :type => :view
-      config.include RSpec::Rails::FeatureExampleGroup,    :type => :feature
-
-      if defined?(ActionMailer)
-        config.include RSpec::Rails::MailerExampleGroup, :type => :mailer
-      end
-
-      if defined?(ActiveJob)
-        config.include RSpec::Rails::JobExampleGroup, :type => :job
-      end
-
       # controller settings
       config.add_setting :infer_base_class_for_anonymous_controllers, :default => true
 
@@ -105,6 +89,22 @@ module RSpec
             end
           end
         end
+      end
+
+      config.include RSpec::Rails::ControllerExampleGroup, :type => :controller
+      config.include RSpec::Rails::HelperExampleGroup,     :type => :helper
+      config.include RSpec::Rails::ModelExampleGroup,      :type => :model
+      config.include RSpec::Rails::RequestExampleGroup,    :type => :request
+      config.include RSpec::Rails::RoutingExampleGroup,    :type => :routing
+      config.include RSpec::Rails::ViewExampleGroup,       :type => :view
+      config.include RSpec::Rails::FeatureExampleGroup,    :type => :feature
+
+      if defined?(ActionMailer)
+        config.include RSpec::Rails::MailerExampleGroup, :type => :mailer
+      end
+
+      if defined?(ActiveJob)
+        config.include RSpec::Rails::JobExampleGroup, :type => :job
       end
     end
 
