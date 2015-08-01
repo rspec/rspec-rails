@@ -9,18 +9,32 @@ module RSpec
             @expected = Symbol === expected ? expected.to_s : expected
             @message = message
             @scope = scope
+            @redirect_is = nil
           end
 
           # @api private
           def matches?(*)
-            match_unless_raises ActiveSupport::TestCase::Assertion do
+            match_check = match_unless_raises ActiveSupport::TestCase::Assertion do
               @scope.assert_template expected, @message
             end
+            check_redirect unless match_check
+            match_check
+          end
+
+          def check_redirect
+            response = @scope.response
+            return unless response.respond_to?(:redirect?) && response.redirect?
+            @redirect_is = @scope.send(:normalize_argument_to_redirection, response.location)
           end
 
           # @api private
           def failure_message
-            rescued_exception.message
+            if @redirect_is
+              rescued_exception.message[/.* but /] +
+                "was a redirect to <#{@redirect_is}>"
+            else
+              rescued_exception.message
+            end
           end
 
           # @api private
