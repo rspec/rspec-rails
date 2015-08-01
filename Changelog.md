@@ -1,6 +1,11 @@
 ### 3.4.0 Development
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.3.3...master)
 
+Bug Fixes:
+
+* Fix another load order issued which causes an undefined method `fixture_path` error
+  when loading rspec-rails after a spec has been created. (Nikki Murray, #1430)
+
 ### 3.3.3 / 2015-07-15
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.3.2...v3.3.3)
 
