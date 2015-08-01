@@ -12,7 +12,8 @@ Feature: Feature spec
   version 2.4.0 or later to avoid some deprecation warnings and have support for
   [`config.expose_dsl_globally = false`](/rspec/rspec-core/docs/configuration/global-namespace-dsl). Refer to the [capybara API<br />
   documentation](http://rubydoc.info/github/jnicklas/capybara/master) for more information on the methods and matchers that can be
-  used in feature specs.
+  used in feature specs. Capybara is intended to simulate browser requests with
+  HTTP. It will primarily send HTML content.
 
   The `feature` and `scenario` DSL correspond to `describe` and `it`, respectively.
   These methods are simply aliases that allow feature specs to read more as
@@ -66,22 +67,3 @@ Feature: Feature spec
       """
     When I run `rspec spec/features/widget_management_spec.rb`
     Then the example should pass
-
-  Scenario: specify creating a Widget via custom content type like JSON
-    Given a file named "spec/features/widget_managment_spec.rb" with:
-    """ruby
-    require "rails_helper"
-
-    RSpec.feature "Widget managment", :type => :feature do
-      scenario "User creates a new Widget with JSON" do
-        POST "/widgets/new"
-
-        fill_in "Name", :with => "My Widget"
-
-        expect(response.content_type).to eq "application/json"
-      end
-    end
-    """
-    When I run `rspec spec/features/widget_managment_spec.rb`
-    Then the example should pass
-
