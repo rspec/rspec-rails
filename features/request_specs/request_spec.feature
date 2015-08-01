@@ -51,6 +51,7 @@ Feature: request spec
     When I run `rspec spec/requests/widget_management_spec.rb`
     Then the example should pass
 
+  @unsupported-on-rails-3-0
   Scenario: requesting a JSON response
     Given a file named "spec/requests/widget_management_spec.rb" with:
       """ruby
