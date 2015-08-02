@@ -21,6 +21,11 @@ module RSpec
             match_check
           end
 
+          # Uses normalize_argument_to_redirection to find and format
+          # the redirect location. normalize_argument_to_redirection is private
+          # in ActionDispatch::Assertions::ResponseAssertions so we call it
+          # here using #send. This will keep the error message format consistent
+          # @api private
           def check_redirect
             response = @scope.response
             return unless response.respond_to?(:redirect?) && response.redirect?

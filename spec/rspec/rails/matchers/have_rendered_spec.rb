@@ -95,7 +95,7 @@ require "spec_helper"
           message = "expecting <'template_name'> but rendering with <[]>"
           raise ActiveSupport::TestCase::Assertion.new(message)
         end
-        def normalize_argument_to_redirection(*)
+        def normalize_argument_to_redirection(response_redirect_location)
           "http://test.host/widgets/1"
         end
         it "gives informative error message" do
