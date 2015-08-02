@@ -1,6 +1,11 @@
 ### 3.4.0 Development
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.3.3...master)
 
+Enhancements:
+
+* Improved the failure message for `have_rendered` matcher on a redirect
+  response. (Alex Egan, #1440)
+
 Bug Fixes:
 
 * Fix another load order issued which causes an undefined method `fixture_path` error
