@@ -38,7 +38,7 @@ already ran. For example:
       it "does something" do
         expect(@widget).to do_something
       end
-        
+
       it "does something else" do
         expect(@widget).to do_something_else
       end
@@ -47,7 +47,7 @@ already ran. For example:
 The `@widget` is recreated in each of the two examples above, so each example
 has a different object, _and_ the underlying data is rolled back so the data
 backing the `@widget` in each example is new.
-        
+
 ### Data created in `before(:all)` are _not_ rolled back
 
 `before(:all)` hooks are invoked before the transaction is opened. You can use

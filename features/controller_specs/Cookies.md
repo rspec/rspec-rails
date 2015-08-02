@@ -13,7 +13,7 @@ the following guidelines:
   * Access cookies through the `request` and `response` objects in the spec.
     * Use `request.cookies` before the action to set up state.
     * Use `response.cookies` after the action to specify outcomes.
-  * Use the `cookies` object in the controller action. 
+  * Use the `cookies` object in the controller action.
   * Use String keys.
 
 <pre>
@@ -42,7 +42,7 @@ sticking with string keys for consistency.
 
 The `cookies` method combines the `request` and `response` cookies. This can
 lead to confusion when setting cookies in the example in order to set up state
-for the controller action. 
+for the controller action.
 
     # does not work in rails 3.0.0 > 3.1.0
     cookies['foo'] = 'bar' # this is not visible in the controller
@@ -51,7 +51,6 @@ for the controller action.
 ### Future versions of Rails
 
 There is code in the master branch in rails that makes cookie access more
-consistent so you can use the same `cookies` object before and after the action, 
+consistent so you can use the same `cookies` object before and after the action,
 and you can use String or Symbol keys. We'll update these docs accordingly when
 that is released.
-
