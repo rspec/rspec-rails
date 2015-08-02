@@ -88,6 +88,24 @@ require "spec_helper"
           end.to raise_exception("oops")
         end
       end
+
+      context "when fails with a redirect" do
+        let(:response) { ActionController::TestResponse.new(302) }
+        def assert_template(*)
+          message = "expecting <'template_name'> but rendering with <[]>"
+          raise ActiveSupport::TestCase::Assertion.new(message)
+        end
+        def normalize_argument_to_redirection(response_redirect_location)
+          "http://test.host/widgets/1"
+        end
+        it "gives informative error message" do
+          response = ActionController::TestResponse.new(302)
+          response.location = "http://test.host/widgets/1"
+          expect do
+            expect(response).to send(template_expectation, "template_name")
+          end.to raise_exception("expecting <'template_name'> but was a redirect to <http://test.host/widgets/1>")
+        end
+      end
     end
   end
 end
