@@ -39,7 +39,7 @@ module RSpec
     # @private
     def self.initialize_configuration(config)
       config.backtrace_exclusion_patterns << /vendor\//
-      config.backtrace_exclusion_patterns << %r{ lib/rspec/rails }
+      config.backtrace_exclusion_patterns << %r{lib/rspec/rails}
 
       # controller settings
       config.add_setting :infer_base_class_for_anonymous_controllers, :default => true

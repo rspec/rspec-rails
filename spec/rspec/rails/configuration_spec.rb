@@ -18,7 +18,7 @@ RSpec.describe "Configuration" do
   it "adds 'lib/rspec/rails' to the backtrace exclusions" do
     expect(
       config.backtrace_exclusion_patterns
-    ).to include(%r{ lib/rspec/rails })
+    ).to include(%r{lib/rspec/rails})
   end
 
   shared_examples_for "adds setting" do |accessor, opts|
