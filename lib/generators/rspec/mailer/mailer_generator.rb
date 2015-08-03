@@ -13,7 +13,8 @@ module Rspec
 
       def generate_fixtures_files
         actions.each do |action|
-          @action, @path = action, File.join(file_path, action)
+          @action = action
+          @path = File.join(file_path, action)
           template "fixture", File.join("spec/fixtures", @path)
         end
       end

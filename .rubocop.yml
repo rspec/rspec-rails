@@ -6,13 +6,16 @@ LineLength:
 
 Lint/NestedMethodDefinition:
   Enabled: false
-    
+
 # Over time we'd like to get this down, but this is what we're at now.
 MethodLength:
   Max: 50
-    
+
 # Over time we'd like to get this down, but this is what we're at now.
 Metrics/AbcSize:
+  Max: 40
+
+Metrics/PerceivedComplexity:
   Max: 40
 
 # We use spaces, so it's less of a change to stick with that.
@@ -53,10 +56,6 @@ PerlBackrefs:
     # We probably can refactor the backref out, but for now excluding it since
     # we can't use named matches in 1.8.7
     - lib/generators/rspec/scaffold/scaffold_generator.rb
-
-ParallelAssignment:
-  Exclude:
-    - lib/generators/rspec/mailer/mailer_generator.rb
 
 PerceivedComplexity:
   Exclude: 
