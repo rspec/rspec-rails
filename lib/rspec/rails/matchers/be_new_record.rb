@@ -16,6 +16,7 @@ module RSpec
         end
       end
 
+      # @api public
       # Passes if actual returns `false` for `persisted?`.
       #
       # @example

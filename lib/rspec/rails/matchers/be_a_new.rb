@@ -60,6 +60,7 @@ module RSpec
         end
       end
 
+      # @api public
       # Passes if actual is an instance of `model_class` and returns `false` for
       # `persisted?`. Typically used to specify instance variables assigned to
       # views by controller actions
