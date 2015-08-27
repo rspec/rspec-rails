@@ -114,7 +114,7 @@ module RSpec
 
             render_options = { :template => template }
             render_options[:handlers] = [handler] if handler
-            render_options[:formats] = [format] if format
+            render_options[:formats] = [format.to_sym] if format
             render_options[:locales] = [locale] if locale
 
             render_options
