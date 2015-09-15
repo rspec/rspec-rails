@@ -6,7 +6,7 @@ DO NOT modify it by hand as your changes will get lost the next time it is gener
 # Contributing
 
 RSpec is a community-driven project that has benefited from improvements from over over *500* contributors.
-We welcome contributions from *everyone*. While contributing, please follow the project [code of conduct](code_of_conduct.md), so that everyone can be included.
+We welcome contributions from *everyone*. While contributing, please follow the project [code of conduct](CODE_OF_CONDUCT.md), so that everyone can be included.
 
 If you'd like to help make RSpec better, here are some ways you can contribute:
 
