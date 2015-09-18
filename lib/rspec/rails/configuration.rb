@@ -92,9 +92,9 @@ module RSpec
 
         # Adds exclusion filters for gems included with Rails
         def filter_rails_from_backtrace!
-          filter_gems_from_backtrace "actionmailer", "actionpack" ,"actionview"
+          filter_gems_from_backtrace "actionmailer", "actionpack", "actionview"
           filter_gems_from_backtrace "activemodel", "activerecord",
-            "activesupport", "activejob"
+                                     "activesupport", "activejob"
         end
       end
 

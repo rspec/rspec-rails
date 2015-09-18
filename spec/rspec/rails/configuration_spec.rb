@@ -2,7 +2,6 @@ require "spec_helper"
 require 'rspec/support/spec/in_sub_process'
 
 RSpec.describe "Configuration" do
-
   include RSpec::Support::InSubProcess
 
   subject(:config) { RSpec::Core::Configuration.new }
@@ -102,7 +101,7 @@ RSpec.describe "Configuration" do
   specify "#filter_rails_from_backtrace! adds exclusion patterns for rails gems" do
     config.filter_rails_from_backtrace!
 
-    gems = %w(
+    gems = %w[
       actionmailer
       actionpack
       actionview
@@ -110,10 +109,10 @@ RSpec.describe "Configuration" do
       activerecord
       activesupport
       activejob
-    )
+    ]
     exclusions = config.backtrace_exclusion_patterns.map(&:to_s)
     aggregate_failures do
-      gems.each { |gem| expect(exclusions).to include(%r(#{gem})) }
+      gems.each { |gem| expect(exclusions).to include(/#{gem}/) }
     end
   end
 
@@ -247,5 +246,4 @@ RSpec.describe "Configuration" do
       expect(group.new).to be_a(RSpec::Rails::MailerExampleGroup)
     end
   end
-
 end
