@@ -6,6 +6,7 @@
 - Changelog.md
 - RailsVersions.md (Rails versions)
 - directory_structure.feature
+- backtrace_filtering.feature
 - model_specs:
   - transactional_examples.feature
 - mocks:

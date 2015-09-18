@@ -99,6 +99,24 @@ RSpec.describe "Configuration" do
     end
   end
 
+  specify "#filter_rails_from_backtrace! adds exclusion patterns for rails gems" do
+    config.filter_rails_from_backtrace!
+
+    gems = %w(
+      actionmailer
+      actionpack
+      actionview
+      activemodel
+      activerecord
+      activesupport
+      activejob
+    )
+    exclusions = config.backtrace_exclusion_patterns.map(&:to_s)
+    aggregate_failures do
+      gems.each { |gem| expect(exclusions).to include(%r(#{gem})) }
+    end
+  end
+
   describe "#infer_spec_type_from_file_location!" do
     def in_inferring_type_from_location_environment
       in_sub_process do
