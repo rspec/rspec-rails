@@ -20,7 +20,7 @@ RSpec repos as well. Add the following to your `Gemfile`:
 
 ```ruby
 %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
-  gem lib, :git => "git://github.com/rspec/#{lib}.git", :branch => 'master'
+  gem lib, git: "git://github.com/rspec/#{lib}.git", branch: 'master'
 end
 ```
 
@@ -129,7 +129,7 @@ Use model specs to describe behavior of models (usually ActiveRecord-based) in
 the application.
 
 Model specs default to residing in the `spec/models` folder. Tagging any
-context with the metadata `:type => :model` treats its examples as model
+context with the metadata `type: :model` treats its examples as model
 specs.
 
 For example:
@@ -137,7 +137,7 @@ For example:
 ```ruby
 require "rails_helper"
 
-RSpec.describe User, :type => :model do
+RSpec.describe User, type: :model do
   it "orders by last name" do
     lindeman = User.create!(first_name: "Andy", last_name: "Lindeman")
     chelimsky = User.create!(first_name: "David", last_name: "Chelimsky")
@@ -155,7 +155,7 @@ specs](https://www.relishapp.com/rspec/rspec-rails/docs/model-specs).
 Use controller specs to describe behavior of Rails controllers.
 
 Controller specs default to residing in the `spec/controllers` folder. Tagging
-any context with the metadata `:type => :controller` treats its examples as
+any context with the metadata `type: :controller` treats its examples as
 controller specs.
 
 For example:
@@ -163,7 +163,7 @@ For example:
 ```ruby
 require "rails_helper"
 
-RSpec.describe PostsController, :type => :controller do
+RSpec.describe PostsController, type: :controller do
   describe "GET #index" do
     it "responds successfully with an HTTP 200 status code" do
       get :index
@@ -203,7 +203,7 @@ Use request specs to specify one or more request/response cycles from end to
 end using a black box approach.
 
 Request specs default to residing in the `spec/requests`, `spec/api`, and
-`spec/integration` directories. Tagging any context with the metadata `:type =>
+`spec/integration` directories. Tagging any context with the metadata `type:
 :request` treats its examples as request specs.
 
 Request specs mix in behavior from
@@ -214,9 +214,9 @@ tests](http://guides.rubyonrails.org/testing.html#integration-testing).
 ```ruby
 require 'rails_helper'
 
-RSpec.describe "home page", :type => :request do
+RSpec.describe "home page", type: :request do
   it "displays the user's username after successful login" do
-    user = User.create!(:username => "jdoe", :password => "secret")
+    user = User.create!(username: "jdoe", password: "secret")
     get "/login"
     assert_select "form.login" do
       assert_select "input[name=?]", "username"
@@ -224,8 +224,8 @@ RSpec.describe "home page", :type => :request do
       assert_select "input[type=?]", "submit"
     end
 
-    post "/login", :username => "jdoe", :password => "secret"
-    assert_select ".header .username", :text => "jdoe"
+    post "/login", username: "jdoe", password: "secret"
+    assert_select ".header .username", text: "jdoe"
   end
 end
 ```
@@ -238,15 +238,15 @@ RSpec/Rails users like to use extension libraries like
 ```ruby
 require 'rails_helper'
 
-RSpec.describe "home page", :type => :request do
+RSpec.describe "home page", type: :request do
   it "displays the user's username after successful login" do
-    user = FactoryGirl.create(:user, :username => "jdoe", :password => "secret")
+    user = FactoryGirl.create(:user, username: "jdoe", password: "secret")
     visit "/login"
-    fill_in "Username", :with => "jdoe"
-    fill_in "Password", :with => "secret"
+    fill_in "Username", with: "jdoe"
+    fill_in "Password", with: "secret"
     click_button "Log in"
 
-    expect(page).to have_selector(".header .username", :text => "jdoe")
+    expect(page).to have_selector(".header .username", text: "jdoe")
   end
 end
 ```
@@ -274,7 +274,7 @@ Feature specs test your application from the outside by simulating a browser.
 simulated browser.
 
 Feature specs default to residing in the `spec/features` folder. Tagging any
-context with the metadata `:type => :feature` treats its examples as feature
+context with the metadata `type: :feature` treats its examples as feature
 specs.
 
 Feature specs mix in functionality from the capybara gem, thus they require
@@ -290,24 +290,24 @@ specs](https://www.relishapp.com/rspec/rspec-rails/v/3-0/docs/feature-specs/feat
 ## View specs
 
 View specs default to residing in the `spec/views` folder. Tagging any context
-with the metadata `:type => :view` treats its examples as view specs.
+with the metadata `type: :view` treats its examples as view specs.
 
 View specs mix in `ActionView::TestCase::Behavior`.
 
 ```ruby
 require 'rails_helper'
 
-RSpec.describe "events/index", :type => :view do
+RSpec.describe "events/index", type: :view do
   it "renders _event partial for each event" do
     assign(:events, [double(Event), double(Event)])
     render
-    expect(view).to render_template(:partial => "_event", :count => 2)
+    expect(view).to render_template(partial: "_event", count: 2)
   end
 end
 
-RSpec.describe "events/show", :type => :view do
+RSpec.describe "events/show", type: :view do
   it "displays the event location" do
-    assign(:event, Event.new(:location => "Chicago"))
+    assign(:event, Event.new(location: "Chicago"))
     render
     expect(rendered).to include("Chicago")
   end
@@ -330,7 +330,7 @@ To provide a layout for the render, you'll need to specify _both_ the template
 and the layout explicitly. For example:
 
 ```ruby
-render :template => "events/show", :layout => "layouts/application"
+render template: "events/show", layout: "layouts/application"
 ```
 
 ### `assign(key, val)`
@@ -397,23 +397,23 @@ expect(rendered).to xxx
 ## Routing specs
 
 Routing specs default to residing in the `spec/routing` folder. Tagging any
-context with the metadata `:type => :routing` treats its examples as routing
+context with the metadata `type: :routing` treats its examples as routing
 specs.
 
 ```ruby
 require 'rails_helper'
 
-RSpec.describe "routing to profiles", :type => :routing do
+RSpec.describe "routing to profiles", type: :routing do
   it "routes /profile/:username to profile#show for username" do
-    expect(:get => "/profiles/jsmith").to route_to(
-      :controller => "profiles",
-      :action => "show",
-      :username => "jsmith"
+    expect(get: "/profiles/jsmith").to route_to(
+      controller: "profiles",
+      action: "show",
+      username: "jsmith"
     )
   end
 
   it "does not expose a list of profiles" do
-    expect(:get => "/profiles").not_to be_routable
+    expect(get: "/profiles").not_to be_routable
   end
 end
 ```
@@ -426,7 +426,7 @@ instead.
 ## Helper specs
 
 Helper specs default to residing in the `spec/helpers` folder. Tagging any
-context with the metadata `:type => :helper` treats its examples as helper
+context with the metadata `type: :helper` treats its examples as helper
 specs.
 
 Helper specs mix in ActionView::TestCase::Behavior. A `helper` object is
@@ -436,7 +436,7 @@ provided which mixes in the helper module being spec'd, along with
 ```ruby
 require 'rails_helper'
 
-RSpec.describe EventsHelper, :type => :helper do
+RSpec.describe EventsHelper, type: :helper do
   describe "#link_to_event" do
     it "displays the title, and formatted date" do
       event = Event.new("Ruby Kaigi", Date.new(2010, 8, 27))
@@ -478,7 +478,7 @@ expect(response).to render_template("new")
 In view specs, apply to the `view` object:
 
 ```ruby
-expect(view).to render_template(:partial => "_form", :locals => { :widget => widget } )
+expect(view).to render_template(partial: "_form", locals: { :widget => widget } )
 ```
 
 ### `redirect_to`
@@ -496,7 +496,7 @@ expect(response).to redirect_to(widgets_path)
 - Available in routing and controller specs
 
 ```ruby
-expect(:get => "/widgets").to route_to(:controller => "widgets", :action => "index")
+expect(get: "/widgets").to route_to(controller: "widgets", action: "index")
 ```
 
 ### `be_routable`
@@ -506,7 +506,7 @@ to be used with `not_to` to specify standard CRUD routes which should not be
 routable.
 
 ```ruby
-expect(:get => "/widgets/1/edit").not_to be_routable
+expect(get: "/widgets/1/edit").not_to be_routable
 ```
 
 ### `have_http_status`
