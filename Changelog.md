@@ -7,6 +7,8 @@ Enhancements:
   response. (Alex Egan, #1440)
 * Add configuration option to filter out Rails gems from backtraces.
   (Bradley Schaefer, #1458)
+* Enable resolver cache for view specs for a large speed improvement
+  (Chris Zetter, #1452)
 
 Bug Fixes:
 
