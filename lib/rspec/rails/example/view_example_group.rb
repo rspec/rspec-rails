@@ -114,7 +114,7 @@ module RSpec
 
             render_options = { :template => template }
             render_options[:handlers] = [handler] if handler
-            render_options[:formats] = [format] if format
+            render_options[:formats] = [format.to_sym] if format
             render_options[:locales] = [locale] if locale
 
             render_options
@@ -154,9 +154,6 @@ module RSpec
             # rails 3.1
             view.lookup_context.prefixes << _controller_path
           end
-
-          # fixes bug with differing formats
-          view.lookup_context.view_paths.each(&:clear_cache)
 
           controller.controller_path = _controller_path
           controller.request.path_parameters[:controller] = _controller_path

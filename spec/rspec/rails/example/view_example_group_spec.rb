@@ -121,7 +121,7 @@ module RSpec::Rails
           view_spec.render
 
           if ::Rails::VERSION::STRING >= '3.2'
-            expect(view_spec.received.first).to eq([{:template => "widgets/new", :locales=>['en'], :formats=>['html'], :handlers=>['erb']}, {}, nil])
+            expect(view_spec.received.first).to eq([{:template => "widgets/new", :locales=>['en'], :formats=>[:html], :handlers=>['erb']}, {}, nil])
           else
             expect(view_spec.received.first).to eq([{:template => "widgets/new.en.html.erb"}, {}, nil])
           end
