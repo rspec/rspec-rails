@@ -5,6 +5,8 @@ Enhancements:
 
 * Improved the failure message for `have_rendered` matcher on a redirect
   response. (Alex Egan, #1440)
+* Add configuration option to filter out Rails gems from backtraces.
+  (Bradley Schaefer, #1458)
 
 Bug Fixes:
 
