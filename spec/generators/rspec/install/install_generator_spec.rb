@@ -31,6 +31,10 @@ RSpec.describe Rspec::Generators::InstallGenerator, :type => :generator do
     match(/config\.use_transactional_fixtures/m)
   end
 
+  def filter_rails_from_backtrace
+    match(/config\.filter_rails_from_backtrace!/m)
+  end
+
   setup_default_destination
 
   let(:rails_helper) { content_for('spec/rails_helper.rb') }
@@ -67,6 +71,12 @@ RSpec.describe Rspec::Generators::InstallGenerator, :type => :generator do
     specify "with default fixture path" do
       run_generator
       expect(rails_helper).to use_transactional_fixtures
+    end
+
+    specify "excluding rails gems from the backtrace" do
+      run_generator
+
+      expect(rails_helper).to filter_rails_from_backtrace
     end
 
     if RSpec::Rails::FeatureCheck.can_maintain_test_schema?
