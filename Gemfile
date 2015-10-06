@@ -24,6 +24,9 @@ if RUBY_VERSION >= '1.9.3'
   gem 'capybara', '~> 2.2.0', :require => false
 end
 
+# Rack::Cache 1.3.0 requires Ruby >= 2.0.0
+gem 'rack-cache', '< 1.3.0' if RUBY_VERSION < '2.0.0'
+
 if RUBY_VERSION < '1.9.2'
   gem 'nokogiri', '~> 1.5.0'
 end

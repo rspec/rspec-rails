@@ -17,6 +17,9 @@ in_root do
 
   # Use our version of RSpec and Rails
   append_to_file 'Gemfile', <<-EOT.gsub(/^ +\|/, '')
+    |# Rack::Cache 1.3.0 requires Ruby >= 2.0.0
+    |gem 'rack-cache', '< 1.3.0' if RUBY_VERSION < '2.0.0'
+    |
     |gem 'rspec-rails',
     |    :path => '#{rspec_rails_repo_path}',
     |    :groups => [:development, :test]
