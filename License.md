@@ -1,8 +1,8 @@
 The MIT License (MIT)
 =====================
 
-Copyright © 2015 David Chelimsky, Aaron Kromer  
-Copyright © 2012 David Chelimsky, Andy Lindeman  
+Copyright © 2015 David Chelimsky, Aaron Kromer
+Copyright © 2012 David Chelimsky, Andy Lindeman
 Copyright © 2006 David Chelimsky, The RSpec Development Team
 
 Permission is hereby granted, free of charge, to any person obtaining
