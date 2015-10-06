@@ -1,5 +1,5 @@
 lib/**/*.rb
 -
 README.md
-License.txt
+License.md
 Changelog.md
