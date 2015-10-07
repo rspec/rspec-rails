@@ -7,5 +7,5 @@
 --template-path yard/template/
 -
 Changelog.md
-License.md
+LICENSE.md
 Capybara.md
