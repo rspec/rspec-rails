@@ -15,7 +15,7 @@ module RSpec
           end
 
           def matches?(proc)
-            raise ArgumentError, "Proc have to be passed to expectation" unless Proc === proc
+            raise ArgumentError, "have_enqueued_jobs only supports block expectations" unless Proc === proc
 
             before_block_jobs_size = enqueued_jobs_size(@only)
             proc.call
@@ -28,7 +28,7 @@ module RSpec
           end
 
           def failure_message_when_negated
-            "expected not to enqueue jobs, but enqueued #{@in_block_jobs_size}"
+            "expected not to enqueue #{@number} jobs, but enqueued #{@in_block_jobs_size}"
           end
 
           def supports_block_expectations?

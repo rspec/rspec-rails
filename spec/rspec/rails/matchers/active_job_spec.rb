@@ -78,7 +78,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
     it "fails when negated and job is enqueued" do
       expect {
         expect { heavy_lifting_job.perform_later }.not_to have_enqueued_jobs
-      }.to raise_error(/expected not to enqueue jobs, but enqueued 1/)
+      }.to raise_error(/expected not to enqueue 1 jobs, but enqueued 1/)
     end
 
     it "passes with only option" do
