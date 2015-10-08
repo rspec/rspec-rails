@@ -29,33 +29,33 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
     ActiveJob::Base.queue_adapter = :test
   end
 
-  describe "have_enqueued_jobs" do
+  describe "have_enqueued_job" do
     it "raises ArgumentError when no Proc passed to expect" do
       expect {
-        expect(heavy_lifting_job.perform_later).to have_enqueued_jobs
+        expect(heavy_lifting_job.perform_later).to have_enqueued_job
       }.to raise_error(ArgumentError)
     end
 
     it "passess with default one number" do
       expect {
         heavy_lifting_job.perform_later
-      }.to have_enqueued_jobs
+      }.to have_enqueued_job
     end
 
     it "counts only jobs enqueued in block" do
       heavy_lifting_job.perform_later
       expect {
         heavy_lifting_job.perform_later
-      }.to have_enqueued_jobs.exactly(1)
+      }.to have_enqueued_job.exactly(1)
     end
 
     it "passess when negated" do
-      expect { }.not_to have_enqueued_jobs
+      expect { }.not_to have_enqueued_job
     end
 
     it "fails when job is not enqueued" do
       expect {
-        expect { }.to have_enqueued_jobs
+        expect { }.to have_enqueued_job
       }.to raise_error(/expected to enqueue exactly 1 jobs, but enqueued 0/)
     end
 
@@ -64,20 +64,20 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
         expect {
           heavy_lifting_job.perform_later
           heavy_lifting_job.perform_later
-        }.to have_enqueued_jobs.exactly(1)
+        }.to have_enqueued_job.exactly(1)
       }.to raise_error(/expected to enqueue exactly 1 jobs, but enqueued 2/)
     end
 
     it "reports correct number in fail error message" do
       heavy_lifting_job.perform_later
       expect {
-        expect { }.to have_enqueued_jobs.exactly(1)
+        expect { }.to have_enqueued_job.exactly(1)
       }.to raise_error(/expected to enqueue exactly 1 jobs, but enqueued 0/)
     end
 
     it "fails when negated and job is enqueued" do
       expect {
-        expect { heavy_lifting_job.perform_later }.not_to have_enqueued_jobs
+        expect { heavy_lifting_job.perform_later }.not_to have_enqueued_job
       }.to raise_error(/expected not to enqueue exactly 1 jobs, but enqueued 1/)
     end
 
@@ -85,28 +85,28 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       expect {
         hello_job.perform_later
         heavy_lifting_job.perform_later
-      }.to have_enqueued_jobs(hello_job).exactly(1).times
+      }.to have_enqueued_job(hello_job).exactly(1).times
     end
 
-    it "passes with multiple job names" do
+    it "passes with multiple jobs" do
       expect {
         hello_job.perform_later
         logging_job.perform_later
         heavy_lifting_job.perform_later
-      }.to have_enqueued_jobs(hello_job, logging_job).exactly(2).times
+      }.to have_enqueued_job(hello_job).and have_enqueued_job(logging_job)
     end
 
     it "passess with :once count" do
       expect {
         hello_job.perform_later
-      }.to have_enqueued_jobs.exactly(:once)
+      }.to have_enqueued_job.exactly(:once)
     end
 
     it "passess with :twice count" do
       expect {
         hello_job.perform_later
         hello_job.perform_later
-      }.to have_enqueued_jobs.exactly(:twice)
+      }.to have_enqueued_job.exactly(:twice)
     end
 
     it "passess with :thrice count" do
@@ -114,25 +114,25 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
         hello_job.perform_later
         hello_job.perform_later
         hello_job.perform_later
-      }.to have_enqueued_jobs.exactly(:thrice)
+      }.to have_enqueued_job.exactly(:thrice)
     end
 
     it "passess with at_least count when enqueued jobs are over limit" do
       expect {
         hello_job.perform_later
         hello_job.perform_later
-      }.to have_enqueued_jobs.at_least(:once)
+      }.to have_enqueued_job.at_least(:once)
     end
 
     it "passess with at_most count when enqueued jobs are under limit" do
       expect {
         hello_job.perform_later
-      }.to have_enqueued_jobs.at_most(:once)
+      }.to have_enqueued_job.at_most(:once)
     end
 
     it "generates failure message with at least hint" do
       expect {
-        expect { }.to have_enqueued_jobs.at_least(:once)
+        expect { }.to have_enqueued_job.at_least(:once)
       }.to raise_error(/expected to enqueue at least 1 jobs, but enqueued 0/)
     end
 
@@ -141,7 +141,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
         expect {
           hello_job.perform_later
           hello_job.perform_later
-        }.to have_enqueued_jobs.at_most(:once)
+        }.to have_enqueued_job.at_most(:once)
       }.to raise_error(/expected to enqueue at most 1 jobs, but enqueued 2/)
     end
   end
