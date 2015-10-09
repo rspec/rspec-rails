@@ -9,6 +9,8 @@ Enhancements:
   (Bradley Schaefer, #1458)
 * Enable resolver cache for view specs for a large speed improvement
   (Chris Zetter, #1452)
+* Add `have_enqueued_job` matcher for checking if a block has queued jobs.
+  (Wojciech Wnętrzak, #1464)
 
 Bug Fixes:
 
