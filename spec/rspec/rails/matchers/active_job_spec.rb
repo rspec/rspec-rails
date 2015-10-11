@@ -15,13 +15,38 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
 
   let(:hello_job) do
     Class.new(ActiveJob::Base) do
-      def perform; end
+      def perform(*)
+      end
     end
   end
 
   let(:logging_job) do
     Class.new(ActiveJob::Base) do
       def perform; end
+    end
+  end
+
+  let(:global_id_model) do
+    Class.new do
+      include GlobalID::Identification
+
+      attr_reader :id
+
+      def self.find(id)
+        new(id)
+      end
+
+      def self.name
+        "AnonymousClass"
+      end
+
+      def initialize(id)
+        @id = id
+      end
+
+      def to_global_id(options = {})
+        @global_id ||= GlobalID.create(self, :app => "rspec-suite")
+      end
     end
   end
 
@@ -143,6 +168,44 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
           hello_job.perform_later
         }.to have_enqueued_job.at_most(:once)
       }.to raise_error(/expected to enqueue at most 1 jobs, but enqueued 2/)
+    end
+
+    it "passes with provided queue name" do
+      expect {
+        hello_job.set(:queue => "low").perform_later
+      }.to have_enqueued_job.on_queue("low")
+    end
+
+    it "passes with provided at date" do
+      date = Date.tomorrow.noon
+      expect {
+        hello_job.set(:wait_until => date).perform_later
+      }.to have_enqueued_job.at(date)
+    end
+
+    it "passes with provided arguments" do
+      expect {
+        hello_job.perform_later(42, "David")
+      }.to have_enqueued_job.with(42, "David")
+    end
+
+    it "passes with provided arguments containing global id object" do
+      global_id_object = global_id_model.new(42)
+
+      expect {
+        hello_job.perform_later(global_id_object)
+      }.to have_enqueued_job.with(global_id_object)
+    end
+
+    it "generates failure message with all provided options" do
+      date = Date.tomorrow.noon
+      message = "expected to enqueue exactly 2 jobs, with [42], on queue low, at #{date}, but enqueued 0"
+
+      expect {
+        expect {
+          hello_job.perform_later
+        }.to have_enqueued_job(hello_job).with(42).on_queue("low").at(date).exactly(2).times
+      }.to raise_error(message)
     end
   end
 end
