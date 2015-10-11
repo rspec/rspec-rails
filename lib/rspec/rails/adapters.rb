@@ -38,8 +38,7 @@ module RSpec
         gem 'minitest' if defined?(Kernel.gem)
         require 'minitest/unit'
         Assertions = MiniTest::Assertions
-      elsif ::Rails::VERSION::STRING >= '3.2.21'
-        # TODO: Change the above check to >= '3.2.22' once it's released
+      elsif ::Rails::VERSION::STRING >= '3.2.22'
         begin
           # Test::Unit "helpfully" sets up autoload for its `AutoRunner`.
           # While we do not reference it directly, when we load the `TestCase`
