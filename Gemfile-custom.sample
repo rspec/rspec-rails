@@ -12,6 +12,9 @@ group :development do
     case RUBY_VERSION
     when /^1.8/
       gem 'ruby-debug'
+    when /^1.9.3/
+      gem 'debugger-ruby_core_source'
+      gem 'debugger'
     when /^1.9/
       gem 'debugger'
     end
