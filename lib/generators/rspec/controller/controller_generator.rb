@@ -1,5 +1,6 @@
 require 'generators/rspec'
 
+# @private
 module Rspec
   module Generators
     # @private

@@ -1,6 +1,7 @@
 require 'generators/rspec'
 require 'rails/generators/resource_helpers'
 
+# @private
 module Rspec
   module Generators
     # @private

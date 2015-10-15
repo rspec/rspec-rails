@@ -1,5 +1,6 @@
 require 'generators/rspec/integration/integration_generator'
 
+# @private
 module Rspec
   module Generators
     # @private

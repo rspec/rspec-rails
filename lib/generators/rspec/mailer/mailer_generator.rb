@@ -1,6 +1,7 @@
 require 'generators/rspec'
 require "rspec/rails/feature_check"
 
+# @private
 module Rspec
   module Generators
     # @private

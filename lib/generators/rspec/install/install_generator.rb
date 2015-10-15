@@ -3,6 +3,7 @@ require "rspec/core"
 RSpec::Support.require_rspec_core "project_initializer"
 require "rspec/rails/feature_check"
 
+# @private
 module Rspec
   module Generators
     # @private
