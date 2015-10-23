@@ -1,4 +1,5 @@
 require "active_job/base"
+require "active_job/arguments"
 
 module RSpec
   module Rails
@@ -11,21 +12,43 @@ module RSpec
         class HaveEnqueuedJob < RSpec::Matchers::BuiltIn::BaseMatcher
           def initialize(job)
             @job = job
+            @args = []
+            @queue = nil
+            @at = nil
             set_expected_number(:exactly, 1)
           end
 
           def matches?(proc)
             raise ArgumentError, "have_enqueued_jobs only supports block expectations" unless Proc === proc
 
-            before_block_jobs_size = enqueued_jobs_size(@job)
+            original_enqueued_jobs_count = queue_adapter.enqueued_jobs.count
             proc.call
-            @in_block_jobs_size = enqueued_jobs_size(@job) - before_block_jobs_size
+            in_block_jobs = queue_adapter.enqueued_jobs.drop(original_enqueued_jobs_count)
+
+            @matching_jobs_count = in_block_jobs.count do |job|
+              serialized_attributes.all? { |key, value| value == job[key] }
+            end
 
             case @expectation_type
-            when :exactly then @expected_number == @in_block_jobs_size
-            when :at_most then @expected_number >= @in_block_jobs_size
-            when :at_least then @expected_number <= @in_block_jobs_size
+            when :exactly then @expected_number == @matching_jobs_count
+            when :at_most then @expected_number >= @matching_jobs_count
+            when :at_least then @expected_number <= @matching_jobs_count
             end
+          end
+
+          def with(*args)
+            @args = args
+            self
+          end
+
+          def on_queue(queue)
+            @queue = queue
+            self
+          end
+
+          def at(date)
+            @at = date
+            self
           end
 
           def exactly(count)
@@ -48,11 +71,11 @@ module RSpec
           end
 
           def failure_message
-            "expected to enqueue #{message_expectation_modifier} #{@expected_number} jobs, but enqueued #{@in_block_jobs_size}"
+            "expected to enqueue #{base_message}"
           end
 
           def failure_message_when_negated
-            "expected not to enqueue #{message_expectation_modifier} #{@expected_number} jobs, but enqueued #{@in_block_jobs_size}"
+            "expected not to enqueue #{base_message}"
           end
 
           def message_expectation_modifier
@@ -69,11 +92,21 @@ module RSpec
 
         private
 
-          def enqueued_jobs_size(job)
-            if job
-              queue_adapter.enqueued_jobs.count { |enqueued_job| job == enqueued_job.fetch(:job) }
-            else
-              queue_adapter.enqueued_jobs.count
+          def base_message
+            "#{message_expectation_modifier} #{@expected_number} jobs,".tap do |msg|
+              msg << " with #{@args}," if @args.any?
+              msg << " on queue #{@queue}," if @queue
+              msg << " at #{@at}," if @at
+              msg << " but enqueued #{@matching_jobs_count}"
+            end
+          end
+
+          def serialized_attributes
+            {}.tap do |attributes|
+              attributes[:args]  = ::ActiveJob::Arguments.serialize(@args) if @args.any?
+              attributes[:at]    = @at.to_f if @at
+              attributes[:queue] = @queue if @queue
+              attributes[:job]   = @job if @job
             end
           end
 
@@ -120,6 +153,10 @@ module RSpec
       #       HelloJob.perform_later
       #       HeavyLiftingJob.perform_later
       #     }.to have_enqueued_job(HelloJob).and have_enqueued_job(HeavyLiftingJob)
+      #
+      #     expect {
+      #       HelloJob.set(wait_until: Date.tomorrow.noon, queue: "low").perform_later(42)
+      #     }.to have_enqueued_job.with(42).on_queue("low").at(Date.tomorrow.noon)
       def have_enqueued_job(job = nil)
         ActiveJob::HaveEnqueuedJob.new(job)
       end
