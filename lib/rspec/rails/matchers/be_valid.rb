@@ -33,6 +33,7 @@ module RSpec
         end
       end
 
+      # @api public
       # Passes if the given model instance's `valid?` method is true, meaning
       # all of the `ActiveModel::Validations` passed and no errors exist. If a
       # message is not given, a default message is shown listing each error.

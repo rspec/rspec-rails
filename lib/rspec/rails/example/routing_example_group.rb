@@ -7,6 +7,7 @@ module RSpec
       ActionDispatch::Assertions::RoutingAssertions
     )
 
+    # @api public
     # Container module for routing spec functionality.
     module RoutingExampleGroup
       extend ActiveSupport::Concern

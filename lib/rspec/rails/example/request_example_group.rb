@@ -1,5 +1,6 @@
 module RSpec
   module Rails
+    # @api public
     # Container class for request spec functionality.
     module RequestExampleGroup
       extend ActiveSupport::Concern

@@ -4,6 +4,7 @@ require 'rspec/rails/matchers'
 
 module RSpec
   module Rails
+    # @api public
     # Common rails example functionality.
     module RailsExampleGroup
       extend ActiveSupport::Concern

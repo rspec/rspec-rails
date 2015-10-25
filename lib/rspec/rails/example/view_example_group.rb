@@ -2,6 +2,7 @@ require 'rspec/rails/view_assigns'
 
 module RSpec
   module Rails
+    # @api public
     # Container class for view spec functionality.
     module ViewExampleGroup
       extend ActiveSupport::Concern
