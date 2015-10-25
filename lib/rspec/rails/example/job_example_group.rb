@@ -1,5 +1,6 @@
 module RSpec
   module Rails
+    # @api public
     # Container module for job spec functionality. It is only available if
     # ActiveJob has been loaded before it.
     module JobExampleGroup

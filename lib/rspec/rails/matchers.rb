@@ -4,6 +4,7 @@ require 'rspec/rails/feature_check'
 
 module RSpec
   module Rails
+    # @api public
     # Container module for Rails specific matchers.
     module Matchers
     end

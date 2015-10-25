@@ -1,6 +1,7 @@
 require 'rails/generators/named_base'
 require 'rspec/rails/feature_check'
 
+# @private
 # Weirdly named generators namespace (should be `RSpec`) for compatability with
 # rails loading.
 module Rspec

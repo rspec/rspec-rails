@@ -1,5 +1,6 @@
 module RSpec
   module Rails
+    # @api public
     # Container module for routing spec functionality.
     module FeatureExampleGroup
       extend ActiveSupport::Concern
