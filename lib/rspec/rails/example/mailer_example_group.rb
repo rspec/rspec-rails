@@ -1,5 +1,6 @@
 module RSpec
   module Rails
+    # @api public
     # Container module for mailer spec functionality. It is only available if
     # ActionMailer has been loaded before it.
     module MailerExampleGroup

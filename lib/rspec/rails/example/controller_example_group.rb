@@ -5,6 +5,7 @@ module RSpec
       ActionDispatch::Assertions::RoutingAssertions
     )
 
+    # @api public
     # Container module for controller spec functionality.
     module ControllerExampleGroup
       extend ActiveSupport::Concern

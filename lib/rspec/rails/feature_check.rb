@@ -1,4 +1,3 @@
-# @api private
 module RSpec
   module Rails
     # @private

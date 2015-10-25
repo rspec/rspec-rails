@@ -2,6 +2,7 @@ require 'action_view/testing/resolvers'
 
 module RSpec
   module Rails
+    # @api public
     # Helpers for optionally rendering views in controller specs.
     module ViewRendering
       extend ActiveSupport::Concern
