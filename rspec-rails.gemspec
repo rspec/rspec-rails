@@ -25,9 +25,9 @@ Gem::Specification.new do |s|
     s.cert_chain = [File.expand_path('~/.gem/rspec-gem-public_cert.pem')]
   end
 
-  s.add_runtime_dependency(%q<activesupport>, [">= 3.0", "< 4.3"])
-  s.add_runtime_dependency(%q<actionpack>, [">= 3.0", "< 4.3"])
-  s.add_runtime_dependency(%q<railties>, [">= 3.0", "< 4.3"])
+  s.add_runtime_dependency %q<activesupport>, ">= 3.0"
+  s.add_runtime_dependency %q<actionpack>,    ">= 3.0"
+  s.add_runtime_dependency %q<railties>,      ">= 3.0"
   %w[core expectations mocks support].each do |name|
     if RSpec::Rails::Version::STRING =~ /[a-zA-Z]+/ # prerelease builds
       s.add_runtime_dependency "rspec-#{name}", "= #{RSpec::Rails::Version::STRING}"
