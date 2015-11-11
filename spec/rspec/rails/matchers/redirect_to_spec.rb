@@ -5,7 +5,7 @@ require "active_support/test_case"
 describe "redirect_to" do
   include RSpec::Rails::Matchers::RedirectTo
 
-  let(:response) { ActionController::TestResponse.new }
+  let(:response) { ActionDispatch::TestResponse.new }
 
   context "with should" do
     context "when assert_redirected_to passes" do
