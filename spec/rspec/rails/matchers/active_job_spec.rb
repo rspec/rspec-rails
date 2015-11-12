@@ -207,5 +207,16 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
         }.to have_enqueued_job(hello_job).with(42).on_queue("low").at(date).exactly(2).times
       }.to raise_error(message)
     end
+
+    it "throws descriptive error when no test adapter set" do
+      queue_adapter = ActiveJob::Base.queue_adapter
+      ActiveJob::Base.queue_adapter = :inline
+
+      expect {
+        expect { heavy_lifting_job.perform_later }.to have_enqueued_job
+      }.to raise_error("To use have_enqueued_job matcher set `ActiveJob::Base.queue_adapter = :test`")
+
+      ActiveJob::Base.queue_adapter = queue_adapter
+    end
   end
 end
