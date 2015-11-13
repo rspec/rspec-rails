@@ -158,6 +158,9 @@ module RSpec
       #       HelloJob.set(wait_until: Date.tomorrow.noon, queue: "low").perform_later(42)
       #     }.to have_enqueued_job.with(42).on_queue("low").at(Date.tomorrow.noon)
       def have_enqueued_job(job = nil)
+        unless ::ActiveJob::QueueAdapters::TestAdapter === ::ActiveJob::Base.queue_adapter
+          raise StandardError, "To use have_enqueued_job matcher set `ActiveJob::Base.queue_adapter = :test`"
+        end
         ActiveJob::HaveEnqueuedJob.new(job)
       end
     end
