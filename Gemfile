@@ -30,7 +30,7 @@ gem 'rack-cache', '< 1.3.0' if RUBY_VERSION < '2.0.0'
 if RUBY_VERSION < '1.9.2'
   gem 'nokogiri', '~> 1.5.0'
 else
-  gem 'nokogiri', '< 1.6.6.4'
+  gem 'nokogiri', '< 1.6.6.3'
 end
 
 if RUBY_VERSION <= '1.8.7'
