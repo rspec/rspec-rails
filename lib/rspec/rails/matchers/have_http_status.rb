@@ -41,11 +41,12 @@ module RSpec
             # Acts As Capybara Session
             # Hack to support `Capybara::Session` without having to load
             # Capybara or catch `NameError`s for the undefined constants
-            ::ActionDispatch::TestResponse.new.tap do |resp|
+            obj = ActionDispatch::Response.new.tap do |resp|
               resp.status  = obj.status_code
               resp.headers = obj.response_headers
               resp.body    = obj.body
             end
+            ::ActionDispatch::TestResponse.from_response(obj)
           else
             raise TypeError, "Invalid response type: #{obj}"
           end

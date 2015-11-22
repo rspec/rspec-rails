@@ -10,6 +10,8 @@ when /master/
   gem 'coffee-rails', :git => "git://github.com/rails/coffee-rails.git"
   gem 'rack', :git => 'git://github.com/rack/rack.git'
   gem 'i18n', :git => 'git://github.com/svenfuchs/i18n.git', :branch => 'master'
+  gem 'sprockets', :git => 'git://github.com/rails/sprockets.git', :branch => 'master'
+  gem 'sprockets-rails', :git => 'git://github.com/rails/sprockets-rails.git', :branch => 'master'
 when /stable$/
   gem "rails", :git => "git://github.com/rails/rails.git", :branch => version
 when nil, false, ""

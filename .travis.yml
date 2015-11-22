@@ -52,6 +52,10 @@ env:
   - RAILS_VERSION='~> 3.0.20'
 
 matrix:
+  include:
+    # Rails 5.x only supports 2.2
+    - rvm: 2.2.2
+      env: RAILS_VERSION=master
   exclude:
     # 3.0.x is not supported on MRI 2.0+
     - rvm: 2.0.0
@@ -88,6 +92,9 @@ matrix:
     # MRI 2.2 is not supported on a few versions
     - rvm: 2.2
       env: RAILS_VERSION='~> 3.1.12'
+  allow_failures:
+    - rvm: 2.2.2
+      env: RAILS_VERSION=master
   fast_finish: true
 
 branches:

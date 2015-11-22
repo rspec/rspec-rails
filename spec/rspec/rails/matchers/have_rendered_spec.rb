@@ -3,7 +3,7 @@ require "spec_helper"
 %w[have_rendered render_template].each do |template_expectation|
   describe template_expectation do
     include RSpec::Rails::Matchers::RenderTemplate
-    let(:response) { ActionController::TestResponse.new }
+    let(:response) { ActionDispatch::TestResponse.new }
 
     context "given a hash" do
       it "delegates to assert_template" do
@@ -90,7 +90,7 @@ require "spec_helper"
       end
 
       context "when fails with a redirect" do
-        let(:response) { ActionController::TestResponse.new(302) }
+        let(:response) { ActionDispatch::TestResponse.new(303) }
 
         def assert_template(*)
           message = "expecting <'template_name'> but rendering with <[]>"
@@ -102,7 +102,7 @@ require "spec_helper"
         end
 
         it "gives informative error message" do
-          response = ActionController::TestResponse.new(302)
+          response = ActionDispatch::TestResponse.new(302)
           response.location = "http://test.host/widgets/1"
           expect do
             expect(response).to send(template_expectation, "template_name")

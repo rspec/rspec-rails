@@ -4,7 +4,7 @@ RSpec.describe "have_http_status" do
   include RSpec::Rails::Matchers
 
   def create_response(opts = {})
-    ActionController::TestResponse.new(opts.fetch(:status))
+    ActionDispatch::TestResponse.new(opts.fetch(:status))
   end
 
   shared_examples_for "supports different response instances" do
