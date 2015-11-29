@@ -31,6 +31,16 @@ module RSpec
 
       # DSL exposed to view specs.
       module ExampleMethods
+        extend ActiveSupport::Concern
+
+        included do
+          include ::Rails.application.routes.url_helpers
+
+          if ::Rails.application.routes.respond_to?(:mounted_helpers)
+            include ::Rails.application.routes.mounted_helpers
+          end
+        end
+
         # @overload render
         # @overload render({:partial => path_to_file})
         # @overload render({:partial => path_to_file}, {... locals ...})
