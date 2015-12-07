@@ -1,11 +1,11 @@
 <!---
-This file was generated on 2015-07-27T23:49:06-07:00 from the rspec-dev repo.
+This file was generated on 2015-12-07T22:01:06+11:00 from the rspec-dev repo.
 DO NOT modify it by hand as your changes will get lost the next time it is generated.
 -->
 
 # Contributing
 
-RSpec is a community-driven project that has benefited from improvements from over over *500* contributors.
+RSpec is a community-driven project that has benefited from improvements from over *500* contributors.
 We welcome contributions from *everyone*. While contributing, please follow the project [code of conduct](CODE_OF_CONDUCT.md), so that everyone can be included.
 
 If you'd like to help make RSpec better, here are some ways you can contribute:
