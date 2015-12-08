@@ -120,7 +120,7 @@ end
 namespace :no_active_record do
   example_app_dir = './tmp/no_ar_example_app'
 
-  desc "run a vairety of specs against a non-ActiveRecord generated app"
+  desc "run a variety of specs against a non-ActiveRecord generated app"
   task :smoke do
     in_example_app "LOCATION='../../example_app_generator/run_specs.rb' bin/rake rails:template --backtrace",
                    :app_dir => example_app_dir
