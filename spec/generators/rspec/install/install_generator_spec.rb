@@ -27,7 +27,7 @@ RSpec.describe Rspec::Generators::InstallGenerator, :type => :generator do
     match(/^require 'rspec\/rails'$/m)
   end
 
-  def use_transactional_fixtures
+  def have_transactional_fixtures_enabled?
     match(/config\.use_transactional_fixtures/m)
   end
 
@@ -70,7 +70,7 @@ RSpec.describe Rspec::Generators::InstallGenerator, :type => :generator do
 
     specify "with default fixture path" do
       run_generator
-      expect(rails_helper).to use_transactional_fixtures
+      expect(rails_helper).to have_transactional_fixtures_enabled?
     end
 
     specify "excluding rails gems from the backtrace" do
@@ -114,7 +114,7 @@ RSpec.describe Rspec::Generators::InstallGenerator, :type => :generator do
 
     it "does not include config.use_transactional_fixtures" do
       run_generator
-      expect(rails_helper).not_to use_transactional_fixtures
+      expect(rails_helper).not_to have_transactional_fixtures_enabled?
     end
 
     it "does not check use active record migration options" do

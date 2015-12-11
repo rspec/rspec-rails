@@ -1,9 +1,5 @@
 require 'rails/all'
 
-class << RSpec
-  attr_writer :configuration
-end
-
 module RSpecRails
   class Application < ::Rails::Application
     self.config.secret_key_base = 'ASecretString' if config.respond_to? :secret_key_base
