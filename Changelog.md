@@ -5,6 +5,8 @@ Bug fixes:
 
 * Make it possible to write nested specs within helper specs on classes that are
   internal to helper classes. (Sam Phippen, Peter Swan, #1499).
+* Warn if a fixture method is called from a `before(:context)` block, instead of
+  crashing with a `undefined method for nil:NilClass`. (Sam Phippen, #1501)
 
 ### 3.4.0 / 2015-11-11
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.3.3...v3.4.0)
