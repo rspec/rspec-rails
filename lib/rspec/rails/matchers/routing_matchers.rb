@@ -18,8 +18,8 @@ module RSpec
             end
           end
 
-          def matches?(verb_to_path_map)
-            @actual = @verb_to_path_map = verb_to_path_map
+          def matches?(actual)
+            @actual = verb_to_path_map
             # assert_recognizes does not consider ActionController::RoutingError an
             # assertion failure, so we have to capture that and Assertion here.
             match_unless_raises ActiveSupport::TestCase::Assertion, ActionController::RoutingError do
