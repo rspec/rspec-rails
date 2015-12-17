@@ -2,7 +2,7 @@ Feature: view spec
 
   View specs live in spec/views and render view templates in isolation.
 
-  Scenario: passing spec that renders the described view file
+  Scenario: View specs render the described view file
     Given a file named "spec/views/widgets/index.html.erb_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -24,7 +24,7 @@ Feature: view spec
     When I run `rspec spec/views`
     Then the examples should all pass
 
-  Scenario: passing spec with before and nesting
+  Scenario: View specs can have before block and nesting
     Given a file named "spec/views/widgets/index.html.erb_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -51,7 +51,7 @@ Feature: view spec
     When I run `rspec spec/views`
     Then the examples should all pass
 
-  Scenario: passing spec with explicit template rendering
+  Scenario: View specs can explicitly render templates
     Given a file named "spec/views/widgets/widget.html.erb_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -73,7 +73,7 @@ Feature: view spec
     When I run `rspec spec/views`
     Then the examples should all pass
 
-  Scenario: passing spec with a description that includes the format and handler
+  Scenario: View specs can have description that includes the format and handler
     Given a file named "spec/views/widgets/widget.xml.erb_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -105,7 +105,7 @@ Feature: view spec
     When I run `rspec spec/views`
     Then the examples should all pass
 
-  Scenario: passing spec with rendering of locals in a partial
+  Scenario: View specs can render locals in a partial
     Given a file named "spec/views/widgets/_widget.html.erb_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -127,7 +127,7 @@ Feature: view spec
     When I run `rspec spec/views`
     Then the examples should all pass
 
-  Scenario: passing spec with rendering of locals in an implicit partial
+  Scenario: View specs can render locals in an implicit partial
     Given a file named "spec/views/widgets/_widget.html.erb_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -149,7 +149,7 @@ Feature: view spec
     When I run `rspec spec/views`
     Then the examples should all pass
 
-  Scenario: passing spec with rendering of text
+  Scenario: View specs can render text
     Given a file named "spec/views/widgets/direct.html.erb_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -166,7 +166,7 @@ Feature: view spec
     When I run `rspec spec/views`
     Then the examples should all pass
 
-  Scenario: passing view spec that stubs a helper method
+  Scenario: View specs can stub a helper method
     Given a file named "app/helpers/application_helper.rb" with:
       """ruby
       module ApplicationHelper
@@ -199,7 +199,7 @@ Feature: view spec
     When I run `rspec spec/views/secrets`
     Then the examples should all pass
 
-  Scenario: request.path_parameters should match Rails by using symbols for keys
+  Scenario: View specs use symbols for keys in `request.path_parameters` to match Rails style
     Given a file named "spec/views/widgets/index.html.erb_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -207,6 +207,37 @@ Feature: view spec
       RSpec.describe "controller.request.path_parameters" do
         it "matches the Rails environment by using symbols for keys" do
           [:controller, :action].each { |k| expect(controller.request.path_parameters.keys).to include(k) }
+        end
+      end
+      """
+    When I run `rspec spec/views`
+    Then the examples should all pass
+
+  Scenario: View spec actions that do not require extra parameters have `request.fullpath` set
+    Given a file named "spec/views/widgets/index.html.erb_spec.rb" with:
+    """ruby
+      require "rails_helper"
+
+      RSpec.describe "widgets/index" do
+        it "has a request.fullpath that is defined" do
+          expect(controller.request.fullpath).to eq widgets_path
+        end
+      end
+      """
+    When I run `rspec spec/views`
+    Then the examples should all pass
+
+  Scenario: View spec actions that require extra parameters have `request.fullpath` set when the developer supplies them
+    Given a file named "spec/views/widgets/show.html.erb_spec.rb" with:
+    """ruby
+      require "rails_helper"
+
+      RSpec.describe "widgets/show" do
+        it "displays the widget with id: 1" do
+          widget = Widget.create!(:name => "slicer")
+          controller.extra_params = { :id => widget.id }
+
+          expect(controller.request.fullpath).to eq widget_path(widget)
         end
       end
       """
