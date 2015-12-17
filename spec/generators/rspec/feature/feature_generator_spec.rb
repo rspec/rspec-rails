@@ -24,6 +24,21 @@ RSpec.describe Rspec::Generators::FeatureGenerator, :type => :generator do
       end
     end
 
+    describe 'are singularized appropriately with the --singularize flag' do
+      before do
+        run_generator %w(posts --singularize)
+      end
+      describe 'the spec' do
+        subject(:feature_spec) { file('spec/features/post_spec.rb') }
+        it "exists with the appropriate filename" do
+          expect(feature_spec).to exist
+        end
+        it "contains the singularized feature" do
+          expect(feature_spec).to contain(/^RSpec.feature \"Post\", #{type_metatag(:feature)}/)
+        end
+      end
+    end
+
     describe "are not generated" do
       before do
         run_generator %w(posts --no-feature-specs)
