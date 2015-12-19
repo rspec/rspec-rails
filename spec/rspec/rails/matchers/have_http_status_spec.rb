@@ -4,13 +4,17 @@ RSpec.describe "have_http_status" do
   include RSpec::Rails::Matchers
 
   def create_response(opts = {})
-    ActionDispatch::TestResponse.new(opts.fetch(:status))
+    ActionDispatch::TestResponse.new(opts.fetch(:status)).tap {|x|
+      x.request = ActionDispatch::Request.new({})
+    }
   end
 
   shared_examples_for "supports different response instances" do
     context "given an ActionDispatch::Response" do
       it "returns true for a response with the same code" do
-        response = ::ActionDispatch::Response.new(code)
+        response = ::ActionDispatch::Response.new(code).tap {|x|
+          x.request = ActionDispatch::Request.new({})
+        }
 
         expect( matcher.matches?(response) ).to be(true)
       end
@@ -18,7 +22,9 @@ RSpec.describe "have_http_status" do
 
     context "given an ActionDispatch::TestResponse" do
       it "returns true for a response with the same code" do
-        response = ::ActionDispatch::TestResponse.new(code)
+        response = ::ActionDispatch::TestResponse.new(code).tap {|x|
+          x.request = ActionDispatch::Request.new({})
+        }
 
         expect( matcher.matches?(response) ).to be(true)
       end
