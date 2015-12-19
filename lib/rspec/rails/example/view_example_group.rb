@@ -159,8 +159,14 @@ module RSpec
           end
 
           controller.controller_path = _controller_path
-          controller.request.path_parameters[:controller] = _controller_path
-          controller.request.path_parameters[:action]     = _inferred_action unless _inferred_action =~ /^_/
+
+          path_params_to_merge = {}
+          path_params_to_merge[:controller] = _controller_path
+          path_params_to_merge[:action] = _inferred_action unless _inferred_action =~ /^_/
+
+          path_params = controller.request.path_parameters
+
+          controller.request.path_parameters = path_params.reverse_merge(path_params_to_merge)
           controller.request.path = ViewPathBuilder.new(::Rails.application.routes).path_for(controller.request.path_parameters)
           ViewSpecMethods.add_to(::ActionView::TestCase::TestController)
         end
