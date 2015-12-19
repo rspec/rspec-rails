@@ -56,6 +56,8 @@ matrix:
     # Rails 5.x only supports 2.2
     - rvm: 2.2.2
       env: RAILS_VERSION=master
+    - rvm: 2.2.2
+      env: RAILS_VERSION=5.0.0.beta1
   exclude:
     # 3.0.x is not supported on MRI 2.0+
     - rvm: 2.0.0
