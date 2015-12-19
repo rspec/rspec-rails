@@ -1,5 +1,10 @@
-### 3.4.1 Development
+### 3.5.0 Development
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.4.0...master)
+
+Enhancements:
+
+* Add a `---singularize` option for the feature spec generator (Felicity McCabe,
+  #1503)
 
 Bug fixes:
 
