@@ -17,7 +17,16 @@ RSpec::Core::RakeTask.new(:spec) do |t|
   t.rspec_opts = %w[--color]
 end
 
-Cucumber::Rake::Task.new(:cucumber)
+Cucumber::Rake::Task.new(:cucumber) do |t|
+  version = ENV.fetch("RAILS_VERSION", "~> 4.2.0")
+  cucumber_flag = "--tags ~@rails_post_5"
+  p version
+  if /(^| )5(\.|-)0/ === version || version == "master"
+    cucumber_flag = "--tags ~@rails_pre_5"
+  end
+
+  t.cucumber_opts = cucumber_flag
+end
 
 namespace :generate do
   desc "generate a fresh app with rspec installed"
