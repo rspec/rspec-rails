@@ -382,12 +382,12 @@ RSpec.describe "have_http_status" do
     it_behaves_like "supports different response instances" do
       subject(:matcher) { have_redirect_status }
 
-      let(:code) { 333 }
+      let(:code) { 308 }
     end
 
     describe "matching a response" do
       it "returns true for a response with a 3xx status code" do
-        any_3xx_code = 333
+        any_3xx_code = 308
         response     = create_response(:status => any_3xx_code)
 
         expect( have_redirect_status.matches?(response) ).to be(true)
@@ -416,12 +416,12 @@ RSpec.describe "have_http_status" do
     end
 
     it "has a negated failure message reporting the expected and actual status codes" do
-      any_3xx_code = 333
+      any_3xx_code = 308
       response     = create_response(:status => any_3xx_code)
 
       expect{ have_redirect_status.matches? response }.
         to change(have_redirect_status, :failure_message_when_negated).
-        to(/not to have a redirect status code \(3xx\) but it was 333/)
+        to(/not to have a redirect status code \(3xx\) but it was 308/)
     end
   end
 
@@ -430,5 +430,4 @@ RSpec.describe "have_http_status" do
       expect{ have_http_status(nil) }.to raise_error ArgumentError
     end
   end
-
 end

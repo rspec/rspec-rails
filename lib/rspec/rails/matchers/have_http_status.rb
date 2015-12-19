@@ -84,7 +84,7 @@ module RSpec
           # @return [Boolean] `true` if the numeric code matched the `response` code
           def matches?(response)
             test_response = as_test_response(response)
-            @actual = test_response.response_code
+            @actual = test_response.response_code.to_i
             expected == @actual
           rescue TypeError => _ignored
             @invalid_response = response
