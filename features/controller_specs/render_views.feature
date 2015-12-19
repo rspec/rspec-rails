@@ -12,9 +12,9 @@ Feature: render_views
         render_views
 
         describe "GET index" do
-          it "says 'Listing widgets'" do
+          it "has a widgets related heading" do
             get :index
-            expect(response.body).to match /Listing widgets/im
+            expect(response.body).to match /<h1>.*widgets/im
           end
         end
       end
@@ -34,7 +34,7 @@ Feature: render_views
           describe "GET index" do
             it "renders the actual template" do
               get :index
-              expect(response.body).to match /Listing widgets/im
+              expect(response.body).to match /<h1>.*widgets/im
             end
           end
 
@@ -65,7 +65,7 @@ Feature: render_views
           describe "GET index" do
             it "renders the actual template" do
               get :index
-              expect(response.body).to match /Listing widgets/im
+              expect(response.body).to match /<h1>.*widgets/im
             end
           end
         end
@@ -105,7 +105,7 @@ Feature: render_views
         describe "GET index" do
           it "renders the index template" do
             get :index
-            expect(response.body).to match /Listing widgets/im
+            expect(response.body).to match /<h1>.*widgets/im
           end
         end
       end
