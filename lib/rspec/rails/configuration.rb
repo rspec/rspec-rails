@@ -36,6 +36,19 @@ module RSpec
       :feature    => %w[spec features]
     }
 
+    # Sets up the different example group modules for the different spec types
+    #
+    # @api private
+    def self.add_test_type_configurations(config)
+      config.include RSpec::Rails::ControllerExampleGroup, :type => :controller
+      config.include RSpec::Rails::HelperExampleGroup,     :type => :helper
+      config.include RSpec::Rails::ModelExampleGroup,      :type => :model
+      config.include RSpec::Rails::RequestExampleGroup,    :type => :request
+      config.include RSpec::Rails::RoutingExampleGroup,    :type => :routing
+      config.include RSpec::Rails::ViewExampleGroup,       :type => :view
+      config.include RSpec::Rails::FeatureExampleGroup,    :type => :feature
+    end
+
     # @private
     def self.initialize_configuration(config)
       config.backtrace_exclusion_patterns << /vendor\//
@@ -98,13 +111,15 @@ module RSpec
         end
       end
 
-      config.include RSpec::Rails::ControllerExampleGroup, :type => :controller
-      config.include RSpec::Rails::HelperExampleGroup,     :type => :helper
-      config.include RSpec::Rails::ModelExampleGroup,      :type => :model
-      config.include RSpec::Rails::RequestExampleGroup,    :type => :request
-      config.include RSpec::Rails::RoutingExampleGroup,    :type => :routing
-      config.include RSpec::Rails::ViewExampleGroup,       :type => :view
-      config.include RSpec::Rails::FeatureExampleGroup,    :type => :feature
+      add_test_type_configurations(config)
+
+      if defined?(::Rails::Controller::Testing)
+        [:controller, :view, :request].each do |type|
+          config.include ::Rails::Controller::Testing::TestProcess, :type => type
+          config.include ::Rails::Controller::Testing::TemplateAssertions, :type => type
+          config.include ::Rails::Controller::Testing::Integration, :type => type
+        end
+      end
 
       if defined?(ActionMailer)
         config.include RSpec::Rails::MailerExampleGroup, :type => :mailer

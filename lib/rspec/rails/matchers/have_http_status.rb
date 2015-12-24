@@ -43,8 +43,10 @@ module RSpec
             # Capybara or catch `NameError`s for the undefined constants
             obj = ActionDispatch::Response.new.tap do |resp|
               resp.status  = obj.status_code
-              resp.headers = obj.response_headers
+              resp.headers.clear
+              resp.headers.merge!(obj.response_headers)
               resp.body    = obj.body
+              resp.request = ActionDispatch::Request.new({})
             end
             ::ActionDispatch::TestResponse.from_response(obj)
           else
@@ -84,7 +86,7 @@ module RSpec
           # @return [Boolean] `true` if the numeric code matched the `response` code
           def matches?(response)
             test_response = as_test_response(response)
-            @actual = test_response.response_code
+            @actual = test_response.response_code.to_i
             expected == @actual
           rescue TypeError => _ignored
             @invalid_response = response

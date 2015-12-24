@@ -13,6 +13,8 @@ module Connections
         nonexistent_model_id integer
       )
     eosql
+
+    host.reset_column_information
   end
 end
 
