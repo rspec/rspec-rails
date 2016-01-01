@@ -1,4 +1,4 @@
-# This file was generated on 2015-08-11T23:21:08+01:00 from the rspec-dev repo.
+# This file was generated on 2016-01-01T10:42:22+09:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -52,6 +52,11 @@ function run_cukes {
       # the bin/cucumber approach below. That approach is faster
       # (as it avoids the bundler tax), so we use it on rubies where we can.
       bundle exec cucumber --strict
+    elif is_jruby; then
+      # For some reason JRuby doesn't like our improved bundler setup
+      RUBYOPT="-I${PWD}/../bundle -rbundler/setup" \
+         PATH="${PWD}/bin:$PATH" \
+         bin/cucumber --strict
     else
       # Prepare RUBYOPT for scenarios that are shelling out to ruby,
       # and PATH for those that are using `rspec` or `rake`.
