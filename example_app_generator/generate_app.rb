@@ -14,6 +14,7 @@ in_root do
   # Remove the existing rails version so we can properly use master or other
   # edge branches
   gsub_file 'Gemfile', /^.*\bgem 'rails.*$/, ''
+  gsub_file "Gemfile", /.*debugger.*/, ''
 
   # Use our version of RSpec and Rails
   append_to_file 'Gemfile', <<-EOT.gsub(/^ +\|/, '')
