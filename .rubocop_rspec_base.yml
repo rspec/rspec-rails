@@ -1,4 +1,4 @@
-# This file was generated on 2015-08-11T23:21:08+01:00 from the rspec-dev repo.
+# This file was generated on 2016-01-01T10:42:22+09:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 # This file contains defaults for RSpec projects. Individual projects
@@ -101,9 +101,9 @@ Proc:
 RedundantReturn:
   AllowMultipleReturnValues: true
 
-# We have to rescue Exception in the `raise_error` matcher for it to work properly.
+# Exceptions should be rescued with `Support::AllExceptionsExceptOnesWeMustNotRescue`
 RescueException:
-  Enabled: false
+  Enabled: true
 
 # We haven't adopted the `fail` to signal exceptions vs `raise` for re-raises convention.
 SignalException:

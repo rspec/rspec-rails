@@ -1,8 +1,18 @@
-# This file was generated on 2015-08-11T23:21:08+01:00 from the rspec-dev repo.
+# This file was generated on 2016-01-01T10:42:22+09:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 function is_mri {
   if ruby -e "exit(!defined?(RUBY_ENGINE) || RUBY_ENGINE == 'ruby')"; then
+    # RUBY_ENGINE only returns 'ruby' on MRI.
+    # MRI 1.8.7 lacks the constant but all other rubies have it (including JRuby in 1.8 mode)
+    return 0
+  else
+    return 1
+  fi;
+}
+
+function is_jruby {
+  if ruby -e "exit(defined?(RUBY_PLATFORM) && RUBY_PLATFORM == 'java')"; then
     # RUBY_ENGINE only returns 'ruby' on MRI.
     # MRI 1.8.7 lacks the constant but all other rubies have it (including JRuby in 1.8 mode)
     return 0
@@ -25,7 +35,7 @@ function is_mri_192 {
 
 function is_mri_192_plus {
   if is_mri; then
-    if ruby -e "exit(RUBY_VERSION.to_f > 1.9)"; then
+    if ruby -e "exit(RUBY_VERSION.to_f > 1.8)"; then
       return 0
     else
       return 1
