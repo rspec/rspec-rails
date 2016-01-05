@@ -1,4 +1,4 @@
-# This file was generated on 2016-01-01T10:42:22+09:00 from the rspec-dev repo.
+# This file was generated on 2016-01-04T21:06:21+09:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 function is_mri {
@@ -24,18 +24,6 @@ function is_jruby {
 function is_mri_192 {
   if is_mri; then
     if ruby -e "exit(RUBY_VERSION == '1.9.2')"; then
-      return 0
-    else
-      return 1
-    fi
-  else
-    return 1
-  fi
-}
-
-function is_mri_192_plus {
-  if is_mri; then
-    if ruby -e "exit(RUBY_VERSION.to_f > 1.8)"; then
       return 0
     else
       return 1
