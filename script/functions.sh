@@ -1,4 +1,4 @@
-# This file was generated on 2016-01-04T21:06:21+09:00 from the rspec-dev repo.
+# This file was generated on 2016-01-06T22:57:44+11:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -10,6 +10,12 @@ source $SCRIPT_DIR/predicate_functions.sh
 export JRUBY_OPTS=${JRUBY_OPTS:-"--server -Xcompile.invokedynamic=false"}
 SPECS_HAVE_RUN_FILE=specs.out
 MAINTENANCE_BRANCH=`cat maintenance-branch`
+
+# Don't allow rubygems to pollute what's loaded. Also, things boot faster
+# without the extra load time of rubygems. Only works on MRI Ruby 1.9+
+if is_mri_192_plus; then
+  export RUBYOPT="--disable=gem"
+fi
 
 function clone_repo {
   if [ ! -d $1 ]; then # don't clone if the dir is already there
@@ -77,7 +83,11 @@ function run_spec_suite_for {
       pushd ../$1
       unset BUNDLE_GEMFILE
       bundle_install_flags=`cat .travis.yml | grep bundler_args | tr -d '"' | grep -o " .*"`
-      travis_retry eval "bundle install $bundle_install_flags"
+      if is_mri_192_plus; then
+        travis_retry eval "RUBYOPT=$RUBYOPT:'--enable rubygems' bundle install $bundle_install_flags"
+      else
+        travis_retry eval "bundle install $bundle_install_flags"
+      fi
       run_specs_and_record_done
       popd
     else
