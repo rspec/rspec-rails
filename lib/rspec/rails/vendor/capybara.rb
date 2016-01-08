@@ -9,8 +9,10 @@ rescue LoadError
 end
 
 if defined?(Capybara)
-  require 'rspec/support/version_checker'
-  RSpec::Support::VersionChecker.new('capybara', Capybara::VERSION, '2.2.0').check_version!
+  require 'rspec/support/comparable_version'
+  unless RSpec::Support::ComparableVersion.new(Capybara::VERSION) >= '2.2.0'
+    raise "You are using capybara #{Capybara::VERSION}. RSpec requires >= 2.2.0."
+  end
 
   RSpec.configure do |c|
     if defined?(Capybara::DSL)
