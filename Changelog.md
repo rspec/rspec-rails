@@ -5,6 +5,7 @@ Enhancements:
 
 * Add a `---singularize` option for the feature spec generator (Felicity McCabe,
   #1503)
+* Prevent leaking TestUnit methods in Rails 4+ (Fernando Seror Garcia, #1512)
 
 Bug fixes:
 
