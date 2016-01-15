@@ -201,7 +201,7 @@ module RSpec
             select do |m|
               m.to_s =~ /^(assert|flunk|refute)/
             end
-          methods + [:build_message]
+          methods + test_unit_specific_methods
         end
 
         def define_assertion_delegators
@@ -209,6 +209,18 @@ module RSpec
             define_method(m.to_sym) do |*args, &block|
               assertion_delegator.send(m.to_sym, *args, &block)
             end
+          end
+        end
+
+        # Starting on Rails 4, Minitest is the default testing framework so no
+        # need to add TestUnit specific methods.
+        if ::Rails::VERSION::STRING >= '4.0.0'
+          def test_unit_specific_methods
+            []
+          end
+        else
+          def test_unit_specific_methods
+            [:build_message]
           end
         end
       end

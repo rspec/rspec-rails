@@ -25,4 +25,16 @@ describe RSpec::Rails::MinitestAssertionAdapter do
   it "does not expose Minitest's message method" do
     expect(methods).not_to include("message")
   end
+
+  if ::Rails::VERSION::STRING >= '4.0.0'
+    # In Ruby <= 1.8.7 Object#methods returns Strings instead of Symbols. They
+    # are all converted to Symbols to ensure we always compare them correctly.
+    it 'does not leak TestUnit specific methods into the AssertionDelegator' do
+      expect(methods.map(&:to_sym)).to_not include(:build_message)
+    end
+  else
+    it 'includes methods required by TestUnit into the AssertionDelegator' do
+      expect(methods.map(&:to_sym)).to include(:build_message)
+    end
+  end
 end
