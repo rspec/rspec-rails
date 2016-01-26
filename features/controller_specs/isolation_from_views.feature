@@ -85,3 +85,28 @@ Feature: views are stubbed by default
       """
     When I run `rspec spec`
     Then the examples should all pass
+
+  Scenario: expect template that is rendered as a file(passes)
+    Given a file named "spec/controllers/widgets_controller_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe ApplicationController, :type => :controller do
+        controller do
+          def index
+            render file: File.expand_path('app/views/widgets/widget.html.erb')
+          end
+        end
+        it "renders the template" do
+          get :index
+          expect(response).to render_template(file: File.expand_path('app/views/widgets/widget.html.erb'))
+          expect(response.body).to eq ""
+        end
+      end
+      """
+    And a file named "app/views/widgets/widget.html.erb" with:
+      """
+      HTML
+      """
+    When I run `rspec spec`
+    Then the examples should all pass
