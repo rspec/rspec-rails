@@ -61,6 +61,8 @@ module RSpec
             )
           end
         end
+
+        alias_method :find_all_anywhere, :find_all
       end
 
       # @private
