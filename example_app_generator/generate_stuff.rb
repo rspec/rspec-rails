@@ -111,6 +111,10 @@ file "app/views/things/custom_action.html.erb",
      "This is a template for a custom action.",
      :force => true
 
+file "app/views/errors/401.html.erb",
+     "This is a template for rendering an error page",
+     :force => true
+
 # Use the absolute path so we can load it without active record too
 apply File.join(DEFAULT_SOURCE_PATH, 'generate_action_mailer_specs.rb')
 using_source_path(File.expand_path('..', __FILE__)) do
