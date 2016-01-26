@@ -1,3 +1,5 @@
+require 'nokogiri/version'
+
 rspec_rails_repo_path = File.expand_path("../../", __FILE__)
 rspec_dependencies_gemfile = File.join(rspec_rails_repo_path, 'Gemfile-rspec-dependencies')
 rails_dependencies_gemfile = File.join(rspec_rails_repo_path, 'Gemfile-rails-dependencies')
@@ -18,8 +20,12 @@ in_root do
   gsub_file "Gemfile", /.*debugger.*/, ''
 
   if Rails::VERSION::STRING >= '5.0.0'
-    append_to_file('Gemfile', "gem 'rails-controller-testing', :git => 'https://github.com/rails/rails-controller-testing'")
+    append_to_file('Gemfile', "gem 'rails-controller-testing', :git => 'https://github.com/rails/rails-controller-testing'\n")
   end
+
+  # Nokogiri version is pinned in rspec-rails' Gemfile since it tend to cause installation problems
+  # on Travis CI, so we pin nokogiri in this example app also.
+  append_to_file 'Gemfile', "gem 'nokogiri', '#{Nokogiri::VERSION}'\n"
 
   # Use our version of RSpec and Rails
   append_to_file 'Gemfile', <<-EOT.gsub(/^ +\|/, '')
