@@ -43,15 +43,11 @@ module RSpec
       # with modified source
       #
       # @private
-      class EmptyTemplatePathSetDecorator < ::ActionView::Resolver
-        attr_reader :original_path_set
+      class EmptyTemplateResolver < ::ActionView::FileSystemResolver
+      private
 
-        def initialize(original_path_set)
-          @original_path_set = original_path_set
-        end
-
-        def find_all(*args)
-          original_path_set.find_all(*args).map do |template|
+        def find_templates(*args)
+          super.map do |template|
             ::ActionView::Template.new(
               "",
               template.identifier,
@@ -85,23 +81,26 @@ module RSpec
       private
 
         def _path_decorator(path)
-          EmptyTemplatePathSetDecorator.new(ActionView::PathSet.new(Array.wrap(path)))
+          EmptyTemplateResolver.new(path)
         end
       end
 
       included do
         before do
           unless render_views?
-            @_empty_view_path_set_delegator = EmptyTemplatePathSetDecorator.new(controller.class.view_paths)
-            controller.class.view_paths = ::ActionView::PathSet.new.push(@_empty_view_path_set_delegator)
+            @_original_path_set = controller.class.view_paths
+
+            empty_template_path_set = @_original_path_set.map do |resolver|
+              EmptyTemplateResolver.new(resolver.to_s)
+            end
+
+            controller.class.view_paths = empty_template_path_set
             controller.extend(EmptyTemplates)
           end
         end
 
         after do
-          unless render_views?
-            controller.class.view_paths = @_empty_view_path_set_delegator.original_path_set
-          end
+          controller.class.view_paths = @_original_path_set unless render_views?
         end
       end
     end
