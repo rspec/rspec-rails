@@ -31,7 +31,7 @@ Feature: anonymous controller
   end
   ```
 
-  Scenario: Specify error handling in `ApplicationController`
+  Scenario: Specify error handling in `ApplicationController` with redirect
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -59,6 +59,76 @@ Feature: anonymous controller
           it "redirects to the /401.html page" do
             get :index
             expect(response).to redirect_to("/401.html")
+          end
+        end
+      end
+      """
+    When I run `rspec spec`
+    Then the examples should all pass
+
+  Scenario: Specify error handling in `ApplicationController` with render
+    Given a file named "spec/controllers/application_controller_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      class ApplicationController < ActionController::Base
+        class AccessDenied < StandardError; end
+
+        rescue_from AccessDenied, :with => :access_denied
+
+      private
+
+        def access_denied
+          render "errors/401"
+        end
+      end
+
+      RSpec.describe ApplicationController, :type => :controller do
+        controller do
+          def index
+            raise ApplicationController::AccessDenied
+          end
+        end
+
+        describe "handling AccessDenied exceptions" do
+          it "renders the errors/401 template" do
+            get :index
+            expect(response).to render_template("errors/401")
+          end
+        end
+      end
+      """
+    When I run `rspec spec`
+    Then the examples should all pass
+
+  Scenario: Specify error handling in `ApplicationController` with render :file
+    Given a file named "spec/controllers/application_controller_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      class ApplicationController < ActionController::Base
+        class AccessDenied < StandardError; end
+
+        rescue_from AccessDenied, :with => :access_denied
+
+      private
+
+        def access_denied
+          render :file => "errors/401"
+        end
+      end
+
+      RSpec.describe ApplicationController, :type => :controller do
+        controller do
+          def index
+            raise ApplicationController::AccessDenied
+          end
+        end
+
+        describe "handling AccessDenied exceptions" do
+          it "renders the errors/401 template" do
+            get :index
+            expect(response).to render_template("errors/401")
           end
         end
       end
