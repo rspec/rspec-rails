@@ -148,6 +148,30 @@ RSpec.describe "Configuration" do
     include_examples "infers type from location", :routing, "spec/routing"
     include_examples "infers type from location", :view, "spec/views"
     include_examples "infers type from location", :feature, "spec/features"
+
+    context "with a custom definition" do
+      context "use an array" do
+        def in_inferring_type_from_location_environment
+          in_sub_process do
+            RSpec.configuration.infer_spec_type_from_file_location!([:worker])
+            yield
+          end
+        end
+
+        include_examples "infers type from location", :worker, "spec/workers"
+      end
+
+      context "use a hash" do
+        def in_inferring_type_from_location_environment
+          in_sub_process do
+            RSpec.configuration.infer_spec_type_from_file_location!(sidekiq: :workers)
+            yield
+          end
+        end
+
+        include_examples "infers type from location", :sidekiq, "spec/workers"
+      end
+    end
   end
 
   it "fixture support is included with metadata `:use_fixtures`" do
