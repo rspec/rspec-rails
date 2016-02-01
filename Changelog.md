@@ -14,6 +14,8 @@ Bug fixes:
 * Warn if a fixture method is called from a `before(:context)` block, instead of
   crashing with a `undefined method for nil:NilClass`. (Sam Phippen, #1501)
 * Expose path to view specs (Ryan Clark, Sarah Mei, Sam Phippen, #1402)
+* Cache template resolvers during path lookup to prevent performance
+  regression from #1535. (Andrew White, #1544)
 
 ### 3.4.1 / 2016-01-25
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.4.0...v3.4.1)
