@@ -85,16 +85,18 @@ module RSpec
         end
       end
 
+      # @private
+      RESOLVER_CACHE = Hash.new do |hash, path|
+        hash[path] = EmptyTemplateResolver.new(path)
+      end
+
       included do
         before do
           unless render_views?
             @_original_path_set = controller.class.view_paths
+            path_set = @_original_path_set.map { |resolver| RESOLVER_CACHE[resolver.to_s] }
 
-            empty_template_path_set = @_original_path_set.map do |resolver|
-              EmptyTemplateResolver.new(resolver.to_s)
-            end
-
-            controller.class.view_paths = empty_template_path_set
+            controller.class.view_paths = path_set
             controller.extend(EmptyTemplates)
           end
         end

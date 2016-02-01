@@ -1,3 +1,11 @@
+### Development
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.4.1...3-4-maintenance)
+
+Bug fixes:
+
+* Cache template resolvers during path lookup to prevent performance
+  regression from #1535. (Andrew White, #1544)
+
 ### 3.4.1 / 2016-01-25
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.4.0...v3.4.1)
 
