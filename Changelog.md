@@ -15,6 +15,14 @@ Bug fixes:
   crashing with a `undefined method for nil:NilClass`. (Sam Phippen, #1501)
 * Expose path to view specs (Ryan Clark, Sarah Mei, Sam Phippen, #1402)
 
+### 3.4.1 / 2016-01-25
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.4.0...v3.4.1)
+
+Bug Fixes:
+
+* Fix no method error when rendering templates with explicit `:file`
+  parameters for Rails version `4.2.5.1`. (Andrew White, Sam Phippen, #1535)
+
 ### 3.4.0 / 2015-11-11
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.3.3...v3.4.0)
 
