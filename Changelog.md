@@ -1,5 +1,5 @@
 ### 3.5.0 Development
-[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.4.0...master)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.4.1...master)
 
 Enhancements:
 
