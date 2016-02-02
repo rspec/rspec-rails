@@ -16,6 +16,7 @@ Bug fixes:
 * Expose path to view specs (Ryan Clark, Sarah Mei, Sam Phippen, #1402)
 * Cache template resolvers during path lookup to prevent performance
   regression from #1535. (Andrew White, #1544)
+* Prevent installing Rails 3.2.22.1 on Ruby 1.8.7. (Jon Rowe, #1540)
 
 ### 3.4.1 / 2016-01-25
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.4.0...v3.4.1)
