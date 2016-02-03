@@ -28,7 +28,7 @@ Feature: Directory Structure
 
   For example, say the spec for the `ThingsController` is located in
   `spec/legacy/things_controller_spec.rb`. Simply tag the spec's
-  `RSpec.describe` block with the `type: :controller` metdata:
+  `RSpec.describe` block with the `type: :controller` metadata:
 
   ```ruby
   ​# spec/legacy/things_controller_spec.rb
@@ -66,6 +66,17 @@ Feature: Directory Structure
   If you follow the above listed canonical directory structure and have
   configured `infer_spec_type_from_file_location!`, RSpec will automatically
   include the correct support functions for each type.
+
+  If you want to set metadata for a custom directory that doesn't follow fit the canonical structure above, you can do the following:
+
+  ```ruby
+  ​# set `:type` for serializers directory
+  RSpec.configure do |config|
+    config.define_derived_metadata(:file_path => Regexp.new('/spec/serializers/')) do |metadata|
+      metadata[:type] = :serializer
+    end
+  end
+  ```
 
   Tips on Spec Location
   ---------------------
