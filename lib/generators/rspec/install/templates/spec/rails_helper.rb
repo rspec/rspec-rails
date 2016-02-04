@@ -22,17 +22,10 @@ require 'rspec/rails'
 #
 # Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
-<% if RSpec::Rails::FeatureCheck.can_maintain_test_schema? -%>
 # Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
-ActiveRecord::Migration.maintain_test_schema!
+ActiveRecord::Migrator.migrate(File.join(Rails.root, 'db/migrate'))
 
-<% elsif RSpec::Rails::FeatureCheck.can_check_pending_migrations? -%>
-# Checks for pending migrations before tests are run.
-# If you are not using ActiveRecord, you can remove this line.
-ActiveRecord::Migration.check_pending!
-
-<% end -%>
 RSpec.configure do |config|
 <% if RSpec::Rails::FeatureCheck.has_active_record? -%>
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
