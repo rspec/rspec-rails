@@ -1,11 +1,15 @@
-### 3.5.0 Development
-[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.4.2...master)
+### 3.5.0.development
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.4.2...v3.5.0.beta1)
+
+### 3.5.0.beta1 2016-02-06
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.4.2...v3.5.0.beta1)
 
 Enhancements:
 
 * Add a `---singularize` option for the feature spec generator (Felicity McCabe,
   #1503)
 * Prevent leaking TestUnit methods in Rails 4+ (Fernando Seror Garcia, #1512)
+* Add support for Rails 5 (Sam Phippen, #1492)
 
 Bug fixes:
 
