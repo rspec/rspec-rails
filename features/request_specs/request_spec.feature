@@ -46,6 +46,10 @@ Feature: request spec
           expect(response.body).to include("Widget was successfully created.")
         end
 
+        it "does not render a different template" do
+          get "/widgets/new"
+          expect(response).to_not render_template(:show)
+        end
       end
       """
     When I run `rspec spec/requests/widget_management_spec.rb`
