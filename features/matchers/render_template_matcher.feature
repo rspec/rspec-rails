@@ -23,6 +23,10 @@ Feature: render_template matcher
             expect(subject).to render_template("index")
             expect(subject).to render_template("gadgets/index")
           end
+
+          it "does not render a different template" do
+            expect(subject).to_not render_template("gadgets/show")
+          end
         end
       end
       """
@@ -42,6 +46,10 @@ Feature: render_template matcher
           expect(view).to render_template(:index)
           expect(view).to render_template("index")
           expect(view).to render_template("gadgets/index")
+        end
+
+        it "does not render a different template" do
+          expect(view).to_not render_template("gadgets/show")
         end
       end
       """
