@@ -150,9 +150,9 @@ module Rspec
         case attribute.type
         when :string
           attribute.name.titleize
-        when :integer
+        when :integer, :float
           @attribute_id_map ||= {}
-          @attribute_id_map[attribute] ||= @attribute_id_map.keys.size.next
+          @attribute_id_map[attribute] ||= @attribute_id_map.keys.size.next + attribute.default
         else
           attribute.default
         end
