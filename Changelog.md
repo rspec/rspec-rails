@@ -1,6 +1,11 @@
 ### 3.5.0.development
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.4.2...v3.5.0.beta1)
 
+Bug fxes:
+
+* Make it possible to use floats in auto generated (scaffold) tests.
+  (Alwahsh, #1550)
+
 ### 3.5.0.beta1 2016-02-06
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.4.2...v3.5.0.beta1)
 
