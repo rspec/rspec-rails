@@ -16,6 +16,7 @@ in_root do
   # Remove the existing rails version so we can properly use master or other
   # edge branches
   gsub_file 'Gemfile', /^.*\bgem 'rails.*$/, ''
+  gsub_file "Gemfile", /.*debugger.*/, ''
 
   # Nokogiri version is pinned in rspec-rails' Gemfile since it tend to cause installation problems
   # on Travis CI, so we pin nokogiri in this example app also.
