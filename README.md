@@ -285,7 +285,7 @@ gem "capybara"
 ```
 
 For more information, see the [cucumber scenarios for feature
-specs](https://www.relishapp.com/rspec/rspec-rails/v/3-0/docs/feature-specs/feature-spec).
+specs](https://www.relishapp.com/rspec/rspec-rails/v/3-4/docs/feature-specs/feature-spec).
 
 ## View specs
 
