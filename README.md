@@ -287,6 +287,36 @@ gem "capybara"
 For more information, see the [cucumber scenarios for feature
 specs](https://www.relishapp.com/rspec/rspec-rails/v/3-4/docs/feature-specs/feature-spec).
 
+## Mailer specs
+
+By default Mailer specs reside in the `spec/mailers` folder. Adding the metadata
+`:type => :mailer` to any context makes its examples be treated as mailer specs.
+
+`ActionMailer::TestCase::Behavior` is mixed into your mailer specs.
+
+```ruby
+require "rails_helper"
+
+RSpec.describe Notifications, :type => :mailer do
+  describe "notify" do
+    let(:mail) { Notifications.signup }
+
+    it "renders the headers" do
+      expect(mail.subject).to eq("Signup")
+      expect(mail.to).to eq(["to@example.org"])
+      expect(mail.from).to eq(["from@example.com"])
+    end
+
+    it "renders the body" do
+      expect(mail.body.encoded).to match("Hi")
+    end
+  end
+end
+```
+
+For more information, see the [cucumber scenarios for mailer specs
+](https://relishapp.com/rspec/rspec-rails/v/3-4/docs/mailer-specs).
+
 ## View specs
 
 View specs default to residing in the `spec/views` folder. Tagging any context
