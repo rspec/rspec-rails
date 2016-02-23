@@ -1,3 +1,4 @@
+require 'rspec/core'
 require 'rspec/rails/feature_check'
 
 # Namespace for all core RSpec projects.
