@@ -44,6 +44,13 @@ module RSpec
       #
       # @private
       class EmptyTemplateResolver < ::ActionView::FileSystemResolver
+
+        def initialize(path, pattern=nil)
+          unless path.is_a?(::ActionView::Resolver)
+            super
+          end
+        end
+
       private
 
         def find_templates(*args)
