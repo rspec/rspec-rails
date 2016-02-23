@@ -133,6 +133,12 @@ module RSpec::Rails
         expect(controller.view_paths.map(&:to_s)).to match_paths 'app/views', 'app/others'
       end
 
+      it 'supports manipulating view paths with arrays' do
+        controller.prepend_view_path ['app/views', 'app/legacy_views']
+        controller.append_view_path ['app/others', 'app/more_views']
+        expect(controller.view_paths.map(&:to_s)).to match_paths 'app/views', 'app/legacy_views', 'app/others', 'app/more_views'
+      end
+
       def match_paths(*paths)
         eq paths.map { |path| File.expand_path path }
       end
