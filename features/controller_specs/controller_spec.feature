@@ -34,29 +34,6 @@ Feature: controller spec
     When I run `rspec spec`
     Then the example should pass
 
-  Scenario: controller is extended with a helper module
-    Given a file named "spec/controllers/widgets_controller_spec.rb" with:
-      """ruby
-      require "rails_helper"
-
-      module MyHelper
-        def my_variable
-        end
-      end
-
-      RSpec.configure {|c| c.include MyHelper }
-
-      RSpec.describe WidgetsController, :type => :controller do
-        let(:my_variable) { 'is a value' }
-
-        describe 'something' do
-          specify { expect(my_variable).to eq 'is a value' }
-        end
-      end
-      """
-    When I run `rspec spec`
-    Then the example should pass
-
   Scenario: setting a different content type for example json (request type)
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """ruby

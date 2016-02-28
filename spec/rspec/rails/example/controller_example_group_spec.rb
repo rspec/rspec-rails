@@ -28,6 +28,24 @@ module RSpec::Rails
         allow(example).to receive_messages(:controller => controller)
         expect(example.subject).to eq(controller)
       end
+
+      it "doesn't cause let definition priority to be changed" do
+        # before #738 implicit subject definition for controllers caused
+        # external methods to take precedence over our let definitions
+
+        with_isolated_config do |config|
+          mod = Module.new do
+            def my_helper
+              "other_value"
+            end
+          end
+          config.include mod
+          group.class_exec do
+            let(:my_helper) { "my_value" }
+          end
+          expect(group.new.my_helper).to eq "my_value"
+        end
+      end
     end
 
     context "with explicit subject" do
