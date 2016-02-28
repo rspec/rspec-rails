@@ -39,8 +39,8 @@ module RSpec
         self.class.render_views? || !controller.class.respond_to?(:view_paths)
       end
 
-      # Delegates find_all to the submitted path set and then returns templates
-      # with modified source
+      # Delegates find_templates to the submitted path set and then returns
+      # templates with modified source
       #
       # @private
       class EmptyTemplateResolver < ::ActionView::FileSystemResolver
@@ -81,7 +81,12 @@ module RSpec
       private
 
         def _path_decorator(path)
-          EmptyTemplateResolver.new(path)
+          case path
+          when Pathname, String
+            EmptyTemplateResolver.new(path.to_s)
+          else
+            path
+          end
         end
       end
 
