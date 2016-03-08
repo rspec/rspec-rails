@@ -39,18 +39,50 @@ module RSpec
         self.class.render_views? || !controller.class.respond_to?(:view_paths)
       end
 
+      class EmptyTemplateResolverFactory
+        def initialize(path)
+          @path = path
+        end
+
+        def resolver
+          if @path.is_a?(::ActionView::Resolver)
+            EmptyTemplateResolverDecorator.new(@path)
+          else
+            EmptyTemplateFileSystemResolver.new(@path)
+          end
+        end
+      end
+
+      class EmptyTemplateResolverDecorator
+        def initialize(resolver)
+          @resolver = resolver
+        end
+
+        def method_missing(name, *args, &block)
+          @resolver.send(name, *args, &block)
+        end
+
+      private
+
+        def find_templates(*args)
+          templates = @resolver.find_templates(*args)
+          templates.map do |template|
+            ::ActionView::Template.new(
+              "",
+              template.identifier,
+              EmptyTemplateHandler,
+              :virtual_path => template.virtual_path,
+              :format => template.formats
+            )
+          end
+        end
+      end
+
       # Delegates find_all to the submitted path set and then returns templates
       # with modified source
       #
       # @private
-      class EmptyTemplateResolver < ::ActionView::FileSystemResolver
-
-        def initialize(path, pattern=nil)
-          unless path.is_a?(::ActionView::Resolver)
-            super
-          end
-        end
-
+      class EmptyTemplateFileSystemResolver < ::ActionView::FileSystemResolver
       private
 
         def find_templates(*args)
@@ -88,13 +120,13 @@ module RSpec
       private
 
         def _path_decorator(*paths)
-          paths.map { |path| EmptyTemplateResolver.new(path) }
+          paths.map { |path| EmptyTemplateResolverFactory.new(path).resolver }
         end
       end
 
       # @private
       RESOLVER_CACHE = Hash.new do |hash, path|
-        hash[path] = EmptyTemplateResolver.new(path)
+        hash[path] = EmptyTemplateResolverFactory.new(path).resolver
       end
 
       included do
