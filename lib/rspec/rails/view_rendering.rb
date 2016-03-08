@@ -40,16 +40,12 @@ module RSpec
       end
 
       # @private
-      class EmptyTemplateResolverFactory
-        def initialize(path)
-          @path = path
-        end
-
-        def resolver
-          if @path.is_a?(::ActionView::Resolver)
-            EmptyTemplateResolverDecorator.new(@path)
+      class EmptyTemplateResolver
+        def self.build(path)
+          if path.is_a?(::ActionView::Resolver)
+            EmptyTemplateResolverDecorator.new(path)
           else
-            EmptyTemplateFileSystemResolver.new(@path)
+            EmptyTemplateFileSystemResolver.new(path)
           end
         end
       end
@@ -125,13 +121,13 @@ module RSpec
       private
 
         def _path_decorator(*paths)
-          paths.map { |path| EmptyTemplateResolverFactory.new(path).resolver }
+          paths.map { |path| EmptyTemplateResolver.build(path) }
         end
       end
 
       # @private
       RESOLVER_CACHE = Hash.new do |hash, path|
-        hash[path] = EmptyTemplateResolverFactory.new(path).resolver
+        hash[path] = EmptyTemplateResolver.build(path)
       end
 
       included do
