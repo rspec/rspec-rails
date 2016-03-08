@@ -39,6 +39,7 @@ module RSpec
         self.class.render_views? || !controller.class.respond_to?(:view_paths)
       end
 
+      # @private
       class EmptyTemplateResolverFactory
         def initialize(path)
           @path = path
@@ -53,6 +54,10 @@ module RSpec
         end
       end
 
+      # Delegates find_templates to the submitted resolver and then returns templates
+      # with modified source
+      #
+      # @private
       class EmptyTemplateResolverDecorator
         def initialize(resolver)
           @resolver = resolver
@@ -78,8 +83,8 @@ module RSpec
         end
       end
 
-      # Delegates find_all to the submitted path set and then returns templates
-      # with modified source
+      # Delegates find_templates to the submitted path set and then returns
+      # templates with modified source
       #
       # @private
       class EmptyTemplateFileSystemResolver < ::ActionView::FileSystemResolver
