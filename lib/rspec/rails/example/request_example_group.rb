@@ -11,6 +11,12 @@ module RSpec
       include RSpec::Rails::Matchers::RenderTemplate
       include ActionController::TemplateAssertions
 
+      begin
+        include ActionDispatch::IntegrationTest::Behavior
+      rescue NameError # rubocop:disable Lint/HandleExceptions
+        # rails is too old to provide integration test helpers
+      end
+
       # Delegates to `Rails.application`.
       def app
         ::Rails.application
