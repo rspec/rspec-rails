@@ -39,22 +39,18 @@ module RSpec
         self.class.render_views? || !controller.class.respond_to?(:view_paths)
       end
 
-      # Delegates find_all to the submitted path set and then returns templates
-      # with modified source
-      #
       # @private
-      class EmptyTemplateResolver < ::ActionView::FileSystemResolver
-
-        def initialize(path, pattern=nil)
-          unless path.is_a?(::ActionView::Resolver)
-            super
+      class EmptyTemplateResolver
+        def self.build(path)
+          if path.is_a?(::ActionView::Resolver)
+            ResolverDecorator.new(path)
+          else
+            FileSystemResolver.new(path)
           end
         end
 
-      private
-
-        def find_templates(*args)
-          super.map do |template|
+        def self.nullify_template_rendering(templates)
+          templates.map do |template|
             ::ActionView::Template.new(
               "",
               template.identifier,
@@ -62,6 +58,40 @@ module RSpec
               :virtual_path => template.virtual_path,
               :format => template.formats
             )
+          end
+        end
+
+        # Delegates find_templates to the submitted resolver and then returns templates
+        # with modified source
+        #
+        # @private
+        class ResolverDecorator
+          def initialize(resolver)
+            @resolver = resolver
+          end
+
+          def method_missing(name, *args, &block)
+            @resolver.send(name, *args, &block)
+          end
+
+        private
+
+          def find_templates(*args)
+            templates = @resolver.find_templates(*args)
+            EmptyTemplateResolver.nullify_template_rendering(templates)
+          end
+        end
+
+        # Delegates find_templates to the submitted path set and then returns
+        # templates with modified source
+        #
+        # @private
+        class FileSystemResolver < ::ActionView::FileSystemResolver
+        private
+
+          def find_templates(*args)
+            templates = super
+            EmptyTemplateResolver.nullify_template_rendering(templates)
           end
         end
       end
@@ -88,13 +118,13 @@ module RSpec
       private
 
         def _path_decorator(*paths)
-          paths.map { |path| EmptyTemplateResolver.new(path) }
+          paths.map { |path| EmptyTemplateResolver.build(path) }
         end
       end
 
       # @private
       RESOLVER_CACHE = Hash.new do |hash, path|
-        hash[path] = EmptyTemplateResolver.new(path)
+        hash[path] = EmptyTemplateResolver.build(path)
       end
 
       included do

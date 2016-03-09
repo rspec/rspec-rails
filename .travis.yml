@@ -114,3 +114,4 @@ branches:
   only:
     - master
     - /^\d+-\d+-maintenance$/
+    - fix_empty_view_rendering
