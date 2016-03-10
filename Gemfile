@@ -19,6 +19,12 @@ end
 
 gem 'sqlite3', '~> 1.3.6'
 
+if RUBY_VERSION >= '1.9.3'
+  gem 'rake', '>= 10.0.0'
+else
+  gem 'rake', '~> 10.0' # rake 11 requires Ruby 1.9.3 or later
+end
+
 # Capybara versions that support RSpec 3 only support RUBY_VERSION >= 1.9.3
 if RUBY_VERSION >= '1.9.3'
   gem 'capybara', '~> 2.2.0', :require => false

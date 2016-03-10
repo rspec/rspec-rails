@@ -32,6 +32,12 @@ in_root do
     |# Rack::Cache 1.3.0 requires Ruby >= 2.0.0
     |gem 'rack-cache', '< 1.3.0' if RUBY_VERSION < '2.0.0'
     |
+    |if RUBY_VERSION >= '1.9.3'
+    |  gem 'rake', '>= 10.0.0'
+    |else
+    |  gem 'rake', '~> 10.0' # rake 11 requires Ruby 1.9.3 or later
+    |end
+    |
     |gem 'rspec-rails',
     |    :path => '#{rspec_rails_repo_path}',
     |    :groups => [:development, :test]
