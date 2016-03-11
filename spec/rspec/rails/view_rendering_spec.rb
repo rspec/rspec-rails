@@ -121,5 +121,34 @@ module RSpec::Rails
         end
       end
     end
+
+    context 'when render_views? is false' do
+      let(:controller) { ActionController::Base.new }
+
+      before { controller.extend(ViewRendering::EmptyTemplates) }
+
+      it 'supports manipulating view paths' do
+        controller.prepend_view_path 'app/views'
+        controller.append_view_path 'app/others'
+        expect(controller.view_paths.map(&:to_s)).to match_paths 'app/views', 'app/others'
+      end
+
+      it 'supports manipulating view paths with arrays' do
+        controller.prepend_view_path ['app/views', 'app/legacy_views']
+        controller.append_view_path ['app/others', 'app/more_views']
+        expect(controller.view_paths.map(&:to_s)).to match_paths 'app/views', 'app/legacy_views', 'app/others', 'app/more_views'
+      end
+
+      it 'supports manipulating view paths with resolvers' do
+        expect {
+          controller.prepend_view_path ActionView::Resolver.new
+          controller.append_view_path ActionView::Resolver.new
+        }.to_not raise_error
+      end
+
+      def match_paths(*paths)
+        eq paths.map { |path| File.expand_path path }
+      end
+    end
   end
 end

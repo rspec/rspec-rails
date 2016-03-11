@@ -44,6 +44,13 @@ module RSpec
       #
       # @private
       class EmptyTemplateResolver < ::ActionView::FileSystemResolver
+
+        def initialize(path, pattern=nil)
+          unless path.is_a?(::ActionView::Resolver)
+            super
+          end
+        end
+
       private
 
         def find_templates(*args)
@@ -71,17 +78,17 @@ module RSpec
       # @private
       module EmptyTemplates
         def prepend_view_path(new_path)
-          lookup_context.view_paths.unshift(*_path_decorator(new_path))
+          lookup_context.view_paths.unshift(*_path_decorator(*new_path))
         end
 
         def append_view_path(new_path)
-          lookup_context.view_paths.push(*_path_decorator(new_path))
+          lookup_context.view_paths.push(*_path_decorator(*new_path))
         end
 
       private
 
-        def _path_decorator(path)
-          EmptyTemplateResolver.new(path)
+        def _path_decorator(*paths)
+          paths.map { |path| EmptyTemplateResolver.new(path) }
         end
       end
 
