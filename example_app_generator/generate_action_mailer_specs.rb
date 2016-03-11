@@ -13,6 +13,7 @@ using_source_path(File.expand_path('..', __FILE__)) do
   comment_lines 'config/environments/test.rb', /action_mailer/
 
   initializer 'action_mailer.rb', <<-CODE
+  require "action_view/base"
     if ENV['DEFAULT_URL']
       if ::Rails::VERSION::STRING < '4.1'
         ExampleApp::Application.configure do
