@@ -32,7 +32,7 @@ require_file_stub 'config/environment' do
     module ExampleApp
       class Application < Rails::Application
         config.eager_load = false
-        config.eager_load_paths.clear
+        config.eager_load_paths.clear if Rails::VERSION::MAJOR < 4
 
         # Don't care if the mailer can't send.
         config.action_mailer.raise_delivery_errors = false unless ENV['NO_ACTION_MAILER']

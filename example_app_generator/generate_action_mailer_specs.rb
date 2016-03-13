@@ -25,7 +25,7 @@ using_source_path(File.expand_path('..', __FILE__)) do
       end
     end
 
-    if defined?(ActionMailer)
+    if defined?(ActionMailer) && Rails::VERSION::MAJOR < 4
       # This will force the loading of ActionMailer settings
       ActionMailer::Base.smtp_settings
     end
