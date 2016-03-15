@@ -1,7 +1,7 @@
 Feature: URL helpers in mailer examples
 
   Mailer specs are marked by `:type => :mailer` or if you have set
-  `config.infer_spec_type_from_file_location!` by placing them in `spec/mailer`.
+  `config.infer_spec_type_from_file_location!` by placing them in `spec/mailers`.
 
   @rails_post_5
   Scenario: using URL helpers with default options
