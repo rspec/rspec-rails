@@ -218,5 +218,38 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
 
       ActiveJob::Base.queue_adapter = queue_adapter
     end
+
+    it "fails with with block with incorrect data" do
+      expect {
+        expect {
+          hello_job.perform_later("asdf")
+        }.to have_enqueued_job(hello_job).with { |arg|
+          expect(arg).to eq("zxcv")
+        }
+      }.to raise_error { |e|
+        expect(e.message).to match(/expected: "zxcv"/)
+        expect(e.message).to match(/got: "asdf"/)
+      }
+    end
+
+    it "passes multiple arguments to with block" do
+      expect {
+        hello_job.perform_later("asdf", "zxcv")
+      }.to have_enqueued_job(hello_job).with { |first_arg, second_arg|
+        expect(first_arg).to eq("asdf")
+        expect(second_arg).to eq("zxcv")
+      }
+    end
+
+    it "only calls with block if other conditions are met" do
+      noon = Date.tomorrow.noon
+      midnight = Date.tomorrow.midnight
+      expect {
+        hello_job.set(:wait_until => noon).perform_later("asdf")
+        hello_job.set(:wait_until => midnight).perform_later("zxcv")
+      }.to have_enqueued_job(hello_job).at(noon).with { |arg|
+        expect(arg).to eq("asdf")
+      }
+    end
   end
 end
