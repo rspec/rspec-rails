@@ -109,8 +109,3 @@ matrix:
     - rvm: 2.3.0
       env: RAILS_VERSION=master
   fast_finish: true
-
-branches:
-  only:
-    - master
-    - /^\d+-\d+-maintenance$/
