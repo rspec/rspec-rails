@@ -38,6 +38,11 @@ in_root do
     |  gem 'rake', '~> 10.0' # rake 11 requires Ruby 1.9.3 or later
     |end
     |
+    |# Version 3 of mime-types 3 requires Ruby 2.0
+    |if RUBY_VERSION < '2.0.0'
+    |  gem 'mime-types', '< 3'
+    |end
+    |
     |gem 'rspec-rails',
     |    :path => '#{rspec_rails_repo_path}',
     |    :groups => [:development, :test]
