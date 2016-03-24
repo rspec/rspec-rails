@@ -14,6 +14,9 @@ module ExampleAppHooks
 
     def final_tasks
       copy_file 'spec/verify_active_record_spec.rb'
+      copy_file 'app/views/foo.html'
+      copy_file 'app/views/some_templates/bar.html'
+      copy_file 'spec/verify_custom_renderers_spec.rb'
       copy_file 'spec/verify_fixture_warning_spec.rb'
       run('bin/rake db:migrate')
       if ::Rails::VERSION::STRING.to_f < 4.1
