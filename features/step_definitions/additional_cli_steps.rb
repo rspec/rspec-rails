@@ -2,6 +2,7 @@ begin
   require "active_job"
 rescue LoadError # rubocop:disable Lint/HandleExceptions
 end
+require "rails/version"
 
 require "rspec/rails/feature_check"
 
@@ -13,5 +14,11 @@ end
 Given /active job is available/ do
   if !RSpec::Rails::FeatureCheck.has_active_job?
     pending "ActiveJob is not available"
+  end
+end
+
+Given /file fixtures are available/ do
+  if !RSpec::Rails::FeatureCheck.has_file_fixture?
+    pending "file fixtures are not available"
   end
 end
