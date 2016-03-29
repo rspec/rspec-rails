@@ -5,7 +5,7 @@ class <%= class_name %>Preview < ActionMailer::Preview
 
   # Preview this email at http://localhost:3000/rails/mailers/<%= file_path %>/<%= action %>
   def <%= action %>
-    <%= class_name %>.<%= action %>
+    <%= class_name %><%= Rails.version.to_f >= 5.0 ? "Mailer" : "" %>.<%= action %>
   end
 <% end -%>
 
