@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.license     = "MIT"
   s.authors     = ["David Chelimsky", "Andy Lindeman"]
   s.email       = "rspec@googlegroups.com"
-  s.homepage    = "http://github.com/rspec/rspec-rails"
+  s.homepage    = "https://github.com/rspec/rspec-rails"
   s.summary     = "RSpec for Rails"
   s.description = "rspec-rails is a testing framework for Rails 3.x and 4.x."
 
