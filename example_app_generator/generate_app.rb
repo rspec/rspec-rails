@@ -13,6 +13,8 @@ travis_retry_script = File.join(
 function_script_file = File.join(rspec_rails_repo_path, 'script/functions.sh')
 
 in_root do
+  prepend_to_file "Rakefile", "require 'active_support/all'"
+
   # Remove the existing rails version so we can properly use master or other
   # edge branches
   gsub_file 'Gemfile', /^.*\bgem 'rails.*$/, ''
