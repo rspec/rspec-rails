@@ -1,5 +1,11 @@
 ### 3.5.0.development
-[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.4.2...v3.5.0.beta1)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.0.beta3...master)
+
+### 3.5.0.beta3 2016-04-02
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.0.beta1...v3.5.0.beta3)
+
+Enhancements:
+* Add support for Rails 5 Beta 3 (Sam Phippen, Benjamin Quorning, Koen Punt, #1589, #1573)
 
 Bug fxes:
 
