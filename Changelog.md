@@ -1,6 +1,10 @@
 ### 3.5.0.development
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.0.beta3...master)
 
+Enhancements:
+
+* Add support for `file_fixture(...)`. (Wojciech Wnętrzak, #1587)
+
 ### 3.5.0.beta3 2016-04-02
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.0.beta1...v3.5.0.beta3)
 
