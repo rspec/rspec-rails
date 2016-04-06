@@ -47,6 +47,10 @@ module RSpec
         ::Rails::VERSION::STRING > '4.0'
       end
 
+      def has_file_fixture?
+        ::Rails::VERSION::STRING > '5.0'
+      end
+
       def type_metatag(type)
         if has_1_9_hash_syntax?
           "type: :#{type}"

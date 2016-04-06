@@ -50,6 +50,7 @@ module RSpec
     end
 
     # @private
+    # rubocop:disable Style/MethodLength
     def self.initialize_configuration(config)
       config.backtrace_exclusion_patterns << /vendor\//
       config.backtrace_exclusion_patterns << %r{lib/rspec/rails}
@@ -73,6 +74,10 @@ module RSpec
       #   `RSpec::Rails::FixtureSupport` directly instead
       config.include RSpec::Rails::FixtureSupport
 
+      if ::Rails::VERSION::STRING > '5'
+        config.add_setting :file_fixture_path, :default => 'spec/fixtures/files'
+        config.include RSpec::Rails::FileFixtureSupport
+      end
       # This allows us to expose `render_views` as a config option even though it
       # breaks the convention of other options by using `render_views` as a
       # command (i.e. `render_views = true`), where it would normally be used
@@ -129,6 +134,7 @@ module RSpec
         config.include RSpec::Rails::JobExampleGroup, :type => :job
       end
     end
+    # rubocop:enable Style/MethodLength
 
     initialize_configuration RSpec.configuration
   end
