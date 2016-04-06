@@ -55,12 +55,6 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
   end
 
   describe "have_enqueued_job" do
-    it "raises ArgumentError when no Proc passed to expect" do
-      expect {
-        expect(heavy_lifting_job.perform_later).to have_enqueued_job
-      }.to raise_error(ArgumentError)
-    end
-
     it "passess with default one number" do
       expect {
         heavy_lifting_job.perform_later
@@ -217,6 +211,11 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       }.to raise_error("To use have_enqueued_job matcher set `ActiveJob::Base.queue_adapter = :test`")
 
       ActiveJob::Base.queue_adapter = queue_adapter
+    end
+
+    it "passes when used without block" do
+      hello_job.perform_later(:user_id => 2)
+      expect("fake-argument").to have_enqueued_job(hello_job).with(:user_id => 2).exactly(:once)
     end
   end
 end

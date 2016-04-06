@@ -72,3 +72,19 @@ Feature: have_enqueued_job matcher
       """
     When I run `rspec spec/jobs/upload_backups_job_spec.rb`
     Then the examples should all pass
+
+  Scenario: Checking job using syntax without a block
+    Given a file named "spec/jobs/upload_backups_job_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe UploadBackupsJob do
+        it "matches with enqueued job" do
+          ActiveJob::Base.queue_adapter = :test
+          UploadBackupsJob.perform_later
+          expect("fake").to have_enqueued_job.on_queue("default")
+        end
+      end
+      """
+    When I run `rspec spec/jobs/upload_backups_job_spec.rb`
+    Then the examples should all pass

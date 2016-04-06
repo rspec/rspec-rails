@@ -18,14 +18,16 @@ module RSpec
             set_expected_number(:exactly, 1)
           end
 
-          def matches?(proc)
-            raise ArgumentError, "have_enqueued_jobs only supports block expectations" unless Proc === proc
+          def matches?(proc = nil)
+            jobs = if Proc === proc
+                     original_enqueued_jobs_count = queue_adapter.enqueued_jobs.count
+                     proc.call
+                     queue_adapter.enqueued_jobs.drop(original_enqueued_jobs_count)
+                   else
+                     queue_adapter.enqueued_jobs
+                   end
 
-            original_enqueued_jobs_count = queue_adapter.enqueued_jobs.count
-            proc.call
-            in_block_jobs = queue_adapter.enqueued_jobs.drop(original_enqueued_jobs_count)
-
-            @matching_jobs_count = in_block_jobs.count do |job|
+            @matching_jobs_count = jobs.count do |job|
               serialized_attributes.all? { |key, value| value == job[key] }
             end
 
@@ -157,6 +159,9 @@ module RSpec
       #     expect {
       #       HelloJob.set(wait_until: Date.tomorrow.noon, queue: "low").perform_later(42)
       #     }.to have_enqueued_job.with(42).on_queue("low").at(Date.tomorrow.noon)
+      #
+      #     HelloJob.perform_later(user_id: 2)
+      #     expect().to have_enqueued_job(HelloJob).with(user_id: 2)
       def have_enqueued_job(job = nil)
         unless ::ActiveJob::QueueAdapters::TestAdapter === ::ActiveJob::Base.queue_adapter
           raise StandardError, "To use have_enqueued_job matcher set `ActiveJob::Base.queue_adapter = :test`"
