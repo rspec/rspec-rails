@@ -1,3 +1,4 @@
+# Explicitly require rspec-core for weird spring issue, see #1558
 require 'rspec/core'
 require 'rspec/rails/feature_check'
 
