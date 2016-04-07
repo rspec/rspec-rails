@@ -15,6 +15,7 @@ module RSpec
             @args = []
             @queue = nil
             @at = nil
+            @block = Proc.new {}
             set_expected_number(:exactly, 1)
           end
 
@@ -26,7 +27,12 @@ module RSpec
             in_block_jobs = queue_adapter.enqueued_jobs.drop(original_enqueued_jobs_count)
 
             @matching_jobs_count = in_block_jobs.count do |job|
-              serialized_attributes.all? { |key, value| value == job[key] }
+              if serialized_attributes.all? { |key, value| value == job[key] }
+                @block.call(*job[:args])
+                true
+              else
+                false
+              end
             end
 
             case @expectation_type
@@ -36,8 +42,9 @@ module RSpec
             end
           end
 
-          def with(*args)
+          def with(*args, &block)
             @args = args
+            @block = block if block.present?
             self
           end
 
