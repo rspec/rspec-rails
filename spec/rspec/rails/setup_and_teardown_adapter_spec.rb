@@ -10,9 +10,11 @@ describe RSpec::Rails::SetupAndTeardownAdapter do
       end
       expect(klass).to receive(:before).ordered { |&block| expect(block.call).to eq "foo" }
       expect(klass).to receive(:before).ordered { |&block| expect(block.call).to eq "bar" }
+      expect(klass).to receive(:before).ordered { |&block| expect(block.call).to eq "baz" }
 
       klass.setup :foo
       klass.setup :bar
+      klass.setup { "baz" }
     end
 
     it "registers prepend_before hooks for the Rails' setup methods" do
@@ -27,6 +29,21 @@ describe RSpec::Rails::SetupAndTeardownAdapter do
 
       klass.setup :setup_fixtures
       klass.setup :setup_controller_request_and_response
+    end
+
+    it "registers teardown hooks in the order setup is received" do
+      klass = Class.new do
+        include RSpec::Rails::SetupAndTeardownAdapter
+        def self.foo; "foo"; end
+        def self.bar; "bar"; end
+      end
+      expect(klass).to receive(:after).ordered { |&block| expect(block.call).to eq "foo" }
+      expect(klass).to receive(:after).ordered { |&block| expect(block.call).to eq "bar" }
+      expect(klass).to receive(:after).ordered { |&block| expect(block.call).to eq "baz" }
+
+      klass.teardown :foo
+      klass.teardown :bar
+      klass.teardown { "baz" }
     end
   end
 end
