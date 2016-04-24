@@ -123,7 +123,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
       <% if RUBY_VERSION < '1.9.3' -%>
         post :create, {:<%= ns_file_name %> => invalid_attributes}, valid_session
       <% else -%>
-        post :create, params: {<%= ns_file_name %>: => invalid_attributes}, session: valid_session
+        post :create, params: {<%= ns_file_name %>: invalid_attributes}, session: valid_session
       <% end -%>
         expect(assigns(:<%= ns_file_name %>)).to be_a_new(<%= class_name %>)
       end
