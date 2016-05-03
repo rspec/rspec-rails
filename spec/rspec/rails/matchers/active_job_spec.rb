@@ -214,7 +214,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
 
       expect {
         expect { heavy_lifting_job.perform_later }.to have_enqueued_job
-      }.to raise_error("To use have_enqueued_job matcher set `ActiveJob::Base.queue_adapter = :test`")
+      }.to raise_error("To use ActiveJob matchers set `ActiveJob::Base.queue_adapter = :test`")
 
       ActiveJob::Base.queue_adapter = queue_adapter
     end
@@ -250,6 +250,31 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       }.to have_enqueued_job(hello_job).at(noon).with { |arg|
         expect(arg).to eq("asdf")
       }
+    end
+  end
+
+  describe "have_been_enqueued" do
+    before { ActiveJob::Base.queue_adapter.enqueued_jobs.clear }
+
+    it "passess with default one number" do
+      heavy_lifting_job.perform_later
+      expect(heavy_lifting_job).to have_been_enqueued
+    end
+
+    it "counts all enqueued jobs" do
+      heavy_lifting_job.perform_later
+      heavy_lifting_job.perform_later
+      expect(heavy_lifting_job).to have_been_enqueued.exactly(2)
+    end
+
+    it "passess when negated" do
+      expect(heavy_lifting_job).not_to have_been_enqueued
+    end
+
+    it "fails when job is not enqueued" do
+      expect {
+        expect(heavy_lifting_job).to have_been_enqueued
+      }.to raise_error(/expected to enqueue exactly 1 jobs, but enqueued 0/)
     end
   end
 end
