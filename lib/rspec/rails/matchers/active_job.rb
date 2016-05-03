@@ -77,6 +77,18 @@ module RSpec
             self
           end
 
+          def once
+            exactly(:once)
+          end
+
+          def twice
+            exactly(:twice)
+          end
+
+          def thrice
+            exactly(:thrice)
+          end
+
           def failure_message
             "expected to enqueue #{base_message}"
           end
