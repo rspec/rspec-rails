@@ -147,7 +147,7 @@ module RSpec
           end
 
           def matches?(proc)
-            raise ArgumentError, "have_enqueued_job only support block expectations" unless Proc === proc
+            raise ArgumentError, "have_enqueued_job and enqueue_job only support block expectations" unless Proc === proc
 
             original_enqueued_jobs_count = queue_adapter.enqueued_jobs.count
             proc.call
@@ -173,6 +173,11 @@ module RSpec
       #     expect {
       #       HeavyLiftingJob.perform_later
       #     }.to have_enqueued_job
+      #
+      #     # Using alias
+      #     expect {
+      #       HeavyLiftingJob.perform_later
+      #     }.to enqueue_job
       #
       #     expect {
       #       HelloJob.perform_later
@@ -201,6 +206,7 @@ module RSpec
         check_active_job_adapter
         ActiveJob::HaveEnqueuedJob.new(job)
       end
+      alias_method :enqueue_job, :have_enqueued_job
 
       # @api public
       # Passess if `count` of jobs were enqueued

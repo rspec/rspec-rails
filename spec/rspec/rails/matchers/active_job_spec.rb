@@ -67,6 +67,12 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       }.to have_enqueued_job
     end
 
+    it "passess when using alias" do
+      expect {
+        heavy_lifting_job.perform_later
+      }.to enqueue_job
+    end
+
     it "counts only jobs enqueued in block" do
       heavy_lifting_job.perform_later
       expect {
