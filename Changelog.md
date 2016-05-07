@@ -7,13 +7,17 @@ Enhancements:
 * Add support for `file_fixture(...)`. (Wojciech Wnętrzak, #1587)
 * Add support for `setup` and `teardown` with blocks (Miklós Fazekas, #1598)
 
+Bug fixes:
+
+* Prevent asset helpers from taking precendence over route helpers. (Prem Sichanugrist, #1496)
+
 ### 3.5.0.beta3 2016-04-02
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.0.beta1...v3.5.0.beta3)
 
 Enhancements:
 * Add support for Rails 5 Beta 3 (Sam Phippen, Benjamin Quorning, Koen Punt, #1589, #1573)
 
-Bug fxes:
+Bug fixes:
 
 * Make it possible to use floats in auto generated (scaffold) tests.
   (Alwahsh, #1550)
