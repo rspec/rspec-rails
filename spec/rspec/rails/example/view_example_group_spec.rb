@@ -90,6 +90,27 @@ module RSpec::Rails
       end
     end
 
+    describe "routes helpers collides with asset helpers" do
+      let(:view_spec) do
+        Class.new do
+          include ActionView::Helpers::AssetTagHelper
+          include ViewExampleGroup::ExampleMethods
+        end.new
+      end
+
+      let(:test_routes) do
+        ActionDispatch::Routing::RouteSet.new.tap do |routes|
+          routes.draw { resources :images }
+        end
+      end
+
+      it "uses routes helpers" do
+        allow(::Rails.application).to receive(:routes).and_return(test_routes)
+        expect(view_spec.image_path(double(:to_param => "42"))).
+          to eq "/images/42"
+      end
+    end
+
     describe "#render" do
       let(:view_spec) do
         Class.new do
