@@ -61,10 +61,16 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       }.to raise_error(ArgumentError)
     end
 
-    it "passess with default one number" do
+    it "passes with default jobs count (exactly one)" do
       expect {
         heavy_lifting_job.perform_later
       }.to have_enqueued_job
+    end
+
+    it "passes when using alias" do
+      expect {
+        heavy_lifting_job.perform_later
+      }.to enqueue_job
     end
 
     it "counts only jobs enqueued in block" do
@@ -74,7 +80,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       }.to have_enqueued_job.exactly(1)
     end
 
-    it "passess when negated" do
+    it "passes when negated" do
       expect { }.not_to have_enqueued_job
     end
 
@@ -121,20 +127,20 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       }.to have_enqueued_job(hello_job).and have_enqueued_job(logging_job)
     end
 
-    it "passess with :once count" do
+    it "passes with :once count" do
       expect {
         hello_job.perform_later
       }.to have_enqueued_job.exactly(:once)
     end
 
-    it "passess with :twice count" do
+    it "passes with :twice count" do
       expect {
         hello_job.perform_later
         hello_job.perform_later
       }.to have_enqueued_job.exactly(:twice)
     end
 
-    it "passess with :thrice count" do
+    it "passes with :thrice count" do
       expect {
         hello_job.perform_later
         hello_job.perform_later
@@ -142,14 +148,14 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       }.to have_enqueued_job.exactly(:thrice)
     end
 
-    it "passess with at_least count when enqueued jobs are over limit" do
+    it "passes with at_least count when enqueued jobs are over limit" do
       expect {
         hello_job.perform_later
         hello_job.perform_later
       }.to have_enqueued_job.at_least(:once)
     end
 
-    it "passess with at_most count when enqueued jobs are under limit" do
+    it "passes with at_most count when enqueued jobs are under limit" do
       expect {
         hello_job.perform_later
       }.to have_enqueued_job.at_most(:once)
@@ -214,7 +220,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
 
       expect {
         expect { heavy_lifting_job.perform_later }.to have_enqueued_job
-      }.to raise_error("To use have_enqueued_job matcher set `ActiveJob::Base.queue_adapter = :test`")
+      }.to raise_error("To use ActiveJob matchers set `ActiveJob::Base.queue_adapter = :test`")
 
       ActiveJob::Base.queue_adapter = queue_adapter
     end
@@ -250,6 +256,31 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       }.to have_enqueued_job(hello_job).at(noon).with { |arg|
         expect(arg).to eq("asdf")
       }
+    end
+  end
+
+  describe "have_been_enqueued" do
+    before { ActiveJob::Base.queue_adapter.enqueued_jobs.clear }
+
+    it "passes with default jobs count (exactly one)" do
+      heavy_lifting_job.perform_later
+      expect(heavy_lifting_job).to have_been_enqueued
+    end
+
+    it "counts all enqueued jobs" do
+      heavy_lifting_job.perform_later
+      heavy_lifting_job.perform_later
+      expect(heavy_lifting_job).to have_been_enqueued.exactly(2)
+    end
+
+    it "passes when negated" do
+      expect(heavy_lifting_job).not_to have_been_enqueued
+    end
+
+    it "fails when job is not enqueued" do
+      expect {
+        expect(heavy_lifting_job).to have_been_enqueued
+      }.to raise_error(/expected to enqueue exactly 1 jobs, but enqueued 0/)
     end
   end
 end

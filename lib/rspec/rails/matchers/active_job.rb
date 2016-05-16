@@ -8,38 +8,15 @@ module RSpec
       #
       # @api private
       module ActiveJob
+        # rubocop: disable Style/ClassLength
         # @private
-        class HaveEnqueuedJob < RSpec::Matchers::BuiltIn::BaseMatcher
-          def initialize(job)
-            @job = job
+        class Base < RSpec::Matchers::BuiltIn::BaseMatcher
+          def initialize
             @args = []
             @queue = nil
             @at = nil
             @block = Proc.new {}
             set_expected_number(:exactly, 1)
-          end
-
-          def matches?(proc)
-            raise ArgumentError, "have_enqueued_jobs only supports block expectations" unless Proc === proc
-
-            original_enqueued_jobs_count = queue_adapter.enqueued_jobs.count
-            proc.call
-            in_block_jobs = queue_adapter.enqueued_jobs.drop(original_enqueued_jobs_count)
-
-            @matching_jobs_count = in_block_jobs.count do |job|
-              if serialized_attributes.all? { |key, value| value == job[key] }
-                @block.call(*job[:args])
-                true
-              else
-                false
-              end
-            end
-
-            case @expectation_type
-            when :exactly then @expected_number == @matching_jobs_count
-            when :at_most then @expected_number >= @matching_jobs_count
-            when :at_least then @expected_number <= @matching_jobs_count
-            end
           end
 
           def with(*args, &block)
@@ -77,6 +54,18 @@ module RSpec
             self
           end
 
+          def once
+            exactly(:once)
+          end
+
+          def twice
+            exactly(:twice)
+          end
+
+          def thrice
+            exactly(:thrice)
+          end
+
           def failure_message
             "expected to enqueue #{base_message}"
           end
@@ -98,6 +87,23 @@ module RSpec
           end
 
         private
+
+          def check(jobs)
+            @matching_jobs_count = jobs.count do |job|
+              if serialized_attributes.all? { |key, value| value == job[key] }
+                @block.call(*job[:args])
+                true
+              else
+                false
+              end
+            end
+
+            case @expectation_type
+            when :exactly then @expected_number == @matching_jobs_count
+            when :at_most then @expected_number >= @matching_jobs_count
+            when :at_least then @expected_number <= @matching_jobs_count
+            end
+          end
 
           def base_message
             "#{message_expectation_modifier} #{@expected_number} jobs,".tap do |msg|
@@ -131,15 +137,47 @@ module RSpec
             ::ActiveJob::Base.queue_adapter
           end
         end
+        # rubocop: enable Style/ClassLength
+
+        # @private
+        class HaveEnqueuedJob < Base
+          def initialize(job)
+            super()
+            @job = job
+          end
+
+          def matches?(proc)
+            raise ArgumentError, "have_enqueued_job and enqueue_job only support block expectations" unless Proc === proc
+
+            original_enqueued_jobs_count = queue_adapter.enqueued_jobs.count
+            proc.call
+            in_block_jobs = queue_adapter.enqueued_jobs.drop(original_enqueued_jobs_count)
+
+            check(in_block_jobs)
+          end
+        end
+
+        # @private
+        class HaveBeenEnqueued < Base
+          def matches?(job)
+            @job = job
+            check(queue_adapter.enqueued_jobs)
+          end
+        end
       end
 
       # @api public
-      # Passess if `count` of jobs were enqueued inside block
+      # Passes if a job has been enqueued inside block. May chain at_least, at_most or exactly to specify a number of times.
       #
       # @example
       #     expect {
       #       HeavyLiftingJob.perform_later
       #     }.to have_enqueued_job
+      #
+      #     # Using alias
+      #     expect {
+      #       HeavyLiftingJob.perform_later
+      #     }.to enqueue_job
       #
       #     expect {
       #       HelloJob.perform_later
@@ -147,9 +185,7 @@ module RSpec
       #     }.to have_enqueued_job(HelloJob).exactly(:once)
       #
       #     expect {
-      #       HelloJob.perform_later
-      #       HelloJob.perform_later
-      #       HelloJob.perform_later
+      #       3.times { HelloJob.perform_later }
       #     }.to have_enqueued_job(HelloJob).at_least(2).times
       #
       #     expect {
@@ -165,10 +201,48 @@ module RSpec
       #       HelloJob.set(wait_until: Date.tomorrow.noon, queue: "low").perform_later(42)
       #     }.to have_enqueued_job.with(42).on_queue("low").at(Date.tomorrow.noon)
       def have_enqueued_job(job = nil)
-        unless ::ActiveJob::QueueAdapters::TestAdapter === ::ActiveJob::Base.queue_adapter
-          raise StandardError, "To use have_enqueued_job matcher set `ActiveJob::Base.queue_adapter = :test`"
-        end
+        check_active_job_adapter
         ActiveJob::HaveEnqueuedJob.new(job)
+      end
+      alias_method :enqueue_job, :have_enqueued_job
+
+      # @api public
+      # Passes if a job has been enqueued. May chain at_least, at_most or exactly to specify a number of times.
+      #
+      # @example
+      #     before { ActiveJob::Base.queue_adapter.enqueued_jobs.clear }
+      #
+      #     HeavyLiftingJob.perform_later
+      #     expect(HeavyLiftingJob).to have_been_enqueued
+      #
+      #     HelloJob.perform_later
+      #     HeavyLiftingJob.perform_later
+      #     expect(HeavyLiftingJob).to have_been_enqueued.exactly(:once)
+      #
+      #     3.times { HelloJob.perform_later }
+      #     expect(HelloJob).to have_been_enqueued.at_least(2).times
+      #
+      #     HelloJob.perform_later
+      #     expect(HelloJob).to enqueue_job(HelloJob).at_most(:twice)
+      #
+      #     HelloJob.perform_later
+      #     HeavyLiftingJob.perform_later
+      #     expect(HelloJob).to have_been_enqueued
+      #     expect(HeavyLiftingJob).to have_been_enqueued
+      #
+      #     HelloJob.set(wait_until: Date.tomorrow.noon, queue: "low").perform_later(42)
+      #     expect(HelloJob).to have_been_enqueued.with(42).on_queue("low").at(Date.tomorrow.noon)
+      def have_been_enqueued
+        check_active_job_adapter
+        ActiveJob::HaveBeenEnqueued.new
+      end
+
+    private
+
+      # @private
+      def check_active_job_adapter
+        return if ::ActiveJob::QueueAdapters::TestAdapter === ::ActiveJob::Base.queue_adapter
+        raise StandardError, "To use ActiveJob matchers set `ActiveJob::Base.queue_adapter = :test`"
       end
     end
   end
