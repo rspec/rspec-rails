@@ -167,7 +167,7 @@ module RSpec
       end
 
       # @api public
-      # Passess if `count` of jobs were enqueued inside block
+      # Passes if a job has been enqueued inside block. May chain at_least, at_most or exactly to specify a number of times.
       #
       # @example
       #     expect {
@@ -185,9 +185,7 @@ module RSpec
       #     }.to have_enqueued_job(HelloJob).exactly(:once)
       #
       #     expect {
-      #       HelloJob.perform_later
-      #       HelloJob.perform_later
-      #       HelloJob.perform_later
+      #       3.times { HelloJob.perform_later }
       #     }.to have_enqueued_job(HelloJob).at_least(2).times
       #
       #     expect {
@@ -209,7 +207,7 @@ module RSpec
       alias_method :enqueue_job, :have_enqueued_job
 
       # @api public
-      # Passess if `count` of jobs were enqueued
+      # Passes if a job has been enqueued. May chain at_least, at_most or exactly to specify a number of times.
       #
       # @example
       #     before { ActiveJob::Base.queue_adapter.enqueued_jobs.clear }
@@ -221,9 +219,7 @@ module RSpec
       #     HeavyLiftingJob.perform_later
       #     expect(HeavyLiftingJob).to have_been_enqueued.exactly(:once)
       #
-      #     HelloJob.perform_later
-      #     HelloJob.perform_later
-      #     HelloJob.perform_later
+      #     3.times { HelloJob.perform_later }
       #     expect(HelloJob).to have_been_enqueued.at_least(2).times
       #
       #     HelloJob.perform_later
