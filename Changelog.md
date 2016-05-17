@@ -6,7 +6,9 @@ Enhancements:
 * Add support for block when using `with` on `have_enqueued_job`. (John Schroeder, #1578)
 * Add support for `file_fixture(...)`. (Wojciech Wnętrzak, #1587)
 * Add support for `setup` and `teardown` with blocks (Miklós Fazekas, #1598)
-* Improvements to ActiveJob matchers (Sergey Alexandrovich, #1613)
+* Add `enqueue_job ` alias for `have_enqueued_job`, support `once`/`twice`/
+  `thrice`, add `have_been_enqueued` matcher to support use without blocks.
+  (Sergey Alexandrovich, #1613)
 
 Bug fixes:
 
