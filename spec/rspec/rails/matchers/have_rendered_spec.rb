@@ -108,6 +108,19 @@ require "spec_helper"
             expect(response).to send(template_expectation, "template_name")
           end.to raise_exception("expecting <'template_name'> but was a redirect to <http://test.host/widgets/1>")
         end
+
+        context 'with a badly formatted error message' do
+          def assert_template(*)
+            message = 'expected [] to include "some/path"'
+            raise ActiveSupport::TestCase::Assertion.new(message)
+          end
+
+          it 'falls back to something informative' do
+            expect do
+              expect(response).to send(template_expectation, "template_name")
+            end.to raise_exception('expected [] to include "some/path" but was a redirect to <http://test.host/widgets/1>')
+          end
+        end
       end
     end
   end

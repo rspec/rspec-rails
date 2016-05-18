@@ -35,8 +35,8 @@ module RSpec
           # @api private
           def failure_message
             if @redirect_is
-              rescued_exception.message[/.* but /] +
-                "was a redirect to <#{@redirect_is}>"
+              rescued_exception.message[/(.*?)( but|$)/, 1] +
+                " but was a redirect to <#{@redirect_is}>"
             else
               rescued_exception.message
             end
