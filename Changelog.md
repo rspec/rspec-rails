@@ -13,6 +13,8 @@ Enhancements:
 Bug fixes:
 
 * Prevent asset helpers from taking precendence over route helpers. (Prem Sichanugrist, #1496)
+* Prevent `NoMethodError` during failed `have_rendered` assertions on weird templates.
+  (Jon Rowe, #1623).
 
 ### 3.5.0.beta3 2016-04-02
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.0.beta1...v3.5.0.beta3)
