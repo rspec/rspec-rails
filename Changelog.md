@@ -16,20 +16,33 @@ Bug fixes:
 * Prevent `NoMethodError` during failed `have_rendered` assertions on weird templates.
   (Jon Rowe, #1623).
 
-### 3.5.0.beta3 2016-04-02
-[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.0.beta1...v3.5.0.beta3)
+### 3.5.0.beta3 / 2016-04-02
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.0.beta2...v3.5.0.beta3)
 
 Enhancements:
+
 * Add support for Rails 5 Beta 3 (Sam Phippen, Benjamin Quorning, Koen Punt, #1589, #1573)
+
+Bug fixes:
+
+* Support custom resolvers when preventing views from rendering.
+  (Jon Rowe, Benjamin Quorning, #1580)
+
+### 3.5.0.beta2 / 2016-03-10
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.0.beta1...v3.5.0.beta2)
+
+Enhancements:
+
+* Include `ActionDispatch::IntegrationTest::Behavior` in request spec
+  example groups when on Rails 5, allowing integration test helpers
+  to be used in request specs. (Scott Bronson, #1560)
 
 Bug fixes:
 
 * Make it possible to use floats in auto generated (scaffold) tests.
   (Alwahsh, #1550)
-* Support custom resolvers when preventing views from rendering.
-  (Jon Rowe, Benjamin Quorning, #1580)
 
-### 3.5.0.beta1 2016-02-06
+### 3.5.0.beta1 / 2016-02-06
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.4.2...v3.5.0.beta1)
 
 Enhancements:
@@ -47,6 +60,8 @@ Bug fixes:
   crashing with a `undefined method for nil:NilClass`. (Sam Phippen, #1501)
 * Expose path to view specs (Ryan Clark, Sarah Mei, Sam Phippen, #1402)
 * Prevent installing Rails 3.2.22.1 on Ruby 1.8.7. (Jon Rowe, #1540)
+* Raise a clear error when `have_enqueued_job` is used with non-test
+  adapter. (Wojciech Wnętrzak, #1489)
 
 ### 3.4.2 / 2016-02-02
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.4.1...v3.4.2)
