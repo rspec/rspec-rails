@@ -47,6 +47,7 @@ module RSpec
       config.include RSpec::Rails::RoutingExampleGroup,    :type => :routing
       config.include RSpec::Rails::ViewExampleGroup,       :type => :view
       config.include RSpec::Rails::FeatureExampleGroup,    :type => :feature
+      config.include RSpec::Rails::Matchers
     end
 
     # @private
