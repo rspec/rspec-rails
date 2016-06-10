@@ -1,6 +1,7 @@
 # Temporary workaround to resolve circular dependency between rspec-rails' spec
 # suite and ammeter.
 require 'rspec/rails/matchers'
+require 'rspec/rails/response_matchers'
 
 module RSpec
   module Rails
@@ -12,6 +13,7 @@ module RSpec
       include RSpec::Rails::MinitestLifecycleAdapter if ::Rails::VERSION::STRING >= '4'
       include RSpec::Rails::MinitestAssertionAdapter
       include RSpec::Rails::Matchers
+      include RSpec::Rails::ResponseMatchers
       include RSpec::Rails::FixtureSupport
     end
   end

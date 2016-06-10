@@ -6,7 +6,7 @@
 
 module RSpec
   module Rails
-    module Matchers
+    module ResponseMatchers
       # Namespace for various implementations of `have_http_status`.
       #
       # @api private

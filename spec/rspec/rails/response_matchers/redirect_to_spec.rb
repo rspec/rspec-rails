@@ -3,7 +3,7 @@ require "active_support"
 require "active_support/test_case"
 
 describe "redirect_to" do
-  include RSpec::Rails::Matchers::RedirectTo
+  include RSpec::Rails::ResponseMatchers::RedirectTo
 
   let(:response) { ActionDispatch::TestResponse.new }
 

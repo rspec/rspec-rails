@@ -1,6 +1,6 @@
 module RSpec
   module Rails
-    module Matchers
+    module ResponseMatchers
       # Matchers to help with specs for routing code.
       module RoutingMatchers
         extend RSpec::Matchers::DSL

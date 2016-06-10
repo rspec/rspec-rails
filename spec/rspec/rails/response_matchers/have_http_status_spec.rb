@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe "have_http_status" do
-  include RSpec::Rails::Matchers
+  include RSpec::Rails::ResponseMatchers
 
   def create_response(opts = {})
     ActionDispatch::TestResponse.new(opts.fetch(:status)).tap {|x|

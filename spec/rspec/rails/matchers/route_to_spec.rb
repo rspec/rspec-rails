@@ -1,8 +1,8 @@
 require "spec_helper"
 
 describe "route_to" do
-  include RSpec::Rails::Matchers::RoutingMatchers
-  include RSpec::Rails::Matchers::RoutingMatchers::RouteHelpers
+  include RSpec::Rails::ResponseMatchers::RoutingMatchers
+  include RSpec::Rails::ResponseMatchers::RoutingMatchers::RouteHelpers
 
   def assert_recognizes(*)
     # no-op
