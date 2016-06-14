@@ -1,6 +1,6 @@
 module RSpec
   module Rails
-    module ResponseMatchers
+    module Matchers
       # Matcher for redirects.
       module RedirectTo
         # @private

@@ -12,9 +12,9 @@ module RSpec
       include RSpec::Rails::RailsExampleGroup
       include ActionController::TestCase::Behavior
       include RSpec::Rails::ViewRendering
-      include RSpec::Rails::ResponseMatchers::RedirectTo
-      include RSpec::Rails::ResponseMatchers::RenderTemplate
-      include RSpec::Rails::ResponseMatchers::RoutingMatchers
+      include RSpec::Rails::Matchers::RedirectTo
+      include RSpec::Rails::Matchers::RenderTemplate
+      include RSpec::Rails::Matchers::RoutingMatchers
       include ControllerAssertionDelegator
 
       # Class-level DSL for controller specs.
