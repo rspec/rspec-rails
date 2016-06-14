@@ -7,8 +7,8 @@ module RSpec
       include RSpec::Rails::RailsExampleGroup
       include ActionDispatch::Integration::Runner
       include ActionDispatch::Assertions
-      include RSpec::Rails::Matchers::RedirectTo
-      include RSpec::Rails::Matchers::RenderTemplate
+      include RSpec::Rails::ResponseMatchers::RedirectTo
+      include RSpec::Rails::ResponseMatchers::RenderTemplate
       include ActionController::TemplateAssertions
 
       begin

@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe "be_routable" do
-  include RSpec::Rails::Matchers::RoutingMatchers
+  include RSpec::Rails::ResponseMatchers::RoutingMatchers
   attr_reader :routes
 
   before { @routes = double("routes") }

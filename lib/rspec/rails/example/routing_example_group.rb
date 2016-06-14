@@ -12,8 +12,8 @@ module RSpec
     module RoutingExampleGroup
       extend ActiveSupport::Concern
       include RSpec::Rails::RailsExampleGroup
-      include RSpec::Rails::Matchers::RoutingMatchers
-      include RSpec::Rails::Matchers::RoutingMatchers::RouteHelpers
+      include RSpec::Rails::ResponseMatchers::RoutingMatchers
+      include RSpec::Rails::ResponseMatchers::RoutingMatchers::RouteHelpers
       include RSpec::Rails::RoutingAssertionDelegator
 
       # Class-level DSL for route specs.
