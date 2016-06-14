@@ -11,7 +11,7 @@ module RSpec
       include RSpec::Rails::RailsExampleGroup
       include ActionView::TestCase::Behavior
       include RSpec::Rails::ViewAssigns
-      include RSpec::Rails::ResponseMatchers::RenderTemplate
+      include RSpec::Rails::Matchers::RenderTemplate
 
       # @private
       module ClassMethods

@@ -18,7 +18,7 @@ module RSpec::Rails
     let(:group) { group_for ApplicationController }
 
     it "includes routing matchers" do
-      expect(group.included_modules).to include(RSpec::Rails::ResponseMatchers::RoutingMatchers)
+      expect(group.included_modules).to include(RSpec::Rails::Matchers::RoutingMatchers)
     end
 
     context "with implicit subject" do
