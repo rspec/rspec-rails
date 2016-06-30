@@ -58,11 +58,11 @@ matrix:
     - rvm: 2.2.2
       env: RAILS_VERSION=master
     - rvm: 2.2.2
-      env: RAILS_VERSION=5.0.0.rc1
+      env: RAILS_VERSION=5.0.0
     - rvm: 2.3.0
       env: RAILS_VERSION=master
     - rvm: 2.3.0
-      env: RAILS_VERSION=5.0.0.rc1
+      env: RAILS_VERSION=5.0.0
   exclude:
     # 3.0.x is not supported on MRI 2.0+
     - rvm: 2.0.0
