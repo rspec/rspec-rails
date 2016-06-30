@@ -41,11 +41,11 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
   describe "GET #index" do
     it "assigns all <%= table_name.pluralize %> as @<%= table_name.pluralize %>" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
-    <% if RUBY_VERSION < '1.9.3' -%>
+<% if RUBY_VERSION < '1.9.3' -%>
       get :index, {}, valid_session
-    <% else -%>
+<% else -%>
       get :index, params: {}, session: valid_session
-    <% end -%>
+<% end -%>
       expect(assigns(:<%= table_name %>)).to eq([<%= file_name %>])
     end
   end
@@ -54,22 +54,22 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
   describe "GET #show" do
     it "assigns the requested <%= ns_file_name %> as @<%= ns_file_name %>" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
-    <% if RUBY_VERSION < '1.9.3' -%>
+<% if RUBY_VERSION < '1.9.3' -%>
       get :show, {:id => <%= file_name %>.to_param}, valid_session
-    <% else -%>
+<% else -%>
       get :show, params: {id: <%= file_name %>.to_param}, session: valid_session
-    <% end -%>
+<% end -%>
       expect(assigns(:<%= ns_file_name %>)).to eq(<%= file_name %>)
     end
   end
 
   describe "GET #new" do
     it "assigns a new <%= ns_file_name %> as @<%= ns_file_name %>" do
-    <% if RUBY_VERSION < '1.9.3' -%>
+<% if RUBY_VERSION < '1.9.3' -%>
       get :new, {}, valid_session
-    <% else -%>
+<% else -%>
       get :new, params: {}, session: valid_session
-    <% end -%>
+<% end -%>
       expect(assigns(:<%= ns_file_name %>)).to be_a_new(<%= class_name %>)
     end
   end
@@ -77,11 +77,11 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
   describe "GET #edit" do
     it "assigns the requested <%= ns_file_name %> as @<%= ns_file_name %>" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
-    <% if RUBY_VERSION < '1.9.3' -%>
+<% if RUBY_VERSION < '1.9.3' -%>
       get :edit, {:id => <%= file_name %>.to_param}, valid_session
-    <% else -%>
+<% else -%>
       get :edit, params: {id: <%= file_name %>.to_param}, session: valid_session
-    <% end -%>
+<% end -%>
       expect(assigns(:<%= ns_file_name %>)).to eq(<%= file_name %>)
     end
   end
@@ -90,50 +90,50 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
     context "with valid params" do
       it "creates a new <%= class_name %>" do
         expect {
-        <% if RUBY_VERSION < '1.9.3' -%>
+<% if RUBY_VERSION < '1.9.3' -%>
           post :create, {:<%= ns_file_name %> => valid_attributes}, valid_session
-        <% else -%>
+<% else -%>
           post :create, params: {<%= ns_file_name %>: valid_attributes}, session: valid_session
-        <% end -%>
+<% end -%>
         }.to change(<%= class_name %>, :count).by(1)
       end
 
       it "assigns a newly created <%= ns_file_name %> as @<%= ns_file_name %>" do
-      <% if RUBY_VERSION < '1.9.3' -%>
+<% if RUBY_VERSION < '1.9.3' -%>
         post :create, {:<%= ns_file_name %> => valid_attributes}, valid_session
-      <% else -%>
+<% else -%>
         post :create, params: {<%= ns_file_name %>: valid_attributes}, session: valid_session
-      <% end -%>
+<% end -%>
         expect(assigns(:<%= ns_file_name %>)).to be_a(<%= class_name %>)
         expect(assigns(:<%= ns_file_name %>)).to be_persisted
       end
 
       it "redirects to the created <%= ns_file_name %>" do
-      <% if RUBY_VERSION < '1.9.3' -%>
+<% if RUBY_VERSION < '1.9.3' -%>
         post :create, {:<%= ns_file_name %> => valid_attributes}, valid_session
-      <% else -%>
+<% else -%>
         post :create, params: {<%= ns_file_name %>: valid_attributes}, session: valid_session
-      <% end -%>
+<% end -%>
         expect(response).to redirect_to(<%= class_name %>.last)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved <%= ns_file_name %> as @<%= ns_file_name %>" do
-      <% if RUBY_VERSION < '1.9.3' -%>
+<% if RUBY_VERSION < '1.9.3' -%>
         post :create, {:<%= ns_file_name %> => invalid_attributes}, valid_session
-      <% else -%>
+<% else -%>
         post :create, params: {<%= ns_file_name %>: invalid_attributes}, session: valid_session
-      <% end -%>
+<% end -%>
         expect(assigns(:<%= ns_file_name %>)).to be_a_new(<%= class_name %>)
       end
 
       it "re-renders the 'new' template" do
-      <% if RUBY_VERSION < '1.9.3' -%>
+<% if RUBY_VERSION < '1.9.3' -%>
         post :create, {:<%= ns_file_name %> => invalid_attributes}, valid_session
-      <% else -%>
+<% else -%>
         post :create, params: {<%= ns_file_name %>: invalid_attributes}, session: valid_session
-      <% end -%>
+<% end -%>
         expect(response).to render_template("new")
       end
     end
@@ -147,32 +147,32 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
 
       it "updates the requested <%= ns_file_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-      <% if RUBY_VERSION < '1.9.3' -%>
+<% if RUBY_VERSION < '1.9.3' -%>
         put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => new_attributes}, valid_session
-      <% else -%>
+<% else -%>
         put :update, params: {id: <%= file_name %>.to_param, <%= ns_file_name %>: new_attributes}, session: valid_session
-      <% end -%>
+<% end -%>
         <%= file_name %>.reload
         skip("Add assertions for updated state")
       end
 
       it "assigns the requested <%= ns_file_name %> as @<%= ns_file_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-      <% if RUBY_VERSION < '1.9.3' -%>
+<% if RUBY_VERSION < '1.9.3' -%>
         put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => valid_attributes}, valid_session
-      <% else -%>
+<% else -%>
         put :update, params: {id: <%= file_name %>.to_param, <%= ns_file_name %>: valid_attributes}, session: valid_session
-      <% end -%>
+<% end -%>
         expect(assigns(:<%= ns_file_name %>)).to eq(<%= file_name %>)
       end
 
       it "redirects to the <%= ns_file_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-      <% if RUBY_VERSION < '1.9.3' -%>
+<% if RUBY_VERSION < '1.9.3' -%>
         put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => valid_attributes}, valid_session
-      <% else -%>
+<% else -%>
         put :update, params: {id: <%= file_name %>.to_param, <%= ns_file_name %>: valid_attributes}, session: valid_session
-      <% end -%>
+<% end -%>
         expect(response).to redirect_to(<%= file_name %>)
       end
     end
@@ -180,21 +180,21 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
     context "with invalid params" do
       it "assigns the <%= ns_file_name %> as @<%= ns_file_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-      <% if RUBY_VERSION < '1.9.3' -%>
+<% if RUBY_VERSION < '1.9.3' -%>
         put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => invalid_attributes}, valid_session
-      <% else -%>
+<% else -%>
         put :update, params: {id: <%= file_name %>.to_param, <%= ns_file_name %>: invalid_attributes}, session: valid_session
-      <% end -%>
+<% end -%>
         expect(assigns(:<%= ns_file_name %>)).to eq(<%= file_name %>)
       end
 
       it "re-renders the 'edit' template" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-      <% if RUBY_VERSION < '1.9.3' -%>
+<% if RUBY_VERSION < '1.9.3' -%>
         put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => invalid_attributes}, valid_session
-      <% else -%>
+<% else -%>
         put :update, params: {id: <%= file_name %>.to_param, <%= ns_file_name %>: invalid_attributes}, session: valid_session
-      <% end -%>
+<% end -%>
         expect(response).to render_template("edit")
       end
     end
@@ -204,21 +204,21 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
     it "destroys the requested <%= ns_file_name %>" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
       expect {
-      <% if RUBY_VERSION < '1.9.3' -%>
+<% if RUBY_VERSION < '1.9.3' -%>
         delete :destroy, {:id => <%= file_name %>.to_param}, valid_session
-      <% else -%>
+<% else -%>
         delete :destroy, params: {id: <%= file_name %>.to_param}, session: valid_session
-      <% end -%>
+<% end -%>
       }.to change(<%= class_name %>, :count).by(-1)
     end
 
     it "redirects to the <%= table_name %> list" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
-    <% if RUBY_VERSION < '1.9.3' -%>
+<% if RUBY_VERSION < '1.9.3' -%>
       delete :destroy, {:id => <%= file_name %>.to_param}, valid_session
-    <% else -%>
+<% else -%>
       delete :destroy, params: {id: <%= file_name %>.to_param}, session: valid_session
-    <% end -%>
+<% end -%>
       expect(response).to redirect_to(<%= index_helper %>_url)
     end
   end
