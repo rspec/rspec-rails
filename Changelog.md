@@ -1,4 +1,4 @@
-### 3.5 development
+### 3.5.0 / 2016-07-01
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.0.beta4...master)
 
 ### 3.5.0.beta4 / 2016-06-05
