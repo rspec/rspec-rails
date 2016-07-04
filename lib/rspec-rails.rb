@@ -2,6 +2,11 @@
 require 'rspec/core'
 require 'rspec/rails/feature_check'
 
+# Prevent problems with double loading between `development` and `test` environments
+if defined?(Rake.application) && Rake.application.top_level_tasks.grep(/^(default$|spec(:|$))/).any?
+  ENV['RAILS_ENV'] ||= 'test'
+end
+
 # Namespace for all core RSpec projects.
 module RSpec
   # Namespace for rspec-rails code.
