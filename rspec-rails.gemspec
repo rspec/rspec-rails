@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = "rspec@googlegroups.com"
   s.homepage    = "https://github.com/rspec/rspec-rails"
   s.summary     = "RSpec for Rails"
-  s.description = "rspec-rails is a testing framework for Rails 3.x and 4.x."
+  s.description = "rspec-rails is a testing framework for Rails 3+."
 
   s.files            = `git ls-files -- lib/*`.split("\n")
   s.files           += %w[README.md LICENSE.md Changelog.md Capybara.md .yardopts .document]
