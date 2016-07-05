@@ -13,7 +13,7 @@ module RSpec
 
       begin
         include ActionDispatch::IntegrationTest::Behavior
-      rescue NameError # rubocop:disable Lint/HandleExceptions
+      rescue NameError, TypeError # rubocop:disable Lint/HandleExceptions
         # rails is too old to provide integration test helpers
       end
 
