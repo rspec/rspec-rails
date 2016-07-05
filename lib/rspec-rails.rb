@@ -28,6 +28,13 @@ module RSpec
         setup_preview_path(app)
       end
 
+      # As of Rails 5.1.0 you can register directories to work with `rake notes`
+      if Gem::Requirement.new(">= 5.1.0").satisfied_by?(Gem::Version.new(::Rails.version))
+        initializer "register_spec_folder_with_rake_notes" do
+          SourceAnnotationExtractor::Annotation.register_directories("spec")
+        end
+      end
+
     private
 
       def setup_preview_path(app)
@@ -66,6 +73,12 @@ module RSpec
         # `config.action_mailer.respond_to?(:preview_path)` here as it will
         # always return `true`.
         config.respond_to?(:action_mailer) && ::Rails::VERSION::STRING > '4.1'
+      end
+
+      def register_spec_folder_with_rake_notes
+        # This tells rails source_annotation_extractor about the spec folder.
+        # Now `rake notes` will work with rspec.
+        config.annotations.register_directories("spec")
       end
     end
   end
