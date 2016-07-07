@@ -8,6 +8,12 @@ module RSpec
   module Rails
     # Railtie to hook into Rails.
     class Railtie < ::Rails::Railtie
+
+      # As of Rails 5.1.0 you can register directories to work with `rake notes`
+      if Gem::Requirement.new(">= 5.1.0").satisfied_by?(Gem::Version.new(::Rails.version))
+        SourceAnnotationExtractor::Annotation.register_directories("spec")
+      end
+      
       # Rails-3.0.1 requires config.app_generators instead of 3.0.0's config.generators
       generators = config.respond_to?(:app_generators) ? config.app_generators : config.generators
       generators.integration_tool :rspec
@@ -26,13 +32,6 @@ module RSpec
       initializer "rspec_rails.action_mailer",
                   :before => "action_mailer.set_configs" do |app|
         setup_preview_path(app)
-      end
-
-      # As of Rails 5.1.0 you can register directories to work with `rake notes`
-      if Gem::Requirement.new(">= 5.1.0").satisfied_by?(Gem::Version.new(::Rails.version))
-        initializer "register_spec_folder_with_rake_notes" do
-          SourceAnnotationExtractor::Annotation.register_directories("spec")
-        end
       end
 
     private
@@ -75,11 +74,6 @@ module RSpec
         config.respond_to?(:action_mailer) && ::Rails::VERSION::STRING > '4.1'
       end
 
-      def register_spec_folder_with_rake_notes
-        # This tells rails source_annotation_extractor about the spec folder.
-        # Now `rake notes` will work with rspec.
-        config.annotations.register_directories("spec")
-      end
     end
   end
 end
