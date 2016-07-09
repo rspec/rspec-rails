@@ -8,6 +8,10 @@ module RSpec
   module Rails
     # Railtie to hook into Rails.
     class Railtie < ::Rails::Railtie
+      # As of Rails 5.1.0 you can register directories to work with `rake notes`
+      if ::Rails::VERSION::STRING >= '5.1'
+        SourceAnnotationExtractor::Annotation.register_directories("spec")
+      end
       # Rails-3.0.1 requires config.app_generators instead of 3.0.0's config.generators
       generators = config.respond_to?(:app_generators) ? config.app_generators : config.generators
       generators.integration_tool :rspec
