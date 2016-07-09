@@ -1,3 +1,10 @@
+### Development
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.1...master)
+
+Enhancements:
+
+* Add support for `rake notes` in Rails `>= 5.1`. (John Meehan, #1661)
+
 ### 3.5.1 / 2016-07-08
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.0...v3.5.1)
 
