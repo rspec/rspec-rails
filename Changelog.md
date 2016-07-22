@@ -5,10 +5,15 @@ Enhancements:
 
 * Add support for `rake notes` in Rails `>= 5.1`. (John Meehan, #1661)
 
+Bug Fixes:
+
+* Stop unnecessarily loading `rspec/core` from `rspec/rails` to avoid
+  IRB context warning. (Myron Marston, #1678)
+
 ### 3.5.1 / 2016-07-08
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.0...v3.5.1)
 
-Bugfixes:
+Bug Fixes:
 
 * Only attempt to load `ActionDispatch::IntegrationTest::Behavior` on Rails 5,
   and above; Prevents possible `TypeError` when an existing `Behaviour` class
