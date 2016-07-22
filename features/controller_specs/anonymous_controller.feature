@@ -470,6 +470,31 @@ Feature: anonymous controller
     When I run `rspec spec`
     Then the examples should all pass
 
+  Scenario: Draw custom routes for anonymous controllers which don't inherit from application controller
+    Given a file named "spec/controllers/other_controller_spec.rb" with:
+      """ruby
+      require "rails_helper"
+      class OtherController < ActionController::Base
+      end
+
+      RSpec.describe OtherController, :type => :controller do
+        controller do
+          def custom
+            render :text => "custom called"
+          end
+        end
+
+        specify "manually draw the route to request a custom action" do
+          routes.draw { get "custom" => "other#custom" }
+
+          get :custom
+          expect(response.body).to eq "custom called"
+        end
+      end
+      """
+    When I run `rspec spec`
+    Then the examples should all pass
+
   Scenario: Draw custom routes for defined controllers
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
