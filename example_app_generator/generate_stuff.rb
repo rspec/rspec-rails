@@ -134,4 +134,9 @@ gsub_file 'spec/spec_helper.rb',
           'config.warnings = false'
 gsub_file '.rspec', '--warnings', ''
 
+# Remove skips so we can test controller specs work
+gsub_file 'spec/controllers/gadgets_controller_spec.rb',
+          'skip("Add a hash of attributes valid for your model")',
+          '{}'
+
 final_tasks
