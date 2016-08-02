@@ -91,7 +91,8 @@ module RSpec
           def check(jobs)
             @matching_jobs_count = jobs.count do |job|
               if serialized_attributes.all? { |key, value| value == job[key] }
-                @block.call(*job[:args])
+                args = ::ActiveJob::Arguments.deserialize(job[:args])
+                @block.call(*args)
                 true
               else
                 false
