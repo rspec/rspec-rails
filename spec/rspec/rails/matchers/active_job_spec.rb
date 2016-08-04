@@ -1,7 +1,30 @@
 require "spec_helper"
 require "rspec/rails/feature_check"
+
 if RSpec::Rails::FeatureCheck.has_active_job?
   require "rspec/rails/matchers/active_job"
+
+  class GlobalIdModel
+    include GlobalID::Identification
+
+    attr_reader :id
+
+    def self.find(id)
+      new(id)
+    end
+
+    def initialize(id)
+      @id = id
+    end
+
+    def ==(comparison_object)
+      id == comparison_object.id
+    end
+
+    def to_global_id(options = {})
+      @global_id ||= GlobalID.create(self, :app => "rspec-suite")
+    end
+  end
 end
 
 RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_active_job? do
@@ -23,30 +46,6 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
   let(:logging_job) do
     Class.new(ActiveJob::Base) do
       def perform; end
-    end
-  end
-
-  let(:global_id_model) do
-    Class.new do
-      include GlobalID::Identification
-
-      attr_reader :id
-
-      def self.find(id)
-        new(id)
-      end
-
-      def self.name
-        "AnonymousClass"
-      end
-
-      def initialize(id)
-        @id = id
-      end
-
-      def to_global_id(options = {})
-        @global_id ||= GlobalID.create(self, :app => "rspec-suite")
-      end
     end
   end
 
@@ -196,7 +195,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
     end
 
     it "passes with provided arguments containing global id object" do
-      global_id_object = global_id_model.new(42)
+      global_id_object = GlobalIdModel.new("42")
 
       expect {
         hello_job.perform_later(global_id_object)
@@ -244,6 +243,17 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       }.to have_enqueued_job(hello_job).with { |first_arg, second_arg|
         expect(first_arg).to eq("asdf")
         expect(second_arg).to eq("zxcv")
+      }
+    end
+
+    it "passess deserialized arguments to with block" do
+      global_id_object = GlobalIdModel.new("42")
+
+      expect {
+        hello_job.perform_later(global_id_object, :symbolized_key => "asdf")
+      }.to have_enqueued_job(hello_job).with { |first_arg, second_arg|
+        expect(first_arg).to eq(global_id_object)
+        expect(second_arg).to eq({:symbolized_key => "asdf"})
       }
     end
 
