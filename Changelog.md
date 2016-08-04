@@ -9,6 +9,8 @@ Bug Fixes:
 
 * Stop unnecessarily loading `rspec/core` from `rspec/rails` to avoid
   IRB context warning. (Myron Marston, #1678)
+* Deserialize arguments within ActiveJob matchers correctly.
+  (Wojciech Wnętrzak, #1684)
 
 ### 3.5.1 / 2016-07-08
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.0...v3.5.1)
