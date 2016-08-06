@@ -41,6 +41,13 @@ module RSpec
       config.backtrace_exclusion_patterns << /vendor\//
       config.backtrace_exclusion_patterns << %r{ lib/rspec/rails }
 
+      # fixture support
+      config.add_setting :use_transactional_fixtures, :alias_with => :use_transactional_examples
+      config.add_setting :use_instantiated_fixtures
+      config.add_setting :global_fixtures
+      config.add_setting :fixture_path
+      config.include RSpec::Rails::FixtureSupport, :use_fixtures
+
       config.include RSpec::Rails::ControllerExampleGroup, :type => :controller
       config.include RSpec::Rails::HelperExampleGroup,     :type => :helper
       config.include RSpec::Rails::ModelExampleGroup,      :type => :model
@@ -59,13 +66,6 @@ module RSpec
 
       # controller settings
       config.add_setting :infer_base_class_for_anonymous_controllers, :default => true
-
-      # fixture support
-      config.add_setting :use_transactional_fixtures, :alias_with => :use_transactional_examples
-      config.add_setting :use_instantiated_fixtures
-      config.add_setting :global_fixtures
-      config.add_setting :fixture_path
-      config.include RSpec::Rails::FixtureSupport, :use_fixtures
 
       # We'll need to create a deprecated module in order to properly report to
       # gems / projects which are relying on this being loaded globally.
