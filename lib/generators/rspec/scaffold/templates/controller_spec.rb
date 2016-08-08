@@ -48,6 +48,16 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
 <% end -%>
       expect(assigns(:<%= table_name %>)).to eq([<%= file_name %>])
     end
+
+    it "returns a success response" do
+      <%= file_name %> = <%= class_name %>.create! valid_attributes
+<% if RUBY_VERSION < '1.9.3' -%>
+      get :index, {}, valid_session
+<% else -%>
+      get :index, params: {}, session: valid_session
+<% end -%>
+      expect(response).to be_success
+    end
   end
 
 <% end -%>
@@ -61,6 +71,16 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
 <% end -%>
       expect(assigns(:<%= ns_file_name %>)).to eq(<%= file_name %>)
     end
+
+    it "returns a success response" do
+      <%= file_name %> = <%= class_name %>.create! valid_attributes
+<% if RUBY_VERSION < '1.9.3' -%>
+      get :show, {:id => <%= file_name %>.to_param}, valid_session
+<% else -%>
+      get :show, params: {id: <%= file_name %>.to_param}, session: valid_session
+<% end -%>
+      expect(response).to be_success
+    end
   end
 
   describe "GET #new" do
@@ -71,6 +91,15 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
       get :new, params: {}, session: valid_session
 <% end -%>
       expect(assigns(:<%= ns_file_name %>)).to be_a_new(<%= class_name %>)
+    end
+
+    it "returns a success response" do
+<% if RUBY_VERSION < '1.9.3' -%>
+      get :new, {}, valid_session
+<% else -%>
+      get :new, params: {}, session: valid_session
+<% end -%>
+      expect(response).to be_success
     end
   end
 
@@ -83,6 +112,16 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
       get :edit, params: {id: <%= file_name %>.to_param}, session: valid_session
 <% end -%>
       expect(assigns(:<%= ns_file_name %>)).to eq(<%= file_name %>)
+    end
+
+    it "returns a success response" do
+      <%= file_name %> = <%= class_name %>.create! valid_attributes
+<% if RUBY_VERSION < '1.9.3' -%>
+      get :edit, {:id => <%= file_name %>.to_param}, valid_session
+<% else -%>
+      get :edit, params: {id: <%= file_name %>.to_param}, session: valid_session
+<% end -%>
+      expect(response).to be_success
     end
   end
 
@@ -126,6 +165,15 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
         post :create, params: {<%= ns_file_name %>: invalid_attributes}, session: valid_session
 <% end -%>
         expect(assigns(:<%= ns_file_name %>)).to be_a_new(<%= class_name %>)
+      end
+
+      it "returns a success response (i.e. to display the 'new' template)" do
+<% if RUBY_VERSION < '1.9.3' -%>
+        post :create, {:<%= ns_file_name %> => invalid_attributes}, valid_session
+<% else -%>
+        post :create, params: {<%= ns_file_name %>: invalid_attributes}, session: valid_session
+<% end -%>
+        expect(response).to be_success
       end
 
       it "re-renders the 'new' template" do
@@ -186,6 +234,16 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
         put :update, params: {id: <%= file_name %>.to_param, <%= ns_file_name %>: invalid_attributes}, session: valid_session
 <% end -%>
         expect(assigns(:<%= ns_file_name %>)).to eq(<%= file_name %>)
+      end
+
+      it "returns a success response (i.e. to display the 'edit' template)" do
+        <%= file_name %> = <%= class_name %>.create! valid_attributes
+<% if RUBY_VERSION < '1.9.3' -%>
+        put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => invalid_attributes}, valid_session
+<% else -%>
+        put :update, params: {id: <%= file_name %>.to_param, <%= ns_file_name %>: invalid_attributes}, session: valid_session
+<% end -%>
+        expect(response).to be_success
       end
 
       it "re-renders the 'edit' template" do
