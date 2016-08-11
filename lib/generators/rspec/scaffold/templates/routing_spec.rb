@@ -10,17 +10,21 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:routing
     end
 
 <% end -%>
+<% unless options[:api] -%>
     it "routes to #new" do
       expect(:get => "/<%= ns_table_name %>/new").to route_to("<%= ns_table_name %>#new")
     end
+<% end -%>
 
     it "routes to #show" do
       expect(:get => "/<%= ns_table_name %>/1").to route_to("<%= ns_table_name %>#show", :id => "1")
     end
 
+<% unless options[:api] -%>
     it "routes to #edit" do
       expect(:get => "/<%= ns_table_name %>/1/edit").to route_to("<%= ns_table_name %>#edit", :id => "1")
     end
+<% end -%>
 
     it "routes to #create" do
       expect(:post => "/<%= ns_table_name %>").to route_to("<%= ns_table_name %>#create")
