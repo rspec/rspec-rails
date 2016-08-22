@@ -6,6 +6,7 @@ Enhancements:
 * Add support for `rake notes` in Rails `>= 5.1`. (John Meehan, #1661)
 * Remove `assigns` and `assert_template` from scaffold spec generators (Josh
   Justice, #1689)
+* Add support for generating scaffolds for api app specs. (Krzysztof Zych, #1685)
 
 Bug Fixes:
 
