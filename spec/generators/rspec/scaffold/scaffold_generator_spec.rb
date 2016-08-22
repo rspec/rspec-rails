@@ -12,11 +12,43 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, :type => :generator do
       before { run_generator %w(posts) }
       it { is_expected.to contain(/require 'rails_helper'/) }
       it { is_expected.to contain(/^RSpec.describe PostsController, #{type_metatag(:controller)}/) }
+      it { is_expected.to contain(/GET #new/) }
+      it { is_expected.to contain(/"redirects to the created \w+"/) }
+      it { is_expected.to contain(/display the 'new' template/) }
+      it { is_expected.not_to contain(/"renders a JSON response with the new \w+"/) }
+      it { is_expected.not_to contain(/"renders a JSON response with errors for the new \w+"/) }
+
+      it { is_expected.to contain(/GET #edit/) }
+      it { is_expected.to contain(/"redirects to the \w+"/) }
+      it { is_expected.to contain(/display the 'edit' template/) }
+      it { is_expected.not_to contain(/"renders a JSON response with the \w+"/) }
+      it { is_expected.not_to contain(/"renders a JSON response with errors for the \w+"/) }
+
+      it { is_expected.to contain(/"redirects to the \w+ list"/) }
     end
 
     describe 'with --no-controller_specs' do
       before { run_generator %w(posts --no-controller_specs) }
       it { is_expected.not_to exist }
+    end
+
+    describe 'with --api' do
+      before { run_generator %w(posts --api) }
+      it { is_expected.to contain(/require 'rails_helper'/) }
+      it { is_expected.to contain(/^RSpec.describe PostsController, #{type_metatag(:controller)}/) }
+      it { is_expected.not_to contain(/GET #new/) }
+      it { is_expected.not_to contain(/"redirects to the created \w+"/) }
+      it { is_expected.not_to contain(/display the 'new' template/) }
+      it { is_expected.to contain(/"renders a JSON response with the new \w+"/) }
+      it { is_expected.to contain(/"renders a JSON response with errors for the new \w+"/) }
+      it { is_expected.not_to contain(/GET #edit/) }
+      it { is_expected.not_to contain(/"redirects to the \w+"/) }
+      it { is_expected.not_to contain(/display the 'edit' template/) }
+      it { is_expected.to contain(/"renders a JSON response with the \w+"/) }
+      it { is_expected.to contain(/"renders a JSON response with errors for the \w+"/) }
+
+      it { is_expected.not_to contain(/"redirects to the \w+ list"/) }
+
     end
   end
 
@@ -119,6 +151,30 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, :type => :generator do
       end
     end
 
+    describe 'with --api' do
+      before { run_generator %w(posts --api) }
+
+      describe 'edit' do
+        subject { file("spec/views/posts/edit.html.erb_spec.rb") }
+        it { is_expected.not_to exist }
+      end
+
+      describe 'index' do
+        subject { file("spec/views/posts/index.html.erb_spec.rb") }
+        it { is_expected.not_to exist }
+      end
+
+      describe 'new' do
+        subject { file("spec/views/posts/index.html.erb_spec.rb") }
+        it { is_expected.not_to exist }
+      end
+
+      describe 'show' do
+        subject { file("spec/views/posts/index.html.erb_spec.rb") }
+        it { is_expected.not_to exist }
+      end
+    end
+
     describe 'with --no-view-specs' do
       before { run_generator %w(posts --no-view-specs) }
 
@@ -152,11 +208,19 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, :type => :generator do
       it { is_expected.to contain(/require "rails_helper"/) }
       it { is_expected.to contain(/^RSpec.describe PostsController, #{type_metatag(:routing)}/) }
       it { is_expected.to contain(/describe "routing"/) }
+      it { is_expected.to contain(/routes to #new/) }
+      it { is_expected.to contain(/routes to #edit/) }
     end
 
     describe 'with --no-routing-specs' do
       before { run_generator %w(posts --no-routing_specs) }
       it { is_expected.not_to exist }
+    end
+
+    describe 'with --api' do
+      before { run_generator %w(posts --api) }
+      it { is_expected.not_to contain(/routes to #new/) }
+      it { is_expected.not_to contain(/routes to #edit/) }
     end
   end
 end
