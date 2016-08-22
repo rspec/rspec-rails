@@ -136,8 +136,8 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
 
     context "with invalid params" do
       it "renders a JSON response with errors for the <%= ns_file_name %>" do
-<% if RUBY_VERSION < '1.9.3' -%>
         <%= file_name %> = <%= class_name %>.create! valid_attributes
+<% if RUBY_VERSION < '1.9.3' -%>
         put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => invalid_attributes}, valid_session
 <% else %>
         put :update, params: {id: <%= file_name %>.to_param, <%= ns_file_name %>: invalid_attributes}, session: valid_session
