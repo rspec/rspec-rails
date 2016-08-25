@@ -1,5 +1,5 @@
 ### Development
-[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.1...master)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.1...v3.5.2)
 
 Bug Fixes:
 
