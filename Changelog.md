@@ -1,5 +1,5 @@
 ### Development
-[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.1...master)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.2...master)
 
 Enhancements:
 
@@ -7,6 +7,9 @@ Enhancements:
 * Remove `assigns` and `assert_template` from scaffold spec generators (Josh
   Justice, #1689)
 * Add support for generating scaffolds for api app specs. (Krzysztof Zych, #1685)
+
+### 3.5.2 / 2016-08-26
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.1...v3.5.2)
 
 Bug Fixes:
 
