@@ -86,6 +86,7 @@ There are three particular `rspec-rails` specific changes to be aware of:
 3. [Rails 4.x `ActiveRecord::Migration` pending migration checks](https://www.relishapp.com/rspec/rspec-rails/docs/upgrade#pending-migration-checks)
 4. Extraction of `stub_model` and `mock_model` to
    [`rspec-activemodel-mocks`](https://github.com/rspec/rspec-activemodel-mocks)
+5. In Rails 5.x, controller testing has been moved to its own gem which is [rails-controller-testing](https://github.com/rails/rails-controller-testing). Using `assigns` in your controller specs without adding this gem will no longer work.
 
 Please see the [RSpec Rails Upgrade
 docs](https://www.relishapp.com/rspec/rspec-rails/docs/upgrade) for full
