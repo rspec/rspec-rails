@@ -5,6 +5,11 @@ Enhancements:
 
 * Add compatibility for Rails 5.1. (Sam Phippen, Yuichiro Kaneko, #1790)
 
+Bug Fixes:
+
+* Fix scaffold generator so that it does not generate broken controller specs
+  on Rails 3.x and 4.x. (Yuji Nakayama, #1710)
+
 ### 3.6.0.beta2 / 2016-12-12
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.6.0.beta1...v3.6.0.beta2)
 
