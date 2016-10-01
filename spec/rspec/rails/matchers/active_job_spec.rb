@@ -30,6 +30,13 @@ end
 RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_active_job? do
   include RSpec::Rails::Matchers
 
+  around do |example|
+    original_logger = ActiveJob::Base.logger
+    ActiveJob::Base.logger = Logger.new(nil) # Silence messages "[ActiveJob] Enqueued ...".
+    example.run
+    ActiveJob::Base.logger = original_logger
+  end
+
   let(:heavy_lifting_job) do
     Class.new(ActiveJob::Base) do
       def perform; end
