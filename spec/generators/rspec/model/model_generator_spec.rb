@@ -1,6 +1,7 @@
+require 'generator_helper'
 # Generators are not automatically loaded by Rails
 require 'generators/rspec/model/model_generator'
-require 'support/generators'
+
 
 RSpec.describe Rspec::Generators::ModelGenerator, :type => :generator do
   setup_default_destination

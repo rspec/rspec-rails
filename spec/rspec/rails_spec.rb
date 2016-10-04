@@ -1,3 +1,4 @@
+require 'rails_helper'
 require 'rspec/support/spec/library_wide_checks'
 
 RSpec.describe "RSpec::Rails" do

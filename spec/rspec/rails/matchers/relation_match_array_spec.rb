@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'rails_helper'
 
 describe "ActiveSupport::Relation match_array matcher" do
   before { MockableModel.delete_all }

@@ -1,6 +1,7 @@
+require 'generator_helper'
 # Generators are not automatically loaded by Rails
 require 'generators/rspec/job/job_generator'
-require 'support/generators'
+
 
 RSpec.describe Rspec::Generators::JobGenerator, :type => :generator, :skip => !RSpec::Rails::FeatureCheck.has_active_job? do
   setup_default_destination

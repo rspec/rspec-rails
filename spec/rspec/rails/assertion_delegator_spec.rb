@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'spec_helper'
 
 describe RSpec::Rails::AssertionDelegator do
   it "provides a module that delegates assertion methods to an isolated class" do

@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 class CollectionOwner < ActiveRecord::Base
   connection.execute <<-SQL

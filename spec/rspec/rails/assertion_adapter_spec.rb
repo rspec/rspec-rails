@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'rails_helper'
 
 describe RSpec::Rails::MinitestAssertionAdapter do
   include RSpec::Rails::MinitestAssertionAdapter

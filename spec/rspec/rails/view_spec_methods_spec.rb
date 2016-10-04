@@ -1,3 +1,4 @@
+require 'rails_helper'
 module RSpec::Rails
   RSpec.describe ViewSpecMethods do
     before do

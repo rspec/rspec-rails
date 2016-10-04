@@ -1,3 +1,4 @@
+require 'rails_helper'
 RSpec.describe "ActiveRecord support" do
   around do |ex|
     old_value = RSpec::Mocks.configuration.verify_partial_doubles?

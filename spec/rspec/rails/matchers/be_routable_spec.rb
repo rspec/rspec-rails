@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'rails_helper'
 
 describe "be_routable" do
   include RSpec::Rails::Matchers::RoutingMatchers

@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'rails_helper'
 
 class ::ApplicationController
   def self.abstract?; false; end

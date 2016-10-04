@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe "have_http_status" do
   include RSpec::Rails::Matchers

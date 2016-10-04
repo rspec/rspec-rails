@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'rails_helper'
 require 'rspec/support/spec/in_sub_process'
 
 RSpec.describe "Configuration" do

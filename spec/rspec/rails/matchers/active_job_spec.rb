@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'rails_helper'
 require "rspec/rails/feature_check"
 
 if RSpec::Rails::FeatureCheck.has_active_job?

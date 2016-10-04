@@ -1,4 +1,4 @@
-require "spec_helper"
+require 'rails_helper'
 
 %w[have_rendered render_template].each do |template_expectation|
   describe template_expectation do
