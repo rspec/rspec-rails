@@ -1,4 +1,4 @@
-
+# This file should only contain the bare minimum required to configure the spec suite
 require 'rspec/support/spec'
 
 class RSpec::Core::ExampleGroup
