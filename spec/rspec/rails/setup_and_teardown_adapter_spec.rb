@@ -1,4 +1,3 @@
-require 'spec_helper'
 
 describe RSpec::Rails::SetupAndTeardownAdapter do
   describe "::setup" do

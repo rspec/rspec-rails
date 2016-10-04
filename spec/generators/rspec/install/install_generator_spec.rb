@@ -2,7 +2,6 @@ require 'generator_helper'
 # Generators are not automatically loaded by Rails
 require 'generators/rspec/install/install_generator'
 
-
 RSpec.describe Rspec::Generators::InstallGenerator, :type => :generator do
   def use_active_record_migration
     match(/ActiveRecord::Migration\./m)

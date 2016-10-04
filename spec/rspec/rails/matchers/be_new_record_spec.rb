@@ -1,4 +1,3 @@
-require 'spec_helper'
 
 describe "be_new_record" do
   include RSpec::Rails::Matchers

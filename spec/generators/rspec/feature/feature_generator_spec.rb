@@ -2,7 +2,6 @@ require 'generator_helper'
 # Generators are not automatically loaded by rails
 require 'generators/rspec/feature/feature_generator'
 
-
 RSpec.describe Rspec::Generators::FeatureGenerator, :type => :generator do
   setup_default_destination
 

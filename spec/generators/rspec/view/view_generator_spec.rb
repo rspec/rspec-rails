@@ -2,7 +2,6 @@ require 'generator_helper'
 # Generators are not automatically loaded by Rails
 require 'generators/rspec/view/view_generator'
 
-
 RSpec.describe Rspec::Generators::ViewGenerator, :type => :generator do
   setup_default_destination
 

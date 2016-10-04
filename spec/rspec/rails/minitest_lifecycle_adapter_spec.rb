@@ -1,4 +1,3 @@
-require 'spec_helper'
 
 describe RSpec::Rails::MinitestLifecycleAdapter do
   it "invokes minitest lifecycle hooks at the appropriate times" do

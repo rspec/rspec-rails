@@ -2,7 +2,6 @@ require 'generator_helper'
 # Generators are not automatically loaded by Rails
 require 'generators/rspec/mailer/mailer_generator'
 
-
 RSpec.describe Rspec::Generators::MailerGenerator, :type => :generator do
   setup_default_destination
 

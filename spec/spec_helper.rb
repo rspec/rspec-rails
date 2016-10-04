@@ -1,4 +1,4 @@
-require 'rspec/rails'
+
 require 'rspec/support/spec'
 
 class RSpec::Core::ExampleGroup
