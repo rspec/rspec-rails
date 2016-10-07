@@ -22,18 +22,23 @@ module RSpec
             @actual = verb_to_path_map
             # assert_recognizes does not consider ActionController::RoutingError an
             # assertion failure, so we have to capture that and Assertion here.
-            match_unless_raises ActiveSupport::TestCase::Assertion, ActionController::RoutingError do
+            success = match_unless_raises ActiveSupport::TestCase::Assertion, ActionController::RoutingError do
               path, query = *verb_to_path_map.values.first.split('?')
-              @scope.assert_recognizes(
-                @expected,
-                { :method => verb_to_path_map.keys.first, :path => path },
-                Rack::Utils.parse_nested_query(query)
-              )
+              @recognized_path = @scope.routes.recognize_path(
+                  path, {
+                  method: verb_to_path_map.keys.first,
+                  extras: Rack::Utils::parse_nested_query(query)
+              })
             end
+            success && values_match?(@expected, @recognized_path)
           end
 
           def failure_message
-            rescued_exception.message
+            if rescued_exception
+              rescued_exception.message
+            else
+              "expected #{@recognized_path} to match #{@expected}"
+            end
           end
 
           def failure_message_when_negated
