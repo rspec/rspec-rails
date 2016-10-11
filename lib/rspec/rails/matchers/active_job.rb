@@ -67,7 +67,14 @@ module RSpec
           end
 
           def failure_message
-            "expected to enqueue #{base_message}"
+            "expected to enqueue #{base_message}".tap do |msg|
+              if @unmatching_jobs.any?
+                msg << "\nQueued jobs:"
+                @unmatching_jobs.each do |job|
+                  msg << "\n  #{base_job_message(job)}"
+                end
+              end
+            end
           end
 
           def failure_message_when_negated
@@ -89,7 +96,7 @@ module RSpec
         private
 
           def check(jobs)
-            @matching_jobs_count = jobs.count do |job|
+            @matching_jobs, @unmatching_jobs = jobs.partition do |job|
               if serialized_attributes.all? { |key, value| value == job[key] }
                 args = ::ActiveJob::Arguments.deserialize(job[:args])
                 @block.call(*args)
@@ -98,6 +105,7 @@ module RSpec
                 false
               end
             end
+            @matching_jobs_count = @matching_jobs.size
 
             case @expectation_type
             when :exactly then @expected_number == @matching_jobs_count
@@ -112,6 +120,17 @@ module RSpec
               msg << " on queue #{@queue}," if @queue
               msg << " at #{@at}," if @at
               msg << " but enqueued #{@matching_jobs_count}"
+            end
+          end
+
+          def base_job_message(job)
+            msg_parts = []
+            msg_parts << "with #{::ActiveJob::Arguments.deserialize(job[:args])}" if job[:args].any?
+            msg_parts << "on queue #{job[:queue]}" if job[:queue]
+            msg_parts << "at #{Time.at(job[:at])}" if job[:at]
+
+            "#{job[:job].class.name} job".tap do |msg|
+              msg << " #{msg_parts.join(', ')}" if msg_parts.any?
             end
           end
 
