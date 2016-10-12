@@ -211,11 +211,13 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
 
     it "generates failure message with all provided options" do
       date = Date.tomorrow.noon
-      message = "expected to enqueue exactly 2 jobs, with [42], on queue low, at #{date}, but enqueued 0"
+      message = "expected to enqueue exactly 2 jobs, with [42], on queue low, at #{date}, but enqueued 0" + \
+                "\nQueued jobs:" + \
+                "\n  Class job with [1], on queue default"
 
       expect {
         expect {
-          hello_job.perform_later
+          hello_job.perform_later(1)
         }.to have_enqueued_job(hello_job).with(42).on_queue("low").at(date).exactly(2).times
       }.to raise_error(message)
     end
