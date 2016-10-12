@@ -1,3 +1,11 @@
+### Development
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.6.0.beta1...master)
+
+Enhancements:
+
+* Improve failure output of ActiveJob matchers by listing queued jobs.
+  (Wojciech Wnętrzak, #1722)
+
 ### 3.6.0.beta1 / 2016-10-09
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.5.2...v3.6.0.beta1)
 
