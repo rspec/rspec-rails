@@ -62,6 +62,9 @@ bundle exec rspec spec/models
 
 # Run only specs for AccountsController
 bundle exec rspec spec/controllers/accounts_controller_spec.rb
+
+# Run only spec on line 8 of AccountsController
+bundle exec rspec spec/controllers/accounts_controller_spec.rb:8
 ```
 
 Specs can also be run via `rake spec`, though this command may be slower to
