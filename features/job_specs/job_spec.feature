@@ -114,3 +114,19 @@ Feature: job spec
     """
     When I run `rspec spec/jobs/upload_backups_spec.rb`
     Then the example should pass
+
+  Scenario: the test adapter must be set to :test
+    Given a file named "spec/jobs/upload_backups_spec.rb" with:
+    """ruby
+    require "rails_helper"
+
+    RSpec.describe UploadBackupsJob, :type => :job do
+      describe "#perform_later" do
+        it "uploads a backup" do
+          ActiveJob::Base.queue_adapter = :development
+        end
+      end
+    end
+    """
+    When I run `rspec spec/jobs/upload_backups_spec.rb`
+    Then the example should fail
