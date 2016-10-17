@@ -323,8 +323,8 @@ For more information, see the [cucumber scenarios for mailer specs
 
 ## Job specs
 
-Job specs default to residing in the `spec/jobs` folder. Tagging any context
-with the metadata `:type => :job` treats its examples as job specs.
+Tagging a context with the metadata `:type => :job` treats its examples as job
+specs. Typically these specs will live in `spec/jobs`.
 
 ```ruby
 require 'rails_helper'
