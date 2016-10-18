@@ -321,6 +321,28 @@ end
 For more information, see the [cucumber scenarios for mailer specs
 ](https://relishapp.com/rspec/rspec-rails/v/3-4/docs/mailer-specs).
 
+## Job specs
+
+Tagging a context with the metadata `:type => :job` treats its examples as job
+specs. Typically these specs will live in `spec/jobs`.
+
+```ruby
+require 'rails_helper'
+
+RSpec.describe UploadBackupsJob, :type => :job do
+  describe "#perform_later" do
+    it "uploads a backup" do
+      ActiveJob::Base.queue_adapter = :test
+      UploadBackupsJob.perform_later('backup')
+      expect(UploadBackupsJob).to have_been_enqueued
+    end
+  end
+end
+```
+
+For more information, see the [cucumber scenarios for job specs
+](https://relishapp.com/rspec/rspec-rails/docs/job-specs).
+
 ## View specs
 
 View specs default to residing in the `spec/views` folder. Tagging any context
