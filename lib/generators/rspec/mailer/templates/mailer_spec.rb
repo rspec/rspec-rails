@@ -1,10 +1,10 @@
 require "rails_helper"
 
 <% module_namespacing do -%>
-RSpec.describe <%= class_name %><%= Rails.version.to_f >= 5.0 ? "Mailer" : "" %>, <%= type_metatag(:mailer) %> do
+RSpec.describe <%= Rails.version.to_f >= 5.0 ? class_name.sub(/(Mailer)?$/, 'Mailer') : class_name %>, <%= type_metatag(:mailer) %> do
 <% for action in actions -%>
   describe "<%= action %>" do
-    let(:mail) { <%= class_name %><%= Rails.version.to_f >= 5.0 ? "Mailer" : "" %>.<%= action %> }
+    let(:mail) { <%= Rails.version.to_f >= 5.0 ? class_name.sub(/(Mailer)?$/, 'Mailer') : class_name %>.<%= action %> }
 
     it "renders the headers" do
       expect(mail.subject).to eq(<%= action.to_s.humanize.inspect %>)
