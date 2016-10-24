@@ -90,6 +90,12 @@ There are three particular `rspec-rails` specific changes to be aware of:
 4. Extraction of `stub_model` and `mock_model` to
    [`rspec-activemodel-mocks`](https://github.com/rspec/rspec-activemodel-mocks)
 5. In Rails 5.x, controller testing has been moved to its own gem which is [rails-controller-testing](https://github.com/rails/rails-controller-testing). Using `assigns` in your controller specs without adding this gem will no longer work.
+6. `rspec-rails` now includes two helpers, `spec_helper.rb` and `rails_helper.rb`.
+   `spec_helper.rb` is the conventional RSpec configuration helper, whilst the
+    Rails specific loading and bootstrapping has moved to the `rails_helper.rb`
+    file. Rails specs now need this file required beforehand either at the top
+    of the specific file (recommended) or a common configuration location such
+    as your `.rspec` file.
 
 Please see the [RSpec Rails Upgrade
 docs](https://www.relishapp.com/rspec/rspec-rails/docs/upgrade) for full
