@@ -209,6 +209,12 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       }.to have_enqueued_job.with(global_id_object)
     end
 
+    it "passes with provided argument matchers" do
+      expect {
+        hello_job.perform_later(42, "David")
+      }.to have_enqueued_job.with(instance_of(Fixnum), instance_of(String))
+    end
+
     it "generates failure message with all provided options" do
       date = Date.tomorrow.noon
       message = "expected to enqueue exactly 2 jobs, with [42], on queue low, at #{date}, but enqueued 0" + \
