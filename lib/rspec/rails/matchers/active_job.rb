@@ -97,7 +97,7 @@ module RSpec
 
           def check(jobs)
             @matching_jobs, @unmatching_jobs = jobs.partition do |job|
-              if serialized_attributes.all? { |key, value| value == job[key] }
+              if arguments_match?(job) && other_attributes_match?(job)
                 args = ::ActiveJob::Arguments.deserialize(job[:args])
                 @block.call(*args)
                 true
@@ -134,9 +134,21 @@ module RSpec
             end
           end
 
+          def arguments_match?(job)
+            if @args.any?
+              deserialized_args = ::ActiveJob::Arguments.deserialize(job[:args])
+              RSpec::Mocks::ArgumentListMatcher.new(*@args).args_match?(*deserialized_args)
+            else
+              true
+            end
+          end
+
+          def other_attributes_match?(job)
+            serialized_attributes.all? { |key, value| value == job[key] }
+          end
+
           def serialized_attributes
             {}.tap do |attributes|
-              attributes[:args]  = ::ActiveJob::Arguments.serialize(@args) if @args.any?
               attributes[:at]    = @at.to_f if @at
               attributes[:queue] = @queue if @queue
               attributes[:job]   = @job if @job
