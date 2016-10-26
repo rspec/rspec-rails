@@ -61,6 +61,20 @@ module RSpec
           end
         end
 
+        # @private
+        class LogSubscriber < ::ActiveSupport::LogSubscriber
+          def current_example_group
+            RSpec.current_example.example_group
+          end
+
+          def render_template(_event)
+            return if current_example_group.render_views?
+            info("  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.")
+          end
+        end
+
+        LogSubscriber.attach_to(:action_view)
+
         # Delegates all methods to the submitted resolver and for all methods
         # that return a collection of `ActionView::Template` instances, return
         # templates with modified source
