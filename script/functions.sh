@@ -1,4 +1,4 @@
-# This file was generated on 2016-11-07T00:20:00+09:00 from the rspec-dev repo.
+# This file was generated on 2016-11-07T11:05:32+09:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -28,7 +28,7 @@ function run_specs_and_record_done {
 
   # rspec-core needs to run with a special script that loads simplecov first,
   # so that it can instrument rspec-core's code before rspec-core has been loaded.
-  if [ -f script/rspec_with_simplecov ]; then
+  if [ -f script/rspec_with_simplecov ] && is_mri; then
     rspec_bin=script/rspec_with_simplecov
   fi;
 
