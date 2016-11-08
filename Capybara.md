@@ -1,4 +1,4 @@
-rspec-rails supports integration with Capbyara out of the box by adding
+rspec-rails supports integration with Capybara out of the box by adding
 its Capybara::DSL (visit/page) and Capybara::RSpecMatchers to the
 examples in the applicable directories, which differ slightly between
 Capybara 1.x and Capybara >= 2.x.
