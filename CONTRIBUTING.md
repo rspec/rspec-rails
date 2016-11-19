@@ -26,15 +26,14 @@ Thanks for helping us make RSpec better!
 
 ## `Small` issues
 
-Small issues are the ones that we be believe are best suited for new
-contributors to get started on. They represent a meaningful contribution to the
-project that can be made that should not be too hard to pull off.
-
+These issues are the ones that we be believe are best suited for new
+contributors to get started on. They represent a potential meaningful
+contribution to the project that should not be too hard to pull off.
 ## `Triage` issues
 
-Triage issues are ones that have been labelled by the maintainers that we
-believe do not currently have enough information for them to be reproduced by
-us. You can help us move triage issues into `ready to go` or `has reproduction
+These issues are ones that have been labelled by the maintainers that we
+believe do not currently have enough information to be reproduced the RSpec
+team. You can help us move triage issues into `ready to go` or `has reproduction
 case` (for feature requests or bugs) as a seriously meaningful contribution.
 
 ## `Has reproduction case` issues
