@@ -14,11 +14,18 @@ resolve your bug faster!
 
 -->
 
-## Description of issue
+## Observed behaviour
 
 <!--
-please provide a high level description of the problem that you are having,
-including details like rails version and so on
+please provide a concise description of the behaviour you are observing with
+RSpec and Rails
+-->
+
+## Expected behaviour
+
+<!--
+Please provide a description of what you expect to be happening, and how that
+differs from the current behaviour.
 -->
 
 ## Can you provide an example app?
