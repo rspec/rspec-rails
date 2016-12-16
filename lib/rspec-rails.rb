@@ -8,6 +8,7 @@ module RSpec
     class Railtie < ::Rails::Railtie
       # As of Rails 5.1.0 you can register directories to work with `rake notes`
       if ::Rails::VERSION::STRING >= '5.1'
+        require 'rails/source_annotation_extractor'
         SourceAnnotationExtractor::Annotation.register_directories("spec")
       end
       # Rails-3.0.1 requires config.app_generators instead of 3.0.0's config.generators
