@@ -19,6 +19,10 @@ end
 
 gem 'sqlite3', '~> 1.3.6'
 
+if RUBY_VERSION >= '2.4.0'
+  gem 'json', '>= 2.0.2'
+end
+
 if RUBY_VERSION >= '1.9.3'
   gem 'rake', '>= 10.0.0'
 else
