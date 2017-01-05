@@ -56,7 +56,10 @@ if RUBY_VERSION <= '1.8.7'
   gem 'rubyzip', '< 1.0'
 end
 
-gem 'rubocop', "~> 0.23.0", :platform => [:ruby_19, :ruby_20, :ruby_21]
+unless RUBY_VERSION >= '2.4.0'
+  # our current rubocop version doesnt support the json version
+  gem 'rubocop', "~> 0.23.0", :platform => [:ruby_19, :ruby_20, :ruby_21]
+end
 
 custom_gemfile = File.expand_path("../Gemfile-custom", __FILE__)
 eval_gemfile custom_gemfile if File.exist?(custom_gemfile)
