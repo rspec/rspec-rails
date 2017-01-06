@@ -130,6 +130,12 @@ matrix:
       env: RAILS_VERSION=master
     - rvm: 2.3.1
       env: RAILS_VERSION=master
+    - rvm: 2.4.0
+      env: RAILS_VERSION=master
+    - rvm: 2.4.0
+      env: RAILS_VERSION='~> 4.2.0'
+    - rvm: 2.4.0
+      env: RAILS_VERSION=4-2-stable
   fast_finish: true
 
 branches:
