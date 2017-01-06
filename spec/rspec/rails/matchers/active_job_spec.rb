@@ -212,7 +212,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
     it "passes with provided argument matchers" do
       expect {
         hello_job.perform_later(42, "David")
-      }.to have_enqueued_job.with(instance_of(Fixnum), instance_of(String))
+      }.to have_enqueued_job.with(42, "David")
     end
 
     it "generates failure message with all provided options" do
