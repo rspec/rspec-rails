@@ -58,8 +58,8 @@ if RUBY_VERSION <= '1.8.7'
 end
 
 unless RUBY_VERSION >= '2.4.0'
-  # our current rubocop version doesnt support the json version
-  gem 'rubocop', "~> 0.23.0", :platform => [:ruby_19, :ruby_20, :ruby_21]
+  # our current rubocop version doesnt support the json version required by Ruby 2.4
+  gem 'rubocop', "~> 0.23.0", :platform => [:ruby_20, :ruby_21]
 end
 
 custom_gemfile = File.expand_path("../Gemfile-custom", __FILE__)
