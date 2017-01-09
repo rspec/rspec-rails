@@ -24,6 +24,9 @@ when nil, false, ""
   if RUBY_VERSION < '1.9.3'
     # Rails 4+ requires 1.9.3+, so on earlier versions default to the last 3.x release.
     gem "rails", "~> 3.2.17"
+  elsif RUBY_VERSION < '2.2.0'
+    # Rails 5+ requires 2.2+, so on earlier versions default to the last 4.x release.
+    gem "rails", "~> 4.2.0"
   else
     gem "rails", "~> 5.0.0"
   end
