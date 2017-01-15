@@ -5,7 +5,7 @@ routing.
 ## Rails
 
 rspec-rails 3 supports Rails 3.x and 4.x. For earlier versions of Rails, you
-need [rspec-rails 1](https://github.com/dchelimsky/rspec-rails). For Rails 5.x, 
+need [rspec-rails 1](https://github.com/dchelimsky/rspec-rails). For Rails 5.x,
 make sure you are using rspec-rails 3.5.0 or newer.
 
 ## Install
