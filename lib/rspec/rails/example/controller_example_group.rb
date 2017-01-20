@@ -1,9 +1,7 @@
 module RSpec
   module Rails
     # @private
-    ControllerAssertionDelegator = RSpec::Rails::AssertionDelegator.new(
-      ActionDispatch::Assertions::RoutingAssertions
-    )
+    ControllerAssertionDelegatorInstance = RSpec::Rails::ControllerAssertionDelegator.new
 
     # @api public
     # Container module for controller spec functionality.
@@ -15,7 +13,7 @@ module RSpec
       include RSpec::Rails::Matchers::RedirectTo
       include RSpec::Rails::Matchers::RenderTemplate
       include RSpec::Rails::Matchers::RoutingMatchers
-      include ControllerAssertionDelegator
+      include ControllerAssertionDelegatorInstance
 
       # Class-level DSL for controller specs.
       module ClassMethods

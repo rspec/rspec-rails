@@ -60,6 +60,48 @@ module RSpec
       end
     end
 
+    # @private
+    class ControllerAssertionDelegator < AssertionDelegator
+      module Setup
+        extend ActiveSupport::Concern
+
+        included { init_setup }
+
+        module ClassMethods
+          attr_reader :setup_methods, :setup_blocks
+          attr_accessor :controller_class
+
+          def init_setup
+            @setup_methods ||= []
+            @setup_blocks ||= []
+          end
+
+          def setup(*methods, &block)
+            @setup_methods += methods
+            @setup_blocks << block if block
+          end
+        end
+
+        def initialize(*)
+          super
+          self.class.controller_class = described_class
+          run_setup
+        end
+
+        def run_setup
+          self.class.setup_methods.each { |m| send(m) }
+          self.class.setup_blocks.each { |b| b.call }
+        end
+      end
+
+      def initialize(*args)
+        args << Setup
+        args << ActionDispatch::Assertions::RoutingAssertions
+        args << ActionController::TestCase::Behavior
+        super(*args)
+      end
+    end
+
     # Adapts example groups for `Minitest::Test::LifecycleHooks`
     #
     # @private
