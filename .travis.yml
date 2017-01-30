@@ -60,9 +60,9 @@ matrix:
       env: RAILS_VERSION=master
     - rvm: 2.2.2
       env: RAILS_VERSION=5-0-stable
-    - rvm: 2.3.1
+    - rvm: 2.3.3
       env: RAILS_VERSION=master
-    - rvm: 2.3.1
+    - rvm: 2.3.3
       env: RAILS_VERSION=5-0-stable
     - rvm: 2.4.0
       env: RAILS_VERSION=master
@@ -76,7 +76,7 @@ matrix:
       env: RAILS_VERSION='~> 3.0.20'
     - rvm: 2.2
       env: RAILS_VERSION='~> 3.0.20'
-    - rvm: 2.3.1
+    - rvm: 2.3.3
       env: RAILS_VERSION='~> 3.0.20'
     - rvm: 2.4.0
       env: RAILS_VERSION='~> 3.0.20'
@@ -108,7 +108,7 @@ matrix:
     # MRI 2.2+ is not supported on a few versions
     - rvm: 2.2
       env: RAILS_VERSION='~> 3.1.12'
-    - rvm: 2.3.1
+    - rvm: 2.3.3
       env: RAILS_VERSION='~> 3.1.12'
     # MRI 2.4+ is not supported on a few versions
     - rvm: 2.4.0
@@ -128,7 +128,7 @@ matrix:
   allow_failures:
     - rvm: 2.2.2
       env: RAILS_VERSION=master
-    - rvm: 2.3.1
+    - rvm: 2.3.3
       env: RAILS_VERSION=master
     - rvm: 2.4.0
       env: RAILS_VERSION=master
