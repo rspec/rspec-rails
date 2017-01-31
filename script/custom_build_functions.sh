@@ -1,5 +1,10 @@
 function run_cukes {
-  bin/rake acceptance --trace
+  if is_mri_192_plus; then
+    bin/rake acceptance --trace
+    return $?
+  else
+    return 0
+  fi
 }
 
 # rspec-rails depends on all of the other rspec repos. Conversely, none of the
