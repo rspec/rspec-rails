@@ -15,9 +15,11 @@ Feature: job spec
   * specify the queue which the job was enqueued to
 
   Check the documentation on
-  [`have_been_enqueued`](matchers/have-been-enqueued-matcher) and
-  [`have_enqueued_job`](matchers/have-enqueued-job-matcher) for more
-  information.
+  [`have_been_enqueued`](matchers/have-been-enqueued-matcher),
+  [`have_enqueued_job`](matchers/have-enqueued-job-matcher),
+  [`have_been_performed`](matchers/have-been-performed-matcher), and
+  [`have_performed_job`](matchers/have-performed-job-matcher)
+  for more information.
 
   Background:
     Given active job is available

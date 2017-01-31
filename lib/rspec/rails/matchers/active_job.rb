@@ -11,7 +11,9 @@ module RSpec
         # rubocop: disable Metrics/ClassLength
         # @private
         class Base < RSpec::Rails::Matchers::BaseMatcher
-          def initialize
+          def initialize(verb_present_tense, verb_past_tense)
+            @verb_present_tense = verb_present_tense
+            @verb_past_tense = verb_past_tense
             @args = []
             @queue = nil
             @at = nil
@@ -67,7 +69,7 @@ module RSpec
           end
 
           def failure_message
-            "expected to enqueue #{base_message}".tap do |msg|
+            "expected to #{@verb_present_tense} #{base_message}".tap do |msg|
               if @unmatching_jobs.any?
                 msg << "\nQueued jobs:"
                 @unmatching_jobs.each do |job|
@@ -78,7 +80,7 @@ module RSpec
           end
 
           def failure_message_when_negated
-            "expected not to enqueue #{base_message}"
+            "expected not to #{@verb_present_tense} #{base_message}"
           end
 
           def message_expectation_modifier
@@ -119,7 +121,7 @@ module RSpec
               msg << " with #{@args}," if @args.any?
               msg << " on queue #{@queue}," if @queue
               msg << " at #{@at.inspect}," if @at
-              msg << " but enqueued #{@matching_jobs_count}"
+              msg << " but #{@verb_past_tense} #{@matching_jobs_count}"
             end
           end
 
@@ -194,7 +196,7 @@ module RSpec
         # @private
         class HaveEnqueuedJob < Base
           def initialize(job)
-            super()
+            super("enqueue", "enqueued")
             @job = job
           end
 
@@ -217,6 +219,10 @@ module RSpec
 
         # @private
         class HaveBeenEnqueued < Base
+          def initialize
+            super("enqueue", "enqueued")
+          end
+
           def matches?(job)
             @job = job
             check(queue_adapter.enqueued_jobs)
@@ -226,6 +232,36 @@ module RSpec
             set_expected_number(:at_least, 1)
 
             !matches?(proc)
+          end
+        end
+
+        # @private
+        class HavePerformedJob < Base
+          def initialize(job)
+            super("perform", "performed")
+            @job = job
+          end
+
+          def matches?(proc)
+            raise ArgumentError, "have_performed_job only supports block expectations" unless Proc === proc
+
+            original_performed_jobs_count = queue_adapter.performed_jobs.count
+            proc.call
+            in_block_jobs = queue_adapter.performed_jobs.drop(original_performed_jobs_count)
+
+            check(in_block_jobs)
+          end
+        end
+
+        # @private
+        class HaveBeenPerformed < Base
+          def initialize
+            super("perform", "performed")
+          end
+
+          def matches?(job)
+            @job = job
+            check(queue_adapter.performed_jobs)
           end
         end
       end
@@ -313,6 +349,75 @@ module RSpec
       def have_been_enqueued
         check_active_job_adapter
         ActiveJob::HaveBeenEnqueued.new
+      end
+
+      # @api public
+      # Passes if a job has been performed inside block. May chain at_least, at_most or exactly to specify a number of times.
+      #
+      # @example
+      #     expect {
+      #       perform_jobs { HeavyLiftingJob.perform_later }
+      #     }.to have_performed_job
+      #
+      #     expect {
+      #       perform_jobs {
+      #         HelloJob.perform_later
+      #         HeavyLiftingJob.perform_later
+      #       }
+      #     }.to have_performed_job(HelloJob).exactly(:once)
+      #
+      #     expect {
+      #       perform_jobs { 3.times { HelloJob.perform_later } }
+      #     }.to have_performed_job(HelloJob).at_least(2).times
+      #
+      #     expect {
+      #       perform_jobs { HelloJob.perform_later }
+      #     }.to have_performed_job(HelloJob).at_most(:twice)
+      #
+      #     expect {
+      #       perform_jobs {
+      #         HelloJob.perform_later
+      #         HeavyLiftingJob.perform_later
+      #       }
+      #     }.to have_performed_job(HelloJob).and have_performed_job(HeavyLiftingJob)
+      #
+      #     expect {
+      #       perform_jobs {
+      #         HelloJob.set(wait_until: Date.tomorrow.noon, queue: "low").perform_later(42)
+      #       }
+      #     }.to have_performed_job.with(42).on_queue("low").at(Date.tomorrow.noon)
+      def have_performed_job(job = nil)
+        check_active_job_adapter
+        ActiveJob::HavePerformedJob.new(job)
+      end
+
+      # @api public
+      # Passes if a job has been performed. May chain at_least, at_most or exactly to specify a number of times.
+      #
+      # @example
+      #     before { ActiveJob::Base.queue_adapter.performed_jobs.clear }
+      #     before { ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true }
+      #
+      #     HeavyLiftingJob.perform_later
+      #     expect(HeavyLiftingJob).to have_been_performed
+      #
+      #     HelloJob.perform_later
+      #     HeavyLiftingJob.perform_later
+      #     expect(HeavyLiftingJob).to have_been_performed.exactly(:once)
+      #
+      #     3.times { HelloJob.perform_later }
+      #     expect(HelloJob).to have_been_performed.at_least(2).times
+      #
+      #     HelloJob.perform_later
+      #     HeavyLiftingJob.perform_later
+      #     expect(HelloJob).to have_been_performed
+      #     expect(HeavyLiftingJob).to have_been_performed
+      #
+      #     HelloJob.set(wait_until: Date.tomorrow.noon, queue: "low").perform_later(42)
+      #     expect(HelloJob).to have_been_performed.with(42).on_queue("low").at(Date.tomorrow.noon)
+      def have_been_performed
+        check_active_job_adapter
+        ActiveJob::HaveBeenPerformed.new
       end
 
     private
