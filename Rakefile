@@ -11,6 +11,15 @@ require 'rspec'
 require 'rspec/core/rake_task'
 require 'cucumber/rake/task'
 
+def rails_template_command
+  require "rails"
+  if Rails.version.to_f >= 5.1
+    "app:template"
+  else
+    "rails:template"
+  end
+end
+
 desc "Run all examples"
 RSpec::Core::RakeTask.new(:spec) do |t|
   t.ruby_opts = %w[-w]
@@ -58,7 +67,7 @@ namespace :generate do
 
   desc "generate a bunch of stuff with generators"
   task :stuff do
-    in_example_app "bin/rake rails:template LOCATION='../../example_app_generator/generate_stuff.rb'"
+    in_example_app "bin/rake #{rails_template_command} LOCATION='../../example_app_generator/generate_stuff.rb'"
   end
 end
 
@@ -90,7 +99,7 @@ end
 
 desc "run a variety of specs against the generated app"
 task :smoke do
-  in_example_app "LOCATION='../../example_app_generator/run_specs.rb' bin/rake rails:template --backtrace"
+  in_example_app "LOCATION='../../example_app_generator/run_specs.rb' bin/rake #{rails_template_command} --backtrace"
 end
 
 namespace :smoke do
@@ -131,7 +140,7 @@ namespace :no_active_record do
 
   desc "run a variety of specs against a non-ActiveRecord generated app"
   task :smoke do
-    in_example_app "LOCATION='../../example_app_generator/run_specs.rb' bin/rake rails:template --backtrace",
+    in_example_app "LOCATION='../../example_app_generator/run_specs.rb' bin/rake #{rails_template_command} --backtrace",
                    :app_dir => example_app_dir
   end
 
@@ -180,8 +189,7 @@ namespace :no_active_record do
 
     desc "generate a bunch of stuff with generators"
     task :stuff do
-      in_example_app "bin/rake rails:template LOCATION='../../example_app_generator/generate_stuff.rb'",
-                     :app_dir => example_app_dir
+      in_example_app "bin/rake #{rails_template_command} LOCATION='../../example_app_generator/generate_stuff.rb'", :app_dir => example_app_dir
     end
   end
 end
