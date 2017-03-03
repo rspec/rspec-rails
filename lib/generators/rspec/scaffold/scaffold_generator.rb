@@ -19,6 +19,21 @@ module Rspec
       class_option :helper_specs,     :type => :boolean, :default => true,  :desc => "Generate helper specs"
       class_option :routing_specs,    :type => :boolean, :default => true,  :desc => "Generate routing specs"
 
+      argument :attributes, :type => :array, :default => [], :banner => "field:type field:type"
+      class_option :fixture, :type => :boolean
+
+      def create_model_spec
+        template 'model_spec.rb', File.join('spec/models', class_path, "#{file_name}_spec.rb")
+      end
+
+      hook_for :fixture_replacement
+
+      def create_fixture_file
+        if options[:fixture] && options[:fixture_replacement].nil?
+          template 'fixtures.yml', File.join('spec/fixtures', "#{table_name}.yml")
+        end
+      end
+
       def generate_controller_spec
         return unless options[:controller_specs]
 
