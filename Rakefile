@@ -29,10 +29,20 @@ end
 Cucumber::Rake::Task.new(:cucumber) do |t|
   version = ENV.fetch("RAILS_VERSION", "~> 4.2.0")
   cucumber_flag = "--tags ~@rails_post_5"
-  p version
-  if /(^| )5(\.|-)0/ === version || version == "master"
-    cucumber_flag = "--tags ~@rails_pre_5"
+  tags = []
+  if version.to_f >= 5.1
+    tags << "~@rails_pre_5.1"
   end
+
+  if version.to_f >= 5.0
+    tags << "~@rails_pre_5"
+  end
+
+  if tags.empty?
+    tags << "~@rails_post_5"
+  end
+
+  cucumber_flag = tags.map { |tag| "--tag #{tag}" }
 
   t.cucumber_opts = cucumber_flag
 end

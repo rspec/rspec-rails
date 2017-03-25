@@ -20,6 +20,7 @@ Feature: Feature spec
   [customer](http://c2.com/cgi/wiki?CustomerTest) and [acceptance](http://c2.com/cgi/wiki?AcceptanceTest) tests. When capybara is required it sets
   `:type => :feature` automatically for you.
 
+  @rails_pre_5.1
   Scenario: Feature specs are skipped without Capybara
     Given a file named "spec/features/widget_management_spec.rb" with:
       """ruby
@@ -58,7 +59,6 @@ Feature: Feature spec
         scenario "User creates a new widget" do
           visit "/widgets/new"
 
-          fill_in "Name", :with => "My Widget"
           click_button "Create Widget"
 
           expect(page).to have_text("Widget was successfully created.")

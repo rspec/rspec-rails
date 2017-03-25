@@ -293,6 +293,7 @@ Feature: anonymous controller
     When I run `rspec spec`
     Then the examples should all pass
 
+  @rails_pre_5
   Scenario: Invoke `around_filter` and `around_action` in base class
     Given a file named "spec/controllers/application_controller_around_filter_spec.rb" with:
       """ruby
@@ -311,6 +312,38 @@ Feature: anonymous controller
         controller do
           def index
             render :nothing => true
+          end
+        end
+
+        it "invokes the callback" do
+          get :index
+
+          expect(assigns[:callback_invoked]).to be_truthy
+        end
+      end
+      """
+    When I run `rspec spec`
+    Then the examples should all pass
+
+  @rails_post_5
+  Scenario: Invoke `around_filter` and `around_action` in base class
+    Given a file named "spec/controllers/application_controller_around_filter_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      class ApplicationController < ActionController::Base
+        around_action :an_around_filter
+
+        def an_around_filter
+          @callback_invoked = true
+          yield
+        end
+      end
+
+      RSpec.describe ApplicationController, :type => :controller do
+        controller do
+          def index
+            render :plain => ""
           end
         end
 
@@ -610,7 +643,7 @@ Feature: anonymous controller
 
         describe "#edit" do
           it "responds to GET" do
-            get :edit, :id => "anyid"
+            get :edit, :params => { :id => "anyid" }
             expect(response.body).to eq "edit called"
           end
 
@@ -621,7 +654,7 @@ Feature: anonymous controller
           # And the rest...
           %w{get post put delete}.each do |calltype|
             it "responds to #{calltype}" do
-              send(calltype, :edit, {:id => "anyid"})
+              send(calltype, :edit, :params => {:id => "anyid"})
               expect(response.body).to eq "edit called"
             end
           end
@@ -629,7 +662,7 @@ Feature: anonymous controller
 
         describe "#show" do
           it "responds to GET" do
-            get :show, :id => "anyid"
+            get :show, :params => { :id => "anyid" }
             expect(response.body).to eq "show called"
           end
 
@@ -640,7 +673,7 @@ Feature: anonymous controller
           # And the rest...
           %w{get post put delete}.each do |calltype|
             it "responds to #{calltype}" do
-              send(calltype, :show, {:id => "anyid"})
+              send(calltype, :show, :params => {:id => "anyid"})
               expect(response.body).to eq "show called"
             end
           end
@@ -648,7 +681,7 @@ Feature: anonymous controller
 
         describe "#update" do
           it "responds to PUT" do
-            put :update, :id => "anyid"
+            put :update, :params => { :id => "anyid" }
             expect(response.body).to eq "update called"
           end
 
@@ -659,7 +692,7 @@ Feature: anonymous controller
           # And the rest...
           %w{get post put delete}.each do |calltype|
             it "responds to #{calltype}" do
-              send(calltype, :update, {:id => "anyid"})
+              send(calltype, :update, :params =>  {:id => "anyid"})
               expect(response.body).to eq "update called"
             end
           end
@@ -667,7 +700,7 @@ Feature: anonymous controller
 
         describe "#destroy" do
           it "responds to DELETE" do
-            delete :destroy, :id => "anyid"
+            delete :destroy, :params => { :id => "anyid" }
             expect(response.body).to eq "destroy called"
           end
 
@@ -678,7 +711,7 @@ Feature: anonymous controller
           # And the rest...
           %w{get post put delete}.each do |calltype|
             it "responds to #{calltype}" do
-              send(calltype, :destroy, {:id => "anyid"})
+              send(calltype, :destroy, :params => {:id => "anyid"})
               expect(response.body).to eq "destroy called"
             end
           end
