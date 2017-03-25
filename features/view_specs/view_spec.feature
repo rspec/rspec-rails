@@ -149,6 +149,7 @@ Feature: view spec
     When I run `rspec spec/views`
     Then the examples should all pass
 
+  @rails_pre_5
   Scenario: View specs can render text
     Given a file named "spec/views/widgets/direct.html.erb_spec.rb" with:
       """ruby
@@ -158,6 +159,24 @@ Feature: view spec
         it "displays the given text" do
 
           render :text => "This is directly rendered"
+
+          expect(rendered).to match /directly rendered/
+        end
+      end
+      """
+    When I run `rspec spec/views`
+    Then the examples should all pass
+
+  @rails_post_5
+  Scenario: View specs can render text
+    Given a file named "spec/views/widgets/direct.html.erb_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe "rendering text directly" do
+        it "displays the given text" do
+
+          render :plain => "This is directly rendered"
 
           expect(rendered).to match /directly rendered/
         end

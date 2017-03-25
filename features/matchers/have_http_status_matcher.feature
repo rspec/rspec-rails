@@ -15,7 +15,7 @@ Feature: `have_http_status` matcher
 
         controller do
           def index
-            render :text => "index called", :status => 209
+            render :json => {}, :status => 209
           end
         end
 
@@ -40,7 +40,7 @@ Feature: `have_http_status` matcher
 
         controller do
           def index
-            render :text => "index called", :status => :see_other
+            render :json => {}, :status => :see_other
           end
         end
 
@@ -65,7 +65,7 @@ Feature: `have_http_status` matcher
 
         controller do
           def index
-            render :text => "index called", :status => :bad_gateway
+            render :json => {}, :status => :bad_gateway
           end
         end
 
