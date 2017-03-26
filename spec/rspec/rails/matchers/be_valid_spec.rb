@@ -2,8 +2,6 @@ require "spec_helper"
 require 'rspec/rails/matchers/be_valid'
 
 describe "be_valid matcher" do
-  include RSpec::Rails::Matchers
-
   class Post
     include ActiveModel::Validations
     attr_accessor :title

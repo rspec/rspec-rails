@@ -63,7 +63,7 @@ unless RSpec.respond_to?(:feature)
     main_feature = nil unless c.expose_dsl_globally?
     c.alias_example_group_to :feature, opts
     c.alias_example_to :scenario
-    c.alias_example_to :xscenario
+    c.alias_example_to :xscenario, :skip => 'Temporarily skipped with xscenario'
   end
 
   # Due to load order issues and `config.expose_dsl_globally?` defaulting to
