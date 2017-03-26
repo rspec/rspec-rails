@@ -28,8 +28,6 @@ if RSpec::Rails::FeatureCheck.has_active_job?
 end
 
 RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_active_job? do
-  include RSpec::Rails::Matchers
-
   around do |example|
     original_logger = ActiveJob::Base.logger
     ActiveJob::Base.logger = Logger.new(nil) # Silence messages "[ActiveJob] Enqueued ...".

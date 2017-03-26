@@ -11,7 +11,6 @@ module RSpec
       include RSpec::Rails::SetupAndTeardownAdapter
       include RSpec::Rails::MinitestLifecycleAdapter if ::Rails::VERSION::STRING >= '4'
       include RSpec::Rails::MinitestAssertionAdapter
-      include RSpec::Rails::Matchers
       include RSpec::Rails::FixtureSupport
     end
   end
