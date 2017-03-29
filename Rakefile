@@ -58,7 +58,17 @@ namespace :generate do
 
   desc "generate a bunch of stuff with generators"
   task :stuff do
-    in_example_app "bin/rake rails:template LOCATION='../../example_app_generator/generate_stuff.rb'"
+    in_example_app "bin/rake #{template_task_name} LOCATION='../../example_app_generator/generate_stuff.rb'"
+  end
+end
+
+def template_task_name
+  gem 'rails'
+
+  if Gem.loaded_specs['rails'].version >= Gem::Version.create('5.0')
+    "app:template"
+  else
+    "rails:template"
   end
 end
 
@@ -90,7 +100,7 @@ end
 
 desc "run a variety of specs against the generated app"
 task :smoke do
-  in_example_app "LOCATION='../../example_app_generator/run_specs.rb' bin/rake rails:template --backtrace"
+  in_example_app "LOCATION='../../example_app_generator/run_specs.rb' bin/rake #{template_task_name} --backtrace"
 end
 
 namespace :smoke do
@@ -131,7 +141,7 @@ namespace :no_active_record do
 
   desc "run a variety of specs against a non-ActiveRecord generated app"
   task :smoke do
-    in_example_app "LOCATION='../../example_app_generator/run_specs.rb' bin/rake rails:template --backtrace",
+    in_example_app "LOCATION='../../example_app_generator/run_specs.rb' bin/rake #{template_task_name} --backtrace",
                    :app_dir => example_app_dir
   end
 
@@ -180,7 +190,7 @@ namespace :no_active_record do
 
     desc "generate a bunch of stuff with generators"
     task :stuff do
-      in_example_app "bin/rake rails:template LOCATION='../../example_app_generator/generate_stuff.rb'",
+      in_example_app "bin/rake #{template_task_name} LOCATION='../../example_app_generator/generate_stuff.rb'",
                      :app_dir => example_app_dir
     end
   end
