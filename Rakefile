@@ -13,7 +13,7 @@ require 'cucumber/rake/task'
 
 def rails_template_command
   require "rails"
-  if Rails.version.to_f >= 5.1
+  if Rails.version.to_f >= 5.0
     "app:template"
   else
     "rails:template"
