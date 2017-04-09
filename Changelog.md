@@ -1,3 +1,10 @@
+### Development
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.6.0.beta2...master)
+
+Enhancements:
+
+* Add compatibility for Rails 5.1. (Sam Phippen, Yuichiro Kaneko, #1790)
+
 ### 3.6.0.beta2 / 2016-12-12
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.6.0.beta1...v3.6.0.beta2)
 
