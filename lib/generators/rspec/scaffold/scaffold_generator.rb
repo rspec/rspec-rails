@@ -19,6 +19,11 @@ module Rspec
       class_option :helper_specs,     :type => :boolean, :default => true,  :desc => "Generate helper specs"
       class_option :routing_specs,    :type => :boolean, :default => true,  :desc => "Generate routing specs"
 
+      def initialize(*args, &blk)
+        @generator_args = args.first
+        super(*args, &blk)
+      end
+
       def generate_controller_spec
         return unless options[:controller_specs]
 
@@ -59,6 +64,8 @@ module Rspec
 
     protected
 
+      attr_reader :generator_args
+
       def copy_view(view)
         template "#{view}_spec.rb",
                  File.join("spec/views", controller_file_path, "#{view}.html.#{options[:template_engine]}_spec.rb")
@@ -76,7 +83,7 @@ module Rspec
 
       def ns_parts
         @ns_parts ||= begin
-                        matches = ARGV[0].to_s.match(/\A(\w+)(?:\/|::)(\w+)/)
+                        matches = generator_args[0].to_s.match(/\A(\w+)(?:\/|::)(\w+)/)
                         matches ? [matches[1], matches[2]] : []
                       end
       end

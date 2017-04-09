@@ -111,7 +111,23 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, :type => :generator do
       it { is_expected.to contain('assert_select "tr>td", :text => 3.5.to_s, :count => 2') }
     end
 
-    if Rails.version.to_f >= 4.0
+    case
+    when Rails.version.to_f >= 5.1
+      describe 'with reference attribute' do
+        before { run_generator %w(posts title:string author:references) }
+        describe 'edit' do
+          subject { file("spec/views/posts/edit.html.erb_spec.rb") }
+          it { is_expected.to contain(/assert_select "input\[name=\?\]", "post\[author_id\]/) }
+          it { is_expected.to contain(/assert_select "input\[name=\?\]", "post\[title\]/) }
+        end
+
+        describe 'new' do
+          subject { file("spec/views/posts/new.html.erb_spec.rb") }
+          it { is_expected.to contain(/assert_select "input\[name=\?\]", "post\[author_id\]"/) }
+          it { is_expected.to contain(/assert_select "input\[name=\?\]", "post\[title\]/) }
+        end
+      end
+    when Rails.version.to_f >= 4.0
       describe 'with reference attribute' do
         before { run_generator %w(posts title:string author:references) }
         describe 'edit' do

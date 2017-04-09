@@ -15,7 +15,7 @@ Feature: `have_http_status` matcher
 
         controller do
           def index
-            render :text => "index called", :status => 209
+            render :json => {}, :status => 209
           end
         end
 
@@ -40,7 +40,7 @@ Feature: `have_http_status` matcher
 
         controller do
           def index
-            render :text => "index called", :status => :see_other
+            render :json => {}, :status => :see_other
           end
         end
 
@@ -65,7 +65,7 @@ Feature: `have_http_status` matcher
 
         controller do
           def index
-            render :text => "index called", :status => :bad_gateway
+            render :json => {}, :status => :bad_gateway
           end
         end
 
@@ -100,6 +100,7 @@ Feature: `have_http_status` matcher
     When I run `rspec spec/controllers/gadgets_spec.rb`
     Then the examples should all pass
 
+  @rails_pre_5
   Scenario: Using in a request spec
     Given a file named "spec/requests/gadgets/widget_management_spec.rb" with:
       """ruby
@@ -124,6 +125,31 @@ Feature: `have_http_status` matcher
     When I run `rspec spec/requests`
     Then the examples should all pass
 
+  @rails_post_5
+  Scenario: Using in a request spec
+    Given a file named "spec/requests/gadgets/widget_management_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe "Widget management", :type => :request do
+
+        it "creates a Widget and redirects to the Widget's page" do
+          get "/widgets/new"
+          expect(response).to have_http_status(:ok)
+
+          post "/widgets", :params => { :widget => {:name => "My Widget"} }
+          expect(response).to have_http_status(302)
+
+          follow_redirect!
+
+          expect(response).to have_http_status(:success)
+        end
+
+      end
+      """
+    When I run `rspec spec/requests`
+    Then the examples should all pass
+
   @capybara
   Scenario: Using in a feature spec
     Given a file named "spec/features/widget_management_spec.rb" with:
@@ -136,7 +162,6 @@ Feature: `have_http_status` matcher
           visit "/widgets/new"
           expect(page).to have_http_status(200)
 
-          fill_in "Name", :with => "My Widget"
           click_button "Create Widget"
 
           expect(page).to have_http_status(:success)
