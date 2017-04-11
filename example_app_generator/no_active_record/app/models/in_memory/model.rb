@@ -15,9 +15,18 @@ module InMemory
     alias_method :size, :count
     alias_method :length, :count
 
+    def last
+      all.last
+    end
+
+    def find(id)
+      id = id.to_i
+      all.find { |record| record.id == id } || raise
+    end
+
     def create!(attributes = {})
-      with_id = { :id => next_id, :persisted => true }
-      all << record = new(with_id.merge(attributes))
+      record = new(attributes)
+      record.save
       record
     end
 
@@ -38,15 +47,49 @@ module InMemory
       include ::ActiveModel::Validations
 
       def initialize(attributes = {})
-        attributes.each do |name, value|
-          send("#{name}=", value)
-        end
+        assign_attributes(attributes)
       end
     end
 
     attr_accessor :id, :persisted
 
     alias_method :persisted?, :persisted
+
+    def update(attributes)
+      assign_attributes(attributes)
+      save
+    end
+
+    alias_method :update_attributes, :update
+
+    def assign_attributes(attributes)
+      attributes.each do |name, value|
+        __send__("#{name}=", value)
+      end
+    end
+
+    def save(*)
+      self.id = self.class.next_id
+      self.class.all << self
+      true
+    end
+
+    def destroy
+      self.class.all.delete(self)
+      true
+    end
+
+    def reload(*)
+      self
+    end
+
+    def ==(other)
+      other.is_a?(self.class) && id == other.id
+    end
+
+    def persisted?
+      !id.nil?
+    end
 
     def new_record?
       !persisted?
