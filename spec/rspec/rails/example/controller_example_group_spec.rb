@@ -1,7 +1,9 @@
 require "spec_helper"
 
-class ::ApplicationController
-  def self.abstract?; false; end
+module V1
+  class ApplicationController
+    def self.abstract?; false; end
+  end
 end
 
 module RSpec::Rails
