@@ -10,17 +10,6 @@ module RSpec
         include ActiveRecord::TestFixtures
 
         included do
-          # TODO: (DC 2011-06-25) this is necessary because fixture_file_upload
-          # accesses fixture_path directly on ActiveSupport::TestCase. This is
-          # fixed in rails by https://github.com/rails/rails/pull/1861, which
-          # should be part of the 3.1 release, at which point we can include
-          # these lines for rails < 3.1.
-          ActiveSupport::TestCase.class_exec do
-            include ActiveRecord::TestFixtures
-            self.fixture_path = RSpec.configuration.fixture_path
-          end
-          # /TODO
-
           self.fixture_path = RSpec.configuration.fixture_path
           if ::Rails::VERSION::STRING > '5'
             self.use_transactional_tests = RSpec.configuration.use_transactional_fixtures
