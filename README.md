@@ -248,7 +248,7 @@ RSpec/Rails users like to use extension libraries like
 ```ruby
 require 'rails_helper'
 
-RSpec.describe "home page", :type => :request do
+RSpec.describe "home page", :type => :feature do
   it "displays the user's username after successful login" do
     user = FactoryGirl.create(:user, :username => "jdoe", :password => "secret")
     visit "/login"
