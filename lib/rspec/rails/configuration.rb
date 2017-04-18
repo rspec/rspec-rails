@@ -100,8 +100,14 @@ module RSpec
           rendering_views
         end
 
-        def infer_spec_type_from_file_location!
-          DIRECTORY_MAPPINGS.each do |type, dir_parts|
+        def infer_spec_type_from_file_location!(list = {})
+          custom = list.inject({}) do |r, (k, v)|
+            dir = v ? v.to_s : "#{ k }s"
+            r[k] = ['spec', dir]
+            r
+          end
+
+          DIRECTORY_MAPPINGS.merge(custom).each do |type, dir_parts|
             escaped_path = Regexp.compile(dir_parts.join('[\\\/]') + '[\\\/]')
             define_derived_metadata(:file_path => escaped_path) do |metadata|
               metadata[:type] ||= type
