@@ -61,8 +61,8 @@ module RSpec
       end
 
       # @api public
-      # Passes if actual is an instance of `model_class` and returns `false` for
-      # `persisted?`. Typically used to specify instance variables assigned to
+      # Passes if actual is an instance of `model_class` and returns `true` for
+      # `new_record?`. Typically used to specify instance variables assigned to
       # views by controller actions
       #
       # Use the `with` method to specify the specific attributes to match on the

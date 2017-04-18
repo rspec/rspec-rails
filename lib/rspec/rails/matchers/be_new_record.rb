@@ -4,7 +4,7 @@ module RSpec
       # @private
       class BeANewRecord < RSpec::Matchers::BuiltIn::BaseMatcher
         def matches?(actual)
-          !actual.persisted?
+          actual.new_record?
         end
 
         def failure_message
@@ -17,7 +17,7 @@ module RSpec
       end
 
       # @api public
-      # Passes if actual returns `false` for `persisted?`.
+      # Passes if actual returns `true` for `new_record?`.
       #
       # @example
       #     get :new
