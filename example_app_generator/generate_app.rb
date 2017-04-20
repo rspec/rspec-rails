@@ -26,7 +26,7 @@ in_root do
   end
 
   # Nokogiri version is pinned in rspec-rails' Gemfile since it tend to cause installation problems
-  # on Travis CI, so we pin nokogiri in this example app also.
+  # on Travis CI, so we pin nokogiri in this example app also
   append_to_file 'Gemfile', "gem 'nokogiri', '#{Nokogiri::VERSION}'\n"
 
   # Use our version of RSpec and Rails
