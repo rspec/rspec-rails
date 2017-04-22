@@ -181,7 +181,7 @@ module RSpec
         subject { controller }
 
         before do
-          self.routes = ::Rails.application.routes
+          self.routes ||= ::Rails.application.routes
         end
 
         around do |ex|
