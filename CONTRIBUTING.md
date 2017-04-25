@@ -1,5 +1,5 @@
 <!---
-This file was generated on 2015-12-07T22:01:06+11:00 from the rspec-dev repo.
+This file was generated on 2016-09-28T20:00:39+10:00 from the rspec-dev repo.
 DO NOT modify it by hand as your changes will get lost the next time it is generated.
 -->
 
@@ -23,3 +23,15 @@ If you'd like to help make RSpec better, here are some ways you can contribute:
 If you need help getting started, check out the [DEVELOPMENT](DEVELOPMENT.md) file for steps that will get you up and running.
 
 Thanks for helping us make RSpec better!
+
+## `Small` issues
+
+These issue are ones that we be believe are best suited for new contributors to
+get started with. They represent a meaningful contribution to the project that
+should not be too hard to pull off.
+
+## Maintenance branches
+
+Maintenance branches are how we manage the different supported point releases
+of RSpec. As such, while they might look like good candidates to merge into
+master, please do not open pull requests to merge them.
