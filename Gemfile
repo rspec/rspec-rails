@@ -1,4 +1,5 @@
 source "https://rubygems.org"
+RAILS_VERSION = ENV['RAILS_VERSION'] || (File.exist?(version_file) && File.read(version_file).chomp)
 
 gemspec
 
@@ -37,9 +38,12 @@ if RUBY_VERSION < '2.0.0'
   gem 'mime-types', '< 3'
 end
 
+
 # Capybara versions that support RSpec 3 only support RUBY_VERSION >= 1.9.3
-if RUBY_VERSION >= '1.9.3'
+if RUBY_VERSION >= '1.9.3' && RAILS_VERSION < '5.1'
   gem 'capybara', '~> 2.2.0', :require => false
+else
+  gem 'capybara', '~> 2.13', :require => false
 end
 
 # Rack::Cache 1.3.0 requires Ruby >= 2.0.0

@@ -48,6 +48,10 @@ module RSpec
       config.include RSpec::Rails::ViewExampleGroup,       :type => :view
       config.include RSpec::Rails::FeatureExampleGroup,    :type => :feature
       config.include RSpec::Rails::Matchers
+
+      if ActionPack::VERSION::STRING >= "5.1"
+        config.include RSpec::Rails::SystemExampleGroup, :type => :system
+      end
     end
 
     # @private
