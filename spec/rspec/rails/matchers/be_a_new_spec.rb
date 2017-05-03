@@ -65,6 +65,61 @@ describe "be_a_new matcher" do
         end
       end
 
+      context "with composable matchers" do
+        context "one attribute is a composable matcher" do
+          it "passes" do
+            expect(record).to be_a_new(record.class).with(
+              :foo => a_string_matching("foo"))
+          end
+
+          it "fails" do
+            expect {
+              expect(record).to be_a_new(record.class).with(
+                :foo => a_string_matching("bar"))
+            }.to raise_error{|e|
+              expect(e.message).to match(/attribute \{.*\} was not set on #{Regexp.escape record.inspect}/)
+              expect(e.message).to match(/@expected="bar"/)
+            }
+          end
+          context "matcher is wrong type" do
+            it "fails" do
+              expect {
+                expect(record).to be_a_new(record.class).with(
+                  :foo => a_hash_including({:no_foo => "foo"}))
+              }.to raise_error {|e|
+                  expect(e.message).to eq("no implicit conversion of Hash into String").or eq("can't convert Hash into String")
+              }
+            end
+          end
+        end
+
+        context "two attributes are composable matchers" do
+          context "both matchers present in actual" do
+            it "passes" do
+              expect(record).to be_a_new(record.class).with(
+                :foo => a_string_matching("foo"),
+                :bar => a_string_matching("bar")
+              )
+            end
+          end
+
+          context "only one matcher present in actual" do
+            it "fails" do
+              expect {
+                expect(record).to be_a_new(record.class).with(
+                  :foo => a_string_matching("foo"),
+                  :bar => a_string_matching("barn")
+                )
+              }.to raise_error {|e|
+                expect(e.message).to match(/attributes \{.*\} were not set on #{Regexp.escape record.inspect}/)
+                expect(e.message).to match(/@expected="foo"/)
+                expect(e.message).to match(/@expected="barn"/)
+              }
+            end
+          end
+        end
+      end
+
       context "no attributes same" do
         it "fails" do
           expect {
