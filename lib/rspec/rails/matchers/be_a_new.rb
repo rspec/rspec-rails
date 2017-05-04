@@ -49,13 +49,13 @@ module RSpec
 
         def attributes_match?(actual)
           attributes.stringify_keys.all? do |key, value|
-            actual.attributes[key].eql?(value) || (value.respond_to?(:expected, true) && actual.attributes[key].include?(value.expected))
+            values_match?(value, actual.attributes[key])
           end
         end
 
         def unmatched_attributes
           attributes.stringify_keys.reject do |key, value|
-            actual.attributes[key].eql?(value)
+            values_match?(value, actual.attributes[key])
           end
         end
       end

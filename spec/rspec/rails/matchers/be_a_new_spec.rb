@@ -69,7 +69,7 @@ describe "be_a_new matcher" do
         context "one attribute is a composable matcher" do
           it "passes" do
             expect(record).to be_a_new(record.class).with(
-              :foo => a_string_matching("foo"))
+              :foo => a_string_including("foo"))
           end
 
           it "fails" do
@@ -111,8 +111,7 @@ describe "be_a_new matcher" do
                   :bar => a_string_matching("barn")
                 )
               }.to raise_error {|e|
-                expect(e.message).to match(/attributes \{.*\} were not set on #{Regexp.escape record.inspect}/)
-                expect(e.message).to match(/@expected="foo"/)
+                expect(e.message).to match(/attribute \{.*\} was not set on #{Regexp.escape record.inspect}/)
                 expect(e.message).to match(/@expected="barn"/)
               }
             end
