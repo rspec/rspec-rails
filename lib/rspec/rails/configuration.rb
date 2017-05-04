@@ -50,6 +50,25 @@ module RSpec
       config.include RSpec::Rails::Matchers
     end
 
+    # rubocop:disable HandleExceptions
+    # Tries to load and include rails-controller-testing
+    #
+    # @api private
+    def self.add_rails_controller_testing(config)
+      require 'rails/controller/testing/test_process'
+      require 'rails/controller/testing/template_assertions'
+      require 'rails/controller/testing/integration'
+
+      [:controller, :view, :request].each do |type|
+        config.include ::Rails::Controller::Testing::TestProcess, :type => type
+        config.include ::Rails::Controller::Testing::TemplateAssertions, :type => type
+        config.include ::Rails::Controller::Testing::Integration, :type => type
+      end
+    rescue LoadError
+      # rails-controller-testing is not included
+    end
+    # rubocop:enable HandleExceptions
+
     # @private
     # rubocop:disable Style/MethodLength
     def self.initialize_configuration(config)
@@ -118,14 +137,7 @@ module RSpec
       end
 
       add_test_type_configurations(config)
-
-      if defined?(::Rails::Controller::Testing)
-        [:controller, :view, :request].each do |type|
-          config.include ::Rails::Controller::Testing::TestProcess, :type => type
-          config.include ::Rails::Controller::Testing::TemplateAssertions, :type => type
-          config.include ::Rails::Controller::Testing::Integration, :type => type
-        end
-      end
+      add_rails_controller_testing(config)
 
       if defined?(ActionMailer)
         config.include RSpec::Rails::MailerExampleGroup, :type => :mailer
