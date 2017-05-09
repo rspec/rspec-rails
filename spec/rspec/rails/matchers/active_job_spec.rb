@@ -38,6 +38,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
   let(:heavy_lifting_job) do
     Class.new(ActiveJob::Base) do
       def perform; end
+      def self.name; "HeavyLiftingJob"; end
     end
   end
 
@@ -45,12 +46,14 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
     Class.new(ActiveJob::Base) do
       def perform(*)
       end
+      def self.name; "HelloJob"; end
     end
   end
 
   let(:logging_job) do
     Class.new(ActiveJob::Base) do
       def perform; end
+      def self.name; "LoggingJob"; end
     end
   end
 
@@ -217,7 +220,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       date = Date.tomorrow.noon
       message = "expected to enqueue exactly 2 jobs, with [42], on queue low, at #{date}, but enqueued 0" + \
                 "\nQueued jobs:" + \
-                "\n  Class job with [1], on queue default"
+                "\n  HelloJob job with [1], on queue default"
 
       expect {
         expect {
