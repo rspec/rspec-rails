@@ -129,7 +129,7 @@ module RSpec
             msg_parts << "on queue #{job[:queue]}" if job[:queue]
             msg_parts << "at #{Time.at(job[:at])}" if job[:at]
 
-            "#{job[:job].class.name} job".tap do |msg|
+            "#{job[:job].name} job".tap do |msg|
               msg << " #{msg_parts.join(', ')}" if msg_parts.any?
             end
           end
