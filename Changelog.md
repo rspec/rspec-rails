@@ -1,3 +1,8 @@
+### Development
+
+Bug Fixes:
+* Correctly generate job name in error message. (Wojciech Wnętrzak, #1814)
+
 ### 3.6.0 / 2017-05-04
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.6.0.beta2...v3.6.0)
 
