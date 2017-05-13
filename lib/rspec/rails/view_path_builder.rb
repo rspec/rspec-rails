@@ -18,7 +18,7 @@ module RSpec
       # @example
       #     # path cannot be built because the params are missing a required element (:id)
       #     view_path_builder.path_for({ :controller => 'posts', :action => 'delete' })
-      #     # => nil
+      #     # => ActionController::UrlGenerationError: No route matches {:action=>"delete", :controller=>"posts"}
       def path_for(path_params)
         url_for(path_params.merge(:only_path => true))
       rescue => e
