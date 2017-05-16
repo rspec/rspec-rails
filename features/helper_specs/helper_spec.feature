@@ -9,7 +9,7 @@ Feature: helper spec
   your app.
 
   To access the helper methods you're specifying, simply call them directly
-  on the `helper` object.
+  on the `helper` object, or call them directly within the example
 
   NOTE: helper methods defined in controllers are not included.
 
@@ -119,4 +119,97 @@ Feature: helper spec
       end
       """
     When I run `rspec spec/helpers/widgets_helper_spec.rb`
+    Then the examples should all pass
+
+  Scenario: helper methods are accessible from within example
+    Given a file named "spec/helpers/user_helper_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe UserHelper, :type => :helper do
+        describe "#email" do
+          it "gives current user email" do
+            expect(email).to eq "jon.snow@example.com"
+          end
+        end
+      end
+      """
+    And a file named "app/helpers/user_helper.rb" with:
+      """ruby
+      module UserHelper
+        def email
+          "jon.snow@example.com"
+        end
+      end
+      """
+    When I run `rspec spec/helpers/user_helper_spec.rb`
+    Then the examples should all pass
+
+  Scenario: methods defined in example are visible within example
+    Given a file named "spec/helpers/user_helper_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe UserHelper, :type => :helper do
+        describe "#email" do
+          context "when user is logged in" do
+            let(:current_user) { double("user", {:email => "jon.snow@example.com"}) }
+
+            it "gives current user email" do
+              expect(email).to eq "jon.snow@example.com"
+            end
+          end
+
+          context "when user isn't logged in" do
+            def current_user; end
+
+            it "gives n/a" do
+              expect(email).to eq "n/a"
+            end
+          end
+
+          context "when current_user isn't defined" do
+            it "throws an exception" do
+              expect { email }.to raise_error NameError
+            end
+          end
+        end
+      end
+      """
+    And a file named "app/helpers/user_helper.rb" with:
+      """ruby
+      module UserHelper
+        def email
+          current_user.nil? ? 'n/a' : current_user.email
+        end
+      end
+      """
+    When I run `rspec spec/helpers/user_helper_spec.rb`
+    Then the examples should all pass
+
+  Scenario: methods defined in example are not visible in helper
+    Given a file named "spec/helpers/user_helper_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe UserHelper, :type => :helper do
+        describe "#email" do
+          context "when current_user is defined" do
+            let(:current_user) { double("user", {:email => "jon.snow@example.com"}) }
+            it "throws an exception" do
+              expect { helper.email }.to raise_error NameError, /undefined local variable or method `current_user'/
+            end
+          end
+        end
+      end
+      """
+    And a file named "app/helpers/user_helper.rb" with:
+      """ruby
+      module UserHelper
+        def email
+          current_user.email
+        end
+      end
+      """
+    When I run `rspec spec/helpers/user_helper_spec.rb`
     Then the examples should all pass
