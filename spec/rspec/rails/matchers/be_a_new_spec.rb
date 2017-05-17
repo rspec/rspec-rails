@@ -76,11 +76,9 @@ describe "be_a_new matcher" do
             expect {
               expect(record).to be_a_new(record.class).with(
                 :foo => a_string_matching("bar"))
-            }.to raise_error{|e|
-              expect(e.message).to match(/attribute \{.*\} was not set on #{Regexp.escape record.inspect}/)
-              expect(e.message).to match(/@expected="bar"/)
-            }
+            }.to raise_error("attribute {\"foo\"=>(a string matching \"bar\")} was not set on #{record.inspect}")
           end
+
           context "matcher is wrong type" do
             it "fails" do
               expect {
@@ -110,10 +108,7 @@ describe "be_a_new matcher" do
                   :foo => a_string_matching("foo"),
                   :bar => a_string_matching("barn")
                 )
-              }.to raise_error {|e|
-                expect(e.message).to match(/attribute \{.*\} was not set on #{Regexp.escape record.inspect}/)
-                expect(e.message).to match(/@expected="barn"/)
-              }
+              }.to raise_error("attribute {\"bar\"=>(a string matching \"barn\")} was not set on #{record.inspect}")
             end
           end
         end

@@ -32,10 +32,11 @@ module RSpec
               message << "expected #{actual.inspect} to be a new #{expected.inspect}"
             end
             unless attributes_match?(actual)
+              describe_unmatched_attributes = surface_descriptions_in(unmatched_attributes)
               if unmatched_attributes.size > 1
-                message << "attributes #{unmatched_attributes.inspect} were not set on #{actual.inspect}"
+                message << "attributes #{describe_unmatched_attributes.inspect} were not set on #{actual.inspect}"
               else
-                message << "attribute #{unmatched_attributes.inspect} was not set on #{actual.inspect}"
+                message << "attribute #{describe_unmatched_attributes.inspect} was not set on #{actual.inspect}"
               end
             end
           end.join(' and ')
