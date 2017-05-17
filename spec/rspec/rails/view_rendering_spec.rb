@@ -166,5 +166,27 @@ module RSpec::Rails
         eq paths.map { |path| File.expand_path path }
       end
     end
+
+    context "when a view is rendered in an example group that doesn't include ViewRendering" do
+      let(:view) do
+        ActionView::Base.new
+      end
+
+      before do
+        # We need to set ActiveSupport::LogSubscriber.logger here so that events will be properly logged.
+        # https://github.com/rails/rails/blob/v5.1.1/activesupport/lib/active_support/log_subscriber.rb#L83
+        logger = double('ActiveSupport::LogSubscriber.logger').as_null_object
+        allow(ActiveSupport::LogSubscriber).to receive(:logger).and_return(logger)
+      end
+
+      def logger
+        ActiveSupport::LogSubscriber.logger
+      end
+
+      pending 'does not cause an error' do
+        expect(logger).not_to receive(:error).with(a_string_starting_with('Could not log "render_template.action_view" event.'))
+        view.render(body: 'foo')
+      end
+    end
   end
 end
