@@ -2,7 +2,7 @@ module RSpec
   module Rails
     # @private
     module FixtureSupport
-      if defined?(ActiveRecord::TestFixtures)
+      if defined?(ActiveRecord::TestFixtures) && ActiveRecord::Base.configurations.present?
         extend ActiveSupport::Concern
         include RSpec::Rails::SetupAndTeardownAdapter
         include RSpec::Rails::MinitestLifecycleAdapter if ::ActiveRecord::VERSION::STRING > '4'
