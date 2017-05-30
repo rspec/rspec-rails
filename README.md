@@ -104,6 +104,10 @@ details.
 **NOTE:** Generators run in RSpec 3.x will now require `rails_helper` instead
 of `spec_helper`.
 
+#### `rails_helper` vs `spec_helper`
+`spec_helper.rb` is for configuration and extensions you use in every spec, however it does not load Rails. The generated `.rspec` file requires `spec_helper` by default.
+`rails_helper.rb` is for specs which do depend on Rails (in a Rails project, most or all of them). You should explicitly require `rails_helper` at the top of specs that require Rails, or you may adjust your `.rspec` file to require `rails_helper` by default.
+
 ### Generators
 
 Once installed, RSpec will generate spec files instead of Test::Unit test files
