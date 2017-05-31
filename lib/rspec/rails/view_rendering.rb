@@ -77,8 +77,6 @@ module RSpec
           end
         end
 
-        LogSubscriber.attach_to(:action_view)
-
         # Delegates all methods to the submitted resolver and for all methods
         # that return a collection of `ActionView::Template` instances, return
         # templates with modified source
@@ -150,6 +148,9 @@ module RSpec
       end
 
       included do
+        # Make sure to log when template rendering was prevented by rspec-rails
+        EmptyTemplateResolver::LogSubscriber.attach_to(:action_view)
+
         before do
           unless render_views?
             @_original_path_set = controller.class.view_paths
