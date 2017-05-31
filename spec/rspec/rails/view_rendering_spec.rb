@@ -183,7 +183,7 @@ module RSpec::Rails
         ActiveSupport::LogSubscriber.logger
       end
 
-      pending 'does not cause an error' do
+      it 'does not cause an error' do
         expect(logger).not_to receive(:error).with(a_string_starting_with('Could not log "render_template.action_view" event.'))
         view.render(body: 'foo')
       end

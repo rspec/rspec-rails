@@ -64,12 +64,16 @@ module RSpec
         # @private
         class LogSubscriber < ::ActiveSupport::LogSubscriber
           def current_example_group
-            RSpec.current_example.example_group
+            # When running feature specs current_example can be nil if the subscriber runs in a different context
+            # than the specs themselves. E.g. in a capybara thread.
+            RSpec.current_example.try!(:example_group)
           end
 
           def render_template(_event)
-            return if current_example_group.render_views?
-            info("  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.")
+            example_group = current_example_group
+            if example_group.respond_to?(:render_views?) && !example_group.render_views?
+              info("  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.")
+            end
           end
         end
 
