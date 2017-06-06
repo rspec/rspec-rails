@@ -15,3 +15,5 @@ require 'rspec/rails/vendor/capybara'
 require 'rspec/rails/configuration'
 require 'rspec/rails/active_record'
 require 'rspec/rails/feature_check'
+
+ActiveSupport.run_load_hooks :rspec_rails, RSpec::Rails
