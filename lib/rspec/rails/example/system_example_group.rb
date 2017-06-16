@@ -56,10 +56,6 @@ if ActionPack::VERSION::STRING >= "5.1"
           after do
             original_after_teardown.bind(self).call
           end
-
-          around do |ex|
-            ex.run
-          end
         end
       end
     end
