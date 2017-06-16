@@ -5,30 +5,47 @@ if ActionPack::VERSION::STRING >= "5.1"
       # @api public
       # Container class for request spec functionality.
       module SystemExampleGroup
-        # In rails system test inherits from integration test.
-        # RequestExampleGroup wraps that, so we just include it here
-        include RSpec::Rails::RequestExampleGroup
+        extend ActiveSupport::Concern
+        include RSpec::Rails::RailsExampleGroup
+        include ActionDispatch::Integration::Runner
+        include ActionDispatch::Assertions
+        include RSpec::Rails::Matchers::RedirectTo
+        include RSpec::Rails::Matchers::RenderTemplate
+        include ActionController::TemplateAssertions
 
-        original_after_teardown = ::ActionDispatch::SystemTesting::TestHelpers::SetupAndTeardown.instance_method(:after_teardown)
+        include ActionDispatch::IntegrationTest::Behavior
 
-        module SystemTestHooks
-          include ::ActionDispatch::SystemTesting::TestHelpers::SetupAndTeardown
-          include ::ActionDispatch::SystemTesting::TestHelpers::ScreenshotHelper
-          # for the SystemTesting Screenshot situation
-          def passed?
-            RSpec.current_example.exception.nil?
-          end
-
+        module BlowAwayAfterTeardownHook
           def after_teardown
           end
         end
-        include SystemTestHooks
+
+        original_after_teardown = ::ActionDispatch::SystemTesting::TestHelpers::SetupAndTeardown.instance_method(:after_teardown)
+
+        include ::ActionDispatch::SystemTesting::TestHelpers::SetupAndTeardown
+        include ::ActionDispatch::SystemTesting::TestHelpers::ScreenshotHelper
+        include BlowAwayAfterTeardownHook
+
+        # for the SystemTesting Screenshot situation
+        def passed?
+          RSpec.current_example.exception.nil?
+        end
+
+
+        # Delegates to `Rails.application`.
+        def app
+          ::Rails.application
+        end
 
         included do
-          attr_reader :driver
-
           def driven_by(*args, &blk)
-            @driver = ::ActionDispatch::SystemTestCase.driven_by(*args, &blk).tap(&:use)
+            @driver = ::ActionDispatch::SystemTestCase.driven_by(*args, &blk).tap { |d|
+              d.use
+            }
+          end
+
+          def driver
+            @driver
           end
 
           before do
@@ -38,6 +55,10 @@ if ActionPack::VERSION::STRING >= "5.1"
 
           after do
             original_after_teardown.bind(self).call
+          end
+
+          around do |ex|
+            ex.run
           end
         end
       end
