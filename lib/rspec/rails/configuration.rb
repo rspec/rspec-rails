@@ -33,7 +33,8 @@ module RSpec
       :request    => %w[spec (requests|integration|api)],
       :routing    => %w[spec routing],
       :view       => %w[spec views],
-      :feature    => %w[spec features]
+      :feature    => %w[spec features],
+      :system     => %w[spec system]
     }
 
     # Sets up the different example group modules for the different spec types
