@@ -31,21 +31,15 @@ if ActionPack::VERSION::STRING >= "5.1"
           RSpec.current_example.exception.nil?
         end
 
-
         # Delegates to `Rails.application`.
         def app
           ::Rails.application
         end
 
         included do
+          attr_reader :driver
           def driven_by(*args, &blk)
-            @driver = ::ActionDispatch::SystemTestCase.driven_by(*args, &blk).tap { |d|
-              d.use
-            }
-          end
-
-          def driver
-            @driver
+            @driver = ::ActionDispatch::SystemTestCase.driven_by(*args, &blk).tap(&:use)
           end
 
           before do
