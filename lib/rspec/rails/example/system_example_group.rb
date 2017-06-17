@@ -3,7 +3,7 @@ if ActionPack::VERSION::STRING >= "5.1"
   module RSpec
     module Rails
       # @api public
-      # Container class for request spec functionality.
+      # Container class for system tests
       module SystemExampleGroup
         extend ActiveSupport::Concern
         include RSpec::Rails::RailsExampleGroup
@@ -15,7 +15,9 @@ if ActionPack::VERSION::STRING >= "5.1"
 
         include ActionDispatch::IntegrationTest::Behavior
 
+        # @private
         module BlowAwayAfterTeardownHook
+          # @private
           def after_teardown
           end
         end
