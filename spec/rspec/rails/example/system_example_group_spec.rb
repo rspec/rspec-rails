@@ -1,10 +1,8 @@
 require "spec_helper"
 
-module RSpec::Rails
-  if defined?(SystemExampleGroup)
-    describe SystemExampleGroup do
-      it_behaves_like "an rspec-rails example group mixin", :system,
-        './spec/system/', '.\\spec\\system\\'
-    end
+if defined?(RSpec::Rails::SystemExampleGroup)
+  RSpec.describe RSpec::Rails::SystemExampleGroup do
+    it_behaves_like "an rspec-rails example group mixin", :system,
+      './spec/system/', '.\\spec\\system\\'
   end
 end
