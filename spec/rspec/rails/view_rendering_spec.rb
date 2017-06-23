@@ -71,8 +71,8 @@ module RSpec::Rails
 
         it "logs a message that rendering was prevented" do
           subscriber = RSpec::Rails::ViewRendering::EmptyTemplateResolver::LogSubscriber.new
-          allow(subscriber).to receive(:current_example_group).and_return group
-          expect(subscriber).to receive(:info).with /render_views/
+          allow(subscriber).to receive(:prevent_view_rendering?).and_return(true)
+          expect(subscriber).to receive(:info).with(/render_views/)
           group.render_views false
           subscriber.render_template(nil)
         end
