@@ -33,6 +33,13 @@ if ActionPack::VERSION::STRING >= "5.1"
           RSpec.current_example.exception.nil?
         end
 
+        def method_name
+          [
+            self.class.name.underscore,
+            RSpec.current_example.description.underscore
+          ].join("_").gsub(%r{[/\.:, ]}, "_")
+        end
+
         # Delegates to `Rails.application`.
         def app
           ::Rails.application
