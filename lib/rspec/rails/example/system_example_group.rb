@@ -40,12 +40,20 @@ if ActionPack::VERSION::STRING >= "5.1"
 
         included do
           attr_reader :driver
+
+          def initialize(*args, &blk)
+            super(*args, &blk)
+            @driver = nil
+          end
+
           def driven_by(*args, &blk)
             @driver = ::ActionDispatch::SystemTestCase.driven_by(*args, &blk).tap(&:use)
           end
 
           before do
-            driven_by(:selenium)
+            # A user may have already set the driver, so only default if driver
+            # is not set
+            driven_by(:selenium) unless @driver
             @routes = ::Rails.application.routes
           end
 
