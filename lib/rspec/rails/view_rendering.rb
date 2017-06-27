@@ -61,23 +61,6 @@ module RSpec
           end
         end
 
-        # @private
-        class LogSubscriber < ::ActiveSupport::LogSubscriber
-          def prevent_view_rendering?
-            RSpec.current_example &&
-              RSpec.current_example.example_group &&
-              RSpec.current_example.example_group.respond_to?(:render_views?) &&
-              !RSpec.current_example.example_group.render_views?
-          end
-
-          def render_template(_event)
-            return unless prevent_view_rendering?
-            info("  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.")
-          end
-        end
-
-        LogSubscriber.attach_to(:action_view)
-
         # Delegates all methods to the submitted resolver and for all methods
         # that return a collection of `ActionView::Template` instances, return
         # templates with modified source
@@ -120,6 +103,8 @@ module RSpec
       # @private
       class EmptyTemplateHandler
         def self.call(_template)
+          ::Rails.logger.info("  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.")
+
           %("")
         end
       end
