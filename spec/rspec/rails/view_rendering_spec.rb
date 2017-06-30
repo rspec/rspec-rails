@@ -47,14 +47,6 @@ module RSpec::Rails
           group.render_views true
           expect(group.new.render_views?).to be_truthy
         end
-
-        it "does not log a message that rendering was prevented" do
-          subscriber = RSpec::Rails::ViewRendering::EmptyTemplateResolver::LogSubscriber.new
-          allow(subscriber).to receive(:current_example_group).and_return group
-          expect(subscriber).to_not receive(:info)
-          group.render_views true
-          subscriber.render_template(nil)
-        end
       end
 
       context "with false" do
@@ -67,14 +59,6 @@ module RSpec::Rails
           allow(RSpec.configuration).to receive(:render_views?).and_return true
           group.render_views false
           expect(group.new.render_views?).to be_falsey
-        end
-
-        it "logs a message that rendering was prevented" do
-          subscriber = RSpec::Rails::ViewRendering::EmptyTemplateResolver::LogSubscriber.new
-          allow(subscriber).to receive(:current_example_group).and_return group
-          expect(subscriber).to receive(:info).with /render_views/
-          group.render_views false
-          subscriber.render_template(nil)
         end
       end
 
