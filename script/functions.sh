@@ -1,4 +1,4 @@
-# This file was generated on 2016-11-18T14:23:13+11:00 from the rspec-dev repo.
+# This file was generated on 2017-06-05T21:37:03+10:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -14,7 +14,7 @@ MAINTENANCE_BRANCH=`cat maintenance-branch`
 # Don't allow rubygems to pollute what's loaded. Also, things boot faster
 # without the extra load time of rubygems. Only works on MRI Ruby 1.9+
 if is_mri_192_plus; then
-  export RUBYOPT="--disable=gem"
+  export RUBYOPT="${RUBYOPT} --disable=gem"
 fi
 
 function clone_repo {
