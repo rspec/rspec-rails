@@ -2,6 +2,8 @@
 
 Bug Fixes:
 
+* Prevent "template not rendered" log message from erroring in threaded
+  environments. (Samuel Cochran, #1831)
 * Correctly generate job name in error message. (Wojciech Wnętrzak, #1814)
 
 Enhancements:
