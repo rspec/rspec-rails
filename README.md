@@ -160,57 +160,12 @@ end
 For more information, see [cucumber scenarios for model
 specs](https://www.relishapp.com/rspec/rspec-rails/docs/model-specs).
 
-## Controller Specs
-
-Use controller specs to describe behavior of Rails controllers.
-
-Controller specs default to residing in the `spec/controllers` folder. Tagging
-any context with the metadata `:type => :controller` treats its examples as
-controller specs.
-
-For example:
-
-```ruby
-require "rails_helper"
-
-RSpec.describe PostsController, :type => :controller do
-  describe "GET #index" do
-    it "responds successfully with an HTTP 200 status code" do
-      get :index
-      expect(response).to be_success
-      expect(response).to have_http_status(200)
-    end
-
-    it "renders the index template" do
-      get :index
-      expect(response).to render_template("index")
-    end
-
-    it "loads all of the posts into @posts" do
-      post1, post2 = Post.create!, Post.create!
-      get :index
-
-      expect(assigns(:posts)).to match_array([post1, post2])
-    end
-  end
-end
-```
-
-For more information, see [cucumber scenarios for controller
-specs](https://www.relishapp.com/rspec/rspec-rails/docs/controller-specs).
-
-**Note:** To encourage more isolated testing, views are not rendered by default
-in controller specs. If you are verifying discrete view logic, use a [view
-spec](#view-specs). If you are verifying the behaviour of a controller and view
-together, consider a [request spec](#request-specs). You can use
-[render\_views](https://www.relishapp.com/rspec/rspec-rails/docs/controller-specs/render-views)
-if you must verify the rendered view contents within a controller spec, but
-this is not recommended.
-
 ## Request Specs
 
-Use request specs to specify one or more request/response cycles from end to
-end using a black box approach.
+Use request specs to describe the client-facing behavior of the application —
+specifically, the HTTP response to be issued for a given request (a.k.a.
+integration tests). Since such client-facing behavior encompasses controller
+actions, this is the type of spec to be used for controller testing.
 
 Request specs default to residing in the `spec/requests`, `spec/api`, and
 `spec/integration` directories. Tagging any context with the metadata `:type =>
@@ -276,6 +231,19 @@ a DSL for request specs (a.k.a. acceptance or integration specs), but
 FactoryGirl and Capybara seem to be the most widely used. Whether you choose
 these or other libs, we strongly recommend using something for each of these
 roles.
+
+For more information, see [cucumber scenarios for request
+specs](https://relishapp.com/rspec/rspec-rails/docs/request-specs/request-spec).
+
+## Controller Specs
+
+Controller specs can be used to describe the behavior of Rails controllers. As
+of version 3.5, however, controller specs are discouraged in favor of request
+specs (which also focus largely on controllers, but capture other critical
+aspects of application behavior as well). Controller specs will continue to be
+supported until at least version 4.0.
+
+See the [release notes](http://rspec.info/blog/2016/07/rspec-3-5-has-been-released/#rails-support-for-rails-5) for details.
 
 ## Feature Specs
 
