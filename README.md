@@ -165,7 +165,7 @@ specs](https://www.relishapp.com/rspec/rspec-rails/docs/model-specs).
 Use request specs to describe the client-facing behavior of the application —
 specifically, the HTTP response to be issued for a given request (a.k.a.
 integration tests). Since such client-facing behavior encompasses controller
-actions, this is the type of spec to be used for controller testing.
+actions, this is the type of spec to use for controller testing.
 
 Request specs default to residing in the `spec/requests`, `spec/api`, and
 `spec/integration` directories. Tagging any context with the metadata `:type =>
