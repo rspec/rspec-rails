@@ -33,10 +33,12 @@ if ActionPack::VERSION::STRING >= "5.1"
           RSpec.current_example.exception.nil?
         end
 
+        # @private
         def method_name
           [
             self.class.name.underscore,
-            RSpec.current_example.description.underscore
+            RSpec.current_example.description.underscore,
+            rand(1000)
           ].join("_").gsub(%r{[/\.:, ]}, "_")
         end
 
