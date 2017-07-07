@@ -67,7 +67,15 @@ if ActionPack::VERSION::STRING >= "5.1"
           end
 
           after do
-            original_after_teardown.bind(self).call
+            orig_stdout = $stdout
+            $stdout = StringIO.new
+            begin
+              original_after_teardown.bind(self).call
+            ensure
+              myio = $stdout
+              RSpec.current_example.metadata[:extra_failure_lines] = myio.string
+              $stdout = orig_stdout
+            end
           end
         end
       end
