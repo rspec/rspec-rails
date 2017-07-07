@@ -241,9 +241,12 @@ Controller specs can be used to describe the behavior of Rails controllers. As
 of version 3.5, however, controller specs are discouraged in favor of request
 specs (which also focus largely on controllers, but capture other critical
 aspects of application behavior as well). Controller specs will continue to be
-supported until at least version 4.0.
+supported until at least version 4.0 (see the [release
+notes](http://rspec.info/blog/2016/07/rspec-3-5-has-been-released/#rails-support-for-rails-5)
+for details).
 
-See the [release notes](http://rspec.info/blog/2016/07/rspec-3-5-has-been-released/#rails-support-for-rails-5) for details.
+For more information, see [cucumber scenarios for controller
+specs](https://www.relishapp.com/rspec/rspec-rails/docs/controller-specs).
 
 ## Feature Specs
 
