@@ -17,7 +17,16 @@ module RSpec
         # @param target [Object] expected http status or code
         # @return response matcher instance
         def self.matcher_for_status(target)
-          if GenericStatus.valid_statuses.include?(target)
+          if GenericStatus.allowed_statuses.include?(target)
+            deprecated = GenericStatus.deprecated_statuses
+            if deprecated.keys.include?(target)
+              RSpec.deprecate(
+                target,
+                replacement: "the Rack::Response::Helpers predicates as "\
+                             "symbols (#{target} => #{deprecated[target]})",
+              )
+            end
+
             GenericStatus.new(target)
           elsif Symbol === target
             SymbolicStatus.new(target)
@@ -229,10 +238,10 @@ module RSpec
         # Not intended to be instantiated directly.
         #
         # @example
-        #   expect(response).to have_http_status(:success)
-        #   expect(response).to have_http_status(:error)
-        #   expect(response).to have_http_status(:missing)
-        #   expect(response).to have_http_status(:redirect)
+        #   expect(response).to have_http_status(:successful)
+        #   expect(response).to have_http_status(:server_error)
+        #   expect(response).to have_http_status(:not_found)
+        #   expect(response).to have_http_status(:redirection)
         #
         # @see RSpec::Rails::Matchers.have_http_status
         # @see ActionDispatch::TestResponse
@@ -243,11 +252,20 @@ module RSpec
           #   code "group"
           # @see https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/testing/test_response.rb `ActionDispatch::TestResponse`
           def self.valid_statuses
-            [:error, :success, :missing, :redirect]
+            [:invalid, :informational, :successful, :redirection, :client_error,
+             :server_error, :redirect]
+          end
+
+          def self.deprecated_statuses # :nodoc:
+            { :error => :server_error, :success => :successful, :missing => :not_found }
+          end
+
+          def self.allowed_statuses # :nodoc:
+            valid_statuses + deprecated_statuses.keys
           end
 
           def initialize(type)
-            unless self.class.valid_statuses.include?(type)
+            unless self.class.allowed_statuses.include?(type)
               raise ArgumentError, "Invalid generic HTTP status: #{type.inspect}"
             end
             @expected = type
@@ -287,8 +305,7 @@ module RSpec
 
           # @return [String] formating the expected status and associated code(s)
           def type_message
-            @type_message ||= (expected == :error ? "an error" : "a #{expected}") +
-              " status code (#{type_codes})"
+            @type_message ||= "a #{expected} status code (#{type_codes})"
           end
 
           # @return [String] formatting the associated code(s) for the various
@@ -299,10 +316,10 @@ module RSpec
             # At the time of this commit the most recent version of
             # `ActionDispatch::TestResponse` defines the following aliases:
             #
-            #     alias_method :success?,  :successful?
-            #     alias_method :missing?,  :not_found?
-            #     alias_method :redirect?, :redirection?
-            #     alias_method :error?,    :server_error?
+            #     alias_method :success?,  :successful? (deprecated)
+            #     alias_method :missing?,  :not_found? (deprecated)
+            #     alias_method :redirect?, :redirection? (removed)
+            #     alias_method :error?,    :server_error? (deprecated)
             #
             # It's parent `ActionDispatch::Response` includes
             # `Rack::Response::Helpers` which defines the aliased methods as:
@@ -316,13 +333,15 @@ module RSpec
             # @see https://github.com/rails/rails/blob/ca200378/actionpack/lib/action_dispatch/http/response.rb#L74
             # @see https://github.com/rack/rack/blob/ce4a3959/lib/rack/response.rb#L119-L122
             @type_codes ||= case expected
-                            when :error
+                            when :error, :server_error
                               "5xx"
-                            when :success
+                            when :success, :successful
                               "2xx"
-                            when :missing
+                            when :missing, :not_found
                               "404"
                             when :redirect
+                              "301, 302, 303, 307, 308"
+                            when :redirection
                               "3xx"
                             end
           end
