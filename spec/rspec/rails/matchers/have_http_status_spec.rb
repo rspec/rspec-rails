@@ -378,7 +378,7 @@ RSpec.describe "have_http_status" do
       end
 
       it "returns false for a response with a different code" do
-        non_redirect_code = 310
+        non_redirect_code = Rails.version.to_f >= 5.0 ? 310 : 400
         response          = create_response(:status => non_redirect_code)
 
         expect( have_redirect_status.matches?(response) ).to be(false)
@@ -391,12 +391,12 @@ RSpec.describe "have_http_status" do
     end
 
     it "has a failure message reporting the expected and actual status codes" do
-      non_redirect_code = 310
+      non_redirect_code = Rails.version.to_f >= 5.0 ? 310 : 400
       response          = create_response(:status => non_redirect_code)
 
       expect{ have_redirect_status.matches? response }.
         to change(have_redirect_status, :failure_message).
-        to(/a redirect status code \(301, 302, 303, 307, 308\) but it was 310/)
+        to(/a redirect status code \(301, 302, 303, 307, 308\) but it was #{non_redirect_code}/)
     end
 
     it "has a negated failure message reporting the expected and actual status codes" do

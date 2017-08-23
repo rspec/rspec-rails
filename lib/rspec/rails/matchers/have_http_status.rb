@@ -22,8 +22,8 @@ module RSpec
             if deprecated.keys.include?(target)
               RSpec.deprecate(
                 target,
-                replacement: "the Rack::Response::Helpers predicates as "\
-                             "symbols (#{target} => #{deprecated[target]})",
+                :replacement => "the Rack::Response::Helpers predicates as "\
+                                "symbols (#{target} => #{deprecated[target]})"
               )
             end
 
