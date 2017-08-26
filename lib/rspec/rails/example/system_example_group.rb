@@ -39,7 +39,7 @@ if ActionPack::VERSION::STRING >= "5.1"
             self.class.name.underscore,
             RSpec.current_example.description.underscore,
             rand(1000)
-          ].join("_").gsub(%r{[/\.:, ]}, "_")
+          ].join("_").gsub(/[\/\.:, ]/, "_")
         end
 
         # Delegates to `Rails.application`.
