@@ -11,6 +11,7 @@ Enhancements:
 * Allow `be_a_new(...).with(...)` matcher to accept matchers for
   attribute values. (Britni Alexander, #1811)
 * Only configure RSpec Mocks if it is fully loaded. (James Adam, #1856)
+* Integrate with `ActionDispatch::SystemTestCase`. (Sam Phippen, #1813)
 
 ### 3.6.0 / 2017-05-04
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.6.0.beta2...v3.6.0)
