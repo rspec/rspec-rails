@@ -17,6 +17,9 @@ if defined?(Capybara)
   RSpec.configure do |c|
     if defined?(Capybara::DSL)
       c.include Capybara::DSL, :type => :feature
+      if defined?(ActionPack) && ActionPack::VERSION::STRING >= "5.1"
+        c.include Capybara::DSL, :type => :system
+      end
     end
 
     if defined?(Capybara::RSpecMatchers)
@@ -25,6 +28,7 @@ if defined?(Capybara)
       c.include Capybara::RSpecMatchers, :type => :mailer
       c.include Capybara::RSpecMatchers, :type => :controller
       c.include Capybara::RSpecMatchers, :type => :feature
+      c.include Capybara::RSpecMatchers, :type => :system
     end
 
     unless defined?(Capybara::RSpecMatchers) || defined?(Capybara::DSL)

@@ -33,7 +33,8 @@ module RSpec
       :request    => %w[spec (requests|integration|api)],
       :routing    => %w[spec routing],
       :view       => %w[spec views],
-      :feature    => %w[spec features]
+      :feature    => %w[spec features],
+      :system     => %w[spec system]
     }
 
     # Sets up the different example group modules for the different spec types
@@ -48,6 +49,10 @@ module RSpec
       config.include RSpec::Rails::ViewExampleGroup,       :type => :view
       config.include RSpec::Rails::FeatureExampleGroup,    :type => :feature
       config.include RSpec::Rails::Matchers
+
+      if ActionPack::VERSION::STRING >= "5.1"
+        config.include RSpec::Rails::SystemExampleGroup, :type => :system
+      end
     end
 
     # @private
