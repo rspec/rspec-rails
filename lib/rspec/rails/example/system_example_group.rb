@@ -50,7 +50,9 @@ if ActionPack::VERSION::STRING >= "5.1"
         included do
           attr_reader :driver
 
-          ActionDispatch::SystemTesting::Server.silence_puma = true
+          if ActionDispatch::SystemTesting::Server.respond_to?(:silence_puma=)
+            ActionDispatch::SystemTesting::Server.silence_puma = true
+          end
 
           def initialize(*args, &blk)
             super(*args, &blk)
