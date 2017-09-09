@@ -67,7 +67,7 @@ if RUBY_VERSION <= '1.8.7'
 end
 
 if RUBY_VERSION >= '2.0.0' && RUBY_VERSION < '2.2.0'
-  # our current rubocop version doesnt support the json version required by Ruby 2.4
+  # our current rubocop version doesn't support the json version required by Ruby 2.4
   # our rails rubocop setup only supports 2.0 and 2.1
   gem 'rubocop', "~> 0.23.0"
 end
