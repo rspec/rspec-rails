@@ -116,7 +116,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
     it "fails when negated and job is enqueued" do
       expect {
         expect { heavy_lifting_job.perform_later }.not_to have_enqueued_job
-      }.to raise_error(/expected not to enqueue exactly 1 jobs, but enqueued 1/)
+      }.to raise_error(/expected not to enqueue job, but enqueued 1/)
     end
 
     it "passes with job name" do
@@ -132,6 +132,22 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
         logging_job.perform_later
         heavy_lifting_job.perform_later
       }.to have_enqueued_job(hello_job).and have_enqueued_job(logging_job)
+    end
+
+    it "passes with multiple jobs of the same kind and different expected count when negated" do
+      expect {
+        hello_job.perform_later
+        hello_job.perform_later
+      }.not_to have_enqueued_job.once
+    end
+
+    it "fails with multiple same type jobs when negated" do
+      expect {
+        expect {
+          hello_job.perform_later
+          hello_job.perform_later
+        }.not_to have_enqueued_job
+      }.to raise_error(/expected not to enqueue job, but enqueued 2/)
     end
 
     it "passes with :once count" do

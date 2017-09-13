@@ -16,7 +16,8 @@ module RSpec
             @queue = nil
             @at = nil
             @block = Proc.new {}
-            set_expected_number(:exactly, 1)
+            @using_default_expected_number = true
+            silently_set_expected_number(:exactly, 1)
           end
 
           def with(*args, &block)
@@ -78,7 +79,7 @@ module RSpec
           end
 
           def failure_message_when_negated
-            "expected not to enqueue #{base_message}"
+            "expected not to enqueue #{base_negative_message}"
           end
 
           def message_expectation_modifier
@@ -94,6 +95,10 @@ module RSpec
           end
 
         private
+
+          def using_default_expected_number?
+            @using_default_expected_number
+          end
 
           def check(jobs)
             @matching_jobs, @unmatching_jobs = jobs.partition do |job|
@@ -115,7 +120,19 @@ module RSpec
           end
 
           def base_message
-            "#{message_expectation_modifier} #{@expected_number} jobs,".tap do |msg|
+            message_with_base_info("#{message_expectation_modifier} #{@expected_number} jobs,")
+          end
+
+          def base_negative_message
+            if @expectation_type == :exactly && @expected_number.zero?
+              message_with_base_info("job,")
+            else
+              base_message
+            end
+          end
+
+          def message_with_base_info(intro_message)
+            intro_message.dup.tap do |msg|
               msg << " with #{@args}," if @args.any?
               msg << " on queue #{@queue}," if @queue
               msg << " at #{@at}," if @at
@@ -156,6 +173,11 @@ module RSpec
           end
 
           def set_expected_number(relativity, count)
+            @using_default_expected_number = false
+            silently_set_expected_number(relativity, count)
+          end
+
+          def silently_set_expected_number(relativity, count)
             @expectation_type = relativity
             @expected_number = case count
                                when :once then 1
@@ -186,6 +208,15 @@ module RSpec
             in_block_jobs = queue_adapter.enqueued_jobs.drop(original_enqueued_jobs_count)
 
             check(in_block_jobs)
+          end
+
+          def does_not_match?(proc)
+            if using_default_expected_number?
+              silently_set_expected_number(:exactly, 0)
+              matches?(proc)
+            else
+              !matches?(proc)
+            end
           end
         end
 
