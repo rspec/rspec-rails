@@ -35,7 +35,7 @@ if ActionPack::VERSION::STRING >= "5.1"
 
         # @private
         def method_name
-          [
+          @method_name ||= [
             self.class.name.underscore,
             RSpec.current_example.description.underscore,
             rand(1000)
