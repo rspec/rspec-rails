@@ -5,7 +5,7 @@ RSpec.describe "Verify required rspec dependencies" do
 
   tmp_root = Pathname.new(RSpec::Core::RubyProject.root).join("tmp")
 
-  before{ FileUtils.mkdir_p tmp_root }
+  before { FileUtils.mkdir_p tmp_root }
 
   it "fails when libraries are not required" do
     script = tmp_root.join("fail_sanity_check")

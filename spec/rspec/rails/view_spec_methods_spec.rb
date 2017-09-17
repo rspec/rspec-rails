@@ -21,9 +21,9 @@ module RSpec::Rails
           it "raises an error when a user tries to mutate it" do
             ViewSpecMethods.add_to(VCSampleClass)
 
-            expect {
+            expect do
               VCSampleClass.new.extra_params[:id] = 4
-            }.to raise_error(/can't modify frozen/)
+            end.to raise_error(/can't modify frozen/)
           end
         end
       end
@@ -62,9 +62,9 @@ module RSpec::Rails
 
       describe "when accessors are not defined" do
         it "does nothing" do
-          expect {
+          expect do
             ViewSpecMethods.remove_from(VCSampleClass)
-          }.to_not change { VCSampleClass.instance_methods }
+          end.to_not change { VCSampleClass.instance_methods }
         end
       end
     end

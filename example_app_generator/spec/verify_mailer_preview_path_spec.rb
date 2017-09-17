@@ -34,9 +34,9 @@ RSpec.describe 'Action Mailer railtie hook' do
     have_attributes(:io => be_blank, :exit_status => 0)
   end
 
-  let(:exec_script) {
+  let(:exec_script) do
     File.expand_path(File.join(__FILE__, '../support/default_preview_path'))
-  }
+  end
 
   if RSpec::Rails::FeatureCheck.has_action_mailer_show_preview?
     context 'in the development environment' do

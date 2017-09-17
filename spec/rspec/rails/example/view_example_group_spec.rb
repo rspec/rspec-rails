@@ -3,7 +3,7 @@ require "spec_helper"
 module RSpec::Rails
   describe ViewExampleGroup do
     it_behaves_like "an rspec-rails example group mixin", :view,
-      './spec/views/', '.\\spec\\views\\'
+                    './spec/views/', '.\\spec\\views\\'
 
     describe 'automatic inclusion of helpers' do
       module ::ThingsHelper; end
@@ -27,25 +27,25 @@ module RSpec::Rails
 
       it 'operates normally when no helper with the same name exists' do
         raise 'unexpected constant found' if Object.const_defined?('ClocksHelper')
-        expect {
+        expect do
           RSpec::Core::ExampleGroup.describe 'clocks/show.html.erb' do
             include ViewExampleGroup
           end
-        }.not_to raise_error
+        end.not_to raise_error
       end
 
       it 'operates normally when the view has no path and there is a Helper class defined' do
         class ::Helper; end
-        expect {
+        expect do
           RSpec::Core::ExampleGroup.describe 'show.html.erb' do
             include ViewExampleGroup
           end
-        }.not_to raise_error
+        end.not_to raise_error
       end
 
       context 'application helper exists' do
         before do
-          if !Object.const_defined? 'ApplicationHelper'
+          unless Object.const_defined? 'ApplicationHelper'
             module ::ApplicationHelper; end
             @application_helper_defined = true
           end
@@ -81,11 +81,11 @@ module RSpec::Rails
         end
 
         it 'operates normally' do
-          expect {
+          expect do
             RSpec::Core::ExampleGroup.describe 'foos/edit.html.erb' do
               include ViewExampleGroup
             end
-          }.not_to raise_error
+          end.not_to raise_error
         end
       end
     end
@@ -118,9 +118,11 @@ module RSpec::Rails
             def received
               @received ||= []
             end
-            def render(options={}, local_assigns={}, &block)
+
+            def render(options = {}, local_assigns = {}, &block)
               received << [options, local_assigns, block]
             end
+
             def _assigns
               {}
             end
@@ -134,7 +136,7 @@ module RSpec::Rails
         it "sends render(:template => (described file)) to the view" do
           allow(view_spec).to receive(:_default_file_to_render) { "widgets/new" }
           view_spec.render
-          expect(view_spec.received.first).to eq([{:template => "widgets/new"},{}, nil])
+          expect(view_spec.received.first).to eq([{ :template => "widgets/new" }, {}, nil])
         end
 
         it "converts the filename components into render options" do
@@ -142,9 +144,9 @@ module RSpec::Rails
           view_spec.render
 
           if ::Rails::VERSION::STRING >= '3.2'
-            expect(view_spec.received.first).to eq([{:template => "widgets/new", :locales=>['en'], :formats=>[:html], :handlers=>['erb']}, {}, nil])
+            expect(view_spec.received.first).to eq([{ :template => "widgets/new", :locales => ['en'], :formats => [:html], :handlers => ['erb'] }, {}, nil])
           else
-            expect(view_spec.received.first).to eq([{:template => "widgets/new.en.html.erb"}, {}, nil])
+            expect(view_spec.received.first).to eq([{ :template => "widgets/new.en.html.erb" }, {}, nil])
           end
         end
       end
@@ -159,7 +161,7 @@ module RSpec::Rails
       context "given a hash" do
         it "sends the hash as the first arg to render" do
           view_spec.render(:foo => 'bar')
-          expect(view_spec.received.first).to eq([{:foo => "bar"}, {}, nil])
+          expect(view_spec.received.first).to eq([{ :foo => "bar" }, {}, nil])
         end
       end
     end

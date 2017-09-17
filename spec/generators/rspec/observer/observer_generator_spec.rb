@@ -8,7 +8,7 @@ RSpec.describe Rspec::Generators::ObserverGenerator, :type => :generator do
   subject { file('spec/models/posts_observer_spec.rb') }
 
   before do
-    run_generator %w(posts)
+    run_generator %w[posts]
   end
 
   describe 'the spec' do

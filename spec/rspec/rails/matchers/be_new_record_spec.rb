@@ -9,9 +9,9 @@ describe "be_new_record" do
     end
 
     it "fails with custom failure message" do
-      expect {
+      expect do
         expect(record).not_to be_new_record
-      }.to raise_exception(/expected .* to be persisted, but was a new record/)
+      end.to raise_exception(/expected .* to be persisted, but was a new record/)
     end
   end
 
@@ -23,9 +23,9 @@ describe "be_new_record" do
     end
 
     it "fails with custom failure message" do
-      expect {
+      expect do
         expect(record).to be_new_record
-      }.to raise_exception(/expected .* to be a new record, but was persisted/)
+      end.to raise_exception(/expected .* to be a new record, but was persisted/)
     end
   end
 end

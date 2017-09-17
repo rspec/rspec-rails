@@ -6,7 +6,7 @@ RSpec.describe Rspec::Generators::ModelGenerator, :type => :generator do
   setup_default_destination
 
   it 'runs both the model and fixture tasks' do
-    gen = generator %w(posts)
+    gen = generator %w[posts]
     expect(gen).to receive :create_model_spec
     expect(gen).to receive :create_fixture_file
     gen.invoke_all
@@ -15,7 +15,7 @@ RSpec.describe Rspec::Generators::ModelGenerator, :type => :generator do
   describe 'the generated files' do
     describe 'with fixtures' do
       before do
-        run_generator %w(posts --fixture)
+        run_generator %w[posts --fixture]
       end
 
       describe 'the spec' do
@@ -35,7 +35,7 @@ RSpec.describe Rspec::Generators::ModelGenerator, :type => :generator do
 
     describe 'without fixtures' do
       before do
-        run_generator %w(posts)
+        run_generator %w[posts]
       end
 
       describe 'the fixtures' do
