@@ -106,6 +106,34 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       }.to raise_error(/expected to enqueue exactly 1 jobs, but enqueued 2/)
     end
 
+
+    it "shows correct fail message when negated with at_least matcher" do
+      expect {
+        expect {
+          heavy_lifting_job.perform_later
+          heavy_lifting_job.perform_later
+        }.not_to have_enqueued_job.at_least(2)
+      }.to raise_error(/expected not to enqueue at least 2 jobs, but enqueued 2/)
+    end
+
+    it "shows correct fail message when negated with at_most matcher" do
+      expect {
+        expect {
+          heavy_lifting_job.perform_later
+          heavy_lifting_job.perform_later
+        }.not_to have_enqueued_job.at_most(2)
+      }.to raise_error(/expected not to enqueue at most 2 jobs, but enqueued 2/)
+    end
+
+    it "fails when too many jobs enqueued in negated form" do
+      expect {
+        expect {
+          heavy_lifting_job.perform_later
+          heavy_lifting_job.perform_later
+        }.not_to have_enqueued_job.exactly(2)
+      }.to raise_error(/expected not to enqueue exactly 2 jobs, but enqueued 2/)
+    end
+
     it "reports correct number in fail error message" do
       heavy_lifting_job.perform_later
       expect {
