@@ -9,5 +9,9 @@ require 'rspec/rails/example/model_example_group'
 require 'rspec/rails/example/job_example_group'
 require 'rspec/rails/example/feature_example_group'
 if ActionPack::VERSION::STRING >= "5.1"
-  require 'rspec/rails/example/system_example_group'
+  begin
+    require 'puma'
+    require 'rspec/rails/example/system_example_group'
+  rescue LoadError
+  end
 end

@@ -51,7 +51,11 @@ module RSpec
       config.include RSpec::Rails::Matchers
 
       if ActionPack::VERSION::STRING >= "5.1"
-        config.include RSpec::Rails::SystemExampleGroup, :type => :system
+        begin
+          require 'puma'
+          config.include RSpec::Rails::SystemExampleGroup, :type => :system
+        rescue LoadError
+        end
       end
     end
 
