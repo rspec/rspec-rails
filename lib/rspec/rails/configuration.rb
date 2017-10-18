@@ -55,7 +55,9 @@ module RSpec
           require 'puma'
           require 'capybara'
           config.include RSpec::Rails::SystemExampleGroup, :type => :system
+        # rubocop:disable Lint/HandleExceptions
         rescue LoadError
+        # rubocop:enable Lint/HandleExceptions
         end
       end
     end
