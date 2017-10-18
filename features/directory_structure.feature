@@ -12,6 +12,7 @@ Feature: Directory Structure
   - Helper specs reside in the `spec/helpers` directory
   - Mailer specs reside in the `spec/mailers` directory
   - Routing specs reside in the `spec/routing` directory
+  - Job specs reside in the `spec/jobs` directory
 
   Application developers are free to use a different directory structure. In
   order to include the correct `rspec-rails` support functions, the specs need
@@ -25,6 +26,7 @@ Feature: Directory Structure
   - Helper specs: `type: :helper`
   - Mailer specs: `type: :mailer`
   - Routing specs: `type: :routing`
+  - Job specs: `type: :job`
 
   For example, say the spec for the `ThingsController` is located in
   `spec/legacy/things_controller_spec.rb`. Simply tag the spec's
