@@ -11,6 +11,7 @@ require 'rspec/rails/example/feature_example_group'
 if ActionPack::VERSION::STRING >= "5.1"
   begin
     require 'puma'
+    require 'capybara'
     require 'rspec/rails/example/system_example_group'
   rescue LoadError
   end

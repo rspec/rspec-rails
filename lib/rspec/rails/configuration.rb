@@ -53,6 +53,7 @@ module RSpec
       if ActionPack::VERSION::STRING >= "5.1"
         begin
           require 'puma'
+          require 'capybara'
           config.include RSpec::Rails::SystemExampleGroup, :type => :system
         rescue LoadError
         end
