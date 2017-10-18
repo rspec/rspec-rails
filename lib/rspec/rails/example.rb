@@ -15,6 +15,6 @@ if ActionPack::VERSION::STRING >= "5.1"
     require 'rspec/rails/example/system_example_group'
   # rubocop:disable Lint/HandleExceptions
   rescue LoadError
-  # rubocop:enable Lint/HandleExceptions
+    # rubocop:enable Lint/HandleExceptions
   end
 end

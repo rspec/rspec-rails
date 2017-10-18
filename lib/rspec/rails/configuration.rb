@@ -57,7 +57,7 @@ module RSpec
           config.include RSpec::Rails::SystemExampleGroup, :type => :system
         # rubocop:disable Lint/HandleExceptions
         rescue LoadError
-        # rubocop:enable Lint/HandleExceptions
+          # rubocop:enable Lint/HandleExceptions
         end
       end
     end
