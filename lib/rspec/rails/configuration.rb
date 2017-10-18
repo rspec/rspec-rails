@@ -51,7 +51,14 @@ module RSpec
       config.include RSpec::Rails::Matchers
 
       if ActionPack::VERSION::STRING >= "5.1"
-        config.include RSpec::Rails::SystemExampleGroup, :type => :system
+        begin
+          require 'puma'
+          require 'capybara'
+          config.include RSpec::Rails::SystemExampleGroup, :type => :system
+        # rubocop:disable Lint/HandleExceptions
+        rescue LoadError
+          # rubocop:enable Lint/HandleExceptions
+        end
       end
     end
 
