@@ -1,5 +1,12 @@
 ### Development
-[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.7.0...master)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.7.1...master)
+
+### 3.7.1 / 2017-10-18
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.7.0...v3.7.1)
+
+Bug Fixes:
+
+* Prevent system test integration loading when puma or capybara are missing (Sam Phippen, #1884)
 
 ### 3.7.0 / 2017-10-17
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.6.0...v3.7.0)
