@@ -93,21 +93,25 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
 
   describe "POST #create" do
     context "with valid params" do
+      let(:new_attributes) {
+        skip("Add a hash of attributes valid for your model")
+      }
+
       it "creates a new <%= class_name %>" do
         expect {
 <% if Rails::VERSION::STRING < '5.0' -%>
-          post :create, {:<%= ns_file_name %> => valid_attributes}, valid_session
+          post :create, {:<%= ns_file_name %> => new_attributes}, valid_session
 <% else -%>
-          post :create, params: {<%= ns_file_name %>: valid_attributes}, session: valid_session
+          post :create, params: {<%= ns_file_name %>: new_attributes}, session: valid_session
 <% end -%>
         }.to change(<%= class_name %>, :count).by(1)
       end
 
       it "redirects to the created <%= ns_file_name %>" do
 <% if Rails::VERSION::STRING < '5.0' -%>
-        post :create, {:<%= ns_file_name %> => valid_attributes}, valid_session
+        post :create, {:<%= ns_file_name %> => new_attributes}, valid_session
 <% else -%>
-        post :create, params: {<%= ns_file_name %>: valid_attributes}, session: valid_session
+        post :create, params: {<%= ns_file_name %>: new_attributes}, session: valid_session
 <% end -%>
         expect(response).to redirect_to(<%= class_name %>.last)
       end
@@ -127,16 +131,12 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
 
   describe "PUT #update" do
     context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
       it "updates the requested <%= ns_file_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
 <% if Rails::VERSION::STRING < '5.0' -%>
-        put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => new_attributes}, valid_session
+        put :update, {:id => <%= file_name %>.to_param, :<%= ns_file_name %> => valid_attributes}, valid_session
 <% else -%>
-        put :update, params: {id: <%= file_name %>.to_param, <%= ns_file_name %>: new_attributes}, session: valid_session
+        put :update, params: {id: <%= file_name %>.to_param, <%= ns_file_name %>: valid_attributes}, session: valid_session
 <% end -%>
         <%= file_name %>.reload
         skip("Add assertions for updated state")
