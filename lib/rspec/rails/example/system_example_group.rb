@@ -1,4 +1,30 @@
-if ActionPack::VERSION::STRING >= "5.1"
+can_load_system_tests = false
+begin
+  require 'puma'
+  require 'capybara'
+  can_load_system_tests = ActionPack::VERSION::STRING >= "5.1"
+# rubocop:disable Lint/HandleExceptions
+rescue LoadError
+  # rubocop:enable Lint/HandleExceptions
+end
+
+if !can_load_system_tests
+  module RSpec
+    module Rails
+      module SystemExampleGroup
+        extend ActiveSupport::Concern
+
+        included do
+          abort """
+            System test integration requires Rails >= 5.1 and has a hard
+            dependency on `puma` and `capybara`, please add these to your
+            Gemfile before attempting to use system tests.
+          """
+        end
+      end
+    end
+  end
+else
   require 'action_dispatch/system_test_case'
   module RSpec
     module Rails
