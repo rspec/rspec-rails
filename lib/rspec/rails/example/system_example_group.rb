@@ -2,7 +2,10 @@ can_load_system_tests = false
 begin
   require 'puma'
   require 'capybara'
-  can_load_system_tests = ActionPack::VERSION::STRING >= "5.1"
+  if ActionPack::VERSION::STRING >= "5.1"
+    require 'action_dispatch/system_test_case'
+    can_load_system_tests = true
+  end
 # rubocop:disable Lint/HandleExceptions
 rescue LoadError
   # rubocop:enable Lint/HandleExceptions
@@ -25,7 +28,6 @@ if !can_load_system_tests
     end
   end
 else
-  require 'action_dispatch/system_test_case'
   module RSpec
     module Rails
       # @api public
