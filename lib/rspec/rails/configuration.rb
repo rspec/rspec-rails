@@ -49,17 +49,7 @@ module RSpec
       config.include RSpec::Rails::ViewExampleGroup,       :type => :view
       config.include RSpec::Rails::FeatureExampleGroup,    :type => :feature
       config.include RSpec::Rails::Matchers
-
-      if ActionPack::VERSION::STRING >= "5.1"
-        begin
-          require 'puma'
-          require 'capybara'
-          config.include RSpec::Rails::SystemExampleGroup, :type => :system
-        # rubocop:disable Lint/HandleExceptions
-        rescue LoadError
-          # rubocop:enable Lint/HandleExceptions
-        end
-      end
+      config.include RSpec::Rails::SystemExampleGroup, :type => :system
     end
 
     # @private
