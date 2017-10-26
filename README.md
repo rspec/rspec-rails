@@ -197,7 +197,7 @@ end
 
 The above example uses only standard Rails and RSpec APIs, but many
 RSpec/Rails users like to use extension libraries like
-[FactoryGirl](https://github.com/thoughtbot/factory_girl) and
+[FactoryBot](https://github.com/thoughtbot/factory_bot) and
 [Capybara](https://github.com/jnicklas/capybara):
 
 ```ruby
@@ -205,7 +205,7 @@ require 'rails_helper'
 
 RSpec.describe "home page", :type => :request do
   it "displays the user's username after successful login" do
-    user = FactoryGirl.create(:user, :username => "jdoe", :password => "secret")
+    user = FactoryBot.create(:user, :username => "jdoe", :password => "secret")
     visit "/login"
     fill_in "Username", :with => "jdoe"
     fill_in "Password", :with => "secret"
@@ -216,7 +216,7 @@ RSpec.describe "home page", :type => :request do
 end
 ```
 
-FactoryGirl decouples this example from changes to validation requirements,
+FactoryBot decouples this example from changes to validation requirements,
 which can be encoded into the underlying factory definition without requiring
 changes to this example.
 
@@ -228,7 +228,7 @@ docs](http://rubydoc.info/gems/rspec-rails/file/Capybara.md).
 
 There are several other Ruby libs that implement the factory pattern or provide
 a DSL for request specs (a.k.a. acceptance or integration specs), but
-FactoryGirl and Capybara seem to be the most widely used. Whether you choose
+FactoryBot and Capybara seem to be the most widely used. Whether you choose
 these or other libs, we strongly recommend using something for each of these
 roles.
 
