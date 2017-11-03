@@ -81,6 +81,10 @@ module RSpec
         config.add_setting :file_fixture_path, :default => 'spec/fixtures/files'
         config.include RSpec::Rails::FileFixtureSupport
       end
+
+      # Add support for fixture_path on fixture_file_upload
+      config.include RSpec::Rails::FixtureFileUploadSupport
+
       # This allows us to expose `render_views` as a config option even though it
       # breaks the convention of other options by using `render_views` as a
       # command (i.e. `render_views = true`), where it would normally be used
