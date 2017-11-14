@@ -16,6 +16,6 @@ module RSpec::Rails
     around { |ex| with_isolated_stderr(&ex) } if RUBY_VERSION == '1.9.2'
 
     it_behaves_like "an rspec-rails example group mixin", :mailer,
-      './spec/mailers/', '.\\spec\\mailers\\'
+                    './spec/mailers/', '.\\spec\\mailers\\'
   end
 end

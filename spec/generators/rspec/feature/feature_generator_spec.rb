@@ -8,7 +8,7 @@ RSpec.describe Rspec::Generators::FeatureGenerator, :type => :generator do
   describe 'feature specs' do
     describe 'are generated independently from the command line' do
       before do
-        run_generator %w(posts)
+        run_generator %w[posts]
       end
       describe 'the spec' do
         subject(:feature_spec) { file('spec/features/posts_spec.rb') }
@@ -26,7 +26,7 @@ RSpec.describe Rspec::Generators::FeatureGenerator, :type => :generator do
 
     describe 'are singularized appropriately with the --singularize flag' do
       before do
-        run_generator %w(posts --singularize)
+        run_generator %w[posts --singularize]
       end
       describe 'the spec' do
         subject(:feature_spec) { file('spec/features/post_spec.rb') }
@@ -41,7 +41,7 @@ RSpec.describe Rspec::Generators::FeatureGenerator, :type => :generator do
 
     describe "are not generated" do
       before do
-        run_generator %w(posts --no-feature-specs)
+        run_generator %w[posts --no-feature-specs]
       end
       describe "the spec" do
         subject(:feature_spec) { file('spec/features/posts_spec.rb') }

@@ -2,29 +2,29 @@ require 'spec_helper'
 
 RSpec.describe "have_http_status" do
   def create_response(opts = {})
-    ActionDispatch::TestResponse.new(opts.fetch(:status)).tap {|x|
+    ActionDispatch::TestResponse.new(opts.fetch(:status)).tap do |x|
       x.request = ActionDispatch::Request.new({})
-    }
+    end
   end
 
   shared_examples_for "supports different response instances" do
     context "given an ActionDispatch::Response" do
       it "returns true for a response with the same code" do
-        response = ::ActionDispatch::Response.new(code).tap {|x|
+        response = ::ActionDispatch::Response.new(code).tap do|x|
           x.request = ActionDispatch::Request.new({})
-        }
+        end
 
-        expect( matcher.matches?(response) ).to be(true)
+        expect(matcher.matches?(response)).to be(true)
       end
     end
 
     context "given an ActionDispatch::TestResponse" do
       it "returns true for a response with the same code" do
-        response = ::ActionDispatch::TestResponse.new(code).tap {|x|
+        response = ::ActionDispatch::TestResponse.new(code).tap do|x|
           x.request = ActionDispatch::Request.new({})
-        }
+        end
 
-        expect( matcher.matches?(response) ).to be(true)
+        expect(matcher.matches?(response)).to be(true)
       end
     end
 
@@ -37,20 +37,20 @@ RSpec.describe "have_http_status" do
           :body => ""
         )
 
-        expect( matcher.matches?(response) ).to be(true)
+        expect(matcher.matches?(response)).to be(true)
       end
     end
 
     it "returns false given another type" do
       response = Object.new
 
-      expect( matcher.matches?(response) ).to be(false)
+      expect(matcher.matches?(response)).to be(false)
     end
 
     it "has a failure message reporting it was given another type" do
       response = Object.new
 
-      expect{ matcher.matches?(response) }.
+      expect { matcher.matches?(response) }.
         to change(matcher, :failure_message).
         to("expected a response object, but an instance of Object was received")
     end
@@ -58,7 +58,7 @@ RSpec.describe "have_http_status" do
     it "has a negated failure message reporting it was given another type" do
       response = Object.new
 
-      expect{ matcher.matches?(response) }.
+      expect { matcher.matches?(response) }.
         to change(matcher, :failure_message_when_negated).
         to("expected a response object, but an instance of Object was received")
     end
@@ -77,7 +77,7 @@ RSpec.describe "have_http_status" do
         have_numeric_code = have_http_status(any_numeric_code)
         response          = create_response(:status => any_numeric_code)
 
-        expect( have_numeric_code.matches?(response) ).to be(true)
+        expect(have_numeric_code.matches?(response)).to be(true)
       end
 
       it "returns false for a response with a different code" do
@@ -85,7 +85,7 @@ RSpec.describe "have_http_status" do
         have_numeric_code = have_http_status(any_numeric_code)
         response          = create_response(:status => any_numeric_code + 1)
 
-        expect( have_numeric_code.matches?(response) ).to be(false)
+        expect(have_numeric_code.matches?(response)).to be(false)
       end
     end
 
@@ -102,7 +102,7 @@ RSpec.describe "have_http_status" do
       have_numeric_code = have_http_status(any_numeric_code)
       response          = create_response(:status => any_numeric_code + 1)
 
-      expect{ have_numeric_code.matches? response }.
+      expect { have_numeric_code.matches? response }.
         to change(have_numeric_code, :failure_message).
         to("expected the response to have status code 209 but it was 210")
     end
@@ -111,7 +111,7 @@ RSpec.describe "have_http_status" do
       any_numeric_code  = 209
       have_numeric_code = have_http_status(any_numeric_code)
 
-      expect( have_numeric_code.failure_message_when_negated ).
+      expect(have_numeric_code.failure_message_when_negated).
         to eq("expected the response not to have status code 209 but it did")
     end
   end
@@ -134,7 +134,7 @@ RSpec.describe "have_http_status" do
         have_symbolic_status = have_http_status(any_symbolic_status)
         response             = create_response(:status => created_code)
 
-        expect( have_symbolic_status.matches?(response) ).to be(true)
+        expect(have_symbolic_status.matches?(response)).to be(true)
       end
 
       it "returns false for a response with a different code" do
@@ -142,7 +142,7 @@ RSpec.describe "have_http_status" do
         have_symbolic_status = have_http_status(any_symbolic_status)
         response             = create_response(:status => created_code + 1)
 
-        expect( have_symbolic_status.matches?(response) ).to be(false)
+        expect(have_symbolic_status.matches?(response)).to be(false)
       end
     end
 
@@ -159,7 +159,7 @@ RSpec.describe "have_http_status" do
       have_symbolic_status = have_http_status(any_symbolic_status)
       response             = create_response(:status => created_code + 1)
 
-      expect{ have_symbolic_status.matches? response }.
+      expect { have_symbolic_status.matches? response }.
         to change(have_symbolic_status, :failure_message).
         to("expected the response to have status code :created (201) but it was :accepted (202)")
     end
@@ -168,12 +168,12 @@ RSpec.describe "have_http_status" do
       any_symbolic_status  = created_symbolic_status
       have_symbolic_status = have_http_status(any_symbolic_status)
 
-      expect( have_symbolic_status.failure_message_when_negated ).
+      expect(have_symbolic_status.failure_message_when_negated).
         to eq("expected the response not to have status code :created (201) but it did")
     end
 
     it "raises an ArgumentError" do
-      expect{ have_http_status(:not_a_status) }.to raise_error ArgumentError
+      expect { have_http_status(:not_a_status) }.to raise_error ArgumentError
     end
   end
 
@@ -205,14 +205,14 @@ RSpec.describe "have_http_status" do
         any_5xx_code = 555
         response     = create_response(:status => any_5xx_code)
 
-        expect( have_error_status.matches?(response) ).to be(true)
+        expect(have_error_status.matches?(response)).to be(true)
       end
 
       it "returns false for a response with a different code" do
         client_error_code = 400
         response          = create_response(:status => client_error_code)
 
-        expect( have_error_status.matches?(response) ).to be(false)
+        expect(have_error_status.matches?(response)).to be(false)
       end
     end
 
@@ -225,7 +225,7 @@ RSpec.describe "have_http_status" do
       client_error_code = 400
       response          = create_response(:status => client_error_code)
 
-      expect{ have_error_status.matches? response }.
+      expect { have_error_status.matches? response }.
         to change(have_error_status, :failure_message).
         to(/an error status code \(5xx\) but it was 400/)
     end
@@ -234,7 +234,7 @@ RSpec.describe "have_http_status" do
       any_5xx_code = 555
       response     = create_response(:status => any_5xx_code)
 
-      expect{ have_error_status.matches? response }.
+      expect { have_error_status.matches? response }.
         to change(have_error_status, :failure_message_when_negated).
         to(/not to have an error status code \(5xx\) but it was 555/)
     end
@@ -268,14 +268,14 @@ RSpec.describe "have_http_status" do
         any_2xx_code = 222
         response     = create_response(:status => any_2xx_code)
 
-        expect( have_success_status.matches?(response) ).to be(true)
+        expect(have_success_status.matches?(response)).to be(true)
       end
 
       it "returns false for a response with a different code" do
         non_success_code = 400
         response         = create_response(:status => non_success_code)
 
-        expect( have_success_status.matches?(response) ).to be(false)
+        expect(have_success_status.matches?(response)).to be(false)
       end
     end
 
@@ -288,7 +288,7 @@ RSpec.describe "have_http_status" do
       non_success_code = 400
       response         = create_response(:status => non_success_code)
 
-      expect{ have_success_status.matches? response }.
+      expect { have_success_status.matches? response }.
         to change(have_success_status, :failure_message).
         to(/a success status code \(2xx\) but it was 400/)
     end
@@ -297,7 +297,7 @@ RSpec.describe "have_http_status" do
       any_2xx_code = 222
       response     = create_response(:status => any_2xx_code)
 
-      expect{ have_success_status.matches? response }.
+      expect { have_success_status.matches? response }.
         to change(have_success_status, :failure_message_when_negated).
         to(/not to have a success status code \(2xx\) but it was 222/)
     end
@@ -331,14 +331,14 @@ RSpec.describe "have_http_status" do
         not_found_status = 404
         response         = create_response(:status => not_found_status)
 
-        expect( have_missing_status.matches?(response) ).to be(true)
+        expect(have_missing_status.matches?(response)).to be(true)
       end
 
       it "returns false for a response with a different code" do
         non_missing_status = 400
         response           = create_response(:status => non_missing_status)
 
-        expect( have_missing_status.matches?(response) ).to be(false)
+        expect(have_missing_status.matches?(response)).to be(false)
       end
     end
 
@@ -351,7 +351,7 @@ RSpec.describe "have_http_status" do
       non_missing_status = 400
       response           = create_response(:status => non_missing_status)
 
-      expect{ have_missing_status.matches? response }.
+      expect { have_missing_status.matches? response }.
         to change(have_missing_status, :failure_message).
         to(/a missing status code \(404\) but it was 400/)
     end
@@ -360,7 +360,7 @@ RSpec.describe "have_http_status" do
       not_found_status = 404
       response         = create_response(:status => not_found_status)
 
-      expect{ have_missing_status.matches? response }.
+      expect { have_missing_status.matches? response }.
         to change(have_missing_status, :failure_message_when_negated).
         to(/not to have a missing status code \(404\) but it was 404/)
     end
@@ -394,14 +394,14 @@ RSpec.describe "have_http_status" do
         any_3xx_code = 308
         response     = create_response(:status => any_3xx_code)
 
-        expect( have_redirect_status.matches?(response) ).to be(true)
+        expect(have_redirect_status.matches?(response)).to be(true)
       end
 
       it "returns false for a response with a different code" do
         non_redirect_code = 400
         response          = create_response(:status => non_redirect_code)
 
-        expect( have_redirect_status.matches?(response) ).to be(false)
+        expect(have_redirect_status.matches?(response)).to be(false)
       end
     end
 
@@ -414,7 +414,7 @@ RSpec.describe "have_http_status" do
       non_redirect_code = 400
       response          = create_response(:status => non_redirect_code)
 
-      expect{ have_redirect_status.matches? response }.
+      expect { have_redirect_status.matches? response }.
         to change(have_redirect_status, :failure_message).
         to(/a redirect status code \(3xx\) but it was 400/)
     end
@@ -423,7 +423,7 @@ RSpec.describe "have_http_status" do
       any_3xx_code = 308
       response     = create_response(:status => any_3xx_code)
 
-      expect{ have_redirect_status.matches? response }.
+      expect { have_redirect_status.matches? response }.
         to change(have_redirect_status, :failure_message_when_negated).
         to(/not to have a redirect status code \(3xx\) but it was 308/)
     end
@@ -431,7 +431,7 @@ RSpec.describe "have_http_status" do
 
   context "with a nil status" do
     it "raises an ArgumentError" do
-      expect{ have_http_status(nil) }.to raise_error ArgumentError
+      expect { have_http_status(nil) }.to raise_error ArgumentError
     end
   end
 end

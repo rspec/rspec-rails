@@ -94,7 +94,7 @@ def in_example_app(*command_opts)
   end
   Dir.chdir(app_dir) do
     Bundler.with_clean_env do
-      sh *command_opts unless command_opts.empty?
+      sh(*command_opts) unless command_opts.empty?
       yield if block_given?
     end
   end
@@ -192,7 +192,7 @@ namespace :no_active_record do
 
           application_file = File.read("config/application.rb")
           sh "rm config/application.rb"
-          File.open("config/application.rb","w") do |f|
+          File.open("config/application.rb", "w") do |f|
             f.write application_file.gsub(
               "config.assets.enabled = true",
               "config.assets.enabled = false"

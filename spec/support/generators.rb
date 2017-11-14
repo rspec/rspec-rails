@@ -22,7 +22,7 @@ module RSpec
         shared_examples_for "a request spec generator" do
           describe 'generated with flag `--no-request-specs`' do
             before do
-              run_generator %w(posts --no-request-specs)
+              run_generator %w[posts --no-request-specs]
             end
 
             subject(:request_spec) { file('spec/requests/posts_spec.rb') }
@@ -34,7 +34,7 @@ module RSpec
 
           describe 'generated with no flags' do
             before do
-              run_generator %w(posts)
+              run_generator %w[posts]
             end
 
             subject(:request_spec) { file('spec/requests/posts_spec.rb') }

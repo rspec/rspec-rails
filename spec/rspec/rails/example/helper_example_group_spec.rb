@@ -10,7 +10,7 @@ module RSpec::Rails
     subject { HelperExampleGroup }
 
     it_behaves_like "an rspec-rails example group mixin", :helper,
-      './spec/helpers/', '.\\spec\\helpers\\'
+                    './spec/helpers/', '.\\spec\\helpers\\'
 
     it "provides a controller_path based on the helper module's name" do
       example = double

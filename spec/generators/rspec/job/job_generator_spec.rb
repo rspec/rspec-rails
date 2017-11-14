@@ -6,7 +6,7 @@ RSpec.describe Rspec::Generators::JobGenerator, :type => :generator, :skip => !R
   setup_default_destination
 
   describe 'the generated files' do
-    before { run_generator %w(user) }
+    before { run_generator %w[user] }
 
     subject { file('spec/jobs/user_job_spec.rb') }
 

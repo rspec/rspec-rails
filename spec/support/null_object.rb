@@ -1,6 +1,6 @@
 class NullObject
-  private
+private
 
-  def method_missing(method, *args, &blk)
+  def method_missing(_method, *_args, &_blk)
   end
 end

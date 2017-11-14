@@ -29,34 +29,34 @@ describe "be_valid matcher" do
   let(:boat) { Boat.new }
 
   it "includes the error messages in the failure message" do
-    expect {
+    expect do
       expect(post).to be_valid
-    }.to raise_exception(/Title can't be blank/)
+    end.to raise_exception(/Title can't be blank/)
   end
 
   it "includes the error messages for simple implementations of error messages" do
-    expect {
+    expect do
       expect(book).to be_valid
-    }.to raise_exception(/the spine is broken/)
+    end.to raise_exception(/the spine is broken/)
   end
 
   it "includes a brief error message for the simplest implementation of validity" do
-    expect {
+    expect do
       expect(boat).to be_valid
-    }.to raise_exception(/expected .+ to be valid\z/)
+    end.to raise_exception(/expected .+ to be valid\z/)
   end
 
   it "includes a failure message for the negative case" do
     allow(post).to receive(:valid?) { true }
-    expect {
+    expect do
       expect(post).not_to be_valid
-    }.to raise_exception(/expected .* not to be valid/)
+    end.to raise_exception(/expected .* not to be valid/)
   end
 
   it "uses a custom failure message if provided" do
-    expect {
+    expect do
       expect(post).to be_valid, "Post was not valid!"
-    }.to raise_exception(/Post was not valid!/)
+    end.to raise_exception(/Post was not valid!/)
   end
 
   it "includes the validation context if provided" do

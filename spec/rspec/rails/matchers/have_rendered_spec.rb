@@ -7,8 +7,8 @@ require "spec_helper"
 
     context "given a hash" do
       it "delegates to assert_template" do
-        expect(self).to receive(:assert_template).with({:this => "hash"}, "this message")
-        expect("response").to send(template_expectation, {:this => "hash"}, "this message")
+        expect(self).to receive(:assert_template).with({ :this => "hash" }, "this message")
+        expect("response").to send(template_expectation, { :this => "hash" }, "this message")
       end
     end
 
@@ -39,7 +39,7 @@ require "spec_helper"
       context "when assert_template fails" do
         it "uses failure message from assert_template" do
           def assert_template(*)
-            raise ActiveSupport::TestCase::Assertion.new("this message")
+            raise ActiveSupport::TestCase::Assertion, "this message"
           end
           expect do
             expect(response).to send(template_expectation, "template_name")
@@ -63,7 +63,7 @@ require "spec_helper"
       context "when assert_template fails" do
         it "passes" do
           def assert_template(*)
-            raise ActiveSupport::TestCase::Assertion.new("this message")
+            raise ActiveSupport::TestCase::Assertion, "this message"
           end
           expect do
             expect(response).to_not send(template_expectation, "template_name")
@@ -94,10 +94,10 @@ require "spec_helper"
 
         def assert_template(*)
           message = "expecting <'template_name'> but rendering with <[]>"
-          raise ActiveSupport::TestCase::Assertion.new(message)
+          raise ActiveSupport::TestCase::Assertion, message
         end
 
-        def normalize_argument_to_redirection(response_redirect_location)
+        def normalize_argument_to_redirection(_response_redirect_location)
           "http://test.host/widgets/1"
         end
 
@@ -112,7 +112,7 @@ require "spec_helper"
         context 'with a badly formatted error message' do
           def assert_template(*)
             message = 'expected [] to include "some/path"'
-            raise ActiveSupport::TestCase::Assertion.new(message)
+            raise ActiveSupport::TestCase::Assertion, message
           end
 
           it 'falls back to something informative' do

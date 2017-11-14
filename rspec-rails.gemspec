@@ -31,9 +31,9 @@ Gem::Specification.new do |s|
     version_string << '!= 3.2.22.1'
   end
 
-  s.add_runtime_dependency %q<activesupport>, version_string
-  s.add_runtime_dependency %q<actionpack>,    version_string
-  s.add_runtime_dependency %q<railties>,      version_string
+  s.add_runtime_dependency %q(activesupport), version_string
+  s.add_runtime_dependency %q(actionpack),    version_string
+  s.add_runtime_dependency %q(railties),      version_string
   %w[core expectations mocks support].each do |name|
     if RSpec::Rails::Version::STRING =~ /[a-zA-Z]+/ # prerelease builds
       s.add_runtime_dependency "rspec-#{name}", "= #{RSpec::Rails::Version::STRING}"

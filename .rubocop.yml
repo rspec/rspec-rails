@@ -3,6 +3,8 @@ inherit_from: .rubocop_rspec_base.yml
 # Over time we'd like to get this down, but this is what we're at now.
 LineLength:
   Max: 186
+  Exclude:
+    - Rakefile
 
 # Over time we'd like to get this down, but this is what we're at now.
 MethodLength:
@@ -19,7 +21,7 @@ SpaceAroundEqualsInParameterDefault:
 AllCops:
   Exclude:
     # Templates are really ERB which Rubocop does not parse
-    - 'lib/generators/rspec/*/templates/**/*'
+    - lib/generators/rspec/*/templates/**/*
 
 FileName:
   Exclude:
@@ -31,15 +33,49 @@ HandleExceptions:
   Exclude:
     # RSpec is tightly coupled to capybara right now, this should be
     # re-evaluted in the future. For now we allow the empty rescue
+    - example_app_generator/generate_stuff.rb
     - lib/rspec/rails/vendor/capybara.rb
 
 IfUnlessModifier:
   Exclude:
     # Allow single line statement as the style matches the remainder of the file
     - lib/rspec/rails/vendor/capybara.rb
+    - Rakefile
 
 PerlBackrefs:
   Exclude:
     # We probably can refactor the backref out, but for now excluding it since
     # we can't use named matches in 1.8.7
     - lib/generators/rspec/scaffold/scaffold_generator.rb
+
+Lint/AmbiguousRegexpLiteral:
+  Exclude:
+    - features/step_definitions/additional_cli_steps.rb
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/ConstantName:
+  Exclude:
+    - spec/rspec/rails/example/view_example_group_spec.rb
+
+Style/GlobalVars:
+  AllowedVariables: [$_new_group]
+
+Style/GuardClause:
+  Enabled: false
+
+Style/NumericLiterals:
+  Exclude:
+    - benchmarks/before_block_capture_block_vs_yield.rb
+
+Style/ParameterLists:
+  Exclude:
+    - example_app_generator/spec/verify_custom_renderers_spec.rb
+
+Style/RegexpLiteral:
+  Exclude:
+    - spec/**/*
+
+Style/SingleLineMethods:
+  Enabled: false

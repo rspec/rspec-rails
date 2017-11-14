@@ -33,15 +33,15 @@ RSpec.describe "Configuration" do
 
     describe "`##{command_method}`" do
       it "changes `#{query_method}` to the provided value" do
-        expect {
+        expect do
           config.send(command_method, :a_value)
-        }.to change { config.send(query_method) }.to(:a_value)
+        end.to change { config.send(query_method) }.to(:a_value)
       end
 
       it "sets `#{accessor}` to the provided value" do
-        expect {
+        expect do
           config.send(command_method, :a_value)
-        }.to change {
+        end.to change {
           config.send(accessor)
         }.from(default_value).to(:a_value)
       end
@@ -49,9 +49,9 @@ RSpec.describe "Configuration" do
 
     if alias_setting
       specify "`##{alias_setting}` is an alias for `#{accessor}`" do
-        expect {
+        expect do
           config.send(command_method, :a_value)
-        }.to change { config.send(alias_setting) }.to(:a_value)
+        end.to change { config.send(alias_setting) }.to(:a_value)
       end
     end
   end
@@ -78,22 +78,22 @@ RSpec.describe "Configuration" do
     end
 
     specify "`#render_views` sets `render_views?` to `true`" do
-      expect {
+      expect do
         config.render_views
-      }.to change { config.render_views? }.to be(true)
+      end.to change { config.render_views? }.to be(true)
     end
 
     describe "`#render_views=`" do
       it "sets `render_views?` to the provided value" do
-        expect {
+        expect do
           config.render_views = false
-        }.to change { config.render_views? }.from(nil).to(false)
+        end.to change { config.render_views? }.from(nil).to(false)
       end
 
       it "sets `render_views` to the provided value" do
-        expect {
+        expect do
           config.render_views = :a_value
-        }.to change { config.render_views? }.to(:a_value)
+        end.to change { config.render_views? }.to(:a_value)
       end
     end
   end

@@ -8,7 +8,7 @@ def yield_n_times(n)
   before_n_times(n) { yield }
 end
 
-def capture_block_and_yield_n_times(n, &block)
+def capture_block_and_yield_n_times(n, &_block)
   before_n_times(n) { yield }
 end
 
@@ -21,15 +21,15 @@ end
 
   Benchmark.ips do |x|
     x.report("Yield #{count} times                  ") do
-      yield_n_times(count) { }
+      yield_n_times(count) {}
     end
 
     x.report("Capture block and yield #{count} times") do
-      capture_block_and_yield_n_times(count) { }
+      capture_block_and_yield_n_times(count) {}
     end
 
     x.report("Capture block and call #{count} times ") do
-      capture_block_and_call_n_times(count) { }
+      capture_block_and_call_n_times(count) {}
     end
   end
 end

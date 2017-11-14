@@ -3,7 +3,7 @@ require "spec_helper"
 module RSpec::Rails
   describe FeatureExampleGroup do
     it_behaves_like "an rspec-rails example group mixin", :feature,
-      './spec/features/', '.\\spec\\features\\'
+                    './spec/features/', '.\\spec\\features\\'
 
     it "includes Rails route helpers" do
       with_isolated_stderr do
@@ -26,9 +26,9 @@ module RSpec::Rails
           include FeatureExampleGroup
         end
 
-        expect {
+        expect do
           group.new.visit('/foobar')
-        }.to raise_error(/Capybara not loaded/)
+        end.to raise_error(/Capybara not loaded/)
       end
 
       it "is resistant to load order errors" do

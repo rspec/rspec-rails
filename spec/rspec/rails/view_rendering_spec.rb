@@ -18,7 +18,7 @@ module RSpec::Rails
         end
 
         it "does not render views in a nested group" do
-          expect(group.describe{}.new.render_views?).to be_falsey
+          expect(group.describe {}.new.render_views?).to be_falsey
         end
       end
 
@@ -78,7 +78,7 @@ module RSpec::Rails
 
       context "in a nested group" do
         let(:nested_group) do
-          group.describe{}
+          group.describe {}
         end
 
         context "with no args" do
@@ -117,7 +117,7 @@ module RSpec::Rails
         it "passes override to children" do
           group.render_views
           nested_group.render_views false
-          expect(nested_group.describe{}.new.render_views?).to be_falsey
+          expect(nested_group.describe {}.new.render_views?).to be_falsey
         end
       end
     end
@@ -140,10 +140,10 @@ module RSpec::Rails
       end
 
       it 'supports manipulating view paths with resolvers' do
-        expect {
+        expect do
           controller.prepend_view_path ActionView::Resolver.new
           controller.append_view_path ActionView::Resolver.new
-        }.to_not raise_error
+        end.to_not raise_error
       end
 
       def match_paths(*paths)
