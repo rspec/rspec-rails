@@ -49,7 +49,7 @@ module RSpec
             dependency on a webserver and `capybara`, please add capybara to
             your Gemfile and configure a webserver (e.g. `Capybara.server =
             :webrick`) before attempting to use system tests.
-          """.gsub(/\s+/,' ').strip
+          """.gsub(/\s+/, ' ').strip
         end
 
         original_after_teardown =
