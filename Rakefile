@@ -27,7 +27,7 @@ RSpec::Core::RakeTask.new(:spec) do |t|
 end
 
 Cucumber::Rake::Task.new(:cucumber) do |t|
-  version = ENV.fetch("RAILS_VERSION", "~> 4.2.0")
+  version = ENV.fetch("RAILS_VERSION", "~> 4.2.0")[/\d[\.-]\d/]
   tags = []
 
   if version.to_f >= 5.1
