@@ -1,6 +1,12 @@
 ### Development
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.7.1...master)
 
+Bug Fixes:
+
+* Delay loading system test integration until used. (Jon Rowe, #1903)
+* Ensure specs using the aggregate failures feature take screenshots on failure.
+  (Matt Brictson, #1907)
+
 ### 3.7.1 / 2017-10-18
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.7.0...v3.7.1)
 
