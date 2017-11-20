@@ -1,5 +1,8 @@
 ### Development
-[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.7.1...master)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.7.2...master)
+
+### 3.7.2 / 2017-11-20
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.7.1...v3.7.2)
 
 Bug Fixes:
 
