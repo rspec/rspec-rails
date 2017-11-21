@@ -1,4 +1,4 @@
-# This file was generated on 2017-09-15T10:18:21+09:00 from the rspec-dev repo.
+# This file was generated on 2017-11-21T14:21:55+11:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 version: "{build}"
@@ -14,20 +14,26 @@ branches:
 # Disable normal Windows builds in favor of our test script.
 build: off
 
+cache:
+  - vendor/bundle
+
 install:
-  - SET PATH=C:\Ruby%ruby_version%\bin;%PATH%
-  - ruby --version
-  - gem --version
-  - gem install bundler -v "!= 1.12.0, != 1.12.1, != 1.12.2, != 1.12.3"
-  - bundler --version
+  - set PATH=C:\Ruby%RUBY_VERSION%\bin;%PATH%
+  - bundle config --local path vendor/bundle
   - bundle install
   - cinst ansicon
+
+before_test:
+  - ruby --version
+  - gem --version
+  - bundle --version
 
 test_script:
   - bundle exec rspec --backtrace
 
 environment:
   matrix:
-    # ruby_version: '20' doesn't work for some reason
-    - ruby_version: '193'
-    - ruby_version: '21'
+    - ruby_version: 193
+    - ruby_version: 200
+    - ruby_version: 21
+    - ruby_version: 22
