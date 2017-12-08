@@ -1,6 +1,11 @@
 ### Development
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.7.2...master)
 
+Enhancements:
+
+* Improved message when migrations are pending in the default `rails_helper.rb`
+  (Koichi ITO, #1924)
+
 ### 3.7.2 / 2017-11-20
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.7.1...v3.7.2)
 
