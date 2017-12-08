@@ -24,14 +24,22 @@ require 'rspec/rails'
 
 <% if RSpec::Rails::FeatureCheck.can_maintain_test_schema? -%>
 # Checks for pending migrations and applies them before tests are run.
-# If you are not using ActiveRecord, you can remove this line.
-ActiveRecord::Migration.maintain_test_schema!
-
+# If you are not using ActiveRecord, you can remove these lines.
+begin
+  ActiveRecord::Migration.maintain_test_schema!
+rescue ActiveRecord::PendingMigrationError => e
+  puts e.to_s.strip
+  exit 1
+end
 <% elsif RSpec::Rails::FeatureCheck.can_check_pending_migrations? -%>
 # Checks for pending migrations before tests are run.
-# If you are not using ActiveRecord, you can remove this line.
-ActiveRecord::Migration.check_pending!
-
+# If you are not using ActiveRecord, you can remove these lines.
+begin
+  ActiveRecord::Migration.check_pending!
+rescue ActiveRecord::PendingMigrationError => e
+  puts e.to_s.strip
+  exit 1
+end
 <% end -%>
 RSpec.configure do |config|
 <% if RSpec::Rails::FeatureCheck.has_active_record? -%>
