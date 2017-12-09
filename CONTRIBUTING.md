@@ -24,27 +24,31 @@ If you need help getting started, check out the [DEVELOPMENT](DEVELOPMENT.md) fi
 
 Thanks for helping us make RSpec better!
 
-## `Small` issues
+## Rspec issues labels definition
+
+### `Your first PR` issues
 
 These issues are the ones that we be believe are best suited for new
 contributors to get started on. They represent a potential meaningful
 contribution to the project that should not be too hard to pull off.
 
-## `Triage` issues
+### `Needs reproduction case` issues
 
 These issues are ones that have been labelled by the maintainers that we
 believe do not currently have enough information to be reproduced the RSpec
 team. While not directly counted by the GitHub contribution graph, we consider
-helping us triage issues to the point where they can be reproduced as an
-extremely meaningful contribution.
+helping us to reproduced the issue with a repro case as an extremely meaningful
+contribution.
 
-## `Has reproduction case` issues
+### `Has reproduction case` issues
 
 Issues that have reproduction cases have a repository that we can clone that
 enable us to quickly determine the issue is valid and then start debugging
 within RSpec. These issues are good ones to tackle to help us actively fix bugs.
 
-## Maintenance branches
+## Dev environment
+
+### Maintenance branches
 
 Maintenance branches are how we manage the different supported point releases
 of RSpec. As such, while they might look like good candidates to merge into

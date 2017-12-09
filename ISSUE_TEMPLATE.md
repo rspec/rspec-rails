@@ -14,6 +14,24 @@ resolve your bug faster!
 
 -->
 
+## What Ruby, Rails and RSpec versions are you using?
+
+Ruby version:
+Rails version:
+Rspec version:
+
+<!--
+
+You can run
+
+```
+bundle exec ruby --version
+bundle exec rails --version
+bundle exec rspec --version
+```
+
+-->
+
 ## Observed behaviour
 
 <!--
@@ -45,21 +63,6 @@ your issue, and we typically ask that you follow these steps:
 5. Provide a link to a github repo, a description of the app and what you're expecting here
 -->
 
-## What Ruby, Rails and RSpec versions are you using?
-
-<!--
-
-You can run
-
-```
-bundle exec ruby --version
-bundle exec rails --version
-bundle exec rspec --version
-```
-
-and paste the output below
-
--->
 
 ## Did this problem exist before you upgraded to Rails 5?
 
