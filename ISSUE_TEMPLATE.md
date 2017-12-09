@@ -62,9 +62,3 @@ your issue, and we typically ask that you follow these steps:
 4. Commit
 5. Provide a link to a github repo, a description of the app and what you're expecting here
 -->
-
-
-## Did this problem exist before you upgraded to Rails 5?
-
-<!-- We're still tracking down a few edge cases since Rails 5 came out, so if
-it's new for you since Rails 5, that'll help us find it faster -->
