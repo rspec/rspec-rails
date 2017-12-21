@@ -45,7 +45,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
 <% unless options[:singleton] -%>
   describe "GET #index" do
     it "returns a success response" do
-      <%= file_name %> = <%= class_name %>.create! valid_attributes
+      <%= class_name %>.create! valid_attributes
 <% if Rails::VERSION::STRING < '5.0' -%>
       get :index, {}, valid_session
 <% else -%>
