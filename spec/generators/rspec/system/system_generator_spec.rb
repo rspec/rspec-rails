@@ -6,12 +6,12 @@ RSpec.describe Rspec::Generators::SystemGenerator, :type => :generator do
   setup_default_destination
 
   describe 'system specs' do
+    subject(:system_spec) { file('spec/system/posts_spec.rb') }
     describe 'are generated independently from the command line' do
       before do
         run_generator %w(posts)
       end
       describe 'the spec' do
-        subject(:system_spec) { file('spec/system/posts_spec.rb') }
         it "exists" do
           expect(system_spec).to exist
         end
@@ -29,7 +29,6 @@ RSpec.describe Rspec::Generators::SystemGenerator, :type => :generator do
         run_generator %w(posts --no-system-specs)
       end
       describe "the spec" do
-        subject(:system_spec) { file('spec/system/posts_spec.rb') }
         it "does not exist" do
           expect(system_spec).to_not exist
         end
