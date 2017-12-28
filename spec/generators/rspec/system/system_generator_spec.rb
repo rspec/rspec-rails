@@ -29,7 +29,7 @@ RSpec.describe Rspec::Generators::SystemGenerator, :type => :generator do
         run_generator %w(posts --no-system-specs)
       end
       describe "the spec" do
-        subject(:system_spec) { file('spec/systems/posts_spec.rb') }
+        subject(:system_spec) { file('spec/system/posts_spec.rb') }
         it "does not exist" do
           expect(system_spec).to_not exist
         end
