@@ -7,9 +7,8 @@ gemspec
 rspec_dependencies_gemfile = File.expand_path("../Gemfile-rspec-dependencies", __FILE__)
 eval_gemfile rspec_dependencies_gemfile
 
-gem 'yard', '~> 0.8.7', require: false
+gem 'yard', '~> 0.9.24', :require => false
 
-### deps for rdoc.info
 group :documentation do
   gem 'github-markup', '~> 3.0.3'
   gem 'redcarpet', '~> 3.4.0', platforms: [:ruby]
