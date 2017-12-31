@@ -9,7 +9,6 @@ eval_gemfile rspec_dependencies_gemfile
 
 gem 'yard', '~> 0.9.24', :require => false
 
-### deps for rdoc.info
 group :documentation do
   gem 'github-markup', '~> 3.0.3'
   gem 'redcarpet', '~> 3.4.0', platforms: [:ruby]
