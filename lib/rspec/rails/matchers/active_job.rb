@@ -8,7 +8,7 @@ module RSpec
       #
       # @api private
       module ActiveJob
-        # rubocop: disable Style/ClassLength
+        # rubocop: disable Metrics/ClassLength
         # @private
         class Base < RSpec::Matchers::BuiltIn::BaseMatcher
           def initialize
@@ -169,7 +169,7 @@ module RSpec
             ::ActiveJob::Base.queue_adapter
           end
         end
-        # rubocop: enable Style/ClassLength
+        # rubocop: enable Metrics/ClassLength
 
         # @private
         class HaveEnqueuedJob < Base

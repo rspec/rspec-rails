@@ -66,10 +66,8 @@ if RUBY_VERSION <= '1.8.7'
   gem 'rubyzip', '< 1.0'
 end
 
-if RUBY_VERSION >= '2.0.0' && RUBY_VERSION < '2.2.0'
-  # our current rubocop version doesn't support the json version required by Ruby 2.4
-  # our rails rubocop setup only supports 2.0 and 2.1
-  gem 'rubocop', "~> 0.23.0"
+if RUBY_VERSION >= '2.0.0'
+  gem 'rubocop', "~> 0.52.1"
 end
 
 custom_gemfile = File.expand_path("../Gemfile-custom", __FILE__)

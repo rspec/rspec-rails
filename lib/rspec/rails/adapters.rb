@@ -11,9 +11,9 @@ module RSpec
       # gem in version 2.4.9. Previous to this version `Test::Unit.run=` was
       # used. The implementation of test-unit included with Ruby has neither
       # method.
-      if defined?(Test::Unit::AutoRunner.need_auto_run = ())
+      if defined?(Test::Unit::AutoRunner.need_auto_run = nil)
         Test::Unit::AutoRunner.need_auto_run = false
-      elsif defined?(Test::Unit.run = ())
+      elsif defined?(Test::Unit.run = nil)
         Test::Unit.run = false
       end
     end

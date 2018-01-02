@@ -53,7 +53,7 @@ module RSpec
     end
 
     # @private
-    # rubocop:disable Style/MethodLength
+    # rubocop:disable Metrics/MethodLength
     def self.initialize_configuration(config)
       config.backtrace_exclusion_patterns << /vendor\//
       config.backtrace_exclusion_patterns << %r{lib/rspec/rails}
@@ -141,7 +141,7 @@ module RSpec
         config.include RSpec::Rails::JobExampleGroup, :type => :job
       end
     end
-    # rubocop:enable Style/MethodLength
+    # rubocop:enable Metrics/MethodLength
 
     initialize_configuration RSpec.configuration
   end

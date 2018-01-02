@@ -1,4 +1,5 @@
-inherit_from: .rubocop_rspec_base.yml
+inherit_from:
+  - .rubocop_rspec_base.yml
 
 # Over time we'd like to get this down, but this is what we're at now.
 LineLength:
@@ -8,6 +9,15 @@ LineLength:
 MethodLength:
   Max: 50
 
+
+Metrics/AbcSize:
+  Max: 34
+
+Metrics/BlockLength:
+  Max: 43
+
+Metrics/PerceivedComplexity:
+  Max: 11
 # We use spaces, so it's less of a change to stick with that.
 SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: space
@@ -43,3 +53,10 @@ PerlBackrefs:
     # We probably can refactor the backref out, but for now excluding it since
     # we can't use named matches in 1.8.7
     - lib/generators/rspec/scaffold/scaffold_generator.rb
+
+Lint/AssignmentInCondition:
+  # Could possibly refactor these to avoid but wanting to avoid the churn while
+  # upgrading.
+  Exclude:
+    - 'lib/rspec/rails/adapters.rb'
+    - 'lib/rspec/rails/tasks/rspec.rake'
