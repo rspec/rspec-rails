@@ -66,8 +66,9 @@ if RUBY_VERSION <= '1.8.7'
   gem 'rubyzip', '< 1.0'
 end
 
-if RUBY_VERSION >= '2.0.0'
-  gem 'rubocop', "~> 0.52.1"
+# No need to run rubocop on earlier versions
+if RUBY_VERSION >= '2.4' && RUBY_ENGINE == 'ruby'
+  gem "rubocop", "~> 0.52.1"
 end
 
 custom_gemfile = File.expand_path("../Gemfile-custom", __FILE__)
