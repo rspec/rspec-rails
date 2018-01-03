@@ -137,7 +137,7 @@ module RSpec
         before do
           unless render_views?
             @_original_path_set = controller.class.view_paths
-            path_set = @_original_path_set.map { |resolver| RESOLVER_CACHE[resolver.to_s] }
+            path_set = @_original_path_set.map { |resolver| RESOLVER_CACHE[resolver] }
 
             controller.class.view_paths = path_set
             controller.extend(EmptyTemplates)
