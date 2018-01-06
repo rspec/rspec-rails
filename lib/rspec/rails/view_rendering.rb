@@ -71,6 +71,11 @@ module RSpec
             @resolver = resolver
           end
 
+          def find_all(*args, &block)
+            result = @resolver.find_all(*args, &block)
+            nullify_templates(result)
+          end
+
           def method_missing(name, *args, &block)
             result = @resolver.send(name, *args, &block)
             nullify_templates(result)
