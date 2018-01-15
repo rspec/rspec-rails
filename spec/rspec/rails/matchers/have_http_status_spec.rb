@@ -7,6 +7,28 @@ RSpec.describe "have_http_status" do
     }
   end
 
+  shared_examples_for "does not use deprecated methods for Rails 5.2+" do
+    it "does not use deprecated method for Rails >= 5.2" do
+      if 5 < Rails::VERSION::MAJOR ||
+         (Rails::VERSION::MAJOR == 5 && 2 <= Rails::VERSION::MINOR)
+        previous_stderr = $stderr
+        begin
+          splitter = RSpec::Support::StdErrSplitter.new(previous_stderr)
+          $stderr = splitter
+          response = ::ActionDispatch::Response.new(code).tap {|x|
+            x.request = ActionDispatch::Request.new({})
+          }
+          expect( matcher.matches?(response) ).to be(true)
+          expect(splitter.has_output?).to be false
+        ensure
+          $stderr = previous_stderr
+        end
+      else
+        skip "Rails >= 5.2 test, our version is #{Rails.version}"
+      end
+    end
+  end
+
   shared_examples_for "supports different response instances" do
     context "given an ActionDispatch::Response" do
       it "returns true for a response with the same code" do
@@ -200,6 +222,11 @@ RSpec.describe "have_http_status" do
       let(:code) { 555 }
     end
 
+    it_behaves_like "does not use deprecated methods for Rails 5.2+" do
+      subject(:matcher) { have_error_status }
+      let(:code) { 555 }
+    end
+
     describe "matching a response" do
       it "returns true for a response with a 5xx status code" do
         any_5xx_code = 555
@@ -263,6 +290,11 @@ RSpec.describe "have_http_status" do
       let(:code) { 222 }
     end
 
+    it_behaves_like "does not use deprecated methods for Rails 5.2+" do
+      subject(:matcher) { have_success_status }
+      let(:code) { 222 }
+    end
+
     describe "matching a response" do
       it "returns true for a response with a 2xx status code" do
         any_2xx_code = 222
@@ -323,6 +355,11 @@ RSpec.describe "have_http_status" do
     it_behaves_like "supports different response instances" do
       subject(:matcher) { have_missing_status }
 
+      let(:code) { 404 }
+    end
+
+    it_behaves_like "does not use deprecated methods for Rails 5.2+" do
+      subject(:matcher) { have_missing_status }
       let(:code) { 404 }
     end
 

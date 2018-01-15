@@ -255,12 +255,24 @@ module RSpec
             @invalid_response = nil
           end
 
-          # @return [Boolean] `true` if Rack's associated numeric HTTP code matched
-          #   the `response` code
+          def response_method(response_symbol)
+            if 5 < ::Rails::VERSION::MAJOR ||
+              (::Rails::VERSION::MAJOR == 5 && 2 <= ::Rails::VERSION::MINOR)
+              {
+                success: 'successful',
+                error: 'server_error',
+                missing: 'not_found'
+              }.fetch(response_symbol, response_symbol)
+            else
+              response_symbol
+            end
+          end
+
+          # @return [Boolean] value of response status method
           def matches?(response)
             test_response = as_test_response(response)
             @actual = test_response.response_code
-            test_response.send("#{expected}?")
+            test_response.send("#{response_method(expected)}?")
           rescue TypeError => _ignored
             @invalid_response = response
             false
