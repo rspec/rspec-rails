@@ -255,6 +255,14 @@ module RSpec
             @invalid_response = nil
           end
 
+          # @api private
+          # Convert a symbol representing the expected response class into
+          #   the name of the test method to call on the response object
+          #
+          # @param response_symbol [Symbol] representing the expected http
+          #   response class
+          # @return [String] name of the response method, minus the ending
+          #   question mark
           def response_method(response_symbol)
             if 5 < ::Rails::VERSION::MAJOR ||
               (::Rails::VERSION::MAJOR == 5 && 2 <= ::Rails::VERSION::MINOR)
