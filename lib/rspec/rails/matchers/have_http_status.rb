@@ -18,7 +18,12 @@ module RSpec
         # @return response matcher instance
         def self.matcher_for_status(target)
           if GenericStatus.valid_statuses.include?(target)
-            GenericStatus.new(target)
+            if 5 < ::Rails::VERSION::MAJOR ||
+               (::Rails::VERSION::MAJOR == 5 && 2 <= ::Rails::VERSION::MINOR)
+              GenericStatusWithLookup.new(target)
+            else
+              GenericStatus.new(target)
+            end
           elsif Symbol === target
             SymbolicStatus.new(target)
           else
@@ -255,12 +260,11 @@ module RSpec
             @invalid_response = nil
           end
 
-          # @return [Boolean] `true` if Rack's associated numeric HTTP code matched
-          #   the `response` code
+          # @return [Boolean] value of response status method
           def matches?(response)
             test_response = as_test_response(response)
             @actual = test_response.response_code
-            test_response.send("#{expected}?")
+            check_expected_status(test_response, expected)
           rescue TypeError => _ignored
             @invalid_response = response
             false
@@ -281,6 +285,12 @@ module RSpec
           def failure_message_when_negated
             invalid_response_type_message ||
             "expected the response not to have #{type_message} but it was #{actual}"
+          end
+
+        protected
+
+          def check_expected_status(test_response, expected)
+            test_response.send("#{expected}?")
           end
 
         private
@@ -325,6 +335,33 @@ module RSpec
                             when :redirect
                               "3xx"
                             end
+          end
+        end
+
+        class GenericStatusWithLookup < GenericStatus
+
+        protected
+
+          def check_expected_status(test_response, expected)
+            test_response.send("#{response_method(expected)}?")
+          end
+
+        private
+
+          # @api private
+          # Convert a symbol representing the expected response class into
+          #   the name of the test method to call on the response object
+          #
+          # @param response_symbol [Symbol] representing the expected http
+          #   response class
+          # @return [String] name of the response method, minus the ending
+          #   question mark
+          def response_method(response_symbol)
+            {
+              success: 'successful',
+              error: 'server_error',
+              missing: 'not_found'
+            }.fetch(response_symbol, response_symbol)
           end
         end
       end
