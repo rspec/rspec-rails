@@ -454,19 +454,26 @@ RSpec.describe "have_http_status" do
       end
     end
 
-    it_behaves_like "does not use deprecated methods for Rails 5.2+" do
-      subject(:matcher) { have_http_status(:missing) }
-      let(:code) { 404 }
+    context 'http status :missing' do
+      it_behaves_like "does not use deprecated methods for Rails 5.2+" do
+        puts "RAILS VERSION #{Rails.version}"
+        subject(:matcher) { have_http_status(:missing) }
+        let(:code) { 404 }
+      end
     end
 
-    it_behaves_like "does not use deprecated methods for Rails 5.2+" do
-      subject(:matcher) { have_http_status(:success) }
-      let(:code) { 222 }
+    context 'http status :success' do
+      it_behaves_like "does not use deprecated methods for Rails 5.2+" do
+        subject(:matcher) { have_http_status(:success) }
+        let(:code) { 222 }
+      end
     end
 
-    it_behaves_like "does not use deprecated methods for Rails 5.2+" do
-      subject(:matcher) { have_http_status(:error) }
-      let(:code) { 555 }
+    context 'http status :error' do
+      it_behaves_like "does not use deprecated methods for Rails 5.2+" do
+        subject(:matcher) { have_http_status(:error) }
+        let(:code) { 555 }
+      end
     end
   end
 end
