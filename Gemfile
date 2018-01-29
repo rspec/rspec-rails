@@ -28,10 +28,12 @@ if RUBY_VERSION >= '2.4.0'
   gem 'json', '>= 2.0.2'
 end
 
-if RUBY_VERSION >= '1.9.3'
+if RUBY_VERSION >= '2.0.0'
   gem 'rake', '>= 10.0.0'
+elsif RUBY_VERSION >= '1.9.3'
+  gem 'rake', '< 12.0.0' # rake 12 requires Ruby 2.0.0 or later
 else
-  gem 'rake', '~> 10.0' # rake 11 requires Ruby 1.9.3 or later
+  gem 'rake', '< 11.0.0' # rake 11 requires Ruby 1.9.3 or later
 end
 
 # Version 3 of mime-types 3 requires Ruby 2.0
