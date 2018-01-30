@@ -456,7 +456,6 @@ RSpec.describe "have_http_status" do
 
     context 'http status :missing' do
       it_behaves_like "does not use deprecated methods for Rails 5.2+" do
-        puts "RAILS VERSION #{Rails.version}"
         subject(:matcher) { have_http_status(:missing) }
         let(:code) { 404 }
       end
