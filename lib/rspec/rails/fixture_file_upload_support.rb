@@ -7,6 +7,7 @@ module RSpec
     private
 
       def rails_fixture_file_wrapper
+        RailsFixtureFileWrapper.fixture_path = nil
         resolved_fixture_path = (fixture_path || RSpec.configuration.fixture_path || '')
         RailsFixtureFileWrapper.fixture_path = File.join(resolved_fixture_path, '') unless resolved_fixture_path.strip.empty?
         RailsFixtureFileWrapper.instance

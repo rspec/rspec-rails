@@ -3,9 +3,8 @@ require 'spec_helper'
 module RSpec::Rails
   describe FixtureFileUploadSupport do
     context 'with fixture path set in config' do
-      before { RSpec.configuration.fixture_path = File.dirname(__FILE__) }
-
       it 'resolves fixture file' do
+        RSpec.configuration.fixture_path = File.dirname(__FILE__)
         expect(fixture_file_upload_resolved('fixture_file_upload_support_spec.rb').run).to be true
       end
     end
@@ -17,10 +16,9 @@ module RSpec::Rails
     end
 
     context 'with fixture path not set' do
-      before { RSpec.configuration.fixture_path = nil }
-
-      it 'resolves fixture with relative path' do
-        expect(fixture_file_upload_resolved('fixture_file_upload_support_spec.rb').run).to be true
+      it 'resolves fixture using relative path' do
+        RSpec.configuration.fixture_path = nil
+        expect(fixture_file_upload_resolved('spec/rspec/rails/fixture_file_upload_support_spec.rb').run).to be true
       end
     end
 
@@ -28,7 +26,7 @@ module RSpec::Rails
       RSpec::Core::ExampleGroup.describe do
         include RSpec::Rails::FixtureFileUploadSupport
 
-        self.fixture_path = fixture_path if fixture_path
+        self.fixture_path = fixture_path
 
         it 'supports fixture file upload' do
           file = fixture_file_upload(fixture_name)
