@@ -434,4 +434,45 @@ RSpec.describe "have_http_status" do
       expect{ have_http_status(nil) }.to raise_error ArgumentError
     end
   end
+
+  if 5 < Rails::VERSION::MAJOR ||
+     (Rails::VERSION::MAJOR == 5 && 2 <= Rails::VERSION::MINOR)
+    shared_examples_for "does not use deprecated methods for Rails 5.2+" do
+      it "does not use deprecated method for Rails >= 5.2" do
+        previous_stderr = $stderr
+        begin
+          splitter = RSpec::Support::StdErrSplitter.new(previous_stderr)
+          $stderr = splitter
+          response = ::ActionDispatch::Response.new(code).tap {|x|
+            x.request = ActionDispatch::Request.new({})
+          }
+          expect( matcher.matches?(response) ).to be(true)
+          expect(splitter.has_output?).to be false
+        ensure
+          $stderr = previous_stderr
+        end
+      end
+    end
+
+    context 'http status :missing' do
+      it_behaves_like "does not use deprecated methods for Rails 5.2+" do
+        subject(:matcher) { have_http_status(:missing) }
+        let(:code) { 404 }
+      end
+    end
+
+    context 'http status :success' do
+      it_behaves_like "does not use deprecated methods for Rails 5.2+" do
+        subject(:matcher) { have_http_status(:success) }
+        let(:code) { 222 }
+      end
+    end
+
+    context 'http status :error' do
+      it_behaves_like "does not use deprecated methods for Rails 5.2+" do
+        subject(:matcher) { have_http_status(:error) }
+        let(:code) { 555 }
+      end
+    end
+  end
 end
