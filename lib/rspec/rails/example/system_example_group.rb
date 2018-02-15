@@ -11,6 +11,9 @@ module RSpec
       include ActionDispatch::Assertions
       include ActionController::TemplateAssertions
 
+      # Special characters to translate into underscores for #method_name
+      CHARS_TO_TRANSLATE = ['/', '.', ':', ',', "'", '"', " "].freeze
+
       # @private
       module BlowAwayAfterTeardownHook
         # @private
@@ -35,7 +38,7 @@ module RSpec
           self.class.name.underscore,
           RSpec.current_example.description.underscore,
           rand(1000)
-        ].join("_").tr('/.:,\'" ', "_")
+        ].join("_").tr(CHARS_TO_TRANSLATE.join, "_")
       end
 
       # Delegates to `Rails.application`.

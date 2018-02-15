@@ -10,7 +10,7 @@ module RSpec::Rails
           group = RSpec::Core::ExampleGroup.describe ActionPack do
             include SystemExampleGroup
           end
-          ['/', '.', ':', ',', "'", '"', ' '].each do |char|
+          SystemExampleGroup::CHARS_TO_TRANSLATE.each do |char|
             example = group.new
             example_class_mock = double('name' => "method#{char}name")
             allow(example).to receive(:class).and_return(example_class_mock)
