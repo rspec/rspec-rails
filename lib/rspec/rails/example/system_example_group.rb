@@ -35,7 +35,7 @@ module RSpec
           self.class.name.underscore,
           RSpec.current_example.description.underscore,
           rand(1000)
-        ].join("_").gsub(/[\/\.:,'" ]/, "_")
+        ].join("_").tr('/.:,\'" ', "_")
       end
 
       # Delegates to `Rails.application`.
