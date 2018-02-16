@@ -1,6 +1,11 @@
 ### Development
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.7.2...master)
 
+Bug Fixes:
+
+* Escape quotation characters when producing method names for system spec 
+  screenshots. (Shane Cavanaugh, #1955)
+
 ### 3.7.2 / 2017-11-20
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.7.1...v3.7.2)
 
