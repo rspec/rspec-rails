@@ -233,6 +233,7 @@ module RSpec
         #   expect(response).to have_http_status(:error)
         #   expect(response).to have_http_status(:missing)
         #   expect(response).to have_http_status(:redirect)
+        #   expect(response).to have_http_status(:unauthorized)   
         #
         # @see RSpec::Rails::Matchers.have_http_status
         # @see ActionDispatch::TestResponse
