@@ -243,7 +243,11 @@ module RSpec
           #   code "group"
           # @see https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/testing/test_response.rb `ActionDispatch::TestResponse`
           def self.valid_statuses
-            [:error, :success, :missing, :redirect]
+            [
+              :error, :success, :missing,
+              :server_error, :successful, :not_found,
+              :redirect
+            ]
           end
 
           def initialize(type)
@@ -287,20 +291,22 @@ module RSpec
 
           if 5 < ::Rails::VERSION::MAJOR ||
              (::Rails::VERSION::MAJOR == 5 && 2 <= ::Rails::VERSION::MINOR)
-            def check_expected_status(test_response, expected)
-              test_response.send("#{expected}?")
-            end
-          else
             RESPONSE_METHODS = {
               success: 'successful',
               error: 'server_error',
               missing: 'not_found'
             }.freeze
+          else
+            RESPONSE_METHODS = {
+              successful: 'success',
+              server_error: 'error',
+              not_found: 'missing'
+            }.freeze
+          end
 
-            def check_expected_status(test_response, expected)
-              test_response.send(
-                "{RESPONSE_METHODS.fetch(response_symbol, response_symbol)}?")
-            end
+          def check_expected_status(test_response, expected)
+            test_response.send(
+              "#{RESPONSE_METHODS.fetch(expected, expected)}?")
           end
         private
 
