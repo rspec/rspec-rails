@@ -260,7 +260,7 @@ module RSpec
           end
 
           # @return [Boolean] `true` if Rack's associated numeric HTTP code matched
-          #   the `response` code
+          #   the `response` code or the named response status
           def matches?(response)
             test_response = as_test_response(response)
             @actual = test_response.response_code
