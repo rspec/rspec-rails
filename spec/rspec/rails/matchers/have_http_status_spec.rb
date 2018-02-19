@@ -474,5 +474,26 @@ RSpec.describe "have_http_status" do
         let(:code) { 555 }
       end
     end
+
+    context 'http status :not_found' do
+      it_behaves_like "supports different response instances" do
+        subject(:matcher) { have_http_status(:not_found) }
+        let(:code) { 404 }
+      end
+    end
+
+    context 'http status :successful' do
+      it_behaves_like "supports different response instances" do
+        subject(:matcher) { have_http_status(:successful) }
+        let(:code) { 222 }
+      end
+    end
+
+    context 'http status :server_error' do
+      it_behaves_like "supports different response instances" do
+        subject(:matcher) { have_http_status(:server_error) }
+        let(:code) { 555 }
+      end
+    end
   end
 end
