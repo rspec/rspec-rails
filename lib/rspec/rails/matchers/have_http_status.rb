@@ -259,7 +259,8 @@ module RSpec
             @invalid_response = nil
           end
 
-          # @return [Boolean] value of response status method
+          # @return [Boolean] `true` if Rack's associated numeric HTTP code matched
+          #   the `response` code or the named response status
           def matches?(response)
             test_response = as_test_response(response)
             @actual = test_response.response_code
