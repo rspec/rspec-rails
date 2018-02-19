@@ -283,6 +283,25 @@ module RSpec
             "expected the response not to have #{type_message} but it was #{actual}"
           end
 
+        protected
+
+          if 5 < ::Rails::VERSION::MAJOR ||
+             (::Rails::VERSION::MAJOR == 5 && 2 <= ::Rails::VERSION::MINOR)
+            def check_expected_status(test_response, expected)
+              test_response.send("#{expected}?")
+            end
+          else
+            RESPONSE_METHODS = {
+              success: 'successful',
+              error: 'server_error',
+              missing: 'not_found'
+            }.freeze
+
+            def check_expected_status(test_response, expected)
+              test_response.send(
+                "{RESPONSE_METHODS.fetch(response_symbol, response_symbol)}?")
+            end
+          end
         private
 
           # @return [String] formating the expected status and associated code(s)
