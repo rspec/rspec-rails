@@ -342,11 +342,11 @@ module RSpec
             # @see https://github.com/rails/rails/blob/ca200378/actionpack/lib/action_dispatch/http/response.rb#L74
             # @see https://github.com/rack/rack/blob/ce4a3959/lib/rack/response.rb#L119-L122
             @type_codes ||= case expected
-                            when :error
+                            when :error, :server_error
                               "5xx"
-                            when :success
+                            when :success, :successful
                               "2xx"
-                            when :missing
+                            when :missing, :not_found
                               "404"
                             when :redirect
                               "3xx"
