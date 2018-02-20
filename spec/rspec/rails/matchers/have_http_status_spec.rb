@@ -177,6 +177,51 @@ RSpec.describe "have_http_status" do
     end
   end
 
+  shared_examples_for 'status code matcher' do
+    # within the calling block, define:
+    # let(:expected_code) { <value> } # such as 555, 444, 333, 222
+    # let(:other_code) { <value> } # such as 555, 444, 333, 222
+    # let(:failure_message) {
+    #   /an error status code \(5xx\) but it was 400/
+    # } # for example
+    # let(:negated_message) {
+    #   /not to have an error status code \(5xx\) but it was 555/
+    # } # for example
+    # let(:description) {
+    #   'respond with an error status code (5xx)'
+    # } # for example
+    # subject(:matcher) { <matcher> } # e.g. { have_http_status(:error) }
+    describe "matching a response" do
+      it "returns true for a response with code" do
+        response = create_response(:status => expected_code)
+        expect(matcher.matches?(response)).to be(true)
+      end
+
+      it "returns false for a response with a different code" do
+        response = create_response(:status => other_code)
+        expect( matcher.matches?(response) ).to be(false)
+      end
+    end
+
+    it "describes #{description}" do
+      expect(matcher.description).to eq(description)
+    end
+
+    it "has a failure message reporting the expected and actual status codes" do
+      response = create_response(:status => other_code)
+      expect{ matcher.matches? response }.
+        to change(matcher, :failure_message).
+        to(failure_message)
+    end
+
+    it "has a negated failure message reporting the expected and actual status codes" do
+      response = create_response(:status => expected_code)
+      expect{ matcher.matches? response }.
+        to change(matcher, :failure_message_when_negated).
+        to(negated_message)
+    end
+  end
+
   context "with general status code group", ":error" do
     # The error query is an alias for `server_error?`:
     #
@@ -192,51 +237,42 @@ RSpec.describe "have_http_status" do
     # - https://github.com/rack/rack/blob/ce4a3959/lib/rack/response.rb#L122
     # - https://github.com/rack/rack/blob/master/lib/rack/response.rb
 
-    subject(:have_error_status) { have_http_status(:error) }
+    subject(:matcher) { have_http_status(:error) }
+
+    it_behaves_like 'status code matcher' do
+      let(:expected_code) { 555 }
+      let(:other_code) { 400 }
+      let(:failure_message) { /an error status code \(5xx\) but it was 400/ }
+      let(:negated_message) {
+        /not to have an error status code \(5xx\) but it was 555/
+      }
+      let(:description) {
+        'respond with an error status code (5xx)'
+      }
+    end
 
     it_behaves_like "supports different response instances" do
-      subject(:matcher) { have_error_status }
-
       let(:code) { 555 }
     end
+  end
 
-    describe "matching a response" do
-      it "returns true for a response with a 5xx status code" do
-        any_5xx_code = 555
-        response     = create_response(:status => any_5xx_code)
+  context "with general status code group", ":server_error" do
+    subject(:matcher) { have_http_status(:server_error) }
 
-        expect( have_error_status.matches?(response) ).to be(true)
-      end
-
-      it "returns false for a response with a different code" do
-        client_error_code = 400
-        response          = create_response(:status => client_error_code)
-
-        expect( have_error_status.matches?(response) ).to be(false)
-      end
+    it_behaves_like 'status code matcher' do
+      let(:expected_code) { 555 }
+      let(:other_code) { 400 }
+      let(:failure_message) { /a server_error status code \(5xx\) but it was 400/ }
+      let(:negated_message) {
+        /not to have a server_error status code \(5xx\) but it was 555/
+      }
+      let(:description) {
+        'respond with a server_error status code (5xx)'
+      }
     end
 
-    it "describes responding with an error status code" do
-      expect(have_error_status.description).
-        to eq("respond with an error status code (5xx)")
-    end
-
-    it "has a failure message reporting the expected and actual status codes" do
-      client_error_code = 400
-      response          = create_response(:status => client_error_code)
-
-      expect{ have_error_status.matches? response }.
-        to change(have_error_status, :failure_message).
-        to(/an error status code \(5xx\) but it was 400/)
-    end
-
-    it "has a negated failure message reporting the expected and actual status codes" do
-      any_5xx_code = 555
-      response     = create_response(:status => any_5xx_code)
-
-      expect{ have_error_status.matches? response }.
-        to change(have_error_status, :failure_message_when_negated).
-        to(/not to have an error status code \(5xx\) but it was 555/)
+    it_behaves_like "supports different response instances" do
+      let(:code) { 555 }
     end
   end
 
@@ -255,51 +291,46 @@ RSpec.describe "have_http_status" do
     # - https://github.com/rack/rack/blob/ce4a3959/lib/rack/response.rb#L119
     # - https://github.com/rack/rack/blob/master/lib/rack/response.rb
 
-    subject(:have_success_status) { have_http_status(:success) }
+    subject(:matcher) { have_http_status(:success) }
+
+    it_behaves_like 'status code matcher' do
+      let(:expected_code) { 222 }
+      let(:other_code) { 400 }
+      let(:failure_message) {
+        /a success status code \(2xx\) but it was 400/
+      }
+      let(:negated_message) {
+        /not to have a success status code \(2xx\) but it was 222/
+      }
+      let(:description) {
+        'respond with a success status code (2xx)'
+      }
+    end
 
     it_behaves_like "supports different response instances" do
-      subject(:matcher) { have_success_status }
-
       let(:code) { 222 }
     end
+  end
 
-    describe "matching a response" do
-      it "returns true for a response with a 2xx status code" do
-        any_2xx_code = 222
-        response     = create_response(:status => any_2xx_code)
+  context "with general status code group", ":successful" do
+    subject(:matcher) { have_http_status(:successful) }
 
-        expect( have_success_status.matches?(response) ).to be(true)
-      end
-
-      it "returns false for a response with a different code" do
-        non_success_code = 400
-        response         = create_response(:status => non_success_code)
-
-        expect( have_success_status.matches?(response) ).to be(false)
-      end
+    it_behaves_like 'status code matcher' do
+      let(:expected_code) { 222 }
+      let(:other_code) { 400 }
+      let(:failure_message) {
+        /a successful status code \(2xx\) but it was 400/
+      }
+      let(:negated_message) {
+        /not to have a successful status code \(2xx\) but it was 222/
+      }
+      let(:description) {
+        'respond with a successful status code (2xx)'
+      }
     end
 
-    it "describes responding with a success status code" do
-      expect(have_success_status.description).
-        to eq("respond with a success status code (2xx)")
-    end
-
-    it "has a failure message reporting the expected and actual status codes" do
-      non_success_code = 400
-      response         = create_response(:status => non_success_code)
-
-      expect{ have_success_status.matches? response }.
-        to change(have_success_status, :failure_message).
-        to(/a success status code \(2xx\) but it was 400/)
-    end
-
-    it "has a negated failure message reporting the expected and actual status codes" do
-      any_2xx_code = 222
-      response     = create_response(:status => any_2xx_code)
-
-      expect{ have_success_status.matches? response }.
-        to change(have_success_status, :failure_message_when_negated).
-        to(/not to have a success status code \(2xx\) but it was 222/)
+    it_behaves_like "supports different response instances" do
+      let(:code) { 222 }
     end
   end
 
@@ -318,51 +349,47 @@ RSpec.describe "have_http_status" do
     # - https://github.com/rack/rack/blob/ce4a3959/lib/rack/response.rb#L130
     # - https://github.com/rack/rack/blob/master/lib/rack/response.rb
 
-    subject(:have_missing_status) { have_http_status(:missing) }
+    subject(:matcher) { have_http_status(:missing) }
+
+    it_behaves_like 'status code matcher' do
+      let(:expected_code) { 404 }
+      let(:other_code) { 400 }
+      let(:failure_message) {
+        /a missing status code \(404\) but it was 400/
+      }
+      let(:negated_message) {
+        /not to have a missing status code \(404\) but it was 404/
+      }
+      let(:description) {
+        'respond with a missing status code (404)'
+      }
+    end
 
     it_behaves_like "supports different response instances" do
-      subject(:matcher) { have_missing_status }
-
       let(:code) { 404 }
     end
+  end
 
-    describe "matching a response" do
-      it "returns true for a response with a 404 status code" do
-        not_found_status = 404
-        response         = create_response(:status => not_found_status)
+  context "with general status code group", ":not_found" do
+    subject(:matcher) { have_http_status(:not_found) }
 
-        expect( have_missing_status.matches?(response) ).to be(true)
-      end
-
-      it "returns false for a response with a different code" do
-        non_missing_status = 400
-        response           = create_response(:status => non_missing_status)
-
-        expect( have_missing_status.matches?(response) ).to be(false)
-      end
+    it_behaves_like 'status code matcher' do
+      let(:expected_code) { 404 }
+      let(:other_code) { 400 }
+      let(:failure_message) {
+        /a not_found status code \(404\) but it was 400/
+      }
+      let(:negated_message) {
+        /not to have a not_found status code \(404\) but it was 404/
+      }
+      let(:description) {
+        'respond with a not_found status code (404)'
+      }
     end
 
-    it "describes responding with a missing status code" do
-      expect(have_missing_status.description).
-        to eq("respond with a missing status code (404)")
-    end
-
-    it "has a failure message reporting the expected and actual status codes" do
-      non_missing_status = 400
-      response           = create_response(:status => non_missing_status)
-
-      expect{ have_missing_status.matches? response }.
-        to change(have_missing_status, :failure_message).
-        to(/a missing status code \(404\) but it was 400/)
-    end
-
-    it "has a negated failure message reporting the expected status code" do
-      not_found_status = 404
-      response         = create_response(:status => not_found_status)
-
-      expect{ have_missing_status.matches? response }.
-        to change(have_missing_status, :failure_message_when_negated).
-        to(/not to have a missing status code \(404\) but it was 404/)
+    it_behaves_like "supports different response instances" do
+      subject(:matcher) { have_http_status(:not_found) }
+      let(:code) { 404 }
     end
   end
 
@@ -381,51 +408,24 @@ RSpec.describe "have_http_status" do
     # - https://github.com/rack/rack/blob/ce4a3959/lib/rack/response.rb#L120
     # - https://github.com/rack/rack/blob/master/lib/rack/response.rb
 
-    subject(:have_redirect_status) { have_http_status(:redirect) }
+    subject(:matcher) { have_http_status(:redirect) }
+
+    it_behaves_like 'status code matcher' do
+      let(:expected_code) { 308 }
+      let(:other_code) { 400 }
+      let(:failure_message) {
+        /a redirect status code \(3xx\) but it was 400/
+      }
+      let(:negated_message) {
+        /not to have a redirect status code \(3xx\) but it was 308/
+      }
+      let(:description) {
+        'respond with a redirect status code (3xx)'
+      }
+    end
 
     it_behaves_like "supports different response instances" do
-      subject(:matcher) { have_redirect_status }
-
       let(:code) { 308 }
-    end
-
-    describe "matching a response" do
-      it "returns true for a response with a 3xx status code" do
-        any_3xx_code = 308
-        response     = create_response(:status => any_3xx_code)
-
-        expect( have_redirect_status.matches?(response) ).to be(true)
-      end
-
-      it "returns false for a response with a different code" do
-        non_redirect_code = 400
-        response          = create_response(:status => non_redirect_code)
-
-        expect( have_redirect_status.matches?(response) ).to be(false)
-      end
-    end
-
-    it "describes responding with a redirect status code" do
-      expect(have_redirect_status.description).
-        to eq("respond with a redirect status code (3xx)")
-    end
-
-    it "has a failure message reporting the expected and actual status codes" do
-      non_redirect_code = 400
-      response          = create_response(:status => non_redirect_code)
-
-      expect{ have_redirect_status.matches? response }.
-        to change(have_redirect_status, :failure_message).
-        to(/a redirect status code \(3xx\) but it was 400/)
-    end
-
-    it "has a negated failure message reporting the expected and actual status codes" do
-      any_3xx_code = 308
-      response     = create_response(:status => any_3xx_code)
-
-      expect{ have_redirect_status.matches? response }.
-        to change(have_redirect_status, :failure_message_when_negated).
-        to(/not to have a redirect status code \(3xx\) but it was 308/)
     end
   end
 
