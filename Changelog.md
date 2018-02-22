@@ -5,6 +5,8 @@ Enhancements:
 
 * Improved message when migrations are pending in the default `rails_helper.rb`
   (Koichi ITO, #1924)
+* `have_http_status` matcher now supports Rails 5.2 style response symbols
+  (Douglas Lovell, #1951)
 
 Bug Fixes:
 
