@@ -5,6 +5,12 @@ def require_file_stub(name)
 end
 
 ENV['RAILS_ENV'] ||= 'development'
+# Pick the frameworks you want:
+begin
+  require "active_storage"
+  require "active_storage/engine"
+rescue LoadError
+end
 
 require_file_stub 'config/environment' do
   # Load the Rails application.

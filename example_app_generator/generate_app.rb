@@ -11,6 +11,7 @@ travis_retry_script = File.join(
   'travis_retry_bundle_install.sh'
 )
 function_script_file = File.join(rspec_rails_repo_path, 'script/functions.sh')
+sqlite_initializer = File.join(rspec_rails_repo_path, "example_app_generator/config/initializers/sqlite3_fix.rb")
 
 in_root do
   prepend_to_file "Rakefile", "require 'active_support/all'"
@@ -25,6 +26,11 @@ in_root do
 
   if Rails::VERSION::STRING >= '5.0.0'
     append_to_file('Gemfile', "gem 'rails-controller-testing', :git => 'https://github.com/rails/rails-controller-testing'\n")
+  end
+
+  if Rails::VERSION::STRING >= '5.2.0'
+    append_to_file("Gemfile", "gem 'activestorage'\n")
+    copy_file sqlite_initializer, 'config/initializers/sqlite3_fix.rb'
   end
 
   # Nokogiri version is pinned in rspec-rails' Gemfile since it tend to cause installation problems
