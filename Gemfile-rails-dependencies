@@ -43,9 +43,6 @@ else
   if version >= '5-1-stable' && RUBY_VERSION  >= "1.9.3"
     gem "puma"
   end
-  if (version >= '5-2-stable' || version >= "5.2.0") && RUBY_VERSION  >= "1.9.3"
-    gem "activestorage"
-  end
 end
 
 gem "i18n", '< 0.7.0' if RUBY_VERSION < '1.9.3'

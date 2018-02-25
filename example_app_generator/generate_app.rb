@@ -29,7 +29,6 @@ in_root do
   end
 
   if Rails::VERSION::STRING >= '5.2.0'
-    append_to_file("Gemfile", "gem 'activestorage'\n")
     copy_file sqlite_initializer, 'config/initializers/sqlite3_fix.rb'
   end
 
