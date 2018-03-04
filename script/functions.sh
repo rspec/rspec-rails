@@ -1,4 +1,4 @@
-# This file was generated on 2017-11-21T14:21:55+11:00 from the rspec-dev repo.
+# This file was generated on 2018-03-04T16:52:14+01:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -83,11 +83,7 @@ function run_spec_suite_for {
       pushd ../$1
       unset BUNDLE_GEMFILE
       bundle_install_flags=`cat .travis.yml | grep bundler_args | tr -d '"' | grep -o " .*"`
-      if is_mri_192_plus; then
-        travis_retry eval "RUBYOPT=$RUBYOPT:'--enable rubygems' bundle install $bundle_install_flags"
-      else
-        travis_retry eval "bundle install $bundle_install_flags"
-      fi
+      travis_retry eval "(unset RUBYOPT; exec bundle install $bundle_install_flags)"
       run_specs_and_record_done
       popd
     else
@@ -184,7 +180,7 @@ function check_documentation_coverage {
 
 function check_style_and_lint {
   echo "bin/rubocop lib"
-  bin/rubocop lib
+  eval "(unset RUBYOPT; exec bin/rubocop lib)"
 }
 
 function run_all_spec_suites {
