@@ -1,11 +1,11 @@
-# This file was generated on 2017-11-21T14:21:55+11:00 from the rspec-dev repo.
+# This file was generated on 2018-03-04T16:52:14+01:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 # This file contains defaults for RSpec projects. Individual projects
 # can customize by inheriting this file and overriding particular settings.
 
 AccessModifierIndentation:
-  EnforcedStyle: outdent
+  Enabled: false
 
 # "Use alias_method instead of alias"
 # We're fine with `alias`.
@@ -50,9 +50,6 @@ DoubleNegation:
 EachWithObject:
   Enabled: false
 
-Encoding:
-  EnforcedStyle: when_needed
-
 FormatString:
   EnforcedStyle: percent
 
@@ -73,7 +70,7 @@ MethodLength:
   Max: 15
 
 # Who cares what we call the argument for binary operator methods?
-OpMethod:
+BinaryOperatorParameterName:
   Enabled: false
 
 PercentLiteralDelimiters:
@@ -98,9 +95,6 @@ PredicateName:
 Proc:
   Enabled: false
 
-RedundantReturn:
-  AllowMultipleReturnValues: true
-
 # Exceptions should be rescued with `Support::AllExceptionsExceptOnesWeMustNotRescue`
 RescueException:
   Enabled: true
@@ -121,10 +115,196 @@ StringLiterals:
 Style/SpecialGlobalVars:
   Enabled: false
 
-Style/TrailingComma:
+Style/TrailingCommaInLiteral:
+  Enabled: false
+
+Style/TrailingCommaInArguments:
   Enabled: false
 
 TrivialAccessors:
   AllowDSLWriters: true
   AllowPredicates: true
   ExactNameMatch: true
+
+Style/ParallelAssignment:
+  Enabled: false
+
+Layout/EmptyLineBetweenDefs:
+  Enabled: false
+
+Layout/FirstParameterIndentation:
+  Enabled: false
+
+Naming/ConstantName:
+  Enabled: false
+
+Style/ClassCheck:
+  Enabled: false
+
+Style/ConditionalAssignment:
+  Enabled: false
+
+Style/EmptyMethod:
+  Enabled: false
+
+Style/FormatStringToken:
+  Enabled: false
+
+Style/GuardClause:
+  Enabled: false
+
+Style/IdenticalConditionalBranches:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/IfUnlessModifierOfIfUnless:
+  Enabled: false
+
+Style/MethodMissing:
+  Enabled: false
+
+Style/MixinUsage:
+  Enabled: false
+
+Style/MultipleComparison:
+  Enabled: false
+
+Style/MutableConstant:
+  Enabled: false
+
+Style/NestedModifier:
+  Enabled: false
+
+Style/NestedParenthesizedCalls:
+  Enabled: false
+
+Style/NumericPredicate:
+  Enabled: false
+
+Style/RedundantParentheses:
+  Enabled: false
+
+Style/StringLiteralsInInterpolation:
+  Enabled: false
+
+Style/SymbolArray:
+  Enabled: false
+
+Style/SymbolProc:
+  Enabled: false
+
+Style/YodaCondition:
+  Enabled: false
+
+Style/ZeroLengthPredicate:
+  Enabled: false
+
+Layout/ClosingParenthesisIndentation:
+  Enabled: false
+
+Layout/ExtraSpacing:
+  Enabled: false
+
+Layout/MultilineMethodCallBraceLayout:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+
+Layout/MultilineOperationIndentation:
+  Enabled: false
+
+Layout/SpaceAroundBlockParameters:
+  Enabled: false
+
+Layout/SpaceAroundOperators:
+  Enabled: false
+
+Layout/SpaceBeforeComma:
+  Enabled: false
+
+Style/BlockDelimiters:
+  Enabled: false
+
+Style/EmptyCaseCondition:
+  Enabled: false
+
+Style/MultilineIfModifier:
+  Enabled: false
+
+Style/RescueStandardError:
+  Enabled: false
+
+Style/StderrPuts:
+  Enabled: false
+
+Style/TernaryParentheses:
+  Enabled: false
+
+# This could likely be enabled, but it had a false positive on rspec-mocks
+# (suggested change was not behaviour preserving) so I don't trust it.
+Performance/HashEachMethods:
+  Enabled: false
+
+Naming/HeredocDelimiterNaming:
+  Enabled: false
+
+Layout/EmptyLineAfterMagicComment:
+  Enabled: false
+
+Layout/IndentArray:
+  Enabled: false
+
+Layout/IndentAssignment:
+  Enabled: false
+
+Layout/IndentHeredoc:
+  Enabled: false
+
+Layout/SpaceInsidePercentLiteralDelimiters:
+  Enabled: false
+
+Style/EmptyElse:
+  Enabled: false
+
+Style/IfInsideElse:
+  Enabled: false
+
+Style/RedundantReturn:
+  Enabled: false
+
+Style/StructInheritance:
+  Enabled: false
+
+Naming/VariableNumber:
+  Enabled: false
+
+Layout/SpaceInsideStringInterpolation:
+  Enabled: false
+
+Style/DateTime:
+  Enabled: false
+
+Style/ParenthesesAroundCondition:
+  Enabled: false
+
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Lint/ImplicitStringConcatenation:
+  Enabled: false
+
+Lint/NestedMethodDefinition:
+  Enabled: false
+
+Style/RegexpLiteral:
+  Enabled: false
+
+Style/TrailingUnderscoreVariable:
+  Enabled: false
+
+Layout/EmptyLinesAroundAccessModifier:
+  Enabled: false
+
