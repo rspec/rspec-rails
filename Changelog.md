@@ -7,6 +7,8 @@ Enhancements:
   (Koichi ITO, #1924)
 * `have_http_status` matcher now supports Rails 5.2 style response symbols
   (Douglas Lovell, #1951)
+* Change generated Rails helper to match Rails standards for Rails.root
+  (Alessandro Rodi, #1960)
 
 Bug Fixes:
 
