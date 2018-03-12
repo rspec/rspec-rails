@@ -243,7 +243,11 @@ module RSpec
           #   code "group"
           # @see https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/testing/test_response.rb `ActionDispatch::TestResponse`
           def self.valid_statuses
-            [:error, :success, :missing, :redirect]
+            [
+              :error, :success, :missing,
+              :server_error, :successful, :not_found,
+              :redirect
+            ]
           end
 
           def initialize(type)
@@ -256,11 +260,11 @@ module RSpec
           end
 
           # @return [Boolean] `true` if Rack's associated numeric HTTP code matched
-          #   the `response` code
+          #   the `response` code or the named response status
           def matches?(response)
             test_response = as_test_response(response)
             @actual = test_response.response_code
-            test_response.send("#{expected}?")
+            check_expected_status(test_response, expected)
           rescue TypeError => _ignored
             @invalid_response = response
             false
@@ -281,6 +285,28 @@ module RSpec
           def failure_message_when_negated
             invalid_response_type_message ||
             "expected the response not to have #{type_message} but it was #{actual}"
+          end
+
+        protected
+
+          if 5 < ::Rails::VERSION::MAJOR ||
+             (::Rails::VERSION::MAJOR == 5 && 2 <= ::Rails::VERSION::MINOR)
+            RESPONSE_METHODS = {
+              :success => 'successful',
+              :error => 'server_error',
+              :missing => 'not_found'
+            }.freeze
+          else
+            RESPONSE_METHODS = {
+              :successful => 'success',
+              :server_error => 'error',
+              :not_found => 'missing'
+            }.freeze
+          end
+
+          def check_expected_status(test_response, expected)
+            test_response.send(
+              "#{RESPONSE_METHODS.fetch(expected, expected)}?")
           end
 
         private
@@ -316,11 +342,11 @@ module RSpec
             # @see https://github.com/rails/rails/blob/ca200378/actionpack/lib/action_dispatch/http/response.rb#L74
             # @see https://github.com/rack/rack/blob/ce4a3959/lib/rack/response.rb#L119-L122
             @type_codes ||= case expected
-                            when :error
+                            when :error, :server_error
                               "5xx"
-                            when :success
+                            when :success, :successful
                               "2xx"
-                            when :missing
+                            when :missing, :not_found
                               "404"
                             when :redirect
                               "3xx"

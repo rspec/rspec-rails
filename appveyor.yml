@@ -1,4 +1,4 @@
-# This file was generated on 2017-11-21T14:21:55+11:00 from the rspec-dev repo.
+# This file was generated on 2018-03-04T16:52:14+01:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 version: "{build}"
@@ -37,3 +37,5 @@ environment:
     - ruby_version: 200
     - ruby_version: 21
     - ruby_version: 22
+    - ruby_version: 23-x64
+    - ruby_version: 24-x64
