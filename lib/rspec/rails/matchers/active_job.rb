@@ -16,7 +16,7 @@ module RSpec
             @queue = nil
             @at = nil
             @block = Proc.new {}
-            set_expected_number(:exactly, 1)
+            set_expected_number(:at_least, 1)
           end
 
           def with(*args, &block)
