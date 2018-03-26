@@ -3,7 +3,7 @@
 
 Bug Fixes:
 
-* Escape quotation characters when producing method names for system spec 
+* Escape quotation characters when producing method names for system spec
   screenshots. (Shane Cavanaugh, #1955)
 
 ### 3.7.2 / 2017-11-20
