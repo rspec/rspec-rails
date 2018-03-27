@@ -196,6 +196,26 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       }.to have_enqueued_job.at(date)
     end
 
+    it "has an enqueued job when providing at of :no_wait and there is no wait" do
+      expect {
+        hello_job.perform_later
+      }.to have_enqueued_job.at(:no_wait)
+    end
+
+    it "has an enqueued job when not providing at and there is a wait" do
+      date = Date.tomorrow.noon
+      expect {
+        hello_job.set(:wait_until => date).perform_later
+      }.to have_enqueued_job
+    end
+
+    it "does not have an enqueued job when providing at of :no_wait and there is a wait" do
+      date = Date.tomorrow.noon
+      expect {
+        hello_job.set(:wait_until => date).perform_later
+      }.to_not have_enqueued_job.at(:no_wait)
+    end
+
     it "passes with provided arguments" do
       expect {
         hello_job.perform_later(42, "David")

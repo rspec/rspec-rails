@@ -118,7 +118,7 @@ module RSpec
             "#{message_expectation_modifier} #{@expected_number} jobs,".tap do |msg|
               msg << " with #{@args}," if @args.any?
               msg << " on queue #{@queue}," if @queue
-              msg << " at #{@at}," if @at
+              msg << " at #{@at.inspect}," if @at
               msg << " but enqueued #{@matching_jobs_count}"
             end
           end
@@ -149,10 +149,14 @@ module RSpec
 
           def serialized_attributes
             {}.tap do |attributes|
-              attributes[:at]    = @at.to_f if @at
+              attributes[:at]    = serialized_at if @at
               attributes[:queue] = @queue if @queue
               attributes[:job]   = @job if @job
             end
+          end
+
+          def serialized_at
+            @at == :no_wait ? nil : @at.to_f
           end
 
           def set_expected_number(relativity, count)
@@ -232,6 +236,10 @@ module RSpec
       #     expect {
       #       HelloJob.set(wait_until: Date.tomorrow.noon, queue: "low").perform_later(42)
       #     }.to have_enqueued_job.with(42).on_queue("low").at(Date.tomorrow.noon)
+      #
+      #     expect {
+      #       HelloJob.set(queue: "low").perform_later(42)
+      #     }.to have_enqueued_job.with(42).on_queue("low").at(:no_wait)
       def have_enqueued_job(job = nil)
         check_active_job_adapter
         ActiveJob::HaveEnqueuedJob.new(job)
@@ -264,6 +272,9 @@ module RSpec
       #
       #     HelloJob.set(wait_until: Date.tomorrow.noon, queue: "low").perform_later(42)
       #     expect(HelloJob).to have_been_enqueued.with(42).on_queue("low").at(Date.tomorrow.noon)
+      #
+      #     HelloJob.set(queue: "low").perform_later(42)
+      #     expect(HelloJob).to have_been_enqueued.with(42).on_queue("low").at(:no_wait)
       def have_been_enqueued
         check_active_job_adapter
         ActiveJob::HaveBeenEnqueued.new
