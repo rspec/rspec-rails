@@ -9,6 +9,8 @@ Enhancements:
   (Douglas Lovell, #1951)
 * Change generated Rails helper to match Rails standards for Rails.root
   (Alessandro Rodi, #1960)
+* At support for asserting enqueued jobs have no wait period attached.
+  (Brad Charna, #1977)
 
 Bug Fixes:
 
