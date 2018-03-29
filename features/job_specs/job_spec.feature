@@ -60,6 +60,25 @@ Feature: job spec
     When I run `rspec spec/jobs/upload_backups_spec.rb`
     Then the example should pass
 
+  Scenario: specify that job was enqueued with no wait
+    Given a file named "spec/jobs/upload_backups_spec.rb" with:
+    """ruby
+    require "rails_helper"
+
+    RSpec.describe UploadBackupsJob, :type => :job do
+      describe "#perform_later" do
+        it "uploads a backup" do
+          ActiveJob::Base.queue_adapter = :test
+          expect {
+            UploadBackupsJob.set(queue: "low").perform_later('backup')
+          }.to have_enqueued_job.with('backup').on_queue("low").at(:no_wait)
+        end
+      end
+    end
+    """
+    When I run `rspec spec/jobs/upload_backups_spec.rb`
+    Then the example should pass
+
   Scenario: specify that job was enqueued with alias block syntax
     Given a file named "spec/jobs/upload_backups_spec.rb" with:
     """ruby
