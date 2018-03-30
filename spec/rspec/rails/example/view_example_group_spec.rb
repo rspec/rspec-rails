@@ -254,5 +254,25 @@ module RSpec::Rails
         view_spec.template
       end
     end
+
+    describe '#stub_template' do
+      let(:view_spec) do
+        Class.new do
+          include ViewExampleGroup::ExampleMethods
+          def _view
+            @_view ||= Struct.new(:view_paths).new(['some-path'])
+          end
+        end.new
+      end
+
+      it 'prepends an ActionView::FixtureResolver to the view path' do
+        view_spec.stub_template('some_path/some_template' => 'stubbed-contents')
+
+        result = view_spec.view.view_paths.first
+
+        expect(result).to be_instance_of(ActionView::FixtureResolver)
+        expect(result.hash).to eq('some_path/some_template' => 'stubbed-contents')
+      end
+    end
   end
 end
