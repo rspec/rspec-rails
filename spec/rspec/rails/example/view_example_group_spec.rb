@@ -256,22 +256,33 @@ module RSpec::Rails
     end
 
     describe '#stub_template' do
-      let(:view_spec) do
+      let(:view_spec_group) do
         Class.new do
           include ViewExampleGroup::ExampleMethods
           def _view
             @_view ||= Struct.new(:view_paths).new(['some-path'])
           end
-        end.new
+        end
       end
 
       it 'prepends an ActionView::FixtureResolver to the view path' do
+        view_spec = view_spec_group.new
         view_spec.stub_template('some_path/some_template' => 'stubbed-contents')
 
         result = view_spec.view.view_paths.first
 
         expect(result).to be_instance_of(ActionView::FixtureResolver)
         expect(result.hash).to eq('some_path/some_template' => 'stubbed-contents')
+      end
+
+      it 'caches FixtureResolver instances between example groups' do
+        view_spec_one = view_spec_group.new
+        view_spec_two = view_spec_group.new
+
+        view_spec_one.stub_template('some_path/some_template' => 'stubbed-contents')
+        view_spec_two.stub_template('some_path/some_template' => 'stubbed-contents')
+
+        expect(view_spec_one.view.view_paths.first).to eq(view_spec_two.view.view_paths.first)
       end
     end
   end

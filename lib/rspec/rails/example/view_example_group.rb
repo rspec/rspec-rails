@@ -14,6 +14,14 @@ module RSpec
       include RSpec::Rails::Matchers::RenderTemplate
 
       # @private
+      module StubResolverCache
+        def self.resolver_for(hash)
+          @resolvers ||= {}
+          @resolvers[hash] ||= ActionView::FixtureResolver.new(hash)
+        end
+      end
+
+      # @private
       module ClassMethods
         def _default_helper
           base = metadata[:description].split('/')[0..-2].join('/')
@@ -84,7 +92,7 @@ module RSpec
         #
         #     stub_template("widgets/_widget.html.erb" => "This content.")
         def stub_template(hash)
-          view.view_paths.unshift(ActionView::FixtureResolver.new(hash))
+          view.view_paths.unshift(StubResolverCache.resolver_for(hash))
         end
 
         # Provides access to the params hash that will be available within the
