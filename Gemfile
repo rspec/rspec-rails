@@ -28,6 +28,9 @@ if RUBY_VERSION >= '2.4.0'
   gem 'json', '>= 2.0.2'
 end
 
+if RUBY_VERSION < '1.9'
+  gem 'ffi', '< 1.9.19' # ffi dropped Ruby 1.8 support in 1.9.19
+end
 if RUBY_VERSION >= '2.0.0'
   gem 'rake', '>= 10.0.0'
 elsif RUBY_VERSION >= '1.9.3'
