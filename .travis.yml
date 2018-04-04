@@ -23,6 +23,8 @@ cache: bundler
 bundler_args: "--binstubs --path ../bundle --retry=3 --jobs=3"
 
 before_install:
+  - gem update --system
+  - gem install bundler
   - script/clone_all_rspec_repos
 
 before_script:
