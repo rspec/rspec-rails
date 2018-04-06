@@ -11,7 +11,9 @@ Enhancements:
   (Alessandro Rodi, #1960)
 * At support for asserting enqueued jobs have no wait period attached.
   (Brad Charna, #1977)
-
+* Cache instances of `ActionView::Template` used in `stub_template` resulting
+  in increased performance due to less allocations and setup. (Simon Coffey, #1979)
+  
 Bug Fixes:
 
 * Escape quotation characters when producing method names for system spec
