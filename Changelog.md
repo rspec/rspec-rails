@@ -13,7 +13,7 @@ Enhancements:
   (Brad Charna, #1977)
 * Cache instances of `ActionView::Template` used in `stub_template` resulting
   in increased performance due to less allocations and setup. (Simon Coffey, #1979)
-  
+
 Bug Fixes:
 
 * Escape quotation characters when producing method names for system spec
