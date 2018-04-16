@@ -42,9 +42,8 @@ contribution.
 
 ### `Has reproduction case` issues
 
-Issues that have reproduction cases have a repository that we can clone that
-enable us to quickly determine the issue is valid and then start debugging
-within RSpec. These issues are good ones to tackle to help us actively fix bugs.
+These issues are the ones that have reproduction cases, able to start working on
+immediately. These are good ones to tackle to help us actively fix bugs.
 
 ## Dev environment
 
