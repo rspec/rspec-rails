@@ -45,9 +45,7 @@ contribution.
 These issues are the ones that have reproduction cases, able to start working on
 immediately. These are good ones to tackle to help us actively fix bugs.
 
-## Dev environment
-
-### Maintenance branches
+## Maintenance branches
 
 Maintenance branches are how we manage the different supported point releases
 of RSpec. As such, while they might look like good candidates to merge into
