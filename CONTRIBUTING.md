@@ -37,7 +37,7 @@ contribution to the project that should not be too hard to pull off.
 These issues are ones that have been labelled by the maintainers that we
 believe do not currently have enough information to be reproduced the RSpec
 team. While not directly counted by the GitHub contribution graph, we consider
-helping us to reproduced the issue with a repro case as an extremely meaningful
+helping us to reproduce the issue with a repro case as an extremely meaningful
 contribution.
 
 ### `Has reproduction case` issues
