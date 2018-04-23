@@ -47,7 +47,7 @@ end
 
 # Capybara versions that support RSpec 3 only support RUBY_VERSION >= 1.9.3
 if RUBY_VERSION >= '1.9.3'
-  if /5(\.|-)1/ === RAILS_VERSION || "master" == RAILS_VERSION
+  if /5(\.|-)[1-9]\d*/ === RAILS_VERSION || "master" == RAILS_VERSION
     gem 'capybara', '~> 2.13', :require => false
   else
     gem 'capybara', '~> 2.2.0', :require => false

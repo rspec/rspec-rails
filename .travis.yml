@@ -83,6 +83,8 @@ matrix:
       env: RAILS_VERSION=5-0-stable
     - rvm: 2.5.1
       env: RAILS_VERSION=5.1.0
+    - rvm: 2.4.2
+      env: RAILS_VERSION=5.2.0.rc1
   exclude:
     # 3.0.x is not supported on MRI 2.0+
     - rvm: 2.0.0
