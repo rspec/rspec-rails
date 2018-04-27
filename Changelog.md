@@ -13,7 +13,7 @@ Enhancements:
   (Brad Charna, #1977)
 * Cache instances of `ActionView::Template` used in `stub_template` resulting
   in increased performance due to less allocations and setup. (Simon Coffey, #1979)
-* Rails scaffold generator now respects longer namespaces (e.g. api/v1/<thing>).
+* Rails scaffold generator now respects longer namespaces (e.g. api/v1/\<thing\>).
   (Laura Paakkinen, #1958)
 
 Bug Fixes:
