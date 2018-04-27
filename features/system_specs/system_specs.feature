@@ -2,7 +2,7 @@ Feature: System spec
 
     System specs are RSpec's wrapper around Rails' own
     [system tests](http://guides.rubyonrails.org/testing.html#system-testing).
-    We encourage you to familiarse yourself with their documentation.
+    We encourage you to familiarize yourself with their documentation.
 
     RSpec **does not** use your `ApplicationSystemTestCase` helper. Instead it uses
     the default `driven_by(:selenium)` from Rails. If you want to override this
