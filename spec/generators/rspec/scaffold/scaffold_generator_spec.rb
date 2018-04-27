@@ -48,7 +48,6 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, :type => :generator do
       it { is_expected.to contain(/"renders a JSON response with errors for the \w+"/) }
 
       it { is_expected.not_to contain(/"redirects to the \w+ list"/) }
-
     end
   end
 
@@ -226,6 +225,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, :type => :generator do
       it { is_expected.to contain(/describe "routing"/) }
       it { is_expected.to contain(/routes to #new/) }
       it { is_expected.to contain(/routes to #edit/) }
+      it { is_expected.to contain('route_to("posts#new")') }
     end
 
     describe 'with --no-routing-specs' do
@@ -237,6 +237,16 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, :type => :generator do
       before { run_generator %w(posts --api) }
       it { is_expected.not_to contain(/routes to #new/) }
       it { is_expected.not_to contain(/routes to #edit/) }
+    end
+
+    context 'with a namespaced name' do
+      subject { file('spec/routing/api/v1/posts_routing_spec.rb') }
+
+      describe 'with default options' do
+        before { run_generator %w(api/v1/posts) }
+        it { is_expected.to contain(/^RSpec.describe Api::V1::PostsController, #{type_metatag(:routing)}/) }
+        it { is_expected.to contain('route_to("api/v1/posts#new")') }
+      end
     end
   end
 end

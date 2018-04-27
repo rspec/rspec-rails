@@ -73,19 +73,29 @@ module Rspec
 
       # support for namespaced-resources
       def ns_file_name
-        ns_parts.empty? ? file_name : "#{ns_parts[0].underscore}_#{ns_parts[1].singularize.underscore}"
+        return file_name if ns_parts.empty?
+        "#{ns_prefix.map(&:underscore).join('/')}_#{ns_suffix.singularize.underscore}"
       end
 
       # support for namespaced-resources
       def ns_table_name
-        ns_parts.empty? ? table_name : "#{ns_parts[0].underscore}/#{ns_parts[1].tableize}"
+        return table_name if ns_parts.empty?
+        "#{ns_prefix.map(&:underscore).join('/')}/#{ns_suffix.tableize}"
       end
 
       def ns_parts
         @ns_parts ||= begin
-                        matches = generator_args[0].to_s.match(/\A(\w+)(?:\/|::)(\w+)/)
-                        matches ? [matches[1], matches[2]] : []
+                        parts = generator_args[0].split(/\/|::/)
+                        parts.size > 1 ? parts : []
                       end
+      end
+
+      def ns_prefix
+        @ns_prefix ||= ns_parts[0..-2]
+      end
+
+      def ns_suffix
+        @ns_suffix ||= ns_parts[-1]
       end
 
       def value_for(attribute)
