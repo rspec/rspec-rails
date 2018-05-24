@@ -10,7 +10,7 @@ module RSpec
       if ::Rails::VERSION::STRING >= '5.1'
         require 'rails/source_annotation_extractor'
         if ::Rails::VERSION::STRING >= '6.0'
-          Rails::SourceAnnotationExtractor::Annotation.register_directories("spec")
+          ::Rails::SourceAnnotationExtractor::Annotation.register_directories("spec")
         else
           SourceAnnotationExtractor::Annotation.register_directories("spec")
         end
