@@ -1,8 +1,12 @@
 version_file = File.expand_path("../.rails-version", __FILE__)
+gem_list = %w[rails railties actionmailer actionpack activerecord activesupport activejob actionview]
+
 case version = ENV['RAILS_VERSION'] || (File.exist?(version_file) && File.read(version_file).chomp)
 when /master/
-  gem "rails", :git => "git://github.com/rails/rails.git"
-  gem "arel", :git => "git://github.com/rails/arel.git"
+  gem_list.each do |rails_gem|
+    gem rails_gem, :git => "git://github.com/rails/rails.git"
+  end
+
   gem "journey", :git => "git://github.com/rails/journey.git"
   gem "activerecord-deprecated_finders", :git => "git://github.com/rails/activerecord-deprecated_finders.git"
   gem "rails-observers", :git => "git://github.com/rails/rails-observers"
@@ -13,36 +17,27 @@ when /master/
   gem 'i18n', :git => 'git://github.com/svenfuchs/i18n.git', :branch => 'master'
   gem 'sprockets', :git => 'git://github.com/rails/sprockets.git', :branch => 'master'
   gem 'sprockets-rails', :git => 'git://github.com/rails/sprockets-rails.git', :branch => 'master'
-  if RUBY_VERSION  >= "1.9.3"
-    gem 'puma', :git => 'git://github.com/puma/puma', :branch => 'master'
-  end
+  gem 'puma', :git => 'git://github.com/puma/puma', :branch => 'master'
 when /stable$/
-  gem_list = %w[rails railties actionmailer actionpack activerecord activesupport]
-  gem_list << 'activejob'  if version > '4-1-stable'
-  gem_list << 'actionview' if version > '4-0-stable'
-  if RUBY_VERSION  >= "1.9.3"
-    gem_list << 'puma' if version > '5-0-stable'
-  end
-
+  gem 'puma' if version > '5-0-stable'
   gem_list.each do |rails_gem|
     gem rails_gem, :git => "git://github.com/rails/rails.git", :branch => version
   end
 when nil, false, ""
   if RUBY_VERSION < '1.9.3'
     # Rails 4+ requires 1.9.3+, so on earlier versions default to the last 3.x release.
-    gem "rails", "~> 3.2.17"
+    gem "rails", "~> 3.2.22"
   elsif RUBY_VERSION < '2.2.0'
     # Rails 5+ requires 2.2+, so on earlier versions default to the last 4.x release.
     gem "rails", "~> 4.2.0"
   else
-    gem "rails", "~> 5.0.0"
+    # default to latest release
+    gem "rails", "~> 5.2.0"
+    gem "puma"
   end
 else
   gem "rails", version
-
-  if version >= '5-1-stable' && RUBY_VERSION  >= "1.9.3"
-    gem "puma"
-  end
+  gem "puma" if version.match(/\d*(\.\d*)+/).to_s >= '5.1'
 end
 
 gem "i18n", '< 0.7.0' if RUBY_VERSION < '1.9.3'
