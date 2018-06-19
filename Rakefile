@@ -27,7 +27,17 @@ RSpec::Core::RakeTask.new(:spec) do |t|
 end
 
 Cucumber::Rake::Task.new(:cucumber) do |t|
-  version = ENV.fetch("RAILS_VERSION", "~> 4.2.0")[/\d[\.-]\d/]
+
+  # Resolve Rails version from build environment.
+  # 'master' resolves to 'master'. Other non-numeric values resolve to nil.
+  # Numeric strings with dot or hyphen separators resolve to a string with dot separators.
+  # Ex. - '4-2-master' or '~> 4.2.0' both resolve to '4.2'
+  version = ENV.fetch("RAILS_VERSION", "~> 4.2.0")
+  unless version == 'master'
+    version = version[/\d[\.-]\d/]
+    version.gsub!('-', '.') unless version.nil?
+  end
+
   tags = []
 
   if version.to_f >= 5.1
