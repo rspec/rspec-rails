@@ -1,4 +1,4 @@
-# rspec-rails [![Build Status](https://secure.travis-ci.org/rspec/rspec-rails.svg?branch=master)](http://travis-ci.org/rspec/rspec-rails) [![Code Climate](https://img.shields.io/codeclimate/github/rspec/rspec-rails.svg)](https://codeclimate.com/github/rspec/rspec-rails)
+# rspec-rails [![Build Status](https://secure.travis-ci.org/rspec/rspec-rails.svg?branch=master)](http://travis-ci.org/rspec/rspec-rails) [![Code Climate](https://img.shields.io/codeclimate/coverage/rspec/rspec-rails.svg)](https://codeclimate.com/github/rspec/rspec-rails) [![Gem Version](https://badge.fury.io/rb/rspec-rails.svg)](http://badge.fury.io/rb/rspec-rails)
 **rspec-rails** is a testing framework for Rails 3.x, 4.x and 5.x.
 
 Use **[rspec-rails 1.x](http://github.com/dchelimsky/rspec-rails)** for Rails
