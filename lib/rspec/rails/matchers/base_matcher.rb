@@ -48,8 +48,8 @@ module RSpec
         # Generates a description using {EnglishPhrasing}.
         # @return [String]
         def description
-          desc = EnglishPhrasing.split_words(self.class.matcher_name)
-          desc << EnglishPhrasing.list(@expected) if defined?(@expected)
+          desc = RSpec::Matchers::EnglishPhrasing.split_words(self.class.matcher_name)
+          desc << RSpec::Matchers::EnglishPhrasing.list(@expected) if defined?(@expected)
           desc
         end
 
@@ -113,7 +113,7 @@ module RSpec
 
         def assert_ivars(*expected_ivars)
           return unless (expected_ivars - present_ivars).any?
-          ivar_list = EnglishPhrasing.list(expected_ivars)
+          ivar_list = RSpec::Matchers::EnglishPhrasing.list(expected_ivars)
           raise "#{self.class.name} needs to supply#{ivar_list}"
         end
 
