@@ -10,7 +10,7 @@ module RSpec
       module ActiveJob
         # rubocop: disable Style/ClassLength
         # @private
-        class Base < RSpec::Matchers::BuiltIn::BaseMatcher
+        class Base < RSpec::Rails::Matchers::BaseMatcher
           def initialize
             @args = []
             @queue = nil

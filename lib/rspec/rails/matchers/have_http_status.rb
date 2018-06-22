@@ -73,7 +73,7 @@ module RSpec
         #   expect(response).to have_http_status(404)
         #
         # @see RSpec::Rails::Matchers.have_http_status
-        class NumericCode < RSpec::Matchers::BuiltIn::BaseMatcher
+        class NumericCode < RSpec::Rails::Matchers::BaseMatcher
           include HaveHttpStatus
 
           def initialize(code)
@@ -124,7 +124,7 @@ module RSpec
         #
         # @see RSpec::Rails::Matchers.have_http_status
         # @see https://github.com/rack/rack/blob/master/lib/rack/utils.rb `Rack::Utils::SYMBOL_TO_STATUS_CODE`
-        class SymbolicStatus < RSpec::Matchers::BuiltIn::BaseMatcher
+        class SymbolicStatus < RSpec::Rails::Matchers::BaseMatcher
           include HaveHttpStatus
 
           def initialize(status)
@@ -236,7 +236,7 @@ module RSpec
         #
         # @see RSpec::Rails::Matchers.have_http_status
         # @see ActionDispatch::TestResponse
-        class GenericStatus < RSpec::Matchers::BuiltIn::BaseMatcher
+        class GenericStatus < RSpec::Rails::Matchers::BaseMatcher
           include HaveHttpStatus
 
           # @return [Array<Symbol>] of status codes which represent a HTTP status

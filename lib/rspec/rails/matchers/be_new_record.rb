@@ -2,7 +2,7 @@ module RSpec
   module Rails
     module Matchers
       # @private
-      class BeANewRecord < RSpec::Matchers::BuiltIn::BaseMatcher
+      class BeANewRecord < RSpec::Rails::Matchers::BaseMatcher
         def matches?(actual)
           actual.new_record?
         end

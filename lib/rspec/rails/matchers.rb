@@ -11,6 +11,7 @@ module RSpec
   end
 end
 
+require 'rspec/rails/matchers/base_matcher'
 require 'rspec/rails/matchers/have_rendered'
 require 'rspec/rails/matchers/redirect_to'
 require 'rspec/rails/matchers/routing_matchers'

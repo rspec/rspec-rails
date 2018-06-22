@@ -4,7 +4,7 @@ module RSpec
       # Matcher for template rendering.
       module RenderTemplate
         # @private
-        class RenderTemplateMatcher < RSpec::Matchers::BuiltIn::BaseMatcher
+        class RenderTemplateMatcher < RSpec::Rails::Matchers::BaseMatcher
           def initialize(scope, expected, message = nil)
             @expected = Symbol === expected ? expected.to_s : expected
             @message = message

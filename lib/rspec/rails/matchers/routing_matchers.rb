@@ -6,7 +6,7 @@ module RSpec
         extend RSpec::Matchers::DSL
 
         # @private
-        class RouteToMatcher < RSpec::Matchers::BuiltIn::BaseMatcher
+        class RouteToMatcher < RSpec::Rails::Matchers::BaseMatcher
           def initialize(scope, *expected)
             @scope = scope
             @expected = expected[1] || {}
@@ -63,7 +63,7 @@ module RSpec
         end
 
         # @private
-        class BeRoutableMatcher < RSpec::Matchers::BuiltIn::BaseMatcher
+        class BeRoutableMatcher < RSpec::Rails::Matchers::BaseMatcher
           def initialize(scope)
             @scope = scope
           end
