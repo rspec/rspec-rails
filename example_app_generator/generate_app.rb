@@ -23,6 +23,9 @@ in_root do
   gsub_file "Gemfile", /.*debugger.*/, ''
   gsub_file "Gemfile", /.*byebug.*/, "gem 'byebug', '~> 9.0.6'"
   gsub_file "Gemfile", /.*puma.*/, ""
+  if RUBY_VERSION < '2.2.2'
+    gsub_file "Gemfile", /.*rdoc.*/, "gem 'rdoc', '< 6'"
+  end
 
   if Rails::VERSION::STRING >= '5.0.0'
     append_to_file('Gemfile', "gem 'rails-controller-testing', :git => 'https://github.com/rails/rails-controller-testing'\n")
