@@ -146,6 +146,42 @@ module RSpec::Rails
         }.to_not raise_error
       end
 
+      context 'with empty template resolver' do
+        class CustomResolver < ActionView::Resolver
+          def custom_method
+            true
+          end
+        end
+
+        it "works with custom resolvers" do
+          custom_method_called = false
+          ActionController::Base.view_paths = ActionView::PathSet.new([CustomResolver.new])
+          group.class_exec do
+            describe "example" do
+              it do
+                custom_method_called = ActionController::Base.view_paths.first.custom_method
+              end
+            end
+          end.run(double.as_null_object)
+
+          expect(custom_method_called).to eq(true)
+        end
+
+        it "works with strings" do
+          decorated = false
+          ActionController::Base.view_paths = ActionView::PathSet.new(['app/views', 'app/legacy_views'])
+          group.class_exec do
+            describe "example" do
+              it do
+                decorated = ActionController::Base.view_paths.all?{ |resolver| resolver.is_a?(ViewRendering::EmptyTemplateResolver::ResolverDecorator) }
+              end
+            end
+          end.run(double.as_null_object)
+
+          expect(decorated).to eq(true)
+        end
+      end
+
       def match_paths(*paths)
         eq paths.map { |path| File.expand_path path }
       end
