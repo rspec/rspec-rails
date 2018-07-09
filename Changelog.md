@@ -22,6 +22,7 @@ Bug Fixes:
   screenshots. (Shane Cavanaugh, #1955)
 * Use relative path for resolving fixtures when `fixture_path` is not set.
   (Laurent Cobos, #1943)
+* Allow custom template resolvers in view specs. (@ahorek, #1941)
 
 ### 3.7.2 / 2017-11-20
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.7.1...v3.7.2)
