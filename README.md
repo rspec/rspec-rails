@@ -70,7 +70,7 @@ bundle exec rspec spec/controllers/accounts_controller_spec.rb:8
 Specs can also be run via `rake spec`, though this command may be slower to
 start than the `rspec` command.
 
-In Rails 4, you may want to create a binstub for the `rspec` command so it can
+In Rails 4+, you may want to create a binstub for the `rspec` command so it can
 be run via `bin/rspec`:
 
 ```
