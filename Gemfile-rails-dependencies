@@ -13,14 +13,14 @@ when /master/
   gem 'i18n', :git => 'git://github.com/svenfuchs/i18n.git', :branch => 'master'
   gem 'sprockets', :git => 'git://github.com/rails/sprockets.git', :branch => 'master'
   gem 'sprockets-rails', :git => 'git://github.com/rails/sprockets-rails.git', :branch => 'master'
-  if RUBY_VERSION  >= "1.9.3"
+  if RUBY_VERSION  >= "2.2"
     gem 'puma', :git => 'git://github.com/puma/puma', :branch => 'master'
   end
 when /stable$/
   gem_list = %w[rails railties actionmailer actionpack activerecord activesupport]
   gem_list << 'activejob'  if version > '4-1-stable'
   gem_list << 'actionview' if version > '4-0-stable'
-  if RUBY_VERSION  >= "1.9.3"
+  if RUBY_VERSION  >= "2.2"
     gem_list << 'puma' if version > '5-0-stable'
   end
 
@@ -40,7 +40,7 @@ when nil, false, ""
 else
   gem "rails", version
 
-  if version >= '5-1-stable' && RUBY_VERSION  >= "1.9.3"
+  if version >= '5-1-stable' && RUBY_VERSION  >= "2.2"
     gem "puma"
   end
 end
