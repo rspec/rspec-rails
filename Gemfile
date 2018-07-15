@@ -24,6 +24,11 @@ end
 
 gem 'sqlite3', '~> 1.3.6'
 
+# Version 6.0.4 of rdoc requires Ruby 2.2
+if RUBY_VERSION < '2.2'
+  gem 'rdoc', '< 6.0.4'
+end
+
 if RUBY_VERSION >= '2.4.0'
   gem 'json', '>= 2.0.2'
 end
@@ -43,7 +48,6 @@ end
 if RUBY_VERSION < '2.0.0'
   gem 'mime-types', '< 3'
 end
-
 
 # Capybara versions that support RSpec 3 only support RUBY_VERSION >= 1.9.3
 if RUBY_VERSION >= '1.9.3'
