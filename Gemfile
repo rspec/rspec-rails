@@ -24,11 +24,6 @@ end
 
 gem 'sqlite3', '~> 1.3.6'
 
-# Version 6.0.4 of rdoc requires Ruby 2.2
-if RUBY_VERSION < '2.2'
-  gem 'rdoc', '< 6.0.4'
-end
-
 if RUBY_VERSION >= '2.4.0'
   gem 'json', '>= 2.0.2'
 end

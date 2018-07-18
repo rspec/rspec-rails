@@ -57,6 +57,11 @@ in_root do
     |  gem 'mime-types', '< 3'
     |end
     |
+    |# Version 6.0.4 of rdoc requires Ruby 2.2
+    |if RUBY_VERSION < '2.2'
+    |  gem 'rdoc', '< 6.0.4'
+    |end
+    |
     |gem 'rspec-rails',
     |    :path => '#{rspec_rails_repo_path}',
     |    :groups => [:development, :test]
