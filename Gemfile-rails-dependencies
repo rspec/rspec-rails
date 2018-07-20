@@ -20,10 +20,10 @@ when /stable$/
   gem_list = %w[rails railties actionmailer actionpack activerecord activesupport]
   gem_list << 'activejob'  if version > '4-1-stable'
   gem_list << 'actionview' if version > '4-0-stable'
-  if RUBY_VERSION  >= "1.9.3" && RUBY_VERSION < "2.2"
-    gem "puma", "~> 3.11.4"
-  elsif RUBY_VERSION  >= "2.2"
+  if RUBY_VERSION  >= "2.2"
     gem_list << 'puma' if version > '5-0-stable'
+  elsif RUBY_VERSION >= "1.9.3"
+    gem "puma", "~> 3.11.4"
   end
 
   gem_list.each do |rails_gem|
