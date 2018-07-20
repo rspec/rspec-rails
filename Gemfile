@@ -44,6 +44,7 @@ if RUBY_VERSION < '2.0.0'
   gem 'mime-types', '< 3'
 end
 
+
 # Capybara versions that support RSpec 3 only support RUBY_VERSION >= 1.9.3
 if RUBY_VERSION >= '1.9.3'
   if /5(\.|-)[1-9]\d*/ === RAILS_VERSION || "master" == RAILS_VERSION

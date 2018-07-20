@@ -22,8 +22,6 @@ when /stable$/
   gem_list << 'actionview' if version > '4-0-stable'
   if RUBY_VERSION  >= "2.2"
     gem_list << 'puma' if version > '5-0-stable'
-  elsif RUBY_VERSION >= "1.9.3"
-    gem "puma", "~> 3.11.4"
   end
 
   gem_list.each do |rails_gem|
@@ -42,12 +40,8 @@ when nil, false, ""
 else
   gem "rails", version
 
-  if version >= '5-1-stable'
-    if RUBY_VERSION < "2.2"
-      gem "puma", "~> 3.11.4"
-    else
-      gem "puma"
-    end
+  if version >= '5-1-stable' && RUBY_VERSION  >= "2.2"
+    gem "puma"
   end
 end
 
