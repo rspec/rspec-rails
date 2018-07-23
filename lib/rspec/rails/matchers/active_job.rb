@@ -240,6 +240,14 @@ module RSpec
       #     expect {
       #       HelloJob.set(queue: "low").perform_later(42)
       #     }.to have_enqueued_job.with(42).on_queue("low").at(:no_wait)
+      #
+      #     expect {
+      #       HelloJob.perform_later('rspec_rails', %w[ world rspec rails ], 42)
+      #     }.to have_enqueued_job.with { |_from, to, times|
+      #       # I don't want to check argument `from`
+      #       expect(to).to include 'rspec'
+      #       expect(times).to eq 42
+      #     }
       def have_enqueued_job(job = nil)
         check_active_job_adapter
         ActiveJob::HaveEnqueuedJob.new(job)
