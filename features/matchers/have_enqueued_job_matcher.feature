@@ -39,7 +39,7 @@ Feature: have_enqueued_job matcher
     When I run `rspec spec/jobs/upload_backups_job_spec.rb`
     Then the examples should all pass
 
-  Scenario: Checking passed arguments to job - block syntax
+  Scenario: Checking passed arguments to job, using a block
     Given a file named "spec/jobs/upload_backups_job_spec.rb" with:
       """ruby
       require "rails_helper"
