@@ -244,9 +244,8 @@ module RSpec
       #     expect {
       #       HelloJob.perform_later('rspec_rails', %w[ world rspec rails ], 42)
       #     }.to have_enqueued_job.with { |_from, to, times|
-      #       # I don't want to check argument `from`
-      #       expect(to).to include 'rspec'
-      #       expect(times).to eq 42
+      #       # Perform more complex argument matching using dynamic arguments
+      #       expect(from).to include "_#{to}"
       #     }
       def have_enqueued_job(job = nil)
         check_active_job_adapter
