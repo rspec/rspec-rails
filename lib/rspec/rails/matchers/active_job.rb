@@ -242,8 +242,8 @@ module RSpec
       #     }.to have_enqueued_job.with(42).on_queue("low").at(:no_wait)
       #
       #     expect {
-      #       HelloJob.perform_later('rspec_rails', %w[ world rspec rails ], 42)
-      #     }.to have_enqueued_job.with { |_from, to, times|
+      #       HelloJob.perform_later('rspec_rails', 'rails', 42)
+      #     }.to have_enqueued_job.with { |from, to, times|
       #       # Perform more complex argument matching using dynamic arguments
       #       expect(from).to include "_#{to}"
       #     }
