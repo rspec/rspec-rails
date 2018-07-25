@@ -2,14 +2,15 @@ module RSpec
   module Rails
     # @private
     module FixtureSupport
-      if defined?(ActiveRecord::TestFixtures)
-        extend ActiveSupport::Concern
-        include RSpec::Rails::SetupAndTeardownAdapter
-        include RSpec::Rails::MinitestLifecycleAdapter
-        include RSpec::Rails::MinitestAssertionAdapter
-        include ActiveRecord::TestFixtures
+      extend ActiveSupport::Concern
 
-        included do
+      included do
+        if RSpec.configuration.use_active_record? && defined?(ActiveRecord::TestFixtures)
+          include RSpec::Rails::SetupAndTeardownAdapter
+          include RSpec::Rails::MinitestLifecycleAdapter
+          include RSpec::Rails::MinitestAssertionAdapter
+          include ActiveRecord::TestFixtures
+
           self.fixture_path = RSpec.configuration.fixture_path
           if ::Rails::VERSION::STRING > '5'
             self.use_transactional_tests = RSpec.configuration.use_transactional_fixtures

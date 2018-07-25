@@ -64,6 +64,9 @@ RSpec.describe "Configuration" do
                      :use_transactional_fixtures,
                      alias_with: :use_transactional_examples
 
+    include_examples "adds setting", :use_active_record,
+                     :default => true
+
     include_examples "adds setting", :use_instantiated_fixtures
 
     include_examples "adds setting", :global_fixtures

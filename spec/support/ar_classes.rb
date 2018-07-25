@@ -1,7 +1,24 @@
-ActiveRecord::Base.establish_connection(
-  :adapter => 'sqlite3',
-  :database => ':memory:'
-)
+FileUtils.rm_f('./test.db')
+
+def establish_active_record_connection
+  ActiveRecord::Base.establish_connection(
+    :adapter => 'sqlite3',
+    :database => './test.db'
+  )
+end
+
+def clear_active_record_connection
+  ActiveRecord::Base.connection_handler.clear_all_connections!
+  ActiveRecord::Base.connection_handler.connection_pool_list.each do |pool|
+    if Rails.version.to_f >= 5.0
+      ActiveRecord::Base.connection_handler.remove_connection(pool.spec.name)
+    else
+      ActiveRecord::Base.connection_handler.remove_connection(ActiveRecord::Base)
+    end
+  end
+end
+
+establish_active_record_connection
 
 module Connections
   def self.extended(host)

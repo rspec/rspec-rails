@@ -33,6 +33,10 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 <% end -%>
 RSpec.configure do |config|
+  # You can explicitly turn off ActiveRecord support on rspec-rails by
+  # uncommenting the following line.
+  # config.use_active_record = false
+
 <% if RSpec::Rails::FeatureCheck.has_active_record? -%>
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
