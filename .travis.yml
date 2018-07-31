@@ -1,6 +1,11 @@
 language: ruby
 
-sudo: false
+sudo: required
+addons:
+  chrome: stable
+  apt:
+    packages:
+      - chromium-chromedriver
 
 # We deviate from the rspec-dev cache setting here.
 #
@@ -31,6 +36,7 @@ before_script:
   # Rails 4.x complains with a bundler rails binstub in PROJECT_ROOT/bin/
   - rm -f bin/rails
   - bundle exec rails --version
+  - ln -s /usr/lib/chromium-browser/chromedriver ~/bin/chromedriver
 
 script: "script/run_build 2>&1"
 
