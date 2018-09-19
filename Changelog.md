@@ -18,6 +18,8 @@ Enhancements:
 
 Bug Fixes:
 
+* Fix `NoMethodError: undefined method 'strip'` when using a `Pathname` object
+  as the fixture file path. (Aaron Kromer, #2026)
 * Escape quotation characters when producing method names for system spec
   screenshots. (Shane Cavanaugh, #1955)
 * Use relative path for resolving fixtures when `fixture_path` is not set.

@@ -7,6 +7,11 @@ module RSpec::Rails
         RSpec.configuration.fixture_path = File.dirname(__FILE__)
         expect(fixture_file_upload_resolved('fixture_file_upload_support_spec.rb').run).to be true
       end
+
+      it 'resolves supports `Pathname` objects' do
+        RSpec.configuration.fixture_path = Pathname(File.dirname(__FILE__))
+        expect(fixture_file_upload_resolved('fixture_file_upload_support_spec.rb').run).to be true
+      end
     end
 
     context 'with fixture path set in spec' do
