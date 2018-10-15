@@ -59,7 +59,7 @@ gem 'rack-cache', '< 1.3.0' if RUBY_VERSION < '2.0.0'
 
 if RUBY_VERSION < '1.9.2'
   gem 'nokogiri', '~> 1.5.0'
-elsif  RUBY_VERSION < '1.9.3'
+elsif RUBY_VERSION < '1.9.3'
   gem 'nokogiri', '1.5.2'
 elsif RUBY_VERSION < '2.1.0'
   gem 'nokogiri', '1.6.8.1'
