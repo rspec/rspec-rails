@@ -1,6 +1,55 @@
 Feature: view spec
 
-  View specs live in spec/views and render view templates in isolation.
+  View specs should be placed in `spec/views`,
+  and verify the content of view templates in isolation
+  (that is, without invoking a controller).
+
+  Overview
+  --------
+
+  View specs generally follow three steps:
+
+  ```ruby
+  assign(:widget, Widget.new)  # sets @widget = Widget.new in the view template
+
+  render
+
+  expect(rendered).to match(/text/)
+  ```
+
+  1. Use the `assign` method to set instance variables in the view.
+     Technically, `@widget = Widget.new` would work too,
+     but RSpec doesn't officially support this pattern.
+     (It only works as a side effect of the fact that
+     view specs include `ActionView::TestCase` behavior.
+     Be aware that it may be made unavailable in the future.)
+
+  2. Use the `render` method to render the view.
+
+  3. Set expectations against the resulting `rendered` object.
+
+  Notes
+  -----
+
+  * To apply a layout to the view template being rendered,
+    be sure to specify both the template and layout explicitly:
+
+    ```ruby
+    render :template => "events/show", :layout => "layouts/application"
+    ```
+
+  * View specs expose a `controller` object,
+    which can be used to set expectations about the route (path + parameters)
+    to the view template being tested.
+    Some attributes of this object are based on
+    the name of the view itself—that is, in a spec for `events/index.html.erb`:
+
+    * `controller.controller_path == "events"`
+    * `controller.request.path_parameters[:controller] == "events"`
+
+    Be careful of these automatically-inferred values
+    when writing specs for partials
+    (which may be shared across multiple controllers).
 
   Scenario: View specs render the described view file
     Given a file named "spec/views/widgets/index.html.erb_spec.rb" with:
