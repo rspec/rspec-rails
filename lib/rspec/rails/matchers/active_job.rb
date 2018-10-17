@@ -16,12 +16,20 @@ module RSpec
             @queue = nil
             @at = nil
             @block = Proc.new {}
-            set_expected_number(:exactly, 1)
+            @strict_args = false
+            set_expected_number(:at_least, 1)
           end
 
           def with(*args, &block)
             @args = args
             @block = block if block.present?
+            self
+          end
+
+          def with_only(*args, &block)
+            @args = args
+            @block = block if block.present?
+            @strict_args = true
             self
           end
 
@@ -67,9 +75,16 @@ module RSpec
           end
 
           def failure_message
-            "expected to enqueue #{base_message}".tap do |msg|
+            message = @strict_args ? base_with_only_message : base_message
+            "expected to enqueue #{message}".tap do |msg|
+              if @matching_jobs.any?
+                msg << "\nMatching queued jobs:"
+                @matching_jobs.each do |job|
+                  msg << "\n  #{base_job_message(job)}"
+                end
+              end
               if @unmatching_jobs.any?
-                msg << "\nQueued jobs:"
+                msg << "\nUnmatching queued jobs:"
                 @unmatching_jobs.each do |job|
                   msg << "\n  #{base_job_message(job)}"
                 end
@@ -106,7 +121,20 @@ module RSpec
               end
             end
             @matching_jobs_count = @matching_jobs.size
+            @unmatching_jobs_count = @unmatching_jobs.size
 
+            expected_matches_count? && only_strict_args?
+          end
+
+          def only_strict_args?
+            if @strict_args
+              @unmatching_jobs_count == 0
+            else
+              true
+            end
+          end
+
+          def expected_matches_count?
             case @expectation_type
             when :exactly then @expected_number == @matching_jobs_count
             when :at_most then @expected_number >= @matching_jobs_count
@@ -120,6 +148,16 @@ module RSpec
               msg << " on queue #{@queue}," if @queue
               msg << " at #{@at.inspect}," if @at
               msg << " but enqueued #{@matching_jobs_count}"
+            end
+          end
+
+          def base_with_only_message
+            "#{message_expectation_modifier} #{@expected_number} jobs,".tap do |msg|
+              msg << " with only #{@args}," if @args.any?
+              msg << " on queue #{@queue}," if @queue
+              msg << " at #{@at.inspect}," if @at
+              msg << " but enqueued #{@matching_jobs_count} matching jobs,"\
+                      " #{@unmatching_jobs_count} unmatching jobs"
             end
           end
 
