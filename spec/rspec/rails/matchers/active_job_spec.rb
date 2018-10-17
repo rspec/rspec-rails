@@ -94,7 +94,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
     it "fails when job is not enqueued" do
       expect {
         expect { }.to have_enqueued_job
-      }.to raise_error(/expected to enqueue exactly 1 jobs, but enqueued 0/)
+      }.to raise_error(/expected to enqueue at least 1 jobs, but enqueued 0/)
     end
 
     it "fails when too many jobs enqueued" do
@@ -116,7 +116,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
     it "fails when negated and job is enqueued" do
       expect {
         expect { heavy_lifting_job.perform_later }.not_to have_enqueued_job
-      }.to raise_error(/expected not to enqueue exactly 1 jobs, but enqueued 1/)
+      }.to raise_error(/expected not to enqueue at least 1 jobs, but enqueued 1/)
     end
 
     it "passes with job name" do
@@ -239,7 +239,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
     it "generates failure message with all provided options" do
       date = Date.tomorrow.noon
       message = "expected to enqueue exactly 2 jobs, with [42], on queue low, at #{date}, but enqueued 0" + \
-                "\nQueued jobs:" + \
+                "\nUnmatching queued jobs:" + \
                 "\n  HelloJob job with [1], on queue default"
 
       expect {
@@ -303,6 +303,23 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
         expect(arg).to eq("asdf")
       }
     end
+
+    it "passes when with_only is called, and only matching jobs are queued" do
+      expect {
+        hello_job.perform_later("asdf")
+        hello_job.perform_later("asdf")
+      }.to have_enqueued_job(hello_job).with_only("asdf")
+    end
+
+    it "fails when with_only is called, and non matching jobs are queued" do
+      error_regex = /with only \["asdf"\], but enqueued 1 matching jobs, 1 unmatching jobs/
+      expect{
+        expect {
+          hello_job.perform_later("asdf")
+          hello_job.perform_later("zxcv")
+        }.to have_enqueued_job(hello_job).with_only("asdf")
+      }.to raise_error(error_regex)
+    end
   end
 
   describe "have_been_enqueued" do
@@ -326,7 +343,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
     it "fails when job is not enqueued" do
       expect {
         expect(heavy_lifting_job).to have_been_enqueued
-      }.to raise_error(/expected to enqueue exactly 1 jobs, but enqueued 0/)
+      }.to raise_error(/expected to enqueue at least 1 jobs, but enqueued 0/)
     end
   end
 end
