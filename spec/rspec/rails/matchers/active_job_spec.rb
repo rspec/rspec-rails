@@ -18,7 +18,7 @@ if RSpec::Rails::FeatureCheck.has_active_job?
     end
 
     def ==(comparison_object)
-      id == comparison_object.id
+      (GlobalIdModel === comparison_object) && (id == comparison_object.id)
     end
 
     def to_global_id(options = {})
