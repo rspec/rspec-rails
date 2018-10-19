@@ -24,6 +24,21 @@ RSpec.describe Rspec::Generators::FeatureGenerator, :type => :generator do
       end
     end
 
+    describe 'are generated with the correct namespace' do
+      before do
+        run_generator %w(folder/posts)
+      end
+      describe 'the spec' do
+        subject(:feature_spec) { file('spec/features/folder/posts_spec.rb') }
+        it "exists" do
+          expect(feature_spec).to exist
+        end
+        it "contains the feature" do
+          expect(feature_spec).to contain(/^RSpec.feature \"Folder::Posts\", #{type_metatag(:feature)}/)
+        end
+      end
+    end
+
     describe 'are singularized appropriately with the --singularize flag' do
       before do
         run_generator %w(posts --singularize)
