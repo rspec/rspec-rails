@@ -25,6 +25,12 @@ if RSpec::Rails::FeatureCheck.has_active_job?
       @global_id ||= GlobalID.create(self, :app => "rspec-suite")
     end
   end
+
+  class FailingGlobalIdModel < GlobalIdModel
+    def self.find(id)
+      raise URI::GID::MissingModelIdError
+    end
+  end
 end
 
 RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_active_job? do
@@ -291,6 +297,16 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
         expect(first_arg).to eq(global_id_object)
         expect(second_arg).to eq({:symbolized_key => "asdf"})
       }
+    end
+
+    it "ignores undeserializable arguments" do
+      failing_global_id_object = FailingGlobalIdModel.new("21")
+      global_id_object = GlobalIdModel.new("42")
+
+      expect{
+        hello_job.perform_later(failing_global_id_object)
+        hello_job.perform_later(global_id_object)
+      }.to have_enqueued_job(hello_job).with(global_id_object)
     end
 
     it "only calls with block if other conditions are met" do
