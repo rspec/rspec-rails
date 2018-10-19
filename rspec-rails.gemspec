@@ -13,6 +13,14 @@ Gem::Specification.new do |s|
   s.summary     = "RSpec for Rails"
   s.description = "rspec-rails is a testing framework for Rails 3+."
 
+  s.metadata = {
+    'bug_tracker_uri'   => 'https://github.com/rspec/rspec-rails/issues',
+    'changelog_uri'     => "https://github.com/rspec/rspec-rails/blob/v#{s.version}/Changelog.md",
+    'documentation_uri' => 'https://rspec.info/documentation/',
+    'mailing_list_uri'  => 'https://groups.google.com/forum/#!forum/rspec',
+    'source_code_uri'   => 'https://github.com/rspec/rspec-rails',
+  }
+
   s.files            = `git ls-files -- lib/*`.split("\n")
   s.files           += %w[README.md LICENSE.md Changelog.md Capybara.md .yardopts .document]
   s.test_files       = []
