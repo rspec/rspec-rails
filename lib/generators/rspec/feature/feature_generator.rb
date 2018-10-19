@@ -19,9 +19,9 @@ module Rspec
 
       def filename
         if options[:singularize]
-          "#{table_name.singularize}_spec.rb"
+          "#{file_name.singularize}_spec.rb"
         else
-          "#{table_name}_spec.rb"
+          "#{file_name}_spec.rb"
         end
       end
     end
