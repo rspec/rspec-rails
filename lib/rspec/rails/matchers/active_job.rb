@@ -98,7 +98,7 @@ module RSpec
           def check(jobs)
             @matching_jobs, @unmatching_jobs = jobs.partition do |job|
               if arguments_match?(job) && other_attributes_match?(job)
-                args = ::ActiveJob::Arguments.deserialize(job[:args])
+                args = deserialize_arguments(job)
                 @block.call(*args)
                 true
               else
@@ -125,7 +125,7 @@ module RSpec
 
           def base_job_message(job)
             msg_parts = []
-            msg_parts << "with #{::ActiveJob::Arguments.deserialize(job[:args])}" if job[:args].any?
+            msg_parts << "with #{deserialize_arguments(job)}" if job[:args].any?
             msg_parts << "on queue #{job[:queue]}" if job[:queue]
             msg_parts << "at #{Time.at(job[:at])}" if job[:at]
 
@@ -136,7 +136,7 @@ module RSpec
 
           def arguments_match?(job)
             if @args.any?
-              deserialized_args = ::ActiveJob::Arguments.deserialize(job[:args])
+              deserialized_args = deserialize_arguments(job)
               RSpec::Mocks::ArgumentListMatcher.new(*@args).args_match?(*deserialized_args)
             else
               true
@@ -167,6 +167,12 @@ module RSpec
                                when :thrice then 3
                                else Integer(count)
                                end
+          end
+
+          def deserialize_arguments(job)
+            ::ActiveJob::Arguments.deserialize(job[:args])
+          rescue ::ActiveJob::DeserializationError
+            job[:args]
           end
 
           def queue_adapter
