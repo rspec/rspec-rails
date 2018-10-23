@@ -170,7 +170,11 @@ module RSpec
           end
 
           def deserialize_arguments(job)
-            ::ActiveJob::Arguments.deserialize(job[:args]) rescue job[:args]
+            begin
+              ::ActiveJob::Arguments.deserialize(job[:args])
+            rescue ::ActiveJob::DeserializationError
+              job[:args]
+            end
           end
 
           def queue_adapter
