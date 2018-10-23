@@ -7,6 +7,8 @@ Bug Fixes:
   as the fixture file path. (Aaron Kromer, #2026)
 * When generating feature specs, do not duplicate namespace in the path name.
   (Laura Paakkinen, #2034)
+* Prevent `ActiveJob::DeserializationError` from being issued when `ActiveJob`
+  matchers de-serialize arguments. (@aymeric-ledorze, #2036)
 
 ### 3.8.0 / 2018-08-04
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.7.2...v3.8.0)
