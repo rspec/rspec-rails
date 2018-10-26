@@ -1,6 +1,11 @@
 ### Development
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.1...master)
 
+Bug Fixes:
+
+* Fix issue with generator for preview specs where `Mailer` would be duplicated
+  in the name. (Kohei Sugi, #2037)
+
 ### Development
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.0...v3.8.1)
 
