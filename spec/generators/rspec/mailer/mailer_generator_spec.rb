@@ -56,6 +56,16 @@ RSpec.describe Rspec::Generators::MailerGenerator, :type => :generator do
     it { is_expected.to exist }
     it { is_expected.to contain(/class PostsPreview < ActionMailer::Preview/) }
     it { is_expected.to contain(/def index/) }
+    if Rails.version.to_f >= 5.0
+      it { is_expected.to contain(/PostsMailer.index/) }
+    else
+      it { is_expected.to contain(/Posts.index/) }
+    end
     it { is_expected.to contain(/def show/) }
+    if Rails.version.to_f >= 5.0
+      it { is_expected.to contain(/PostsMailer.show/) }
+    else
+      it { is_expected.to contain(/Posts.show/) }
+    end
   end
 end
