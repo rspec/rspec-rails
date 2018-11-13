@@ -30,7 +30,10 @@ end
 
 if RUBY_VERSION < '1.9'
   gem 'ffi', '< 1.9.19' # ffi dropped Ruby 1.8 support in 1.9.19
+else
+  gem 'ffi', '~> 1.9.25'
 end
+
 if RUBY_VERSION >= '2.0.0'
   gem 'rake', '>= 10.0.0'
 elsif RUBY_VERSION >= '1.9.3'
@@ -71,6 +74,8 @@ if RUBY_VERSION <= '1.8.7'
   # cucumber and gherkin require rubyzip as a runtime dependency on 1.8.7
   # Only < 1.0 supports 1.8.7
   gem 'rubyzip', '< 1.0'
+else
+  gem "rubyzip", '>= 1.2.2'
 end
 
 if RUBY_VERSION >= '2.0.0' && RUBY_VERSION < '2.2.0'
