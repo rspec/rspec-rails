@@ -74,6 +74,8 @@ if RUBY_VERSION <= '1.8.7'
   # cucumber and gherkin require rubyzip as a runtime dependency on 1.8.7
   # Only < 1.0 supports 1.8.7
   gem 'rubyzip', '< 1.0'
+else
+  gem "rubyzip", '>= 1.2.2'
 end
 
 if RUBY_VERSION >= '2.0.0' && RUBY_VERSION < '2.2.0'
