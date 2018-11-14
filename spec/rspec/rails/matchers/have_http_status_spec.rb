@@ -435,65 +435,62 @@ RSpec.describe "have_http_status" do
     end
   end
 
-  if 5 < Rails::VERSION::MAJOR ||
-     (Rails::VERSION::MAJOR == 5 && 2 <= Rails::VERSION::MINOR)
-    shared_examples_for "does not use deprecated methods for Rails 5.2+" do
-      it "does not use deprecated method for Rails >= 5.2" do
-        previous_stderr = $stderr
-        begin
-          splitter = RSpec::Support::StdErrSplitter.new(previous_stderr)
-          $stderr = splitter
-          response = ::ActionDispatch::Response.new(code).tap {|x|
-            x.request = ActionDispatch::Request.new({})
-          }
-          expect( matcher.matches?(response) ).to be(true)
-          expect(splitter.has_output?).to be false
-        ensure
-          $stderr = previous_stderr
-        end
+  shared_examples_for "does not use deprecated methods for Rails 5.2+" do
+    it "does not use deprecated method for Rails >= 5.2" do
+      previous_stderr = $stderr
+      begin
+        splitter = RSpec::Support::StdErrSplitter.new(previous_stderr)
+        $stderr = splitter
+        response = ::ActionDispatch::Response.new(code).tap {|x|
+          x.request = ActionDispatch::Request.new({})
+        }
+        expect( matcher.matches?(response) ).to be(true)
+        expect(splitter.has_output?).to be false
+      ensure
+        $stderr = previous_stderr
       end
     end
+  end
 
-    context 'http status :missing' do
-      it_behaves_like "does not use deprecated methods for Rails 5.2+" do
-        subject(:matcher) { have_http_status(:missing) }
-        let(:code) { 404 }
-      end
+  context 'http status :missing' do
+    it_behaves_like "does not use deprecated methods for Rails 5.2+" do
+      subject(:matcher) { have_http_status(:missing) }
+      let(:code) { 404 }
     end
+  end
 
-    context 'http status :success' do
-      it_behaves_like "does not use deprecated methods for Rails 5.2+" do
-        subject(:matcher) { have_http_status(:success) }
-        let(:code) { 222 }
-      end
+  context 'http status :success' do
+    it_behaves_like "does not use deprecated methods for Rails 5.2+" do
+      subject(:matcher) { have_http_status(:success) }
+      let(:code) { 222 }
     end
+  end
 
-    context 'http status :error' do
-      it_behaves_like "does not use deprecated methods for Rails 5.2+" do
-        subject(:matcher) { have_http_status(:error) }
-        let(:code) { 555 }
-      end
+  context 'http status :error' do
+    it_behaves_like "does not use deprecated methods for Rails 5.2+" do
+      subject(:matcher) { have_http_status(:error) }
+      let(:code) { 555 }
     end
+  end
 
-    context 'http status :not_found' do
-      it_behaves_like "supports different response instances" do
-        subject(:matcher) { have_http_status(:not_found) }
-        let(:code) { 404 }
-      end
+  context 'http status :not_found' do
+    it_behaves_like "supports different response instances" do
+      subject(:matcher) { have_http_status(:not_found) }
+      let(:code) { 404 }
     end
+  end
 
-    context 'http status :successful' do
-      it_behaves_like "supports different response instances" do
-        subject(:matcher) { have_http_status(:successful) }
-        let(:code) { 222 }
-      end
+  context 'http status :successful' do
+    it_behaves_like "supports different response instances" do
+      subject(:matcher) { have_http_status(:successful) }
+      let(:code) { 222 }
     end
+  end
 
-    context 'http status :server_error' do
-      it_behaves_like "supports different response instances" do
-        subject(:matcher) { have_http_status(:server_error) }
-        let(:code) { 555 }
-      end
+  context 'http status :server_error' do
+    it_behaves_like "supports different response instances" do
+      subject(:matcher) { have_http_status(:server_error) }
+      let(:code) { 555 }
     end
   end
 end

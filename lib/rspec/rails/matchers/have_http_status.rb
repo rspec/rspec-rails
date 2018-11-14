@@ -289,20 +289,11 @@ module RSpec
 
         protected
 
-          if 5 < ::Rails::VERSION::MAJOR ||
-             (::Rails::VERSION::MAJOR == 5 && 2 <= ::Rails::VERSION::MINOR)
-            RESPONSE_METHODS = {
-              :success => 'successful',
-              :error => 'server_error',
-              :missing => 'not_found'
-            }.freeze
-          else
-            RESPONSE_METHODS = {
-              :successful => 'success',
-              :server_error => 'error',
-              :not_found => 'missing'
-            }.freeze
-          end
+          RESPONSE_METHODS = {
+            :success => 'successful',
+            :error => 'server_error',
+            :missing => 'not_found'
+          }.freeze
 
           def check_expected_status(test_response, expected)
             test_response.send(
