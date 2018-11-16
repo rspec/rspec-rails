@@ -37,13 +37,13 @@ script: "script/run_build 2>&1"
 matrix:
   include:
     # Rails dev / 6 builds >= 2.4.4
-    - rvm: 2.5.1
+    - rvm: 2.5.3
       env: RAILS_VERSION=master
     - rvm: 2.4.4
       env: RAILS_VERSION=master
 
     # Rails 5.2 builds >= 2.2.2
-    - rvm: 2.5.1
+    - rvm: 2.5.3
       env: RAILS_VERSION='~> 5.2.0'
     - rvm: 2.4.4
       env: RAILS_VERSION='~> 5.2.0'
@@ -53,7 +53,7 @@ matrix:
       env: RAILS_VERSION='~> 5.2.0'
 
     # Rails 5.1 Builds >= 2.2.2
-    - rvm: 2.5.1
+    - rvm: 2.5.3
       env: RAILS_VERSION='~> 5.1.0'
     - rvm: 2.4.4
       env: RAILS_VERSION='~> 5.1.0'
@@ -63,7 +63,7 @@ matrix:
       env: RAILS_VERSION='~> 5.1.0'
 
     # Rails 5.0 Builds >= 2.2.2
-    - rvm: 2.5.1
+    - rvm: 2.5.3
       env: RAILS_VERSION='~> 5.0.0'
     - rvm: 2.4.4
       env: RAILS_VERSION='~> 5.0.0'
@@ -193,7 +193,7 @@ matrix:
       env: RAILS_VERSION='~> 3.0.20'
 
   allow_failures:
-    - rvm: 2.5.1
+    - rvm: 2.5.3
       env: RAILS_VERSION=master
     - rvm: 2.4.4
       env: RAILS_VERSION=master
