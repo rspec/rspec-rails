@@ -5,12 +5,12 @@ Feature: `have_http_status` matcher
 
   * numeric
   * name (defined in `Rack::Utils::SYMBOL_TO_STATUS_CODE`)
-  * type (`:success`, `:missing`, `:redirect`, or `:error`)
+  * `ActionDispatch::TestResponse` alias (`:success`, `:missing`, `:redirect`, or `:error`)
 
   The matcher works on any `response` object. It is available for use in
   [controller specs](../controller-specs), [request specs](../request-specs), and [feature specs](../feature-specs).
 
-  Scenario: Checking a response code by number
+  Scenario: Checking a numeric response code
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -35,7 +35,7 @@ Feature: `have_http_status` matcher
     When I run `rspec spec`
     Then the examples should all pass
 
-  Scenario: Checking a response code by name
+  Scenario: Checking a symbolic response code (by name)
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -60,7 +60,7 @@ Feature: `have_http_status` matcher
     When I run `rspec spec`
     Then the examples should all pass
 
-  Scenario: Checking a response code by type
+  Scenario: Checking a symbolic response code (by `ActionDispatch::TestRespose` alias)
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
       require "rails_helper"

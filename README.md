@@ -119,10 +119,10 @@ In RSpec, application behavior is described
 **first in (almost) plain English, then again in test code**, like so:
 
 ```ruby
-RSpec.describe Member do  #
-  context 'in death' do   # (almost) plain English
-    it 'has a name' do    #
-      expect(dead_member.name).to eq('Robert Paulson')  # test code
+RSpec.describe 'Post' do           #
+  context 'before publication' do  # (almost) plain English
+    it 'cannot have comments' do   #
+      expect { Post.create.comments.create! }.to raise_error(ActiveRecord::RecordInvalid)  # test code
     end
   end
 end
@@ -134,29 +134,25 @@ to generate a report of where the application
 conforms to (or fails to meet) the spec:
 
 ```
-$ rspec --format documentation spec/models/member_spec.rb
+$ rspec --format documentation spec/models/post_spec.rb
 
-Member
-  in death
-    has a name
+Post
+  before publication
+    cannot have comments
 
 Failures:
 
-  1) Member in death has a name
-     Failure/Error: expect(dead_member.name).to eq('Robert Paulson')
-
-       expected: "Robert Paulson"
-            got: nil
-
-       (compared using ==)
-     # ./spec/models/member.rb:4:in `block (3 levels) in <top (required)>'
+  1) Post before publication cannot have comments
+     Failure/Error: expect { Post.create.comments.create! }.to raise_error(ActiveRecord::RecordInvalid)
+       expected ActiveRecord::RecordInvalid but nothing was raised
+     # ./spec/models/post.rb:4:in `block (3 levels) in <top (required)>'
 
 Finished in 0.00527 seconds (files took 0.29657 seconds to load)
 1 example, 1 failure
 
 Failed examples:
 
-rspec ./spec/models/member_spec.rb:3 # Member in death has a name
+rspec ./spec/models/post_spec.rb:3 # Post before publication cannot have comments
 ```
 
 For an in-depth look at the RSpec DSL, including lots of examples,
@@ -208,40 +204,24 @@ read the [official Cucumber documentation][].
 
 ## What tests should I write?
 
-At the risk of grossly oversimplifying,
-there are two kinds of tests you can write:
-those that verify
-**an individual component of your application** (unit tests),
-and those that verify
-**how multiple parts of your application work as a whole** (integration tests).
-
-RSpec Rails defines ten different _types_ of specs (7 unit, 3 integration)
+RSpec Rails defines ten different _types_ of specs
 for testing different parts of a typical Rails application.
-Many inherit from one of Rails’ built-in `TestCase` classes,
+Each one inherits from one of Rails’ built-in `TestCase` classes,
 meaning the helper methods provided by default in Rails tests
 are available in RSpec, as well.
 
-- **Unit**
-
-  | Spec type        | Corresponding Rails test class     |
-  | ---------------- | ---------------------------------- |
-  | [model][]        |                                    |
-  | [controller][]\* | [`ActionController::TestCase`][]   |
-  | [mailer][]       | `ActionMailer::TestCase`           |
-  | [job][]          |                                    |
-  | [view][]         | `ActionView::TestCase`             |
-  | [routing][]      |                                    |
-  | [helper][]       | `ActionView::TestCase`             |
-
-- **Integration**
-
-  | Spec type       | Corresponding Rails test class        |
-  | --------------- | ------------------------------------- |
-  | [request][]     | [`ActionDispatch::IntegrationTest`][] |
-  | [feature][]\*   |                                       |
-  | [system][]      | [`ActionDispatch::SystemTestCase`][]  |
-
-_\* discouraged in favor new alternatives_
+  | Spec type      | Corresponding Rails test class        |
+  | -------------- | --------------------------------      |
+  | [model][]      |                                       |
+  | [controller][] | [`ActionController::TestCase`][]      |
+  | [mailer][]     | `ActionMailer::TestCase`              |
+  | [job][]        |                                       |
+  | [view][]       | `ActionView::TestCase`                |
+  | [routing][]    |                                       |
+  | [helper][]     | `ActionView::TestCase`                |
+  | [request][]    | [`ActionDispatch::IntegrationTest`][] |
+  | [feature][]    |                                       |
+  | [system][]     | [`ActionDispatch::SystemTestCase`][]  |
 
 Follow the links above to see examples of each spec type,
 or for official Rails API documentation on the given `TestCase` class.
@@ -250,9 +230,6 @@ or for official Rails API documentation on the given `TestCase` class.
 > 
 > Ask a hundred developers how to test an application,
 > and you’ll get a hundred different answers.
-> Some may insist on exhaustively testing every single method on every model;
-> others may contend that since integration tests capture model behavior anyway,
-> much unit testing is redundant and burdensome.
 >
 > RSpec Rails provides thoughtfully selected features
 > to encourage good testing practices, but there’s no “right” way to do it.
@@ -270,19 +247,17 @@ or for official Rails API documentation on the given `TestCase` class.
 [view]: https://www.relishapp.com/rspec/rspec-rails/docs/view-specs/view-spec
 [routing]: https://www.relishapp.com/rspec/rspec-rails/docs/routing-specs
 [helper]: https://www.relishapp.com/rspec/rspec-rails/docs/helper-specs/helper-spec
-[`ActionDispatch::IntegrationTest`]: https://edgeapi.rubyonrails.org/classes/ActionDispatch/IntegrationTest.html
-[`ActionDispatch::SystemTestCase`]: https://edgeapi.rubyonrails.org/classes/ActionDispatch/SystemTestCase.html
-[`ActionController::TestCase`]: https://edgeapi.rubyonrails.org/classes/ActionController/TestCase.html
+[`ActionDispatch::IntegrationTest`]: https://api.rubyonrails.org/classes/ActionDispatch/IntegrationTest.html
+[`ActionDispatch::SystemTestCase`]: https://api.rubyonrails.org/classes/ActionDispatch/SystemTestCase.html
+[`ActionController::TestCase`]: https://api.rubyonrails.org/classes/ActionController/TestCase.html
 
 ### I’m writing a spec file from scratch. How do I assign it a type?
 
-Assuming you haven’t [modified the default `rails_helper.rb` configuration][],
-simply place the spec in the appropriate folder
+Simply place the spec in the appropriate folder
 (_e.g.,_ `spec/models/` for model specs)
 and RSpec will set its type automatically.
 
-If you _have_ modified the default config
-(or if you just want to be extra explicit),
+If you want to be extra explicit,
 you can set the `:type` option at the top of the file, like so:
 
 ```ruby
@@ -297,12 +272,11 @@ RSpec.describe User, type: :model do
 ### System specs, feature specs, request specs–what’s the difference?
 
 RSpec Rails provides three types of specs
-for integration testing the application as a whole—in other words,
-specifying what the client sees when interacting with it.
+that do not directly correspond to any Rails application component.
 
 #### System specs
 
-Sometimes called **acceptance tests** or **browser tests**,
+Also called **acceptance tests**, **browser tests**, or **end-to-end tests**,
 system specs test the application from the perspective of a _human client._
 The test code walks through a user’s browser interactions,
 
@@ -323,15 +297,20 @@ but `SystemTestCase` solves some longstanding configuration issues they had,
 so the RSpec team [officially recommends system specs][] over feature specs.
 
 If you don’t have the luxury of upgrading,
-you’ll be limited to writing feature specs for your browser tests.
-They require [Capybara][],
-so make sure it’s listed in the `:test` group of your `Gemfile`:
+there’s no problem with using feature specs instead.
+Be sure to add [Capybara][] to the `:test` group of your `Gemfile` first:
 
 ```ruby
 group :test do
   gem "capybara"
 end
 ```
+
+(It’s actually required for both feature and system specs,
+but Rails includes it by default in versions 5.1+.)
+
+[officially recommends system specs]: http://rspec.info/blog/2017/10/rspec-3-7-has-been-released/#rails-actiondispatchsystemtest-integration-system-specs
+[Capybara]: https://github.com/teamcapybara/capybara
 
 #### Request specs
 
@@ -341,18 +320,16 @@ They begin with an HTTP request and end with the HTTP response,
 so they’re faster than feature specs,
 but do not examine your app’s UI or JavaScript.
 
-Request specs provide a high-level alternative to unit testing controllers.
-In fact, as of RSpec 3.5,
-the RSpec team [discourages controller specs entirely][]
-in favor of request specs.
+Request specs provide a high-level alternative to controller specs.
+In fact, as of RSpec 3.5, both the Rails and RSpec teams
+[discourage directly testing controllers][]
+in favor of functional tests like request specs.
 
 When writing them, try to answer the question,
 “For a given HTTP request (verb + path + parameters),
 what HTTP response should the application return?”
 
-[officially recommends system specs]: http://rspec.info/blog/2017/10/rspec-3-7-has-been-released/#rails-actiondispatchsystemtest-integration-system-specs
-[Capybara]: https://github.com/teamcapybara/capybara
-[discourages controller specs entirely]: rspec.info/blog/2016/07/rspec-3-5-has-been-released/#rails-support-for-rails-5
+[discourage directly testing controllers]: rspec.info/blog/2016/07/rspec-3-5-has-been-released/#rails-support-for-rails-5
 
 ## Contributing
 
@@ -381,7 +358,3 @@ you can run the specs and Cucumber features, or submit a pull request.
   anywhere other than system specs and feature specs.)
 
   [additional configuration is required]: http://rubydoc.info/gems/rspec-rails/file/Capybara.md
-
-### RSpec style guides
-
-* [Better Specs](http://www.betterspecs.org/)

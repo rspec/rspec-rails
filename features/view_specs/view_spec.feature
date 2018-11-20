@@ -1,13 +1,12 @@
 Feature: view spec
 
-  View specs should be placed in `spec/views`,
-  and verify the content of view templates in isolation
+  View specs are marked by `:type => :view`
+  or if you have set `config.infer_spec_type_from_file_location!`
+  by placing them in `spec/views`.
+
+  Use them to test the content of view templates in isolation
   (that is, without invoking a controller).
-
-  Overview
-  --------
-
-  View specs generally follow three steps:
+  They generally follow three steps:
 
   ```ruby
   assign(:widget, Widget.new)  # sets @widget = Widget.new in the view template
@@ -18,38 +17,10 @@ Feature: view spec
   ```
 
   1. Use the `assign` method to set instance variables in the view.
-     Technically, `@widget = Widget.new` would work too,
-     but RSpec doesn't officially support this pattern.
-     (It only works as a side effect of the fact that
-     view specs include `ActionView::TestCase` behavior.
-     Be aware that it may be made unavailable in the future.)
 
   2. Use the `render` method to render the view.
 
-  3. Set expectations against the resulting `rendered` object.
-
-  Notes
-  -----
-
-  * To apply a layout to the view template being rendered,
-    be sure to specify both the template and layout explicitly:
-
-    ```ruby
-    render :template => "events/show", :layout => "layouts/application"
-    ```
-
-  * View specs expose a `controller` object,
-    which can be used to set expectations about the route (path + parameters)
-    to the view template being tested.
-    Some attributes of this object are based on
-    the name of the view itself—that is, in a spec for `events/index.html.erb`:
-
-    * `controller.controller_path == "events"`
-    * `controller.request.path_parameters[:controller] == "events"`
-
-    Be careful of these automatically-inferred values
-    when writing specs for partials
-    (which may be shared across multiple controllers).
+  3. Set expectations against the resulting rendered template.
 
   Scenario: View specs render the described view file
     Given a file named "spec/views/widgets/index.html.erb_spec.rb" with:
@@ -118,6 +89,34 @@ Feature: view spec
     And a file named "app/views/widgets/widget.html.erb" with:
       """
       <h2><%= @widget.name %></h2>
+      """
+    When I run `rspec spec/views`
+    Then the examples should all pass
+
+  Scenario: View specs can render templates in layouts
+    Given a file named "spec/views/widgets/widget.html.erb_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe "rendering the widget template" do
+        context "with the inventory layout" do
+          it "displays the widget" do
+            assign(:widget, Widget.create!(:name => "slicer"))
+
+            render :template => "widgets/widget.html.erb", :layout => "layouts/inventory"
+
+            expect(rendered).to match /slicer/
+          end
+        end
+      end
+      """
+    And a file named "app/views/widgets/widget.html.erb" with:
+      """
+      <h2><%= @widget.name %></h2>
+      """
+    And a file named "app/views/layouts/inventory.html.erb" with:
+      """
+      <%= yield %>
       """
     When I run `rspec spec/views`
     Then the examples should all pass
