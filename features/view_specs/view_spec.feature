@@ -4,8 +4,8 @@ Feature: view spec
   or if you have set `config.infer_spec_type_from_file_location!`
   by placing them in `spec/views`.
 
-  Use them to test the content of view templates in isolation
-  (that is, without invoking a controller).
+  Use them to test the content of view templates
+  without invoking a specific controller.
   They generally follow three steps:
 
   ```ruby

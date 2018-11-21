@@ -271,8 +271,8 @@ RSpec.describe User, type: :model do
 
 ### System specs, feature specs, request specs–what’s the difference?
 
-RSpec Rails provides three types of specs
-that do not directly correspond to any Rails application component.
+RSpec Rails provides some end-to-end (entire application) testing capability
+to specify the interaction with the client.
 
 #### System specs
 
