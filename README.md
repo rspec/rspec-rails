@@ -111,6 +111,9 @@ $ bundle exec rspec spec/controllers/accounts_controller_spec.rb
 
 # Run a single example from a spec file (by line number)
 $ bundle exec rspec spec/controllers/accounts_controller_spec.rb:8
+
+# See all options for running specs
+$ bundle exec rspec --help
 ```
 
 ## RSpec DSL Basics (or, how do I write a spec?)
@@ -234,8 +237,6 @@ or for official Rails API documentation on the given `TestCase` class.
 > RSpec Rails provides thoughtfully selected features
 > to encourage good testing practices, but there’s no “right” way to do it.
 > Ultimately, it’s up to you to decide how your test suite will be composed.
-> 
-> (You may even define custom types, or write specs with no type at all.)
 
 [request]: https://relishapp.com/rspec/rspec-rails/docs/request-specs/request-spec
 [feature]: https://www.relishapp.com/rspec/rspec-rails/docs/feature-specs/feature-spec
@@ -253,7 +254,7 @@ or for official Rails API documentation on the given `TestCase` class.
 
 ### I’m writing a spec file from scratch. How do I assign it a type?
 
-Simply place the spec in the appropriate folder
+Simply place the spec [in the appropriate folder][]
 (_e.g.,_ `spec/models/` for model specs)
 and RSpec will set its type automatically.
 
@@ -267,7 +268,7 @@ RSpec.describe User, type: :model do
 ...
 ```
 
-[modified the default `rails_helper.rb` configuration]: https://relishapp.com/rspec/rspec-rails/docs/upgrade#file-type-inference-disabled
+[in the appropriate folder]: https://relishapp.com/rspec/rspec-rails/docs/directory-structure
 
 ### System specs, feature specs, request specs–what’s the difference?
 
