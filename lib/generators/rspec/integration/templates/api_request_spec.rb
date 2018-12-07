@@ -20,7 +20,7 @@ RSpec.describe <%= class_name.pluralize %>Controller, <%= type_metatag(:request)
   # <%= class_name %>. As you add validations to <%= class_name %>, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-<% if options[:factory] || Gem.loaded_specs.has_key?('factory_bot_rails') -%>
+<% if options[:factorybot] || Gem.loaded_specs.has_key?('factory_bot_rails') -%>
      attributes_for(:<%= ns_file_name -%>)
 <% elsif options[:fabrication] || Gem.loaded_specs.has_key?('fabrication')-%>
     Fabricate.attributes_for(<%= ns_prefix.empty? ? ":"+ns_file_name : "'#{class_name}'"-%>)
@@ -105,7 +105,7 @@ RSpec.describe <%= class_name.pluralize %>Controller, <%= type_metatag(:request)
   describe "PUT #update" do
     context "with valid params" do
       let(:new_attributes) {
-<% if options[:factory] || Gem.loaded_specs.has_key?('factory_bot_rails') -%>
+<% if options[:factorybot] || Gem.loaded_specs.has_key?('factory_bot_rails') -%>
         attributes_for(:<%= ns_file_name -%>)
 <% elsif options[:fabrication] || Gem.loaded_specs.has_key?('fabrication')-%>
         Fabricate.attributes_for(<%= options[:skip_namespace] ? ":"+ns_file_name : "'#{ns_file_name}'"-%>)

@@ -12,7 +12,7 @@ module Rspec
                    :desc => "Generate request specs"
       class_option :api, :type => :boolean, :desc => "Creates request_spec for APIs, skip specs unnecessary for API-only apps"
       class_option :fabrication, :type => :boolean, :desc => "Fill params with Fabricator model attributes"
-      class_option :factory, :type => :boolean, :desc => "Fill params with Factory Bot aka Factory Girl model attributes"
+      class_option :factorybot, :type => :boolean, :desc => "Fill params with Factory Bot model attributes"
 
 
       def initialize(*args, &blk)
