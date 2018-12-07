@@ -14,7 +14,7 @@ require 'rails_helper'
 
 
 <% module_namespacing do -%>
-RSpec.describe <%= class_name.pluralize %>Controller, <%= type_metatag(:request) %> do
+RSpec.describe "<%= class_name.pluralize %>", <%= type_metatag(:request) %> do
 
   # This should return the minimal set of attributes required to create a valid
   # <%= class_name %>. As you add validations to <%= class_name %>, be sure to
