@@ -22,13 +22,7 @@ module Rspec
 
       def generate_request_spec
         return unless options[:request_specs]
-
-        template_file = File.join(
-            'spec/requests',
-            class_path,
-            "#{table_name}_requests_spec.rb"
-        )
-
+        
         if options[:api]
           template 'api_request_spec.rb', File.join('spec/requests', class_path, "#{table_name}_spec.rb")
         else
