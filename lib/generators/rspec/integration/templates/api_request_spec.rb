@@ -22,7 +22,7 @@ RSpec.describe <%= class_name.pluralize %>Controller, <%= type_metatag(:request)
   let(:valid_attributes) do
 <% if options[:factorybot] || Gem.loaded_specs.has_key?('factory_bot_rails') -%>
      attributes_for(:<%= ns_file_name -%>)
-<% elsif options[:fabrication] || Gem.loaded_specs.has_key?('fabrication')-%>
+<% elsif options[:fabrication] -%>
     Fabricate.attributes_for(<%= ns_prefix.empty? ? ":"+ns_file_name : "'#{class_name}'"-%>)
 <% else -%>
     skip("Add a hash of attributes valid for your model")
@@ -107,7 +107,7 @@ RSpec.describe <%= class_name.pluralize %>Controller, <%= type_metatag(:request)
       let(:new_attributes) {
 <% if options[:factorybot] || Gem.loaded_specs.has_key?('factory_bot_rails') -%>
         attributes_for(:<%= ns_file_name -%>)
-<% elsif options[:fabrication] || Gem.loaded_specs.has_key?('fabrication')-%>
+<% elsif options[:fabrication] -%>
         Fabricate.attributes_for(<%= options[:skip_namespace] ? ":"+ns_file_name : "'#{ns_file_name}'"-%>)
 <% else -%>
         skip("Add a hash of attributes valid for your model")
