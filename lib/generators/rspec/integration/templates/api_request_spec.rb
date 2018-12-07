@@ -19,7 +19,7 @@ RSpec.describe <%= class_name.pluralize %>Controller, <%= type_metatag(:request)
   # This should return the minimal set of attributes required to create a valid
   # <%= class_name %>. As you add validations to <%= class_name %>, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
+  let(:valid_attributes) do
 <% if options[:factorybot] || Gem.loaded_specs.has_key?('factory_bot_rails') -%>
      attributes_for(:<%= ns_file_name -%>)
 <% elsif options[:fabrication] || Gem.loaded_specs.has_key?('fabrication')-%>
@@ -27,22 +27,22 @@ RSpec.describe <%= class_name.pluralize %>Controller, <%= type_metatag(:request)
 <% else -%>
     skip("Add a hash of attributes valid for your model")
 <% end -%>
-  }
+  end
 
-  let(:invalid_attributes) {
+  let(:invalid_attributes) do
     skip("Add a hash of attributes invalid for your model")
-  }
+  end
 
   # This should return the minimal set of values that should be in the headers
   # in order to pass any filters (e.g. authentication) defined in
   # <%= class_name %>Controller. Be sure to keep this updated too.
   # Because it's an API request a default JSON header is added.
   # If you have an Authentication - and you definitely should - add your token header here.
-  let(:valid_headers) {
+  let(:valid_headers) do
     {
       "Content-Type" => "application/json"
     }
-  }
+  end
 
 <% unless options[:singleton] -%>
   describe "GET #index" do
