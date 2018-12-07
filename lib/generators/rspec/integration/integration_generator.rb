@@ -30,7 +30,7 @@ module Rspec
         )
 
         if options[:api]
-          template 'api_request_spec.rb', File.join('spec/requests', class_path, "#{ns_suffix}_spec.rb")
+          template 'api_request_spec.rb', File.join('spec/requests', class_path, "#{table_name}_spec.rb")
         else
           template 'request_spec.rb',
                    File.join('spec/requests', class_path, "#{table_name}_spec.rb")
