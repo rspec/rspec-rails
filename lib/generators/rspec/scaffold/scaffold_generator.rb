@@ -32,10 +32,7 @@ module Rspec
           controller_class_path,
           "#{controller_file_name}_controller_spec.rb"
         )
-        if options[:api]
-          # skip generation of controller_spec. Specs are in request_spec if an API is scaffolded
-          # template 'api_controller_spec.rb', template_file
-        else
+        unless options[:api]
           template 'controller_spec.rb', template_file
         end
       end
