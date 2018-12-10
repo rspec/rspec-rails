@@ -27,7 +27,7 @@ Use **[`rspec-rails` 1.x][]** for Rails 2.x.
    group :development, :test do
      gem 'rspec-rails', '~> 3.8'
    end
-   
+
    # Or, run against the master branch
    # (requires master-branch versions of all related RSpec libraries)
    group :development, :test do
@@ -230,7 +230,7 @@ Follow the links above to see examples of each spec type,
 or for official Rails API documentation on the given `TestCase` class.
 
 > **Note: This is not a checklist.**
-> 
+>
 > Ask a hundred developers how to test an application,
 > and you’ll get a hundred different answers.
 >
@@ -353,7 +353,7 @@ you can run the specs and Cucumber features, or submit a pull request.
 ### Recommended third-party extensions
 
 * [FactoryBot](https://github.com/thoughtbot/factory_bot)
-* [Capybara](https://github.com/jnicklas/capybara)  
+* [Capybara](https://github.com/jnicklas/capybara)
   (Included by default in Rails 5.1+.
   Note that [additional configuration is required][] to use the Capybara DSL
   anywhere other than system specs and feature specs.)
