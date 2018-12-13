@@ -3,9 +3,9 @@
 `rspec-rails` brings the [RSpec][] testing framework to [Ruby on Rails][]
 as a drop-in alternative to its default testing framework, Minitest.
 
-In RSpec, tests are not just scripts that verify your application code;
-they’re also detailed explanations of how the application is supposed to behave,
-expressed in plain English—in other words, _specs._
+In RSpec, tests are not just scripts that verify your application code.
+They’re also detailed explanations of how the application is supposed to behave,
+expressed in plain English; in other words, _specs._
 
 Use **[`rspec-rails` 1.x][]** for Rails 2.x.
 
@@ -36,6 +36,9 @@ Use **[`rspec-rails` 1.x][]** for Rails 2.x.
      end
    end
    ```
+
+   (Adding it to the `:development` group is not strictly necessary,
+   but without it, generators and rake tasks must be preceded by `RAILS_ENV=test`.)
 
 2. Then, in your project directory:
 
@@ -290,25 +293,31 @@ and the expectations revolve around page content.
 
 Because system specs are a wrapper around Rails’ built-in `SystemTestCase`,
 they’re only available on Rails 5.1+.
+(Feature specs serve the same purpose, but without this dependency.)
 
 #### Feature specs
 
-Feature specs serve the same purpose,
-but `SystemTestCase` solves some longstanding configuration issues they had,
-so the RSpec team [officially recommends system specs][] over feature specs.
+Before Rails introduced system testing facilities,
+feature specs were the only spec type for end-to-end testing.
+While the RSpec team now [officially recommends system specs][] instead,
+feature specs are still fully supported, look basically identical,
+and work on older versions of Rails.
 
-If you don’t have the luxury of upgrading,
-there’s no problem with using feature specs instead.
-Be sure to add [Capybara][] to the `:test` group of your `Gemfile` first:
+On the other hand, feature specs require non-trivial configuration
+to get some important features working,
+like JavaScript testing or making sure each test runs with a fresh DB state.
+With system specs, this configuration is provided out-of-the-box.
+
+Like system specs, feature specs require the [Capybara][] gem.
+Rails 5.1+ includes it by default as part of system tests,
+but if you don’t have the luxury of upgrading,
+be sure to add it to the `:test` group of your `Gemfile` first:
 
 ```ruby
 group :test do
   gem "capybara"
 end
 ```
-
-(It’s actually required for both feature and system specs,
-but Rails includes it by default in versions 5.1+.)
 
 [officially recommends system specs]: http://rspec.info/blog/2017/10/rspec-3-7-has-been-released/#rails-actiondispatchsystemtest-integration-system-specs
 [Capybara]: https://github.com/teamcapybara/capybara
