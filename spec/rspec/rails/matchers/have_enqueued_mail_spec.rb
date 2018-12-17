@@ -8,6 +8,7 @@ if RSpec::Rails::FeatureCheck.has_active_job?
   class TestMailer < ActionMailer::Base
     def test_email; end
     def email_with_args(arg1, arg2); end
+    def email_with_optional_args(required_arg, optional_arg = nil); end
   end
 end
 
@@ -108,6 +109,20 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
       expect {
         TestMailer.email_with_args(1, 2).deliver_later
       }.to have_enqueued_mail(TestMailer, :email_with_args)
+    end
+
+    it "passes for mailer methods with default arguments" do
+      expect {
+        TestMailer.email_with_optional_args('required').deliver_later
+      }.to have_enqueued_mail(TestMailer, :email_with_optional_args)
+
+      expect {
+        TestMailer.email_with_optional_args('required').deliver_later
+      }.to have_enqueued_mail(TestMailer, :email_with_optional_args).with('required')
+
+      expect {
+        TestMailer.email_with_optional_args('required', 'optional').deliver_later
+      }.to have_enqueued_mail(TestMailer, :email_with_optional_args).with('required', 'optional')
     end
 
     it "passes with provided argument matchers" do

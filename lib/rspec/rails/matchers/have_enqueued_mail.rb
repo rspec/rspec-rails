@@ -9,6 +9,8 @@ module RSpec
       #
       # @see RSpec::Rails::Matchers#have_enqueued_mail
       class HaveEnqueuedMail < RSpec::Matchers::BuiltIn::BaseMatcher
+        include RSpec::Mocks::ExampleMethods
+
         def initialize(mailer_class, method_name)
           @mailer_class = mailer_class
           @method_name = method_name
@@ -71,7 +73,21 @@ module RSpec
         end
 
         def mailer_args
-          [@mailer_class.name, @method_name.to_s, 'deliver_now'] + @args
+          base_args = [@mailer_class.name, @method_name.to_s, 'deliver_now']
+
+          if @args.any?
+            base_args + @args
+          else
+            mailer_method_arity = @mailer_class.instance_method(@method_name).arity
+
+            number_of_args = if mailer_method_arity.negative?
+                               (mailer_method_arity + 1).abs
+                             else
+                               mailer_method_arity
+                             end
+
+            base_args + Array.new(number_of_args) { anything }
+          end
         end
 
         def check_active_job_adapter
