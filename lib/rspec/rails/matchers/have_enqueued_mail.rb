@@ -13,6 +13,8 @@ module RSpec
           @mailer_class = mailer_class
           @method_name = method_name
           @args = []
+          @job_matcher = ActiveJob::HaveEnqueuedJob.new(ActionMailer::DeliveryJob)
+          set_expected_count(:exactly, 1)
         end
 
         def description
@@ -23,9 +25,8 @@ module RSpec
           raise ArgumentError, 'have_enqueued_mail and enqueue_mail only work with block arguments' unless block.respond_to?(:call)
           check_active_job_adapter
 
-          job_matcher = ActiveJob::HaveEnqueuedJob.new(ActionMailer::DeliveryJob)
-          job_matcher.with(*mailer_args)
-          job_matcher.matches?(block)
+          @job_matcher.with(*mailer_args)
+          @job_matcher.matches?(block)
         end
 
         def with(*args)
@@ -33,8 +34,24 @@ module RSpec
           self
         end
 
+        %i[exactly at_least at_most].each do |method|
+          define_method(method) do |count|
+            @job_matcher.public_send(method, count)
+            set_expected_count(method, count)
+            self
+          end
+        end
+
+        %i[once twice thrice].each do |method|
+          define_method(method) do
+            @job_matcher.public_send(method)
+            exactly(method)
+          end
+        end
+
         def failure_message
           base_message.tap do |msg|
+            msg << " #{expected_count_message}"
             msg << " with #{@args}" if @args.any?
           end
         end
@@ -49,6 +66,10 @@ module RSpec
           "expected to enqueue #{@mailer_class.name}.#{@method_name}"
         end
 
+        def expected_count_message
+          "#{@expected_count_type.to_s.tr('_', ' ')} #{@expected_count} #{@expected_count == 1 ? 'time' : 'times'}"
+        end
+
         def mailer_args
           [@mailer_class.name, @method_name.to_s, 'deliver_now'] + @args
         end
@@ -56,6 +77,16 @@ module RSpec
         def check_active_job_adapter
           return if ::ActiveJob::QueueAdapters::TestAdapter === ::ActiveJob::Base.queue_adapter
           raise StandardError, "To use HaveEnqueuedMail matcher set `ActiveJob::Base.queue_adapter = :test`"
+        end
+
+        def set_expected_count(relativity, count)
+          @expected_count_type = relativity
+          @expected_count = case count
+                            when :once then 1
+                            when :twice then 2
+                            when :thrice then 3
+                            else Integer(count)
+                            end
         end
       end
 
