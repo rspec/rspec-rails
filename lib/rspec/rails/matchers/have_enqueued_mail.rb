@@ -3,10 +3,9 @@ require "rspec/rails/matchers/active_job"
 module RSpec
   module Rails
     module Matchers
-      # @api private
-      #
       # Matcher class for `have_enqueued_mail`. Should not be instantiated directly.
       #
+      # @private
       # @see RSpec::Rails::Matchers#have_enqueued_mail
       class HaveEnqueuedMail < RSpec::Matchers::BuiltIn::BaseMatcher
         include RSpec::Mocks::ExampleMethods
