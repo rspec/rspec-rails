@@ -5,6 +5,11 @@ Bug Fixes:
 
 * Fix issue with generator for preview specs where `Mailer` would be duplicated
   in the name. (Kohei Sugi, #2037)
+  
+Enhancements
+
+* Use `__dir__` instead of `__FILE__` in generated `rails_helper.rb` where
+  supported. (OKURA Masafumi, #2048)
 
 ### 3.8.1 / 2018-10-23
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.0...v3.8.1)
