@@ -5,7 +5,7 @@ Bug Fixes:
 
 * Fix issue with generator for preview specs where `Mailer` would be duplicated
   in the name. (Kohei Sugi, #2037)
-  
+
 Enhancements
 
 * Use `__dir__` instead of `__FILE__` in generated `rails_helper.rb` where
