@@ -5,7 +5,7 @@ as a drop-in alternative to its default testing framework, Minitest.
 
 In RSpec, tests are not just scripts that verify your application code.
 They’re also detailed explanations of how the application is supposed to behave,
-expressed in plain English: in other words, _specs._
+expressed in plain English, or in other words, _specs._
 
 Use **[`rspec-rails` 1.x][]** for Rails 2.x.
 
