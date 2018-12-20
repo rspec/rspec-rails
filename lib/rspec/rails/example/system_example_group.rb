@@ -57,7 +57,7 @@ module RSpec
             System test integration requires Rails >= 5.1 and has a hard
             dependency on a webserver and `capybara`, please add capybara to
             your Gemfile and configure a webserver (e.g. `Capybara.server =
-            :webrick`) before attempting to use system tests.
+            :webrick`) before attempting to use system specs.
           """.gsub(/\s+/, ' ').strip
         end
 
