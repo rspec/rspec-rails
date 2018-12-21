@@ -1,4 +1,4 @@
-# This file was generated on 2018-04-03T19:49:13+10:00 from the rspec-dev repo.
+# This file was generated on 2018-12-21T13:15:33+00:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -19,7 +19,7 @@ fi
 
 function clone_repo {
   if [ ! -d $1 ]; then # don't clone if the dir is already there
-    travis_retry eval "git clone https://github.com/rspec/$1 --depth 1 --branch $MAINTENANCE_BRANCH"
+    travis_retry eval "git clone git://github.com/rspec/$1 --depth 1 --branch $MAINTENANCE_BRANCH"
   fi;
 }
 
