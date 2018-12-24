@@ -108,7 +108,7 @@ module RSpec
           else
             mailer_method_arity = @mailer_class.instance_method(@method_name).arity
 
-            number_of_args = if mailer_method_arity.negative?
+            number_of_args = if mailer_method_arity < 0
                                (mailer_method_arity + 1).abs
                              else
                                mailer_method_arity
