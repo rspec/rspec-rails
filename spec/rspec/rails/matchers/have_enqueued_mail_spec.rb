@@ -12,7 +12,7 @@ if RSpec::Rails::FeatureCheck.has_active_job?
   end
 end
 
-RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.has_active_job? do
+RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck.has_active_job? do
   before do
     ActiveJob::Base.queue_adapter = :test
   end
@@ -186,7 +186,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
     it "passes when deliver_later is called with a wait_until argument" do
       send_time = Date.tomorrow.noon
 
-      expect { TestMailer.test_email.deliver_later(wait_until: send_time) }
+      expect { TestMailer.test_email.deliver_later(:wait_until => send_time) }
         .to have_enqueued_email(TestMailer, :test_email).at(send_time)
     end
 
@@ -194,19 +194,19 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
       send_time = Date.tomorrow.noon
 
       expect {
-        expect { TestMailer.test_email.deliver_later(wait_until: send_time + 1) }
+        expect { TestMailer.test_email.deliver_later(:wait_until => send_time + 1) }
           .to have_enqueued_email(TestMailer, :test_email).at(send_time)
       }.to raise_error(/expected to enqueue TestMailer.test_email exactly 1 time at/)
     end
 
     it "passes when deliver_later is called with a queue argument" do
-      expect { TestMailer.test_email.deliver_later(queue: 'urgent_mail') }
+      expect { TestMailer.test_email.deliver_later(:queue => 'urgent_mail') }
         .to have_enqueued_email(TestMailer, :test_email).on_queue('urgent_mail')
     end
 
     it "generates a failure message with on_queue" do
       expect {
-        expect { TestMailer.test_email.deliver_later(queue: 'not_urgent_mail') }
+        expect { TestMailer.test_email.deliver_later(:queue => 'not_urgent_mail') }
           .to have_enqueued_email(TestMailer, :test_email).on_queue('urgent_mail')
       }.to raise_error(/expected to enqueue TestMailer.test_email exactly 1 time on queue urgent_mail/)
     end
@@ -223,7 +223,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
       expect {
         expect {
           TestMailer.test_email.deliver_later
-          TestMailer.email_with_args(3, 4).deliver_later(wait_until: send_time, queue: queue)
+          TestMailer.email_with_args(3, 4).deliver_later(:wait_until => send_time, :queue => queue)
         }.to have_enqueued_email(TestMailer, :email_with_args).with(1, 2)
       }.to raise_error(message)
     end
