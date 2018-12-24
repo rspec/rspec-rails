@@ -51,7 +51,7 @@ module RSpec
           self
         end
 
-        %i[exactly at_least at_most].each do |method|
+        [:exactly, :at_least, :at_most].each do |method|
           define_method(method) do |count|
             @job_matcher.public_send(method, count)
             set_expected_count(method, count)
@@ -59,7 +59,7 @@ module RSpec
           end
         end
 
-        %i[once twice thrice].each do |method|
+        [:once, :twice, :thrice].each do |method|
           define_method(method) do
             @job_matcher.public_send(method)
             exactly(method)
