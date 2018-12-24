@@ -89,7 +89,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
         expect {
           TestMailer.test_email.deliver_later
         }.not_to have_enqueued_mail(TestMailer, :test_email)
-      }.to raise_error(/expected not to enqueue TestMailer.test_email exactly 1 time, but enqueued 1/)
+      }.to raise_error(/expected not to enqueue TestMailer.test_email exactly 1 time but enqueued 1/)
     end
 
     it "passes with :once count" do
@@ -129,7 +129,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
     it "generates a failure message with at least hint" do
       expect {
         expect { }.to have_enqueued_mail(TestMailer, :test_email).at_least(:once)
-      }.to raise_error(/expected to enqueue TestMailer.test_email at least 1 time, but enqueued 0/)
+      }.to raise_error(/expected to enqueue TestMailer.test_email at least 1 time but enqueued 0/)
     end
 
     it "generates a failure message with at most hint" do
@@ -138,7 +138,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
           TestMailer.test_email.deliver_later
           TestMailer.test_email.deliver_later
         }.to have_enqueued_mail(TestMailer, :test_email).at_most(:once)
-      }.to raise_error(/expected to enqueue TestMailer.test_email at most 1 time, but enqueued 2/)
+      }.to raise_error(/expected to enqueue TestMailer.test_email at most 1 time but enqueued 2/)
     end
 
     it "passes for mailer methods that accept arguments when the provided argument matcher is not used" do
@@ -183,16 +183,47 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
       }.to raise_error(/expected to enqueue TestMailer.email_with_args exactly 1 time with \[1, 2\], but enqueued 0/)
     end
 
+    it "passes when deliver_later is called with a wait_until argument" do
+      send_time = Date.tomorrow.noon
+
+      expect { TestMailer.test_email.deliver_later(wait_until: send_time) }
+        .to have_enqueued_email(TestMailer, :test_email).at(send_time)
+    end
+
+    it "generates a failure message with at" do
+      send_time = Date.tomorrow.noon
+
+      expect {
+        expect { TestMailer.test_email.deliver_later(wait_until: send_time + 1) }
+          .to have_enqueued_email(TestMailer, :test_email).at(send_time)
+      }.to raise_error(/expected to enqueue TestMailer.test_email exactly 1 time at #{send_time.inspect}/)
+    end
+
+    it "passes when deliver_later is called with a queue argument" do
+      expect { TestMailer.test_email.deliver_later(queue: 'urgent_mail') }
+        .to have_enqueued_email(TestMailer, :test_email).on_queue('urgent_mail')
+    end
+
+    it "generates a failure message with on_queue" do
+      expect {
+        expect { TestMailer.test_email.deliver_later(queue: 'not_urgent_mail') }
+          .to have_enqueued_email(TestMailer, :test_email).on_queue('urgent_mail')
+      }.to raise_error(/expected to enqueue TestMailer.test_email exactly 1 time on queue urgent_mail/)
+    end
+
     it "generates a failure message with unmatching enqueued mail jobs" do
+      send_time = Date.tomorrow.noon
+      queue = 'urgent_mail'
+
       message = "expected to enqueue TestMailer.email_with_args exactly 1 time with [1, 2], but enqueued 0" + \
                 "\nQueued deliveries:" + \
                 "\n  TestMailer.test_email" + \
-                "\n  TestMailer.email_with_args with [3, 4]"
+                "\n  TestMailer.email_with_args with [3, 4], on queue #{queue}, at #{send_time}"
 
       expect {
         expect {
           TestMailer.test_email.deliver_later
-          TestMailer.email_with_args(3, 4).deliver_later
+          TestMailer.email_with_args(3, 4).deliver_later(wait_until: send_time, queue: queue)
         }.to have_enqueued_email(TestMailer, :email_with_args).with(1, 2)
       }.to raise_error(message)
     end

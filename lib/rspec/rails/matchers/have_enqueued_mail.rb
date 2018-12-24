@@ -14,6 +14,8 @@ module RSpec
           @mailer_class = mailer_class
           @method_name = method_name
           @args = []
+          @at = nil
+          @queue = nil
           @job_matcher = ActiveJob::HaveEnqueuedJob.new(ActionMailer::DeliveryJob)
           set_expected_count(:exactly, 1)
         end
@@ -32,6 +34,18 @@ module RSpec
 
         def with(*args)
           @args = args
+          self
+        end
+
+        def at(send_time)
+          @at = send_time
+          @job_matcher.at(send_time)
+          self
+        end
+
+        def on_queue(queue)
+          @queue = queue
+          @job_matcher.on_queue(queue)
           self
         end
 
@@ -73,8 +87,10 @@ module RSpec
         def base_message
           "#{@mailer_class.name}.#{@method_name}".tap do |msg|
             msg << " #{expected_count_message}"
-            msg << " with #{@args}" if @args.any?
-            msg << ", but enqueued #{@job_matcher.matching_jobs.size}"
+            msg << " with #{@args}," if @args.any?
+            msg << " on queue #{@queue}," if @queue
+            msg << " at #{@at.inspect}," if @at
+            msg << " but enqueued #{@job_matcher.matching_jobs.size}"
           end
         end
 
@@ -125,19 +141,31 @@ module RSpec
           msg = "Queued deliveries:"
 
           unmatching_mail_jobs.each do |job|
-            mailer_method = job[:args][0..1].join('.')
-            mailer_args = job[:args][3..-1]
-
-            msg << "\n  #{mailer_method}"
-            msg << " with #{mailer_args}" if mailer_args.any?
+            msg << "\n  #{mail_job_message(job)}"
           end
 
           msg
         end
+
+        def mail_job_message(job)
+          mailer_method = job[:args][0..1].join('.')
+
+          mailer_args = job[:args][3..-1]
+          msg_parts = []
+          msg_parts << "with #{mailer_args}" if mailer_args.any?
+          msg_parts << "on queue #{job[:queue]}" if job[:queue] && job[:queue] != 'mailers'
+          msg_parts << "at #{Time.at(job[:at])}" if job[:at]
+
+          "#{mailer_method} #{msg_parts.join(', ')}".strip
+        end
       end
 
       # @api public
-      # Passes if an email has been enqueued inside block. May chain with to specify expected arguments.
+      # Passes if an email has been enqueued inside block.
+      # May chain with to specify expected arguments.
+      # May chain at_least, at_most or exactly to specify a number of times.
+      # May chain at to specify a send time.
+      # May chain on_queue to specify a queue.
       #
       # @example
       #     expect {
@@ -152,6 +180,23 @@ module RSpec
       #     expect {
       #       MyMailer.welcome(user).deliver_later
       #     }.to have_enqueued_mail(MyMailer, :welcome).with(user)
+      #
+      #     expect {
+      #       MyMailer.welcome(user).deliver_later
+      #       MyMailer.welcome(user).deliver_later
+      #     }.to have_enqueued_mail(MyMailer, :welcome).at_least(:once)
+      #
+      #     expect {
+      #       MyMailer.welcome(user).deliver_later
+      #     }.to have_enqueued_mail(MyMailer, :welcome).at_most(:twice)
+      #
+      #     expect {
+      #       MyMailer.welcome(user).deliver_later(wait_until: Date.tomorrow.noon)
+      #     }.to have_enqueued_mail(MyMailer, :welcome).at(Date.tomorrow.noon)
+      #
+      #     expect {
+      #       MyMailer.welcome(user).deliver_later(queue: :urgent_mail)
+      #     }.to have_enqueued_mail(MyMailer, :welcome).on_queue(:urgent_mail)
       def have_enqueued_mail(mailer_class, mail_method_name)
         check_active_job_adapter
         HaveEnqueuedMail.new(mailer_class, mail_method_name)
