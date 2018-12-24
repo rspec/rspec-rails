@@ -144,7 +144,21 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
     it "generates a failure message with arguments" do
       expect {
         expect { }.to have_enqueued_email(TestMailer, :email_with_args).with(1, 2)
-      }.to raise_error(/expected to enqueue TestMailer.email_with_args exactly 1 time with \[1, 2\]/)
+      }.to raise_error(/expected to enqueue TestMailer.email_with_args exactly 1 time with \[1, 2\] but enqueued 0/)
+    end
+
+    it "generates a failure message with unmatching enqueued mail jobs" do
+      message = "expected to enqueue TestMailer.email_with_args exactly 1 time with [1, 2] but enqueued 0" + \
+                "\nQueued deliveries:" + \
+                "\n  TestMailer.test_email" + \
+                "\n  TestMailer.email_with_args with [3, 4]"
+
+      expect {
+        expect {
+          TestMailer.test_email.deliver_later
+          TestMailer.email_with_args(3, 4).deliver_later
+        }.to have_enqueued_email(TestMailer, :email_with_args).with(1, 2)
+      }.to raise_error(message)
     end
 
     it "throws descriptive error when no test adapter set" do

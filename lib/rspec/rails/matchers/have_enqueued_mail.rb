@@ -54,6 +54,8 @@ module RSpec
           base_message.tap do |msg|
             msg << " #{expected_count_message}"
             msg << " with #{@args}" if @args.any?
+            msg << " but enqueued #{@job_matcher.matching_jobs.size}"
+            msg << "\n#{unmatching_mail_jobs_message}" if unmatching_mail_jobs.any?
           end
         end
 
@@ -102,6 +104,26 @@ module RSpec
                             when :thrice then 3
                             else Integer(count)
                             end
+        end
+
+        def unmatching_mail_jobs
+          @job_matcher.unmatching_jobs.select do |job|
+            job[:job] == ActionMailer::DeliveryJob
+          end
+        end
+
+        def unmatching_mail_jobs_message
+          msg = "Queued deliveries:"
+
+          unmatching_mail_jobs.each do |job|
+            mailer_method = job[:args][0..1].join('.')
+            mailer_args = job[:args][3..-1]
+
+            msg << "\n  #{mailer_method}"
+            msg << " with #{mailer_args}" if mailer_args.any?
+          end
+
+          msg
         end
       end
 
