@@ -196,7 +196,7 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
       expect {
         expect { TestMailer.test_email.deliver_later(:wait_until => send_time + 1) }
           .to have_enqueued_email(TestMailer, :test_email).at(send_time)
-      }.to raise_error(/expected to enqueue TestMailer.test_email exactly 1 time at/)
+      }.to raise_error(/expected to enqueue TestMailer.test_email exactly 1 time at #{send_time.strftime('%F %T')}/)
     end
 
     it "passes when deliver_later is called with a queue argument" do
