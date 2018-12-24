@@ -6,6 +6,7 @@ module RSpec
     module Matchers
       # Matcher class for `have_enqueued_mail`. Should not be instantiated directly.
       #
+      # rubocop: disable Style/ClassLength
       # @private
       # @see RSpec::Rails::Matchers#have_enqueued_mail
       class HaveEnqueuedMail < RSpec::Matchers::BuiltIn::BaseMatcher
@@ -160,6 +161,7 @@ module RSpec
           "#{mailer_method} #{msg_parts.join(', ')}".strip
         end
       end
+      # rubocop: enable Style/ClassLength
 
       # @api public
       # Passes if an email has been enqueued inside block.
