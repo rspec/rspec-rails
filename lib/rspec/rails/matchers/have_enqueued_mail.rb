@@ -50,13 +50,18 @@ module RSpec
           end
         end
 
+        def times
+          self
+        end
+
         def failure_message
-          base_message.tap do |msg|
-            msg << " #{expected_count_message}"
-            msg << " with #{@args}" if @args.any?
-            msg << " but enqueued #{@job_matcher.matching_jobs.size}"
+          "expected to enqueue #{base_message}".tap do |msg|
             msg << "\n#{unmatching_mail_jobs_message}" if unmatching_mail_jobs.any?
           end
+        end
+
+        def failure_message_when_negated
+          "expected not to enqueue #{base_message}"
         end
 
         def supports_block_expectations?
@@ -66,7 +71,11 @@ module RSpec
         private
 
         def base_message
-          "expected to enqueue #{@mailer_class.name}.#{@method_name}"
+          "#{@mailer_class.name}.#{@method_name}".tap do |msg|
+            msg << " #{expected_count_message}"
+            msg << " with #{@args}" if @args.any?
+            msg << ", but enqueued #{@job_matcher.matching_jobs.size}"
+          end
         end
 
         def expected_count_message

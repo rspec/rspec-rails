@@ -70,6 +70,28 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
       }.to raise_error(/expected to enqueue TestMailer.test_email exactly 1 time/)
     end
 
+    it "matches based on mailer class and method name" do
+      expect {
+        TestMailer.test_email.deliver_later
+        TestMailer.email_with_args(1, 2).deliver_later
+      }.to have_enqueued_mail(TestMailer, :test_email).once
+    end
+
+    it "passes with multiple emails" do
+      expect {
+        TestMailer.test_email.deliver_later
+        TestMailer.email_with_args(1, 2).deliver_later
+      }.to have_enqueued_mail(TestMailer, :test_email).and have_enqueued_mail(TestMailer, :email_with_args)
+    end
+
+    it 'fails when negated and mail is enqueued' do
+      expect {
+        expect {
+          TestMailer.test_email.deliver_later
+        }.not_to have_enqueued_mail(TestMailer, :test_email)
+      }.to raise_error(/expected not to enqueue TestMailer.test_email exactly 1 time, but enqueued 1/)
+    end
+
     it "passes with :once count" do
       expect {
         TestMailer.test_email.deliver_later
@@ -91,18 +113,32 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
       }.to have_enqueued_mail(TestMailer, :test_email).thrice
     end
 
-    it "matches based on mailer class and method name" do
+    it "passes with at_least when enqueued emails are over the limit" do
       expect {
         TestMailer.test_email.deliver_later
-        TestMailer.email_with_args(1, 2).deliver_later
-      }.to have_enqueued_mail(TestMailer, :test_email).once
+        TestMailer.test_email.deliver_later
+      }.to have_enqueued_mail(TestMailer, :test_email).at_least(:once)
     end
 
-    it "passes with multiple emails" do
+    it "passes with at_most when enqueued emails are under the limit" do
       expect {
         TestMailer.test_email.deliver_later
-        TestMailer.email_with_args(1, 2).deliver_later
-      }.to have_enqueued_mail(TestMailer, :test_email).and have_enqueued_mail(TestMailer, :email_with_args)
+      }.to have_enqueued_mail(TestMailer, :test_email).at_most(:twice)
+    end
+
+    it "generates a failure message with at least hint" do
+      expect {
+        expect { }.to have_enqueued_mail(TestMailer, :test_email).at_least(:once)
+      }.to raise_error(/expected to enqueue TestMailer.test_email at least 1 time, but enqueued 0/)
+    end
+
+    it "generates a failure message with at most hint" do
+      expect {
+        expect {
+          TestMailer.test_email.deliver_later
+          TestMailer.test_email.deliver_later
+        }.to have_enqueued_mail(TestMailer, :test_email).at_most(:once)
+      }.to raise_error(/expected to enqueue TestMailer.test_email at most 1 time, but enqueued 2/)
     end
 
     it "passes for mailer methods that accept arguments when the provided argument matcher is not used" do
@@ -144,11 +180,11 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
     it "generates a failure message with arguments" do
       expect {
         expect { }.to have_enqueued_email(TestMailer, :email_with_args).with(1, 2)
-      }.to raise_error(/expected to enqueue TestMailer.email_with_args exactly 1 time with \[1, 2\] but enqueued 0/)
+      }.to raise_error(/expected to enqueue TestMailer.email_with_args exactly 1 time with \[1, 2\], but enqueued 0/)
     end
 
     it "generates a failure message with unmatching enqueued mail jobs" do
-      message = "expected to enqueue TestMailer.email_with_args exactly 1 time with [1, 2] but enqueued 0" + \
+      message = "expected to enqueue TestMailer.email_with_args exactly 1 time with [1, 2], but enqueued 0" + \
                 "\nQueued deliveries:" + \
                 "\n  TestMailer.test_email" + \
                 "\n  TestMailer.email_with_args with [3, 4]"
