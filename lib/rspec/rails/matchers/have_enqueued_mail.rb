@@ -1,3 +1,4 @@
+require "rspec/mocks"
 require "rspec/rails/matchers/active_job"
 
 module RSpec
