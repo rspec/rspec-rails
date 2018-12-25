@@ -186,28 +186,32 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
     it "passes when deliver_later is called with a wait_until argument" do
       send_time = Date.tomorrow.noon
 
-      expect { TestMailer.test_email.deliver_later(:wait_until => send_time) }
-        .to have_enqueued_email(TestMailer, :test_email).at(send_time)
+      expect {
+        TestMailer.test_email.deliver_later(:wait_until => send_time)
+      }.to have_enqueued_email(TestMailer, :test_email).at(send_time)
     end
 
     it "generates a failure message with at" do
       send_time = Date.tomorrow.noon
 
       expect {
-        expect { TestMailer.test_email.deliver_later(:wait_until => send_time + 1) }
-          .to have_enqueued_email(TestMailer, :test_email).at(send_time)
+        expect {
+          TestMailer.test_email.deliver_later(:wait_until => send_time + 1)
+        }.to have_enqueued_email(TestMailer, :test_email).at(send_time)
       }.to raise_error(/expected to enqueue TestMailer.test_email exactly 1 time at #{send_time.strftime('%F %T')}/)
     end
 
     it "passes when deliver_later is called with a queue argument" do
-      expect { TestMailer.test_email.deliver_later(:queue => 'urgent_mail') }
-        .to have_enqueued_email(TestMailer, :test_email).on_queue('urgent_mail')
+      expect {
+        TestMailer.test_email.deliver_later(:queue => 'urgent_mail')
+      }.to have_enqueued_email(TestMailer, :test_email).on_queue('urgent_mail')
     end
 
     it "generates a failure message with on_queue" do
       expect {
-        expect { TestMailer.test_email.deliver_later(:queue => 'not_urgent_mail') }
-          .to have_enqueued_email(TestMailer, :test_email).on_queue('urgent_mail')
+        expect {
+          TestMailer.test_email.deliver_later(:queue => 'not_urgent_mail')
+        }.to have_enqueued_email(TestMailer, :test_email).on_queue('urgent_mail')
       }.to raise_error(/expected to enqueue TestMailer.test_email exactly 1 time on queue urgent_mail/)
     end
 
