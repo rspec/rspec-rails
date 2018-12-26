@@ -5,6 +5,7 @@ Bug Fixes:
 
 * Fix issue with generator for preview specs where `Mailer` would be duplicated
   in the name. (Kohei Sugi, #2037)
+* Fix the request spec generator to handle namespaced files. (Kohei Sugi, #2057)
 
 ### 3.8.1 / 2018-10-23
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.0...v3.8.1)
