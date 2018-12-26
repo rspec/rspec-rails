@@ -69,7 +69,7 @@ module RSpec
 
             context 'When NAME=api/posts' do
               let(:name) { %w(api/posts) }
-              let(:spec_file_name) { 'spec/requests/api/api_posts_spec.rb' }
+              let(:spec_file_name) { 'spec/requests/api/posts_spec.rb' }
 
               it "creates the request spec" do
                 expect(request_spec).to exist
@@ -87,7 +87,7 @@ module RSpec
               end
 
               it "the generator includes a sample GET request" do
-                expect(request_spec).to contain(/describe "GET \/api_posts\"/)
+                expect(request_spec).to contain(/describe "GET \/api\/posts\"/)
               end
 
               it "the generator sends the GET request to the index path" do
