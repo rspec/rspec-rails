@@ -5,6 +5,7 @@ Bug Fixes:
 
 * Fix issue with generator for preview specs where `Mailer` would be duplicated
   in the name. (Kohei Sugi, #2037)
+* Fix the request spec generator to handle namespaced files. (Kohei Sugi, #2057)
 
 Enhancements
 
