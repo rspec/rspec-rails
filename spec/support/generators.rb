@@ -34,32 +34,65 @@ module RSpec
 
           describe 'generated with no flags' do
             before do
-              run_generator %w(posts)
+              run_generator name
             end
 
-            subject(:request_spec) { file('spec/requests/posts_spec.rb') }
+            subject(:request_spec) { file(spec_file_name) }
 
-            it "creates the request spec" do
-              expect(request_spec).to exist
+            context 'When NAME=posts' do
+              let(:name) { %w(posts) }
+              let(:spec_file_name) { 'spec/requests/posts_spec.rb' }
+
+              it "creates the request spec" do
+                expect(request_spec).to exist
+              end
+
+              it "the generator requires 'rails_helper'" do
+                expect(request_spec).to contain(/require 'rails_helper'/)
+              end
+
+              it "the generator describes the provided NAME without monkey " \
+                 "patching setting the type to `:request`" do
+                expect(request_spec).to contain(
+                  /^RSpec.describe \"Posts\", #{type_metatag(:request)}/
+                )
+              end
+
+              it "the generator includes a sample GET request" do
+                expect(request_spec).to contain(/describe "GET \/posts"/)
+              end
+
+              it "the generator sends the GET request to the index path" do
+                expect(request_spec).to contain(/get posts_index_path/)
+              end
             end
 
-            it "the generator requires 'rails_helper'" do
-              expect(request_spec).to contain(/require 'rails_helper'/)
-            end
+            context 'When NAME=api/posts' do
+              let(:name) { %w(api/posts) }
+              let(:spec_file_name) { 'spec/requests/api/posts_spec.rb' }
 
-            it "the generator describes the provided NAME without monkey " \
-               "patching setting the type to `:request`" do
-              expect(request_spec).to contain(
-                /^RSpec.describe \"Posts\", #{type_metatag(:request)}/
-              )
-            end
+              it "creates the request spec" do
+                expect(request_spec).to exist
+              end
 
-            it "the generator includes a sample GET request" do
-              expect(request_spec).to contain(/describe "GET \/posts"/)
-            end
+              it "the generator requires 'rails_helper'" do
+                expect(request_spec).to contain(/require 'rails_helper'/)
+              end
 
-            it "the generator sends the GET request to the index path" do
-              expect(request_spec).to contain(/get posts_index_path/)
+              it "the generator describes the provided NAME without monkey " \
+                 "patching setting the type to `:request`" do
+                expect(request_spec).to contain(
+                  /^RSpec.describe \"Api::Posts\", #{type_metatag(:request)}/
+                )
+              end
+
+              it "the generator includes a sample GET request" do
+                expect(request_spec).to contain(/describe "GET \/api\/posts\"/)
+              end
+
+              it "the generator sends the GET request to the index path" do
+                expect(request_spec).to contain(/get api_posts_index_path\n/)
+              end
             end
           end
         end
