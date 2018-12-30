@@ -37,7 +37,7 @@ module RSpec
         @method_name ||= [
           self.class.name.underscore,
           RSpec.current_example.description.underscore
-        ].join("_").tr(CHARS_TO_TRANSLATE.join, "_")[0...251] + "_#{rand(1000)}"
+        ].join("_").tr(CHARS_TO_TRANSLATE.join, "_")[0...200] + "_#{rand(1000)}"
       end
 
       # Delegates to `Rails.application`.
