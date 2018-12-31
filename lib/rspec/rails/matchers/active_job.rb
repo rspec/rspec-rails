@@ -11,8 +11,6 @@ module RSpec
         # rubocop: disable Style/ClassLength
         # @private
         class Base < RSpec::Matchers::BuiltIn::BaseMatcher
-          attr_reader :matching_jobs, :unmatching_jobs
-
           def initialize
             @args = []
             @queue = nil
