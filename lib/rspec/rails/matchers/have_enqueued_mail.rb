@@ -201,7 +201,6 @@ module RSpec
       #       MyMailer.welcome(user).deliver_later(queue: :urgent_mail)
       #     }.to have_enqueued_mail(MyMailer, :welcome).on_queue(:urgent_mail)
       def have_enqueued_mail(mailer_class, mail_method_name)
-        check_active_job_adapter
         HaveEnqueuedMail.new(mailer_class, mail_method_name)
       end
       alias_method :have_enqueued_email, :have_enqueued_mail

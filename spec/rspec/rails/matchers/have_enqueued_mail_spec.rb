@@ -238,7 +238,7 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
 
       expect {
         expect { TestMailer.test_email.deliver_later }.to have_enqueued_mail(TestMailer, :test_email)
-      }.to raise_error("To use ActiveJob matchers set `ActiveJob::Base.queue_adapter = :test`")
+      }.to raise_error("To use HaveEnqueuedMail matcher set `ActiveJob::Base.queue_adapter = :test`")
 
       ActiveJob::Base.queue_adapter = queue_adapter
     end
