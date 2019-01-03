@@ -53,10 +53,6 @@ Use **[`rspec-rails` 1.x][]** for Rails 2.x.
          create  spec
          create  spec/spec_helper.rb
          create  spec/rails_helper.rb
-
-   # Rails 4+ only: generate a binstub
-   # (so you can run `bin/rspec` instead of `bundle exec rspec`)
-   $ bundle binstubs rspec-core
    ```
 
 ## Upgrading
@@ -118,6 +114,14 @@ $ bundle exec rspec spec/controllers/accounts_controller_spec.rb:8
 # See all options for running specs
 $ bundle exec rspec --help
 ```
+
+**Optional:** If `bundle exec rspec` is too verbose for you,
+you can generate a binstub at `bin/rspec`
+and use that instead (Rails 4+ only):
+
+ ```sh
+ $ bundle binstubs rspec-core
+ ```
 
 ## RSpec DSL Basics (or, how do I write a spec?)
 
@@ -241,6 +245,25 @@ or for official Rails API documentation on the given `TestCase` class.
 > to encourage good testing practices, but there’s no “right” way to do it.
 > Ultimately, it’s up to you to decide how your test suite will be composed.
 
+When creating a spec file,
+assign it a type by placing it [in the appropriate folder][]
+(_e.g.,_ `spec/models/` for model specs).
+If you want to be extra explicit,
+you can set the `:type` option at the top of the file, like so:
+
+```ruby
+# spec/models/user_spec.rb
+
+RSpec.describe User, type: :model do
+...
+```
+
+If you use the built-in generators, these details will be handled automatically:
+
+```sh
+$ rails generate rspec:<type> <name>
+```
+
 [request]: https://relishapp.com/rspec/rspec-rails/docs/request-specs/request-spec
 [feature]: https://www.relishapp.com/rspec/rspec-rails/docs/feature-specs/feature-spec
 [system]: https://relishapp.com/rspec/rspec-rails/docs/system-specs/system-spec
@@ -254,23 +277,6 @@ or for official Rails API documentation on the given `TestCase` class.
 [`ActionDispatch::IntegrationTest`]: https://api.rubyonrails.org/classes/ActionDispatch/IntegrationTest.html
 [`ActionDispatch::SystemTestCase`]: https://api.rubyonrails.org/classes/ActionDispatch/SystemTestCase.html
 [`ActionController::TestCase`]: https://api.rubyonrails.org/classes/ActionController/TestCase.html
-
-### I’m writing a spec file from scratch. How do I assign it a type?
-
-Simply place the spec [in the appropriate folder][]
-(_e.g.,_ `spec/models/` for model specs)
-and RSpec will set its type automatically.
-
-If you want to be extra explicit,
-you can set the `:type` option at the top of the file, like so:
-
-```ruby
-# spec/models/user_spec.rb
-
-RSpec.describe User, type: :model do
-...
-```
-
 [in the appropriate folder]: https://relishapp.com/rspec/rspec-rails/docs/directory-structure
 
 ### System specs, feature specs, request specs–what’s the difference?
