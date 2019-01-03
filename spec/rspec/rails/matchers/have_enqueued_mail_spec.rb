@@ -216,6 +216,11 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
     end
 
     it "generates a failure message with unmatching enqueued mail jobs" do
+      non_mailer_job = Class.new(ActiveJob::Base) do
+        def perform; end
+        def self.name; "NonMailerJob"; end
+      end
+
       send_time = Date.tomorrow.noon
       queue = 'urgent_mail'
 
@@ -226,6 +231,7 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
 
       expect {
         expect {
+          non_mailer_job.perform_later
           TestMailer.test_email.deliver_later
           TestMailer.email_with_args(3, 4).deliver_later(:wait_until => send_time, :queue => queue)
         }.to have_enqueued_email(TestMailer, :email_with_args).with(1, 2)
