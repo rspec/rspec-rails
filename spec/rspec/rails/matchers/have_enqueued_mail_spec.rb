@@ -242,5 +242,40 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
 
       ActiveJob::Base.queue_adapter = queue_adapter
     end
+
+    it "fails with with block with incorrect data" do
+      expect {
+        expect {
+          TestMailer.email_with_args('asdf', 'zxcv').deliver_later
+        }.to have_enqueued_mail(TestMailer, :email_with_args).with { |first_arg, second_arg|
+          expect(first_arg).to eq("zxcv")
+        }
+      }.to raise_error { |e|
+        expect(e.message).to match(/expected: "zxcv"/)
+        expect(e.message).to match(/got: "asdf"/)
+      }
+    end
+
+    it "passes multiple arguments to with block" do
+      expect {
+        TestMailer.email_with_args('asdf', 'zxcv').deliver_later
+      }.to have_enqueued_mail(TestMailer, :email_with_args).with { |first_arg, second_arg|
+        expect(first_arg).to eq("asdf")
+        expect(second_arg).to eq("zxcv")
+      }
+    end
+
+    it "only calls with block if other conditions are met" do
+      noon = Date.tomorrow.noon
+      midnight = Date.tomorrow.midnight
+
+      expect {
+        TestMailer.email_with_args('high', 'noon').deliver_later(wait_until: noon)
+        TestMailer.email_with_args('midnight', 'rider').deliver_later(wait_until: midnight)
+      }.to have_enqueued_mail(TestMailer, :email_with_args).at(noon).with { |first_arg, second_arg|
+        expect(first_arg).to eq('high')
+        expect(second_arg).to eq('noon')
+      }
+    end
   end
 end

@@ -24,9 +24,12 @@ module RSpec
           "enqueues #{@mailer_class.name}.#{@method_name}"
         end
 
-        def with(*args)
+        def with(*args, &block)
           @mail_args = args
-          super(*mailer_args)
+
+          super(*mailer_args) do |*job_args|
+            block.call(*(job_args - base_mailer_args)) if block.present?
+          end
         end
 
         def matches?(block)
@@ -62,10 +65,8 @@ module RSpec
         end
 
         def mailer_args
-          base_args = [@mailer_class.name, @method_name.to_s, 'deliver_now']
-
           if @mail_args.any?
-            base_args + @mail_args
+            base_mailer_args + @mail_args
           else
             mailer_method_arity = @mailer_class.instance_method(@method_name).arity
 
@@ -75,8 +76,12 @@ module RSpec
                                mailer_method_arity
                              end
 
-            base_args + Array.new(number_of_args) { anything }
+            base_mailer_args + Array.new(number_of_args) { anything }
           end
+        end
+
+        def base_mailer_args
+          [@mailer_class.name, @method_name.to_s, 'deliver_now']
         end
 
         def check_active_job_adapter
