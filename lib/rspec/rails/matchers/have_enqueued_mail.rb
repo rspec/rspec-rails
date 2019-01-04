@@ -28,10 +28,7 @@ module RSpec
 
         def with(*args, &block)
           @mail_args = args
-
-          super(*mailer_args) do |*job_args|
-            block.call(*(job_args - base_mailer_args)) if block.present?
-          end
+          block.nil? ? super(*mailer_args) : super(*mailer_args, &yield_mail_args(block))
         end
 
         def matches?(block)
@@ -84,6 +81,10 @@ module RSpec
 
         def base_mailer_args
           [@mailer_class.name, @method_name.to_s, MAILER_JOB_METHOD]
+        end
+
+        def yield_mail_args(block)
+          Proc.new { |*job_args| block.call(*(job_args - base_mailer_args)) }
         end
 
         def check_active_job_adapter
