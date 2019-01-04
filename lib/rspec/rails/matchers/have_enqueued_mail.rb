@@ -10,6 +10,8 @@ module RSpec
       # @private
       # @see RSpec::Rails::Matchers#have_enqueued_mail
       class HaveEnqueuedMail < ActiveJob::HaveEnqueuedJob
+        MAILER_JOB_METHOD = 'deliver_now'.freeze
+
         include RSpec::Mocks::ExampleMethods
 
         def initialize(mailer_class, method_name)
@@ -81,7 +83,7 @@ module RSpec
         end
 
         def base_mailer_args
-          [@mailer_class.name, @method_name.to_s, 'deliver_now']
+          [@mailer_class.name, @method_name.to_s, MAILER_JOB_METHOD]
         end
 
         def check_active_job_adapter
