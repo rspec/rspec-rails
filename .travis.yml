@@ -24,6 +24,7 @@ bundler_args: "--binstubs --path ../bundle --retry=3 --jobs=3"
 
 before_install:
   - script/update_rubygems_and_install_bundler
+  - script/downgrade_bundler_on_old_rails
   - script/clone_all_rspec_repos
 
 before_script:
