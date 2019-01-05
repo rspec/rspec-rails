@@ -246,22 +246,13 @@ or for official Rails API documentation on the given `TestCase` class.
 > Ultimately, it’s up to you to decide how your test suite will be composed.
 
 When creating a spec file,
-assign it a type by placing it [in the appropriate folder][]
-(_e.g.,_ `spec/models/` for model specs).
-If you want to be extra explicit,
-you can set the `:type` option at the top of the file, like so:
+assign it a type in the top-level `describe` block, like so:
 
 ```ruby
 # spec/models/user_spec.rb
 
 RSpec.describe User, type: :model do
 ...
-```
-
-If you use the built-in generators, these details will be handled automatically:
-
-```sh
-$ rails generate rspec:<type> <name>
 ```
 
 [request]: https://relishapp.com/rspec/rspec-rails/docs/request-specs/request-spec
