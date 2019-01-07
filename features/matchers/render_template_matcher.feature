@@ -42,8 +42,8 @@ Feature: render_template matcher
         describe "GET #index" do
           subject { get :index }
 
-          it "renders the guest layout" do
-            expect(subject).to render_template("layouts/guest")
+          it "renders the application layout" do
+            expect(subject).to render_template("layouts/application")
           end
 
           it "does not render a different layout" do
