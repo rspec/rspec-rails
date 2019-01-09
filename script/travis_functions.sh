@@ -1,4 +1,4 @@
-# This file was generated on 2018-12-30T16:45:57+00:00 from the rspec-dev repo.
+# This file was generated on 2019-01-03T20:34:23+00:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 # Taken from:
