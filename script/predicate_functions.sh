@@ -1,4 +1,4 @@
-# This file was generated on 2018-12-30T16:45:57+00:00 from the rspec-dev repo.
+# This file was generated on 2019-01-03T20:34:23+00:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 function is_mri {
@@ -52,6 +52,14 @@ function is_mri_2plus {
     else
       return 1
     fi
+  else
+    return 1
+  fi
+}
+
+function is_ruby_23_plus {
+  if ruby -e "exit(RUBY_VERSION.to_f >= 2.3)"; then
+    return 0
   else
     return 1
   fi
