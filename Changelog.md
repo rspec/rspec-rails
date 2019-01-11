@@ -8,6 +8,9 @@ Bug Fixes:
 * Fix the request spec generator to handle namespaced files. (Kohei Sugi, #2057)
 * Further truncate system test filenames to handle cases when extra words are
   prepended. (Takumi Kaji, #2058)
+* Backport: Make the `ActiveJob` matchers fail when multiple jobs are queued
+  for negated matches. e.g. `expect { job; job; }.to_not have_enqueued_job
+  (Emric Istanful, #2069)
 
 ### 3.8.1 / 2018-10-23
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.0...v3.8.1)
