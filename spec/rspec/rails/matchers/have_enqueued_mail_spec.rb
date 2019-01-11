@@ -276,8 +276,8 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
       midnight = Date.tomorrow.midnight
 
       expect {
-        TestMailer.email_with_args('high', 'noon').deliver_later(wait_until: noon)
-        TestMailer.email_with_args('midnight', 'rider').deliver_later(wait_until: midnight)
+        TestMailer.email_with_args('high', 'noon').deliver_later(:wait_until => noon)
+        TestMailer.email_with_args('midnight', 'rider').deliver_later(:wait_until => midnight)
       }.to have_enqueued_mail(TestMailer, :email_with_args).at(noon).with { |first_arg, second_arg|
         expect(first_arg).to eq('high')
         expect(second_arg).to eq('noon')
