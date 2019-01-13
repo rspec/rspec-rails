@@ -1,4 +1,4 @@
-# rspec-rails [![Build Status][]][travis-ci] [![Code Climate][]][code-climate]
+# rspec-rails [![Build Status][]][travis-ci] [![Code Climate][]][code-climate] [![Gem Version][]](gem-version)
 
 `rspec-rails` brings the [RSpec][] testing framework to [Ruby on Rails][]
 as a drop-in alternative to its default testing framework, Minitest.
@@ -14,6 +14,8 @@ Use **[`rspec-rails` 1.x][]** for Rails 2.x.
 [travis-ci]: http://travis-ci.org/rspec/rspec-rails
 [Code Climate]: https://img.shields.io/codeclimate/github/rspec/rspec-rails.svg
 [code-climate]: https://codeclimate.com/github/rspec/rspec-rails
+[Gem Version]: https://badge.fury.io/rb/rspec-rails.svg
+[gem-version]: http://badge.fury.io/rb/rspec-rails
 [RSpec]: http://rspec.info/
 [Ruby on Rails]: https://rubyonrails.org/
 [`rspec-rails` 1.x]: http://github.com/dchelimsky/rspec-rails
