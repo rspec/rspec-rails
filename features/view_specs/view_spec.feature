@@ -1,6 +1,26 @@
 Feature: view spec
 
-  View specs live in spec/views and render view templates in isolation.
+  View specs are marked by `:type => :view`
+  or if you have set `config.infer_spec_type_from_file_location!`
+  by placing them in `spec/views`.
+
+  Use them to test the content of view templates
+  without invoking a specific controller.
+  They generally follow three steps:
+
+  ```ruby
+  assign(:widget, Widget.new)  # sets @widget = Widget.new in the view template
+
+  render
+
+  expect(rendered).to match(/text/)
+  ```
+
+  1. Use the `assign` method to set instance variables in the view.
+
+  2. Use the `render` method to render the view.
+
+  3. Set expectations against the resulting rendered template.
 
   Scenario: View specs render the described view file
     Given a file named "spec/views/widgets/index.html.erb_spec.rb" with:
@@ -69,6 +89,34 @@ Feature: view spec
     And a file named "app/views/widgets/widget.html.erb" with:
       """
       <h2><%= @widget.name %></h2>
+      """
+    When I run `rspec spec/views`
+    Then the examples should all pass
+
+  Scenario: View specs can render templates in layouts
+    Given a file named "spec/views/widgets/widget.html.erb_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe "rendering the widget template" do
+        context "with the inventory layout" do
+          it "displays the widget" do
+            assign(:widget, Widget.create!(:name => "slicer"))
+
+            render :template => "widgets/widget.html.erb", :layout => "layouts/inventory"
+
+            expect(rendered).to match /slicer/
+          end
+        end
+      end
+      """
+    And a file named "app/views/widgets/widget.html.erb" with:
+      """
+      <h2><%= @widget.name %></h2>
+      """
+    And a file named "app/views/layouts/inventory.html.erb" with:
+      """
+      <%= yield %>
       """
     When I run `rspec spec/views`
     Then the examples should all pass

@@ -37,7 +37,7 @@ module RSpec
         @method_name ||= [
           self.class.name.underscore,
           RSpec.current_example.description.underscore
-        ].join("_").tr(CHARS_TO_TRANSLATE.join, "_")[0...251] + "_#{rand(1000)}"
+        ].join("_").tr(CHARS_TO_TRANSLATE.join, "_")[0...200] + "_#{rand(1000)}"
       end
 
       # Delegates to `Rails.application`.
@@ -57,7 +57,7 @@ module RSpec
             System test integration requires Rails >= 5.1 and has a hard
             dependency on a webserver and `capybara`, please add capybara to
             your Gemfile and configure a webserver (e.g. `Capybara.server =
-            :webrick`) before attempting to use system tests.
+            :webrick`) before attempting to use system specs.
           """.gsub(/\s+/, ' ').strip
         end
 
