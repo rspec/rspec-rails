@@ -46,7 +46,7 @@ module RSpec
         end
 
         # @api private
-        # Generates a description using {EnglishPhrasing}.
+        # Generates a description using {RSpec::Matchers::EnglishPhrasing}.
         # @return [String]
         def description
           desc = RSpec::Matchers::EnglishPhrasing.split_words(self.class.matcher_name)
