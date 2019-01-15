@@ -89,7 +89,7 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
         expect {
           TestMailer.test_email.deliver_later
         }.not_to have_enqueued_mail(TestMailer, :test_email)
-      }.to raise_error(/expected not to enqueue TestMailer.test_email exactly 1 time but enqueued 1/)
+      }.to raise_error(/expected not to enqueue TestMailer.test_email at least 1 time but enqueued 1/)
     end
 
     it "passes with :once count" do
