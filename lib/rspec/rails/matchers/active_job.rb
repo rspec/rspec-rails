@@ -197,6 +197,12 @@ module RSpec
 
             check(in_block_jobs)
           end
+
+          def does_not_match?(proc)
+            set_expected_number(:at_least, 1)
+
+            !matches?(proc)
+          end
         end
 
         # @private
@@ -204,6 +210,12 @@ module RSpec
           def matches?(job)
             @job = job
             check(queue_adapter.enqueued_jobs)
+          end
+
+          def does_not_match?(proc)
+            set_expected_number(:at_least, 1)
+
+            !matches?(proc)
           end
         end
       end
