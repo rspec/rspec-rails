@@ -4,7 +4,7 @@ module RSpec
       # Matcher for redirects.
       module RedirectTo
         # @private
-        class RedirectTo < RSpec::Matchers::BuiltIn::BaseMatcher
+        class RedirectTo < RSpec::Rails::Matchers::BaseMatcher
           def initialize(scope, expected)
             @expected = expected
             @scope = scope

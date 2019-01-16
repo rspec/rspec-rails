@@ -6,7 +6,7 @@ module RSpec
       # Matcher class for `be_a_new`. Should not be instantiated directly.
       #
       # @see RSpec::Rails::Matchers#be_a_new
-      class BeANew < RSpec::Matchers::BuiltIn::BaseMatcher
+      class BeANew < RSpec::Rails::Matchers::BaseMatcher
         # @private
         def initialize(expected)
           @expected = expected
