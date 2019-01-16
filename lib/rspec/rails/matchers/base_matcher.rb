@@ -16,7 +16,7 @@ module RSpec
         # @private
         attr_writer :matcher_name
 
-        def initialize(expected=UNDEFINED)
+        def initialize(expected = UNDEFINED)
           @expected = expected unless UNDEFINED.equal?(expected)
         end
 
