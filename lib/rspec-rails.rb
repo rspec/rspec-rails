@@ -39,6 +39,7 @@ module RSpec
 
       def setup_preview_path(app)
         return unless supports_action_mailer_previews?(app.config)
+
         options = app.config.action_mailer
         config_default_preview_path(options) if config_preview_path?(options)
       end
@@ -57,6 +58,7 @@ module RSpec
 
       def config_default_preview_path(options)
         return unless options.preview_path.blank?
+
         options.preview_path = "#{::Rails.root}/spec/mailers/previews"
       end
 

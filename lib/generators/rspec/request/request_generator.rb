@@ -4,7 +4,7 @@ module Rspec
   module Generators
     # @private
     class RequestGenerator < IntegrationGenerator
-      source_paths << File.expand_path("../../integration/templates", __FILE__)
+      source_paths << File.expand_path('../integration/templates', __dir__)
     end
   end
 end

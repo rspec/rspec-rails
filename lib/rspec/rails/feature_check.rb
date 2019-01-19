@@ -2,9 +2,7 @@ module RSpec
   module Rails
     # @private
     # Disable some cops until https://github.com/bbatsov/rubocop/issues/1310
-    # rubocop:disable Style/IndentationConsistency
     module FeatureCheck
-    # rubocop:disable Style/IndentationWidth
     module_function
       # rubocop:enable Style/IndentationWidth
 

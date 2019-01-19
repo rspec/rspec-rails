@@ -20,6 +20,7 @@ module Rspec
 
       def generate_preview_files
         return unless RSpec::Rails::FeatureCheck.has_action_mailer_preview?
+
         template "preview.rb", File.join("spec/mailers/previews", class_path, "#{file_name}_preview.rb")
       end
     end
