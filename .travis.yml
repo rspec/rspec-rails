@@ -73,6 +73,10 @@ matrix:
       env: RAILS_VERSION='~> 5.0.0'
 
     # Rails 4.2 Builds >= 1.9.3
+    - rvm: 2.6.3
+      env: RAILS_VERSION='~> 4.2.0'
+    - rvm: 2.5.3
+      env: RAILS_VERSION='~> 4.2.0'
     - rvm: 2.4.4
       env: RAILS_VERSION='~> 4.2.0'
     - rvm: 2.4.4
