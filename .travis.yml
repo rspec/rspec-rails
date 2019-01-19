@@ -51,8 +51,6 @@ matrix:
       env: RAILS_VERSION='~> 5.2.0'
     - rvm: 2.3.7
       env: RAILS_VERSION='~> 5.2.0'
-    - rvm: 2.2.10
-      env: RAILS_VERSION='~> 5.2.0'
 
     # Rails 5.1 Builds >= 2.2.2
     - rvm: 2.6.3
@@ -62,8 +60,6 @@ matrix:
     - rvm: 2.4.4
       env: RAILS_VERSION='~> 5.1.0'
     - rvm: 2.3.7
-      env: RAILS_VERSION='~> 5.1.0'
-    - rvm: 2.2.10
       env: RAILS_VERSION='~> 5.1.0'
 
     # Rails 5.0 Builds >= 2.2.2
@@ -75,8 +71,6 @@ matrix:
       env: RAILS_VERSION='~> 5.0.0'
     - rvm: 2.3.7
       env: RAILS_VERSION='~> 5.0.0'
-    - rvm: 2.2.10
-      env: RAILS_VERSION='~> 5.0.0'
 
     # Rails 4.2 Builds >= 1.9.3
     - rvm: 2.4.4
@@ -86,22 +80,6 @@ matrix:
     - rvm: 2.3.7
       env: RAILS_VERSION='~> 4.2.0'
     - rvm: 2.3.7
-      env: RAILS_VERSION=4-2-stable
-    - rvm: 2.2.10
-      env: RAILS_VERSION='~> 4.2.0'
-    - rvm: 2.2.10
-      env: RAILS_VERSION=4-2-stable
-    - rvm: 2.1.10
-      env: RAILS_VERSION='~> 4.2.0'
-    - rvm: 2.1.10
-      env: RAILS_VERSION=4-2-stable
-    - rvm: 2.0.0
-      env: RAILS_VERSION='~> 4.2.0'
-    - rvm: 2.0.0
-      env: RAILS_VERSION=4-2-stable
-    - rvm: 1.9.3
-      env: RAILS_VERSION='~> 4.2.0'
-    - rvm: 1.9.3
       env: RAILS_VERSION=4-2-stable
 
   allow_failures:
