@@ -114,6 +114,7 @@ module RSpec
 
         def assert_ivars(*expected_ivars)
           return unless (expected_ivars - present_ivars).any?
+
           ivar_list = RSpec::Matchers::EnglishPhrasing.list(expected_ivars)
           raise "#{self.class.name} needs to supply#{ivar_list}"
         end

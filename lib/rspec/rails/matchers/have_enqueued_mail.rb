@@ -6,7 +6,6 @@ module RSpec
     module Matchers
       # Matcher class for `have_enqueued_mail`. Should not be instantiated directly.
       #
-      # rubocop: disable Style/ClassLength
       # @private
       # @see RSpec::Rails::Matchers#have_enqueued_mail
       class HaveEnqueuedMail < ActiveJob::HaveEnqueuedJob
@@ -33,6 +32,7 @@ module RSpec
 
         def matches?(block)
           raise ArgumentError, 'have_enqueued_mail and enqueue_mail only work with block arguments' unless block.respond_to?(:call)
+
           check_active_job_adapter
           super
         end
@@ -89,6 +89,7 @@ module RSpec
 
         def check_active_job_adapter
           return if ::ActiveJob::QueueAdapters::TestAdapter === ::ActiveJob::Base.queue_adapter
+
           raise StandardError, "To use HaveEnqueuedMail matcher set `ActiveJob::Base.queue_adapter = :test`"
         end
 

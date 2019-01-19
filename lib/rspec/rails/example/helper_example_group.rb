@@ -19,6 +19,7 @@ module RSpec
         else
           def determine_default_helper_class(_ignore)
             return unless Module === described_class && !(Class === described_class)
+
             described_class
           end
         end
