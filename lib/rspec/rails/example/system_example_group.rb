@@ -49,7 +49,6 @@ module RSpec
         begin
           require 'capybara'
           require 'action_dispatch/system_test_case'
-        # rubocop:disable Lint/HandleExceptions
         rescue LoadError => e
           # rubocop:enable Lint/HandleExceptions
           abort """

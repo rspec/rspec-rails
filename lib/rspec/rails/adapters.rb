@@ -103,6 +103,7 @@ module RSpec
           assertion_modules.each do |mod|
             mod.public_instance_methods.each do |method|
               next if method == :method_missing || method == "method_missing"
+
               define_method(method.to_sym) do |*args, &block|
                 assertion_instance.send(method.to_sym, *args, &block)
               end
