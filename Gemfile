@@ -25,7 +25,7 @@ if RUBY_VERSION >= '2.4.0'
   gem 'json', '>= 2.0.2'
 end
 
-gem 'ffi', '~> 1.9.25'
+gem 'ffi', '~> 1.10.0'
 
 gem 'rake', '>= 10.0.0'
 
@@ -33,7 +33,7 @@ gem 'mime-types', '< 3'
 
 gem 'capybara', '~> 2.13', :require => false
 
-gem 'nokogiri', '1.8.5'
+gem 'nokogiri', '1.10.1'
 
 gem "rubyzip", '>= 1.2.2'
 
