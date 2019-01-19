@@ -29,6 +29,7 @@ module RSpec
           def check_redirect
             response = @scope.response
             return unless response.respond_to?(:redirect?) && response.redirect?
+
             @redirect_is = @scope.send(:normalize_argument_to_redirection, response.location)
           end
 

@@ -59,6 +59,7 @@ module RSpec
         #   `@invalid_response` is present, `nil` otherwise
         def invalid_response_type_message
           return unless @invalid_response
+
           "expected a response object, but an instance of " \
           "#{@invalid_response.class} was received"
         end
@@ -174,6 +175,7 @@ module RSpec
           # @return [Symbol] representing the actual http numeric code
           def actual_status
             return unless actual
+
             @actual_status ||= compute_status_from(actual)
           end
 
@@ -254,6 +256,7 @@ module RSpec
             unless self.class.valid_statuses.include?(type)
               raise ArgumentError, "Invalid generic HTTP status: #{type.inspect}"
             end
+
             @expected = type
             @actual = nil
             @invalid_response = nil
@@ -374,6 +377,7 @@ module RSpec
       # @see https://github.com/rack/rack/blob/master/lib/rack/utils.rb `Rack::Utils::SYMBOL_TO_STATUS_CODE`
       def have_http_status(target)
         raise ArgumentError, "Invalid HTTP status: nil" unless target
+
         HaveHttpStatus.matcher_for_status(target)
       end
     end

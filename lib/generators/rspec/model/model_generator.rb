@@ -23,6 +23,7 @@ module Rspec
 
       def create_fixture_file
         return unless missing_fixture_replacement?
+
         template 'fixtures.yml', File.join('spec/fixtures', "#{table_name}.yml")
       end
 
