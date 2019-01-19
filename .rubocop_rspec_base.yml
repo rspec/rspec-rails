@@ -22,7 +22,7 @@ CaseEquality:
   Enabled: false
 
 # Warns when the class is excessively long.
-ClassLength:
+Metrics/ClassLength:
   Max: 100
 
 CollectionMethods:
@@ -66,7 +66,7 @@ LineLength:
   Max: 100
 
 # Over time we'd like to get this down, but this is what we're at now.
-MethodLength:
+Metrics/MethodLength:
   Max: 15
 
 # Who cares what we call the argument for binary operator methods?
@@ -115,7 +115,10 @@ StringLiterals:
 Style/SpecialGlobalVars:
   Enabled: false
 
-Style/TrailingCommaInLiteral:
+Style/TrailingCommaInArrayLiteral:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
   Enabled: false
 
 Style/TrailingCommaInArguments:
@@ -162,7 +165,10 @@ Style/IfUnlessModifier:
 Style/IfUnlessModifierOfIfUnless:
   Enabled: false
 
-Style/MethodMissing:
+Style/MethodMissingSuper:
+  Enabled: false
+
+Style/MissingRespondToMissing:
   Enabled: false
 
 Style/MixinUsage:
@@ -243,11 +249,6 @@ Style/StderrPuts:
 Style/TernaryParentheses:
   Enabled: false
 
-# This could likely be enabled, but it had a false positive on rspec-mocks
-# (suggested change was not behaviour preserving) so I don't trust it.
-Performance/HashEachMethods:
-  Enabled: false
-
 Naming/HeredocDelimiterNaming:
   Enabled: false
 
@@ -306,4 +307,7 @@ Style/TrailingUnderscoreVariable:
   Enabled: false
 
 Layout/EmptyLinesAroundAccessModifier:
+  Enabled: false
+
+Metrics/AbcSize:
   Enabled: false

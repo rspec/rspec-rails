@@ -6,7 +6,7 @@ module Rspec
     # @private
     class ScaffoldGenerator < Base
       include ::Rails::Generators::ResourceHelpers
-      source_paths << File.expand_path("../../helper/templates", __FILE__)
+      source_paths << File.expand_path('../helper/templates', __dir__)
       argument :attributes, :type => :array, :default => [], :banner => "field:type field:type"
 
       class_option :orm, :desc => "ORM used to generate the controller"
@@ -74,12 +74,14 @@ module Rspec
       # support for namespaced-resources
       def ns_file_name
         return file_name if ns_parts.empty?
+
         "#{ns_prefix.map(&:underscore).join('/')}_#{ns_suffix.singularize.underscore}"
       end
 
       # support for namespaced-resources
       def ns_table_name
         return table_name if ns_parts.empty?
+
         "#{ns_prefix.map(&:underscore).join('/')}/#{ns_suffix.tableize}"
       end
 

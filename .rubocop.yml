@@ -43,3 +43,29 @@ PerlBackrefs:
     # We probably can refactor the backref out, but for now excluding it since
     # we can't use named matches in 1.8.7
     - lib/generators/rspec/scaffold/scaffold_generator.rb
+
+Style/AccessModifierDeclarations:
+  Enabled: false
+
+
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
+
+Metrics/PerceivedComplexity:
+  Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
+
+Lint/AssignmentInCondition:
+  Enabled: false
+
+Lint/EmptyExpression:
+  Enabled: false
+
+Layout/AlignHash:
+  Enabled: false
+
