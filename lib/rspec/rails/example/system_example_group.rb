@@ -50,7 +50,6 @@ module RSpec
           require 'capybara'
           require 'action_dispatch/system_test_case'
         rescue LoadError => e
-          # rubocop:enable Lint/HandleExceptions
           abort """
             LoadError: #{e.message}
             System test integration requires Rails >= 5.1 and has a hard

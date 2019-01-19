@@ -1,11 +1,8 @@
 module RSpec
   module Rails
     # @private
-    # Disable some cops until https://github.com/bbatsov/rubocop/issues/1310
     module FeatureCheck
     module_function
-      # rubocop:enable Style/IndentationWidth
-
       def can_check_pending_migrations?
         has_active_record_migration? &&
           ::ActiveRecord::Migration.respond_to?(:check_pending!)
@@ -57,6 +54,5 @@ module RSpec
         end
       end
     end
-    # rubocop:enable Style/IndentationConsistency
   end
 end

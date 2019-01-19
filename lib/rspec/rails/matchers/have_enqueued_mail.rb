@@ -125,8 +125,6 @@ module RSpec
           ActionMailer::DeliveryJob
         end
       end
-      # rubocop: enable Style/ClassLength
-
       # @api public
       # Passes if an email has been enqueued inside block.
       # May chain with to specify expected arguments.
