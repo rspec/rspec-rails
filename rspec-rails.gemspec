@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = "rspec@googlegroups.com"
   s.homepage    = "https://github.com/rspec/rspec-rails"
   s.summary     = "RSpec for Rails"
-  s.description = "rspec-rails is a testing framework for Rails 3+."
+  s.description = "rspec-rails is a testing framework for Rails 4+."
 
   s.metadata = {
     'bug_tracker_uri'   => 'https://github.com/rspec/rspec-rails/issues',
@@ -33,11 +33,7 @@ Gem::Specification.new do |s|
     s.cert_chain = [File.expand_path('~/.gem/rspec-gem-public_cert.pem')]
   end
 
-  version_string = ['>= 3.0']
-
-  if RUBY_VERSION <= '1.8.7' && ENV['RAILS_VERSION'] != '3-2-stable'
-    version_string << '!= 3.2.22.1'
-  end
+  version_string = ['>= 4.2']
 
   s.add_runtime_dependency %q<activesupport>, version_string
   s.add_runtime_dependency %q<actionpack>,    version_string
