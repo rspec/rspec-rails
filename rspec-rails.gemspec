@@ -42,11 +42,19 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency %q<activesupport>, version_string
   s.add_runtime_dependency %q<actionpack>,    version_string
   s.add_runtime_dependency %q<railties>,      version_string
+
+  # in these blocks expected_rspec_version is set up to track the released
+  # versions of RSpec. RSpec Rails does not have lock step versioning with the
+  # rest of RSpec after version 4.0.0, so this sets up the correct dev versions
+  # that we want. These will need to change from time to time as new RSpecs
+  # get released.
   %w[core expectations mocks support].each do |name|
     if RSpec::Rails::Version::STRING =~ /[a-zA-Z]+/ # prerelease builds
-      s.add_runtime_dependency "rspec-#{name}", "= #{RSpec::Rails::Version::STRING}"
+      expected_rspec_version = "3.9.0.pre"
+      s.add_runtime_dependency "rspec-#{name}", "= #{expected_rspec_version}"
     else
-      s.add_runtime_dependency "rspec-#{name}", "~> #{RSpec::Rails::Version::STRING.split('.')[0..1].concat(['0']).join('.')}"
+      expected_rspec_version = "3.8.0"
+      s.add_runtime_dependency "rspec-#{name}", "~> #{expected_rspec_version.split(".")[0..1].join(".")}"
     end
   end
 
