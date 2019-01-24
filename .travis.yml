@@ -36,12 +36,10 @@ script: "script/run_build 2>&1"
 
 matrix:
   include:
-    # Rails dev / 6 builds >= 2.4.4
+    # Rails dev / 6 builds >= 2.5.0
     - rvm: 2.6.0
       env: RAILS_VERSION=master
     - rvm: 2.5.3
-      env: RAILS_VERSION=master
-    - rvm: 2.4.4
       env: RAILS_VERSION=master
 
     # Rails 5.2 builds >= 2.2.2
