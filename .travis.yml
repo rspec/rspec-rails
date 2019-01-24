@@ -39,8 +39,6 @@ matrix:
       env: RAILS_VERSION=master
     - rvm: 2.5.3
       env: RAILS_VERSION=master
-    - rvm: 2.4.4
-      env: RAILS_VERSION=master
 
     # Rails 5.2 builds >= 2.2.2
     - rvm: 2.6.3
