@@ -6,7 +6,7 @@ module Rspec
     class SystemGenerator < Base
       class_option :system_specs, :type => :boolean, :default => true,  :desc => "Generate system specs"
 
-      def generate_feature_spec
+      def generate_system_spec
         return unless options[:system_specs]
 
         template template_name, File.join('spec/system', class_path, filename)
