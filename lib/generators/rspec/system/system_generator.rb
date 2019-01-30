@@ -8,6 +8,7 @@ module Rspec
 
       def generate_system_spec
         return unless options[:system_specs]
+        raise "System Tests are available for Rails >= 5.1" if ::Rails::VERSION::STRING < '5.1'
 
         template template_name, File.join('spec/system', class_path, filename)
       end
