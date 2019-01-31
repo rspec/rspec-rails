@@ -1,20 +1,13 @@
 # Generators are not automatically loaded by rails
-require 'generators/rspec/system/system_generator'
-require 'support/generators'
+if ::Rails::VERSION::STRING >= '5.1'
+  require 'generators/rspec/system/system_generator'
+  require 'support/generators'
 
-RSpec.describe Rspec::Generators::SystemGenerator, :type => :generator do
-  setup_default_destination
+  RSpec.describe Rspec::Generators::SystemGenerator, :type => :generator do
+    setup_default_destination
 
-  describe "system specs" do
-    subject(:system_spec) { file("spec/system/posts_spec.rb") }
-    if ::Rails::VERSION::STRING < '5.1'
-      describe "are not available" do
-        it "raise error for user" do
-          expect{ run_generator(%w(posts)) }
-            .to raise_error(RuntimeError, "System Tests are available for Rails >= 5.1")
-        end
-      end
-    else
+    describe "system specs" do
+      subject(:system_spec) { file("spec/system/posts_spec.rb") }
       describe "are generated independently from the command line" do
         before do
           run_generator %w(posts)
