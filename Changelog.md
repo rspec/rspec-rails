@@ -4,7 +4,7 @@
 Bug Fixes:
 
 * Make the `ActiveJob` matchers fail when multiple jobs are queued for negated
-  matches. e.g. `expect { job; job; }.to_not have_enqueued_job
+  matches. e.g. `expect { job; job; }.to_not have_enqueued_job.
   (Emric Istanful, #2069)
 
 Enhancements
@@ -12,9 +12,8 @@ Enhancements
 * Use `__dir__` instead of `__FILE__` in generated `rails_helper.rb` where
   supported. (OKURA Masafumi, #2048)
 * Add `have_enqueued` matcher as a "super" matcher to the `ActiveJob` matchers
-  making it easier to match on `ActiveJob` delivered emails (Joel Lubrano, #2047)
-* Add generator for system specs on Rails upper or equal to 5.1 (Andrzej Sliwa,
-  #1933)
+  making it easier to match on `ActiveJob` delivered emails. (Joel Lubrano, #2047)
+* Add generator for system specs on Rails 5.1 and above. (Andrzej Sliwa, #1933)
 
 ### 3.8.2 / 2019-01-13
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.1...v3.8.2)
