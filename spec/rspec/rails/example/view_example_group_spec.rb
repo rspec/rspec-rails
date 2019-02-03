@@ -272,7 +272,7 @@ module RSpec::Rails
         result = view_spec.view.view_paths.first
 
         expect(result).to be_instance_of(ActionView::FixtureResolver)
-        expect(result.hash).to eq('some_path/some_template' => 'stubbed-contents')
+        expect(result.data).to eq('some_path/some_template' => 'stubbed-contents')
       end
 
       it 'caches FixtureResolver instances between example groups' do
