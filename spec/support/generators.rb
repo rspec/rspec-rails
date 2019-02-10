@@ -19,6 +19,24 @@ module RSpec
           klass.extend(Macros)
         end
 
+        shared_examples_for 'a model generator with fixtures' do |name, class_name|
+          before { run_generator [name, '--fixture'] }
+
+          describe 'the spec' do
+            subject { file("spec/models/#{name}_spec.rb") }
+
+            it { is_expected.to exist }
+            it { is_expected.to contain(/require 'rails_helper'/) }
+            it { is_expected.to contain(/^RSpec.describe #{class_name}, #{type_metatag(:model)}/) }
+          end
+
+          describe 'the fixtures' do
+            subject { file("spec/fixtures/#{name}.yml") }
+
+            it { is_expected.to contain(Regexp.new('# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html')) }
+          end
+        end
+
         shared_examples_for "a request spec generator" do
           describe 'generated with flag `--no-request-specs`' do
             before do
