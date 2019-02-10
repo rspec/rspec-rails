@@ -12,27 +12,10 @@ RSpec.describe Rspec::Generators::ModelGenerator, :type => :generator do
     gen.invoke_all
   end
 
+  it_behaves_like 'a model generator with fixtures', 'admin/posts', 'Admin::Posts'
+  it_behaves_like 'a model generator with fixtures', 'posts', 'Posts'
+
   describe 'the generated files' do
-    describe 'with fixtures' do
-      before do
-        run_generator %w(posts --fixture)
-      end
-
-      describe 'the spec' do
-        subject { file('spec/models/posts_spec.rb') }
-
-        it { is_expected.to exist }
-        it { is_expected.to contain(/require 'rails_helper'/) }
-        it { is_expected.to contain(/^RSpec.describe Posts, #{type_metatag(:model)}/) }
-      end
-
-      describe 'the fixtures' do
-        subject { file('spec/fixtures/posts.yml') }
-
-        it { is_expected.to contain(Regexp.new('# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html')) }
-      end
-    end
-
     describe 'without fixtures' do
       before do
         run_generator %w(posts)
