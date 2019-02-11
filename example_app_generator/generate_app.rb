@@ -23,6 +23,7 @@ in_root do
   gsub_file "Gemfile", /.*debugger.*/, ''
   gsub_file "Gemfile", /.*byebug.*/, "gem 'byebug', '~> 9.0.6'"
   gsub_file "Gemfile", /.*puma.*/, ""
+  gsub_file "Gemfile", /.*sqlite3.*/, "gem 'sqlite3', '~> 1.3.6'"
   if RUBY_VERSION < '2.2.2'
     gsub_file "Gemfile", /.*rdoc.*/, "gem 'rdoc', '< 6'"
   end
