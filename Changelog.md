@@ -6,6 +6,8 @@ Bug Fixes:
 * Make the `ActiveJob` matchers fail when multiple jobs are queued for negated
   matches. e.g. `expect { job; job; }.to_not have_enqueued_job.
   (Emric Istanful, #2069)
+* Namespaced fixtures now generate a `/` seperated path rather than an `_`.
+  (@nxlith, #2077)
 
 Enhancements
 
