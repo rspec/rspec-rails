@@ -28,7 +28,7 @@ end
 
 gem 'ffi', '~> 1.9.25'
 
-gem 'rake', '>= 10.0.0'
+gem 'rake', '~> 12'
 
 gem 'mime-types', '< 3'
 
@@ -36,7 +36,7 @@ gem 'capybara', '~> 2.13', :require => false
 
 gem 'nokogiri', '1.8.5'
 
-gem "rubyzip", '>= 1.2.2'
+gem "rubyzip", '~> 1.2'
 
 gem 'rubocop'
 
