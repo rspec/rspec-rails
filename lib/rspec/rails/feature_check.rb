@@ -1,7 +1,6 @@
 module RSpec
   module Rails
     # @private
-    # Disable some cops until https://github.com/bbatsov/rubocop/issues/1310
     module FeatureCheck
     module_function
       def can_check_pending_migrations?
