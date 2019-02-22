@@ -47,7 +47,6 @@ PerlBackrefs:
 Style/AccessModifierDeclarations:
   Enabled: false
 
-
 Naming/MemoizedInstanceVariableName:
   Enabled: false
 
@@ -68,4 +67,3 @@ Lint/EmptyExpression:
 
 Layout/AlignHash:
   Enabled: false
-
