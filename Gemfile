@@ -11,8 +11,8 @@ gem 'yard', '~> 0.8.7', :require => false
 
 ### deps for rdoc.info
 group :documentation do
-  gem 'redcarpet',     '2.3.0'
-  gem 'github-markup', '1.0.0'
+  gem 'redcarpet', '~> 3.4'
+  gem 'github-markup', '~> 3.0'
   gem 'relish'
 end
 
