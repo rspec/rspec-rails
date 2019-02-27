@@ -23,6 +23,7 @@ module Rspec
 
       def create_fixture_file
         return unless missing_fixture_replacement?
+
         template 'fixtures.yml', File.join('spec/fixtures', class_path, "#{(pluralize_table_names? ? plural_file_name : file_name)}.yml")
       end
 

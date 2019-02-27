@@ -42,7 +42,11 @@ module RSpec::Rails
         group = RSpec::Core::ExampleGroup.describe do
           include HelperExampleGroup
           def _view
-            ActionView::Base.new
+            if ActionView::Base.respond_to?(:empty)
+              ActionView::Base.empty
+            else
+              ActionView::Base.new
+            end
           end
         end
         expect(group.new.helper).to be_kind_of(ApplicationHelper)

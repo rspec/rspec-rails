@@ -310,6 +310,7 @@ module RSpec
       # @private
       def check_active_job_adapter
         return if ::ActiveJob::QueueAdapters::TestAdapter === ::ActiveJob::Base.queue_adapter
+
         raise StandardError, "To use ActiveJob matchers set `ActiveJob::Base.queue_adapter = :test`"
       end
     end
