@@ -1,5 +1,3 @@
-# Generators are not automatically loaded by rails
-if ::Rails::VERSION::STRING >= '5.1'
   require 'generators/rspec/generator/generator_generator'
   require 'support/generators'
 
@@ -37,4 +35,3 @@ if ::Rails::VERSION::STRING >= '5.1'
       end
     end
   end
-end

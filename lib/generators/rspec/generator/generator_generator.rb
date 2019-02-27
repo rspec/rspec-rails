@@ -1,6 +1,5 @@
 require 'generators/rspec'
 
-if ::Rails::VERSION::STRING >= '5.1'
   module Rspec
     module Generators
       # @private
@@ -23,4 +22,3 @@ if ::Rails::VERSION::STRING >= '5.1'
       end
     end
   end
-end
