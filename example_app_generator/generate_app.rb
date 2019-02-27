@@ -32,7 +32,7 @@ in_root do
     append_to_file('Gemfile', "gem 'rails-controller-testing', :git => 'https://github.com/rails/rails-controller-testing'\n")
   end
 
-  if Rails::VERSION::STRING >= '5.2.0'
+  if Rails::VERSION::STRING >= '5.2.0' && Rails::VERSION::STRING < '6'
     copy_file sqlite_initializer, 'config/initializers/sqlite3_fix.rb'
   end
 
