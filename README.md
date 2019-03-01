@@ -339,7 +339,7 @@ When writing them, try to answer the question,
 “For a given HTTP request (verb + path + parameters),
 what HTTP response should the application return?”
 
-[discourage directly testing controllers]: rspec.info/blog/2016/07/rspec-3-5-has-been-released/#rails-support-for-rails-5
+[discourage directly testing controllers]: http://rspec.info/blog/2016/07/rspec-3-5-has-been-released/#rails-support-for-rails-5
 
 ## Contributing
 
