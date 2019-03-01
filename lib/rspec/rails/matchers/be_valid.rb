@@ -15,7 +15,7 @@ module RSpec
         def failure_message
           message = "expected #{actual.inspect} to be valid"
 
-          if actual.respond_to?(:errors)
+          if actual.respond_to?(:errors) && actual.method(:errors).arity < 1
             errors = if actual.errors.respond_to?(:full_messages)
                        actual.errors.full_messages
                      else

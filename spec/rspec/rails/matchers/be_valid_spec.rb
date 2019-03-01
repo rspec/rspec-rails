@@ -24,9 +24,19 @@ describe "be_valid matcher" do
     end
   end
 
+  class Car
+    def valid?
+      false
+    end
+
+    def errors(_)
+    end
+  end
+
   let(:post) { Post.new }
   let(:book) { Book.new }
   let(:boat) { Boat.new }
+  let(:car) { Car.new }
 
   it "includes the error messages in the failure message" do
     expect {
@@ -43,6 +53,12 @@ describe "be_valid matcher" do
   it "includes a brief error message for the simplest implementation of validity" do
     expect {
       expect(boat).to be_valid
+    }.to raise_exception(/expected .+ to be valid\z/)
+  end
+
+  it "includes a brief error message when error message is wrong arity" do
+    expect {
+      expect(car).to be_valid
     }.to raise_exception(/expected .+ to be valid\z/)
   end
 
