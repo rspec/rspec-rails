@@ -11,14 +11,14 @@ expressed in plain English.
 Use **[`rspec-rails` 1.x][]** for Rails 2.x.
 
 [Build Status]: https://secure.travis-ci.org/rspec/rspec-rails.svg?branch=master
-[travis-ci]: http://travis-ci.org/rspec/rspec-rails
+[travis-ci]: https://travis-ci.org/rspec/rspec-rails
 [Code Climate]: https://img.shields.io/codeclimate/github/rspec/rspec-rails.svg
 [code-climate]: https://codeclimate.com/github/rspec/rspec-rails
 [Gem Version]: https://badge.fury.io/rb/rspec-rails.svg
-[gem-version]: http://badge.fury.io/rb/rspec-rails
-[RSpec]: http://rspec.info/
+[gem-version]: https://badge.fury.io/rb/rspec-rails
+[RSpec]: https://rspec.info/
 [Ruby on Rails]: https://rubyonrails.org/
-[`rspec-rails` 1.x]: http://github.com/dchelimsky/rspec-rails
+[`rspec-rails` 1.x]: https://github.com/dchelimsky/rspec-rails
 
 ## Installation
 
@@ -319,7 +319,7 @@ group :test do
 end
 ```
 
-[officially recommends system specs]: http://rspec.info/blog/2017/10/rspec-3-7-has-been-released/#rails-actiondispatchsystemtest-integration-system-specs
+[officially recommends system specs]: https://rspec.info/blog/2017/10/rspec-3-7-has-been-released/#rails-actiondispatchsystemtest-integration-system-specs
 [Capybara]: https://github.com/teamcapybara/capybara
 
 #### Request specs
@@ -339,7 +339,7 @@ When writing them, try to answer the question,
 “For a given HTTP request (verb + path + parameters),
 what HTTP response should the application return?”
 
-[discourage directly testing controllers]: rspec.info/blog/2016/07/rspec-3-5-has-been-released/#rails-support-for-rails-5
+[discourage directly testing controllers]: https://rspec.info/blog/2016/07/rspec-3-5-has-been-released/#rails-support-for-rails-5
 
 ## Contributing
 
@@ -367,4 +367,4 @@ you can run the specs and Cucumber features, or submit a pull request.
   Note that [additional configuration is required][] to use the Capybara DSL
   anywhere other than system specs and feature specs.)
 
-  [additional configuration is required]: http://rubydoc.info/gems/rspec-rails/file/Capybara.md
+  [additional configuration is required]: https://rubydoc.info/gems/rspec-rails/file/Capybara.md
