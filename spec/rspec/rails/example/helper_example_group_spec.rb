@@ -41,10 +41,12 @@ module RSpec::Rails
       it "includes ApplicationHelper" do
         group = RSpec::Core::ExampleGroup.describe do
           include HelperExampleGroup
-          def _view
-            if ActionView::Base.respond_to?(:empty)
+          if ActionView::Base.respond_to?(:empty)
+            def _view
               ActionView::Base.empty
-            else
+            end
+          else
+            def _view
               ActionView::Base.new
             end
           end
