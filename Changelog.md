@@ -5,6 +5,8 @@ Bug Fixes:
 
 * Namespaced fixtures now generate a `/` seperated path rather than an `_`.
   (@nxlith, #2077)
+* Check the arity of `errors` before attempting to use it to generate the `be_valid`
+  error message. (Kevin Kuchta, #2096)
 
 ### 3.8.2 / 2019-01-13
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.1...v3.8.2)
