@@ -56,8 +56,18 @@ module RSpec
               template.identifier,
               EmptyTemplateHandler,
               :virtual_path => template.virtual_path,
-              :format => template.formats
+              :format => template_format(template)
             )
+          end
+        end
+
+        if ::Rails::VERSION::STRING >= '6'
+          def self.template_format(template)
+            template.format
+          end
+        else
+          def self.template_format(template)
+            template.formats
           end
         end
 
