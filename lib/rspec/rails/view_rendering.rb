@@ -101,7 +101,7 @@ module RSpec
         #
         # @private
         class FileSystemResolver < ::ActionView::FileSystemResolver
-        private
+          private
 
           def find_templates(*args)
             templates = super
