@@ -2,7 +2,7 @@ module RSpec
   module Rails
     # @private
     module FeatureCheck
-    module_function
+      module_function
       def can_check_pending_migrations?
         has_active_record_migration? &&
           ::ActiveRecord::Migration.respond_to?(:check_pending!)
