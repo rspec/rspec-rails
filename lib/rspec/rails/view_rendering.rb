@@ -56,7 +56,8 @@ module RSpec
               template.identifier,
               EmptyTemplateHandler,
               :virtual_path => template.virtual_path,
-              :format => template_format(template)
+              :format => template_format(template),
+              :locals => []
             )
           end
         end
