@@ -1,3 +1,15 @@
+### 4.0 Development
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/master...4-0-dev)
+
+Bug Fixes:
+
+* `EmptyTemplateHandler.call` now needs to support an additional argument in
+  Rails 6. (Pavel Rosický, #2089)
+* Suppress warning from `SQLite3Adapter.represent_boolean_as_integer` which is
+  deprecated. (Pavel Rosický, #2092)
+* `ActionView::Template#formats` has been deprecated and replaced by
+  `ActionView::Template#format`(Seb Jacobs, #2100)
+
 ### Development
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.2...master)
 
