@@ -152,7 +152,8 @@ RSpec.describe "template rendering", :type => :controller do
         name,
         lambda { |_template, _source = nil| %("Dynamic template with path '#{_template.virtual_path}'") },
         :virtual_path => path,
-        :format => :html
+        :format => :html,
+        :locals => []
       )
     end
   end
