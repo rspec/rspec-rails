@@ -18,7 +18,7 @@ resolve your bug faster!
 
 Ruby version:
 Rails version:
-Rspec version:
+RSpec version:
 
 <!--
 
