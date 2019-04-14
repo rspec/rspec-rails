@@ -1,7 +1,5 @@
 language: ruby
 
-sudo: false
-
 # We deviate from the rspec-dev cache setting here.
 #
 # Travis has special bundler support where it knows to run `bundle clean`
