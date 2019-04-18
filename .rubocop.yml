@@ -67,3 +67,6 @@ Lint/EmptyExpression:
 
 Layout/AlignHash:
   Enabled: false
+
+Naming/RescuedExceptionsVariableName:
+  Enabled: false
