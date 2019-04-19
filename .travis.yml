@@ -199,6 +199,8 @@ matrix:
       env: RAILS_VERSION='~> 3.0.20'
 
   allow_failures:
+    - rvm: 2.6.3
+      env: RAILS_VERSION=master
     - rvm: 2.5.3
       env: RAILS_VERSION=master
     - rvm: 2.4.4
