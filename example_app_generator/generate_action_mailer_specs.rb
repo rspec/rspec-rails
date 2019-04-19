@@ -42,6 +42,7 @@ using_source_path(File.expand_path('..', __FILE__)) do
             Rails.application.class.parent.to_s
   if skip_active_record?
     comment_lines 'spec/support/default_preview_path', /active_record/
+    comment_lines 'spec/support/default_preview_path', /active_storage/
   end
   copy_file 'spec/verify_mailer_preview_path_spec.rb'
 end
