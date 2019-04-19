@@ -7,7 +7,6 @@ when /master/
   gem "activerecord-deprecated_finders", :git => "https://github.com/rails/activerecord-deprecated_finders.git"
   gem "rails-observers", :git => "https://github.com/rails/rails-observers"
   gem "web-console", :git => "https://github.com/rails/web-console", :group => :development
-  gem 'sass-rails', :git => "https://github.com/rails/sass-rails.git"
   gem 'coffee-rails', :git => "https://github.com/rails/coffee-rails.git"
   gem 'rack', :git => 'https://github.com/rack/rack.git'
   gem 'i18n', :git => 'https://github.com/svenfuchs/i18n.git', :branch => 'master'
