@@ -23,7 +23,7 @@ in_root do
   gsub_file "Gemfile", /.*debugger.*/, ''
   gsub_file "Gemfile", /.*byebug.*/, "gem 'byebug', '~> 9.0.6'"
   gsub_file "Gemfile", /.*puma.*/, ""
-  gsub_file "Gemfile", /.*sqlite3.*/, "gem 'sqlite3', '~> 1.3.6'"
+  gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 1.3.6'"
   gsub_file "Gemfile", /.*bootsnap.*/, ""
   if RUBY_VERSION < '2.2.2'
     gsub_file "Gemfile", /.*rdoc.*/, "gem 'rdoc', '< 6'"
@@ -35,7 +35,7 @@ in_root do
 
   if Rails::VERSION::STRING >= '6'
     gsub_file "Gemfile", /.*jbuilder.*/, "gem 'jbuilder', :git => 'https://github.com/rails/jbuilder.git', :branch => 'master'"
-    gsub_file "Gemfile", /.*sqlite3.*/, "gem 'sqlite3', '~> 1.4'"
+    gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 1.4'"
     gsub_file "Gemfile", /.*rails-controller-testing.*/, "gem 'rails-controller-testing', git: 'https://github.com/rails/rails-controller-testing'"
   end
 
