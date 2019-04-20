@@ -64,6 +64,17 @@ Feature: views are stubbed by default
         end
       end
       """
+    Given a file named "app/controllers/things_controller.rb" with:
+      """ruby
+      class ThingsController < ActionController::Base
+        layout false
+        def custom_action
+        end
+      end
+      """
+    Given a file named "app/views/things/custom_action.html.erb" with:
+      """
+      """
     When I run `rspec spec`
     Then the examples should all pass
 
