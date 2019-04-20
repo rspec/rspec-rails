@@ -36,7 +36,9 @@ matrix:
   include:
     # Rails dev / 6 builds >= 2.4.4
     - rvm: jruby-head
-      env: RAILS_VERSION=master
+      env:
+        - RAILS_VERSION=master
+        - JRUBY_OPT=--dev
     - rvm: 2.6.3
       env: RAILS_VERSION=master
     - rvm: 2.5.3
