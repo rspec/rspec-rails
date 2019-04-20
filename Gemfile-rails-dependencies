@@ -31,3 +31,6 @@ else
     gem "puma"
   end
 end
+
+gem 'activerecord-jdbcsqlite3-adapter', git: 'https://github.com/jruby/activerecord-jdbc-adapter', platforms: [:jruby]
+

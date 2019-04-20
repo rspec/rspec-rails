@@ -1,4 +1,4 @@
-require 'nokogiri/version'
+require 'nokogiri'
 
 rspec_rails_repo_path = File.expand_path("../../", __FILE__)
 rspec_dependencies_gemfile = File.join(rspec_rails_repo_path, 'Gemfile-rspec-dependencies')
@@ -53,7 +53,11 @@ in_root do
 
   # Nokogiri version is pinned in rspec-rails' Gemfile since it tend to cause installation problems
   # on Travis CI, so we pin nokogiri in this example app also.
-  append_to_file 'Gemfile', "gem 'nokogiri', '#{Nokogiri::VERSION}'\n"
+  if RUBY_ENGINE != "jruby"
+    append_to_file 'Gemfile', "gem 'nokogiri', '#{Nokogiri::VERSION}'\n"
+  else
+    gsub_file "Gemfile", /.*jdbc.*/, ""
+  end
 
   # Use our version of RSpec and Rails
   append_to_file 'Gemfile', <<-EOT.gsub(/^ +\|/, '')

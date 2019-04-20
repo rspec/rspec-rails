@@ -36,8 +36,6 @@ else
   gem 'sqlite3', '~> 1.3.6', platforms: [:ruby]
 end
 
-gem 'activerecord-jdbcsqlite3-adapter', git: 'https://github.com/jruby/activerecord-jdbc-adapter', platforms: [:jruby]
-
 if RUBY_VERSION >= '2.4.0'
   gem 'json', '>= 2.0.2'
 end
@@ -50,7 +48,11 @@ gem 'mime-types', '< 3'
 
 gem 'capybara', '~> 2.13', :require => false
 
-gem 'nokogiri', '1.8.5'
+if MAJOR == 6
+  gem 'nokogiri'
+else
+  gem 'nokogiri', '1.8.5'
+end
 
 gem "rubyzip", '~> 1.2'
 
