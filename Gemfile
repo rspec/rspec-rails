@@ -20,8 +20,8 @@ platforms :jruby do
   gem "jruby-openssl"
 end
 
-match = /(\d+)\.(\d+)/.match(RAILS_VERSION)
-MAJOR,MINOR = match.captures.map(&:to_i)
+match = /(\d+)(\.|-)(\d+)/.match(RAILS_VERSION)
+MAJOR,MINOR = match.captures.map(&:to_i).compact
 if MAJOR >= 6
   gem 'sqlite3', '~> 1.4'
 else
