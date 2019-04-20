@@ -20,7 +20,9 @@ platforms :jruby do
   gem "jruby-openssl"
 end
 
-if RAILS_VERSION >= "6"
+match = /(\d+)\.(\d+)/.match(RAILS_VERSION)
+MAJOR,MINOR = match.captures.map(&:to_i)
+if MAJOR >= 6
   gem 'sqlite3', '~> 1.4'
 else
   gem 'sqlite3', '~> 1.3.6'
