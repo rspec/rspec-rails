@@ -38,7 +38,7 @@ dist: trusty
 matrix:
   include:
     # Rails dev / 6 builds >= 2.4.4
-    - rvm: jruby-9.2.7.0
+    - rvm: jruby
       env: RAILS_VERSION=master
     - rvm: 2.6.3
       env: RAILS_VERSION=master
