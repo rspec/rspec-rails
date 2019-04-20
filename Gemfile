@@ -21,10 +21,13 @@ platforms :jruby do
 end
 
 match = /(\d+)(\.|-)(\d+)/.match(RAILS_VERSION)
-MAJOR,MINOR = match.captures.map(&:to_i).compact
-# will be nil if master
-MAJOR ||= 6
-MINOR ||= 0
+if match.nil?
+  # will be nil if master
+  MAJOR = 6
+  MINOR = 0
+else
+  MAJOR,MINOR = match.captures.map(&:to_i).compact
+end
 
 if MAJOR >= 6
   gem 'sqlite3', '~> 1.4'
