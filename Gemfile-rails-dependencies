@@ -12,7 +12,7 @@ when /master/
   gem 'i18n', :git => 'https://github.com/svenfuchs/i18n.git', :branch => 'master'
   gem 'sprockets', :git => 'https://github.com/rails/sprockets.git', :branch => 'master'
   gem 'sprockets-rails', :git => 'https://github.com/rails/sprockets-rails.git', :branch => 'master'
-  gem 'puma', :git => 'https://github.com/puma/puma', :branch => 'master'
+  gem 'puma', "3.12.1"
 when /stable$/
   gem_list = %w[rails railties actionmailer actionpack activerecord activesupport]
   gem_list << 'activejob'  if version >= '4-2-stable'
