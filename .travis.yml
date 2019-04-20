@@ -35,6 +35,8 @@ script: "script/run_build 2>&1"
 matrix:
   include:
     # Rails dev / 6 builds >= 2.4.4
+    - rvm: jruby-9.2.7.0
+      env: RAILS_VERSION=master
     - rvm: 2.6.3
       env: RAILS_VERSION=master
     - rvm: 2.5.3
@@ -82,13 +84,6 @@ matrix:
     - rvm: 2.3.7
       env: RAILS_VERSION=4-2-stable
 
-  allow_failures:
-    - rvm: 2.6.3
-      env: RAILS_VERSION=master
-    - rvm: 2.5.3
-      env: RAILS_VERSION=master
-    - rvm: 2.4.4
-      env: RAILS_VERSION=master
   fast_finish: true
 
 branches:
