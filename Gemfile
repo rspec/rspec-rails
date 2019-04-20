@@ -11,7 +11,7 @@ gem 'yard', '~> 0.8.7', :require => false
 
 ### deps for rdoc.info
 group :documentation do
-  gem 'redcarpet', '~> 3.4.0'
+  gem 'redcarpet', '~> 3.4.0', platforms: [:ruby]
   gem 'github-markup', '~> 3.0.3'
   gem 'relish', '~> 0.7.1'
 end
@@ -36,7 +36,7 @@ else
   gem 'sqlite3', '~> 1.3.6', platforms: [:ruby]
 end
 
-gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
+gem 'activerecord-jdbcsqlite3-adapter', git: 'https://github.com/jruby/activerecord-jdbc-adapter', platforms: [:jruby]
 
 if RUBY_VERSION >= '2.4.0'
   gem 'json', '>= 2.0.2'
