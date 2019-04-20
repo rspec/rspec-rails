@@ -20,6 +20,7 @@ platforms :jruby do
   gem "jruby-openssl"
 end
 
+RAILS_VERSION ||= ""
 match = /(\d+)(\.|-)(\d+)/.match(RAILS_VERSION)
 if match.nil?
   # will be nil if master
@@ -30,10 +31,12 @@ else
 end
 
 if MAJOR >= 6
-  gem 'sqlite3', '~> 1.4'
+  gem 'sqlite3', '~> 1.4', platforms: [:ruby]
 else
-  gem 'sqlite3', '~> 1.3.6'
+  gem 'sqlite3', '~> 1.3.6', platforms: [:ruby]
 end
+
+gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
 
 if RUBY_VERSION >= '2.4.0'
   gem 'json', '>= 2.0.2'
