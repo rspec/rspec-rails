@@ -33,7 +33,7 @@ in_root do
   end
 
   if Rails::VERSION::STRING >= "5.1.0"
-    gsub_file "Gemfile", /.*selenium-webdriver.*/, "gem 'selenium-webdriver', '<= 3.14'"
+    gsub_file "Gemfile", /.*chromedriver-helper.*/, "gem 'webdrivers'"
   end
 
   if Rails::VERSION::STRING >= '5.2.0' && Rails::VERSION::STRING < '6'
