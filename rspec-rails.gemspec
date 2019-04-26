@@ -45,7 +45,7 @@ Gem::Specification.new do |s|
   # that we want. These will need to change from time to time as new RSpecs
   # get released.
   %w[core expectations mocks support].each do |name|
-    if RSpec::Rails::Version::STRING =~ /[a-zA-Z]+/ # prerelease builds
+    if RSpec::Rails::Version::STRING =~ /pre/ # prerelease builds
       expected_rspec_version = "3.9.0.pre"
       s.add_runtime_dependency "rspec-#{name}", "= #{expected_rspec_version}"
     else
