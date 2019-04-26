@@ -50,6 +50,10 @@ Cucumber::Rake::Task.new(:cucumber) do |t|
     tags << "~@system_test"
   end
 
+  if version.to_f < 6.0
+    tags << "~@rails_post_6"
+  end
+
   cucumber_flag = tags.map { |tag| "--tag #{tag}" }
 
   t.cucumber_opts = cucumber_flag

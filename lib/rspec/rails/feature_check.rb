@@ -33,6 +33,10 @@ module RSpec
         has_action_mailer? && defined?(::ActionMailer::Preview)
       end
 
+      def has_action_cable_testing?
+        defined?(::ActionCable) && ActionCable::VERSION::MAJOR >= 6
+      end
+
       def has_action_mailer_show_preview?
         has_action_mailer_preview? &&
           ::ActionMailer::Base.respond_to?(:show_previews=)
