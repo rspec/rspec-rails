@@ -44,7 +44,7 @@ gem 'ffi', '~> 1.9.25'
 
 gem 'rake', '~> 12'
 
-gem 'mime-types', '< 3'
+gem 'mime-types', "~> 3"
 
 gem 'capybara', '~> 2.13', :require => false
 
