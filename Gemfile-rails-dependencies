@@ -26,13 +26,13 @@ when /stable$/
   end
 when nil, false, ""
   gem "rails", "~> 5.0.0"
-  gem 'activerecord-jdbcsqlite3-adapter'
+  gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
 else
   gem "rails", version
 
   if version >= '5-1-stable' && RUBY_VERSION  >= "2.3"
     gem "puma"
   end
-  gem 'activerecord-jdbcsqlite3-adapter'
+  gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
 end
 
