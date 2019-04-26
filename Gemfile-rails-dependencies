@@ -35,4 +35,3 @@ else
   end
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
 end
-
