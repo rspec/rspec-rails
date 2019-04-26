@@ -34,15 +34,15 @@ script: "script/run_build 2>&1"
 
 matrix:
   include:
-    # Rails dev / 6 builds >= 2.4.4
+    # Rails 6 builds
     - rvm: jruby-head
       env:
-        - RAILS_VERSION=master
+        - RAILS_VERSION=6-0-stable
         - JRUBY_OPT=--dev
     - rvm: 2.6.3
-      env: RAILS_VERSION=master
+      env: RAILS_VERSION=6-0-stable
     - rvm: 2.5.3
-      env: RAILS_VERSION=master
+      env: RAILS_VERSION=6-0-stable
 
     # Rails 5.2 builds >= 2.2.2
     - rvm: 2.6.3
