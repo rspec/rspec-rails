@@ -25,6 +25,10 @@ if RSpec::Rails::FeatureCheck.has_active_job?
   require 'rspec/rails/matchers/active_job'
 end
 
+if RSpec::Rails::FeatureCheck.has_action_cable_testing?
+  require 'rspec/rails/matchers/action_cable'
+end
+
 if RSpec::Rails::FeatureCheck.has_action_mailbox?
   require 'rspec/rails/matchers/action_mailbox'
 end
