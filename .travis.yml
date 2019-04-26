@@ -45,6 +45,10 @@ matrix:
       env: RAILS_VERSION=6-0-stable
 
     # Rails 5.2 builds >= 2.2.2
+    - rvm: jruby-head
+      env:
+        - RAILS_VERSION=6-0-stable
+        - JRUBY_OPT=--dev
     - rvm: 2.6.3
       env: RAILS_VERSION='~> 5.2.0'
     - rvm: 2.5.3
