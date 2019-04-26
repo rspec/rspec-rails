@@ -1,6 +1,10 @@
 ### 4.0 Development
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/master...4-0-dev)
 
+Enhancements:
+
+* Adds support for JRuby on Rails 5.2 and 6
+
 Bug Fixes:
 
 * `EmptyTemplateHandler.call` now needs to support an additional argument in
@@ -9,6 +13,11 @@ Bug Fixes:
   deprecated. (Pavel Rosický, #2092)
 * `ActionView::Template#formats` has been deprecated and replaced by
   `ActionView::Template#format`(Seb Jacobs, #2100)
+
+Breaking Changes:
+
+* Drops support for Rails below 5.0
+* Drops support for Ruby below 2.3
 
 ### Development
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.2...master)
