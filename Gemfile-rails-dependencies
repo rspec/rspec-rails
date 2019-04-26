@@ -13,24 +13,26 @@ when /master/
   gem 'sprockets', :git => 'https://github.com/rails/sprockets.git', :branch => 'master'
   gem 'sprockets-rails', :git => 'https://github.com/rails/sprockets-rails.git', :branch => 'master'
   gem 'puma', "3.12.1"
+  gem 'activerecord-jdbcsqlite3-adapter', git: 'https://github.com/jruby/activerecord-jdbc-adapter', platforms: [:jruby]
 when /stable$/
   gem_list = %w[rails railties actionmailer actionpack activerecord activesupport]
   gem_list << 'activejob'  if version >= '4-2-stable'
   gem_list << 'actionview' if version >= '4-2-stable'
   gem 'puma', "3.12.1" if version > '5-0-stable'
+  gem 'activerecord-jdbcsqlite3-adapter', git: 'https://github.com/jruby/activerecord-jdbc-adapter', platforms: [:jruby]
 
   gem_list.each do |rails_gem|
     gem rails_gem, :git => "https://github.com/rails/rails.git", :branch => version
   end
 when nil, false, ""
   gem "rails", "~> 5.0.0"
+  gem 'activerecord-jdbcsqlite3-adapter'
 else
   gem "rails", version
 
   if version >= '5-1-stable' && RUBY_VERSION  >= "2.3"
     gem "puma"
   end
+  gem 'activerecord-jdbcsqlite3-adapter'
 end
-
-gem 'activerecord-jdbcsqlite3-adapter', git: 'https://github.com/jruby/activerecord-jdbc-adapter', platforms: [:jruby]
 
