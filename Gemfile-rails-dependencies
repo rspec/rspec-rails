@@ -17,7 +17,7 @@ when /stable$/
   gem_list = %w[rails railties actionmailer actionpack activerecord activesupport]
   gem_list << 'activejob'  if version >= '4-2-stable'
   gem_list << 'actionview' if version >= '4-2-stable'
-  gem_list << 'puma' if version > '5-0-stable'
+  gem 'puma', "3.12.1" if version > '5-0-stable'
 
   gem_list.each do |rails_gem|
     gem rails_gem, :git => "https://github.com/rails/rails.git", :branch => version
