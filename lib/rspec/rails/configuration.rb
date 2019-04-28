@@ -143,6 +143,10 @@ module RSpec
         config.include RSpec::Rails::JobExampleGroup, :type => :job
       end
 
+      if defined?(ActionCable) && ::Rails::VERSION::STRING > '6'
+        config.include RSpec::Rails::ChannelExampleGroup, :type => :channel
+      end
+
       if defined?(ActionMailbox)
         config.include RSpec::Rails::MailboxExampleGroup, :type => :mailbox
       end
