@@ -137,17 +137,32 @@ module RSpec::Rails
           expect(view_spec.received.first).to eq([{:template => "widgets/new"},{}, nil])
         end
 
-        it "converts the filename components into render options" do
-          allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.html.erb" }
-          view_spec.render
-
-          if ::Rails::VERSION::STRING >= '3.2'
+        if ::Rails::VERSION::STRING >= '3.2'
+          it "converts the filename components into render options" do
+            allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.html.erb" }
+            view_spec.render
             expect(view_spec.received.first).to eq([{:template => "widgets/new", :locales=>['en'], :formats=>[:html], :handlers=>['erb']}, {}, nil])
-          else
+          end
+
+          it "converts the filename with variant into render options" do
+            allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.html+fancy.erb" }
+            view_spec.render
+            expect(view_spec.received.first).to eq([{:template => "widgets/new", :locales=>['en'], :formats=>[:html], :handlers=>['erb'], variants: ['fancy']}, {}, nil])
+          end
+
+          it "converts the filename without format into render options" do
+            allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.erb" }
+            view_spec.render
+            expect(view_spec.received.first).to eq([{:template => "widgets/new", :locales=>['en'], :handlers=>['erb']}, {}, nil])
+          end
+        else
+          it "uses the filename as a template" do
+            allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.html.erb" }
+            view_spec.render
             expect(view_spec.received.first).to eq([{:template => "widgets/new.en.html.erb"}, {}, nil])
           end
         end
-      end
+    end
 
       context "given a string" do
         it "sends string as the first arg to render" do
