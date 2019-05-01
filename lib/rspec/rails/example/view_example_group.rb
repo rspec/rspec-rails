@@ -133,7 +133,7 @@ module RSpec
                         ActionView::Template::Types.symbols
                       else
                         [:html, :text, :js, :css, :xml, :json].map(&:to_s)
-            end.map { |x| Regexp.escape(x) }.join("|")
+                      end.map { |x| Regexp.escape(x) }.join("|")
 
             handlers = ActionView::Template::Handlers.extensions.map { |x| Regexp.escape(x) }.join("|")
             locales = "[a-z]{2}(?:-[A-Z]{2})?"
