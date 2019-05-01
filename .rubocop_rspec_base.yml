@@ -135,7 +135,7 @@ Style/ParallelAssignment:
 Layout/EmptyLineBetweenDefs:
   Enabled: false
 
-Layout/FirstParameterIndentation:
+Layout/IndentFirstArgument:
   Enabled: false
 
 Naming/ConstantName:
@@ -255,7 +255,7 @@ Naming/HeredocDelimiterNaming:
 Layout/EmptyLineAfterMagicComment:
   Enabled: false
 
-Layout/IndentArray:
+Layout/IndentFirstArrayElement:
   Enabled: false
 
 Layout/IndentAssignment:
