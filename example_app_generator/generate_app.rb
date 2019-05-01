@@ -48,7 +48,7 @@ in_root do
       gsub_file "Gemfile", /.*chromedriver-helper.*/, "gem 'webdrivers'"
     end
     if RUBY_VERSION < "2.4"
-      gsub_file "Gemfile", /.*capybara.*/, "gem 'capybara', '~> 3.10.0'"
+      gsub_file "Gemfile", /.*capybara.*/, "gem 'capybara', '~> 3.15.0'"
     end
   end
 
