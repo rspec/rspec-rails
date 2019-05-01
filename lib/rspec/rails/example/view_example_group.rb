@@ -130,7 +130,7 @@ module RSpec
         def _default_render_options
           if ::Rails::VERSION::STRING >= '3.2'
             formats = if ActionView::Template::Types.respond_to?(:symbols)
-              ActionView::Template::Types.symbols.map { |x| Regexp.escape(x) }.join("|")
+              ActionView::Template::Types.symbols
             else
               [:html, :text, :js, :css, :xml, :json].map(&:to_s)
             end.map { |x| Regexp.escape(x) }.join("|")
