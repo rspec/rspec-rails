@@ -23,6 +23,7 @@ require 'rspec/rails/matchers/have_http_status'
 
 if RSpec::Rails::FeatureCheck.has_active_job?
   require 'rspec/rails/matchers/active_job'
+  require 'rspec/rails/matchers/have_enqueued_mail'
 end
 
 if RSpec::Rails::FeatureCheck.has_action_cable_testing?
