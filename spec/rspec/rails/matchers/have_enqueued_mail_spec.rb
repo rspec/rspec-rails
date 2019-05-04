@@ -10,6 +10,10 @@ if RSpec::Rails::FeatureCheck.has_active_job?
     def email_with_args(arg1, arg2); end
     def email_with_optional_args(required_arg, optional_arg = nil); end
   end
+
+  class AnotherTestMailer < ActionMailer::Base
+    def test_email; end
+  end
 end
 
 RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck.has_active_job? do
@@ -51,6 +55,34 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
 
     it "passes when negated" do
       expect { }.not_to have_enqueued_mail(TestMailer, :test_email)
+    end
+
+    it "passes when given 0 arguments" do
+      expect {
+        TestMailer.test_email.deliver_later
+      }.to have_enqueued_email
+    end
+
+    it "passes when negated with 0 arguments" do
+      expect { }.not_to have_enqueued_email
+    end
+
+    it "passes when only given mailer argument" do
+      expect {
+        TestMailer.test_email.deliver_later
+      }.to have_enqueued_email(TestMailer)
+    end
+
+    it "passes when negated with only mailer arguments" do
+      expect { }.not_to have_enqueued_email(TestMailer)
+    end
+
+    it "ensure that the right mailer is enqueued" do
+      expect {
+        expect {
+          AnotherTestMailer.test_email.deliver_later
+        }.to have_enqueued_mail(TestMailer)
+      }.to raise_error(/expected to enqueue TestMailer exactly 1 time but enqueued 0/)
     end
 
     it "counts only emails enqueued in the block" do
@@ -124,6 +156,18 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
       expect {
         TestMailer.test_email.deliver_later
       }.to have_enqueued_mail(TestMailer, :test_email).at_most(:twice)
+    end
+
+    it "generates a failure message when given 0 argument" do
+      expect {
+        expect { }.to have_enqueued_mail.at_least(:once)
+      }.to raise_error(/expected to enqueue ActionMailer::Base at least 1 time but enqueued 0/)
+    end
+
+    it "generates a failure message when given only mailer argument" do
+      expect {
+        expect { }.to have_enqueued_mail(TestMailer).at_least(:once)
+      }.to raise_error(/expected to enqueue TestMailer at least 1 time but enqueued 0/)
     end
 
     it "generates a failure message with at least hint" do
