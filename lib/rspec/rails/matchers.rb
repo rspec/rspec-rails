@@ -24,6 +24,7 @@ require 'rspec/rails/matchers/have_http_status'
 if RSpec::Rails::FeatureCheck.has_active_job?
   require 'rspec/rails/matchers/active_job'
 end
+
 if RSpec::Rails::FeatureCheck.has_action_mailbox?
   require 'rspec/rails/matchers/action_mailbox'
 end
