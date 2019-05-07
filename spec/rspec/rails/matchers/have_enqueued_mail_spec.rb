@@ -14,6 +14,15 @@ if RSpec::Rails::FeatureCheck.has_active_job?
   class AnotherTestMailer < ActionMailer::Base
     def test_email; end
   end
+
+  if RSpec::Rails::FeatureCheck.has_action_mailer_unified_delivery?
+    class UnifiedMailer < ActionMailer::Base
+      self.delivery_job = ActionMailer::MailDeliveryJob
+
+      def test_email; end
+      def email_with_args(arg1, arg2); end
+    end
+  end
 end
 
 RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck.has_active_job? do
@@ -326,6 +335,60 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
         expect(first_arg).to eq('high')
         expect(second_arg).to eq('noon')
       }
+    end
+
+    context 'when parameterized', :skip => !RSpec::Rails::FeatureCheck.has_action_mailer_parameterized? do
+      it "passes when mailer is parameterized" do
+        expect {
+          TestMailer.with('foo' => 'bar').test_email.deliver_later
+        }.to have_enqueued_mail(TestMailer, :test_email)
+      end
+
+      it "passes when mixing parameterized and non-parameterized emails" do
+        expect {
+          TestMailer.with('foo' => 'bar').test_email.deliver_later
+          TestMailer.email_with_args(1, 2).deliver_later
+        }.to have_enqueued_mail(TestMailer, :test_email).and have_enqueued_mail(TestMailer, :email_with_args)
+      end
+
+      it "passes with provided argument matchers" do
+        expect {
+          TestMailer.with('foo' => 'bar').test_email.deliver_later
+        }.to have_enqueued_mail(TestMailer, :test_email).with('foo' => 'bar')
+
+        expect {
+          TestMailer.with('foo' => 'bar').email_with_args(1, 2).deliver_later
+        }.to have_enqueued_mail(TestMailer, :email_with_args).with({ 'foo' => 'bar' }, 1, 2)
+      end
+    end
+
+    context 'mailer job is unified', :skip => !RSpec::Rails::FeatureCheck.has_action_mailer_unified_delivery? do
+      it "passes when mailer is parameterized" do
+        expect {
+          UnifiedMailer.with('foo' => 'bar').test_email.deliver_later
+        }.to have_enqueued_mail(UnifiedMailer, :test_email)
+      end
+
+      it "passes when mixing parameterized and non-parameterized emails" do
+        expect {
+          UnifiedMailer.with('foo' => 'bar').test_email.deliver_later
+          UnifiedMailer.email_with_args(1, 2).deliver_later
+        }.to have_enqueued_mail(UnifiedMailer, :test_email).and have_enqueued_mail(UnifiedMailer, :email_with_args)
+      end
+
+      it "passes with provided argument matchers" do
+        expect {
+          UnifiedMailer.with('foo' => 'bar').test_email.deliver_later
+        }.to have_enqueued_mail(UnifiedMailer, :test_email).with(
+          a_hash_including(:params => { 'foo' => 'bar' })
+        )
+
+        expect {
+          UnifiedMailer.with('foo' => 'bar').email_with_args(1, 2).deliver_later
+        }.to have_enqueued_mail(UnifiedMailer, :email_with_args).with(
+          a_hash_including(:params => { 'foo' => 'bar' }, :args => [1, 2])
+        )
+      end
     end
   end
 end
