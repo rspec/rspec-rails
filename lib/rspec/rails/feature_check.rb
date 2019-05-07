@@ -38,6 +38,10 @@ module RSpec
           ::ActionMailer::Base.respond_to?(:show_previews=)
       end
 
+      def has_action_mailer_parameterized?
+        has_action_mailer? && defined?(::ActionMailer::Parameterized)
+      end
+
       def has_action_mailbox?
         defined?(::ActionMailbox)
       end

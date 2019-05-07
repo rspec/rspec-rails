@@ -283,5 +283,30 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
         expect(second_arg).to eq('noon')
       }
     end
+
+    context 'when parameterized', :skip => !RSpec::Rails::FeatureCheck.has_action_mailer_parameterized? do
+      it "passes when mailer is parameterized" do
+        expect {
+          TestMailer.with('foo' => 'bar').test_email.deliver_later
+        }.to have_enqueued_mail(TestMailer, :test_email)
+      end
+
+      it "passes when mixing parameterized and non-parameterized emails" do
+        expect {
+          TestMailer.with('foo' => 'bar').test_email.deliver_later
+          TestMailer.email_with_args(1, 2).deliver_later
+        }.to have_enqueued_mail(TestMailer, :test_email).and have_enqueued_mail(TestMailer, :email_with_args)
+      end
+
+      it "passes with provided argument matchers" do
+        expect {
+          TestMailer.with('foo' => 'bar').test_email.deliver_later
+        }.to have_enqueued_mail(TestMailer, :test_email).with('foo' => 'bar')
+
+        expect {
+          TestMailer.with('foo' => 'bar').email_with_args(1, 2).deliver_later
+        }.to have_enqueued_mail(TestMailer, :email_with_args).with({ 'foo' => 'bar' }, 1, 2)
+      end
+    end
   end
 end

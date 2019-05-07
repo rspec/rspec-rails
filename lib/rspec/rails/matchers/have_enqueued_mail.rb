@@ -18,7 +18,7 @@ module RSpec
           @mailer_class = mailer_class
           @method_name = method_name
           @mail_args = []
-          @args = mailer_args
+          @args = []
         end
 
         def description
@@ -27,7 +27,7 @@ module RSpec
 
         def with(*args, &block)
           @mail_args = args
-          block.nil? ? super(*mailer_args) : super(*mailer_args, &yield_mail_args(block))
+          block.nil? ? super : super(&yield_mail_args(block))
         end
 
         def matches?(block)
@@ -63,9 +63,17 @@ module RSpec
           "#{message_expectation_modifier} #{@expected_number} #{@expected_number == 1 ? 'time' : 'times'}"
         end
 
-        def mailer_args
+        def job_match?(job)
+          super(job) || parameterized_mail?(job)
+        end
+
+        def parameterized_mail?(job)
+          RSpec::Rails::FeatureCheck.has_action_mailer_parameterized? && job[:job] == parameterized_mailer_job
+        end
+
+        def arguments_match?(job)
           if @mail_args.any?
-            base_mailer_args + @mail_args
+            @args = base_mailer_args + @mail_args
           else
             mailer_method_arity = @mailer_class.instance_method(@method_name).arity
 
@@ -74,9 +82,12 @@ module RSpec
                              else
                                mailer_method_arity
                              end
+            number_of_args += 1 if parameterized_mail?(job)
 
-            base_mailer_args + Array.new(number_of_args) { anything }
+            @args = base_mailer_args + Array.new(number_of_args) { anything }
           end
+
+          super(job)
         end
 
         def base_mailer_args
@@ -123,6 +134,10 @@ module RSpec
 
         def mailer_job
           ActionMailer::DeliveryJob
+        end
+
+        def parameterized_mailer_job
+          ActionMailer::Parameterized::DeliveryJob
         end
       end
       # @api public
