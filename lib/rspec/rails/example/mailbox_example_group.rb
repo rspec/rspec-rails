@@ -9,6 +9,7 @@ module RSpec
         require 'action_mailbox/test_helper'
         extend ::ActionMailbox::TestHelper
 
+        # @private
         def self.create_inbound_email(arg)
           case arg
           when Hash
@@ -34,27 +35,32 @@ module RSpec
         subject { described_class }
       end
 
-      # Verify the status of any inbound email
+      # @api public
+      # Passes if the inbound email was delivered
       #
       # @example
-      #     describe ForwardsMailbox do
-      #       it "can describe what happened to the inbound email" do
-      #         mail = process(args)
-      #
-      #         # can use any of:
-      #         expect(mail).to have_been_delivered
-      #         expect(mail).to have_bounced
-      #         expect(mail).to have_failed
-      #       end
-      #     end
+      #       inbound_email = process(args)
+      #       expect(inbound_email).to have_been_delivered
       def have_been_delivered
         satisfy('have been delivered', &:delivered?)
       end
 
+      # @api public
+      # Passes if the inbound email bounced during processing
+      #
+      # @example
+      #       inbound_email = process(args)
+      #       expect(inbound_email).to have_bounced
       def have_bounced
         satisfy('have bounced', &:bounced?)
       end
 
+      # @api public
+      # Passes if the inbound email failed to process
+      #
+      # @example
+      #       inbound_email = process(args)
+      #       expect(inbound_email).to have_failed
       def have_failed
         satisfy('have failed', &:failed?)
       end
