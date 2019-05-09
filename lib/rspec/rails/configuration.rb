@@ -34,7 +34,8 @@ module RSpec
       :routing    => %w[spec routing],
       :view       => %w[spec views],
       :feature    => %w[spec features],
-      :system     => %w[spec system]
+      :system     => %w[spec system],
+      :mailbox    => %w[spec mailboxes]
     }
 
     # Sets up the different example group modules for the different spec types
@@ -139,6 +140,10 @@ module RSpec
 
       if defined?(ActiveJob)
         config.include RSpec::Rails::JobExampleGroup, :type => :job
+      end
+
+      if defined?(ActionMailbox)
+        config.include RSpec::Rails::MailboxExampleGroup, :type => :mailbox
       end
     end
     # rubocop:enable Style/MethodLength
