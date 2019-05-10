@@ -16,9 +16,7 @@ end
 class Inbox < ApplicationMailbox; end
 class Otherbox < ApplicationMailbox; end
 
-RSpec.describe "ActionMailbox matchers", :skip => !RSpec::Rails::FeatureCheck.has_active_job? do
-  include RSpec::Rails::Matchers::ActionMailbox
-
+RSpec.describe "ActionMailbox matchers", :skip => !RSpec::Rails::FeatureCheck.has_action_mailbox? do
   describe "receive_inbound_email" do
     let(:to) { ['to@example.com'] }
 
