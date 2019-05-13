@@ -1,4 +1,3 @@
-
 # RFC: RSpec Rails new versioning strategy
 
 Hi Folks,
