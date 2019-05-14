@@ -1,10 +1,10 @@
 Feature: Cookies
 
-  There is different ways to test cookies in controller's tests be we recommend
-  to use `cookies` as below.
+  There are different ways to make assertions on cookies from controller specs,
+  but we recommend using the `cookies` method as set out below.
 
-  You can use strings or symbols to fetch or set your cookies because `cookies`
-  support indifferent access.
+  You can use strings or symbols to fetch or set your cookies because the `cookies`
+  method supports indifferent access.
 
   Scenario: Testing cookie's value cleared in controller
     Given a file named "spec/controllers/application_controller_spec.rb" with:
