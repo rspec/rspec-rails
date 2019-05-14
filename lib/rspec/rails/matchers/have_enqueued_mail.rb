@@ -22,7 +22,7 @@ module RSpec
         end
 
         def description
-          "enqueues #{@mailer_class.name}.#{@method_name}"
+          "enqueues #{mailer_class_name}.#{@method_name}"
         end
 
         def with(*args, &block)
@@ -50,7 +50,7 @@ module RSpec
         private
 
         def base_message
-          "#{@mailer_class.name}.#{@method_name}".tap do |msg|
+          [mailer_class_name, @method_name].compact.join('.').tap do |msg|
             msg << " #{expected_count_message}"
             msg << " with #{@mail_args}," if @mail_args.any?
             msg << " on queue #{@queue}," if @queue
@@ -63,10 +63,14 @@ module RSpec
           "#{message_expectation_modifier} #{@expected_number} #{@expected_number == 1 ? 'time' : 'times'}"
         end
 
+        def mailer_class_name
+          @mailer_class ? @mailer_class.name : 'ActionMailer::Base'
+        end
+
         def mailer_args
           if @mail_args.any?
             base_mailer_args + @mail_args
-          else
+          elsif @mailer_class && @method_name
             mailer_method_arity = @mailer_class.instance_method(@method_name).arity
 
             number_of_args = if mailer_method_arity < 0
@@ -76,11 +80,15 @@ module RSpec
                              end
 
             base_mailer_args + Array.new(number_of_args) { anything }
+          elsif @mailer_class
+            [mailer_class_name, any_args]
+          else
+            []
           end
         end
 
         def base_mailer_args
-          [@mailer_class.name, @method_name.to_s, MAILER_JOB_METHOD]
+          [mailer_class_name, @method_name.to_s, MAILER_JOB_METHOD]
         end
 
         def yield_mail_args(block)
@@ -135,6 +143,14 @@ module RSpec
       # @example
       #     expect {
       #       MyMailer.welcome(user).deliver_later
+      #     }.to have_enqueued_mail
+      #
+      #     expect {
+      #       MyMailer.welcome(user).deliver_later
+      #     }.to have_enqueued_mail(MyMailer)
+      #
+      #     expect {
+      #       MyMailer.welcome(user).deliver_later
       #     }.to have_enqueued_mail(MyMailer, :welcome)
       #
       #     # Using alias
@@ -162,7 +178,7 @@ module RSpec
       #     expect {
       #       MyMailer.welcome(user).deliver_later(queue: :urgent_mail)
       #     }.to have_enqueued_mail(MyMailer, :welcome).on_queue(:urgent_mail)
-      def have_enqueued_mail(mailer_class, mail_method_name)
+      def have_enqueued_mail(mailer_class = nil, mail_method_name = nil)
         HaveEnqueuedMail.new(mailer_class, mail_method_name)
       end
       alias_method :have_enqueued_email, :have_enqueued_mail
