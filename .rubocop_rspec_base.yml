@@ -153,6 +153,9 @@ Style/EmptyMethod:
 Style/FormatStringToken:
   Enabled: false
 
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
 Style/GuardClause:
   Enabled: false
 
