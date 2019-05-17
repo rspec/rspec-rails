@@ -4,6 +4,7 @@
 Enhancements:
 
 * Adds support for JRuby on Rails 5.2 and 6
+* Add support for parameterised mailers (Ignatius Reza, #2125)
 
 Bug Fixes:
 
