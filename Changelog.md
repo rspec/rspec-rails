@@ -5,6 +5,10 @@ Enhancements:
 
 * Adds support for JRuby on Rails 5.2 and 6
 * Add support for parameterised mailers (Ignatius Reza, #2125)
+* Add ActionMailbox spec helpers and test type (James Dabbs, #2119)
+* Add ActionCable spec helpers and test type (Vladimir Dementyev, #2113)
+* Add support for partial args when using `have_enqueued_mail`
+  (Ignatius Reza, #2125)
 
 Bug Fixes:
 
