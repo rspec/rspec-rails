@@ -1,6 +1,7 @@
 Feature: backtrace filtering
 
-  The following configuration setting will filter out lines in backtraces that come from Rails gems in order to reduce the noise in test failure output:
+  The following configuration setting will filter out lines in backtraces
+  that come from Rails gems in order to reduce the noise in test failure output:
 
   ```ruby
   RSpec.configure do |config|
@@ -8,7 +9,8 @@ Feature: backtrace filtering
   end
   ```
 
-  `rspec` will always show the full backtrace output when run with the `--backtrace` commandline option.
+  `rspec` will always show the full backtrace output when run with
+  the `--backtrace` commandline option.
 
   Background: Using `filter_rails_from_backtrace!`
     Given a file named "spec/failing_spec.rb" with:

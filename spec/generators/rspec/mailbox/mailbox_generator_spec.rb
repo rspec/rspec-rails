@@ -13,6 +13,5 @@ RSpec.describe Rspec::Generators::MailboxGenerator, :type => :generator, :skip =
     it { is_expected.to exist }
     it { is_expected.to contain(/require 'rails_helper'/) }
     it { is_expected.to contain(/describe ForwardsMailbox, #{type_metatag(:mailbox)}/) }
-
   end
 end
