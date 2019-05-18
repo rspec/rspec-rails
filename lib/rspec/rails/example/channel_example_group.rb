@@ -15,7 +15,7 @@ module RSpec
   end
 end
 
-if ::Rails::VERSION::MAJOR >= 6
+if ::Rails::VERSION::MAJOR >= 6 && defined?(ActionCable)
   module RSpec
     module Rails
       # @api public
