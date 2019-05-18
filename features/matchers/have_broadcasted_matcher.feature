@@ -1,7 +1,8 @@
 @rails_post_6
 Feature: have_broadcasted matcher
 
-  The `have_broadcasted_to` (also aliased as `broadcast_to`) matcher is used to check if a message has been broadcasted to a given stream.
+  The `have_broadcasted_to` (also aliased as `broadcast_to`) matcher is used
+  to check if a message has been broadcasted to a given stream.
 
   Background:
     Given action cable testing is available

@@ -162,7 +162,7 @@ module RSpec::Rails
             expect(view_spec.received.first).to eq([{:template => "widgets/new.en.html.erb"}, {}, nil])
           end
         end
-    end
+      end
 
       context "given a string" do
         it "sends string as the first arg to render" do

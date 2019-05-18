@@ -194,7 +194,6 @@ RSpec.describe "have_broadcasted_to matchers", :skip => !RSpec::Rails::FeatureCh
       }
     end
 
-
     context "when object is passed as first argument" do
       let(:model) { CableGlobalIdModel.new(42) }
 
