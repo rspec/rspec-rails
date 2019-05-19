@@ -135,19 +135,19 @@ module RSpec
         end
       end
 
-      if defined?(ActionMailer)
+      if RSpec::Rails::FeatureCheck.has_action_mailer?
         config.include RSpec::Rails::MailerExampleGroup, :type => :mailer
       end
 
-      if defined?(ActiveJob)
+      if RSpec::Rails::FeatureCheck.has_active_job?
         config.include RSpec::Rails::JobExampleGroup, :type => :job
       end
 
-      if defined?(ActionCable) && ::Rails::VERSION::STRING > '6'
+      if RSpec::Rails::FeatureCheck.has_action_cable_testing?
         config.include RSpec::Rails::ChannelExampleGroup, :type => :channel
       end
 
-      if defined?(ActionMailbox)
+      if RSpec::Rails::FeatureCheck.has_action_mailbox?
         config.include RSpec::Rails::MailboxExampleGroup, :type => :mailbox
       end
     end
