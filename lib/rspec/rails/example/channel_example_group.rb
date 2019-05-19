@@ -15,7 +15,7 @@ module RSpec
   end
 end
 
-if ::Rails::VERSION::MAJOR >= 6
+if RSpec::Rails::FeatureCheck.has_action_cable_testing?
   module RSpec
     module Rails
       # @api public
