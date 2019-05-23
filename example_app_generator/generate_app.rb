@@ -34,7 +34,6 @@ in_root do
   end
 
   if Rails::VERSION::STRING >= '6'
-    gsub_file "Gemfile", /.*jbuilder.*/, "gem 'jbuilder', :git => 'https://github.com/rails/jbuilder.git', :branch => 'master'"
     gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 1.4'"
     gsub_file "Gemfile", /.*rails-controller-testing.*/, "gem 'rails-controller-testing', git: 'https://github.com/rails/rails-controller-testing'"
   end
