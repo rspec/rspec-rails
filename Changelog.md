@@ -45,6 +45,7 @@ Enhancements
   making it easier to match on `ActiveJob` delivered emails. (Joel Lubrano, #2047)
 * Add generator for system specs on Rails 5.1 and above. (Andrzej Sliwa, #1933)
 * Add generator for generator specs. (@ConSou, #2085)
+* Add option to generate routes when generating controller specs. (David Revelo, #2134)
 
 ### 3.8.2 / 2019-01-13
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.1...v3.8.2)
