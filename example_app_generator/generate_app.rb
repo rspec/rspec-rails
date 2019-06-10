@@ -42,7 +42,11 @@ in_root do
     if RUBY_VERSION < "2.4"
       gsub_file "Gemfile", /.*capybara.*/, "gem 'capybara', '~> 3.15.0'"
     end
-    gsub_file "Gemfile", /.*chromedriver-helper.*/, "gem 'webdrivers'"
+    if Rails::VERSION::STRING >= "5.2.0" && RUBY_VERSION < '2.3.0'
+      gsub_file "Gemfile", /.*chromedriver-helper.*/, "gem 'webdrivers', '< 4.0.0'"
+    else
+      gsub_file "Gemfile", /.*chromedriver-helper.*/, "gem 'webdrivers'"
+    end
   end
 
   if Rails::VERSION::STRING >= '5.2.0' && Rails::VERSION::STRING < '6'
