@@ -89,7 +89,7 @@ module RSpec
           @routes = ::Rails.application.routes
         end
 
-        after do
+        append_after do
           orig_stdout = $stdout
           $stdout = StringIO.new
           begin
