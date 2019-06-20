@@ -12,7 +12,7 @@ Use **[`rspec-rails` 1.x][]** for Rails 2.x.
 
 [Build Status]: https://secure.travis-ci.org/rspec/rspec-rails.svg?branch=master
 [travis-ci]: https://travis-ci.org/rspec/rspec-rails
-[Code Climate]: https://img.shields.io/codeclimate/github/rspec/rspec-rails.svg
+[Code Climate]: https://codeclimate.com/github/rspec/rspec-rails.svg
 [code-climate]: https://codeclimate.com/github/rspec/rspec-rails
 [Gem Version]: https://badge.fury.io/rb/rspec-rails.svg
 [gem-version]: https://badge.fury.io/rb/rspec-rails
