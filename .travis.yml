@@ -32,6 +32,9 @@ before_script:
 
 script: "script/run_build 2>&1"
 
+# In order to install old Rubies, we need to use old Ubuntu distibution.
+dist: trusty
+
 matrix:
   include:
     # Rails 6 builds
