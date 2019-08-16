@@ -11,8 +11,8 @@ We welcome contributions from *everyone*. While contributing, please follow the 
 If you'd like to help make RSpec better, here are some ways you can contribute:
 
   - by running RSpec HEAD to help us catch bugs before new releases
-  - by [reporting bugs you encounter](https://github.com/rspec/rspec-rails/issues/new)
-  - by [suggesting new features](https://github.com/rspec/rspec-rails/issues/new)
+  - by [reporting bugs you encounter](https://github.com/rspec/rspec-rails/issues/new?template=bug_report.md)
+  - by [suggesting new features](https://github.com/rspec/rspec-rails/issues/new?template=feature_request.md)
   - by improving RSpec's [Relish](https://relishapp.com/rspec) or [API](http://rspec.info/documentation/) documentation
   - by improving [RSpec's website](http://rspec.info/) ([source](https://github.com/rspec/rspec.github.io))
   - by taking part in [feature and issue discussions](https://github.com/rspec/rspec-rails/issues)
