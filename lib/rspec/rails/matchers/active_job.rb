@@ -140,8 +140,9 @@ module RSpec
 
           def arguments_match?(job)
             if @args.any?
+              args = serialize_and_deserialize_arguments(@args)
               deserialized_args = deserialize_arguments(job)
-              RSpec::Mocks::ArgumentListMatcher.new(*@args).args_match?(*deserialized_args)
+              RSpec::Mocks::ArgumentListMatcher.new(*args).args_match?(*deserialized_args)
             else
               true
             end
@@ -170,6 +171,13 @@ module RSpec
                                when :thrice then 3
                                else Integer(count)
                                end
+          end
+
+          def serialize_and_deserialize_arguments(args)
+            serialized = ::ActiveJob::Arguments.serialize(args)
+            ::ActiveJob::Arguments.deserialize(serialized)
+          rescue ::ActiveJob::SerializationError
+            args
           end
 
           def deserialize_arguments(job)
