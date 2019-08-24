@@ -40,12 +40,12 @@ matrix:
     # Rails 6 builds
     - rvm: jruby-head
       env:
-        - RAILS_VERSION=6-0-stable
+        - RAILS_VERSION='~>6.0'
         - JRUBY_OPT=--dev
     - rvm: 2.6.3
-      env: RAILS_VERSION=6-0-stable
-    - rvm: 2.5.3
-      env: RAILS_VERSION=6-0-stable
+      env: RAILS_VERSION='~>6.0'
+    - rvm: 2.5.5
+      env: RAILS_VERSION='~>6.0'
 
     # Rails 5.2 builds >= 2.2.2
     - rvm: jruby-head
@@ -54,43 +54,43 @@ matrix:
         - JRUBY_OPT=--dev
     - rvm: 2.6.3
       env: RAILS_VERSION='~> 5.2.0'
-    - rvm: 2.5.3
+    - rvm: 2.5.5
       env: RAILS_VERSION='~> 5.2.0'
-    - rvm: 2.4.4
+    - rvm: 2.4.6
       env: RAILS_VERSION='~> 5.2.0'
-    - rvm: 2.3.7
+    - rvm: 2.3.8
       env: RAILS_VERSION='~> 5.2.0'
 
     # Rails 5.1 Builds >= 2.2.2
     - rvm: 2.6.3
       env: RAILS_VERSION='~> 5.1.0'
-    - rvm: 2.5.3
+    - rvm: 2.5.5
       env: RAILS_VERSION='~> 5.1.0'
-    - rvm: 2.4.4
+    - rvm: 2.4.6
       env: RAILS_VERSION='~> 5.1.0'
-    - rvm: 2.3.7
+    - rvm: 2.3.8
       env: RAILS_VERSION='~> 5.1.0'
 
     # Rails 5.0 Builds >= 2.2.2
     - rvm: 2.6.3
       env: RAILS_VERSION='~> 5.0.0'
-    - rvm: 2.5.3
+    - rvm: 2.5.5
       env: RAILS_VERSION='~> 5.0.0'
-    - rvm: 2.4.4
+    - rvm: 2.4.6
       env: RAILS_VERSION='~> 5.0.0'
-    - rvm: 2.3.7
+    - rvm: 2.3.8
       env: RAILS_VERSION='~> 5.0.0'
 
     # Rails 4.2 Builds >= 1.9.3
-    - rvm: 2.5.3
+    - rvm: 2.5.5
       env: RAILS_VERSION='~> 4.2.0'
-    - rvm: 2.4.4
+    - rvm: 2.4.6
       env: RAILS_VERSION='~> 4.2.0'
-    - rvm: 2.4.4
+    - rvm: 2.4.6
       env: RAILS_VERSION=4-2-stable
-    - rvm: 2.3.7
+    - rvm: 2.3.8
       env: RAILS_VERSION='~> 4.2.0'
-    - rvm: 2.3.7
+    - rvm: 2.3.8
       env: RAILS_VERSION=4-2-stable
 
   fast_finish: true
