@@ -32,6 +32,7 @@ end
 
 if MAJOR >= 6
   gem 'sqlite3', '~> 1.4', platforms: [:ruby]
+  gem 'selenium-webdriver', '~> 3.5', :require => false
 else
   gem 'sqlite3', '~> 1.3.6', platforms: [:ruby]
 end
