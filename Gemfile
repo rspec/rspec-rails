@@ -57,7 +57,7 @@ end
 
 gem "rubyzip", '~> 1.2'
 
-gem 'rubocop'
+gem 'rubocop', "~> 0.74"
 
 custom_gemfile = File.expand_path("../Gemfile-custom", __FILE__)
 eval_gemfile custom_gemfile if File.exist?(custom_gemfile)
