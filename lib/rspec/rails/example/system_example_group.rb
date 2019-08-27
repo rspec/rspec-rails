@@ -15,7 +15,11 @@ module RSpec
       CHARS_TO_TRANSLATE = ['/', '.', ':', ',', "'", '"', " "].freeze
 
       # @private
-      module BlowAwayAfterTeardownHook
+      module BlowAwayTeardownHooks
+        # @private
+        def before_teardown
+        end
+
         # @private
         def after_teardown
         end
@@ -59,13 +63,18 @@ module RSpec
           """.gsub(/\s+/, ' ').strip
         end
 
+        if ::Rails::VERSION::STRING >= '6.0'
+          original_before_teardown =
+            ::ActionDispatch::SystemTesting::TestHelpers::SetupAndTeardown.instance_method(:before_teardown)
+        end
+
         original_after_teardown =
           ::ActionDispatch::SystemTesting::TestHelpers::SetupAndTeardown.instance_method(:after_teardown)
 
         other.include ActionDispatch::IntegrationTest::Behavior
         other.include ::ActionDispatch::SystemTesting::TestHelpers::SetupAndTeardown
         other.include ::ActionDispatch::SystemTesting::TestHelpers::ScreenshotHelper
-        other.include BlowAwayAfterTeardownHook
+        other.include BlowAwayTeardownHooks
 
         attr_reader :driver
 
@@ -93,6 +102,9 @@ module RSpec
           orig_stdout = $stdout
           $stdout = StringIO.new
           begin
+            if ::Rails::VERSION::STRING >= '6.0'
+              original_before_teardown.bind(self).call
+            end
             original_after_teardown.bind(self).call
           ensure
             myio = $stdout
