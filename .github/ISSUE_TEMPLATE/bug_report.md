@@ -1,15 +1,16 @@
+---
+name: Bug report
+about: Create a report to help us improve
+title: ''
+labels: ''
+assignees: ''
+
+---
+
 <!--
 
-Hi there! Here's a few pointers to help us help you with your issue as quickly
-as possible.
-
-We prefer that the RSpec Rails issue tracker be mainly used for bug reports.
-Feature requests or general requests for help should go to our google group:
-rspec@googlegroups.com. We use that as our primary location for higher level
-RSpec discussions.
-
-If you are filing a bug report, there's a few steps it'd be super if you could
-follow. If you can't do all of these, don't worry, but if you can it'll help us
+Below are a few steps it'd be super if you could follow.
+If you can't do all of these, don't worry, but if you can it'll help us
 resolve your bug faster!
 
 -->
