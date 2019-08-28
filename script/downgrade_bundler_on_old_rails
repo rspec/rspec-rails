@@ -9,10 +9,8 @@ if ruby -e "exit(ENV['RAILS_VERSION'].scan(/\d+\.\d+.\d+/)[0].to_f < 5)"; then
   # On Rails versions less than 5, Bundler 2.0 is not supported
   echo "Warning dowgrading to older version of Bundler"
 
-  gem uninstall -aIx bundler || echo "Warning error occured removing bundler via gem"
-
   # Delete all bundler version because we do not support Bundler 2+ below Rails 4
-  rvm @global do gem uninstall -aIx bundler || true
+  rvm @global do gem uninstall -aIx bundler || echo "Warning error occured removing bundler via rvm"
 
   gem install bundler -v '1.17.3'
 fi
