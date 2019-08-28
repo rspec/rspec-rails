@@ -32,6 +32,7 @@ end
 
 if MAJOR >= 6
   gem 'sqlite3', '~> 1.4', platforms: [:ruby]
+  gem 'selenium-webdriver', '~> 3.5', :require => false
 else
   gem 'sqlite3', '~> 1.3.6', platforms: [:ruby]
 end
@@ -56,7 +57,7 @@ end
 
 gem "rubyzip", '~> 1.2'
 
-gem 'rubocop'
+gem 'rubocop', "~> 0.74"
 
 custom_gemfile = File.expand_path("../Gemfile-custom", __FILE__)
 eval_gemfile custom_gemfile if File.exist?(custom_gemfile)

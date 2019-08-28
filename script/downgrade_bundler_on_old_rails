@@ -11,10 +11,8 @@ if ruby -e "exit(ENV['RAILS_VERSION'].scan(/\d+\.\d+.\d+/)[0].to_f < 5)"; then
 
   gem uninstall -aIx bundler || echo "Warning error occured removing bundler via gem"
 
-  # this only works on Ruby 2.3 which is luckily the version we need to fix
-  if is_ruby_23; then
-    rvm @global do gem uninstall -aIx bundler
-  fi
+  # Delete all bundler version because we do not support Bundler 2+ below Rails 4
+  rvm @global do gem uninstall -aIx bundler || true
 
   gem install bundler -v '1.17.3'
 fi
