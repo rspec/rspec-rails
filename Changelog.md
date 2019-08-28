@@ -18,6 +18,8 @@ Bug Fixes:
   deprecated. (Pavel Rosický, #2092)
 * `ActionView::Template#formats` has been deprecated and replaced by
   `ActionView::Template#format`(Seb Jacobs, #2100)
+* Replace `before_teardown` as well as `after_teardown` to ensure screenshots
+  are generated correctly. (Jon Rowe, #2164)
 
 Breaking Changes:
 
