@@ -87,10 +87,10 @@ matrix:
     - rvm: 2.4.6
       env: RAILS_VERSION='~> 4.2.0'
     - rvm: 2.4.6
-      env: RAILS_VERSION=4-2-stable
+      env: RAILS_VERSION='~> 4.2.0'
     - rvm: 2.3.8
       env: RAILS_VERSION='~> 4.2.0'
     - rvm: 2.3.8
-      env: RAILS_VERSION=4-2-stable
+      env: RAILS_VERSION='~> 4.2.0'
 
   fast_finish: true
