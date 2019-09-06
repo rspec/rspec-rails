@@ -44,12 +44,12 @@ Feature: controller spec
         describe "responds to" do
           it "responds to html by default" do
             post :create, { :widget => { :name => "Any Name" } }
-            expect(response.content_type).to eq "text/html"
+            expect(response.content_type.to_s).to start_with "text/html"
           end
 
           it "responds to custom formats when provided in the params" do
             post :create, { :widget => { :name => "Any Name" }, :format => :json }
-            expect(response.content_type).to eq "application/json"
+            expect(response.content_type.to_s).to start_with "application/json"
           end
         end
       end
@@ -67,12 +67,12 @@ Feature: controller spec
         describe "responds to" do
           it "responds to html by default" do
             post :create, :params => { :widget => { :name => "Any Name" } }
-            expect(response.content_type).to eq "text/html"
+            expect(response.content_type.to_s).to start_with "text/html"
           end
 
           it "responds to custom formats when provided in the params" do
             post :create, :params => { :widget => { :name => "Any Name" }, :format => :json }
-            expect(response.content_type).to eq "application/json"
+            expect(response.content_type.to_s).to start_with "application/json"
           end
         end
       end

@@ -101,7 +101,7 @@ Feature: request spec
           }
           post "/widgets", { :widget => {:name => "My Widget"} }, headers
 
-          expect(response.content_type).to eq("application/json")
+          expect(response.content_type.to_s).to start_with("application/json")
           expect(response).to have_http_status(:created)
         end
 
@@ -125,7 +125,7 @@ Feature: request spec
           }
           post "/widgets", :params => { :widget => {:name => "My Widget"} }, :headers => headers
 
-          expect(response.content_type).to eq("application/json")
+          expect(response.content_type.to_s).to start_with("application/json")
           expect(response).to have_http_status(:created)
         end
 
