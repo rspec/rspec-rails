@@ -22,8 +22,6 @@ platforms :jruby do
   gem "jruby-openssl"
 end
 
-gem 'sqlite3', '~> 1.3.6'
-
 if RUBY_VERSION >= '2.4.0'
   gem 'json', '>= 2.0.2'
 end
@@ -49,10 +47,17 @@ end
 
 
 # Capybara versions that support RSpec 3 only support RUBY_VERSION >= 1.9.3
+# Rails 6 requires sqlite 1.4; Rails 5.0 and under require sqlite 1.3.
 if RUBY_VERSION >= '1.9.3'
-  if /5(\.|-)[1-9]\d*/ === RAILS_VERSION || "master" == RAILS_VERSION
+  if /6/ === RAILS_VERSION || "master" == RAILS_VERSION
+    gem 'sqlite3', '~> 1.4.1'
+    gem 'capybara', '~> 2.15', :require => false
+    gem "selenium-webdriver", "~> 3.142.0", require: false
+  elsif /5(\.|-)[1-9]/ === RAILS_VERSION
+    gem 'sqlite3', '~> 1.3.6'
     gem 'capybara', '~> 2.13', :require => false
   else
+    gem 'sqlite3', '~> 1.3.6'
     gem 'capybara', '~> 2.2.0', :require => false
   end
 end
