@@ -42,7 +42,7 @@ module RSpec::Rails
         group = RSpec::Core::ExampleGroup.describe do
           include HelperExampleGroup
           def _view
-            ActionView::Base.new
+            ActionView::Base.new ActionView::LookupContext.new([])
           end
         end
         expect(group.new.helper).to be_kind_of(ApplicationHelper)
