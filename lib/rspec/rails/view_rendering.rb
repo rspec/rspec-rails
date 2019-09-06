@@ -92,10 +92,11 @@ module RSpec
         # @private
         class FileSystemResolver < ::ActionView::FileSystemResolver
         private
-
-          def find_templates(*args)
-            templates = super
-            EmptyTemplateResolver.nullify_template_rendering(templates)
+          [:_find_all, :find_templates].each do |name|
+            define_method name do |*args|
+              templates = super(*args)
+              EmptyTemplateResolver.nullify_template_rendering(templates)
+            end
           end
         end
       end
