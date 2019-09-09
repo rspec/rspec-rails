@@ -9,6 +9,7 @@ Enhancements:
 * Add ActionCable spec helpers and test type (Vladimir Dementyev, #2113)
 * Add support for partial args when using `have_enqueued_mail`
   (Ignatius Reza, #2125)
+* Add support for time arguments for `have_enqueued_job` (@alpaca-tc, #2157)
 
 Bug Fixes:
 
