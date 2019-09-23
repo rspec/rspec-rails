@@ -47,6 +47,11 @@ gem 'rake', '~> 12'
 
 gem 'mime-types', "~> 3"
 
+# Version 5.12 of minitest requires Ruby 2.4
+if RUBY_VERSION < '2.4.0'
+  gem 'minitest', '< 5.12.0'
+end
+
 gem 'capybara', '~> 2.13', :require => false
 
 if MAJOR == 6
