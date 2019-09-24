@@ -47,6 +47,10 @@ if RUBY_VERSION < '2.0.0'
   gem 'mime-types', '< 3'
 end
 
+# Version 5.12 of minitest requires Ruby 2.4
+if RUBY_VERSION < '2.4.0'
+  gem 'minitest', '< 5.12.0'
+end
 
 # Capybara versions that support RSpec 3 only support RUBY_VERSION >= 1.9.3
 if RUBY_VERSION >= '1.9.3'
