@@ -72,7 +72,7 @@ function run_specs_one_by_one {
 
   for file in `find spec -iname '*_spec.rb'`; do
     echo "Running $file"
-    bin/rspec $file -b --format progress
+    bin/rspec $file --format progress
   done
 }
 
