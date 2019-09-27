@@ -70,8 +70,10 @@ elsif RUBY_VERSION < '1.9.3'
   gem 'nokogiri', '1.5.2'
 elsif RUBY_VERSION < '2.1.0'
   gem 'nokogiri', '1.6.8.1'
-else
+elsif RUBY_VERSION < '2.3.0'
   gem 'nokogiri', '1.8.5'
+else
+  gem 'nokogiri', '~> 1.10'
 end
 
 if RUBY_VERSION <= '1.8.7'
