@@ -33,15 +33,15 @@ function is_mri_192 {
   fi
 }
 
-function is_mri_193 {
+function is_not_mri_193 {
   if is_mri; then
     if ruby -e "exit(RUBY_VERSION == '1.9.3')"; then
-      return 0
-    else
       return 1
+    else
+      return 0
     fi
   else
-    return 1
+    return 0
   fi
 }
 
