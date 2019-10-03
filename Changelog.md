@@ -1,4 +1,4 @@
-### Development
+### 3.8.3 / 2019-10-03
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.2...master)
 
 Bug Fixes:
