@@ -1,15 +1,5 @@
 ### Development
-[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.2...master)
-
-Bug Fixes:
-
-* Make the `ActiveJob` matchers fail when multiple jobs are queued for negated
-  matches. e.g. `expect { job; job; }.to_not have_enqueued_job.
-  (Emric Istanful, #2069)
-* Namespaced fixtures now generate a `/` seperated path rather than an `_`.
-  (@nxlith, #2077)
-* Check the arity of `errors` before attempting to use it to generate the `be_valid`
-  error message. (Kevin Kuchta, #2096)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.3...master)
 
 Enhancements
 
@@ -20,6 +10,22 @@ Enhancements
 * Add generator for system specs on Rails 5.1 and above. (Andrzej Sliwa, #1933)
 * Add generator for generator specs. (@ConSou, #2085)
 * Add option to generate routes when generating controller specs. (David Revelo, #2134)
+
+Bug Fixes:
+
+* Make the `ActiveJob` matchers fail when multiple jobs are queued for negated
+  matches. e.g. `expect { job; job; }.to_not have_enqueued_job.
+  (Emric Istanful, #2069)
+
+### 3.8.3 / 2019-10-03
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.2...master)
+
+Bug Fixes:
+
+* Namespaced fixtures now generate a `/` seperated path rather than an `_`.
+  (@nxlith, #2077)
+* Check the arity of `errors` before attempting to use it to generate the `be_valid`
+  error message. (Kevin Kuchta, #2096)
 
 ### 3.8.2 / 2019-01-13
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.1...v3.8.2)
