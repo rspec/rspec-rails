@@ -1,5 +1,8 @@
 ### Development
-[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.3...master)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.9.0...master)
+
+### 3.9.0 / 2019-10-08
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.3...v3.9.0)
 
 Enhancements
 
@@ -18,7 +21,7 @@ Bug Fixes:
   (Emric Istanful, #2069)
 
 ### 3.8.3 / 2019-10-03
-[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.2...master)
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.2...v3.8.3)
 
 Bug Fixes:
 
