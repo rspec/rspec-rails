@@ -1,4 +1,0 @@
-mkdir -p vendor/cache
-cd vendor/cache
-wget http://rubyforge.org/frs/download.php/75414/linecache19-0.5.13.gem
-wget http://rubyforge.org/frs/download.php/75415/ruby-debug-base19-0.11.26.gem
