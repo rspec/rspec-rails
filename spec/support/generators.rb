@@ -33,7 +33,7 @@ module RSpec
           describe 'the fixtures' do
             subject { file("spec/fixtures/#{name}.yml") }
 
-            it { is_expected.to contain(Regexp.new('# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html')) }
+            it { is_expected.to contain(Regexp.new('# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html')) }
           end
         end
 

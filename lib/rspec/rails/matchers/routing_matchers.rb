@@ -57,7 +57,7 @@ module RSpec
         #
         #     expect(:get => "/things/special").to route_to("things#special")
         #
-        # @see http://api.rubyonrails.org/classes/ActionDispatch/Assertions/RoutingAssertions.html#method-i-assert_recognizes
+        # @see https://api.rubyonrails.org/classes/ActionDispatch/Assertions/RoutingAssertions.html#method-i-assert_recognizes
         def route_to(*expected)
           RouteToMatcher.new(self, *expected)
         end

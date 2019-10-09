@@ -118,7 +118,7 @@ RSpec.describe "have_http_status" do
 
   context "with a symbolic status" do
     # :created => 201 status code
-    # see http://guides.rubyonrails.org/layouts_and_rendering.html#the-status-option
+    # see https://guides.rubyonrails.org/layouts_and_rendering.html#the-status-option
     let(:created_code) { 201 }
     let(:created_symbolic_status) { :created }
 
