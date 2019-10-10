@@ -17,7 +17,7 @@ Enhancements
 Bug Fixes:
 
 * Make the `ActiveJob` matchers fail when multiple jobs are queued for negated
-  matches. e.g. `expect { job; job; }.to_not have_enqueued_job.
+  matches. e.g. `expect { job; job; }.to_not have_enqueued_job`.
   (Emric Istanful, #2069)
 
 ### 3.8.3 / 2019-10-03
