@@ -8,7 +8,7 @@ Enhancements
 
 * Use `__dir__` instead of `__FILE__` in generated `rails_helper.rb` where
   supported. (OKURA Masafumi, #2048)
-* Add `have_enqueued` matcher as a "super" matcher to the `ActiveJob` matchers
+* Add `have_enqueued_mail` matcher as a "super" matcher to the `ActiveJob` matchers
   making it easier to match on `ActiveJob` delivered emails. (Joel Lubrano, #2047)
 * Add generator for system specs on Rails 5.1 and above. (Andrzej Sliwa, #1933)
 * Add generator for generator specs. (@ConSou, #2085)
