@@ -36,6 +36,7 @@ matrix:
   include:
     # Rails 6 builds
     - rvm: jruby-head
+      jdk: oraclejdk11
       env:
         - RAILS_VERSION=6-0-stable
         - JRUBY_OPT=--dev
@@ -47,6 +48,7 @@ matrix:
 
     # Rails 5.2 builds >= 2.2.2
     - rvm: jruby-head
+      jdk: oraclejdk11
       env:
         - RAILS_VERSION='~> 5.2.0'
         - JRUBY_OPT=--dev
