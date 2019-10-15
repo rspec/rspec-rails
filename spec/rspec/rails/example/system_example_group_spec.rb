@@ -18,6 +18,47 @@ module RSpec::Rails
           end
         end
       end
+
+      describe '#driver' do
+        it 'uses :selenium driver by default' do
+          group = RSpec::Core::ExampleGroup.describe do
+            include SystemExampleGroup
+          end
+          example = group.new
+          group.hooks.run(:before, :example, example)
+
+          expect(Capybara.current_driver).to eq :selenium
+        end
+
+        it 'sets :rack_test driver using by before_action' do
+          group = RSpec::Core::ExampleGroup.describe do
+            include SystemExampleGroup
+
+            before do
+              driven_by(:rack_test)
+            end
+          end
+          example = group.new
+          group.hooks.run(:before, :example, example)
+
+          expect(Capybara.current_driver).to eq :rack_test
+        end
+
+        it 'calls :driven_by method only once' do
+          group = RSpec::Core::ExampleGroup.describe do
+            include SystemExampleGroup
+
+            before do
+              driven_by(:rack_test)
+            end
+          end
+          example = group.new
+          allow(example).to receive(:driven_by).and_call_original
+          group.hooks.run(:before, :example, example)
+
+          expect(example).to have_received(:driven_by).once
+        end
+      end
     end
   end
 end

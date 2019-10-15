@@ -78,6 +78,12 @@ module RSpec
         def initialize(*args, &blk)
           super(*args, &blk)
           @driver = nil
+
+          self.class.before do
+            # A user may have already set the driver, so only default if driver
+            # is not set
+            driven_by(:selenium) unless @driver
+          end
         end
 
         def driven_by(*args, &blk)
@@ -85,9 +91,6 @@ module RSpec
         end
 
         before do
-          # A user may have already set the driver, so only default if driver
-          # is not set
-          driven_by(:selenium) unless @driver
           @routes = ::Rails.application.routes
         end
 
