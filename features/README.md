@@ -45,5 +45,5 @@ Cucumber features over time, and clarifying existing ones.  If you have
 specific features you'd like to see added, find the existing documentation
 incomplete or confusing, or, better yet, wish to write a missing Cucumber
 feature yourself, please [submit an
-issue](http://github.com/rspec/rspec-rails/issues) or a [pull
-request](http://github.com/rspec/rspec-rails).
+issue](https://github.com/rspec/rspec-rails/issues) or a [pull
+request](https://github.com/rspec/rspec-rails).

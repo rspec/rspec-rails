@@ -8,10 +8,10 @@ Feature: Feature spec
   `config.infer_spec_type_from_file_location!` by placing them in
   `spec/features`.
 
-  Feature specs require the [Capybara](http://github.com/jnicklas/capybara) gem, version 2.2.0 or later. We recommend
+  Feature specs require the [Capybara](https://github.com/jnicklas/capybara) gem, version 2.2.0 or later. We recommend
   version 2.4.0 or later to avoid some deprecation warnings and have support for
   [`config.expose_dsl_globally = false`](/rspec/rspec-core/docs/configuration/global-namespace-dsl). Refer to the [capybara API<br />
-  documentation](http://rubydoc.info/github/jnicklas/capybara/master) for more information on the methods and matchers that can be
+  documentation](https://rubydoc.info/github/jnicklas/capybara/master) for more information on the methods and matchers that can be
   used in feature specs. Capybara is intended to simulate browser requests with
   HTTP. It will primarily send HTML content.
 
@@ -45,7 +45,7 @@ Feature: Feature spec
       Pending: (Failures listed here are expected and do not affect your suite's status)
 
         1) Widget management User creates a new widget
-           # Feature specs require the Capybara (http://github.com/jnicklas/capybara) gem, version 2.2.0 or later. We recommend version 2.4.0 or later to avoid some deprecation warnings and have support for `config.expose_dsl_globally = false`.
+           # Feature specs require the Capybara (https://github.com/jnicklas/capybara) gem, version 2.2.0 or later. We recommend version 2.4.0 or later to avoid some deprecation warnings and have support for `config.expose_dsl_globally = false`.
            # ./spec/features/widget_management_spec.rb:4
       """
 

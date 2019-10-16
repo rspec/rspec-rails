@@ -22,7 +22,7 @@ Feature: request spec
 
   Check the Rails docs for details on these methods as well.
 
-  [Capybara](http://github.com/jnicklas/capybara) is no longer supported in
+  [Capybara](https://github.com/jnicklas/capybara) is no longer supported in
   request specs as of Capybara 2.0.0. The recommended way to use Capybara is
   with [feature specs](../feature-specs/feature-spec).
 
