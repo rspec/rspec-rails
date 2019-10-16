@@ -15,7 +15,7 @@ end
 
 module RSpec
   module Rails
-    describe MailboxExampleGroup, :skip => !RSpec::Rails::FeatureCheck.has_action_mailbox? do
+    RSpec.describe MailboxExampleGroup, :skip => !RSpec::Rails::FeatureCheck.has_action_mailbox? do
       it_behaves_like "an rspec-rails example group mixin", :mailbox,
                       './spec/mailboxes/', '.\\spec\\mailboxes\\'
 

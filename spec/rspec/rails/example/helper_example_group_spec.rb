@@ -1,7 +1,7 @@
 require "spec_helper"
 
 module RSpec::Rails
-  describe HelperExampleGroup do
+  RSpec.describe HelperExampleGroup do
     module ::FoosHelper
       class InternalClass
       end
