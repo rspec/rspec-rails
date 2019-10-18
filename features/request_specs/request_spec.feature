@@ -110,7 +110,7 @@ Feature: request spec
     When I run `rspec spec/requests/widget_management_spec.rb`
     Then the example should pass
 
-  @rails_post_5
+  @rails_post_5 @rails_pre_6
   Scenario: requesting a JSON response
     Given a file named "spec/requests/widget_management_spec.rb" with:
       """ruby
@@ -119,10 +119,7 @@ Feature: request spec
       RSpec.describe "Widget management", :type => :request do
 
         it "creates a Widget" do
-          headers = {
-            "ACCEPT" => "application/json",     # This is what Rails 4 accepts
-            "HTTP_ACCEPT" => "application/json" # This is what Rails 3 accepts
-          }
+          headers = { "ACCEPT" => "application/json" }
           post "/widgets", :params => { :widget => {:name => "My Widget"} }, :headers => headers
 
           expect(response.content_type).to eq("application/json")
@@ -131,6 +128,25 @@ Feature: request spec
 
       end
       """
+    When I run `rspec spec/requests/widget_management_spec.rb`
+    Then the example should pass
+
+  @rails_post_6
+  Scenario: requesting a JSON response
+    Given a file named "spec/requests/widget_management_spec.rb" with:
+    """ruby
+    require "rails_helper"
+
+    RSpec.describe "Widget management", :type => :request do
+      it "creates a Widget" do
+        headers = { "ACCEPT" => "application/json" }
+        post "/widgets", :params => { :widget => {:name => "My Widget"} }, :headers => headers
+
+        expect(response.content_type).to eq("application/json; charset=utf-8")
+        expect(response).to have_http_status(:created)
+      end
+    end
+    """
     When I run `rspec spec/requests/widget_management_spec.rb`
     Then the example should pass
 

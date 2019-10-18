@@ -1,7 +1,7 @@
 require "spec_helper"
 
 module RSpec::Rails
-  describe HelperExampleGroup do
+  RSpec.describe HelperExampleGroup do
     module ::FoosHelper
       class InternalClass
       end
@@ -41,8 +41,14 @@ module RSpec::Rails
       it "includes ApplicationHelper" do
         group = RSpec::Core::ExampleGroup.describe do
           include HelperExampleGroup
-          def _view
-            ActionView::Base.new
+          if ActionView::Base.respond_to?(:empty)
+            def _view
+              ActionView::Base.empty
+            end
+          else
+            def _view
+              ActionView::Base.new
+            end
           end
         end
         expect(group.new.helper).to be_kind_of(ApplicationHelper)

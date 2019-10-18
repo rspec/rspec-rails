@@ -137,13 +137,28 @@ module RSpec::Rails
           expect(view_spec.received.first).to eq([{:template => "widgets/new"},{}, nil])
         end
 
-        it "converts the filename components into render options" do
-          allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.html.erb" }
-          view_spec.render
-
-          if ::Rails::VERSION::STRING >= '3.2'
+        if ::Rails::VERSION::STRING >= '3.2'
+          it "converts the filename components into render options" do
+            allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.html.erb" }
+            view_spec.render
             expect(view_spec.received.first).to eq([{:template => "widgets/new", :locales=>['en'], :formats=>[:html], :handlers=>['erb']}, {}, nil])
-          else
+          end
+
+          it "converts the filename with variant into render options" do
+            allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.html+fancy.erb" }
+            view_spec.render
+            expect(view_spec.received.first).to eq([{:template => "widgets/new", :locales=>['en'], :formats=>[:html], :handlers=>['erb'], variants: ['fancy']}, {}, nil])
+          end
+
+          it "converts the filename without format into render options" do
+            allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.erb" }
+            view_spec.render
+            expect(view_spec.received.first).to eq([{:template => "widgets/new", :locales=>['en'], :handlers=>['erb']}, {}, nil])
+          end
+        else
+          it "uses the filename as a template" do
+            allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.html.erb" }
+            view_spec.render
             expect(view_spec.received.first).to eq([{:template => "widgets/new.en.html.erb"}, {}, nil])
           end
         end
@@ -272,7 +287,8 @@ module RSpec::Rails
         result = view_spec.view.view_paths.first
 
         expect(result).to be_instance_of(ActionView::FixtureResolver)
-        expect(result.hash).to eq('some_path/some_template' => 'stubbed-contents')
+        data = result.respond_to?(:data) ? result.data : result.hash
+        expect(data).to eq('some_path/some_template' => 'stubbed-contents')
       end
 
       it 'caches FixtureResolver instances between example groups' do

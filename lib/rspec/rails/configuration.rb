@@ -25,6 +25,7 @@ module RSpec
     #
     # @api private
     DIRECTORY_MAPPINGS = {
+      :channel    => %w[spec channels],
       :controller => %w[spec controllers],
       :helper     => %w[spec helpers],
       :job        => %w[spec jobs],
@@ -34,7 +35,8 @@ module RSpec
       :routing    => %w[spec routing],
       :view       => %w[spec views],
       :feature    => %w[spec features],
-      :system     => %w[spec system]
+      :system     => %w[spec system],
+      :mailbox    => %w[spec mailboxes]
     }
 
     # Sets up the different example group modules for the different spec types
@@ -53,7 +55,7 @@ module RSpec
     end
 
     # @private
-    # rubocop:disable Style/MethodLength
+    # rubocop:disable Metrics/MethodLength
     def self.initialize_configuration(config)
       config.backtrace_exclusion_patterns << /vendor\//
       config.backtrace_exclusion_patterns << %r{lib/rspec/rails}
@@ -133,15 +135,23 @@ module RSpec
         end
       end
 
-      if defined?(ActionMailer)
+      if RSpec::Rails::FeatureCheck.has_action_mailer?
         config.include RSpec::Rails::MailerExampleGroup, :type => :mailer
       end
 
-      if defined?(ActiveJob)
+      if RSpec::Rails::FeatureCheck.has_active_job?
         config.include RSpec::Rails::JobExampleGroup, :type => :job
       end
+
+      if RSpec::Rails::FeatureCheck.has_action_cable_testing?
+        config.include RSpec::Rails::ChannelExampleGroup, :type => :channel
+      end
+
+      if RSpec::Rails::FeatureCheck.has_action_mailbox?
+        config.include RSpec::Rails::MailboxExampleGroup, :type => :mailbox
+      end
     end
-    # rubocop:enable Style/MethodLength
+    # rubocop:enable Metrics/MethodLength
 
     initialize_configuration RSpec.configuration
   end

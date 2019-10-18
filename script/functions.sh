@@ -6,7 +6,7 @@ source $SCRIPT_DIR/travis_functions.sh
 source $SCRIPT_DIR/predicate_functions.sh
 
 # If JRUBY_OPTS isn't set, use these.
-# see https://docs.travis-ci.com/user/reference/overview/
+# see http://docs.travis-ci.com/user/ci-environment/
 export JRUBY_OPTS=${JRUBY_OPTS:-"--server -Xcompile.invokedynamic=false"}
 SPECS_HAVE_RUN_FILE=specs.out
 MAINTENANCE_BRANCH=`cat maintenance-branch`
@@ -72,7 +72,7 @@ function run_specs_one_by_one {
 
   for file in `find spec -iname '*_spec.rb'`; do
     echo "Running $file"
-    bin/rspec $file --format progress
+    bin/rspec $file -b --format progress
   done
 }
 

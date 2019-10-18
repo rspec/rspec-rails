@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = "rspec@googlegroups.com"
   s.homepage    = "https://github.com/rspec/rspec-rails"
   s.summary     = "RSpec for Rails"
-  s.description = "rspec-rails is a testing framework for Rails 3+."
+  s.description = "rspec-rails is a testing framework for Rails 4+."
 
   s.metadata = {
     'bug_tracker_uri'   => 'https://github.com/rspec/rspec-rails/issues',
@@ -33,20 +33,24 @@ Gem::Specification.new do |s|
     s.cert_chain = [File.expand_path('~/.gem/rspec-gem-public_cert.pem')]
   end
 
-  version_string = ['>= 3.0']
-
-  if RUBY_VERSION <= '1.8.7' && ENV['RAILS_VERSION'] != '3-2-stable'
-    version_string << '!= 3.2.22.1'
-  end
+  version_string = ['>= 4.2']
 
   s.add_runtime_dependency %q<activesupport>, version_string
   s.add_runtime_dependency %q<actionpack>,    version_string
   s.add_runtime_dependency %q<railties>,      version_string
+
+  # in these blocks expected_rspec_version is set up to track the released
+  # versions of RSpec. RSpec Rails does not have lock step versioning with the
+  # rest of RSpec after version 4.0.0, so this sets up the correct dev versions
+  # that we want. These will need to change from time to time as new RSpecs
+  # get released.
   %w[core expectations mocks support].each do |name|
-    if RSpec::Rails::Version::STRING =~ /[a-zA-Z]+/ # prerelease builds
-      s.add_runtime_dependency "rspec-#{name}", "= #{RSpec::Rails::Version::STRING}"
+    if RSpec::Rails::Version::STRING =~ /pre/ # prerelease builds
+      expected_rspec_version = "3.9.0.pre"
+      s.add_runtime_dependency "rspec-#{name}", "= #{expected_rspec_version}"
     else
-      s.add_runtime_dependency "rspec-#{name}", "~> #{RSpec::Rails::Version::STRING.split('.')[0..1].concat(['0']).join('.')}"
+      expected_rspec_version = "3.8.0"
+      s.add_runtime_dependency "rspec-#{name}", "~> #{expected_rspec_version.split(".")[0..1].join(".")}"
     end
   end
 

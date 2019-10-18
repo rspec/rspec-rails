@@ -37,180 +37,64 @@ dist: trusty
 
 matrix:
   include:
-    # Rails dev / 6 builds >= 2.4.4
+    # Rails 6 builds
+    - rvm: jruby-head
+      jdk: oraclejdk11
+      env:
+        - RAILS_VERSION='~>6.0'
+        - JRUBY_OPT=--dev
+        - JAVA_OPTS="--add-opens java.base/sun.nio.ch=org.jruby.dist --add-opens java.base/java.io=org.jruby.dist --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.security=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.security.cert=ALL-UNNAMED --add-opens=java.base/java.util.zip=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.util.regex=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED  --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/javax.crypto=ALL-UNNAMED --add-opens=java.management/sun.management=ALL-UNNAMED"
     - rvm: 2.6.3
-      env: RAILS_VERSION=master
-    - rvm: 2.5.3
-      env: RAILS_VERSION=master
-    - rvm: 2.4.4
-      env: RAILS_VERSION=master
+      env: RAILS_VERSION='~>6.0'
+    - rvm: 2.5.5
+      env: RAILS_VERSION='~>6.0'
 
     # Rails 5.2 builds >= 2.2.2
+    - rvm: jruby-head
+      jdk: oraclejdk11
+      env:
+        - RAILS_VERSION='~> 5.2.0'
+        - JRUBY_OPT=--dev
+        - JAVA_OPTS="--add-opens java.base/sun.nio.ch=org.jruby.dist --add-opens java.base/java.io=org.jruby.dist --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.security=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.security.cert=ALL-UNNAMED --add-opens=java.base/java.util.zip=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.util.regex=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED  --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/javax.crypto=ALL-UNNAMED --add-opens=java.management/sun.management=ALL-UNNAMED"
     - rvm: 2.6.3
       env: RAILS_VERSION='~> 5.2.0'
-    - rvm: 2.5.3
+    - rvm: 2.5.5
       env: RAILS_VERSION='~> 5.2.0'
-    - rvm: 2.4.4
+    - rvm: 2.4.6
       env: RAILS_VERSION='~> 5.2.0'
-    - rvm: 2.3.7
-      env: RAILS_VERSION='~> 5.2.0'
-    - rvm: 2.2.10
+    - rvm: 2.3.8
       env: RAILS_VERSION='~> 5.2.0'
 
     # Rails 5.1 Builds >= 2.2.2
     - rvm: 2.6.3
       env: RAILS_VERSION='~> 5.1.0'
-    - rvm: 2.5.3
+    - rvm: 2.5.5
       env: RAILS_VERSION='~> 5.1.0'
-    - rvm: 2.4.4
+    - rvm: 2.4.6
       env: RAILS_VERSION='~> 5.1.0'
-    - rvm: 2.3.7
-      env: RAILS_VERSION='~> 5.1.0'
-    - rvm: 2.2.10
+    - rvm: 2.3.8
       env: RAILS_VERSION='~> 5.1.0'
 
     # Rails 5.0 Builds >= 2.2.2
     - rvm: 2.6.3
       env: RAILS_VERSION='~> 5.0.0'
-    - rvm: 2.5.3
+    - rvm: 2.5.5
       env: RAILS_VERSION='~> 5.0.0'
-    - rvm: 2.4.4
+    - rvm: 2.4.6
       env: RAILS_VERSION='~> 5.0.0'
-    - rvm: 2.3.7
-      env: RAILS_VERSION='~> 5.0.0'
-    - rvm: 2.2.10
+    - rvm: 2.3.8
       env: RAILS_VERSION='~> 5.0.0'
 
     # Rails 4.2 Builds >= 1.9.3
-    - rvm: 2.4.4
+    - rvm: 2.5.5
       env: RAILS_VERSION='~> 4.2.0'
-    - rvm: 2.4.4
-      env: RAILS_VERSION=4-2-stable
-    - rvm: 2.3.7
+    - rvm: 2.4.6
       env: RAILS_VERSION='~> 4.2.0'
-    - rvm: 2.3.7
-      env: RAILS_VERSION=4-2-stable
-    - rvm: 2.2.10
+    - rvm: 2.4.6
       env: RAILS_VERSION='~> 4.2.0'
-    - rvm: 2.2.10
-      env: RAILS_VERSION=4-2-stable
-    - rvm: 2.1.10
+    - rvm: 2.3.8
       env: RAILS_VERSION='~> 4.2.0'
-    - rvm: 2.1.10
-      env: RAILS_VERSION=4-2-stable
-    - rvm: 2.0.0
+    - rvm: 2.3.8
       env: RAILS_VERSION='~> 4.2.0'
-    - rvm: 2.0.0
-      env: RAILS_VERSION=4-2-stable
-    - rvm: 1.9.3
-      env: RAILS_VERSION='~> 4.2.0'
-    - rvm: 1.9.3
-      env: RAILS_VERSION=4-2-stable
 
-    # Rails 4.1 Builds >= 1.9.3, < 2.4
-    - rvm: 2.3.7
-      env: RAILS_VERSION='~> 4.1.0'
-    - rvm: 2.3.7
-      env: RAILS_VERSION=4-1-stable
-    - rvm: 2.2.10
-      env: RAILS_VERSION='~> 4.1.0'
-    - rvm: 2.2.10
-      env: RAILS_VERSION=4-1-stable
-    - rvm: 2.1.10
-      env: RAILS_VERSION='~> 4.1.0'
-    - rvm: 2.1.10
-      env: RAILS_VERSION=4-1-stable
-    - rvm: 2.0.0
-      env: RAILS_VERSION='~> 4.1.0'
-    - rvm: 2.0.0
-      env: RAILS_VERSION=4-1-stable
-    - rvm: 1.9.3
-      env: RAILS_VERSION='~> 4.1.0'
-    - rvm: 1.9.3
-      env: RAILS_VERSION=4-1-stable
-
-    # Rails 4.0 Builds >= 1.8.11, < 2.4
-    - rvm: 2.3.7
-      env: RAILS_VERSION='~> 4.0.4'
-    - rvm: 2.3.7
-      env: RAILS_VERSION=4-0-stable
-    - rvm: 2.2.10
-      env: RAILS_VERSION='~> 4.0.4'
-    - rvm: 2.2.10
-      env: RAILS_VERSION=4-0-stable
-    - rvm: 2.1.10
-      env: RAILS_VERSION='~> 4.0.4'
-    - rvm: 2.1.10
-      env: RAILS_VERSION=4-0-stable
-    - rvm: 2.0.0
-      env: RAILS_VERSION='~> 4.0.4'
-    - rvm: 2.0.0
-      env: RAILS_VERSION=4-0-stable
-    - rvm: 1.9.3
-      env: RAILS_VERSION='~> 4.0.4'
-    - rvm: 1.9.3
-      env: RAILS_VERSION=4-0-stable
-
-    # Rails 3.2 Builds < 2.4
-    - rvm: 2.3.7
-      env: RAILS_VERSION='~> 3.2.17'
-    - rvm: 2.3.7
-      env: RAILS_VERSION=3-2-stable
-    - rvm: 2.2.10
-      env: RAILS_VERSION='~> 3.2.17'
-    - rvm: 2.2.10
-      env: RAILS_VERSION=3-2-stable
-    - rvm: 2.1.10
-      env: RAILS_VERSION='~> 3.2.17'
-    - rvm: 2.1.10
-      env: RAILS_VERSION=3-2-stable
-    - rvm: 2.0.0
-      env: RAILS_VERSION='~> 3.2.17'
-    - rvm: 2.0.0
-      env: RAILS_VERSION=3-2-stable
-    - rvm: 1.9.3
-      env: RAILS_VERSION='~> 3.2.17'
-    - rvm: 1.9.3
-      env: RAILS_VERSION=3-2-stable
-    - rvm: 1.9.2
-      env: RAILS_VERSION='~> 3.2.17'
-    - rvm: 1.9.2
-      env: RAILS_VERSION=3-2-stable
-    - rvm: 1.8.7
-      env: RAILS_VERSION='~> 3.2.17'
-    - rvm: 1.8.7
-      env: RAILS_VERSION=3-2-stable
-
-    # Rails 3.1 Builds, < 2.2
-    - rvm: 2.1.10
-      env: RAILS_VERSION='~> 3.1.12'
-    - rvm: 2.0.0
-      env: RAILS_VERSION='~> 3.1.12'
-    - rvm: 1.9.3
-      env: RAILS_VERSION='~> 3.1.12'
-    - rvm: 1.9.2
-      env: RAILS_VERSION='~> 3.1.12'
-    - rvm: 1.8.7
-      env: RAILS_VERSION='~> 3.1.12'
-
-    # Rails 3.0 Builds, < 2
-    - rvm: 1.9.3
-      env: RAILS_VERSION='~> 3.0.20'
-    - rvm: 1.9.2
-      env: RAILS_VERSION='~> 3.0.20'
-    - rvm: 1.8.7
-      env: RAILS_VERSION='~> 3.0.20'
-
-  allow_failures:
-    - rvm: 2.6.3
-      env: RAILS_VERSION=master
-    - rvm: 2.5.3
-      env: RAILS_VERSION=master
-    - rvm: 2.4.4
-      env: RAILS_VERSION=master
   fast_finish: true
-
-branches:
-  only:
-    - master
-    - /^\d+-\d+-maintenance$/

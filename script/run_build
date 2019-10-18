@@ -29,13 +29,7 @@ if style_and_lint_enforced; then
 fi
 
 if is_mri; then
-  # As of 2019-09-24 this causes a huge log due to a cicular dependency
-  # disable for now
-  if is_not_mri_193; then
-    fold "one-by-one specs" run_specs_one_by_one
-  else
-    echo "Skipping one-by-one specs due to issue on 1.9.3"
-  fi
+  fold "one-by-one specs" run_specs_one_by_one
   run_all_spec_suites
 else
   echo "Skipping the rest of the build on non-MRI rubies"

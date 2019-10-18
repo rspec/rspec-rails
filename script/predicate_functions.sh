@@ -33,18 +33,6 @@ function is_mri_192 {
   fi
 }
 
-function is_not_mri_193 {
-  if is_mri; then
-    if ruby -e "exit(RUBY_VERSION == '1.9.3')"; then
-      return 1
-    else
-      return 0
-    fi
-  else
-    return 0
-  fi
-}
-
 function is_mri_192_plus {
   if is_mri; then
     if ruby -e "exit(RUBY_VERSION.to_f > 1.8)"; then

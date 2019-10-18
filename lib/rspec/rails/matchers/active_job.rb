@@ -8,7 +8,7 @@ module RSpec
       #
       # @api private
       module ActiveJob
-        # rubocop: disable Style/ClassLength
+        # rubocop: disable Metrics/ClassLength
         # @private
         class Base < RSpec::Rails::Matchers::BaseMatcher
           def initialize
@@ -97,7 +97,7 @@ module RSpec
 
           def check(jobs)
             @matching_jobs, @unmatching_jobs = jobs.partition do |job|
-              if arguments_match?(job) && other_attributes_match?(job)
+              if job_match?(job) && arguments_match?(job) && other_attributes_match?(job)
                 args = deserialize_arguments(job)
                 @block.call(*args)
                 true
@@ -134,10 +134,15 @@ module RSpec
             end
           end
 
+          def job_match?(job)
+            @job ? @job == job[:job] : true
+          end
+
           def arguments_match?(job)
             if @args.any?
+              args = serialize_and_deserialize_arguments(@args)
               deserialized_args = deserialize_arguments(job)
-              RSpec::Mocks::ArgumentListMatcher.new(*@args).args_match?(*deserialized_args)
+              RSpec::Mocks::ArgumentListMatcher.new(*args).args_match?(*deserialized_args)
             else
               true
             end
@@ -151,7 +156,6 @@ module RSpec
             {}.tap do |attributes|
               attributes[:at]    = serialized_at if @at
               attributes[:queue] = @queue if @queue
-              attributes[:job]   = @job if @job
             end
           end
 
@@ -169,6 +173,13 @@ module RSpec
                                end
           end
 
+          def serialize_and_deserialize_arguments(args)
+            serialized = ::ActiveJob::Arguments.serialize(args)
+            ::ActiveJob::Arguments.deserialize(serialized)
+          rescue ::ActiveJob::SerializationError
+            args
+          end
+
           def deserialize_arguments(job)
             ::ActiveJob::Arguments.deserialize(job[:args])
           rescue ::ActiveJob::DeserializationError
@@ -179,7 +190,7 @@ module RSpec
             ::ActiveJob::Base.queue_adapter
           end
         end
-        # rubocop: enable Style/ClassLength
+        # rubocop: enable Metrics/ClassLength
 
         # @private
         class HaveEnqueuedJob < Base
@@ -310,6 +321,7 @@ module RSpec
       # @private
       def check_active_job_adapter
         return if ::ActiveJob::QueueAdapters::TestAdapter === ::ActiveJob::Base.queue_adapter
+
         raise StandardError, "To use ActiveJob matchers set `ActiveJob::Base.queue_adapter = :test`"
       end
     end

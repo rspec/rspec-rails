@@ -68,7 +68,7 @@ $ bin/cucumber
 
 ## YARD documentation
 
-RSpec uses [YARD](https://yardoc.org/) for API documentation on the [rspec.info site](http://rspec.info/).
+RSpec uses [YARD](https://yardoc.org/) for API documentation on the [rspec.info site](https://rspec.info/).
 Our commitment to [SemVer](https://semver.org) requires that we explicitly
 declare our public API, and our build uses YARD to ensure that every
 class, module and method has either been labeled `@private` or has at

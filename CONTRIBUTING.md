@@ -50,3 +50,21 @@ immediately. These are good ones to tackle to help us actively fix bugs.
 Maintenance branches are how we manage the different supported point releases
 of RSpec. As such, while they might look like good candidates to merge into
 master, please do not open pull requests to merge them.
+
+## How do the cukes work?
+
+The cucumber features for RSpec rails document how it works, but are also quasi
+executable tests for the framework. They execute in the context of a pre-setup
+Rails app.
+
+1. Before the cucumber specs run, the directory `tmp/aruba` is cleared
+2. If the example app hasn't already been created,
+   `bundle exec rake generate:app generate:stuff` is executed.
+3. The example app is copied in to `tmp/aruba`
+4. Everything in `tmp/aruba/spec/*` is deleted apart from `spec/spec_helper.rb` and
+   `spec/rails_helper.rb`
+5. the cucumber suite executes, creating files in that app and executing them
+
+The best way to debug the app is to run a failing cucumber feature, which will
+leave the test files intact in `tmp/aruba`, then you can cd in to that director
+and run it in the bundle context of the aruba app.

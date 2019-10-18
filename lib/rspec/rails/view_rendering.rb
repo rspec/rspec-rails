@@ -56,8 +56,19 @@ module RSpec
               template.identifier,
               EmptyTemplateHandler,
               :virtual_path => template.virtual_path,
-              :format => template.formats
+              :format => template_format(template),
+              :locals => []
             )
+          end
+        end
+
+        if ::Rails::VERSION::STRING >= '6'
+          def self.template_format(template)
+            template.format
+          end
+        else
+          def self.template_format(template)
+            template.formats
           end
         end
 
@@ -91,7 +102,7 @@ module RSpec
         #
         # @private
         class FileSystemResolver < ::ActionView::FileSystemResolver
-        private
+          private
 
           def find_templates(*args)
             templates = super
@@ -102,7 +113,7 @@ module RSpec
 
       # @private
       class EmptyTemplateHandler
-        def self.call(_template)
+        def self.call(_template, _source = nil)
           ::Rails.logger.info("  Template rendering was prevented by rspec-rails. Use `render_views` to verify rendered view contents if necessary.")
 
           %("")

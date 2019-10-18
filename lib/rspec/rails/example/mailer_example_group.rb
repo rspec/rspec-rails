@@ -22,7 +22,7 @@ if defined?(ActionMailer)
         included do
           include ::Rails.application.routes.url_helpers
           options = ::Rails.configuration.action_mailer.default_url_options
-          options.each { |key, value| default_url_options[key] = value } if options
+          options&.each { |key, value| default_url_options[key] = value }
         end
 
         # Class-level DSL for mailer specs.

@@ -2,6 +2,11 @@ begin
   require "active_job"
 rescue LoadError # rubocop:disable Lint/HandleExceptions
 end
+begin
+  require "action_cable"
+rescue LoadError # rubocop:disable Lint/HandleExceptions
+end
+
 require "rails/version"
 
 require "rspec/rails/feature_check"
@@ -25,5 +30,11 @@ end
 Given /file fixtures are available/ do
   if !RSpec::Rails::FeatureCheck.has_file_fixture?
     pending "file fixtures are not available"
+  end
+end
+
+Given /action cable testing is available/ do
+  if !RSpec::Rails::FeatureCheck.has_action_cable_testing?
+    pending "Action Cable testing is not available"
   end
 end

@@ -90,4 +90,41 @@ RSpec.describe Rspec::Generators::ControllerGenerator, :type => :generator do
       end
     end
   end
+
+  describe 'routing spec' do
+    subject { file('spec/routing/posts_routing_spec.rb') }
+
+    describe 'with no flag' do
+      before do
+        run_generator %w(posts seek and destroy)
+      end
+      it { is_expected.not_to exist }
+    end
+
+    describe 'with --routing-specs  flag' do
+      describe 'without action parameter' do
+        before do
+          run_generator %w(posts --routing-specs)
+        end
+        it { is_expected.not_to exist }
+      end
+
+      describe 'with action parameter' do
+        before { run_generator %w(posts seek --routing-specs) }
+
+        it { is_expected.to contain(/require 'rails_helper'/) }
+        it { is_expected.to contain(/^RSpec.describe 'PostsController', #{type_metatag(:routing)}/) }
+        it { is_expected.to contain(/describe 'routing'/) }
+        it { is_expected.to contain(/it 'routes to #seek'/) }
+        it { is_expected.to contain(/expect\(:get => "\/posts\/seek"\).to route_to\("posts#seek"\)/) }
+      end
+    end
+
+    describe 'with --no-routing-specs flag' do
+      before do
+        run_generator %w(posts seek and destroy --no-routing_specs)
+      end
+      it { is_expected.not_to exist }
+    end
+  end
 end

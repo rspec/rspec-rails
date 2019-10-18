@@ -111,6 +111,13 @@ begin
 rescue LoadError
 end
 
+begin
+  require 'action_cable'
+  require 'action_cable/test_helper'
+  generate('channel chat')
+rescue LoadError
+end
+
 file "app/views/things/custom_action.html.erb",
      "This is a template for a custom action.",
      :force => true

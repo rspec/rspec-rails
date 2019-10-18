@@ -1,4 +1,4 @@
-require 'nokogiri/version'
+require 'nokogiri'
 
 rspec_rails_repo_path = File.expand_path("../../", __FILE__)
 rspec_dependencies_gemfile = File.join(rspec_rails_repo_path, 'Gemfile-rspec-dependencies')
@@ -23,16 +23,25 @@ in_root do
   gsub_file "Gemfile", /.*debugger.*/, ''
   gsub_file "Gemfile", /.*byebug.*/, "gem 'byebug', '~> 9.0.6'"
   gsub_file "Gemfile", /.*puma.*/, ""
-  gsub_file "Gemfile", /.*sqlite3.*/, "gem 'sqlite3', '~> 1.3.6'"
+  gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 1.3.6'"
+  gsub_file "Gemfile", /.*bootsnap.*/, ""
   if RUBY_VERSION < '2.2.2'
     gsub_file "Gemfile", /.*rdoc.*/, "gem 'rdoc', '< 6'"
   end
 
   if Rails::VERSION::STRING >= '5.0.0'
-    append_to_file('Gemfile', "gem 'rails-controller-testing', :git => 'https://github.com/rails/rails-controller-testing'\n")
+    append_to_file('Gemfile', "gem 'rails-controller-testing'\n")
+  end
+
+  if Rails::VERSION::STRING >= '6'
+    gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 1.4'"
+    gsub_file "Gemfile", /.*rails-controller-testing.*/, "gem 'rails-controller-testing', git: 'https://github.com/rails/rails-controller-testing'"
   end
 
   if Rails::VERSION::STRING >= "5.1.0"
+    if RUBY_VERSION < "2.4"
+      gsub_file "Gemfile", /.*capybara.*/, "gem 'capybara', '~> 3.15.0'"
+    end
     if Rails::VERSION::STRING >= "5.2.0" && RUBY_VERSION < '2.3.0'
       gsub_file "Gemfile", /.*chromedriver-helper.*/, "gem 'webdrivers', '< 4.0.0'"
     else
@@ -46,7 +55,11 @@ in_root do
 
   # Nokogiri version is pinned in rspec-rails' Gemfile since it tend to cause installation problems
   # on Travis CI, so we pin nokogiri in this example app also.
-  append_to_file 'Gemfile', "gem 'nokogiri', '#{Nokogiri::VERSION}'\n"
+  if RUBY_ENGINE != "jruby"
+    append_to_file 'Gemfile', "gem 'nokogiri', '#{Nokogiri::VERSION}'\n"
+  else
+    gsub_file "Gemfile", /.*jdbc.*/, ""
+  end
 
   # Use our version of RSpec and Rails
   append_to_file 'Gemfile', <<-EOT.gsub(/^ +\|/, '')

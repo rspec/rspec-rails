@@ -1,13 +1,8 @@
 module RSpec
   module Rails
     # @private
-    # Disable some cops until https://github.com/bbatsov/rubocop/issues/1310
-    # rubocop:disable Style/IndentationConsistency
     module FeatureCheck
-    # rubocop:disable Style/IndentationWidth
-    module_function
-      # rubocop:enable Style/IndentationWidth
-
+      module_function
       def can_check_pending_migrations?
         has_active_record_migration? &&
           ::ActiveRecord::Migration.respond_to?(:check_pending!)
@@ -38,9 +33,25 @@ module RSpec
         has_action_mailer? && defined?(::ActionMailer::Preview)
       end
 
+      def has_action_cable_testing?
+        defined?(::ActionCable) && ActionCable::VERSION::MAJOR >= 6
+      end
+
       def has_action_mailer_show_preview?
         has_action_mailer_preview? &&
           ::ActionMailer::Base.respond_to?(:show_previews=)
+      end
+
+      def has_action_mailer_parameterized?
+        has_action_mailer? && defined?(::ActionMailer::Parameterized)
+      end
+
+      def has_action_mailer_unified_delivery?
+        has_action_mailer? && defined?(::ActionMailer::MailDeliveryJob)
+      end
+
+      def has_action_mailbox?
+        defined?(::ActionMailbox)
       end
 
       def has_1_9_hash_syntax?
@@ -59,6 +70,5 @@ module RSpec
         end
       end
     end
-    # rubocop:enable Style/IndentationConsistency
   end
 end

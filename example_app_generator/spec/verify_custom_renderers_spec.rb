@@ -37,7 +37,7 @@ RSpec.describe "template rendering", :type => :controller do
         expect(response).to render_template(:bar)
       end
 
-      it "renders an empty string" do
+      it "renders an empty string", :skip => Rails::VERSION::STRING.to_f >= 6.0 do
         get :index
 
         expect(response.body).to eq("")
@@ -150,9 +150,10 @@ RSpec.describe "template rendering", :type => :controller do
       ActionView::Template.new(
         "",
         name,
-        lambda { |_template| %("Dynamic template with path '#{_template.virtual_path}'") },
+        lambda { |_template, _source = nil| %("Dynamic template with path '#{_template.virtual_path}'") },
         :virtual_path => path,
-        :format => :html
+        :format => :html,
+        :locals => []
       )
     end
   end

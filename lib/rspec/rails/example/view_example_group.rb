@@ -129,14 +129,35 @@ module RSpec
 
         def _default_render_options
           if ::Rails::VERSION::STRING >= '3.2'
-            # pluck the handler, format, and locale out of, eg, posts/index.de.html.haml
-            template, *components   = _default_file_to_render.split('.')
-            handler, format, locale = *components.reverse
+            formats = if ActionView::Template::Types.respond_to?(:symbols)
+                        ActionView::Template::Types.symbols
+                      else
+                        [:html, :text, :js, :css, :xml, :json].map(&:to_s)
+                      end.map { |x| Regexp.escape(x) }.join("|")
 
-            render_options = { :template => template }
-            render_options[:handlers] = [handler] if handler
-            render_options[:formats] = [format.to_sym] if format
-            render_options[:locales] = [locale] if locale
+            handlers = ActionView::Template::Handlers.extensions.map { |x| Regexp.escape(x) }.join("|")
+            locales = "[a-z]{2}(?:-[A-Z]{2})?"
+            variants = "[^.]*"
+            path_regex = %r{
+            \A
+            (?<template>.*?)
+            (?:\.(?<locale>#{locales}))??
+              (?:\.(?<format>#{formats}))??
+              (?:\+(?<variant>#{variants}))??
+              (?:\.(?<handler>#{handlers}))?
+              \z
+            }x
+
+            # This regex should always find a match.
+            # Worst case, everything will be nil, and :template will just be
+            # the original string.
+            match = path_regex.match(_default_file_to_render)
+
+            render_options = { :template => match[:template] }
+            render_options[:handlers] = [match[:handler]] if match[:handler]
+            render_options[:formats] = [match[:format].to_sym] if match[:format]
+            render_options[:locales] = [match[:locale]] if match[:locale]
+            render_options[:variants] = [match[:variant]] if match[:variant]
 
             render_options
           else
