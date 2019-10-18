@@ -28,6 +28,8 @@ Bug Fixes:
 * `ActionView::FixtureResolver#hash` has been renamed to `ActionView::FixtureResolver#data`.
   (Penelope Phippen, #2076)
 * Add missing require for `have_enqueued_mail` matcher.  (Ignatius Reza, #2117)
+* Prevent `driven_by(:selenium)` being called due to hook precedence.
+  (Takumi Shotoku, #2188)
 
 Breaking Changes:
 
