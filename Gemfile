@@ -22,7 +22,11 @@ platforms :jruby do
   gem "jruby-openssl"
 end
 
-gem 'sqlite3', '~> 1.3.6'
+if RAILS_VERSION >= '6.0.0'
+  gem 'sqlite3', '~> 1.4.0'
+else
+  gem 'sqlite3', '~> 1.3.6'
+end
 
 if RUBY_VERSION >= '2.4.0'
   gem 'json', '>= 2.0.2'
