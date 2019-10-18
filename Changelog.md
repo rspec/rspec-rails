@@ -1,15 +1,19 @@
-### 4.0 Development
-[Full Changelog](http://github.com/rspec/rspec-rails/compare/master...4-0-dev)
+### Development
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.9.0...master)
 
 Enhancements:
 
+* Adds support for Rails 6. (Penelope Phippen, Benoit Tigeot, Jon Rowe, #2071)
 * Adds support for JRuby on Rails 5.2 and 6
 * Add support for parameterised mailers (Ignatius Reza, #2125)
 * Add ActionMailbox spec helpers and test type (James Dabbs, #2119)
 * Add ActionCable spec helpers and test type (Vladimir Dementyev, #2113)
 * Add support for partial args when using `have_enqueued_mail`
-  (Ignatius Reza, #2125)
+  (Ignatius Reza, #2118, #2125)
 * Add support for time arguments for `have_enqueued_job` (@alpaca-tc, #2157)
+* Improve path parsing in view specs render options. (John Hawthorn, #2115)
+* Add routing spec template as an option for generating controller specs.
+  (David Revelo, #2134)
 
 Bug Fixes:
 
@@ -21,14 +25,14 @@ Bug Fixes:
   `ActionView::Template#format`(Seb Jacobs, #2100)
 * Replace `before_teardown` as well as `after_teardown` to ensure screenshots
   are generated correctly. (Jon Rowe, #2164)
+* `ActionView::FixtureResolver#hash` has been renamed to `ActionView::FixtureResolver#data`.
+  (Penelope Phippen, #2076)
+* Add missing require for `have_enqueued_mail` matcher.  (Ignatius Reza, #2117)
 
 Breaking Changes:
 
 * Drops support for Rails below 5.0
 * Drops support for Ruby below 2.3
-
-### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.9.0...master)
 
 ### 3.9.0 / 2019-10-08
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.8.3...v3.9.0)
