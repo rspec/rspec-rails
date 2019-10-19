@@ -19,68 +19,15 @@ module RSpec
     end
     private_class_method :disable_testunit_autorun
 
-    if ::Rails::VERSION::STRING >= '4.1.0'
-      if defined?(Kernel.gem)
-        gem 'minitest'
-      else
-        require 'minitest'
-      end
-      require 'minitest/assertions'
-      # Constant aliased to either Minitest or TestUnit, depending on what is
-      # loaded.
-      Assertions = Minitest::Assertions
-    elsif RUBY_VERSION >= '2.2.0'
-      # Minitest / TestUnit has been removed from ruby core. However, we are
-      # on an old Rails version and must load the appropriate gem
-      if ::Rails::VERSION::STRING >= '4.0.0'
-        # ActiveSupport 4.0.x has the minitest '~> 4.2' gem as a dependency
-        # This gem has no `lib/minitest.rb` file.
-        gem 'minitest' if defined?(Kernel.gem)
-        require 'minitest/unit'
-        Assertions = MiniTest::Assertions
-      elsif ::Rails::VERSION::STRING >= '3.2.21'
-        # TODO: Change the above check to >= '3.2.22' once it's released
-        begin
-          # Test::Unit "helpfully" sets up autoload for its `AutoRunner`.
-          # While we do not reference it directly, when we load the `TestCase`
-          # classes from AS (ActiveSupport), AS kindly references `AutoRunner`
-          # for everyone.
-          #
-          # To handle this we need to pre-emptively load 'test/unit' and make
-          # sure the version installed has `AutoRunner` (the 3.x line does to
-          # date). If so, we turn the auto runner off.
-          require 'test/unit'
-          require 'test/unit/assertions'
-          disable_testunit_autorun
-        rescue LoadError => e
-          raise LoadError, <<-ERR.squish, e.backtrace
-            Ruby 2.2+ has removed test/unit from the core library. Rails
-            requires this as a dependency. Please add test-unit gem to your
-            Gemfile: `gem 'test-unit', '~> 3.0'` (#{e.message})"
-          ERR
-        end
-        Assertions = Test::Unit::Assertions
-      else
-        abort <<-MSG.squish
-          Ruby 2.2+ is not supported on Rails #{::Rails::VERSION::STRING}.
-          Check the Rails release notes for the appropriate update with
-          support.
-        MSG
-      end
+    if defined?(Kernel.gem)
+      gem 'minitest'
     else
-      begin
-        require 'test/unit/assertions'
-      rescue LoadError
-        # work around for Rubinius not having a std std-lib
-        require 'rubysl-test-unit' if defined?(RUBY_ENGINE) && RUBY_ENGINE == 'rbx'
-        require 'test/unit/assertions'
-      end
-      # Turn off test unit's auto runner for those using the gem
-      disable_testunit_autorun
-      # Constant aliased to either Minitest or TestUnit, depending on what is
-      # loaded.
-      Assertions = Test::Unit::Assertions
+      require 'minitest'
     end
+    require 'minitest/assertions'
+    # Constant aliased to either Minitest or TestUnit, depending on what is
+    # loaded.
+    Assertions = Minitest::Assertions
 
     # @private
     class AssertionDelegator < Module
@@ -217,14 +164,8 @@ module RSpec
 
         # Starting on Rails 4, Minitest is the default testing framework so no
         # need to add TestUnit specific methods.
-        if ::Rails::VERSION::STRING >= '4.0.0'
-          def test_unit_specific_methods
-            []
-          end
-        else
-          def test_unit_specific_methods
-            [:build_message]
-          end
+        def test_unit_specific_methods
+          []
         end
       end
 

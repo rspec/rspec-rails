@@ -15,20 +15,9 @@ using_source_path(File.expand_path('..', __FILE__)) do
   initializer 'action_mailer.rb', <<-CODE
   require "action_view/base"
     if ENV['DEFAULT_URL']
-      if ::Rails::VERSION::STRING < '4.1'
-        ExampleApp::Application.configure do
-          config.action_mailer.default_url_options = { :host => ENV['DEFAULT_URL'] }
-        end
-      else
-        Rails.application.configure do
-          config.action_mailer.default_url_options = { :host => ENV['DEFAULT_URL'] }
-        end
+      ExampleApp::Application.configure do
+        config.action_mailer.default_url_options = { :host => ENV['DEFAULT_URL'] }
       end
-    end
-
-    if defined?(ActionMailer) && Rails::VERSION::MAJOR < 4
-      # This will force the loading of ActionMailer settings
-      ActionMailer::Base.smtp_settings
     end
   CODE
   gsub_file 'config/initializers/action_mailer.rb',

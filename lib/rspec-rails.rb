@@ -47,9 +47,7 @@ module RSpec
       def config_preview_path?(options)
         # We cannot use `respond_to?(:show_previews)` here as it will always
         # return `true`.
-        if ::Rails::VERSION::STRING < '4.2'
-          ::Rails.env.development?
-        elsif options.show_previews.nil?
+        if options.show_previews.nil?
           options.show_previews = ::Rails.env.development?
         else
           options.show_previews
@@ -74,7 +72,7 @@ module RSpec
         # not respond to the method. However, we cannot use
         # `config.action_mailer.respond_to?(:preview_path)` here as it will
         # always return `true`.
-        config.respond_to?(:action_mailer) && ::Rails::VERSION::STRING > '4.1'
+        config.respond_to?(:action_mailer)
       end
     end
   end

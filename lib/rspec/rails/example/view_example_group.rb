@@ -128,41 +128,37 @@ module RSpec
       private
 
         def _default_render_options
-          if ::Rails::VERSION::STRING >= '3.2'
-            formats = if ActionView::Template::Types.respond_to?(:symbols)
-                        ActionView::Template::Types.symbols
-                      else
-                        [:html, :text, :js, :css, :xml, :json].map(&:to_s)
-                      end.map { |x| Regexp.escape(x) }.join("|")
+          formats = if ActionView::Template::Types.respond_to?(:symbols)
+                      ActionView::Template::Types.symbols
+                    else
+                      [:html, :text, :js, :css, :xml, :json].map(&:to_s)
+                    end.map { |x| Regexp.escape(x) }.join("|")
 
-            handlers = ActionView::Template::Handlers.extensions.map { |x| Regexp.escape(x) }.join("|")
-            locales = "[a-z]{2}(?:-[A-Z]{2})?"
-            variants = "[^.]*"
-            path_regex = %r{
-            \A
-            (?<template>.*?)
-            (?:\.(?<locale>#{locales}))??
-              (?:\.(?<format>#{formats}))??
-              (?:\+(?<variant>#{variants}))??
-              (?:\.(?<handler>#{handlers}))?
-              \z
-            }x
+          handlers = ActionView::Template::Handlers.extensions.map { |x| Regexp.escape(x) }.join("|")
+          locales = "[a-z]{2}(?:-[A-Z]{2})?"
+          variants = "[^.]*"
+          path_regex = %r{
+          \A
+          (?<template>.*?)
+          (?:\.(?<locale>#{locales}))??
+            (?:\.(?<format>#{formats}))??
+            (?:\+(?<variant>#{variants}))??
+            (?:\.(?<handler>#{handlers}))?
+            \z
+          }x
 
-            # This regex should always find a match.
-            # Worst case, everything will be nil, and :template will just be
-            # the original string.
-            match = path_regex.match(_default_file_to_render)
+          # This regex should always find a match.
+          # Worst case, everything will be nil, and :template will just be
+          # the original string.
+          match = path_regex.match(_default_file_to_render)
 
-            render_options = { :template => match[:template] }
-            render_options[:handlers] = [match[:handler]] if match[:handler]
-            render_options[:formats] = [match[:format].to_sym] if match[:format]
-            render_options[:locales] = [match[:locale]] if match[:locale]
-            render_options[:variants] = [match[:variant]] if match[:variant]
+          render_options = { :template => match[:template] }
+          render_options[:handlers] = [match[:handler]] if match[:handler]
+          render_options[:formats] = [match[:format].to_sym] if match[:format]
+          render_options[:locales] = [match[:locale]] if match[:locale]
+          render_options[:variants] = [match[:variant]] if match[:variant]
 
-            render_options
-          else
-            { :template => _default_file_to_render }
-          end
+          render_options
         end
 
         def _path_parts
