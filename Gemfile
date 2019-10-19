@@ -21,13 +21,19 @@ platforms :jruby do
 end
 
 RAILS_VERSION ||= ""
-match = /(\d+)(\.|-)(\d+)/.match(RAILS_VERSION)
-if match.nil?
-  # will be nil if master
+case RAILS_VERSION
+when /master/
   MAJOR = 6
   MINOR = 0
+when /stable/
+  MAJOR = 6
+  MINOR = 0
+when nil, false, ""
+  MAJOR = 5
+  MINOR = 1
 else
-  MAJOR,MINOR = match.captures.map(&:to_i).compact
+  match = /(\d+)(\.|-)(\d+)/.match(RAILS_VERSION)
+  MAJOR, MINOR = match.captures.map(&:to_i).compact
 end
 
 if MAJOR >= 6
