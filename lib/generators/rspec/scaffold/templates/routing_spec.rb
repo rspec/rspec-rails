@@ -34,12 +34,10 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:routing
       expect(:put => "/<%= ns_table_name %>/1").to route_to("<%= ns_table_name %>#update", :id => "1")
     end
 
-<% if Rails::VERSION::STRING > '4' -%>
     it "routes to #update via PATCH" do
       expect(:patch => "/<%= ns_table_name %>/1").to route_to("<%= ns_table_name %>#update", :id => "1")
     end
 
-<% end -%>
     it "routes to #destroy" do
       expect(:delete => "/<%= ns_table_name %>/1").to route_to("<%= ns_table_name %>#destroy", :id => "1")
     end

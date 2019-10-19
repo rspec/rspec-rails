@@ -9,7 +9,7 @@ module RSpec
     module RailsExampleGroup
       extend ActiveSupport::Concern
       include RSpec::Rails::SetupAndTeardownAdapter
-      include RSpec::Rails::MinitestLifecycleAdapter if ::Rails::VERSION::STRING >= '4'
+      include RSpec::Rails::MinitestLifecycleAdapter
       include RSpec::Rails::MinitestAssertionAdapter
       include RSpec::Rails::FixtureSupport
     end

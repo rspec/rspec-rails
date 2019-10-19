@@ -19,9 +19,6 @@ module ExampleAppHooks
       copy_file 'spec/verify_custom_renderers_spec.rb'
       copy_file 'spec/verify_fixture_warning_spec.rb'
       run('bin/rake db:migrate')
-      if ::Rails::VERSION::STRING.to_f < 4.1
-        run('bin/rake db:migrate RAILS_ENV=test')
-      end
     end
 
     def skip_active_record?
@@ -93,7 +90,6 @@ generate('mailer Notifications signup')
 generate('model thing name:string')
 generate('helper things')
 generate('scaffold widget name:string category:string instock:boolean foo_id:integer bar_id:integer --force')
-generate('observer widget') if ::Rails::VERSION::STRING.to_f < 4.0
 generate('scaffold gadget') # scaffold with no attributes
 generate('scaffold ticket original_price:float discounted_price:float')
 generate('scaffold admin/account name:string') # scaffold with nested resource

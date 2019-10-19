@@ -5,7 +5,6 @@ when /master/
   gem "arel", :git => "https://github.com/rails/arel.git"
   gem "journey", :git => "https://github.com/rails/journey.git"
   gem "activerecord-deprecated_finders", :git => "https://github.com/rails/activerecord-deprecated_finders.git"
-  gem "rails-observers", :git => "https://github.com/rails/rails-observers"
   gem "web-console", :git => "https://github.com/rails/web-console", :group => :development
   gem 'coffee-rails', :git => "https://github.com/rails/coffee-rails.git"
   gem 'rack', :git => 'https://github.com/rack/rack.git'
