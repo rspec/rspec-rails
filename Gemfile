@@ -20,7 +20,6 @@ platforms :jruby do
   gem "jruby-openssl"
 end
 
-RAILS_VERSION ||= ""
 case RAILS_VERSION
 when /master/
   MAJOR = 6
