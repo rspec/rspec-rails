@@ -1,4 +1,4 @@
-# This file was generated on 2019-07-24T15:33:53+02:00 from the rspec-dev repo.
+# This file was generated on 2019-10-20T12:45:58+01:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 # This file contains defaults for RSpec projects. Individual projects
@@ -22,7 +22,7 @@ CaseEquality:
   Enabled: false
 
 # Warns when the class is excessively long.
-Metrics/ClassLength:
+ClassLength:
   Max: 100
 
 CollectionMethods:
@@ -66,7 +66,7 @@ LineLength:
   Max: 100
 
 # Over time we'd like to get this down, but this is what we're at now.
-Metrics/MethodLength:
+MethodLength:
   Max: 15
 
 # Who cares what we call the argument for binary operator methods?
@@ -115,10 +115,7 @@ StringLiterals:
 Style/SpecialGlobalVars:
   Enabled: false
 
-Style/TrailingCommaInArrayLiteral:
-  Enabled: false
-
-Style/TrailingCommaInHashLiteral:
+Style/TrailingCommaInLiteral:
   Enabled: false
 
 Style/TrailingCommaInArguments:
@@ -135,7 +132,7 @@ Style/ParallelAssignment:
 Layout/EmptyLineBetweenDefs:
   Enabled: false
 
-Layout/IndentFirstArgument:
+Layout/FirstParameterIndentation:
   Enabled: false
 
 Naming/ConstantName:
@@ -153,9 +150,6 @@ Style/EmptyMethod:
 Style/FormatStringToken:
   Enabled: false
 
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
 Style/GuardClause:
   Enabled: false
 
@@ -168,10 +162,7 @@ Style/IfUnlessModifier:
 Style/IfUnlessModifierOfIfUnless:
   Enabled: false
 
-Style/MethodMissingSuper:
-  Enabled: false
-
-Style/MissingRespondToMissing:
+Style/MethodMissing:
   Enabled: false
 
 Style/MixinUsage:
@@ -252,13 +243,18 @@ Style/StderrPuts:
 Style/TernaryParentheses:
   Enabled: false
 
+# This could likely be enabled, but it had a false positive on rspec-mocks
+# (suggested change was not behaviour preserving) so I don't trust it.
+Performance/HashEachMethods:
+  Enabled: false
+
 Naming/HeredocDelimiterNaming:
   Enabled: false
 
 Layout/EmptyLineAfterMagicComment:
   Enabled: false
 
-Layout/IndentFirstArrayElement:
+Layout/IndentArray:
   Enabled: false
 
 Layout/IndentAssignment:
@@ -310,7 +306,4 @@ Style/TrailingUnderscoreVariable:
   Enabled: false
 
 Layout/EmptyLinesAroundAccessModifier:
-  Enabled: false
-
-Metrics/AbcSize:
   Enabled: false
