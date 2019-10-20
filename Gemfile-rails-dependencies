@@ -25,9 +25,8 @@ when /stable$/
     gem rails_gem, :git => "https://github.com/rails/rails.git", :branch => version
   end
 when nil, false, ""
-  gem "rails", "~> 5.1.0"
+  gem "rails", "~> 5.0.0"
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
-  gem "puma"
 else
   gem "rails", version
 

@@ -29,7 +29,7 @@ when /stable/
   MINOR = 0
 when nil, false, ""
   MAJOR = 5
-  MINOR = 1
+  MINOR = 0
 else
   match = /(\d+)(\.|-)(\d+)/.match(RAILS_VERSION)
   MAJOR, MINOR = match.captures.map(&:to_i).compact
