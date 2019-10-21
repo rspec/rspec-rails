@@ -1,4 +1,4 @@
-# This file was generated on 2019-07-24T15:33:53+02:00 from the rspec-dev repo.
+# This file was generated on 2019-10-21T09:35:11+01:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -187,7 +187,10 @@ function run_all_spec_suites {
   fold "rspec-core specs" run_spec_suite_for "rspec-core"
   fold "rspec-expectations specs" run_spec_suite_for "rspec-expectations"
   fold "rspec-mocks specs" run_spec_suite_for "rspec-mocks"
-  fold "rspec-rails specs" run_spec_suite_for "rspec-rails"
+
+  if rspec_rails_compatible; then
+    fold "rspec-rails specs" run_spec_suite_for "rspec-rails"
+  fi
 
   if rspec_support_compatible; then
     fold "rspec-support specs" run_spec_suite_for "rspec-support"
