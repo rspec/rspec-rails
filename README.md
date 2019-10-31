@@ -35,7 +35,7 @@ Use **[`rspec-rails` 1.x][]** for Rails 2.x.
    # (requires master-branch versions of all related RSpec libraries)
    group :development, :test do
      %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
-       gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => 'master'
+       gem lib, git: "https://github.com/rspec/#{lib}.git", branch: 'master'
      end
    end
    ```

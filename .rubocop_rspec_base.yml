@@ -12,7 +12,7 @@ AccessModifierIndentation:
 Alias:
   Enabled: false
 
-AlignParameters:
+ParameterAlignment:
   EnforcedStyle: with_first_parameter
 
 # "Avoid the use of the case equality operator ==="
@@ -135,7 +135,7 @@ Style/ParallelAssignment:
 Layout/EmptyLineBetweenDefs:
   Enabled: false
 
-Layout/IndentFirstArgument:
+Layout/FirstArgumentIndentation:
   Enabled: false
 
 Naming/ConstantName:
@@ -258,13 +258,13 @@ Naming/HeredocDelimiterNaming:
 Layout/EmptyLineAfterMagicComment:
   Enabled: false
 
-Layout/IndentFirstArrayElement:
+Layout/FirstArrayElementIndentation:
   Enabled: false
 
-Layout/IndentAssignment:
+Layout/AssignmentIndentation:
   Enabled: false
 
-Layout/IndentHeredoc:
+Layout/HeredocIndentation:
   Enabled: false
 
 Layout/SpaceInsidePercentLiteralDelimiters:
