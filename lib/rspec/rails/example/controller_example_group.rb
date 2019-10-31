@@ -94,9 +94,9 @@ module RSpec
             self.routes = ActionDispatch::Routing::RouteSet.new.tap do |r|
               r.draw do
                 resources resource_name,
-                          :as => resource_as,
-                          :module => resource_module,
-                          :path => resource_path
+                          as: resource_as,
+                          module: resource_module,
+                          path: resource_path
               end
             end
           end
@@ -159,7 +159,7 @@ module RSpec
       #
       #         expect do
       #           bypass_rescue
-      #           get :show, :id => profile.id + 1
+      #           get :show, id: profile.id + 1
       #         end.to raise_error(/403 Forbidden/)
       #       end
       #     end

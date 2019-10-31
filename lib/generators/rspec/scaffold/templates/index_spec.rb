@@ -19,7 +19,7 @@ RSpec.describe "<%= ns_table_name %>/index", <%= type_metatag(:view) %> do
   it "renders a list of <%= ns_table_name %>" do
     render
 <% for attribute in output_attributes -%>
-    assert_select "tr>td", text: <%= value_for(attribute) %>.to_s, :count => 2
+    assert_select "tr>td", text: <%= value_for(attribute) %>.to_s, count: 2
 <% end -%>
   end
 end

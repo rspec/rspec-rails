@@ -2,7 +2,7 @@ module RSpec
   module Rails
     # @private
     module FixtureFileUploadSupport
-      delegate :fixture_file_upload, :to => :rails_fixture_file_wrapper
+      delegate :fixture_file_upload, to: :rails_fixture_file_wrapper
 
     private
 

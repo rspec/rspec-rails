@@ -59,11 +59,11 @@ RSpec.describe "Configuration" do
   context "adds settings" do
     include_examples "adds setting",
                      :infer_base_class_for_anonymous_controllers,
-                     :default => true
+                     default: true
 
     include_examples "adds setting",
                      :use_transactional_fixtures,
-                     :alias_with => :use_transactional_examples
+                     alias_with: :use_transactional_examples
 
     include_examples "adds setting", :use_instantiated_fixtures
 
@@ -131,7 +131,7 @@ RSpec.describe "Configuration" do
             "./#{location}/foos_spec.rb"
           )
           group = RSpec.describe("Arbitrary Description")
-          expect(group.metadata).to include(:type => type)
+          expect(group.metadata).to include(type: type)
         end
       end
     end
@@ -167,17 +167,17 @@ RSpec.describe "Configuration" do
     a_controller_class = Class.new
     stub_const "SomeController", a_controller_class
 
-    group = RSpec.describe(SomeController, :type => :controller)
+    group = RSpec.describe(SomeController, type: :controller)
 
     expect(group.controller_class).to be(a_controller_class)
     expect(group.new).to be_a(RSpec::Rails::ControllerExampleGroup)
   end
 
-  it "metadata `:type => :helper` sets up helper example groups" do
+  it "metadata `type: :helper` sets up helper example groups" do
     a_helper_module = Module.new
     stub_const "SomeHelper", a_helper_module
 
-    group = RSpec.describe(SomeHelper, :type => :helper)
+    group = RSpec.describe(SomeHelper, type: :helper)
 
     expect(
       group.determine_default_helper_class(:ignored)
@@ -185,16 +185,16 @@ RSpec.describe "Configuration" do
     expect(group.new).to be_a(RSpec::Rails::HelperExampleGroup)
   end
 
-  it "metadata `:type => :model` sets up model example groups" do
+  it "metadata `type: :model` sets up model example groups" do
     a_model_class = Class.new
     stub_const "SomeModel", a_model_class
 
-    group = RSpec.describe(SomeModel, :type => :model)
+    group = RSpec.describe(SomeModel, type: :model)
 
     expect(group.new).to be_a(RSpec::Rails::ModelExampleGroup)
   end
 
-  it "metadata `:type => :request` sets up request example groups" do
+  it "metadata `type: :request` sets up request example groups" do
     a_rails_app = double("Rails application")
     the_rails_module = Module.new
     allow(the_rails_module).to receive(:application) { a_rails_app }
@@ -202,33 +202,33 @@ RSpec.describe "Configuration" do
     stub_const "Rails", the_rails_module
     stub_const 'Rails::VERSION', version
 
-    group = RSpec.describe("Some Request API", :type => :request)
+    group = RSpec.describe("Some Request API", type: :request)
 
     expect(group.new.app).to be(a_rails_app)
     expect(group.new).to be_a(RSpec::Rails::RequestExampleGroup)
   end
 
-  it "metadata `:type => :routing` sets up routing example groups" do
+  it "metadata `type: :routing` sets up routing example groups" do
     a_controller_class = Class.new
     stub_const "SomeController", a_controller_class
 
-    group = RSpec.describe(SomeController, :type => :routing)
+    group = RSpec.describe(SomeController, type: :routing)
 
     expect(group).to respond_to(:routes)
     expect(group.new).to be_a(RSpec::Rails::RoutingExampleGroup)
   end
 
-  it "metadata `:type => :view` sets up view example groups" do
+  it "metadata `type: :view` sets up view example groups" do
     a_helper_module = Module.new
     stub_const "SomeControllerHelper", a_helper_module
 
-    group = RSpec.describe("some_controller/action.html.erb", :type => :view)
+    group = RSpec.describe("some_controller/action.html.erb", type: :view)
 
     expect(group._default_helper).to be(a_helper_module)
     expect(group.new).to be_a(RSpec::Rails::ViewExampleGroup)
   end
 
-  it "metadata `:type => :feature` sets up feature example groups" do
+  it "metadata `type: :feature` sets up feature example groups" do
     a_rails_app = double("Rails application")
     the_rails_module = Module.new
     allow(the_rails_module).to receive(:application) { a_rails_app }
@@ -236,7 +236,7 @@ RSpec.describe "Configuration" do
     stub_const "Rails", the_rails_module
     stub_const 'Rails::VERSION', version
 
-    group = RSpec.describe("Some feature description", :type => :feature)
+    group = RSpec.describe("Some feature description", type: :feature)
     example = group.new
 
     expect(example).to respond_to(:visit)
@@ -244,10 +244,10 @@ RSpec.describe "Configuration" do
   end
 
   if defined?(ActionMailer)
-    it "metadata `:type => :mailer` sets up mailer example groups" do
+    it "metadata `type: :mailer` sets up mailer example groups" do
       a_mailer_class = Class.new
       stub_const "SomeMailer", a_mailer_class
-      group = RSpec.describe(SomeMailer, :type => :mailer)
+      group = RSpec.describe(SomeMailer, type: :mailer)
       expect(group.mailer_class).to be(a_mailer_class)
       expect(group.new).to be_a(RSpec::Rails::MailerExampleGroup)
     end

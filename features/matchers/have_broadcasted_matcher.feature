@@ -104,7 +104,7 @@ Feature: have_broadcasted matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe ChatChannel, :type => :channel do
+      RSpec.describe ChatChannel, type: :channel do
         it "successfully subscribes" do
           user = User.new(42)
 
