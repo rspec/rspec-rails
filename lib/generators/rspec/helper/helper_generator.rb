@@ -4,7 +4,7 @@ module Rspec
   module Generators
     # @private
     class HelperGenerator < Base
-      class_option :helper_specs, :type => :boolean, :default => true
+      class_option :helper_specs, type: :boolean, default: true
 
       def generate_helper_spec
         return unless options[:helper_specs]

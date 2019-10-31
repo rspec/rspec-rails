@@ -16,12 +16,12 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:routing
 
 <% end -%>
     it "routes to #show" do
-      expect(get: "/<%= ns_table_name %>/1").to route_to("<%= ns_table_name %>#show", :id => "1")
+      expect(get: "/<%= ns_table_name %>/1").to route_to("<%= ns_table_name %>#show", id: "1")
     end
 
 <% unless options[:api] -%>
     it "routes to #edit" do
-      expect(get: "/<%= ns_table_name %>/1/edit").to route_to("<%= ns_table_name %>#edit", :id => "1")
+      expect(get: "/<%= ns_table_name %>/1/edit").to route_to("<%= ns_table_name %>#edit", id: "1")
     end
 
 <% end -%>
@@ -31,15 +31,15 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:routing
     end
 
     it "routes to #update via PUT" do
-      expect(put: "/<%= ns_table_name %>/1").to route_to("<%= ns_table_name %>#update", :id => "1")
+      expect(put: "/<%= ns_table_name %>/1").to route_to("<%= ns_table_name %>#update", id: "1")
     end
 
     it "routes to #update via PATCH" do
-      expect(patch: "/<%= ns_table_name %>/1").to route_to("<%= ns_table_name %>#update", :id => "1")
+      expect(patch: "/<%= ns_table_name %>/1").to route_to("<%= ns_table_name %>#update", id: "1")
     end
 
     it "routes to #destroy" do
-      expect(delete: "/<%= ns_table_name %>/1").to route_to("<%= ns_table_name %>#destroy", :id => "1")
+      expect(delete: "/<%= ns_table_name %>/1").to route_to("<%= ns_table_name %>#destroy", id: "1")
     end
   end
 end

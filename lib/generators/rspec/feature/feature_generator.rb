@@ -4,8 +4,8 @@ module Rspec
   module Generators
     # @private
     class FeatureGenerator < Base
-      class_option :feature_specs, :type => :boolean, :default => true,  :desc => "Generate feature specs"
-      class_option :singularize,   :type => :boolean, :default => false, :desc => "Singularize the generated feature"
+      class_option :feature_specs, type: :boolean, default: true,  desc: "Generate feature specs"
+      class_option :singularize,   type: :boolean, default: false, desc: "Singularize the generated feature"
 
       def generate_feature_spec
         return unless options[:feature_specs]

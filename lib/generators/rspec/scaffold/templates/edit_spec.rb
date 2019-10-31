@@ -5,7 +5,7 @@ RSpec.describe "<%= ns_table_name %>/edit", <%= type_metatag(:view) %> do
   before(:each) do
     @<%= ns_file_name %> = assign(:<%= ns_file_name %>, <%= class_name %>.create!(<%= '))' if output_attributes.empty? %>
 <% output_attributes.each_with_index do |attribute, attribute_index| -%>
-      :<%= attribute.name %> => <%= attribute.default.inspect %><%= attribute_index == output_attributes.length - 1 ? '' : ','%>
+      <%= attribute.name %>: <%= attribute.default.inspect %><%= attribute_index == output_attributes.length - 1 ? '' : ','%>
 <% end -%>
 <%= output_attributes.empty? ? "" : "    ))\n" -%>
   end
