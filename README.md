@@ -28,7 +28,7 @@ Use **[`rspec-rails` 1.x][]** for Rails 2.x.
    ```ruby
    # Run against the latest stable release
    group :development, :test do
-     gem 'rspec-rails', '~> 3.8'
+     gem 'rspec-rails', '~> 4.0'
    end
 
    # Or, run against the master branch
