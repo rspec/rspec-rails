@@ -211,10 +211,27 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       }.to have_enqueued_job.at(date)
     end
 
+    it "accepts composable matchers as an at date" do
+      future = 1.minute.from_now
+      slightly_earlier = 58.seconds.from_now
+      expect {
+        hello_job.set(:wait_until => slightly_earlier).perform_later
+      }.to have_enqueued_job.at(a_value_within(5.seconds).of(future))
+    end
+
     it "has an enqueued job when providing at of :no_wait and there is no wait" do
       expect {
         hello_job.perform_later
       }.to have_enqueued_job.at(:no_wait)
+    end
+
+    it "has an enqueued job when providing at and there is no wait" do
+      date = Date.tomorrow.noon
+      expect {
+        expect {
+          hello_job.perform_later
+        }.to have_enqueued_job.at(date)
+      }.to raise_error(/expected to enqueue exactly 1 jobs, at .+ but enqueued 0/)
     end
 
     it "has an enqueued job when not providing at and there is a wait" do
@@ -378,6 +395,14 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       expect {
         expect(heavy_lifting_job).not_to have_been_enqueued
       }.to raise_error(/expected not to enqueue at least 1 jobs, but enqueued 2/)
+    end
+
+    it "accepts composable matchers as an at date" do
+      future = 1.minute.from_now
+      slightly_earlier = 58.seconds.from_now
+      heavy_lifting_job.set(:wait_until => slightly_earlier).perform_later
+      expect(heavy_lifting_job)
+        .to have_been_enqueued.at(a_value_within(5.seconds).of(future))
     end
   end
 end
