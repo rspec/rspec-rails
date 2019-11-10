@@ -97,7 +97,7 @@ module RSpec
 
           def check(jobs)
             @matching_jobs, @unmatching_jobs = jobs.partition do |job|
-              if arguments_match?(job) && other_attributes_match?(job)
+              if job_match?(job) && arguments_match?(job) && queue_match?(job) && at_match?(job)
                 args = deserialize_arguments(job)
                 @block.call(*args)
                 true
@@ -134,6 +134,10 @@ module RSpec
             end
           end
 
+          def job_match?(job)
+            @job ? @job == job[:job] : true
+          end
+
           def arguments_match?(job)
             if @args.any?
               deserialized_args = deserialize_arguments(job)
@@ -143,20 +147,18 @@ module RSpec
             end
           end
 
-          def other_attributes_match?(job)
-            serialized_attributes.all? { |key, value| value == job[key] }
+          def queue_match?(job)
+            return true unless @queue
+
+            @queue == job[:queue]
           end
 
-          def serialized_attributes
-            {}.tap do |attributes|
-              attributes[:at]    = serialized_at if @at
-              attributes[:queue] = @queue if @queue
-              attributes[:job]   = @job if @job
-            end
-          end
+          def at_match?(job)
+            return true unless @at
+            return job[:at].nil? if @at == :no_wait
+            return false unless job[:at]
 
-          def serialized_at
-            @at == :no_wait ? nil : @at.to_f
+            values_match?(@at, Time.at(job[:at]))
           end
 
           def set_expected_number(relativity, count)

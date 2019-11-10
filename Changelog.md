@@ -1,10 +1,14 @@
 ### Development
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.9.0...master)
 
+Enhancements:
+
+* Add argument matcher support to `have_enqueued_*` matchers. (Phil Pirozhkov, #2206)
+
 ### 3.9.0 / 2019-10-08
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.2...v3.9.0)
 
-Enhancements
+Enhancements:
 
 * Use `__dir__` instead of `__FILE__` in generated `rails_helper.rb` where
   supported. (OKURA Masafumi, #2048)
