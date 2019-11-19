@@ -59,10 +59,10 @@ end
 
 gem 'capybara', '~> 2.13', :require => false
 
-if MAJOR == 6
-  gem 'nokogiri'
-else
+if MAJOR < 6
   gem 'nokogiri', '1.8.5'
+else
+  gem 'nokogiri', '>= 1.10.4'
 end
 
 gem "rubyzip", '~> 1.2'
