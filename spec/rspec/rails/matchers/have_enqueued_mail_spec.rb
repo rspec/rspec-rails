@@ -254,6 +254,15 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
       }.to raise_error(/expected to enqueue TestMailer.test_email exactly 1 time at #{send_time.strftime('%F %T')}/)
     end
 
+    it "accepts composable matchers as an at date" do
+      future = 1.minute.from_now
+      slightly_earlier = 58.seconds.from_now
+
+      expect {
+        TestMailer.test_email.deliver_later(:wait_until => slightly_earlier)
+      }.to have_enqueued_email(TestMailer, :test_email).at(a_value_within(5.seconds).of(future))
+    end
+
     it "passes when deliver_later is called with a queue argument" do
       expect {
         TestMailer.test_email.deliver_later(:queue => 'urgent_mail')
