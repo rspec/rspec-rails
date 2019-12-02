@@ -13,5 +13,16 @@ module RSpec::Rails
         expect(group).to respond_to(:fixture_path=)
       end
     end
+
+    it "will allow #setup_fixture to run successfully", if: Rails.version.to_f > 6.0 do
+
+      group = RSpec::Core::ExampleGroup.describe do
+        include FixtureSupport
+
+        self.use_transactional_tests = false
+      end
+
+      expect { group.new.setup_fixtures }.to_not raise_error
+    end
   end
 end
