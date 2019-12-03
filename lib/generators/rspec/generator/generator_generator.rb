@@ -3,8 +3,8 @@ require 'generators/rspec'
 module Rspec
   module Generators
     # @private
-    class GeneratorsGenerator < Base
-      class_option :generator_specs, type: :boolean, default: false,  desc: "Generate generator specs"
+    class GeneratorGenerator < Base
+      class_option :generator_specs, :type => :boolean, :default => false,  :desc => "Generate generator specs"
 
       def generate_generator_spec
         return unless options[:generator_specs]
