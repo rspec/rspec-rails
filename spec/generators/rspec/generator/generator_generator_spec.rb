@@ -21,9 +21,9 @@ RSpec.describe Rspec::Generators::GeneratorGenerator, :type => :generator do
       end
     end
 
-    describe "can be skipped" do
+    describe "are not generated/are skipped by default" do
       before do
-        run_generator %w(posts --no-generator-specs)
+        run_generator %w(posts)
       end
       describe "the spec" do
         it "does not exist" do
