@@ -1,7 +1,7 @@
-require 'generators/rspec/generators/generator_generator'
+require 'generators/rspec/generator/generator_generator'
 require 'support/generators'
 
-RSpec.describe Rspec::Generators::GeneratorsGenerator, :type => :generator do
+RSpec.describe Rspec::Generators::GeneratorGenerator, :type => :generator do
   setup_default_destination
 
   describe "generator specs" do
