@@ -4,76 +4,34 @@
 # This file contains defaults for RSpec projects. Individual projects
 # can customize by inheriting this file and overriding particular settings.
 
-AccessModifierIndentation:
-  Enabled: false
-
-# "Use alias_method instead of alias"
-# We're fine with `alias`.
-Alias:
-  Enabled: false
-
-AlignParameters:
-  EnforcedStyle: with_first_parameter
-
-# "Avoid the use of the case equality operator ==="
-# We prefer using `Class#===` over `Object#is_a?` because `Class#===`
-# is less likely to be monkey patched than `is_a?` on a user object.
-CaseEquality:
-  Enabled: false
-
 # Warns when the class is excessively long.
 Metrics/ClassLength:
   Max: 100
 
-CollectionMethods:
+Metrics/AbcSize:
+  Enabled: false
+
+Style/CollectionMethods:
   PreferredMethods:
     reduce: 'inject'
-
-# Over time we'd like to get this down, but this is what we're at now.
-CyclomaticComplexity:
-  Max: 10
 
 # We use YARD to enforce documentation. It works better than rubocop's
 # enforcement...rubocop complains about the places we re-open
 # `RSpec::Expectations` and `RSpec::Matchers` w/o having doc commments.
-Documentation:
+Style/Documentation:
   Enabled: false
 
-# We still support 1.8.7 which requires trailing dots
-DotPosition:
-  EnforcedStyle: trailing
-
-DoubleNegation:
+Style/DoubleNegation:
   Enabled: false
 
-# each_with_object is unavailable on 1.8.7 so we have to disable this one.
-EachWithObject:
-  Enabled: false
-
-FormatString:
+Style/FormatString:
   EnforcedStyle: percent
 
-# As long as we support ruby 1.8.7 we have to use hash rockets.
-HashSyntax:
-  EnforcedStyle: hash_rockets
-
-# We can't use the new lambda syntax, since we still support 1.8.7.
-Lambda:
-  Enabled: false
-
-# Over time we'd like to get this down, but this is what we're at now.
-LineLength:
-  Max: 100
-
-# Over time we'd like to get this down, but this is what we're at now.
-Metrics/MethodLength:
-  Max: 15
-
 # Who cares what we call the argument for binary operator methods?
-BinaryOperatorParameterName:
+Naming/BinaryOperatorParameterName:
   Enabled: false
 
-PercentLiteralDelimiters:
+Style/PercentLiteralDelimiters:
   PreferredDelimiters:
     '%':  ()      # double-quoted string
     '%i': '[]'    # array of symbols
@@ -87,28 +45,105 @@ PercentLiteralDelimiters:
 
 # We have too many special cases where we allow generator methods or prefer a
 # prefixed predicate due to it's improved readability.
-PredicateName:
-  Enabled: false
-
-# On 1.8 `proc` is `lambda`, so we use `Proc.new` to ensure we get real procs on all supported versions.
-# http://batsov.com/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new/
-Proc:
+Naming/PredicateName:
   Enabled: false
 
 # Exceptions should be rescued with `Support::AllExceptionsExceptOnesWeMustNotRescue`
-RescueException:
+Lint/RescueException:
   Enabled: true
 
 # We haven't adopted the `fail` to signal exceptions vs `raise` for re-raises convention.
-SignalException:
+Style/SignalException:
   Enabled: false
 
-# We've tended to use no space, so it's less of a change to stick with that.
-SpaceAroundEqualsInParameterDefault:
-  EnforcedStyle: no_space
-
 # We don't care about single vs double qoutes.
-StringLiterals:
+Style/StringLiterals:
+  Enabled: false
+
+Layout/EmptyLineAfterMagicComment:
+  Enabled: false
+
+Layout/FirstArrayElementIndentation:
+  Enabled: false
+
+Layout/AssignmentIndentation:
+  Enabled: false
+
+Layout/HeredocIndentation:
+  Enabled: false
+
+Layout/SpaceInsidePercentLiteralDelimiters:
+  Enabled: false
+
+Layout/EmptyLineBetweenDefs:
+  Enabled: false
+
+Layout/FirstArgumentIndentation:
+  Enabled: false
+
+Layout/ParameterAlignment:
+  EnforcedStyle: with_first_parameter
+
+Layout/ClosingParenthesisIndentation:
+  Enabled: false
+
+Layout/ExtraSpacing:
+  Enabled: false
+
+Layout/MultilineMethodCallBraceLayout:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+
+Layout/MultilineOperationIndentation:
+  Enabled: false
+
+Layout/SpaceAroundBlockParameters:
+  Enabled: false
+
+Layout/SpaceAroundOperators:
+  Enabled: false
+
+Layout/SpaceBeforeComma:
+  Enabled: false
+
+Layout/SpaceInsideStringInterpolation:
+  Enabled: false
+
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundAccessModifier:
+  Enabled: false
+
+Lint/ImplicitStringConcatenation:
+  Enabled: false
+
+Lint/NestedMethodDefinition:
+  Enabled: false
+
+Naming/HeredocDelimiterNaming:
+  Enabled: false
+
+Naming/ConstantName:
+  Enabled: false
+
+Naming/VariableNumber:
+  Enabled: false
+
+Layout/AccessModifierIndentation:
+  Enabled: false
+
+# "Use alias_method instead of alias"
+# We're fine with `alias`.
+Style/Alias:
+  Enabled: false
+
+# "Avoid the use of the case equality operator ==="
+# We prefer using `Class#===` over `Object#is_a?` because `Class#===`
+# is less likely to be monkey patched than `is_a?` on a user object.
+Style/CaseEquality:
   Enabled: false
 
 # This rule favors constant names from the English standard library which we don't load.
@@ -124,21 +159,12 @@ Style/TrailingCommaInHashLiteral:
 Style/TrailingCommaInArguments:
   Enabled: false
 
-TrivialAccessors:
+Style/TrivialAccessors:
   AllowDSLWriters: true
   AllowPredicates: true
   ExactNameMatch: true
 
 Style/ParallelAssignment:
-  Enabled: false
-
-Layout/EmptyLineBetweenDefs:
-  Enabled: false
-
-Layout/IndentFirstArgument:
-  Enabled: false
-
-Naming/ConstantName:
   Enabled: false
 
 Style/ClassCheck:
@@ -210,30 +236,6 @@ Style/YodaCondition:
 Style/ZeroLengthPredicate:
   Enabled: false
 
-Layout/ClosingParenthesisIndentation:
-  Enabled: false
-
-Layout/ExtraSpacing:
-  Enabled: false
-
-Layout/MultilineMethodCallBraceLayout:
-  Enabled: false
-
-Layout/MultilineMethodCallIndentation:
-  Enabled: false
-
-Layout/MultilineOperationIndentation:
-  Enabled: false
-
-Layout/SpaceAroundBlockParameters:
-  Enabled: false
-
-Layout/SpaceAroundOperators:
-  Enabled: false
-
-Layout/SpaceBeforeComma:
-  Enabled: false
-
 Style/BlockDelimiters:
   Enabled: false
 
@@ -252,24 +254,6 @@ Style/StderrPuts:
 Style/TernaryParentheses:
   Enabled: false
 
-Naming/HeredocDelimiterNaming:
-  Enabled: false
-
-Layout/EmptyLineAfterMagicComment:
-  Enabled: false
-
-Layout/IndentFirstArrayElement:
-  Enabled: false
-
-Layout/IndentAssignment:
-  Enabled: false
-
-Layout/IndentHeredoc:
-  Enabled: false
-
-Layout/SpaceInsidePercentLiteralDelimiters:
-  Enabled: false
-
 Style/EmptyElse:
   Enabled: false
 
@@ -282,35 +266,14 @@ Style/RedundantReturn:
 Style/StructInheritance:
   Enabled: false
 
-Naming/VariableNumber:
-  Enabled: false
-
-Layout/SpaceInsideStringInterpolation:
-  Enabled: false
-
 Style/DateTime:
   Enabled: false
 
 Style/ParenthesesAroundCondition:
   Enabled: false
 
-Layout/EmptyLinesAroundBlockBody:
-  Enabled: false
-
-Lint/ImplicitStringConcatenation:
-  Enabled: false
-
-Lint/NestedMethodDefinition:
-  Enabled: false
-
 Style/RegexpLiteral:
   Enabled: false
 
 Style/TrailingUnderscoreVariable:
-  Enabled: false
-
-Layout/EmptyLinesAroundAccessModifier:
-  Enabled: false
-
-Metrics/AbcSize:
   Enabled: false

@@ -1,15 +1,9 @@
-inherit_from: .rubocop_rspec_base.yml
-
-# Over time we'd like to get this down, but this is what we're at now.
-LineLength:
-  Max: 186
-
-# Over time we'd like to get this down, but this is what we're at now.
-MethodLength:
-  Max: 50
+inherit_from:
+  - .rubocop_todo.yml
+  - .rubocop_rspec_base.yml
 
 # We use spaces, so it's less of a change to stick with that.
-SpaceAroundEqualsInParameterDefault:
+Layout/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: space
 
 ################################################################################
@@ -21,24 +15,24 @@ AllCops:
     # Templates are really ERB which Rubocop does not parse
     - 'lib/generators/rspec/*/templates/**/*'
 
-FileName:
+Naming/FileName:
   Exclude:
     # We break convention here so that when bundler requires the gem, which
     # uses the gem name, things work without user configuration.
     - lib/rspec-rails.rb
 
-HandleExceptions:
+Lint/SuppressedException:
   Exclude:
     # RSpec is tightly coupled to capybara right now, this should be
     # re-evaluted in the future. For now we allow the empty rescue
     - lib/rspec/rails/vendor/capybara.rb
 
-IfUnlessModifier:
+Style/IfUnlessModifier:
   Exclude:
     # Allow single line statement as the style matches the remainder of the file
     - lib/rspec/rails/vendor/capybara.rb
 
-PerlBackrefs:
+Style/PerlBackrefs:
   Exclude:
     # We probably can refactor the backref out, but for now excluding it since
     # we can't use named matches in 1.8.7
@@ -50,7 +44,7 @@ Style/AccessModifierDeclarations:
 Naming/MemoizedInstanceVariableName:
   Enabled: false
 
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   Enabled: false
 
 Metrics/PerceivedComplexity:
@@ -65,7 +59,7 @@ Lint/AssignmentInCondition:
 Lint/EmptyExpression:
   Enabled: false
 
-Layout/AlignHash:
+Layout/HashAlignment:
   Enabled: false
 
 Naming/RescuedExceptionsVariableName:
