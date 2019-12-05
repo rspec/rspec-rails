@@ -264,6 +264,9 @@ Style/PercentLiteralDelimiters:
     '%W': '[]'    # array of double-quoted strings
     '%x': ()      # a shell command as a string
 
+# On 1.8 `proc` was `lambda`, so we used `Proc.new` to ensure we got real procs
+# on all supported versions.
+# http://batsov.com/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new/
 Style/Proc:
   Enabled: false
 
