@@ -1,5 +1,5 @@
 <!---
-This file was generated on 2015-12-07T22:01:06+11:00 from the rspec-dev repo.
+This file was generated on 2019-12-05T21:32:23+00:00 from the rspec-dev repo.
 DO NOT modify it by hand as your changes will get lost the next time it is generated.
 -->
 
@@ -40,7 +40,7 @@ The spec suite performs a couple extra checks that are worth noting:
   available for use in any context, we want to minimize how many bits of the standard
   library we load and use. Otherwise, RSpec's use of part of the standard library could
   mask a problem where a gem author forgets to load a part of the standard library they
-  rely on. The spec suite contains a spec that defines a whitelist of allowed loaded
+  rely on. The spec suite contains a spec that defines a list of allowed loaded
   stdlibs.
 
 In addition, we use [SimpleCov](https://github.com/colszowka/simplecov)
