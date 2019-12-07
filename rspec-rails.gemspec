@@ -55,6 +55,6 @@ Gem::Specification.new do |s|
   end
 
   s.add_development_dependency 'cucumber', '~> 1.3.5'
-  s.add_development_dependency 'aruba',    '~> 0.5.4'
+  s.add_development_dependency 'aruba',    '~> 0.14.12'
   s.add_development_dependency 'ammeter',  '~> 1.1.2'
 end
