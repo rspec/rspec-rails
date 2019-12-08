@@ -16,12 +16,8 @@ RSpec.describe 'Action Mailer railtie hook' do
   end
 
   def capture_exec(*ops)
-    io = if RUBY_VERSION.to_f < 1.9
-           IO.popen(as_commandline(ops))
-         else
-           ops << { :err => [:child, :out] }
-           IO.popen(ops)
-         end
+    ops << { :err => [:child, :out] }
+    io = IO.popen(ops)
     # Necessary to ignore warnings from Rails code base
     out =  io.readlines.
               reject { |line| line =~ /warning: circular argument reference/ }.

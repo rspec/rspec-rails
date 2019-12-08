@@ -119,15 +119,7 @@ module RSpec
           raise "#{self.class.name} needs to supply#{ivar_list}"
         end
 
-        if RUBY_VERSION.to_f < 1.9
-          # :nocov:
-          def present_ivars
-            instance_variables.map(&:to_sym)
-          end
-          # :nocov:
-        else
-          alias present_ivars instance_variables
-        end
+        alias present_ivars instance_variables
 
         # @private
         module HashFormatting

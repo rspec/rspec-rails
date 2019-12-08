@@ -13,7 +13,7 @@ MAINTENANCE_BRANCH=`cat maintenance-branch`
 
 # Don't allow rubygems to pollute what's loaded. Also, things boot faster
 # without the extra load time of rubygems. Only works on MRI Ruby 1.9+
-if is_mri_192_plus; then
+if is_mri; then
   export RUBYOPT="--disable=gem"
 fi
 
@@ -47,12 +47,7 @@ function run_cukes {
 
     echo "${PWD}/bin/cucumber"
 
-    if is_mri_192; then
-      # For some reason we get SystemStackError on 1.9.2 when using
-      # the bin/cucumber approach below. That approach is faster
-      # (as it avoids the bundler tax), so we use it on rubies where we can.
-      bundle exec cucumber --strict
-    elif is_jruby; then
+    if is_jruby; then
       # For some reason JRuby doesn't like our improved bundler setup
       RUBYOPT="-I${PWD}/../bundle -rbundler/setup" \
          PATH="${PWD}/bin:$PATH" \
@@ -188,8 +183,5 @@ function run_all_spec_suites {
   fold "rspec-expectations specs" run_spec_suite_for "rspec-expectations"
   fold "rspec-mocks specs" run_spec_suite_for "rspec-mocks"
   fold "rspec-rails specs" run_spec_suite_for "rspec-rails"
-
-  if rspec_support_compatible; then
-    fold "rspec-support specs" run_spec_suite_for "rspec-support"
-  fi
+  fold "rspec-support specs" run_spec_suite_for "rspec-support"
 }

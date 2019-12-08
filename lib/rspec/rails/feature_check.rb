@@ -54,10 +54,6 @@ module RSpec
         defined?(::ActionMailbox)
       end
 
-      def has_file_fixture?
-        ::Rails::VERSION::STRING > '5.0'
-      end
-
       def type_metatag(type)
         "type: :#{type}"
       end

@@ -22,11 +22,7 @@ module RSpec
           # /TODO
 
           self.fixture_path = RSpec.configuration.fixture_path
-          if ::Rails::VERSION::STRING > '5'
-            self.use_transactional_tests = RSpec.configuration.use_transactional_fixtures
-          else
-            self.use_transactional_fixtures = RSpec.configuration.use_transactional_fixtures
-          end
+          self.use_transactional_tests = RSpec.configuration.use_transactional_fixtures
           self.use_instantiated_fixtures  = RSpec.configuration.use_instantiated_fixtures
 
           def self.fixtures(*args)

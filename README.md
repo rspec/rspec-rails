@@ -119,8 +119,7 @@ $ bundle exec rspec --help
 ```
 
 **Optional:** If `bundle exec rspec` is too verbose for you,
-you can generate a binstub at `bin/rspec`
-and use that instead (Rails 4+ only):
+you can generate a binstub at `bin/rspec` and use that instead:
 
  ```sh
  $ bundle binstubs rspec-core
