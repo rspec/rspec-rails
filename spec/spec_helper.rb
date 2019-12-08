@@ -2,7 +2,7 @@ require 'rails/all'
 
 module RSpecRails
   class Application < ::Rails::Application
-    self.config.secret_key_base = 'ASecretString' if config.respond_to? :secret_key_base
+    self.config.secret_key_base = 'ASecretString'
 
     if defined?(ActionCable)
       ActionCable.server.config.cable = { "adapter" => "test" }
