@@ -14,6 +14,7 @@ Enhancements:
 * Improve path parsing in view specs render options. (John Hawthorn, #2115)
 * Add routing spec template as an option for generating controller specs.
   (David Revelo, #2134)
+* Add argument matcher support to `have_enqueued_*` matchers. (Phil Pirozhkov, #2206)
 
 Bug Fixes:
 

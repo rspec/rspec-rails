@@ -59,15 +59,15 @@ end
 
 gem 'capybara', '~> 2.13', :require => false
 
-if MAJOR == 6
-  gem 'nokogiri'
-else
+if MAJOR < 6
   gem 'nokogiri', '1.8.5'
+else
+  gem 'nokogiri', '>= 1.10.4'
 end
 
 gem "rubyzip", '~> 1.2'
 
-gem 'rubocop', "~> 0.74"
+gem 'rubocop', '~> 0.77.0'
 
 custom_gemfile = File.expand_path("../Gemfile-custom", __FILE__)
 eval_gemfile custom_gemfile if File.exist?(custom_gemfile)
