@@ -4,9 +4,9 @@ module Rspec
   module Generators
     # @private
     class ViewGenerator < Base
-      argument :actions, :type => :array, :default => [], :banner => "action action"
+      argument :actions, type: :array, default: [], banner: "action action"
 
-      class_option :template_engine, :desc => "Template engine to generate view files"
+      class_option :template_engine, desc: "Template engine to generate view files"
 
       def create_view_specs
         empty_directory File.join("spec", "views", file_path)
