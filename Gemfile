@@ -7,12 +7,12 @@ gemspec
 rspec_dependencies_gemfile = File.expand_path("../Gemfile-rspec-dependencies", __FILE__)
 eval_gemfile rspec_dependencies_gemfile
 
-gem 'yard', '~> 0.8.7', :require => false
+gem 'yard', '~> 0.8.7', require: false
 
 ### deps for rdoc.info
 group :documentation do
-  gem 'redcarpet', '~> 3.4.0', platforms: [:ruby]
   gem 'github-markup', '~> 3.0.3'
+  gem 'redcarpet', '~> 3.4.0', platforms: [:ruby]
   gem 'relish', '~> 0.7.1'
 end
 
@@ -36,8 +36,8 @@ else
 end
 
 if MAJOR >= 6
+  gem 'selenium-webdriver', '~> 3.5', require: false
   gem 'sqlite3', '~> 1.4', platforms: [:ruby]
-  gem 'selenium-webdriver', '~> 3.5', :require => false
 else
   gem 'sqlite3', '~> 1.3.6', platforms: [:ruby]
 end
@@ -57,7 +57,7 @@ if RUBY_VERSION < '2.4.0'
   gem 'minitest', '< 5.12.0'
 end
 
-gem 'capybara', '~> 2.13', :require => false
+gem 'capybara', '~> 2.13', require: false
 
 if MAJOR < 6
   gem 'nokogiri', '1.8.5'

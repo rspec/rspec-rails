@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe "be_new_record" do
   context "a new record" do
-    let(:record) { double('record', :new_record? => true) }
+    let(:record) { double('record', new_record?: true) }
 
     it "passes" do
       expect(record).to be_new_record
@@ -16,7 +16,7 @@ describe "be_new_record" do
   end
 
   context "a persisted record" do
-    let(:record) { double('record', :new_record? => false) }
+    let(:record) { double('record', new_record?: false) }
 
     it "fails" do
       expect(record).not_to be_new_record

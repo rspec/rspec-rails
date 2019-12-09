@@ -5,10 +5,10 @@ module Rspec
     # @private
     class ModelGenerator < Base
       argument :attributes,
-               :type => :array,
-               :default => [],
-               :banner => "field:type field:type"
-      class_option :fixture, :type => :boolean
+               type: :array,
+               default: [],
+               banner: "field:type field:type"
+      class_option :fixture, type: :boolean
 
       def create_model_spec
         template_file = File.join(

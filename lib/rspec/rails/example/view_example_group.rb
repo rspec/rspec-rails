@@ -50,9 +50,9 @@ module RSpec
         end
 
         # @overload render
-        # @overload render({:partial => path_to_file})
-        # @overload render({:partial => path_to_file}, {... locals ...})
-        # @overload render({:partial => path_to_file}, {... locals ...}) do ... end
+        # @overload render({partial: path_to_file})
+        # @overload render({partial: path_to_file}, {... locals ...})
+        # @overload render({partial: path_to_file}, {... locals ...}) do ... end
         #
         # Delegates to ActionView::Base#render, so see documentation on that
         # for more info.
@@ -62,7 +62,7 @@ module RSpec
         #
         #     describe "widgets/new.html.erb" do
         #       it "shows all the widgets" do
-        #         render # => view.render(:file => "widgets/new.html.erb")
+        #         render # => view.render(file: "widgets/new.html.erb")
         #         # ...
         #       end
         #     end
@@ -105,7 +105,7 @@ module RSpec
 
         # @deprecated Use `view` instead.
         def template
-          RSpec.deprecate("template", :replacement => "view")
+          RSpec.deprecate("template", replacement: "view")
           view
         end
 
@@ -152,7 +152,7 @@ module RSpec
           # the original string.
           match = path_regex.match(_default_file_to_render)
 
-          render_options = { :template => match[:template] }
+          render_options = { template: match[:template] }
           render_options[:handlers] = [match[:handler]] if match[:handler]
           render_options[:formats] = [match[:format].to_sym] if match[:format]
           render_options[:locales] = [match[:locale]] if match[:locale]

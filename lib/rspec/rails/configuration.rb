@@ -25,33 +25,33 @@ module RSpec
     #
     # @api private
     DIRECTORY_MAPPINGS = {
-      :channel    => %w[spec channels],
-      :controller => %w[spec controllers],
-      :helper     => %w[spec helpers],
-      :job        => %w[spec jobs],
-      :mailer     => %w[spec mailers],
-      :model      => %w[spec models],
-      :request    => %w[spec (requests|integration|api)],
-      :routing    => %w[spec routing],
-      :view       => %w[spec views],
-      :feature    => %w[spec features],
-      :system     => %w[spec system],
-      :mailbox    => %w[spec mailboxes]
+      channel:    %w[spec channels],
+      controller: %w[spec controllers],
+      helper:     %w[spec helpers],
+      job:        %w[spec jobs],
+      mailer:     %w[spec mailers],
+      model:      %w[spec models],
+      request:    %w[spec (requests|integration|api)],
+      routing:    %w[spec routing],
+      view:       %w[spec views],
+      feature:    %w[spec features],
+      system:     %w[spec system],
+      mailbox:    %w[spec mailboxes]
     }
 
     # Sets up the different example group modules for the different spec types
     #
     # @api private
     def self.add_test_type_configurations(config)
-      config.include RSpec::Rails::ControllerExampleGroup, :type => :controller
-      config.include RSpec::Rails::HelperExampleGroup,     :type => :helper
-      config.include RSpec::Rails::ModelExampleGroup,      :type => :model
-      config.include RSpec::Rails::RequestExampleGroup,    :type => :request
-      config.include RSpec::Rails::RoutingExampleGroup,    :type => :routing
-      config.include RSpec::Rails::ViewExampleGroup,       :type => :view
-      config.include RSpec::Rails::FeatureExampleGroup,    :type => :feature
+      config.include RSpec::Rails::ControllerExampleGroup, type: :controller
+      config.include RSpec::Rails::HelperExampleGroup,     type: :helper
+      config.include RSpec::Rails::ModelExampleGroup,      type: :model
+      config.include RSpec::Rails::RequestExampleGroup,    type: :request
+      config.include RSpec::Rails::RoutingExampleGroup,    type: :routing
+      config.include RSpec::Rails::ViewExampleGroup,       type: :view
+      config.include RSpec::Rails::FeatureExampleGroup,    type: :feature
       config.include RSpec::Rails::Matchers
-      config.include RSpec::Rails::SystemExampleGroup, :type => :system
+      config.include RSpec::Rails::SystemExampleGroup, type: :system
     end
 
     # @private
@@ -61,10 +61,10 @@ module RSpec
       config.backtrace_exclusion_patterns << %r{lib/rspec/rails}
 
       # controller settings
-      config.add_setting :infer_base_class_for_anonymous_controllers, :default => true
+      config.add_setting :infer_base_class_for_anonymous_controllers, default: true
 
       # fixture support
-      config.add_setting :use_transactional_fixtures, :alias_with => :use_transactional_examples
+      config.add_setting :use_transactional_fixtures, alias_with: :use_transactional_examples
       config.add_setting :use_instantiated_fixtures
       config.add_setting :global_fixtures
       config.add_setting :fixture_path
@@ -80,7 +80,7 @@ module RSpec
       config.include RSpec::Rails::FixtureSupport
 
       if ::Rails::VERSION::STRING > '5'
-        config.add_setting :file_fixture_path, :default => 'spec/fixtures/files'
+        config.add_setting :file_fixture_path, default: 'spec/fixtures/files'
         config.include RSpec::Rails::FileFixtureSupport
       end
 
@@ -93,7 +93,7 @@ module RSpec
       # as a getter. This makes it easier for rspec-rails users because we use
       # `render_views` directly in example groups, so this aligns the two APIs,
       # but requires this workaround:
-      config.add_setting :rendering_views, :default => false
+      config.add_setting :rendering_views, default: false
 
       config.instance_exec do
         def render_views=(val)
@@ -111,7 +111,7 @@ module RSpec
         def infer_spec_type_from_file_location!
           DIRECTORY_MAPPINGS.each do |type, dir_parts|
             escaped_path = Regexp.compile(dir_parts.join('[\\\/]') + '[\\\/]')
-            define_derived_metadata(:file_path => escaped_path) do |metadata|
+            define_derived_metadata(file_path: escaped_path) do |metadata|
               metadata[:type] ||= type
             end
           end
@@ -129,26 +129,26 @@ module RSpec
 
       if defined?(::Rails::Controller::Testing)
         [:controller, :view, :request].each do |type|
-          config.include ::Rails::Controller::Testing::TestProcess, :type => type
-          config.include ::Rails::Controller::Testing::TemplateAssertions, :type => type
-          config.include ::Rails::Controller::Testing::Integration, :type => type
+          config.include ::Rails::Controller::Testing::TestProcess, type: type
+          config.include ::Rails::Controller::Testing::TemplateAssertions, type: type
+          config.include ::Rails::Controller::Testing::Integration, type: type
         end
       end
 
       if RSpec::Rails::FeatureCheck.has_action_mailer?
-        config.include RSpec::Rails::MailerExampleGroup, :type => :mailer
+        config.include RSpec::Rails::MailerExampleGroup, type: :mailer
       end
 
       if RSpec::Rails::FeatureCheck.has_active_job?
-        config.include RSpec::Rails::JobExampleGroup, :type => :job
+        config.include RSpec::Rails::JobExampleGroup, type: :job
       end
 
       if RSpec::Rails::FeatureCheck.has_action_cable_testing?
-        config.include RSpec::Rails::ChannelExampleGroup, :type => :channel
+        config.include RSpec::Rails::ChannelExampleGroup, type: :channel
       end
 
       if RSpec::Rails::FeatureCheck.has_action_mailbox?
-        config.include RSpec::Rails::MailboxExampleGroup, :type => :mailbox
+        config.include RSpec::Rails::MailboxExampleGroup, type: :mailbox
       end
     end
     # rubocop:enable Metrics/MethodLength

@@ -25,7 +25,7 @@ if RSpec::Rails::FeatureCheck.has_active_job?
   end
 end
 
-RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck.has_active_job? do
+RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.has_active_job? do
   before do
     ActiveJob::Base.queue_adapter = :test
   end
@@ -240,7 +240,7 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
       send_time = Date.tomorrow.noon
 
       expect {
-        TestMailer.test_email.deliver_later(:wait_until => send_time)
+        TestMailer.test_email.deliver_later(wait_until: send_time)
       }.to have_enqueued_email(TestMailer, :test_email).at(send_time)
     end
 
@@ -249,7 +249,7 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
 
       expect {
         expect {
-          TestMailer.test_email.deliver_later(:wait_until => send_time + 1)
+          TestMailer.test_email.deliver_later(wait_until: send_time + 1)
         }.to have_enqueued_email(TestMailer, :test_email).at(send_time)
       }.to raise_error(/expected to enqueue TestMailer.test_email exactly 1 time at #{send_time.strftime('%F %T')}/)
     end
@@ -259,20 +259,20 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
       slightly_earlier = 58.seconds.from_now
 
       expect {
-        TestMailer.test_email.deliver_later(:wait_until => slightly_earlier)
+        TestMailer.test_email.deliver_later(wait_until: slightly_earlier)
       }.to have_enqueued_email(TestMailer, :test_email).at(a_value_within(5.seconds).of(future))
     end
 
     it "passes when deliver_later is called with a queue argument" do
       expect {
-        TestMailer.test_email.deliver_later(:queue => 'urgent_mail')
+        TestMailer.test_email.deliver_later(queue: 'urgent_mail')
       }.to have_enqueued_email(TestMailer, :test_email).on_queue('urgent_mail')
     end
 
     it "generates a failure message with on_queue" do
       expect {
         expect {
-          TestMailer.test_email.deliver_later(:queue => 'not_urgent_mail')
+          TestMailer.test_email.deliver_later(queue: 'not_urgent_mail')
         }.to have_enqueued_email(TestMailer, :test_email).on_queue('urgent_mail')
       }.to raise_error(/expected to enqueue TestMailer.test_email exactly 1 time on queue urgent_mail/)
     end
@@ -295,7 +295,7 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
         expect {
           non_mailer_job.perform_later
           TestMailer.test_email.deliver_later
-          TestMailer.email_with_args(3, 4).deliver_later(:wait_until => send_time, :queue => queue)
+          TestMailer.email_with_args(3, 4).deliver_later(wait_until: send_time, queue: queue)
         }.to have_enqueued_email(TestMailer, :email_with_args).with(1, 2)
       }.to raise_error(message)
     end
@@ -338,15 +338,15 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
       midnight = Date.tomorrow.midnight
 
       expect {
-        TestMailer.email_with_args('high', 'noon').deliver_later(:wait_until => noon)
-        TestMailer.email_with_args('midnight', 'rider').deliver_later(:wait_until => midnight)
+        TestMailer.email_with_args('high', 'noon').deliver_later(wait_until: noon)
+        TestMailer.email_with_args('midnight', 'rider').deliver_later(wait_until: midnight)
       }.to have_enqueued_mail(TestMailer, :email_with_args).at(noon).with { |first_arg, second_arg|
         expect(first_arg).to eq('high')
         expect(second_arg).to eq('noon')
       }
     end
 
-    context 'when parameterized', :skip => !RSpec::Rails::FeatureCheck.has_action_mailer_parameterized? do
+    context 'when parameterized', skip: !RSpec::Rails::FeatureCheck.has_action_mailer_parameterized? do
       it "passes when mailer is parameterized" do
         expect {
           TestMailer.with('foo' => 'bar').test_email.deliver_later
@@ -371,7 +371,7 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
       end
     end
 
-    context 'mailer job is unified', :skip => !RSpec::Rails::FeatureCheck.has_action_mailer_unified_delivery? do
+    context 'mailer job is unified', skip: !RSpec::Rails::FeatureCheck.has_action_mailer_unified_delivery? do
       it "passes when mailer is parameterized" do
         expect {
           UnifiedMailer.with('foo' => 'bar').test_email.deliver_later
@@ -389,13 +389,13 @@ RSpec.describe "HaveEnqueuedMail matchers", :skip => !RSpec::Rails::FeatureCheck
         expect {
           UnifiedMailer.with('foo' => 'bar').test_email.deliver_later
         }.to have_enqueued_mail(UnifiedMailer, :test_email).with(
-          a_hash_including(:params => { 'foo' => 'bar' })
+          a_hash_including(params: { 'foo' => 'bar' })
         )
 
         expect {
           UnifiedMailer.with('foo' => 'bar').email_with_args(1, 2).deliver_later
         }.to have_enqueued_mail(UnifiedMailer, :email_with_args).with(
-          a_hash_including(:params => { 'foo' => 'bar' }, :args => [1, 2])
+          a_hash_including(params: { 'foo' => 'bar' }, args: [1, 2])
         )
       end
     end

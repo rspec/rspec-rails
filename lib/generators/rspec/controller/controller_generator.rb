@@ -4,12 +4,12 @@ module Rspec
   module Generators
     # @private
     class ControllerGenerator < Base
-      argument :actions, :type => :array, :default => [], :banner => "action action"
+      argument :actions, type: :array, default: [], banner: "action action"
 
-      class_option :template_engine, :desc => "Template engine to generate view files"
-      class_option :controller_specs, :type => :boolean, :default => true, :desc => "Generate controller specs"
-      class_option :view_specs,       :type => :boolean, :default => true, :desc => "Generate view specs"
-      class_option :routing_specs,    :type => :boolean, :default => false, :desc => "Generate routing specs"
+      class_option :template_engine,  desc: "Template engine to generate view files"
+      class_option :controller_specs, type: :boolean, default: true, desc: "Generate controller specs"
+      class_option :view_specs,       type: :boolean, default: true, desc: "Generate view specs"
+      class_option :routing_specs,    type: :boolean, default: false, desc: "Generate routing specs"
 
       def generate_controller_spec
         return unless options[:controller_specs]

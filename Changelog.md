@@ -344,10 +344,10 @@ Enhancements:
 * Improve controller and routing spec calls to `routes` by using `yield`
   instead of `call`. (Anton Davydov, #1308)
 * Add support for `ActiveJob` specs as standard `RSpec::Rails::RailsExampleGoup`s
-  via both `:type => :job` and inferring type from spec directory `spec/jobs`.
+  via both `type: :job` and inferring type from spec directory `spec/jobs`.
   (Gabe Martin-Dempesy, #1361)
 * Include `RSpec::Rails::FixtureSupport` into example groups using metadata
-  `:use_fixtures => true`. (Aaron Kromer, #1372)
+  `use_fixtures: true`. (Aaron Kromer, #1372)
 * Include `rspec:request` generator for generating request specs; this is an
   alias of `rspec:integration` (Aaron Kromer, #1378)
 * Update `rails_helper` generator with a default check to abort the spec run
@@ -488,7 +488,7 @@ Enhancements:
 Bug Fixes:
 
 * Fix an inconsistency in the generated scaffold specs for a controller. (Andy Waite)
-* Ensure `config.before(:all, :type => <type>)` hooks run before groups
+* Ensure `config.before(:all, type: <type>)` hooks run before groups
   of the given type, even when the type is inferred by the file
   location. (Jon Rowe, Myron Marston)
 * Switch to parsing params with `Rack::Utils::parse_nested_query` to match Rails.
@@ -938,7 +938,7 @@ This release is compatible with rails-3.1.0.rc1, but not rails-3.1.0.beta1
 * Enhancements
   * include ApplicationHelper in helper object in helper specs
   * include request spec extensions in files in spec/integration
-  * include controller spec extensions in groups that use :type => :controller
+  * include controller spec extensions in groups that use type: :controller
     * same for :model, :view, :helper, :mailer, :request, :routing
 
 * Bug fixes

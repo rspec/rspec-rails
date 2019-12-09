@@ -116,7 +116,7 @@ RSpec.describe Rspec::Generators::ControllerGenerator, :type => :generator do
         it { is_expected.to contain(/^RSpec.describe 'PostsController', #{type_metatag(:routing)}/) }
         it { is_expected.to contain(/describe 'routing'/) }
         it { is_expected.to contain(/it 'routes to #seek'/) }
-        it { is_expected.to contain(/expect\(:get => "\/posts\/seek"\).to route_to\("posts#seek"\)/) }
+        it { is_expected.to contain(/expect\(get: "\/posts\/seek"\).to route_to\("posts#seek"\)/) }
       end
     end
 

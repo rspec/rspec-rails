@@ -20,7 +20,7 @@ module RSpec
       #     view_path_builder.path_for({ :controller => 'posts', :action => 'delete' })
       #     # => ActionController::UrlGenerationError: No route matches {:action=>"delete", :controller=>"posts"}
       def path_for(path_params)
-        url_for(path_params.merge(:only_path => true))
+        url_for(path_params.merge(only_path: true))
       rescue => e
         e.message
       end

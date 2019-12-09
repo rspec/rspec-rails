@@ -32,8 +32,8 @@ DESC
 
       def generate_rspec_init(tmpdir)
         initializer = ::RSpec::Core::ProjectInitializer.new(
-          :destination => tmpdir,
-          :report_stream => StringIO.new
+          destination: tmpdir,
+          report_stream: StringIO.new
         )
         initializer.run
 
@@ -47,7 +47,7 @@ DESC
         gsub_file spec_helper_path,
                   'rspec --init',
                   'rails generate rspec:install',
-                  :verbose => false
+                  verbose: false
       end
 
       def remove_warnings_configuration(spec_helper_path)
@@ -56,7 +56,7 @@ DESC
         gsub_file spec_helper_path,
                   /#{empty_line}(#{comment_line})+\s+config\.warnings = true\n/,
                   '',
-                  :verbose => false
+                  verbose: false
       end
     end
   end

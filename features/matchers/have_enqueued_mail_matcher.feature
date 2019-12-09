@@ -33,7 +33,7 @@ Feature: have_enqueued_mail matcher
         it "matches with enqueued mailer" do
           ActiveJob::Base.queue_adapter = :test
           expect {
-            NotificationsMailer.signup.deliver_later(:wait_until => Date.tomorrow.noon)
+            NotificationsMailer.signup.deliver_later(wait_until: Date.tomorrow.noon)
           }.to have_enqueued_mail.at(Date.tomorrow.noon)
         end
       end
