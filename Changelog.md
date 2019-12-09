@@ -15,6 +15,7 @@ Enhancements:
 * Add routing spec template as an option for generating controller specs.
   (David Revelo, #2134)
 * Add argument matcher support to `have_enqueued_*` matchers. (Phil Pirozhkov, #2206)
+* Switch generated templates to use ruby 1.9 hash keys. (Tanbir Hasan, #2224)
 
 Bug Fixes:
 
