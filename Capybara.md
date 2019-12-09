@@ -73,5 +73,5 @@ behavior and accepting the risks associated with doing so:
 
     # not recommended!
     RSpec.configure do |c|
-      c.include Capybara::DSL, :file_path => "spec/requests"
+      c.include Capybara::DSL, file_path: "spec/requests"
     end

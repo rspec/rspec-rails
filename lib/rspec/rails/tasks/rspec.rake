@@ -3,12 +3,12 @@ if default = Rake.application.instance_variable_get('@tasks')['default']
   default.prerequisites.delete('test')
 end
 
-task :default => :spec
+task default: :spec
 
-task :stats => "spec:statsetup"
+task stats: "spec:statsetup"
 
 desc "Run all specs in spec directory (excluding plugin specs)"
-RSpec::Core::RakeTask.new(:spec => "spec:prepare")
+RSpec::Core::RakeTask.new(spec: "spec:prepare")
 
 namespace :spec do
   types = begin
@@ -38,7 +38,7 @@ namespace :spec do
   # RCov task only enabled for Ruby 1.8
   if RUBY_VERSION < '1.9'
     desc "Run all specs with rcov"
-    RSpec::Core::RakeTask.new(:rcov => "spec:prepare") do |t|
+    RSpec::Core::RakeTask.new(rcov: "spec:prepare") do |t|
       t.rcov = true
       t.pattern = "./spec/**/*_spec.rb"
       t.rcov_opts = '--exclude /gems/,/Library/,/usr/,lib/tasks,.bundle,config,/lib/rspec/,/lib/rspec-,spec'

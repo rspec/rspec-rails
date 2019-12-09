@@ -14,9 +14,9 @@ module RSpec::Rails
         example = group.new
 
         # Yes, this is quite invasive
-        url_helpers = double('url_helpers', :foo_path => "foo")
-        routes = double('routes', :url_helpers => url_helpers)
-        allow(example).to receive_messages(:routes => routes)
+        url_helpers = double('url_helpers', foo_path: "foo")
+        routes = double('routes', url_helpers: url_helpers)
+        allow(example).to receive_messages(routes: routes)
 
         expect(example.foo_path).to eq("foo")
       end

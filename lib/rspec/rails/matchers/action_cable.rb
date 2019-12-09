@@ -48,7 +48,7 @@ module RSpec
       def have_broadcasted_to(target = nil)
         check_action_cable_adapter
 
-        ActionCable::HaveBroadcastedTo.new(target, :channel => described_class)
+        ActionCable::HaveBroadcastedTo.new(target, channel: described_class)
       end
       alias_method :broadcast_to, :have_broadcasted_to
 

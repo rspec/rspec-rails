@@ -14,7 +14,7 @@ module RSpec
               @expected.merge!(expected[0])
             else
               controller, action = expected[0].split('#')
-              @expected.merge!(:controller => controller, :action => action)
+              @expected.merge!(controller: controller, action: action)
             end
           end
 
@@ -26,7 +26,7 @@ module RSpec
               path, query = *verb_to_path_map.values.first.split('?')
               @scope.assert_recognizes(
                 @expected,
-                { :method => verb_to_path_map.keys.first, :path => path },
+                { method: verb_to_path_map.keys.first, path: path },
                 Rack::Utils.parse_nested_query(query)
               )
             end
@@ -50,12 +50,12 @@ module RSpec
         #
         # @example
         #
-        #     expect(:get => "/things/special").to route_to(
-        #       :controller => "things",
-        #       :action     => "special"
+        #     expect(get: "/things/special").to route_to(
+        #       controller: "things",
+        #       action:     "special"
         #     )
         #
-        #     expect(:get => "/things/special").to route_to("things#special")
+        #     expect(get: "/things/special").to route_to("things#special")
         #
         # @see https://api.rubyonrails.org/classes/ActionDispatch/Assertions/RoutingAssertions.html#method-i-assert_recognizes
         def route_to(*expected)
@@ -72,7 +72,7 @@ module RSpec
             @actual = path
             match_unless_raises ActionController::RoutingError do
               @routing_options = @scope.routes.recognize_path(
-                path.values.first, :method => path.keys.first
+                path.values.first, method: path.keys.first
               )
             end
           end
@@ -95,9 +95,9 @@ module RSpec
         # `RouteSet#recognize_path`.
         #
         # @example You can use route helpers provided by rspec-rails.
-        #     expect(:get  => "/a/path").to be_routable
-        #     expect(:post => "/another/path").to be_routable
-        #     expect(:put  => "/yet/another/path").to be_routable
+        #     expect(get:  "/a/path").to be_routable
+        #     expect(post: "/another/path").to be_routable
+        #     expect(put:  "/yet/another/path").to be_routable
         def be_routable
           BeRoutableMatcher.new(self)
         end

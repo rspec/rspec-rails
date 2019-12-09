@@ -293,9 +293,9 @@ module RSpec
         protected
 
           RESPONSE_METHODS = {
-            :success => 'successful',
-            :error => 'server_error',
-            :missing => 'not_found'
+            success: 'successful',
+            error: 'server_error',
+            missing: 'not_found'
           }.freeze
 
           def check_expected_status(test_response, expected)

@@ -5,7 +5,7 @@ if ::Rails::VERSION::STRING >= '5.1'
     module Generators
       # @private
       class SystemGenerator < Base
-        class_option :system_specs, :type => :boolean, :default => true,  :desc => "Generate system specs"
+        class_option :system_specs, type: :boolean, default: true,  desc: "Generate system specs"
 
         def generate_system_spec
           return unless options[:system_specs]
