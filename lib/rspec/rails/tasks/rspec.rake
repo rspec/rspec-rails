@@ -35,16 +35,6 @@ namespace :spec do
     end
   end
 
-  # RCov task only enabled for Ruby 1.8
-  if RUBY_VERSION < '1.9'
-    desc "Run all specs with rcov"
-    RSpec::Core::RakeTask.new(rcov: "spec:prepare") do |t|
-      t.rcov = true
-      t.pattern = "./spec/**/*_spec.rb"
-      t.rcov_opts = '--exclude /gems/,/Library/,/usr/,lib/tasks,.bundle,config,/lib/rspec/,/lib/rspec-,spec'
-    end
-  end
-
   task :statsetup do
     require 'rails/code_statistics'
     types.each do |type, dir|

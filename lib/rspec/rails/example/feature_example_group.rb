@@ -15,9 +15,7 @@ module RSpec
           include app.routes.url_helpers     if app.routes.respond_to?(:url_helpers)
           include app.routes.mounted_helpers if app.routes.respond_to?(:mounted_helpers)
 
-          if respond_to?(:default_url_options)
-            default_url_options[:host] ||= ::RSpec::Rails::FeatureExampleGroup::DEFAULT_HOST
-          end
+          default_url_options[:host] ||= ::RSpec::Rails::FeatureExampleGroup::DEFAULT_HOST
         end
       end
 

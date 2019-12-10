@@ -18,7 +18,6 @@ Feature: file fixture
   ```
 
   Scenario: Reading file content from fixtures directory
-    Given file fixtures are available
     And a file named "spec/fixtures/files/sample.txt" with:
       """
       Hello

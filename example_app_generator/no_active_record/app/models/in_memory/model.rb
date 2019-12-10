@@ -1,6 +1,3 @@
-# Rails 4.0.x seems to be the only version that does not autoload `ActiveModel`
-require 'active_model'
-
 raise "ActiveRecord is defined but should not be!" if defined?(::ActiveRecord)
 
 module InMemory

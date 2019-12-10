@@ -7,10 +7,6 @@ RSpec.describe Rspec::Generators::InstallGenerator, :type => :generator do
     match(/ActiveRecord::Migration\./m)
   end
 
-  def check_pending_migrations
-    match(/ActiveRecord::Migration\.check_pending!/m)
-  end
-
   def content_for(file_name)
     File.read(file(file_name))
   end
@@ -79,21 +75,9 @@ RSpec.describe Rspec::Generators::InstallGenerator, :type => :generator do
       expect(rails_helper).to filter_rails_from_backtrace
     end
 
-    if RSpec::Rails::FeatureCheck.can_maintain_test_schema?
-      specify "checking for maintaining the schema" do
-        run_generator
-        expect(rails_helper).to maintain_test_schema
-      end
-    elsif RSpec::Rails::FeatureCheck.can_check_pending_migrations?
-      specify "checking for pending migrations" do
-        run_generator
-        expect(rails_helper).to check_pending_migrations
-      end
-    else
-      specify "without a check for pending migrations" do
-        run_generator
-        expect(rails_helper).not_to use_active_record_migration
-      end
+    specify "checking for maintaining the schema" do
+      run_generator
+      expect(rails_helper).to maintain_test_schema
     end
   end
 
@@ -121,7 +105,6 @@ RSpec.describe Rspec::Generators::InstallGenerator, :type => :generator do
       run_generator
       expect(rails_helper).not_to use_active_record_migration
       expect(rails_helper).not_to maintain_test_schema
-      expect(rails_helper).not_to check_pending_migrations
     end
   end
 

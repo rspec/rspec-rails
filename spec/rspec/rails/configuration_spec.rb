@@ -253,9 +253,7 @@ RSpec.describe "Configuration" do
     end
   end
 
-  if ::Rails::VERSION::STRING > '5'
-    it "has a default #file_fixture_path of 'spec/fixtures/files'" do
-      expect(config.file_fixture_path).to eq("spec/fixtures/files")
-    end
+  it "has a default #file_fixture_path of 'spec/fixtures/files'" do
+    expect(config.file_fixture_path).to eq("spec/fixtures/files")
   end
 end

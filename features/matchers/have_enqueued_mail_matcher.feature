@@ -5,7 +5,6 @@ Feature: have_enqueued_mail matcher
   Background:
     Given active job is available
 
-  @rails_post_5
   Scenario: Checking mailer class and method name
     Given a file named "spec/mailers/user_mailer_spec.rb" with:
       """ruby
@@ -23,7 +22,6 @@ Feature: have_enqueued_mail matcher
     When I run `rspec spec/mailers/user_mailer_spec.rb`
     Then the examples should all pass
 
-  @rails_post_5
   Scenario: Checking mailer enqueued time
     Given a file named "spec/mailers/user_mailer_spec.rb" with:
       """ruby
@@ -34,42 +32,6 @@ Feature: have_enqueued_mail matcher
           ActiveJob::Base.queue_adapter = :test
           expect {
             NotificationsMailer.signup.deliver_later(wait_until: Date.tomorrow.noon)
-          }.to have_enqueued_mail.at(Date.tomorrow.noon)
-        end
-      end
-      """
-    When I run `rspec spec/mailers/user_mailer_spec.rb`
-    Then the examples should all pass
-
-  @rails_pre_5
-  Scenario: Checking mailer class and method name
-    Given a file named "spec/mailers/user_mailer_spec.rb" with:
-      """ruby
-      require "rails_helper"
-
-      RSpec.describe Notifications do
-        it "matches with enqueued mailer" do
-          ActiveJob::Base.queue_adapter = :test
-          expect {
-            Notifications.signup.deliver_later
-          }.to have_enqueued_mail(Notifications, :signup)
-        end
-      end
-      """
-    When I run `rspec spec/mailers/user_mailer_spec.rb`
-    Then the examples should all pass
-
-  @rails_pre_5
-  Scenario: Checking mailer enqueued time
-    Given a file named "spec/mailers/user_mailer_spec.rb" with:
-      """ruby
-      require "rails_helper"
-
-      RSpec.describe Notifications do
-        it "matches with enqueued mailer" do
-          ActiveJob::Base.queue_adapter = :test
-          expect {
-            Notifications.signup.deliver_later(:wait_until => Date.tomorrow.noon)
           }.to have_enqueued_mail.at(Date.tomorrow.noon)
         end
       end
