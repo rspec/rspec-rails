@@ -410,6 +410,10 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
     before do
       ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
       ActiveJob::Base.queue_adapter.perform_enqueued_at_jobs = true
+
+      stub_const('HeavyLiftingJob', heavy_lifting_job)
+      stub_const('HelloJob', hello_job)
+      stub_const('LoggingJob', logging_job)
     end
 
     it "raises ArgumentError when no Proc passed to expect" do
@@ -564,7 +568,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       date = Date.tomorrow.noon
       message = "expected to perform exactly 2 jobs, with [42], on queue low, at #{date}, but performed 0" + \
                 "\nQueued jobs:" + \
-                "\n  Class job with [1], on queue default"
+                "\n  HelloJob job with [1], on queue default"
 
       expect {
         expect {
@@ -634,6 +638,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       ActiveJob::Base.queue_adapter.performed_jobs.clear
       ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
       ActiveJob::Base.queue_adapter.perform_enqueued_at_jobs = true
+      stub_const('HeavyLiftingJob', heavy_lifting_job)
     end
 
     it "passes with default jobs count (exactly one)" do
