@@ -11,9 +11,7 @@ module RSpec
         # rubocop: disable Metrics/ClassLength
         # @private
         class Base < RSpec::Rails::Matchers::BaseMatcher
-          def initialize(verb_present_tense, verb_past_tense)
-            @verb_present_tense = verb_present_tense
-            @verb_past_tense = verb_past_tense
+          def initialize
             @args = []
             @queue = nil
             @at = nil
@@ -69,7 +67,7 @@ module RSpec
           end
 
           def failure_message
-            "expected to #{@verb_present_tense} #{base_message}".tap do |msg|
+            "expected to #{self.class::VERB_PRESENT_TENSE} #{base_message}".tap do |msg|
               if @unmatching_jobs.any?
                 msg << "\nQueued jobs:"
                 @unmatching_jobs.each do |job|
@@ -80,7 +78,7 @@ module RSpec
           end
 
           def failure_message_when_negated
-            "expected not to #{@verb_present_tense} #{base_message}"
+            "expected not to #{self.class::VERB_PRESENT_TENSE} #{base_message}"
           end
 
           def message_expectation_modifier
@@ -121,7 +119,7 @@ module RSpec
               msg << " with #{@args}," if @args.any?
               msg << " on queue #{@queue}," if @queue
               msg << " at #{@at.inspect}," if @at
-              msg << " but #{@verb_past_tense} #{@matching_jobs_count}"
+              msg << " but #{self.class::VERB_PAST_TENSE} #{@matching_jobs_count}"
             end
           end
 
@@ -195,8 +193,11 @@ module RSpec
 
         # @private
         class HaveEnqueuedJob < Base
+          VERB_PRESENT_TENSE = 'enqueue'
+          VERB_PAST_TENSE = 'enqueued'
+
           def initialize(job)
-            super("enqueue", "enqueued")
+            super()
             @job = job
           end
 
@@ -219,9 +220,8 @@ module RSpec
 
         # @private
         class HaveBeenEnqueued < Base
-          def initialize
-            super("enqueue", "enqueued")
-          end
+          VERB_PRESENT_TENSE = 'enqueue'
+          VERB_PAST_TENSE = 'enqueued'
 
           def matches?(job)
             @job = job
@@ -237,8 +237,11 @@ module RSpec
 
         # @private
         class HavePerformedJob < Base
+          VERB_PRESENT_TENSE = 'perform'
+          VERB_PAST_TENSE = 'performed'
+
           def initialize(job)
-            super("perform", "performed")
+            super()
             @job = job
           end
 
@@ -255,9 +258,8 @@ module RSpec
 
         # @private
         class HaveBeenPerformed < Base
-          def initialize
-            super("perform", "performed")
-          end
+          VERB_PRESENT_TENSE = 'perform'
+          VERB_PAST_TENSE = 'performed'
 
           def matches?(job)
             @job = job
