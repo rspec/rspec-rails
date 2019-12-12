@@ -60,3 +60,21 @@ To specify outcomes, you can use:
 * by default, views are not rendered. See
   [views are stubbed by default](controller-specs/views-are-stubbed-by-default) and
   [render_views](controller-specs/render-views) for details.
+
+## Headers
+
+We encourage you to use [request specs](https://relishapp.com/rspec/rspec-rails/docs/request-specs/request-spec) if you want
+to set headers in your call. If you still want to use a controller specs with custom http headers
+you could use `request.headers`:
+
+    require "rails_helper"
+
+    RSpec.describe TeamsController, :type => :controller do
+      describe "GET index"
+        it "returns a 200" do
+          request.headers["Authorization"] = "foo"
+          get :show
+          expect(response).to have_http_status(:ok)
+        end
+      end
+    end
