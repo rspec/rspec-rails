@@ -26,6 +26,30 @@ RSpec.describe Rspec::Generators::ControllerGenerator, :type => :generator do
       end
       it { is_expected.not_to exist }
     end
+
+
+    describe 'with actions' do
+      before do
+        run_generator %w[posts index custom_action]
+      end
+
+      it { is_expected.to exist }
+      it { is_expected.to contain('get "/posts/index"') }
+      it { is_expected.to contain('get "/posts/custom_action"') }
+    end
+
+    describe 'with namespace and actions' do
+      subject { file('spec/requests/admin/external/users_request_spec.rb') }
+
+      before do
+        run_generator %w[admin::external::users index custom_action]
+      end
+
+      it { is_expected.to exist }
+      it { is_expected.to contain(/^RSpec.describe "Admin::External::Users", #{type_metatag(:request)}/) }
+      it { is_expected.to contain('get "/admin/external/users/index"') }
+      it { is_expected.to contain('get "/admin/external/users/custom_action"') }
+    end
   end
 
   describe 'view specs' do
