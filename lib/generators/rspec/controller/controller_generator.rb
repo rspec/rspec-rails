@@ -7,12 +7,8 @@ module Rspec
       argument :actions, type: :array, default: [], banner: "action action"
 
       class_option :template_engine,  desc: "Template engine to generate view files"
-      if Rails.version.to_f >= 5.0
-        class_option :request_specs,    type: :boolean, default: true, desc: "Generate request specs"
-        class_option :controller_specs, type: :boolean, default: false, desc: "Generate controller specs"
-      else
-        class_option :controller_specs, type: :boolean, default: true, desc: "Generate controller specs"
-      end
+      class_option :request_specs,    type: :boolean, default: true, desc: "Generate request specs"
+      class_option :controller_specs, type: :boolean, default: false, desc: "Generate controller specs"
       class_option :view_specs,       type: :boolean, default: true, desc: "Generate view specs"
       class_option :routing_specs,    type: :boolean, default: false, desc: "Generate routing specs"
 
