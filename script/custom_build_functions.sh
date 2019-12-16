@@ -1,6 +1,6 @@
 function run_cukes {
   if is_mri_192_plus; then
-    bin/rake acceptance --trace
+    (unset RUBYOPT; bin/rake acceptance --trace)
     return $?
   elif is_jruby; then
     bin/rake smoke:app
