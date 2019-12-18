@@ -48,3 +48,36 @@ Feature: System spec
         When I run `rspec spec/system/widget_system_spec.rb`
         Then the exit status should be 0
         And the output should contain "1 example, 0 failures"
+
+    @system_test
+    Scenario: the ActiveJob queue_adapter can be changed
+      Given a file named "spec/system/some_job_system_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      class SomeJob < ActiveJob::Base
+        cattr_accessor :job_ran
+
+        def perform
+          @@job_ran = true
+        end
+      end
+
+      RSpec.describe "spec/system/some_job_system_spec.rb", :type => :system do
+        describe "#perform_later" do
+          before do
+            ActiveJob::Base.queue_adapter = :inline
+          end
+
+          it "perform later SomeJob" do
+            expect(ActiveJob::Base.queue_adapter).to be_an_instance_of(ActiveJob::QueueAdapters::InlineAdapter)
+
+            SomeJob.perform_later
+
+            expect(SomeJob.job_ran).to eq(true)
+          end
+        end
+      end
+      """
+      When I run `rspec spec/system/some_job_system_spec.rb`
+      Then the example should pass

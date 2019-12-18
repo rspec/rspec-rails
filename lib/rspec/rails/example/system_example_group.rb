@@ -71,7 +71,6 @@ module RSpec
         original_after_teardown =
           ::ActionDispatch::SystemTesting::TestHelpers::SetupAndTeardown.instance_method(:after_teardown)
 
-        other.include ActionDispatch::IntegrationTest::Behavior
         other.include ::ActionDispatch::SystemTesting::TestHelpers::SetupAndTeardown
         other.include ::ActionDispatch::SystemTesting::TestHelpers::ScreenshotHelper
         other.include BlowAwayTeardownHooks
