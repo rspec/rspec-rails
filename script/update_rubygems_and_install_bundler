@@ -7,6 +7,9 @@ source script/functions.sh
 
 if is_ruby_23_plus; then
   yes | gem update --system
+  echo "Current bundler versions installed: `gem list | grep '^bundler ('`"
+  gem uninstall -aIx bundler || echo "Warning error occured removing bundler via gem"
+  rvm @global do gem uninstall -aIx bundler || echo "Warning error occured removing bundler via rvm"
   gem install bundler
 else
   echo "Warning installing older versions of Rubygems / Bundler"
