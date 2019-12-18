@@ -6,6 +6,7 @@ module ArubaExt
     exec_cmd = cmd =~ /^rspec/ ? "bin/#{cmd}" : cmd
     # Ensure bundler env vars are unset
     unset_bundler_env_vars
+    delete_environment_variable "BUNDLER_VERSION"
     # Ensure the correct Gemfile is found
     in_current_directory do
       super(exec_cmd, timeout)
