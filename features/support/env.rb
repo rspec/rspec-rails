@@ -2,21 +2,23 @@ require 'aruba/cucumber'
 require 'fileutils'
 
 module ArubaExt
-  def run_command(cmd, timeout = nil)
+  def run(cmd, timeout = nil)
     exec_cmd = cmd =~ /^rspec/ ? "bin/#{cmd}" : cmd
-    # Ensure bundler env vars are unset
-    unset_bundler_env_vars
-    # Ensure the correct Gemfile is found
-    in_current_directory do
-      super(exec_cmd, timeout)
+    super(exec_cmd, timeout)
+  end
+  # This method over rides Aruba 0.5.4 implementation so that we can reset Bundler to use the sample app Gemfile
+  def in_current_dir(&block)
+    Bundler.with_clean_env do
+      _mkdir(current_dir)
+      Dir.chdir(current_dir, &block)
     end
   end
 end
 
 World(ArubaExt)
 
-Aruba.configure do |config|
-  config.exit_timeout = 30
+Before do
+  @aruba_timeout_seconds = 30
 end
 
 unless File.directory?('./tmp/example_app')
