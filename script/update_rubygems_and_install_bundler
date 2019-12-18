@@ -6,7 +6,7 @@ set -e
 source script/functions.sh
 
 if is_ruby_23_plus; then
-  gem update --system
+  yes | gem update --system
   gem install bundler
 else
   echo "Warning installing older versions of Rubygems / Bundler"
