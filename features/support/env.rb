@@ -4,12 +4,19 @@ require 'fileutils'
 module ArubaExt
   def run_command(cmd, timeout = nil)
     exec_cmd = cmd =~ /^rspec/ ? "bin/#{cmd}" : cmd
-    # Ensure bundler env vars are unset
-    unset_bundler_env_vars
-    delete_environment_variable "BUNDLER_VERSION"
-    # Ensure the correct Gemfile is found
+    # Ensure the correct Gemfile and binstubs are found
     in_current_directory do
-      super(exec_cmd, timeout)
+      with_unbundled_env do
+        super(exec_cmd, timeout)
+      end
+    end
+  end
+
+  def with_unbundled_env
+    if Bundler.respond_to?(:with_unbundled_env)
+      Bundler.with_unbundled_env { yield }
+    else
+      Bundler.with_clean_env { yield }
     end
   end
 end
