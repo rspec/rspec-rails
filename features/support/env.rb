@@ -4,6 +4,9 @@ require 'fileutils'
 module ArubaExt
   def run_command(cmd, timeout = nil)
     exec_cmd = cmd =~ /^rspec/ ? "bin/#{cmd}" : cmd
+    unset_bundler_env_vars
+    delete_environment_variable "BUNDLER_VERSION"
+    delete_environment_variable "RUBYLIB"
     # Ensure the correct Gemfile and binstubs are found
     in_current_directory do
       with_unbundled_env do
