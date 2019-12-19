@@ -85,16 +85,4 @@ matrix:
     - rvm: 2.3.8
       env: RAILS_VERSION='~> 5.0.0'
 
-    # Rails 4.2 Builds >= 1.9.3
-    - rvm: 2.5.5
-      env: RAILS_VERSION='~> 4.2.0'
-    - rvm: 2.4.6
-      env: RAILS_VERSION='~> 4.2.0'
-    - rvm: 2.4.6
-      env: RAILS_VERSION='~> 4.2.0'
-    - rvm: 2.3.8
-      env: RAILS_VERSION='~> 4.2.0'
-    - rvm: 2.3.8
-      env: RAILS_VERSION='~> 4.2.0'
-
   fast_finish: true
