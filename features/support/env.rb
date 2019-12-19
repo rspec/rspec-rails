@@ -5,13 +5,22 @@ module ArubaExt
   def run_command(cmd, timeout = nil)
     exec_cmd = cmd =~ /^rspec/ ? "bin/#{cmd}" : cmd
     unset_bundler_env_vars
-    delete_environment_variable "BUNDLER_VERSION"
-    delete_environment_variable "RUBYLIB"
     # Ensure the correct Gemfile and binstubs are found
     in_current_directory do
       with_unbundled_env do
         super(exec_cmd, timeout)
       end
+    end
+  end
+
+  def unset_bundler_env_vars
+    empty_env = with_environment { with_unbundled_env { ENV.to_h } }
+    aruba_env = aruba.environment.to_h
+    (aruba_env.keys - empty_env.keys).each do |key|
+      delete_environment_variable key
+    end
+    empty_env.each do |k, v|
+      set_environment_variable k, v
     end
   end
 
