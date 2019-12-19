@@ -6,7 +6,7 @@ set -e
 source script/functions.sh
 
 if is_ruby_23_plus; then
-  yes | gem update --system
+  yes | gem update --system '3.0.6'
   yes | gem install bundler
   echo "Current bundler versions installed after 'gem install bundler': `gem list | grep '^bundler ('`"
 else
