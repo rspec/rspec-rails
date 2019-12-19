@@ -42,10 +42,6 @@ else
   gem 'sqlite3', '~> 1.3.6', platforms: [:ruby]
 end
 
-if RUBY_VERSION >= '2.4.0'
-  gem 'json', '>= 2.0.2'
-end
-
 gem 'ffi', '~> 1.9.25'
 
 gem 'rake', '~> 12'
