@@ -25,6 +25,7 @@ RSpec.describe 'Action Mailer railtie hook' do
     # Necessary to ignore warnings from Rails code base
     out =  io.readlines.
               reject { |line| line =~ /warning: circular argument reference/ }.
+              reject { |line| line =~ /Gem::Specification#rubyforge_project=/ }.
               join.
               chomp
     CaptureExec.new(out, $?.exitstatus)
