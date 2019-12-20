@@ -1,12 +1,6 @@
 require 'active_support'
 require 'active_support/core_ext/module'
 
-# We need to copy this method from Thor for older Rails versions
-def comment_lines(path, flag, *args)
-  flag = flag.respond_to?(:source) ? flag.source : flag
-  gsub_file(path, /^(\s*)([^#|\n]*#{flag})/, '\1# \2', *args)
-end
-
 using_source_path(File.expand_path('..', __FILE__)) do
   # Comment out the default mailer stuff
   comment_lines 'config/environments/development.rb', /action_mailer/

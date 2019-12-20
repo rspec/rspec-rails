@@ -104,32 +104,6 @@ Feature: `have_http_status` matcher
     When I run `rspec spec/controllers/gadgets_spec.rb`
     Then the examples should all pass
 
-  @rails_pre_5
-  Scenario: Using in a request spec
-    Given a file named "spec/requests/gadgets/widget_management_spec.rb" with:
-      """ruby
-      require "rails_helper"
-
-      RSpec.describe "Widget management", :type => :request do
-
-        it "creates a Widget and redirects to the Widget's page" do
-          get "/widgets/new"
-          expect(response).to have_http_status(:ok)
-
-          post "/widgets", :widget => {:name => "My Widget"}
-          expect(response).to have_http_status(302)
-
-          follow_redirect!
-
-          expect(response).to have_http_status(:success)
-        end
-
-      end
-      """
-    When I run `rspec spec/requests`
-    Then the examples should all pass
-
-  @rails_post_5
   Scenario: Using in a request spec
     Given a file named "spec/requests/gadgets/widget_management_spec.rb" with:
       """ruby

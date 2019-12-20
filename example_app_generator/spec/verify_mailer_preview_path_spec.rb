@@ -16,12 +16,8 @@ RSpec.describe 'Action Mailer railtie hook' do
   end
 
   def capture_exec(*ops)
-    io = if RUBY_VERSION.to_f < 1.9
-           IO.popen(as_commandline(ops))
-         else
-           ops << { :err => [:child, :out] }
-           IO.popen(ops)
-         end
+    ops << { :err => [:child, :out] }
+    io = IO.popen(ops)
     # Necessary to ignore warnings from Rails code base
     out =  io.readlines.
               reject { |line| line =~ /warning: circular argument reference/ }.
@@ -39,7 +35,7 @@ RSpec.describe 'Action Mailer railtie hook' do
     File.expand_path(File.join(__FILE__, '../support/default_preview_path'))
   }
 
-  if RSpec::Rails::FeatureCheck.has_action_mailer_show_preview?
+  if RSpec::Rails::FeatureCheck.has_action_mailer_preview?
     context 'in the development environment' do
       let(:custom_env) { { 'RAILS_ENV' => rails_env } }
       let(:rails_env) { 'development' }
@@ -109,71 +105,6 @@ RSpec.describe 'Action Mailer railtie hook' do
             exec_script
           )
         ).to eq('test-host')
-      end
-
-      it 'handles action mailer not being available' do
-        expect(
-          capture_exec(
-            custom_env.merge('NO_ACTION_MAILER' => 'true'),
-            exec_script
-          )
-        ).to have_no_preview
-      end
-    end
-  elsif RSpec::Rails::FeatureCheck.has_action_mailer_preview?
-    context 'in the development environment', 'without `show_previews`' do
-      let(:custom_env) { { 'RAILS_ENV' => rails_env } }
-      let(:rails_env) { 'development' }
-
-      it 'sets the preview path to the default rspec path' do
-        expect(capture_exec(custom_env, exec_script)).to eq(
-          "#{::Rails.root}/spec/mailers/previews"
-        )
-      end
-
-      it 'respects a custom `preview_path`' do
-        expect(
-          capture_exec(
-            custom_env.merge('CUSTOM_PREVIEW_PATH' => '/custom/path'),
-            exec_script
-          )
-        ).to eq('/custom/path')
-      end
-
-      it 'allows initializers to set options' do
-        expect(
-          capture_exec(
-            custom_env.merge('DEFAULT_URL' => 'test-host'),
-            exec_script
-          )
-        ).to eq('test-host')
-      end
-
-      it 'handles action mailer not being available' do
-        expect(
-          capture_exec(
-            custom_env.merge('NO_ACTION_MAILER' => 'true'),
-            exec_script
-          )
-        ).to have_no_preview
-      end
-    end
-
-    context 'in a non-development environment', 'without `show_previews`' do
-      let(:custom_env) { { 'RAILS_ENV' => rails_env } }
-      let(:rails_env) { 'test' }
-
-      it 'does not set the preview path by default' do
-        expect(capture_exec(custom_env, exec_script)).to have_no_preview
-      end
-
-      it 'respects a custom `preview_path`' do
-        expect(
-          capture_exec(
-            custom_env.merge('CUSTOM_PREVIEW_PATH' => '/custom/path'),
-            exec_script
-          )
-        ).to eq('/custom/path')
       end
 
       it 'handles action mailer not being available' do

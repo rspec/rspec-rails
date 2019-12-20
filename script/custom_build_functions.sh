@@ -1,5 +1,5 @@
 function run_cukes {
-  if is_mri_192_plus; then
+  if is_mri; then
     bin/rake acceptance --trace
     return $?
   elif is_jruby; then

@@ -146,12 +146,11 @@ module RSpec
         # examples without exposing non-assertion methods in Test::Unit or
         # Minitest.
         def assertion_method_names
-          methods = ::RSpec::Rails::Assertions.
+          ::RSpec::Rails::Assertions.
             public_instance_methods.
             select do |m|
               m.to_s =~ /^(assert|flunk|refute)/
             end
-          methods + test_unit_specific_methods
         end
 
         def define_assertion_delegators
@@ -160,12 +159,6 @@ module RSpec
               assertion_delegator.send(m.to_sym, *args, &block)
             end
           end
-        end
-
-        # Starting on Rails 4, Minitest is the default testing framework so no
-        # need to add TestUnit specific methods.
-        def test_unit_specific_methods
-          []
         end
       end
 

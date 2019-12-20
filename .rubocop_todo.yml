@@ -21,3 +21,14 @@ Style/EachWithObject:
 # the new lambda syntax was not supported in ruby 1.8.7
 Style/Lambda:
   Enabled: false
+
+# we couldn't use named matches in ruby 1.8.7
+Style/PerlBackrefs:
+  Exclude:
+    - lib/generators/rspec/scaffold/scaffold_generator.rb
+
+# On 1.8 `proc` was `lambda`, so we used `Proc.new` to ensure we got real procs
+# on all supported versions.
+# http://batsov.com/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new/
+Style/Proc:
+  Enabled: false

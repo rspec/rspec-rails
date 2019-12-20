@@ -14,9 +14,7 @@ when /master/
   gem 'puma', "3.12.1"
   gem 'activerecord-jdbcsqlite3-adapter', git: 'https://github.com/jruby/activerecord-jdbc-adapter', platforms: [:jruby]
 when /stable$/
-  gem_list = %w[rails railties actionmailer actionpack activerecord activesupport]
-  gem_list << 'activejob'  if version >= '4-2-stable'
-  gem_list << 'actionview' if version >= '4-2-stable'
+  gem_list = %w[rails railties actionmailer actionpack activerecord activesupport activejob actionview]
   gem 'puma', "3.12.1" if version > '5-0-stable'
   gem 'activerecord-jdbcsqlite3-adapter', git: 'https://github.com/jruby/activerecord-jdbc-adapter', platforms: [:jruby]
 
@@ -29,9 +27,7 @@ when nil, false, ""
 else
   gem "rails", version
 
-  if version >= '5-1-stable' && RUBY_VERSION  >= "2.3"
-    gem "puma"
-  end
+  gem "puma" if version >= '5-1-stable'
 
   if version.gsub(/[^\d\.]/,'').to_f >= 6.0
     gem "activerecord-jdbcsqlite3-adapter", "~> 60.0.rc1", platforms: [:jruby]

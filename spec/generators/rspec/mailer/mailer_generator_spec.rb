@@ -13,12 +13,8 @@ RSpec.describe Rspec::Generators::MailerGenerator, :type => :generator do
       end
       it { is_expected.to exist }
       it { is_expected.to contain(/require "rails_helper"/) }
-      if Rails.version.to_f >= 5.0
-        # Rails 5 automatically appends Mailer to the provided constant so we do too
-        it { is_expected.to contain(/^RSpec.describe PostsMailer, #{type_metatag(:mailer)}/) }
-      else
-        it { is_expected.to contain(/^RSpec.describe Posts, #{type_metatag(:mailer)}/) }
-      end
+      # Rails 5+ automatically appends Mailer to the provided constant so we do too
+      it { is_expected.to contain(/^RSpec.describe PostsMailer, #{type_metatag(:mailer)}/) }
       it { is_expected.to contain(/describe "index" do/) }
       it { is_expected.to contain(/describe "show" do/) }
     end
@@ -56,16 +52,8 @@ RSpec.describe Rspec::Generators::MailerGenerator, :type => :generator do
     it { is_expected.to exist }
     it { is_expected.to contain(/class PostsPreview < ActionMailer::Preview/) }
     it { is_expected.to contain(/def index/) }
-    if Rails.version.to_f >= 5.0
-      it { is_expected.to contain(/PostsMailer.index/) }
-    else
-      it { is_expected.to contain(/Posts.index/) }
-    end
+    it { is_expected.to contain(/PostsMailer.index/) }
     it { is_expected.to contain(/def show/) }
-    if Rails.version.to_f >= 5.0
-      it { is_expected.to contain(/PostsMailer.show/) }
-    else
-      it { is_expected.to contain(/Posts.show/) }
-    end
+    it { is_expected.to contain(/PostsMailer.show/) }
   end
 end

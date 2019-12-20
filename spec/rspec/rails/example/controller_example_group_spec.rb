@@ -84,20 +84,11 @@ module RSpec::Rails
         expect(example.foos_url).to eq('http://test.host/foos')
       end
 
-      if Rails.version.to_f >= 4.2
-        it "calls NamedRouteCollection#route_defined? when it checks that given route is defined or not" do
-          expect(routes.named_routes).to receive(:route_defined?).and_return(true)
-          expect(routes.named_routes).not_to receive(:helpers)
+      it "calls NamedRouteCollection#route_defined? when it checks that given route is defined or not" do
+        expect(routes.named_routes).to receive(:route_defined?).and_return(true)
+        expect(routes.named_routes).not_to receive(:helpers)
 
-          example.foos_url
-        end
-      else
-        it "calls NamedRouteCollection#helpers#include? when it checks that given route is defined or not" do
-          expect(routes.named_routes).to \
-            receive_message_chain(:helpers, :include?).with(:foos_url).and_return(true)
-
-          example.foos_url
-        end
+        example.foos_url
       end
     end
 

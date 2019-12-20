@@ -43,10 +43,7 @@ module RSpec
 
         included do
           include ::Rails.application.routes.url_helpers
-
-          if ::Rails.application.routes.respond_to?(:mounted_helpers)
-            include ::Rails.application.routes.mounted_helpers
-          end
+          include ::Rails.application.routes.mounted_helpers
         end
 
         # @overload render
@@ -188,10 +185,7 @@ module RSpec
 
         before do
           _include_controller_helpers
-          if view.lookup_context.respond_to?(:prefixes)
-            # rails 3.1
-            view.lookup_context.prefixes << _controller_path
-          end
+          view.lookup_context.prefixes << _controller_path
 
           controller.controller_path = _controller_path
 

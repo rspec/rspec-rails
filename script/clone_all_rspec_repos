@@ -13,10 +13,7 @@ if is_mri; then
   clone_repo "rspec-expectations"
   clone_repo "rspec-mocks"
   clone_repo "rspec-rails"
-
-  if rspec_support_compatible; then
-    clone_repo "rspec-support"
-  fi
+  clone_repo "rspec-support"
 
   popd
 else
