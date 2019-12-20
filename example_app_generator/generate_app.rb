@@ -25,9 +25,6 @@ in_root do
   gsub_file "Gemfile", /.*puma.*/, ""
   gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 1.3.6'"
   gsub_file "Gemfile", /.*bootsnap.*/, ""
-  if RUBY_VERSION < '2.2.2'
-    gsub_file "Gemfile", /.*rdoc.*/, "gem 'rdoc', '< 6'"
-  end
 
   if Rails::VERSION::STRING >= '5.0.0'
     append_to_file('Gemfile', "gem 'rails-controller-testing'\n")
@@ -42,7 +39,7 @@ in_root do
     if RUBY_VERSION < "2.4"
       gsub_file "Gemfile", /.*capybara.*/, "gem 'capybara', '~> 3.15.0'"
     end
-    if Rails::VERSION::STRING >= "5.2.0" && RUBY_VERSION < '2.3.0'
+    if Rails::VERSION::STRING >= "5.2.0"
       gsub_file "Gemfile", /.*chromedriver-helper.*/, "gem 'webdrivers', '< 4.0.0'"
     else
       gsub_file "Gemfile", /.*chromedriver-helper.*/, "gem 'webdrivers'"
@@ -63,21 +60,7 @@ in_root do
 
   # Use our version of RSpec and Rails
   append_to_file 'Gemfile', <<-EOT.gsub(/^ +\|/, '')
-    |# Rack::Cache 1.3.0 requires Ruby >= 2.0.0
-    |gem 'rack-cache', '< 1.3.0' if RUBY_VERSION < '2.0.0'
-    |
-    |if RUBY_VERSION >= '2.0.0'
-    |  gem 'rake', '>= 10.0.0'
-    |elsif RUBY_VERSION >= '1.9.3'
-    |  gem 'rake', '< 12.0.0' # rake 12 requires Ruby 2.0.0 or later
-    |else
-    |  gem 'rake', '< 11.0.0' # rake 11 requires Ruby 1.9.3 or later
-    |end
-    |
-    |# Version 3 of mime-types 3 requires Ruby 2.0
-    |if RUBY_VERSION < '2.0.0'
-    |  gem 'mime-types', '< 3'
-    |end
+    |gem 'rake', '>= 10.0.0'
     |
     |gem 'rspec-rails',
     |    :path => '#{rspec_rails_repo_path}',

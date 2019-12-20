@@ -47,7 +47,7 @@ require_file_stub 'config/environment' do
       end
     end
 
-    I18n.enforce_available_locales = true if I18n.respond_to?(:enforce_available_locales)
+    I18n.enforce_available_locales = true
   end
 
   # Initialize the Rails application.

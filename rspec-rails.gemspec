@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.email       = "rspec@googlegroups.com"
   s.homepage    = "https://github.com/rspec/rspec-rails"
   s.summary     = "RSpec for Rails"
-  s.description = "rspec-rails is a testing framework for Rails 4+."
+  s.description = "rspec-rails is a testing framework for Rails 5+."
 
   s.metadata = {
     'bug_tracker_uri'   => 'https://github.com/rspec/rspec-rails/issues',
