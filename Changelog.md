@@ -18,6 +18,8 @@ Enhancements:
 * Switch generated templates to use ruby 1.9 hash keys. (Tanbir Hasan, #2224)
 * Add `have_been_performed`/`have_performed_job`/`perform_job` ActiveJob
   matchers (Isaac Seymour, #1785)
+* Default to generating request specs rather than controller specs when
+  generating a controller (Luka Lüdicke, #2222)
 
 Bug Fixes:
 
