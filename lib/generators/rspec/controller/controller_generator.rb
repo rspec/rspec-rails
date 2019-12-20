@@ -7,9 +7,17 @@ module Rspec
       argument :actions, type: :array, default: [], banner: "action action"
 
       class_option :template_engine,  desc: "Template engine to generate view files"
-      class_option :controller_specs, type: :boolean, default: true, desc: "Generate controller specs"
+      class_option :request_specs,    type: :boolean, default: true, desc: "Generate request specs"
+      class_option :controller_specs, type: :boolean, default: false, desc: "Generate controller specs"
       class_option :view_specs,       type: :boolean, default: true, desc: "Generate view specs"
       class_option :routing_specs,    type: :boolean, default: false, desc: "Generate routing specs"
+
+      def generate_request_spec
+        return unless options[:request_specs]
+
+        template 'request_spec.rb',
+                 File.join('spec/requests', class_path, "#{file_name}_request_spec.rb")
+      end
 
       def generate_controller_spec
         return unless options[:controller_specs]
