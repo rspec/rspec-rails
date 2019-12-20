@@ -33,10 +33,6 @@ else
     gem "puma"
   end
 
-  if RUBY_VERSION < "2.5"
-    gem "sprockets", "~> 3.0"
-  end
-
   if version.gsub(/[^\d\.]/,'').to_f >= 6.0
     gem "activerecord-jdbcsqlite3-adapter", "~> 60.0.rc1", platforms: [:jruby]
   else

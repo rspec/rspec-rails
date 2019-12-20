@@ -42,20 +42,11 @@ else
   gem 'sqlite3', '~> 1.3.6', platforms: [:ruby]
 end
 
-if RUBY_VERSION >= '2.4.0'
-  gem 'json', '>= 2.0.2'
-end
-
 gem 'ffi', '~> 1.9.25'
 
 gem 'rake', '~> 12'
 
 gem 'mime-types', "~> 3"
-
-# Version 5.12 of minitest requires Ruby 2.4
-if RUBY_VERSION < '2.4.0'
-  gem 'minitest', '< 5.12.0'
-end
 
 gem 'capybara', '~> 2.13', require: false
 
