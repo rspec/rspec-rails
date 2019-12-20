@@ -16,6 +16,8 @@ Enhancements:
   (David Revelo, #2134)
 * Add argument matcher support to `have_enqueued_*` matchers. (Phil Pirozhkov, #2206)
 * Switch generated templates to use ruby 1.9 hash keys. (Tanbir Hasan, #2224)
+* Add `have_been_performed`/`have_performed_job`/`perform_job` ActiveJob
+  matchers (Isaac Seymour, #1785)
 
 Bug Fixes:
 
