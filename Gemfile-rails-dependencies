@@ -43,6 +43,12 @@ else
   if version >= '5-1-stable' && RUBY_VERSION  >= "2.2"
     gem "puma"
   end
+
+  if version.gsub(/[^\d\.]/,'').to_f >= 6.0
+    gem "activerecord-jdbcsqlite3-adapter", "~> 60.0.rc1", platforms: [:jruby]
+  else
+    gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
+  end
 end
 
 gem "i18n", '< 0.7.0' if RUBY_VERSION < '1.9.3'
