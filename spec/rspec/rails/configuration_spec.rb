@@ -196,7 +196,9 @@ RSpec.describe "Configuration" do
 
   it "metadata `type: :request` sets up request example groups" do
     a_rails_app = double("Rails application")
-    the_rails_module = Module.new
+    the_rails_module = Module.new {
+      def self.version; end;
+    }
     allow(the_rails_module).to receive(:application) { a_rails_app }
     version = ::Rails::VERSION
     stub_const "Rails", the_rails_module
@@ -230,7 +232,9 @@ RSpec.describe "Configuration" do
 
   it "metadata `type: :feature` sets up feature example groups" do
     a_rails_app = double("Rails application")
-    the_rails_module = Module.new
+    the_rails_module = Module.new {
+      def self.version; end;
+    }
     allow(the_rails_module).to receive(:application) { a_rails_app }
     version = ::Rails::VERSION
     stub_const "Rails", the_rails_module

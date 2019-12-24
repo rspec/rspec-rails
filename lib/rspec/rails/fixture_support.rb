@@ -39,6 +39,12 @@ module RSpec
             end
           end
 
+          if ::Rails.version.to_f >= 6.1
+            def name
+              @example
+            end
+          end
+
           fixtures RSpec.configuration.global_fixtures if RSpec.configuration.global_fixtures
         end
       end
