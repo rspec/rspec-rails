@@ -36,6 +36,8 @@ Bug Fixes:
 * Add missing require for `have_enqueued_mail` matcher.  (Ignatius Reza, #2117)
 * Prevent `driven_by(:selenium)` being called due to hook precedence.
   (Takumi Shotoku, #2188)
+* Prevent a `WrongScopeError` being thrown during loading fixtures on Rails
+  6.1 development version. (Edouard Chin, #2215)
 
 Breaking Changes:
 
