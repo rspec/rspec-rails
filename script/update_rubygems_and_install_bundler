@@ -6,8 +6,14 @@ set -e
 source script/functions.sh
 
 if is_ruby_23_plus; then
-  yes | gem update --system
-  yes | gem install bundler
+  if ruby -e "exit(ENV['RAILS_VERSION'].scan(/\d+\.\d+.\d+/)[0].to_f >= 5)"; then
+    yes | gem update --system
+    yes | gem install bundler
+  else
+    echo "Warning installing older versions of Rubygems / Bundler"
+    gem update --system '2.7.8'
+    gem install bundler -v '1.17.3'
+  fi
 else
   echo "Warning installing older versions of Rubygems / Bundler"
   gem update --system '2.7.8'
