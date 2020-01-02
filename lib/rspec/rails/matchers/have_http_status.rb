@@ -73,7 +73,7 @@ module RSpec
         # @example
         #   expect(response).to have_http_status(404)
         #
-        # @see RSpec::Rails::Matchers.have_http_status
+        # @see RSpec::Rails::Matchers#have_http_status
         class NumericCode < RSpec::Rails::Matchers::BaseMatcher
           include HaveHttpStatus
 
@@ -123,7 +123,7 @@ module RSpec
         # @example
         #   expect(response).to have_http_status(:created)
         #
-        # @see RSpec::Rails::Matchers.have_http_status
+        # @see RSpec::Rails::Matchers#have_http_status
         # @see https://github.com/rack/rack/blob/master/lib/rack/utils.rb `Rack::Utils::SYMBOL_TO_STATUS_CODE`
         class SymbolicStatus < RSpec::Rails::Matchers::BaseMatcher
           include HaveHttpStatus
@@ -236,8 +236,8 @@ module RSpec
         #   expect(response).to have_http_status(:missing)
         #   expect(response).to have_http_status(:redirect)
         #
-        # @see RSpec::Rails::Matchers.have_http_status
-        # @see ActionDispatch::TestResponse
+        # @see RSpec::Rails::Matchers#have_http_status
+        # @see https://github.com/rails/rails/blob/6-0-stable/actionpack/lib/action_dispatch/testing/test_response.rb `ActionDispatch::TestResponse`
         class GenericStatus < RSpec::Rails::Matchers::BaseMatcher
           include HaveHttpStatus
 
