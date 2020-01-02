@@ -5,11 +5,25 @@ require 'support/generators'
 RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
   setup_default_destination
 
+  describe 'standard request specs' do
+    subject { file('spec/requests/posts_request_spec.rb') }
+
+    describe 'with --request_specs' do
+      before { run_generator %w[posts --request_specs] }
+      it { is_expected.to exist }
+    end
+
+    describe 'with no options' do
+      before { run_generator %w[posts] }
+      it { is_expected.not_to exist }
+    end
+  end
+
   describe 'standard controller spec' do
     subject { file('spec/controllers/posts_controller_spec.rb') }
 
     describe 'with no options' do
-      before { run_generator %w(posts) }
+      before { run_generator %w[posts] }
       it { is_expected.to contain(/require 'rails_helper'/) }
       it { is_expected.to contain(/^RSpec.describe PostsController, #{type_metatag(:controller)}/) }
       it { is_expected.to contain(/GET #new/) }
@@ -28,12 +42,12 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
     end
 
     describe 'with --no-controller_specs' do
-      before { run_generator %w(posts --no-controller_specs) }
+      before { run_generator %w[posts --no-controller_specs] }
       it { is_expected.not_to exist }
     end
 
     describe 'with --api' do
-      before { run_generator %w(posts --api) }
+      before { run_generator %w[posts --api] }
       it { is_expected.to contain(/require 'rails_helper'/) }
       it { is_expected.to contain(/^RSpec.describe PostsController, #{type_metatag(:controller)}/) }
       it { is_expected.not_to contain(/GET #new/) }
@@ -51,10 +65,16 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
     end
   end
 
+  describe 'namespaced request spec' do
+    subject { file('spec/requests/admin/posts_request_spec.rb') }
+    before  { run_generator %w[admin/posts --request_specs] }
+    it { is_expected.to exist }
+  end
+
   describe 'namespaced controller spec' do
     subject { file('spec/controllers/admin/posts_controller_spec.rb') }
-    before  { run_generator %w(admin/posts) }
-    it { is_expected.to contain(/^RSpec.describe Admin::PostsController, #{type_metatag(:controller)}/)}
+    before  { run_generator %w[admin/posts] }
+    it { is_expected.to contain(/^RSpec.describe Admin::PostsController, #{type_metatag(:controller)}/) }
   end
 
   describe 'view specs' do

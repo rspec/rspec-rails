@@ -14,6 +14,7 @@ module Rspec
       class_option :singleton, type: :boolean, desc: "Supply to create a singleton controller"
       class_option :api, type: :boolean, desc: "Skip specs unnecessary for API-only apps"
 
+      class_option :request_specs,    type: :boolean, default: false, desc: "Generate request specs"
       class_option :controller_specs, type: :boolean, default: true,  desc: "Generate controller specs"
       class_option :view_specs,       type: :boolean, default: true,  desc: "Generate view specs"
       class_option :helper_specs,     type: :boolean, default: true,  desc: "Generate helper specs"
@@ -22,6 +23,17 @@ module Rspec
       def initialize(*args, &blk)
         @generator_args = args.first
         super(*args, &blk)
+      end
+
+      def generate_request_spec
+        return unless options[:request_specs]
+
+        template_file = File.join(
+          'spec/requests',
+          controller_class_path,
+          "#{controller_file_name}_request_spec.rb"
+        )
+        template 'controller_spec.rb', template_file
       end
 
       def generate_controller_spec
