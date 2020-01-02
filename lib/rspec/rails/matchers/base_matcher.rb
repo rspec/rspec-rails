@@ -1,7 +1,7 @@
 module RSpec
   module Rails
     module Matchers
-      # @ api private
+      # @api private
       class BaseMatcher
         include RSpec::Matchers::Composable
 
