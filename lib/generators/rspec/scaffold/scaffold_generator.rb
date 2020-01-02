@@ -33,7 +33,7 @@ module Rspec
           controller_class_path,
           "#{controller_file_name}_request_spec.rb"
         )
-        template 'controller_spec.rb', template_file
+        template 'request_spec.rb', template_file
       end
 
       def generate_controller_spec

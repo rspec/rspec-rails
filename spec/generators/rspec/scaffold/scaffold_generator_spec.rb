@@ -11,6 +11,12 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
     describe 'with --request_specs' do
       before { run_generator %w[posts --request_specs] }
       it { is_expected.to exist }
+      it { is_expected.to contain("require 'rails_helper'") }
+      it { is_expected.to contain(/^RSpec.describe PostsController, #{type_metatag(:request)}/) }
+      it { is_expected.to contain('GET /new') }
+      it { is_expected.to contain(/"redirects to the created post"/) }
+      it { is_expected.to contain('post_url(Post.last)') }
+      it { is_expected.to contain(/"redirects to the \w+ list"/) }
     end
 
     describe 'with no options' do
@@ -69,6 +75,8 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
     subject { file('spec/requests/admin/posts_request_spec.rb') }
     before  { run_generator %w[admin/posts --request_specs] }
     it { is_expected.to exist }
+    it { is_expected.to contain(/^RSpec.describe Admin::PostsController, #{type_metatag(:request)}/) }
+    it { is_expected.to contain('admin_post_url(Admin::Post.last)') }
   end
 
   describe 'namespaced controller spec' do
