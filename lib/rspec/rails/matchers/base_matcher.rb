@@ -2,6 +2,8 @@ module RSpec
   module Rails
     module Matchers
       # @api private
+      #
+      # Base class to build matchers. Should not be instantiated directly.
       class BaseMatcher
         include RSpec::Matchers::Composable
 
