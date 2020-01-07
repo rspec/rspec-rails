@@ -7,7 +7,7 @@ Metrics/CyclomaticComplexity:
   Max: 9 # default: 6
 
 # Over time we'd like to get this down, but this is what we're at now.
-Metrics/LineLength:
+Layout/LineLength:
   Max: 186 # default: 80
 
 # Over time we'd like to get this down, but this is what we're at now.
