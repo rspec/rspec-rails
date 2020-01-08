@@ -1,4 +1,7 @@
-require "rspec/mocks"
+# We require the minimum amount of rspec-mocks possible to avoid
+# conflicts with other mocking frameworks.
+# See: https://github.com/rspec/rspec-rails/issues/2252
+require "rspec/mocks/argument_matchers"
 require "rspec/rails/matchers/active_job"
 
 module RSpec
@@ -11,7 +14,7 @@ module RSpec
       class HaveEnqueuedMail < ActiveJob::HaveEnqueuedJob
         MAILER_JOB_METHOD = 'deliver_now'.freeze
 
-        include RSpec::Mocks::ExampleMethods
+        include RSpec::Mocks::ArgumentMatchers
 
         def initialize(mailer_class, method_name)
           super(nil)
