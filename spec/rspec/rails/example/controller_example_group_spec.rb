@@ -90,6 +90,35 @@ module RSpec::Rails
 
         example.foos_url
       end
+
+      context "when controller is not a stub" do
+        let(:custom_contoller) do
+          stub_const(
+            "CustomController",
+            Class.new(ActionController::Base) do
+              def index
+                render plain: "ok"
+              end
+            end
+          )
+        end
+
+        let(:group) { group_for custom_contoller }
+        let(:controller) { custom_contoller }
+
+        it "properly delegates routing assertions" do
+          with_isolated_stderr do
+            example.with_routing do |map|
+              map.draw do
+                get "custom" => "custom#index"
+              end
+
+              expect { example.get :index }.not_to raise_error
+            end
+          end
+        end
+      end
+
     end
 
     describe "#bypass_rescue" do
