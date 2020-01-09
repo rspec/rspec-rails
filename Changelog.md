@@ -38,6 +38,7 @@ Bug Fixes:
   (Takumi Shotoku, #2188)
 * Prevent a `WrongScopeError` being thrown during loading fixtures on Rails
   6.1 development version. (Edouard Chin, #2215)
+* Fix Mocha mocking support with `should`. (Phil Pirozhkov, #2256)
 
 Breaking Changes:
 
