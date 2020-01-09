@@ -51,7 +51,7 @@ Feature: anonymous controller
       RSpec.describe ApplicationController, :type => :controller do
         controller do
           def index
-            raise ApplicationController::AccessDenied
+            raise AccessDenied
           end
         end
 
@@ -86,7 +86,7 @@ Feature: anonymous controller
       RSpec.describe ApplicationController, :type => :controller do
         controller do
           def index
-            raise ApplicationController::AccessDenied
+            raise AccessDenied
           end
         end
 
@@ -121,7 +121,7 @@ Feature: anonymous controller
       RSpec.describe ApplicationController, :type => :controller do
         controller do
           def index
-            raise ApplicationController::AccessDenied
+            raise AccessDenied
           end
         end
 
@@ -147,8 +147,7 @@ Feature: anonymous controller
 
       class FoosController < ApplicationController
 
-        rescue_from ApplicationController::AccessDenied,
-                    :with => :access_denied
+        rescue_from AccessDenied, :with => :access_denied
 
       private
 
@@ -160,7 +159,7 @@ Feature: anonymous controller
       RSpec.describe FoosController, :type => :controller do
         controller(FoosController) do
           def index
-            raise ApplicationController::AccessDenied
+            raise AccessDenied
           end
         end
 

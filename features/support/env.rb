@@ -53,8 +53,7 @@ Before do
   FileUtils.rm_rf(aruba_dir) if File.exist?(aruba_dir)
 
   # We want fresh `example_app` project with empty `spec` dir except helpers.
-  # FileUtils.cp_r on Ruby 1.9.2 doesn't preserve permissions.
-  system('cp', '-r', example_app_dir, aruba_dir)
+  FileUtils.cp_r(example_app_dir, aruba_dir)
   helpers = %w[spec/spec_helper.rb spec/rails_helper.rb]
   Dir["#{aruba_dir}/spec/*"].each do |path|
     next if helpers.any? { |helper| path.end_with?(helper) }

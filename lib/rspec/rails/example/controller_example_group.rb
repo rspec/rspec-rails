@@ -29,18 +29,11 @@ module RSpec
         # `body` in that context. Also sets up implicit routes for this
         # controller, that are separate from those defined in "config/routes.rb".
         #
-        # @note Due to Ruby 1.8 scoping rules in anonymous subclasses, constants
-        #   defined in `ApplicationController` must be fully qualified (e.g.
-        #   `ApplicationController::AccessDenied`) in the block passed to the
-        #   `controller` method. Any instance methods, filters, etc, that are
-        #   defined in `ApplicationController`, however, are accessible from
-        #   within the block.
-        #
         # @example
         #     describe ApplicationController do
         #       controller do
         #         def index
-        #           raise ApplicationController::AccessDenied
+        #           raise AccessDenied
         #         end
         #       end
         #
