@@ -248,14 +248,12 @@ RSpec.describe "Configuration" do
     expect(example).to be_a(RSpec::Rails::FeatureExampleGroup)
   end
 
-  if defined?(ActionMailer)
-    it "metadata `type: :mailer` sets up mailer example groups" do
-      a_mailer_class = Class.new
-      stub_const "SomeMailer", a_mailer_class
-      group = RSpec.describe(SomeMailer, type: :mailer)
-      expect(group.mailer_class).to be(a_mailer_class)
-      expect(group.new).to be_a(RSpec::Rails::MailerExampleGroup)
-    end
+  it "metadata `type: :mailer` sets up mailer example groups" do
+    a_mailer_class = Class.new
+    stub_const "SomeMailer", a_mailer_class
+    group = RSpec.describe(SomeMailer, type: :mailer)
+    expect(group.mailer_class).to be(a_mailer_class)
+    expect(group.new).to be_a(RSpec::Rails::MailerExampleGroup)
   end
 
   it "has a default #file_fixture_path of 'spec/fixtures/files'" do
