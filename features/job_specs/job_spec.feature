@@ -1,11 +1,8 @@
 Feature: job spec
 
-  Job specs provide alternative assertions to those available in
-  `ActiveJob::TestHelper` and help assert behaviour of the jobs themselves
-  and that other entities correctly enqueue them.
+  Job specs provide alternative assertions to those available in `ActiveJob::TestHelper` and help assert behaviour of the jobs themselves and that other entities correctly enqueue them.
 
-  Job specs are marked by `:type => :job` or if you have set
-  `config.infer_spec_type_from_file_location!` by placing them in `spec/jobs`.
+  Job specs are marked by `:type => :job` or if you have set `config.infer_spec_type_from_file_location!` by placing them in `spec/jobs`.
 
   With job specs, you can:
 
