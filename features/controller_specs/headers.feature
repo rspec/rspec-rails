@@ -1,9 +1,9 @@
 Feature: Headers
 
-  We recommend you to switch to request specs instead of controller specs
-  if you want to set headers in your call.
-  If you still want to set headers in controller specs, you can use
-  `request.headers` as mentioned bellow.
+  We recommend you to switch to request specs instead of controller specs if you want to set
+  headers in your call.
+  If you still want to set headers in controller specs, you can use `request.headers` as
+  mentioned bellow.
 
   Scenario: Setting a header value in a controller spec
     Given a file named "spec/controllers/application_controller_spec.rb" with:
