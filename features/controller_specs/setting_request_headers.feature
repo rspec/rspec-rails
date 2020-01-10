@@ -1,16 +1,15 @@
-Feature: Headers
+Feature: Setting request headers
 
   We recommend you to switch to request specs instead of controller specs if you want to set
-  headers in your call.
-  If you still want to set headers in controller specs, you can use `request.headers` as
-  mentioned bellow.
+  headers in your call.  If you still want to set headers in controller specs, you can use
+  `request.headers` as mentioned bellow.
 
   Scenario: Setting a header value in a controller spec
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
       require "rails_helper"
 
-      RSpec.describe ApplicationController, :type => :controller do
+      RSpec.describe ApplicationController, type" :controller do
         controller do
           def show
             if request.headers["Authorization"] == "foo"
