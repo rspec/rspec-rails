@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 class CollectionOwner < ActiveRecord::Base
   connection.execute <<-SQL
     CREATE TABLE collection_owners (

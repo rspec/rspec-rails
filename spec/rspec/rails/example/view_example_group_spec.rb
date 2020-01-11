@@ -1,5 +1,3 @@
-require "spec_helper"
-
 module RSpec::Rails
   describe ViewExampleGroup do
     it_behaves_like "an rspec-rails example group mixin", :view,

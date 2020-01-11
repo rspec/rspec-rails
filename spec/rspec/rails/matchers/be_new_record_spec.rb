@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe "be_new_record" do
   context "a new record" do
     let(:record) { double('record', new_record?: true) }

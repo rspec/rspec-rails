@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe "be_routable" do
   include RSpec::Rails::Matchers::RoutingMatchers
   attr_reader :routes

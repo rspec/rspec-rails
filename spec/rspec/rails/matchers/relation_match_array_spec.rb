@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe "ActiveSupport::Relation match_array matcher" do
   before { MockableModel.delete_all }
 

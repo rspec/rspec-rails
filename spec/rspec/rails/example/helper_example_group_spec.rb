@@ -1,5 +1,3 @@
-require "spec_helper"
-
 module RSpec::Rails
   RSpec.describe HelperExampleGroup do
     module ::FoosHelper

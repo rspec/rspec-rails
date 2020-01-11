@@ -1,4 +1,3 @@
-require "spec_helper"
 require "active_support"
 require "active_support/test_case"
 
