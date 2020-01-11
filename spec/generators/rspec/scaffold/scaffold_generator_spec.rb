@@ -8,7 +8,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
   describe 'standard request specs' do
     subject { file('spec/requests/posts_request_spec.rb') }
 
-    describe 'with --request_specs' do
+    describe 'with no options' do
       before { run_generator %w[posts --request_specs] }
       it { is_expected.to exist }
       it { is_expected.to contain("require 'rails_helper'") }
@@ -19,8 +19,8 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
       it { is_expected.to contain(/"redirects to the \w+ list"/) }
     end
 
-    describe 'with no options' do
-      before { run_generator %w[posts] }
+    describe 'with --no-request_specs' do
+      before { run_generator %w[posts --no-request_specs] }
       it { is_expected.not_to exist }
     end
   end
@@ -28,8 +28,8 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
   describe 'standard controller spec' do
     subject { file('spec/controllers/posts_controller_spec.rb') }
 
-    describe 'with no options' do
-      before { run_generator %w[posts] }
+    describe 'with --controller_specs' do
+      before { run_generator %w[posts --controller_specs] }
       it { is_expected.to contain(/require 'rails_helper'/) }
       it { is_expected.to contain(/^RSpec.describe PostsController, #{type_metatag(:controller)}/) }
       it { is_expected.to contain(/GET #new/) }
@@ -47,13 +47,13 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
       it { is_expected.to contain(/"redirects to the \w+ list"/) }
     end
 
-    describe 'with --no-controller_specs' do
-      before { run_generator %w[posts --no-controller_specs] }
+    describe 'with no option' do
+      before { run_generator %w[posts] }
       it { is_expected.not_to exist }
     end
 
     describe 'with --api' do
-      before { run_generator %w[posts --api] }
+      before { run_generator %w[posts --controller_specs --api] }
       it { is_expected.to contain(/require 'rails_helper'/) }
       it { is_expected.to contain(/^RSpec.describe PostsController, #{type_metatag(:controller)}/) }
       it { is_expected.not_to contain(/GET #new/) }
@@ -81,7 +81,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
 
   describe 'namespaced controller spec' do
     subject { file('spec/controllers/admin/posts_controller_spec.rb') }
-    before  { run_generator %w[admin/posts] }
+    before  { run_generator %w[admin/posts --controller_specs] }
     it { is_expected.to contain(/^RSpec.describe Admin::PostsController, #{type_metatag(:controller)}/) }
   end
 
