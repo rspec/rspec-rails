@@ -9,7 +9,7 @@ Feature: Setting request headers
       """ruby
       require "rails_helper"
 
-      RSpec.describe ApplicationController, type" :controller do
+      RSpec.describe ApplicationController, type: :controller do
         controller do
           def show
             if request.headers["Authorization"] == "foo"
