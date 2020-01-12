@@ -11,6 +11,7 @@ module RSpecRails
     end
   end
 end
+
 I18n.enforce_available_locales = true
 
 require 'rspec/support/spec'
@@ -25,17 +26,34 @@ class RSpec::Core::ExampleGroup
   end
 end
 
+# See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  config.expect_with :rspec do |expectations|
+    expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+  end
+
+  config.mock_with :rspec do |mocks|
+    # mocks.verify_partial_doubles = true
+    mocks.verify_doubled_constant_names = true
+  end
+
   config.filter_run :focus
   config.run_all_when_everything_filtered = true
-  config.order = :random
 
-  real_world = nil
-  config.before(:each) do
+  config.order = :random
+  Kernel.srand config.seed
+
+  config.shared_context_metadata_behavior = :apply_to_host_groups
+
+  config.disable_monkey_patching!
+
+  config.warnings = true
+  config.raise_on_warning = true
+
+  config.around(:example) do |example|
     real_world = RSpec.world
     RSpec.instance_variable_set(:@world, RSpec::Core::World.new)
-  end
-  config.after(:each) do
+    example.run
     RSpec.instance_variable_set(:@world, real_world)
   end
 end
