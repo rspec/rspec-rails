@@ -1,4 +1,4 @@
-describe "ActiveSupport::Relation match_array matcher" do
+RSpec.describe "ActiveSupport::Relation match_array matcher" do
   before { MockableModel.delete_all }
 
   let!(:models) { Array.new(3) { MockableModel.create } }

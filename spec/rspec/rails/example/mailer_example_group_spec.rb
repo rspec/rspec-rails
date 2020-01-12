@@ -1,5 +1,5 @@
 module RSpec::Rails
-  describe MailerExampleGroup do
+  RSpec.describe MailerExampleGroup do
     module ::Rails; end
     before do
       allow(Rails).to receive_message_chain(:application, :routes, :url_helpers).and_return(Rails)

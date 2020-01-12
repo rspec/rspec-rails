@@ -1,4 +1,4 @@
-describe "route_to" do
+RSpec.describe "route_to" do
   include RSpec::Rails::Matchers::RoutingMatchers
   include RSpec::Rails::Matchers::RoutingMatchers::RouteHelpers
 

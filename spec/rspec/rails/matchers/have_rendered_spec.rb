@@ -1,5 +1,5 @@
 %w[have_rendered render_template].each do |template_expectation|
-  describe template_expectation do
+  RSpec.describe template_expectation do
     include RSpec::Rails::Matchers::RenderTemplate
     let(:response) { ActionDispatch::TestResponse.new }
 

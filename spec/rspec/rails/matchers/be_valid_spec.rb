@@ -1,6 +1,6 @@
 require 'rspec/rails/matchers/be_valid'
 
-describe "be_valid matcher" do
+RSpec.describe "be_valid matcher" do
   class Post
     include ActiveModel::Validations
     attr_accessor :title

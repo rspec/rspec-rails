@@ -54,7 +54,7 @@ module RSpec::Rails
     end
   end
 
-  describe HelperExampleGroup::ClassMethods do
+  RSpec.describe HelperExampleGroup::ClassMethods do
     describe "determine_default_helper_class" do
       let(:group) do
         RSpec::Core::ExampleGroup.describe do

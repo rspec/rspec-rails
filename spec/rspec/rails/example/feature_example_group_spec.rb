@@ -1,5 +1,5 @@
 module RSpec::Rails
-  describe FeatureExampleGroup do
+  RSpec.describe FeatureExampleGroup do
     it_behaves_like "an rspec-rails example group mixin", :feature,
       './spec/features/', '.\\spec\\features\\'
 
