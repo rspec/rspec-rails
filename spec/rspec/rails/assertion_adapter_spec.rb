@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe RSpec::Rails::MinitestAssertionAdapter do
   include RSpec::Rails::MinitestAssertionAdapter
 

@@ -1,5 +1,3 @@
-require "spec_helper"
-
 %w[have_rendered render_template].each do |template_expectation|
   describe template_expectation do
     include RSpec::Rails::Matchers::RenderTemplate

@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe "be_a_new matcher" do
   context "new record" do
     let(:record) do

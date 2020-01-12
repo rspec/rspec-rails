@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'pathname'
 
 RSpec.describe "Verify required rspec dependencies" do

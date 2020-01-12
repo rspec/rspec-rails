@@ -1,5 +1,3 @@
-require "spec_helper"
-
 describe "route_to" do
   include RSpec::Rails::Matchers::RoutingMatchers
   include RSpec::Rails::Matchers::RoutingMatchers::RouteHelpers

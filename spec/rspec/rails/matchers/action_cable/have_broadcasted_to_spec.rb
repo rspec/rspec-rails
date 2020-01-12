@@ -1,4 +1,3 @@
-require "spec_helper"
 require "rspec/rails/feature_check"
 
 if RSpec::Rails::FeatureCheck.has_action_cable_testing?

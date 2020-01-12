@@ -1,4 +1,3 @@
-require "spec_helper"
 require "rspec/rails/feature_check"
 
 module RSpec::Rails
