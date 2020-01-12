@@ -1,4 +1,3 @@
-require "spec_helper"
 module RSpec::Rails
   if ActionPack::VERSION::STRING >= "5.1"
     RSpec.describe SystemExampleGroup do

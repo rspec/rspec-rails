@@ -1,5 +1,3 @@
-require "spec_helper"
-
 class ::ApplicationController
   def self.abstract?; false; end
 end

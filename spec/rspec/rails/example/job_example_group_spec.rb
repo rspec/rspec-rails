@@ -1,5 +1,3 @@
-require "spec_helper"
-
 module RSpec::Rails
   describe JobExampleGroup do
     if defined?(ActiveJob)

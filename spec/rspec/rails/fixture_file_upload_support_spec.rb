@@ -1,5 +1,3 @@
-require 'spec_helper'
-
 module RSpec::Rails
   describe FixtureFileUploadSupport do
     context 'with fixture path set in config' do
