@@ -56,7 +56,7 @@ module RSpec::Rails
         end
 
         it 'includes the application helper' do
-          group = RSpec::Core::Example.describe 'bars/new.html.erb'
+          group = RSpec::Core::ExampleGroup.describe 'bars/new.html.erb'
           expect(group).to receive(:helper).with(ApplicationHelper)
           group.class_exec do
             include ViewExampleGroup
