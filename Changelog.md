@@ -1,9 +1,28 @@
-### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.9.0...master)
+### 4.0.0.beta4
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.0.beta3...v4.0.0.beta4)
 
 Enhancements:
 
-* Adds support for Rails 6. (Penelope Phippen, Benoit Tigeot, Jon Rowe, #2071)
+* Add argument matcher support to `have_enqueued_*` matchers. (Phil Pirozhkov, #2206)
+* Switch generated templates to use ruby 1.9 hash keys. (Tanbir Hasan, #2224)
+* Add `have_been_performed`/`have_performed_job`/`perform_job` ActiveJob
+  matchers (Isaac Seymour, #1785)
+* Default to generating request specs rather than controller specs when
+  generating a controller (Luka Lüdicke, #2222)
+
+Bug Fixes:
+
+* Prevent `driven_by(:selenium)` being called due to hook precedence.
+  (Takumi Shotoku, #2188)
+* Prevent a `WrongScopeError` being thrown during loading fixtures on Rails
+  6.1 development version. (Edouard Chin, #2215)
+* Fix Mocha mocking support with `should`. (Phil Pirozhkov, #2256)
+
+### 4.0.0.beta3
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.0.beta2...v4.0.0.beta3)
+
+Enhancements:
+
 * Adds support for JRuby on Rails 5.2 and 6
 * Add support for parameterised mailers (Ignatius Reza, #2125)
 * Add ActionMailbox spec helpers and test type (James Dabbs, #2119)
@@ -14,12 +33,28 @@ Enhancements:
 * Improve path parsing in view specs render options. (John Hawthorn, #2115)
 * Add routing spec template as an option for generating controller specs.
   (David Revelo, #2134)
-* Add argument matcher support to `have_enqueued_*` matchers. (Phil Pirozhkov, #2206)
-* Switch generated templates to use ruby 1.9 hash keys. (Tanbir Hasan, #2224)
-* Add `have_been_performed`/`have_performed_job`/`perform_job` ActiveJob
-  matchers (Isaac Seymour, #1785)
-* Default to generating request specs rather than controller specs when
-  generating a controller (Luka Lüdicke, #2222)
+
+Bug Fixes:
+
+* Replace `before_teardown` as well as `after_teardown` to ensure screenshots
+  are generated correctly. (Jon Rowe, #2164)
+* `ActionView::FixtureResolver#hash` has been renamed to `ActionView::FixtureResolver#data`.
+  (Penelope Phippen, #2076)
+* Add missing require for `have_enqueued_mail` matcher.  (Ignatius Reza, #2117)
+
+### 4.0.0.beta2
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.0.beta1...v4.0.0.beta2)
+
+Bug Fixes:
+
+* Fix version dependencies in gemspec.
+
+### 4.0.0.beta1
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.9.0...v4.0.0.beta1)
+
+Enhancements:
+
+* Adds support for Rails 6. (Penelope Phippen, Benoit Tigeot, Jon Rowe, #2071)
 
 Bug Fixes:
 
@@ -29,16 +64,6 @@ Bug Fixes:
   deprecated. (Pavel Rosický, #2092)
 * `ActionView::Template#formats` has been deprecated and replaced by
   `ActionView::Template#format`(Seb Jacobs, #2100)
-* Replace `before_teardown` as well as `after_teardown` to ensure screenshots
-  are generated correctly. (Jon Rowe, #2164)
-* `ActionView::FixtureResolver#hash` has been renamed to `ActionView::FixtureResolver#data`.
-  (Penelope Phippen, #2076)
-* Add missing require for `have_enqueued_mail` matcher.  (Ignatius Reza, #2117)
-* Prevent `driven_by(:selenium)` being called due to hook precedence.
-  (Takumi Shotoku, #2188)
-* Prevent a `WrongScopeError` being thrown during loading fixtures on Rails
-  6.1 development version. (Edouard Chin, #2215)
-* Fix Mocha mocking support with `should`. (Phil Pirozhkov, #2256)
 
 Breaking Changes:
 
