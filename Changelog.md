@@ -1,3 +1,11 @@
+### Development
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.0.beta4...master)
+
+Enhancements:
+
+* Add the ability to change ActiveJob::Base.queue_adapter in system spec.
+  (Jonathan Rochkind, #2242)
+
 ### 4.0.0.beta4
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.0.beta3...v4.0.0.beta4)
 
