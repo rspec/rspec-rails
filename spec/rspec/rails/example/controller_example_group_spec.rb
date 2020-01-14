@@ -60,12 +60,11 @@ module RSpec::Rails
       let(:controller) { double('controller') }
       let(:example) { group.new }
       let(:routes) do
-        routes = nil
         with_isolated_stderr do
           routes = ActionDispatch::Routing::RouteSet.new
           routes.draw { resources :foos }
+          routes
         end
-        routes
       end
 
       before do
@@ -84,7 +83,6 @@ module RSpec::Rails
 
       it "calls NamedRouteCollection#route_defined? when it checks that given route is defined or not" do
         expect(routes.named_routes).to receive(:route_defined?).and_return(true)
-        expect(routes.named_routes).not_to receive(:helpers)
 
         example.foos_url
       end

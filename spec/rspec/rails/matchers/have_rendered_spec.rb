@@ -4,6 +4,7 @@
     let(:response) { ActionDispatch::TestResponse.new }
 
     context "given a hash" do
+      def assert_template(*); end
       it "delegates to assert_template" do
         expect(self).to receive(:assert_template).with({:this => "hash"}, "this message")
         expect("response").to send(template_expectation, {:this => "hash"}, "this message")
@@ -11,6 +12,7 @@
     end
 
     context "given a string" do
+      def assert_template(*); end
       it "delegates to assert_template" do
         expect(self).to receive(:assert_template).with("this string", "this message")
         expect("response").to send(template_expectation, "this string", "this message")
@@ -18,6 +20,7 @@
     end
 
     context "given a symbol" do
+      def assert_template(*); end
       it "converts to_s and delegates to assert_template" do
         expect(self).to receive(:assert_template).with("template_name", "this message")
         expect("response").to send(template_expectation, :template_name, "this message")
@@ -26,8 +29,8 @@
 
     context "with should" do
       context "when assert_template passes" do
+        def assert_template(*); end
         it "passes" do
-          def assert_template(*); end
           expect do
             expect(response).to send(template_expectation, "template_name")
           end.to_not raise_exception

@@ -20,12 +20,14 @@ module RSpec::Rails
 
     describe "#helper" do
       it "returns the instance of AV::Base provided by AV::TC::Behavior" do
-        helper_spec = Object.new.extend HelperExampleGroup
-        expect(helper_spec).to receive(:view_assigns)
-        av_tc_b_view = double('_view')
-        expect(av_tc_b_view).to receive(:assign)
-        allow(helper_spec).to receive(:_view) { av_tc_b_view }
-        expect(helper_spec.helper).to eq(av_tc_b_view)
+        without_partial_double_verification do
+          helper_spec = Object.new.extend HelperExampleGroup
+          expect(helper_spec).to receive(:view_assigns)
+          av_tc_b_view = double('_view')
+          expect(av_tc_b_view).to receive(:assign)
+          allow(helper_spec).to receive(:_view) { av_tc_b_view }
+          expect(helper_spec.helper).to eq(av_tc_b_view)
+        end
       end
 
       before do
