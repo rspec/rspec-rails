@@ -112,6 +112,11 @@ module Rspec
         @ns_suffix ||= ns_parts[-1]
       end
 
+      def singular_url_helper(record_name)
+        # Similar to Rails::Generators::NamedBase.show_helper - but singular_route_name method is not available
+        "#{singular_table_name}_url(#{record_name})"
+      end
+
       def value_for(attribute)
         raw_value_for(attribute).inspect
       end

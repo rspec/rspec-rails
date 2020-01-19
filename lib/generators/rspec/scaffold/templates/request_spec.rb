@@ -40,7 +40,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:request
   describe "GET /show" do
     it "renders a successful response" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
-      get <%= "#{singular_table_name}_url(#{file_name})" %>
+      get <%= singular_url_helper(file_name) %>
       expect(response).to be_successful
     end
   end
@@ -55,7 +55,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:request
   describe "GET /edit" do
     it "render a successful response" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
-      get <%= "edit_#{singular_table_name}_url(#{file_name})" %>
+      get <%= "edit_#{singular_url_helper(file_name)}" %>
       expect(response).to be_successful
     end
   end
@@ -70,7 +70,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:request
 
       it "redirects to the created <%= ns_file_name %>" do
         post <%= "#{index_helper}_path" %>, params: { <%= ns_file_name %>: valid_attributes }
-        expect(response).to redirect_to(<%= singular_table_name %>_url(<%= class_name %>.last))
+        expect(response).to redirect_to(<%= singular_url_helper("#{class_name}.last") %>)
       end
     end
 
@@ -103,7 +103,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:request
 
       it "redirects to the <%= ns_file_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-        patch <%= "#{singular_table_name}_url(#{file_name})" %>, params: { <%= singular_table_name %>: new_attributes }
+        patch <%= singular_url_helper(file_name) %>, params: { <%= singular_table_name %>: new_attributes }
         <%= file_name %>.reload
         expect(response).to redirect_to(<%= singular_table_name %>_url(<%= file_name %>))
       end
@@ -112,7 +112,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:request
     context "with invalid parameters" do
       it "renders a successful response (i.e. to display the 'edit' template)" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-        patch <%= "#{singular_table_name}_url(#{file_name})" %>, params: { <%= singular_table_name %>: invalid_attributes }
+        patch <%= singular_url_helper(file_name) %>, params: { <%= singular_table_name %>: invalid_attributes }
         expect(response).to be_successful
       end
     end
@@ -122,13 +122,13 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:request
     it "destroys the requested <%= ns_file_name %>" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
       expect {
-        delete <%= "#{singular_table_name}_url(#{file_name})" %>
+        delete <%= singular_url_helper(file_name) %>
       }.to change(<%= class_name %>, :count).by(-1)
     end
 
     it "redirects to the <%= table_name %> list" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
-      delete <%= "#{singular_table_name}_url(#{file_name})" %>
+      delete <%= singular_url_helper(file_name) %>
       expect(response).to redirect_to(<%= "#{index_helper}_url" %>)
     end
   end

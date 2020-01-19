@@ -104,6 +104,10 @@ Metrics/BlockLength:
 # Warns when the class is excessively long.
 Metrics/ClassLength:
   Max: 100
+  Exclude:
+    # Splitting the Generator classes would make matters more confusing
+    # than them being too big
+    - lib/generators/rspec/**/*
 
 Metrics/PerceivedComplexity:
   Enabled: false
