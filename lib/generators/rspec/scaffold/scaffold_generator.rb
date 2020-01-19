@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'generators/rspec'
 require 'rails/generators/resource_helpers'
 
