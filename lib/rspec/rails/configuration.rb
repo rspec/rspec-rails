@@ -63,6 +63,7 @@ module RSpec
       config.add_setting :infer_base_class_for_anonymous_controllers, default: true
 
       # fixture support
+      config.add_setting :use_active_record, default: true
       config.add_setting :use_transactional_fixtures, alias_with: :use_transactional_examples
       config.add_setting :use_instantiated_fixtures
       config.add_setting :global_fixtures

@@ -12,7 +12,7 @@ RSpec.describe Rspec::Generators::InstallGenerator, type: :generator do
   end
 
   def have_a_fixture_path
-    match(/config\.fixture_path/m)
+    match(/^  config\.fixture_path = /m)
   end
 
   def maintain_test_schema
@@ -23,8 +23,16 @@ RSpec.describe Rspec::Generators::InstallGenerator, type: :generator do
     match(/^require 'rspec\/rails'$/m)
   end
 
-  def have_transactional_fixtures_enabled?
-    match(/config\.use_transactional_fixtures/m)
+  def have_active_record_enabled
+    match(/^\  # config\.use_active_record = false/m)
+  end
+
+  def have_active_record_disabled
+    match(/^\  config\.use_active_record = false/m)
+  end
+
+  def have_transactional_fixtures_enabled
+    match(/^  config\.use_transactional_fixtures = true/m)
   end
 
   def filter_rails_from_backtrace
@@ -59,19 +67,24 @@ RSpec.describe Rspec::Generators::InstallGenerator, type: :generator do
       expect(rails_helper).to require_rspec_rails
     end
 
-    specify "with transactional fixtures" do
+    specify "with ActiveRecord" do
       run_generator
-      expect(rails_helper).to have_a_fixture_path
+      expect(rails_helper).to have_active_record_enabled
+      expect(rails_helper).not_to have_active_record_disabled
     end
 
     specify "with default fixture path" do
       run_generator
-      expect(rails_helper).to have_transactional_fixtures_enabled?
+      expect(rails_helper).to have_a_fixture_path
+    end
+
+    specify "with transactional fixtures" do
+      run_generator
+      expect(rails_helper).to have_transactional_fixtures_enabled
     end
 
     specify "excluding rails gems from the backtrace" do
       run_generator
-
       expect(rails_helper).to filter_rails_from_backtrace
     end
 
@@ -86,26 +99,31 @@ RSpec.describe Rspec::Generators::InstallGenerator, type: :generator do
       hide_const("ActiveRecord")
     end
 
-    it "requires rspec/rails" do
+    specify "requiring rspec/rails" do
       run_generator
       expect(rails_helper).to require_rspec_rails
     end
 
-    it "does not include config.fixture_path" do
+    specify "without ActiveRecord" do
+      run_generator
+      expect(rails_helper).not_to have_active_record_enabled
+      expect(rails_helper).to have_active_record_disabled
+    end
+
+    specify "without fixture path" do
       run_generator
       expect(rails_helper).not_to have_a_fixture_path
     end
 
-    it "does not include config.use_transactional_fixtures" do
+    specify "without transactional fixtures" do
       run_generator
-      expect(rails_helper).not_to have_transactional_fixtures_enabled?
+      expect(rails_helper).not_to have_transactional_fixtures_enabled
     end
 
-    it "does not check use active record migration options" do
+    specify "without schema maintenance checks" do
       run_generator
       expect(rails_helper).not_to use_active_record_migration
       expect(rails_helper).not_to maintain_test_schema
     end
   end
-
 end
