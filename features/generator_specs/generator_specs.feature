@@ -1,9 +1,6 @@
 Feature: Generator spec
 
-    RSpec spec are normally generated alongside other application components.
-    For instance, `rails generate model` will also generate an RSpec spec file
-    for the model but you can also use your own generator. See
-    [customizing your workflow](https://guides.rubyonrails.org/generators.html#customizing-your-workflow)
+    RSpec spec(s) can be generated when generating application components. For instance, `rails generate model` will also generate an RSpec spec file for the model but you can also write your own generator. See [customizing your workflow](https://guides.rubyonrails.org/generators.html#customizing-your-workflow)
 
     Scenario: Use custom generator without '--generator-specs' arg
         When I run `bundle exec rails generate generator my_generator`
