@@ -5,7 +5,6 @@ Feature: Generator spec
     for the model but you can also use your own generator. See
     [customizing your workflow](https://guides.rubyonrails.org/generators.html#customizing-your-workflow)
 
-    @remove-generator-files
     Scenario: Use custom generator without '--generator-specs' arg
         When I run `bundle exec rails generate generator my_generator`
         Then the features should pass
@@ -18,7 +17,6 @@ Feature: Generator spec
                 invoke  rspec
           """
 
-    @remove-generator-files
     Scenario: Use custom generator with '--generator-specs' arg
         When I run `bundle exec rails generate generator my_generator --generator-specs`
         Then the features should pass
