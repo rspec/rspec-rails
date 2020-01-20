@@ -1,4 +1,4 @@
-describe RSpec::Rails::MinitestAssertionAdapter do
+RSpec.describe RSpec::Rails::MinitestAssertionAdapter do
   include RSpec::Rails::MinitestAssertionAdapter
 
   RSpec::Rails::Assertions.public_instance_methods.select{|m| m.to_s =~ /^(assert|flunk|refute)/}.each do |m|

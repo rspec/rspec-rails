@@ -1,4 +1,4 @@
-describe RSpec::Rails::AssertionDelegator do
+RSpec.describe RSpec::Rails::AssertionDelegator do
   it "provides a module that delegates assertion methods to an isolated class" do
     klass = Class.new {
       include RSpec::Rails::AssertionDelegator.new(RSpec::Rails::Assertions)
