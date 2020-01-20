@@ -1,4 +1,4 @@
-describe "be_a_new matcher" do
+RSpec.describe "be_a_new matcher" do
   context "new record" do
     let(:record) do
       Class.new do

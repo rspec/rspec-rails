@@ -1,5 +1,5 @@
 module RSpec::Rails
-  describe ViewExampleGroup do
+  RSpec.describe ViewExampleGroup do
     it_behaves_like "an rspec-rails example group mixin", :view,
       './spec/views/', '.\\spec\\views\\'
 
@@ -8,7 +8,9 @@ module RSpec::Rails
       module ::Namespaced; module ThingsHelper; end; end
 
       it 'includes the helper with the same name' do
-        group = RSpec::Core::ExampleGroup.describe 'things/show.html.erb'
+        group = RSpec::Core::ExampleGroup.describe('things/show.html.erb') do
+          def self.helper(*); end # Stub method
+        end
         expect(group).to receive(:helper).with(ThingsHelper)
         group.class_exec do
           include ViewExampleGroup
@@ -16,7 +18,9 @@ module RSpec::Rails
       end
 
       it 'includes the namespaced helper with the same name' do
-        group = RSpec::Core::ExampleGroup.describe 'namespaced/things/show.html.erb'
+        group = RSpec::Core::ExampleGroup.describe('namespaced/things/show.html.erb') do
+          def self.helper(*); end # Stub method
+        end
         expect(group).to receive(:helper).with(Namespaced::ThingsHelper)
         group.class_exec do
           include ViewExampleGroup
@@ -56,7 +60,9 @@ module RSpec::Rails
         end
 
         it 'includes the application helper' do
-          group = RSpec::Core::Example.describe 'bars/new.html.erb'
+          group = RSpec::Core::ExampleGroup.describe('bars/new.html.erb') do
+            def self.helper(*); end # Stub method
+          end
           expect(group).to receive(:helper).with(ApplicationHelper)
           group.class_exec do
             include ViewExampleGroup
@@ -124,6 +130,7 @@ module RSpec::Rails
             end
           end
           include local
+          def _default_file_to_render; end # Stub method
           include ViewExampleGroup::ExampleMethods
         end.new
       end
@@ -174,7 +181,7 @@ module RSpec::Rails
         Class.new do
           include ViewExampleGroup::ExampleMethods
           def controller
-            @controller ||= Object.new
+            @controller ||= OpenStruct.new(params: nil)
           end
         end.new
       end
@@ -189,8 +196,10 @@ module RSpec::Rails
       let(:view_spec) do
         Class.new do
           include ViewExampleGroup::ExampleMethods
+          def _default_file_to_render; end
         end.new
       end
+
       context "with a common _default_file_to_render" do
         it "it returns the directory" do
           allow(view_spec).to receive(:_default_file_to_render).
@@ -213,6 +222,7 @@ module RSpec::Rails
     describe "#view" do
       let(:view_spec) do
         Class.new do
+          def _view; end # Stub method
           include ViewExampleGroup::ExampleMethods
         end.new
       end
@@ -227,13 +237,13 @@ module RSpec::Rails
         with_isolated_config do
           run_count = 0
           RSpec.configuration.before(:each, :type => :view) do
-            allow(view).to receive(:a_stubbed_helper) { :value }
+            allow(view).to receive(:render) { :value }
             run_count += 1
           end
           group = RSpec::Core::ExampleGroup.describe 'a view', :type => :view do
             specify { true }
           end
-          group.run NullObject.new
+          group.run
           expect(run_count).to eq 1
         end
       end

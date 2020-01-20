@@ -1,5 +1,5 @@
 module RSpec::Rails
-  describe RoutingExampleGroup do
+  RSpec.describe RoutingExampleGroup do
     it_behaves_like "an rspec-rails example group mixin", :routing,
       './spec/routing/', '.\\spec\\routing\\'
 

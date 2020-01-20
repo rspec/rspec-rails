@@ -19,7 +19,7 @@ SQL
   belongs_to :collection_owner
 end
 
-describe "should have_xxx" do
+RSpec.describe "should have_xxx" do
   it "works with ActiveRecord::Associations::CollectionProxy" do
     owner = CollectionOwner.new
     expect(owner.associated_items).to have_some_quality
