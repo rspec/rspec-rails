@@ -5,6 +5,7 @@ Bug Fixes:
 
 * Allow changing `ActiveJob::Base.queue_adapter` inside a system spec.
   (Jonathan Rochkind, #2242)
+* `rails generate generator` command now creates related spec file (Joel Azemar, #2217)
 
 ### 4.0.0.beta4
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.0.beta3...v4.0.0.beta4)
