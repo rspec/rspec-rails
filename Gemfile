@@ -28,7 +28,7 @@ when /stable/
   MAJOR = 6
   MINOR = 0
 when nil, false, ""
-  MAJOR = 5
+  MAJOR = 6
   MINOR = 0
 else
   match = /(\d+)(\.|-)(\d+)/.match(RAILS_VERSION)
