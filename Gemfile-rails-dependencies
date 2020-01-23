@@ -1,10 +1,5 @@
 version_file = File.expand_path("../.rails-version", __FILE__)
 
-# FIXME: rack 2.1.0 introduces a deprecation warning that rails is triggering,
-# but in later versions this warning will be removed. Get rid of this hack once
-# rack 2.1.0+ is out.
-gem 'rack', '!= 2.1.0'
-
 case version = ENV['RAILS_VERSION'] || (File.exist?(version_file) && File.read(version_file).chomp) || ''
 when /master/
   gem "rails", :git => "https://github.com/rails/rails.git"
@@ -28,7 +23,7 @@ when /stable$/
     gem rails_gem, :git => "https://github.com/rails/rails.git", :branch => version
   end
 when nil, false, ""
-  gem "rails", "~> 5.0.0"
+  gem "rails", "~> 6.0.0"
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
 else
   gem "rails", version
