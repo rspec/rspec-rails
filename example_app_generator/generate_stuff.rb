@@ -89,7 +89,7 @@ generate('mailer Notifications signup')
 
 generate('model thing name:string')
 generate('helper things')
-generate('scaffold widget name:string category:string instock:boolean foo_id:integer bar_id:integer --force')
+generate('scaffold product name:string category:string instock:boolean foo_id:integer bar_id:integer --force')
 generate('scaffold gadget') # scaffold with no attributes
 generate('scaffold ticket original_price:float discounted_price:float')
 generate('scaffold admin/account name:string') # scaffold with nested resource
