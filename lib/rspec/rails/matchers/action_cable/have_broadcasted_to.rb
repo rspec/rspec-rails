@@ -13,10 +13,10 @@ module RSpec
             set_expected_number(:exactly, 1)
           end
 
-          def with(data = nil)
+          def with(data = nil, &block)
             @data = data
             @data = @data.with_indifferent_access if @data.is_a?(Hash)
-            @block = Proc.new if block_given?
+            @block = block if block
             self
           end
 
