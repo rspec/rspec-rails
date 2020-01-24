@@ -23,6 +23,21 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
       before { run_generator %w[posts --no-request_specs] }
       it { is_expected.not_to exist }
     end
+
+    describe 'with --api' do
+      before { run_generator %w[posts --api] }
+      it { is_expected.to exist }
+      it { is_expected.to contain(/require 'rails_helper'/) }
+      it { is_expected.to contain(/^RSpec.describe PostsController, #{type_metatag(:request)}/) }
+      it { is_expected.to contain('as: :json') }
+      it { is_expected.not_to contain('get new_posts_url') }
+      it { is_expected.not_to contain(/"redirects to\w+"/) }
+      it { is_expected.to contain('renders a JSON response with the new post') }
+      it { is_expected.to contain('renders a JSON response with errors for the new post') }
+      it { is_expected.not_to contain('get edit_posts_url') }
+      it { is_expected.to contain('renders a JSON response with the post') }
+      it { is_expected.to contain('renders a JSON response with errors for the post') }
+    end
   end
 
   describe 'standard controller spec' do

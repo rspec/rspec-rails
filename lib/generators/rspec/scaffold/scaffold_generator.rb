@@ -35,7 +35,11 @@ module Rspec
           controller_class_path,
           "#{controller_file_name}_request_spec.rb"
         )
-        template 'request_spec.rb', template_file
+        if options[:api]
+          template 'api_request_spec.rb', template_file
+        else
+          template 'request_spec.rb', template_file
+        end
       end
 
       def generate_controller_spec
