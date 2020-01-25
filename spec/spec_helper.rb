@@ -37,6 +37,10 @@ RSpec.configure do |config|
     mocks.verify_doubled_constant_names = true
   end
 
+  config.expect_with :rspec do |c|
+    c.max_formatted_output_length = 1000
+  end
+
   config.filter_run :focus
   config.run_all_when_everything_filtered = true
 
