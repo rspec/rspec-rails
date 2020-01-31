@@ -6,7 +6,7 @@ gemspec
 
 eval_gemfile 'Gemfile-rspec-dependencies'
 
-gem 'yard', '~> 0.9.24', :require => false
+gem 'yard', '~> 0.9.24', require: false
 
 group :documentation do
   gem 'github-markup', '~> 3.0.3'
