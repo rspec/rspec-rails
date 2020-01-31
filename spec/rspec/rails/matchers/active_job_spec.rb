@@ -406,8 +406,8 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       future = 1.minute.from_now
       slightly_earlier = 58.seconds.from_now
       heavy_lifting_job.set(:wait_until => slightly_earlier).perform_later
-      expect(heavy_lifting_job)
-        .to have_been_enqueued.at(a_value_within(5.seconds).of(future))
+      expect(heavy_lifting_job).
+        to have_been_enqueued.at(a_value_within(5.seconds).of(future))
     end
   end
 
