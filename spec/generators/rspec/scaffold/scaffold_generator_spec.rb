@@ -54,7 +54,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
   describe 'namespaced controller spec' do
     subject { file('spec/controllers/admin/posts_controller_spec.rb') }
     before  { run_generator %w(admin/posts) }
-    it { is_expected.to contain(/^RSpec.describe Admin::PostsController, #{type_metatag(:controller)}/)}
+    it { is_expected.to contain(/^RSpec.describe Admin::PostsController, #{type_metatag(:controller)}/) }
   end
 
   describe 'view specs' do

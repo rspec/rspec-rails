@@ -93,12 +93,12 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
     end
 
     it "passes when negated" do
-      expect { }.not_to have_enqueued_job
+      expect {}.not_to have_enqueued_job
     end
 
     it "fails when job is not enqueued" do
       expect {
-        expect { }.to have_enqueued_job
+        expect {}.to have_enqueued_job
       }.to raise_error(/expected to enqueue exactly 1 jobs, but enqueued 0/)
     end
 
@@ -114,7 +114,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
     it "reports correct number in fail error message" do
       heavy_lifting_job.perform_later
       expect {
-        expect { }.to have_enqueued_job.exactly(1)
+        expect {}.to have_enqueued_job.exactly(1)
       }.to raise_error(/expected to enqueue exactly 1 jobs, but enqueued 0/)
     end
 
@@ -184,7 +184,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
 
     it "generates failure message with at least hint" do
       expect {
-        expect { }.to have_enqueued_job.at_least(:once)
+        expect {}.to have_enqueued_job.at_least(:once)
       }.to raise_error(/expected to enqueue at least 1 jobs, but enqueued 0/)
     end
 
@@ -442,12 +442,12 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
     end
 
     it "passes when negated" do
-      expect { }.not_to have_performed_job
+      expect {}.not_to have_performed_job
     end
 
     it "fails when job is not performed" do
       expect {
-        expect { }.to have_performed_job
+        expect {}.to have_performed_job
       }.to raise_error(/expected to perform exactly 1 jobs, but performed 0/)
     end
 
@@ -463,7 +463,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
     it "reports correct number in fail error message" do
       heavy_lifting_job.perform_later
       expect {
-        expect { }.to have_performed_job.exactly(1)
+        expect {}.to have_performed_job.exactly(1)
       }.to raise_error(/expected to perform exactly 1 jobs, but performed 0/)
     end
 
@@ -524,7 +524,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
 
     it "generates failure message with at least hint" do
       expect {
-        expect { }.to have_performed_job.at_least(:once)
+        expect {}.to have_performed_job.at_least(:once)
       }.to raise_error(/expected to perform at least 1 jobs, but performed 0/)
     end
 

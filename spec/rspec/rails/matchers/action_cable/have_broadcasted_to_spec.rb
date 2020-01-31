@@ -64,12 +64,12 @@ RSpec.describe "have_broadcasted_to matchers", :skip => !RSpec::Rails::FeatureCh
     end
 
     it "passes when negated" do
-      expect { }.not_to have_broadcasted_to('stream')
+      expect {}.not_to have_broadcasted_to('stream')
     end
 
     it "fails when message is not sent" do
       expect {
-        expect { }.to have_broadcasted_to('stream')
+        expect {}.to have_broadcasted_to('stream')
       }.to raise_error(/expected to broadcast exactly 1 messages to stream, but broadcast 0/)
     end
 
@@ -85,7 +85,7 @@ RSpec.describe "have_broadcasted_to matchers", :skip => !RSpec::Rails::FeatureCh
     it "reports correct number in fail error message" do
       broadcast('stream', 'one')
       expect {
-        expect { }.to have_broadcasted_to('stream').exactly(1)
+        expect {}.to have_broadcasted_to('stream').exactly(1)
       }.to raise_error(/expected to broadcast exactly 1 messages to stream, but broadcast 0/)
     end
 
@@ -139,7 +139,7 @@ RSpec.describe "have_broadcasted_to matchers", :skip => !RSpec::Rails::FeatureCh
 
     it "generates failure message with at least hint" do
       expect {
-        expect { }.to have_broadcasted_to('stream').at_least(:once)
+        expect {}.to have_broadcasted_to('stream').at_least(:once)
       }.to raise_error(/expected to broadcast at least 1 messages to stream, but broadcast 0/)
     end
 

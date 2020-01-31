@@ -62,7 +62,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
     end
 
     it "passes when negated" do
-      expect { }.not_to have_enqueued_mail(TestMailer, :test_email)
+      expect {}.not_to have_enqueued_mail(TestMailer, :test_email)
     end
 
     it "passes when given 0 arguments" do
@@ -72,7 +72,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
     end
 
     it "passes when negated with 0 arguments" do
-      expect { }.not_to have_enqueued_email
+      expect {}.not_to have_enqueued_email
     end
 
     it "passes when only given mailer argument" do
@@ -82,7 +82,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
     end
 
     it "passes when negated with only mailer arguments" do
-      expect { }.not_to have_enqueued_email(TestMailer)
+      expect {}.not_to have_enqueued_email(TestMailer)
     end
 
     it "ensure that the right mailer is enqueued" do
@@ -168,19 +168,19 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
 
     it "generates a failure message when given 0 argument" do
       expect {
-        expect { }.to have_enqueued_mail.at_least(:once)
+        expect {}.to have_enqueued_mail.at_least(:once)
       }.to raise_error(/expected to enqueue ActionMailer::Base at least 1 time but enqueued 0/)
     end
 
     it "generates a failure message when given only mailer argument" do
       expect {
-        expect { }.to have_enqueued_mail(TestMailer).at_least(:once)
+        expect {}.to have_enqueued_mail(TestMailer).at_least(:once)
       }.to raise_error(/expected to enqueue TestMailer at least 1 time but enqueued 0/)
     end
 
     it "generates a failure message with at least hint" do
       expect {
-        expect { }.to have_enqueued_mail(TestMailer, :test_email).at_least(:once)
+        expect {}.to have_enqueued_mail(TestMailer, :test_email).at_least(:once)
       }.to raise_error(/expected to enqueue TestMailer.test_email at least 1 time but enqueued 0/)
     end
 
@@ -225,13 +225,13 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
 
     it "generates a failure message" do
       expect {
-        expect { }.to have_enqueued_email(TestMailer, :test_email)
+        expect {}.to have_enqueued_email(TestMailer, :test_email)
       }.to raise_error(/expected to enqueue TestMailer.test_email/)
     end
 
     it "generates a failure message with arguments" do
       expect {
-        expect { }.to have_enqueued_email(TestMailer, :email_with_args).with(1, 2)
+        expect {}.to have_enqueued_email(TestMailer, :email_with_args).with(1, 2)
       }.to raise_error(/expected to enqueue TestMailer.email_with_args exactly 1 time with \[1, 2\], but enqueued 0/)
     end
 

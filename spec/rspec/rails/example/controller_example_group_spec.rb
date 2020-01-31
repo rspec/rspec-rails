@@ -69,7 +69,7 @@ module RSpec::Rails
 
       before do
         group.class_exec do
-          controller(Class.new) { }
+          controller(Class.new) {}
         end
 
         allow(controller).to receive(:foos_url).and_return('http://test.host/foos')
@@ -116,13 +116,13 @@ module RSpec::Rails
         end
 
         it "infers the anonymous controller class" do
-          group.controller { }
+          group.controller {}
           expect(group.controller_class.superclass).to eq(anonymous_klass)
         end
 
         it "infers the anonymous controller class when no ApplicationController is present" do
           hide_const '::ApplicationController'
-          group.controller { }
+          group.controller {}
           expect(group.controller_class.superclass).to eq(anonymous_klass)
         end
       end
@@ -136,13 +136,13 @@ module RSpec::Rails
         end
 
         it "sets the anonymous controller class to ApplicationController" do
-          group.controller { }
+          group.controller {}
           expect(group.controller_class.superclass).to eq(ApplicationController)
         end
 
         it "sets the anonymous controller class to ActiveController::Base when no ApplicationController is present" do
           hide_const '::ApplicationController'
-          group.controller { }
+          group.controller {}
           expect(group.controller_class.superclass).to eq(ActionController::Base)
         end
       end
@@ -152,18 +152,18 @@ module RSpec::Rails
       let(:controller_class) { group.controller_class }
 
       it "sets the name as AnonymousController if it's anonymous" do
-        group.controller { }
+        group.controller {}
         expect(controller_class.name).to eq "AnonymousController"
       end
 
       it "sets the name according to defined controller if it is not anonymous" do
         stub_const "FoosController", Class.new(::ApplicationController)
-        group.controller(FoosController) { }
+        group.controller(FoosController) {}
         expect(controller_class.name).to eq "FoosController"
       end
 
       it "sets name as AnonymousController if defined as ApplicationController" do
-        group.controller(ApplicationController) { }
+        group.controller(ApplicationController) {}
         expect(controller_class.name).to eq "AnonymousController"
       end
 
@@ -171,16 +171,16 @@ module RSpec::Rails
         abstract_controller = Class.new(::ApplicationController)
         def abstract_controller.abstract?; true; end
 
-        group.controller(abstract_controller) { }
+        group.controller(abstract_controller) {}
         expect(controller_class.name).to eq "AnonymousController"
       end
 
       it "sets name as AnonymousController if it inherits outer group's anonymous controller" do
         outer_group = group_for ApplicationController
-        outer_group.controller { }
+        outer_group.controller {}
 
-        inner_group = group.describe { }
-        inner_group.controller(outer_group.controller_class) { }
+        inner_group = group.describe {}
+        inner_group.controller(outer_group.controller_class) {}
 
         expect(inner_group.controller_class.name).to eq "AnonymousController"
       end
@@ -192,7 +192,7 @@ module RSpec::Rails
 
         it "sets the name according to the defined controller namespace if it is not anonymous" do
           stub_const "A::B::FoosController", Class.new(::ApplicationController)
-          group.controller(A::B::FoosController) { }
+          group.controller(A::B::FoosController) {}
           expect(controller_class.name).to eq "A::B::FoosController"
         end
 
@@ -201,7 +201,7 @@ module RSpec::Rails
           def abstract_controller.abstract?; true; end
           stub_const "A::B::FoosController", abstract_controller
 
-          group.controller(A::B::FoosController) { }
+          group.controller(A::B::FoosController) {}
           expect(controller_class.name).to eq "AnonymousController"
         end
       end

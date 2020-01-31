@@ -82,7 +82,7 @@ RSpec.describe "be_a_new matcher" do
               expect {
                 expect(record).to be_a_new(record.class).with(
                   :foo => a_hash_including({:no_foo => "foo"}))
-              }.to raise_error {|e|
+              }.to raise_error { |e|
                   expect(e.message).to eq("no implicit conversion of Hash into String").or eq("can't convert Hash into String")
               }
             end
@@ -116,7 +116,7 @@ RSpec.describe "be_a_new matcher" do
         it "fails" do
           expect {
             expect(record).to be_a_new(record.class).with(:zoo => 'zoo', :car => 'car')
-          }.to raise_error {|e|
+          }.to raise_error { |e|
             expect(e.message).to match(/attributes \{.*\} were not set on #{Regexp.escape record.inspect}/)
             expect(e.message).to match(/"zoo"=>"zoo"/)
             expect(e.message).to match(/"car"=>"car"/)
@@ -164,7 +164,7 @@ RSpec.describe "be_a_new matcher" do
         it "fails" do
           expect {
             expect(record).to be_a_new(String).with(:zoo => 'zoo', :car => 'car')
-          }.to raise_error {|e|
+          }.to raise_error { |e|
             expect(e.message).to match(/expected #{Regexp.escape record.inspect} to be a new String and attributes \{.*\} were not set on #{Regexp.escape record.inspect}/)
             expect(e.message).to match(/"zoo"=>"zoo"/)
             expect(e.message).to match(/"car"=>"car"/)

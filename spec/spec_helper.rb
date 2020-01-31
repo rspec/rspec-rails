@@ -18,7 +18,7 @@ require 'rspec/support/spec'
 require 'rspec/rails'
 require 'ammeter/init'
 
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 class RSpec::Core::ExampleGroup
   def self.run_all(reporter=nil)
