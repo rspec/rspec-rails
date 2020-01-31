@@ -29,6 +29,7 @@ module RSpec::Rails
 
       it 'operates normally when no helper with the same name exists' do
         raise 'unexpected constant found' if Object.const_defined?('ClocksHelper')
+
         expect {
           RSpec::Core::ExampleGroup.describe 'clocks/show.html.erb' do
             include ViewExampleGroup

@@ -58,6 +58,7 @@ Before do
   helpers = %w[spec/spec_helper.rb spec/rails_helper.rb]
   Dir["#{aruba_dir}/spec/*"].each do |path|
     next if helpers.any? { |helper| path.end_with?(helper) }
+
     FileUtils.rm_rf(path)
   end
 end

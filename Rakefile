@@ -143,6 +143,7 @@ end
 desc "Push docs/cukes to relishapp using the relish-client-gem"
 task :relish, :version do |_t, args|
   raise "rake relish[VERSION]" unless args[:version]
+
   sh "cp Changelog.md features/"
   if `relish versions rspec/rspec-rails`.split.map(&:strip).include? args[:version]
     puts "Version #{args[:version]} already exists"
