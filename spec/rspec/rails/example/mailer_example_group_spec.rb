@@ -8,6 +8,6 @@ module RSpec::Rails
     end
 
     it_behaves_like "an rspec-rails example group mixin", :mailer,
-      './spec/mailers/', '.\\spec\\mailers\\'
+                    './spec/mailers/', '.\\spec\\mailers\\'
   end
 end

@@ -1,7 +1,7 @@
 module RSpec::Rails
   RSpec.describe FeatureExampleGroup do
     it_behaves_like "an rspec-rails example group mixin", :feature,
-      './spec/features/', '.\\spec\\features\\'
+                    './spec/features/', '.\\spec\\features\\'
 
     it "includes Rails route helpers" do
       with_isolated_stderr do

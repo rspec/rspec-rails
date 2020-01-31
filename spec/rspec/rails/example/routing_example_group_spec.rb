@@ -1,7 +1,7 @@
 module RSpec::Rails
   RSpec.describe RoutingExampleGroup do
     it_behaves_like "an rspec-rails example group mixin", :routing,
-      './spec/routing/', '.\\spec\\routing\\'
+                    './spec/routing/', '.\\spec\\routing\\'
 
     describe "named routes" do
       it "delegates them to the route_set" do

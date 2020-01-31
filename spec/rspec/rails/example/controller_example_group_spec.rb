@@ -5,7 +5,7 @@ end
 module RSpec::Rails
   RSpec.describe ControllerExampleGroup do
     it_behaves_like "an rspec-rails example group mixin", :controller,
-      './spec/controllers/', '.\\spec\\controllers\\'
+                    './spec/controllers/', '.\\spec\\controllers\\'
 
     def group_for(klass)
       RSpec::Core::ExampleGroup.describe klass do

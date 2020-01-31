@@ -1,7 +1,7 @@
 module RSpec::Rails
   RSpec.describe ViewExampleGroup do
     it_behaves_like "an rspec-rails example group mixin", :view,
-      './spec/views/', '.\\spec\\views\\'
+                    './spec/views/', '.\\spec\\views\\'
 
     describe 'automatic inclusion of helpers' do
       module ::ThingsHelper; end
