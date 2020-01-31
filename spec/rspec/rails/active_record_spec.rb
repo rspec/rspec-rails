@@ -16,7 +16,7 @@ RSpec.describe "ActiveRecord support" do
     it "allows you to stub abstract classes" do
       klass = Class.new(ActiveRecord::Base) do
                 self.abstract_class = true
-              end
+      end
       allow(klass).to receive(:find).and_return("stubbed find")
       expect(klass.find(1)).to eq "stubbed find"
     end
