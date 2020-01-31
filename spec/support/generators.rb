@@ -40,7 +40,7 @@ module RSpec
         shared_examples_for "a request spec generator" do
           describe 'generated with flag `--no-request-specs`' do
             before do
-              run_generator %w(posts --no-request-specs)
+              run_generator %w[posts --no-request-specs]
             end
 
             subject(:request_spec) { file('spec/requests/posts_spec.rb') }
@@ -58,7 +58,7 @@ module RSpec
             subject(:request_spec) { file(spec_file_name) }
 
             context 'When NAME=posts' do
-              let(:name) { %w(posts) }
+              let(:name) { %w[posts] }
               let(:spec_file_name) { 'spec/requests/posts_spec.rb' }
 
               it "creates the request spec" do
@@ -86,7 +86,7 @@ module RSpec
             end
 
             context 'When NAME=api/posts' do
-              let(:name) { %w(api/posts) }
+              let(:name) { %w[api/posts] }
               let(:spec_file_name) { 'spec/requests/api/posts_spec.rb' }
 
               it "creates the request spec" do

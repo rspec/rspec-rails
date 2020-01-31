@@ -6,7 +6,7 @@ RSpec.describe Rspec::Generators::ChannelGenerator, :type => :generator, :skip =
   setup_default_destination
 
   describe 'the generated files' do
-    before { run_generator %w(chat) }
+    before { run_generator %w[chat] }
 
     subject { file("spec/channels/chat_channel_spec.rb") }
 

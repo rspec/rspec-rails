@@ -10,7 +10,7 @@ if ::Rails::VERSION::STRING >= '5.1'
       subject(:system_spec) { file("spec/system/posts_spec.rb") }
       describe "are generated independently from the command line" do
         before do
-          run_generator %w(posts)
+          run_generator %w[posts]
         end
         describe "the spec" do
           it "exists" do
@@ -27,7 +27,7 @@ if ::Rails::VERSION::STRING >= '5.1'
 
       describe "are not generated" do
         before do
-          run_generator %w(posts --no-system-specs)
+          run_generator %w[posts --no-system-specs]
         end
         describe "the spec" do
           it "does not exist" do

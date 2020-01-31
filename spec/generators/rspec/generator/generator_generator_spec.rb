@@ -7,7 +7,7 @@ RSpec.describe Rspec::Generators::GeneratorGenerator, :type => :generator do
   describe "generator specs" do
     subject(:generator_spec) { file("spec/generator/posts_generator_spec.rb") }
     before do
-      run_generator %w(posts)
+      run_generator %w[posts]
     end
     it "creates the spec file by default" do
       expect(generator_spec).to exist
