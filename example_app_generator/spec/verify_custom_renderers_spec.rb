@@ -136,7 +136,7 @@ RSpec.describe "template rendering", :type => :controller do
   end
 
   class MyResolver < ActionView::Resolver
-  private
+    private
 
     def find_templates(name, prefix = nil, partial = false, details = {}, key = nil, locals = [])
       name.prepend("_") if partial

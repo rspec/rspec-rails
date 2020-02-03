@@ -83,7 +83,7 @@ RSpec.describe "be_a_new matcher" do
                 expect(record).to be_a_new(record.class).with(
                   :foo => a_hash_including({:no_foo => "foo"}))
               }.to raise_error { |e|
-                  expect(e.message).to eq("no implicit conversion of Hash into String").or eq("can't convert Hash into String")
+                expect(e.message).to eq("no implicit conversion of Hash into String").or eq("can't convert Hash into String")
               }
             end
           end
