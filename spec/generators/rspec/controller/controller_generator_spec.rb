@@ -27,7 +27,6 @@ RSpec.describe Rspec::Generators::ControllerGenerator, :type => :generator do
       it { is_expected.not_to exist }
     end
 
-
     describe 'with actions' do
       before do
         run_generator %w[posts index custom_action]
