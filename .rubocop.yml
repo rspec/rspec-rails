@@ -6,6 +6,9 @@ AllCops:
     # Templates are really ERB which Rubocop does not parse
     - 'lib/generators/rspec/*/templates/**/*'
 
+Bundler/DuplicatedGem:
+  Enabled: false
+
 Layout/AccessModifierIndentation:
   Enabled: false
 
