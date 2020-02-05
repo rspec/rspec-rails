@@ -27,7 +27,7 @@ RSpec::Core::RakeTask.new(:spec) do |t|
 end
 
 Cucumber::Rake::Task.new(:cucumber) do |t|
-  version = ENV.fetch("RAILS_VERSION", "~> 5.2.0")[/\d[\.-]\d/]
+  version = ENV.fetch("RAILS_VERSION", "~> 6.0.0")[/\d[\.-]\d/]
   if version == "master" || version.nil?
     version = Float::INFINITY
   end
