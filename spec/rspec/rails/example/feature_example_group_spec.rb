@@ -18,6 +18,23 @@ module RSpec::Rails
       expect(group.new.foo_url).to eq("http://www.example.com/foo")
     end
 
+    context "when nested inside a request example group" do
+      it "includes Rails route helpers" do
+        Rails.application.routes.draw do
+          get "/foo", :as => :foo, :to => "foo#bar"
+        end
+
+        group = RSpec::Core::ExampleGroup.describe do
+          include RequestExampleGroup
+        end.describe do
+          include FeatureExampleGroup
+        end
+
+        expect(group.new.foo_path).to eq("/foo")
+        expect(group.new.foo_url).to eq("http://www.example.com/foo")
+      end
+    end
+
     describe "#visit" do
       it "raises an error informing about missing Capybara" do
         group = RSpec::Core::ExampleGroup.describe do
