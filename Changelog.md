@@ -3,6 +3,8 @@
 
 Bug Fixes:
 
+* Restore previous conditional check for setting `default_url_options` in feature
+  specs, prevents a `NoMethodError` in some scenarios. (Eugene Kenny, #2277)
 * Allow changing `ActiveJob::Base.queue_adapter` inside a system spec.
   (Jonathan Rochkind, #2242)
 * `rails generate generator` command now creates related spec file (Joel Azemar, #2217)
