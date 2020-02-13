@@ -76,6 +76,10 @@ Layout/SpaceBeforeComma:
 Layout/SpaceInsideStringInterpolation:
   Enabled: false
 
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*'
+
 Lint/AssignmentInCondition:
   Enabled: false
 
