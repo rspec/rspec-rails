@@ -21,7 +21,7 @@ require 'ammeter/init'
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 class RSpec::Core::ExampleGroup
-  def self.run_all(reporter=nil)
+  def self.run_all(reporter = nil)
     run(reporter || RSpec::Mocks::Mock.new('reporter').as_null_object)
   end
 end

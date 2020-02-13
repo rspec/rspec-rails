@@ -123,7 +123,7 @@ module RSpec::Rails
             def received
               @received ||= []
             end
-            def render(options={}, local_assigns={}, &block)
+            def render(options = {}, local_assigns = {}, &block)
               received << [options, local_assigns, block]
             end
             def _assigns
