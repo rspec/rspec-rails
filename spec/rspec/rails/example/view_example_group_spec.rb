@@ -140,7 +140,7 @@ module RSpec::Rails
         it "sends render(:template => (described file)) to the view" do
           allow(view_spec).to receive(:_default_file_to_render) { "widgets/new" }
           view_spec.render
-          expect(view_spec.received.first).to eq([{:template => "widgets/new"},{}, nil])
+          expect(view_spec.received.first).to eq([{:template => "widgets/new"}, {}, nil])
         end
 
         it "converts the filename components into render options" do
