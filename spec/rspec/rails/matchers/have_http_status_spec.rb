@@ -48,7 +48,7 @@ RSpec.describe "have_http_status" do
     it "has a failure message reporting it was given another type" do
       response = Object.new
 
-      expect{ matcher.matches?(response) }.
+      expect { matcher.matches?(response) }.
         to change(matcher, :failure_message).
         to("expected a response object, but an instance of Object was received")
     end
@@ -56,7 +56,7 @@ RSpec.describe "have_http_status" do
     it "has a negated failure message reporting it was given another type" do
       response = Object.new
 
-      expect{ matcher.matches?(response) }.
+      expect { matcher.matches?(response) }.
         to change(matcher, :failure_message_when_negated).
         to("expected a response object, but an instance of Object was received")
     end
@@ -100,7 +100,7 @@ RSpec.describe "have_http_status" do
       have_numeric_code = have_http_status(any_numeric_code)
       response          = create_response(:status => any_numeric_code + 1)
 
-      expect{ have_numeric_code.matches? response }.
+      expect { have_numeric_code.matches? response }.
         to change(have_numeric_code, :failure_message).
         to("expected the response to have status code 209 but it was 210")
     end
@@ -157,7 +157,7 @@ RSpec.describe "have_http_status" do
       have_symbolic_status = have_http_status(any_symbolic_status)
       response             = create_response(:status => created_code + 1)
 
-      expect{ have_symbolic_status.matches? response }.
+      expect { have_symbolic_status.matches? response }.
         to change(have_symbolic_status, :failure_message).
         to("expected the response to have status code :created (201) but it was :accepted (202)")
     end
@@ -171,7 +171,7 @@ RSpec.describe "have_http_status" do
     end
 
     it "raises an ArgumentError" do
-      expect{ have_http_status(:not_a_status) }.to raise_error ArgumentError
+      expect { have_http_status(:not_a_status) }.to raise_error ArgumentError
     end
   end
 
@@ -207,14 +207,14 @@ RSpec.describe "have_http_status" do
 
     it "has a failure message reporting the expected and actual status codes" do
       response = create_response(:status => other_code)
-      expect{ matcher.matches? response }.
+      expect { matcher.matches? response }.
         to change(matcher, :failure_message).
         to(failure_message)
     end
 
     it "has a negated failure message reporting the expected and actual status codes" do
       response = create_response(:status => expected_code)
-      expect{ matcher.matches? response }.
+      expect { matcher.matches? response }.
         to change(matcher, :failure_message_when_negated).
         to(negated_message)
     end
@@ -429,7 +429,7 @@ RSpec.describe "have_http_status" do
 
   context "with a nil status" do
     it "raises an ArgumentError" do
-      expect{ have_http_status(nil) }.to raise_error ArgumentError
+      expect { have_http_status(nil) }.to raise_error ArgumentError
     end
   end
 

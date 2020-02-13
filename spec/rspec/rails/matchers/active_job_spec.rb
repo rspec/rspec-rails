@@ -334,7 +334,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       failing_global_id_object = FailingGlobalIdModel.new("21")
       global_id_object = GlobalIdModel.new("42")
 
-      expect{
+      expect {
         hello_job.perform_later(failing_global_id_object)
         hello_job.perform_later(global_id_object)
       }.to have_enqueued_job(hello_job).with(global_id_object)

@@ -4,7 +4,7 @@ RSpec.describe "Verify required rspec dependencies" do
 
   tmp_root = Pathname.new(RSpec::Core::RubyProject.root).join("tmp")
 
-  before{ FileUtils.mkdir_p tmp_root }
+  before { FileUtils.mkdir_p tmp_root }
 
   def with_clean_env
     if Bundler.respond_to?(:with_unbundled_env)
