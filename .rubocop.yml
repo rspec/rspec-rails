@@ -84,6 +84,10 @@ Lint/AmbiguousOperator:
   Exclude:
     - 'Rakefile'
 
+Lint/AmbiguousRegexpLiteral:
+  Exclude:
+    - 'features/step_definitions/additional_cli_steps.rb'
+
 Lint/AssignmentInCondition:
   Enabled: false
 
