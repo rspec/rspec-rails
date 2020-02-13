@@ -80,6 +80,10 @@ Lint/AmbiguousBlockAssociation:
   Exclude:
     - 'spec/**/*'
 
+Lint/AmbiguousOperator:
+  Exclude:
+    - 'Rakefile'
+
 Lint/AssignmentInCondition:
   Enabled: false
 
