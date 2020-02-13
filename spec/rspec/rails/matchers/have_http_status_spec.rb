@@ -12,7 +12,7 @@ RSpec.describe "have_http_status" do
           x.request = ActionDispatch::Request.new({})
         }
 
-        expect( matcher.matches?(response) ).to be(true)
+        expect(matcher.matches?(response)).to be(true)
       end
     end
 
@@ -22,7 +22,7 @@ RSpec.describe "have_http_status" do
           x.request = ActionDispatch::Request.new({})
         }
 
-        expect( matcher.matches?(response) ).to be(true)
+        expect(matcher.matches?(response)).to be(true)
       end
     end
 
@@ -35,14 +35,14 @@ RSpec.describe "have_http_status" do
           :body => ""
         )
 
-        expect( matcher.matches?(response) ).to be(true)
+        expect(matcher.matches?(response)).to be(true)
       end
     end
 
     it "returns false given another type" do
       response = Object.new
 
-      expect( matcher.matches?(response) ).to be(false)
+      expect(matcher.matches?(response)).to be(false)
     end
 
     it "has a failure message reporting it was given another type" do
@@ -75,7 +75,7 @@ RSpec.describe "have_http_status" do
         have_numeric_code = have_http_status(any_numeric_code)
         response          = create_response(:status => any_numeric_code)
 
-        expect( have_numeric_code.matches?(response) ).to be(true)
+        expect(have_numeric_code.matches?(response)).to be(true)
       end
 
       it "returns false for a response with a different code" do
@@ -83,7 +83,7 @@ RSpec.describe "have_http_status" do
         have_numeric_code = have_http_status(any_numeric_code)
         response          = create_response(:status => any_numeric_code + 1)
 
-        expect( have_numeric_code.matches?(response) ).to be(false)
+        expect(have_numeric_code.matches?(response)).to be(false)
       end
     end
 
@@ -109,7 +109,7 @@ RSpec.describe "have_http_status" do
       any_numeric_code  = 209
       have_numeric_code = have_http_status(any_numeric_code)
 
-      expect( have_numeric_code.failure_message_when_negated ).
+      expect(have_numeric_code.failure_message_when_negated).
         to eq("expected the response not to have status code 209 but it did")
     end
   end
@@ -132,7 +132,7 @@ RSpec.describe "have_http_status" do
         have_symbolic_status = have_http_status(any_symbolic_status)
         response             = create_response(:status => created_code)
 
-        expect( have_symbolic_status.matches?(response) ).to be(true)
+        expect(have_symbolic_status.matches?(response)).to be(true)
       end
 
       it "returns false for a response with a different code" do
@@ -140,7 +140,7 @@ RSpec.describe "have_http_status" do
         have_symbolic_status = have_http_status(any_symbolic_status)
         response             = create_response(:status => created_code + 1)
 
-        expect( have_symbolic_status.matches?(response) ).to be(false)
+        expect(have_symbolic_status.matches?(response)).to be(false)
       end
     end
 
@@ -166,7 +166,7 @@ RSpec.describe "have_http_status" do
       any_symbolic_status  = created_symbolic_status
       have_symbolic_status = have_http_status(any_symbolic_status)
 
-      expect( have_symbolic_status.failure_message_when_negated ).
+      expect(have_symbolic_status.failure_message_when_negated).
         to eq("expected the response not to have status code :created (201) but it did")
     end
 
@@ -197,7 +197,7 @@ RSpec.describe "have_http_status" do
 
       it "returns false for a response with a different code" do
         response = create_response(:status => other_code)
-        expect( matcher.matches?(response) ).to be(false)
+        expect(matcher.matches?(response)).to be(false)
       end
     end
 
@@ -442,7 +442,7 @@ RSpec.describe "have_http_status" do
         response = ::ActionDispatch::Response.new(code).tap { |x|
           x.request = ActionDispatch::Request.new({})
         }
-        expect( matcher.matches?(response) ).to be(true)
+        expect(matcher.matches?(response)).to be(true)
         expect(splitter.has_output?).to be false
       ensure
         $stderr = previous_stderr
