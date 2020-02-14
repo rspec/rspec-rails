@@ -314,7 +314,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
       expect {
         expect {
           TestMailer.email_with_args('asdf', 'zxcv').deliver_later
-        }.to have_enqueued_mail(TestMailer, :email_with_args).with { |first_arg, second_arg|
+        }.to have_enqueued_mail(TestMailer, :email_with_args).with { |first_arg, _second_arg|
           expect(first_arg).to eq("zxcv")
         }
       }.to raise_error { |e|
