@@ -5,14 +5,14 @@ ActiveRecord::Base.establish_connection(
 
 module Connections
   def self.extended(host)
-    host.connection.execute <<-eosql
+    host.connection.execute <<-EOSQL
       CREATE TABLE #{host.table_name} (
         #{host.primary_key} integer PRIMARY KEY AUTOINCREMENT,
         associated_model_id integer,
         mockable_model_id integer,
         nonexistent_model_id integer
       )
-    eosql
+    EOSQL
 
     host.reset_column_information
   end
