@@ -12,7 +12,7 @@ if RSpec::Rails::FeatureCheck.has_action_cable_testing?
       @id = id
     end
 
-    def to_global_id(options = {})
+    def to_global_id(_options = {})
       @global_id ||= GlobalID.create(self, :app => "rspec-suite")
     end
   end

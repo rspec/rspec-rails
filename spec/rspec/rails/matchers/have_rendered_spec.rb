@@ -98,7 +98,7 @@
           raise ActiveSupport::TestCase::Assertion.new(message)
         end
 
-        def normalize_argument_to_redirection(response_redirect_location)
+        def normalize_argument_to_redirection(_response_redirect_location)
           "http://test.host/widgets/1"
         end
 

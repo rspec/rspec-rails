@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 # Transparent helper to simply document code sections
-def require_file_stub(name)
+def require_file_stub(_name)
   yield
 end
 

@@ -138,7 +138,7 @@ RSpec.describe "template rendering", :type => :controller do
   class MyResolver < ActionView::Resolver
     private
 
-    def find_templates(name, prefix = nil, partial = false, details = {}, key = nil, locals = [])
+    def find_templates(name, prefix = nil, partial = false, _details = {}, _key = nil, _locals = [])
       name.prepend("_") if partial
       path = [prefix, name].join("/")
       template = find_template(name, path)
