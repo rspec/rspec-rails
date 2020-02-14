@@ -129,7 +129,7 @@ RSpec.describe "be_a_new matcher" do
           expect {
             expect(record).to be_a_new(record.class).with(:foo => 'bar')
           }.to raise_error(
-            %Q(attribute {"foo"=>"bar"} was not set on #{record.inspect})
+            %(attribute {"foo"=>"bar"} was not set on #{record.inspect})
           )
         end
       end
@@ -178,7 +178,7 @@ RSpec.describe "be_a_new matcher" do
             expect(record).to be_a_new(String).with(:foo => 'bar')
           }.to raise_error(
             "expected #{record.inspect} to be a new String and " +
-            %Q(attribute {"foo"=>"bar"} was not set on #{record.inspect})
+            %(attribute {"foo"=>"bar"} was not set on #{record.inspect})
           )
         end
       end
