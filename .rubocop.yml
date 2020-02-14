@@ -91,6 +91,10 @@ Lint/AmbiguousRegexpLiteral:
 Lint/AssignmentInCondition:
   Enabled: false
 
+Lint/NonDeterministicRequireOrder:
+  Exclude:
+    - 'spec/spec_helper.rb'
+
 Lint/EmptyExpression:
   Enabled: false
 
