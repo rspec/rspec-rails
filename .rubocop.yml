@@ -129,6 +129,9 @@ Metrics/ClassLength:
 Metrics/PerceivedComplexity:
   Enabled: false
 
+Metrics/ModuleLength:
+  Max: 260
+
 # Who cares what we call the argument for binary operator methods?
 Naming/BinaryOperatorParameterName:
   Enabled: false
