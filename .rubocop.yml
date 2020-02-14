@@ -236,6 +236,10 @@ Style/FormatStringToken:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
+Style/GlobalVars:
+  Exclude:
+    - 'spec/support/shared_examples.rb'
+
 Style/GuardClause:
   Enabled: false
 
