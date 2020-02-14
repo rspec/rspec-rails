@@ -34,9 +34,9 @@ Gem::Specification.new do |s|
 
   version_string = ['>= 4.2']
 
-  s.add_runtime_dependency %q(actionpack),    version_string
-  s.add_runtime_dependency %q(activesupport), version_string
-  s.add_runtime_dependency %q(railties),      version_string
+  s.add_runtime_dependency 'actionpack',    version_string
+  s.add_runtime_dependency 'activesupport', version_string
+  s.add_runtime_dependency 'railties',      version_string
 
   # in these blocks expected_rspec_version is set up to track the released
   # versions of RSpec. RSpec Rails does not have lock step versioning with the
