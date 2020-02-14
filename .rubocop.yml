@@ -326,6 +326,16 @@ Style/Semicolon:
 Style/SignalException:
   Enabled: false
 
+Style/SingleLineMethods:
+  Exclude:
+    - 'spec/rspec/rails/example/controller_example_group_spec.rb'
+    - 'spec/rspec/rails/matchers/active_job_spec.rb'
+    - 'spec/rspec/rails/matchers/be_a_new_spec.rb'
+    - 'spec/rspec/rails/matchers/has_spec.rb'
+    - 'spec/rspec/rails/matchers/have_enqueued_mail_spec.rb'
+    - 'spec/rspec/rails/matchers/have_rendered_spec.rb'
+    - 'spec/rspec/rails/setup_and_teardown_adapter_spec.rb'
+
 # This rule favors constant names from the English standard library which we don't load.
 Style/SpecialGlobalVars:
   Enabled: false
