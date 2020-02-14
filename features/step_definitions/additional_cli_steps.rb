@@ -22,13 +22,13 @@ Then /^the example(s)? should( all)? fail/ do |_, _|
 end
 
 Given /active job is available/ do
-  if !RSpec::Rails::FeatureCheck.has_active_job?
+  unless RSpec::Rails::FeatureCheck.has_active_job?
     pending "ActiveJob is not available"
   end
 end
 
 Given /action cable testing is available/ do
-  if !RSpec::Rails::FeatureCheck.has_action_cable_testing?
+  unless RSpec::Rails::FeatureCheck.has_action_cable_testing?
     pending "Action Cable testing is not available"
   end
 end

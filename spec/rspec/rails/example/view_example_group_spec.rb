@@ -48,7 +48,7 @@ module RSpec::Rails
 
       context 'application helper exists' do
         before do
-          if !Object.const_defined? 'ApplicationHelper'
+          unless Object.const_defined? 'ApplicationHelper'
             module ::ApplicationHelper; end
             @application_helper_defined = true
           end
