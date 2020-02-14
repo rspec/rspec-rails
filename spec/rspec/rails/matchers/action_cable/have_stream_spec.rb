@@ -159,7 +159,7 @@ RSpec.describe "have_stream matchers", skip: !RSpec::Rails::FeatureCheck.has_act
       subscribe user: 42
 
       expect {
-        expect(subscription).to have_stream_for(StreamModel.new(31337))
+        expect(subscription).to have_stream_for(StreamModel.new(31_337))
       }.to raise_error(/expected to have stream "broadcast:StreamModel#31337" started, but have \[\"broadcast:StreamModel#42\"\]/)
     end
 
@@ -167,7 +167,7 @@ RSpec.describe "have_stream matchers", skip: !RSpec::Rails::FeatureCheck.has_act
       it "passes" do
         subscribe user: 42
 
-        expect(subscription).not_to have_stream_for(StreamModel.new(31337))
+        expect(subscription).not_to have_stream_for(StreamModel.new(31_337))
       end
 
       it "fails with message" do
