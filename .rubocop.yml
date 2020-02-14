@@ -91,6 +91,10 @@ Lint/AmbiguousRegexpLiteral:
 Lint/AssignmentInCondition:
   Enabled: false
 
+Lint/DuplicateMethods:
+  Exclude:
+    - 'example_app_generator/no_active_record/app/models/in_memory/model.rb'
+
 Lint/NonDeterministicRequireOrder:
   Exclude:
     - 'spec/spec_helper.rb'
