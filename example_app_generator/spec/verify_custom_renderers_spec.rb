@@ -150,7 +150,7 @@ RSpec.describe "template rendering", type: :controller do
       ActionView::Template.new(
         "",
         name,
-        lambda { |template, _source = nil| %("Dynamic template with path '#{template.virtual_path}'") },
+        ->(template, _source = nil) { %("Dynamic template with path '#{template.virtual_path}'") },
         virtual_path: path,
         format: :html,
         locals: []
