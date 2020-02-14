@@ -184,6 +184,9 @@ Style/Alias:
 Style/BlockDelimiters:
   Enabled: false
 
+Style/BracesAroundHashParameters:
+  Enabled: false
+
 # "Avoid the use of the case equality operator ==="
 # We prefer using `Class#===` over `Object#is_a?` because `Class#===`
 # is less likely to be monkey patched than `is_a?` on a user object.
