@@ -199,6 +199,10 @@ Style/ClassAndModuleChildren:
 Style/ClassCheck:
   Enabled: false
 
+Style/CommentedKeyword:
+  Exclude:
+    - 'spec/rspec/rails/example/view_example_group_spec.rb'
+
 Style/ConditionalAssignment:
   Enabled: false
 
