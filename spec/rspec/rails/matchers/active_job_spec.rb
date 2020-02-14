@@ -275,8 +275,8 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
 
     it "generates failure message with all provided options" do
       date = Date.tomorrow.noon
-      message = "expected to enqueue exactly 2 jobs, with [42], on queue low, at #{date}, but enqueued 0" + \
-                "\nQueued jobs:" + \
+      message = "expected to enqueue exactly 2 jobs, with [42], on queue low, at #{date}, but enqueued 0" \
+                "\nQueued jobs:" \
                 "\n  HelloJob job with [1], on queue default"
 
       expect {
@@ -578,8 +578,8 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
 
     it "generates failure message with all provided options" do
       date = Date.tomorrow.noon
-      message = "expected to perform exactly 2 jobs, with [42], on queue low, at #{date}, but performed 0" + \
-                "\nQueued jobs:" + \
+      message = "expected to perform exactly 2 jobs, with [42], on queue low, at #{date}, but performed 0" \
+                "\nQueued jobs:" \
                 "\n  HelloJob job with [1], on queue default"
 
       expect {

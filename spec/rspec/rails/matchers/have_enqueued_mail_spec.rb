@@ -285,9 +285,9 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
       send_time = Date.tomorrow.noon
       queue = 'urgent_mail'
 
-      message = "expected to enqueue TestMailer.email_with_args exactly 1 time with [1, 2], but enqueued 0" + \
-                "\nQueued deliveries:" + \
-                "\n  TestMailer.test_email" + \
+      message = "expected to enqueue TestMailer.email_with_args exactly 1 time with [1, 2], but enqueued 0" \
+                "\nQueued deliveries:" \
+                "\n  TestMailer.test_email" \
                 "\n  TestMailer.email_with_args with [3, 4], on queue #{queue}, at #{send_time}"
 
       expect {
