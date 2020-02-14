@@ -300,6 +300,13 @@ Style/PercentLiteralDelimiters:
     '%W': '[]'    # array of double-quoted strings
     '%x': ()      # a shell command as a string
 
+Style/RaiseArgs:
+  Exclude:
+    - 'spec/rspec/rails/matchers/be_routable_spec.rb'
+    - 'spec/rspec/rails/matchers/have_rendered_spec.rb'
+    - 'spec/rspec/rails/matchers/redirect_to_spec.rb'
+    - 'spec/rspec/rails/matchers/route_to_spec.rb'
+
 Style/RegexpLiteral:
   Enabled: false
 
