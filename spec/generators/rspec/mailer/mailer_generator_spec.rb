@@ -2,7 +2,7 @@
 require 'generators/rspec/mailer/mailer_generator'
 require 'support/generators'
 
-RSpec.describe Rspec::Generators::MailerGenerator, :type => :generator do
+RSpec.describe Rspec::Generators::MailerGenerator, type: :generator do
   setup_default_destination
 
   describe 'mailer spec' do
@@ -44,7 +44,7 @@ RSpec.describe Rspec::Generators::MailerGenerator, :type => :generator do
     end
   end
 
-  describe 'a preview is generated for each action', :skip => !RSpec::Rails::FeatureCheck.has_action_mailer_preview? do
+  describe 'a preview is generated for each action', skip: !RSpec::Rails::FeatureCheck.has_action_mailer_preview? do
     subject { file('spec/mailers/previews/posts_preview.rb') }
     before do
       run_generator %w[posts index show]

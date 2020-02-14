@@ -21,7 +21,7 @@ if RSpec::Rails::FeatureCheck.has_active_job?
     end
 
     def to_global_id(_options = {})
-      @global_id ||= GlobalID.create(self, :app => "rspec-suite")
+      @global_id ||= GlobalID.create(self, app: "rspec-suite")
     end
   end
 
@@ -32,7 +32,7 @@ if RSpec::Rails::FeatureCheck.has_active_job?
   end
 end
 
-RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_active_job? do
+RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_active_job? do
   around do |example|
     original_logger = ActiveJob::Base.logger
     ActiveJob::Base.logger = Logger.new(nil) # Silence messages "[ActiveJob] Enqueued ...".
@@ -199,7 +199,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
 
     it "passes with provided queue name as string" do
       expect {
-        hello_job.set(:queue => "low").perform_later
+        hello_job.set(queue: "low").perform_later
       }.to have_enqueued_job.on_queue("low")
     end
 
@@ -212,7 +212,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
     it "passes with provided at date" do
       date = Date.tomorrow.noon
       expect {
-        hello_job.set(:wait_until => date).perform_later
+        hello_job.set(wait_until: date).perform_later
       }.to have_enqueued_job.at(date)
     end
 
@@ -220,7 +220,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       future = 1.minute.from_now
       slightly_earlier = 58.seconds.from_now
       expect {
-        hello_job.set(:wait_until => slightly_earlier).perform_later
+        hello_job.set(wait_until: slightly_earlier).perform_later
       }.to have_enqueued_job.at(a_value_within(5.seconds).of(future))
     end
 
@@ -242,14 +242,14 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
     it "has an enqueued job when not providing at and there is a wait" do
       date = Date.tomorrow.noon
       expect {
-        hello_job.set(:wait_until => date).perform_later
+        hello_job.set(wait_until: date).perform_later
       }.to have_enqueued_job
     end
 
     it "does not have an enqueued job when providing at of :no_wait and there is a wait" do
       date = Date.tomorrow.noon
       expect {
-        hello_job.set(:wait_until => date).perform_later
+        hello_job.set(wait_until: date).perform_later
       }.to_not have_enqueued_job.at(:no_wait)
     end
 
@@ -323,10 +323,10 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       global_id_object = GlobalIdModel.new("42")
 
       expect {
-        hello_job.perform_later(global_id_object, :symbolized_key => "asdf")
+        hello_job.perform_later(global_id_object, symbolized_key: "asdf")
       }.to have_enqueued_job(hello_job).with { |first_arg, second_arg|
         expect(first_arg).to eq(global_id_object)
-        expect(second_arg).to eq({ :symbolized_key => "asdf" })
+        expect(second_arg).to eq({ symbolized_key: "asdf" })
       }
     end
 
@@ -344,8 +344,8 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       noon = Date.tomorrow.noon
       midnight = Date.tomorrow.midnight
       expect {
-        hello_job.set(:wait_until => noon).perform_later("asdf")
-        hello_job.set(:wait_until => midnight).perform_later("zxcv")
+        hello_job.set(wait_until: noon).perform_later("asdf")
+        hello_job.set(wait_until: midnight).perform_later("zxcv")
       }.to have_enqueued_job(hello_job).at(noon).with { |arg|
         expect(arg).to eq("asdf")
       }
@@ -405,7 +405,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
     it "accepts composable matchers as an at date" do
       future = 1.minute.from_now
       slightly_earlier = 58.seconds.from_now
-      heavy_lifting_job.set(:wait_until => slightly_earlier).perform_later
+      heavy_lifting_job.set(wait_until: slightly_earlier).perform_later
       expect(heavy_lifting_job).
         to have_been_enqueued.at(a_value_within(5.seconds).of(future))
     end
@@ -539,7 +539,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
 
     it "passes with provided queue name as string" do
       expect {
-        hello_job.set(:queue => "low").perform_later
+        hello_job.set(queue: "low").perform_later
       }.to have_performed_job.on_queue("low")
     end
 
@@ -552,7 +552,7 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
     it "passes with provided at date" do
       date = Date.tomorrow.noon
       expect {
-        hello_job.set(:wait_until => date).perform_later
+        hello_job.set(wait_until: date).perform_later
       }.to have_performed_job.at(date)
     end
 
@@ -626,10 +626,10 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       global_id_object = GlobalIdModel.new("42")
 
       expect {
-        hello_job.perform_later(global_id_object, :symbolized_key => "asdf")
+        hello_job.perform_later(global_id_object, symbolized_key: "asdf")
       }.to have_performed_job(hello_job).with { |first_arg, second_arg|
         expect(first_arg).to eq(global_id_object)
-        expect(second_arg).to eq({ :symbolized_key => "asdf" })
+        expect(second_arg).to eq({ symbolized_key: "asdf" })
       }
     end
 
@@ -637,8 +637,8 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       noon = Date.tomorrow.noon
       midnight = Date.tomorrow.midnight
       expect {
-        hello_job.set(:wait_until => noon).perform_later("asdf")
-        hello_job.set(:wait_until => midnight).perform_later("zxcv")
+        hello_job.set(wait_until: noon).perform_later("asdf")
+        hello_job.set(wait_until: midnight).perform_later("zxcv")
       }.to have_performed_job(hello_job).at(noon).with { |arg|
         expect(arg).to eq("asdf")
       }

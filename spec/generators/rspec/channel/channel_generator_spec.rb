@@ -2,7 +2,7 @@
 require "generators/rspec/channel/channel_generator"
 require 'support/generators'
 
-RSpec.describe Rspec::Generators::ChannelGenerator, :type => :generator, :skip => !RSpec::Rails::FeatureCheck.has_action_cable_testing? do
+RSpec.describe Rspec::Generators::ChannelGenerator, type: :generator, skip: !RSpec::Rails::FeatureCheck.has_action_cable_testing? do
   setup_default_destination
 
   describe 'the generated files' do

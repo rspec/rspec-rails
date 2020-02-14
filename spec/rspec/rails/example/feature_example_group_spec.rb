@@ -6,7 +6,7 @@ module RSpec::Rails
     it "includes Rails route helpers" do
       with_isolated_stderr do
         Rails.application.routes.draw do
-          get "/foo", :as => :foo, :to => "foo#bar"
+          get "/foo", as: :foo, to: "foo#bar"
         end
       end
 

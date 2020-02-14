@@ -2,7 +2,7 @@
 require 'generators/rspec/feature/feature_generator'
 require 'support/generators'
 
-RSpec.describe Rspec::Generators::FeatureGenerator, :type => :generator do
+RSpec.describe Rspec::Generators::FeatureGenerator, type: :generator do
   setup_default_destination
 
   describe 'feature specs' do

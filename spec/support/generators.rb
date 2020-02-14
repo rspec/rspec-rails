@@ -120,5 +120,5 @@ module RSpec
 end
 
 RSpec.configure do |config|
-  config.include RSpec::Rails::Specs::Generators, :type => :generator
+  config.include RSpec::Rails::Specs::Generators, type: :generator
 end

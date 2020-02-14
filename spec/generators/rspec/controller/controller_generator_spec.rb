@@ -2,7 +2,7 @@
 require 'generators/rspec/controller/controller_generator'
 require 'support/generators'
 
-RSpec.describe Rspec::Generators::ControllerGenerator, :type => :generator do
+RSpec.describe Rspec::Generators::ControllerGenerator, type: :generator do
   setup_default_destination
 
   describe 'request specs' do

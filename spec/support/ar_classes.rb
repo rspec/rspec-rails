@@ -1,6 +1,6 @@
 ActiveRecord::Base.establish_connection(
-  :adapter => 'sqlite3',
-  :database => ':memory:'
+  adapter: 'sqlite3',
+  database: ':memory:'
 )
 
 module Connections
@@ -34,7 +34,7 @@ end
 class AssociatedModel < ActiveRecord::Base
   extend Connections
   belongs_to :mockable_model
-  belongs_to :nonexistent_model, :class_name => "Other"
+  belongs_to :nonexistent_model, class_name: "Other"
 end
 
 class AlternatePrimaryKeyModel < ActiveRecord::Base

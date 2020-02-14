@@ -16,7 +16,7 @@ RSpec.describe 'Action Mailer railtie hook' do
   end
 
   def capture_exec(*ops)
-    ops << { :err => [:child, :out] }
+    ops << { err: [:child, :out] }
     io = IO.popen(ops)
     # Necessary to ignore warnings from Rails code base
     out =  io.readlines.
@@ -28,7 +28,7 @@ RSpec.describe 'Action Mailer railtie hook' do
   end
 
   def have_no_preview
-    have_attributes(:io => be_blank, :exit_status => 0)
+    have_attributes(io: be_blank, exit_status: 0)
   end
 
   let(:exec_script) {

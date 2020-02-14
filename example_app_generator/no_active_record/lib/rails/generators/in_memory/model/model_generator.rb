@@ -8,15 +8,15 @@ module InMemory
 
       desc "Creates a Fake ActiveRecord acting model"
       argument :attributes,
-               :type => :array,
-               :default => [],
-               :banner => "field:type field:type"
+               type: :array,
+               default: [],
+               banner: "field:type field:type"
 
       check_class_collision
 
       class_option :parent,
-                   :type => :string,
-                   :desc => "The parent class for the generated model"
+                   type: :string,
+                   desc: "The parent class for the generated model"
 
       def create_model_file
         template "model.rb.erb",

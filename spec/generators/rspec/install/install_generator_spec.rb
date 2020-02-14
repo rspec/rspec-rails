@@ -2,7 +2,7 @@
 require 'generators/rspec/install/install_generator'
 require 'support/generators'
 
-RSpec.describe Rspec::Generators::InstallGenerator, :type => :generator do
+RSpec.describe Rspec::Generators::InstallGenerator, type: :generator do
   def use_active_record_migration
     match(/ActiveRecord::Migration\./m)
   end

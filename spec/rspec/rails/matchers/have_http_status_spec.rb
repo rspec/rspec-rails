@@ -30,9 +30,9 @@ RSpec.describe "have_http_status" do
       it "returns true for a response with the same code" do
         response = instance_double(
           '::Capybara::Session',
-          :status_code => code,
-          :response_headers => {},
-          :body => ""
+          status_code: code,
+          response_headers: {},
+          body: ""
         )
 
         expect(matcher.matches?(response)).to be(true)
@@ -73,7 +73,7 @@ RSpec.describe "have_http_status" do
       it "returns true for a response with the same code" do
         any_numeric_code  = 209
         have_numeric_code = have_http_status(any_numeric_code)
-        response          = create_response(:status => any_numeric_code)
+        response          = create_response(status: any_numeric_code)
 
         expect(have_numeric_code.matches?(response)).to be(true)
       end
@@ -81,7 +81,7 @@ RSpec.describe "have_http_status" do
       it "returns false for a response with a different code" do
         any_numeric_code  = 209
         have_numeric_code = have_http_status(any_numeric_code)
-        response          = create_response(:status => any_numeric_code + 1)
+        response          = create_response(status: any_numeric_code + 1)
 
         expect(have_numeric_code.matches?(response)).to be(false)
       end
@@ -98,7 +98,7 @@ RSpec.describe "have_http_status" do
     it "has a failure message reporting the expected and actual status codes" do
       any_numeric_code  = 209
       have_numeric_code = have_http_status(any_numeric_code)
-      response          = create_response(:status => any_numeric_code + 1)
+      response          = create_response(status: any_numeric_code + 1)
 
       expect { have_numeric_code.matches? response }.
         to change(have_numeric_code, :failure_message).
@@ -130,7 +130,7 @@ RSpec.describe "have_http_status" do
       it "returns true for a response with the equivalent code" do
         any_symbolic_status  = created_symbolic_status
         have_symbolic_status = have_http_status(any_symbolic_status)
-        response             = create_response(:status => created_code)
+        response             = create_response(status: created_code)
 
         expect(have_symbolic_status.matches?(response)).to be(true)
       end
@@ -138,7 +138,7 @@ RSpec.describe "have_http_status" do
       it "returns false for a response with a different code" do
         any_symbolic_status  = created_symbolic_status
         have_symbolic_status = have_http_status(any_symbolic_status)
-        response             = create_response(:status => created_code + 1)
+        response             = create_response(status: created_code + 1)
 
         expect(have_symbolic_status.matches?(response)).to be(false)
       end
@@ -155,7 +155,7 @@ RSpec.describe "have_http_status" do
     it "has a failure message reporting the expected and actual statuses" do
       any_symbolic_status  = created_symbolic_status
       have_symbolic_status = have_http_status(any_symbolic_status)
-      response             = create_response(:status => created_code + 1)
+      response             = create_response(status: created_code + 1)
 
       expect { have_symbolic_status.matches? response }.
         to change(have_symbolic_status, :failure_message).
@@ -191,12 +191,12 @@ RSpec.describe "have_http_status" do
     # subject(:matcher) { <matcher> } # e.g. { have_http_status(:error) }
     describe "matching a response" do
       it "returns true for a response with code" do
-        response = create_response(:status => expected_code)
+        response = create_response(status: expected_code)
         expect(matcher.matches?(response)).to be(true)
       end
 
       it "returns false for a response with a different code" do
-        response = create_response(:status => other_code)
+        response = create_response(status: other_code)
         expect(matcher.matches?(response)).to be(false)
       end
     end
@@ -206,14 +206,14 @@ RSpec.describe "have_http_status" do
     end
 
     it "has a failure message reporting the expected and actual status codes" do
-      response = create_response(:status => other_code)
+      response = create_response(status: other_code)
       expect { matcher.matches? response }.
         to change(matcher, :failure_message).
         to(failure_message)
     end
 
     it "has a negated failure message reporting the expected and actual status codes" do
-      response = create_response(:status => expected_code)
+      response = create_response(status: expected_code)
       expect { matcher.matches? response }.
         to change(matcher, :failure_message_when_negated).
         to(negated_message)

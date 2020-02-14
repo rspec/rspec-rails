@@ -2,7 +2,7 @@
 require 'generators/rspec/helper/helper_generator'
 require 'support/generators'
 
-RSpec.describe Rspec::Generators::HelperGenerator, :type => :generator do
+RSpec.describe Rspec::Generators::HelperGenerator, type: :generator do
   setup_default_destination
 
   subject { file('spec/helpers/posts_helper_spec.rb') }

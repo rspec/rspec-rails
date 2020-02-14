@@ -23,7 +23,7 @@ module RSpec::Rails
       it "uses the controller as the subject" do
         controller = double('controller')
         example = group.new
-        allow(example).to receive_messages(:controller => controller)
+        allow(example).to receive_messages(controller: controller)
         expect(example.subject).to eq(controller)
       end
 
@@ -73,7 +73,7 @@ module RSpec::Rails
         end
 
         allow(controller).to receive(:foos_url).and_return('http://test.host/foos')
-        allow(example).to receive_messages(:controller => controller)
+        allow(example).to receive_messages(controller: controller)
         example.instance_variable_set(:@orig_routes, routes)
       end
 

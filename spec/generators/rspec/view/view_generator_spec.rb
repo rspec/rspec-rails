@@ -2,7 +2,7 @@
 require 'generators/rspec/view/view_generator'
 require 'support/generators'
 
-RSpec.describe Rspec::Generators::ViewGenerator, :type => :generator do
+RSpec.describe Rspec::Generators::ViewGenerator, type: :generator do
   setup_default_destination
 
   describe 'with default template engine' do

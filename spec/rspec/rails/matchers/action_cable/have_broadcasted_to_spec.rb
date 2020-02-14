@@ -13,12 +13,12 @@ if RSpec::Rails::FeatureCheck.has_action_cable_testing?
     end
 
     def to_global_id(_options = {})
-      @global_id ||= GlobalID.create(self, :app => "rspec-suite")
+      @global_id ||= GlobalID.create(self, app: "rspec-suite")
     end
   end
 end
 
-RSpec.describe "have_broadcasted_to matchers", :skip => !RSpec::Rails::FeatureCheck.has_action_cable_testing? do
+RSpec.describe "have_broadcasted_to matchers", skip: !RSpec::Rails::FeatureCheck.has_action_cable_testing? do
   let(:channel) do
     Class.new(ActionCable::Channel::Base) do
       def self.channel_name

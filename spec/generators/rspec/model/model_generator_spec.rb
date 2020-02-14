@@ -2,7 +2,7 @@
 require 'generators/rspec/model/model_generator'
 require 'support/generators'
 
-RSpec.describe Rspec::Generators::ModelGenerator, :type => :generator do
+RSpec.describe Rspec::Generators::ModelGenerator, type: :generator do
   setup_default_destination
 
   it 'runs both the model and fixture tasks' do

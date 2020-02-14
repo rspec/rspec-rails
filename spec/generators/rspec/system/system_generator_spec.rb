@@ -3,7 +3,7 @@ if ::Rails::VERSION::STRING >= '5.1'
   require 'generators/rspec/system/system_generator'
   require 'support/generators'
 
-  RSpec.describe Rspec::Generators::SystemGenerator, :type => :generator do
+  RSpec.describe Rspec::Generators::SystemGenerator, type: :generator do
     setup_default_destination
 
     describe "system specs" do
