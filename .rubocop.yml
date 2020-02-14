@@ -112,7 +112,9 @@ Lint/SuppressedException:
   Exclude:
     # RSpec is tightly coupled to capybara right now, this should be
     # re-evaluted in the future. For now we allow the empty rescue
-    - lib/rspec/rails/vendor/capybara.rb
+    - 'lib/rspec/rails/vendor/capybara.rb'
+    - 'example_app_generator/generate_stuff.rb'
+    - 'example_app_generator/spec/support/default_preview_path'
 
 Metrics/AbcSize:
   Enabled: false
