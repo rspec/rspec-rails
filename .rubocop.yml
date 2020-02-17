@@ -283,6 +283,9 @@ Style/NestedModifier:
 Style/NestedParenthesizedCalls:
   Enabled: false
 
+Style/NumericLiteralPrefix:
+  EnforcedOctalStyle: zero_only
+
 Style/NumericPredicate:
   Enabled: false
 
