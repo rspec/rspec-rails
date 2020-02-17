@@ -323,9 +323,6 @@ Style/RedundantParentheses:
 Style/RescueStandardError:
   Enabled: false
 
-Style/Semicolon:
-  Enabled: false
-
 # We haven't adopted the `fail` to signal exceptions vs `raise` for re-raises convention.
 Style/SignalException:
   Enabled: false

@@ -108,7 +108,7 @@ Here's a short, non-exhaustive checklist of things we typically ask contributors
 - [ ] New behavior is covered by tests and all tests are passing.
 - [ ] No Ruby warnings are issued by your changes.
 - [ ] Documentation reflects changes and renders as intended.
-- [ ] Rubocop passes (e.g. `bundle exec rubocop lib`).
+- [ ] Rubocop passes (e.g. `bundle exec rubocop`).
 - [ ] Commits are squashed into a reasonable number of logical changesets that tell an easy-to-follow story.
 - [ ] No changelog entry is necessary (we'll add it as part of the merge process!)
 
