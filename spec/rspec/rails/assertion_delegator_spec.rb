@@ -10,7 +10,7 @@ RSpec.describe RSpec::Rails::AssertionDelegator do
   it "delegates back to the including instance for methods the assertion module requires" do
     assertions = Module.new {
       def has_thing?(thing)
-        self.things.include?(thing)
+        things.include?(thing)
       end
     }
 
