@@ -134,7 +134,8 @@ Metrics/PerceivedComplexity:
   Enabled: false
 
 Metrics/ModuleLength:
-  Max: 260
+  Exclude:
+    - spec/**/*
 
 Metrics/ParameterLists:
   Exclude:
