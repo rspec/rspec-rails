@@ -4,7 +4,7 @@ inherit_from:
 AllCops:
   Exclude:
     # Templates are really ERB which Rubocop does not parse
-    - 'lib/generators/rspec/*/templates/**/*'
+    - lib/generators/rspec/*/templates/**/*
 
 Bundler/DuplicatedGem:
   Enabled: false
@@ -78,26 +78,26 @@ Layout/SpaceInsideStringInterpolation:
 
 Lint/AmbiguousBlockAssociation:
   Exclude:
-    - 'spec/**/*'
+    - spec/**/*
 
 Lint/AmbiguousOperator:
   Exclude:
-    - 'Rakefile'
+    - Rakefile
 
 Lint/AmbiguousRegexpLiteral:
   Exclude:
-    - 'features/step_definitions/additional_cli_steps.rb'
+    - features/step_definitions/additional_cli_steps.rb
 
 Lint/AssignmentInCondition:
   Enabled: false
 
 Lint/DuplicateMethods:
   Exclude:
-    - 'example_app_generator/no_active_record/app/models/in_memory/model.rb'
+    - example_app_generator/no_active_record/app/models/in_memory/model.rb
 
 Lint/NonDeterministicRequireOrder:
   Exclude:
-    - 'spec/spec_helper.rb'
+    - spec/spec_helper.rb
 
 Lint/EmptyExpression:
   Enabled: false
@@ -116,9 +116,9 @@ Lint/SuppressedException:
   Exclude:
     # RSpec is tightly coupled to capybara right now, this should be
     # re-evaluted in the future. For now we allow the empty rescue
-    - 'lib/rspec/rails/vendor/capybara.rb'
-    - 'example_app_generator/generate_stuff.rb'
-    - 'example_app_generator/spec/support/default_preview_path'
+    - lib/rspec/rails/vendor/capybara.rb
+    - example_app_generator/generate_stuff.rb
+    - example_app_generator/spec/support/default_preview_path
 
 Metrics/AbcSize:
   Enabled: false
@@ -138,7 +138,7 @@ Metrics/ModuleLength:
 
 Metrics/ParameterLists:
   Exclude:
-    - 'example_app_generator/spec/verify_custom_renderers_spec.rb'
+    - example_app_generator/spec/verify_custom_renderers_spec.rb
 
 # Who cares what we call the argument for binary operator methods?
 Naming/BinaryOperatorParameterName:
@@ -205,7 +205,7 @@ Style/ClassCheck:
 
 Style/CommentedKeyword:
   Exclude:
-    - 'spec/rspec/rails/example/view_example_group_spec.rb'
+    - spec/rspec/rails/example/view_example_group_spec.rb
 
 Style/ConditionalAssignment:
   Enabled: false
@@ -242,7 +242,7 @@ Style/FrozenStringLiteralComment:
 
 Style/GlobalVars:
   Exclude:
-    - 'spec/support/shared_examples.rb'
+    - spec/support/shared_examples.rb
 
 Style/GuardClause:
   Enabled: false
@@ -309,10 +309,10 @@ Style/PercentLiteralDelimiters:
 
 Style/RaiseArgs:
   Exclude:
-    - 'spec/rspec/rails/matchers/be_routable_spec.rb'
-    - 'spec/rspec/rails/matchers/have_rendered_spec.rb'
-    - 'spec/rspec/rails/matchers/redirect_to_spec.rb'
-    - 'spec/rspec/rails/matchers/route_to_spec.rb'
+    - spec/rspec/rails/matchers/be_routable_spec.rb
+    - spec/rspec/rails/matchers/have_rendered_spec.rb
+    - spec/rspec/rails/matchers/redirect_to_spec.rb
+    - spec/rspec/rails/matchers/route_to_spec.rb
 
 Style/RegexpLiteral:
   Enabled: false
@@ -332,13 +332,13 @@ Style/SignalException:
 
 Style/SingleLineMethods:
   Exclude:
-    - 'spec/rspec/rails/example/controller_example_group_spec.rb'
-    - 'spec/rspec/rails/matchers/active_job_spec.rb'
-    - 'spec/rspec/rails/matchers/be_a_new_spec.rb'
-    - 'spec/rspec/rails/matchers/has_spec.rb'
-    - 'spec/rspec/rails/matchers/have_enqueued_mail_spec.rb'
-    - 'spec/rspec/rails/matchers/have_rendered_spec.rb'
-    - 'spec/rspec/rails/setup_and_teardown_adapter_spec.rb'
+    - spec/rspec/rails/example/controller_example_group_spec.rb
+    - spec/rspec/rails/matchers/active_job_spec.rb
+    - spec/rspec/rails/matchers/be_a_new_spec.rb
+    - spec/rspec/rails/matchers/has_spec.rb
+    - spec/rspec/rails/matchers/have_enqueued_mail_spec.rb
+    - spec/rspec/rails/matchers/have_rendered_spec.rb
+    - spec/rspec/rails/setup_and_teardown_adapter_spec.rb
 
 # This rule favors constant names from the English standard library which we don't load.
 Style/SpecialGlobalVars:
