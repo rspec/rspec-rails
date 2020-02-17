@@ -153,10 +153,6 @@ Metrics/ParameterLists:
   Exclude:
     - example_app_generator/spec/verify_custom_renderers_spec.rb
 
-Metrics/ParameterLists:
-  Exclude:
-    - example_app_generator/spec/verify_custom_renderers_spec.rb
-
 # Who cares what we call the argument for binary operator methods?
 Naming/BinaryOperatorParameterName:
   Enabled: false
