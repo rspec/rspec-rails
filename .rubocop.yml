@@ -4,6 +4,7 @@ inherit_from:
 AllCops:
   Exclude:
     # Templates are really ERB which Rubocop does not parse
+    - bin/**/*
     - lib/generators/rspec/*/templates/**/*
 
 Bundler/DuplicatedGem:
