@@ -16,7 +16,7 @@ module RSpec::Rails
         end
 
         it "does not render views in a nested group" do
-          expect(group.describe {}.new.render_views?).to be_falsey
+          expect(group.describe.new.render_views?).to be_falsey
         end
       end
 
@@ -76,7 +76,7 @@ module RSpec::Rails
 
       context "in a nested group" do
         let(:nested_group) do
-          group.describe {}
+          group.describe
         end
 
         context "with no args" do
@@ -115,7 +115,7 @@ module RSpec::Rails
         it "passes override to children" do
           group.render_views
           nested_group.render_views false
-          expect(nested_group.describe {}.new.render_views?).to be_falsey
+          expect(nested_group.describe.new.render_views?).to be_falsey
         end
       end
     end

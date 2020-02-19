@@ -4,8 +4,7 @@ RAILS_VERSION = ENV['RAILS_VERSION'] || (File.exist?(version_file) && File.read(
 
 gemspec
 
-rspec_dependencies_gemfile = File.expand_path('Gemfile-rspec-dependencies', __dir__)
-eval_gemfile rspec_dependencies_gemfile
+eval_gemfile 'Gemfile-rspec-dependencies'
 
 gem 'yard', '~> 0.9.24', :require => false
 
@@ -62,5 +61,4 @@ gem 'rubocop', '~> 0.79.0'
 custom_gemfile = File.expand_path('Gemfile-custom', __dir__)
 eval_gemfile custom_gemfile if File.exist?(custom_gemfile)
 
-rails_dependencies_gemfile = File.expand_path('Gemfile-rails-dependencies', __dir__)
-eval_gemfile rails_dependencies_gemfile
+eval_gemfile 'Gemfile-rails-dependencies'
