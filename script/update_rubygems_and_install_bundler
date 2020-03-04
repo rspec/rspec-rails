@@ -5,5 +5,5 @@
 set -e
 source script/functions.sh
 
-yes | gem update --system
-yes | gem install bundler
+gem update --no-document --system
+gem install --no-document bundler
