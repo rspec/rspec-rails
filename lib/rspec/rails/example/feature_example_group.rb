@@ -40,34 +40,14 @@ unless RSpec.respond_to?(:feature)
     capybara_feature: true,
     type: :feature,
     skip: <<-EOT.squish
-      Feature specs require the Capybara (https://github.com/jnicklas/capybara)
-      gem, version 2.2.0 or later. We recommend version 2.4.0 or later to avoid
-      some deprecation warnings and have support for
-      `config.expose_dsl_globally = false`.
+      Feature specs require the Capybara (https://github.com/teamcapybara/capybara)
+      gem, version 2.13.0 or later.
     EOT
   }
 
-  # Capybara's monkey patching causes us to have to jump through some hoops
-  top_level = self
-  main_feature = nil
-  if defined?(Capybara) && ::Capybara::VERSION.to_f < 2.4
-    # Capybara 2.2 and 2.3 do not use `alias_example_xyz`
-    opts[:skip] = <<-EOT.squish
-      Capybara < 2.4.0 does not support RSpec's namespace or
-      `config.expose_dsl_globally = false`. Upgrade to Capybara >= 2.4.0.
-    EOT
-    main_feature = top_level.method(:feature) if top_level.respond_to?(:feature)
-  end
-
   RSpec.configure do |c|
-    main_feature = nil unless c.expose_dsl_globally?
     c.alias_example_group_to :feature, opts
     c.alias_example_to :scenario
     c.alias_example_to :xscenario, skip: 'Temporarily skipped with xscenario'
   end
-
-  # Due to load order issues and `config.expose_dsl_globally?` defaulting to
-  # `true` we need to put Capybara's monkey patch method back. Otherwise,
-  # app upgrades have a high likelyhood of having all feature specs skipped.
-  top_level.define_singleton_method(:feature, &main_feature) if main_feature
 end

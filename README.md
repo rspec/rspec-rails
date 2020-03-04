@@ -366,7 +366,7 @@ you can run the specs and Cucumber features, or submit a pull request.
 ### Recommended third-party extensions
 
 * [FactoryBot](https://github.com/thoughtbot/factory_bot)
-* [Capybara](https://github.com/jnicklas/capybara)
+* [Capybara](https://github.com/teamcapybara/capybara)
   (Included by default in Rails 5.1+.
   Note that [additional configuration is required][] to use the Capybara DSL
   anywhere other than system specs and feature specs.)
