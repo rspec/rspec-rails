@@ -197,10 +197,16 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       }.to raise_error(/expected to enqueue at most 1 jobs, but enqueued 2/)
     end
 
-    it "passes with provided queue name" do
+    it "passes with provided queue name as string" do
       expect {
         hello_job.set(:queue => "low").perform_later
       }.to have_enqueued_job.on_queue("low")
+    end
+
+    it "passes with provided queue name as symbol" do
+      expect {
+        hello_job.set(:queue => "low").perform_later
+      }.to have_enqueued_job.on_queue(:low)
     end
 
     it "passes with provided at date" do
@@ -531,10 +537,16 @@ RSpec.describe "ActiveJob matchers", :skip => !RSpec::Rails::FeatureCheck.has_ac
       }.to raise_error(/expected to perform at most 1 jobs, but performed 2/)
     end
 
-    it "passes with provided queue name" do
+    it "passes with provided queue name as string" do
       expect {
         hello_job.set(:queue => "low").perform_later
       }.to have_performed_job.on_queue("low")
+    end
+
+    it "passes with provided queue name as symbol" do
+      expect {
+        hello_job.set(:queue => "low").perform_later
+      }.to have_performed_job.on_queue(:low)
     end
 
     it "passes with provided at date" do
