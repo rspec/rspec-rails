@@ -22,9 +22,9 @@ Feature: request spec
 
   Check the Rails docs for details on these methods as well.
 
-  [Capybara](https://github.com/jnicklas/capybara) is no longer supported in
-  request specs as of Capybara 2.0.0. The recommended way to use Capybara is
-  with [feature specs](../feature-specs/feature-spec).
+  [Capybara](https://github.com/teamcapybara/capybara) is not supported in
+  request specs. The recommended way to use Capybara is with
+  [feature specs](../feature-specs/feature-spec).
 
   Scenario: specify managing a Widget with Rails integration methods
     Given a file named "spec/requests/widget_management_spec.rb" with:

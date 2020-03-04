@@ -48,7 +48,7 @@ gem 'rake', '~> 12'
 
 gem 'mime-types', "~> 3"
 
-gem 'capybara', '~> 2.13', require: false
+gem 'capybara', '>= 2.13', '< 4.0', require: false
 
 if MAJOR < 6
   gem 'nokogiri', '1.9.1'
