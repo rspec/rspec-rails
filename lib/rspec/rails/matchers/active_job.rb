@@ -26,7 +26,7 @@ module RSpec
           end
 
           def on_queue(queue)
-            @queue = queue
+            @queue = queue.to_s
             self
           end
 
