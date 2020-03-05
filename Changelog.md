@@ -1,6 +1,9 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.0.beta4...master)
 
+### Enhancements
+* Allow `ActiveJob` matchers `#on_queue` modifier to take symbolic queue names. (Nils Sommer, #2283)
+
 Bug Fixes:
 
 * Restore previous conditional check for setting `default_url_options` in feature
