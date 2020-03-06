@@ -205,7 +205,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
 
     it "passes with provided queue name as symbol" do
       expect {
-        hello_job.set(:queue => "low").perform_later
+        hello_job.set(queue: "low").perform_later
       }.to have_enqueued_job.on_queue(:low)
     end
 
@@ -545,7 +545,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
 
     it "passes with provided queue name as symbol" do
       expect {
-        hello_job.set(:queue => "low").perform_later
+        hello_job.set(queue: "low").perform_later
       }.to have_performed_job.on_queue(:low)
     end
 
