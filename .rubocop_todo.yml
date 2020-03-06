@@ -10,10 +10,6 @@ Layout/LineLength:
 Metrics/MethodLength:
   Max: 43 # default: 10
 
-# the new lambda syntax was not supported in ruby 1.8.7
-Style/Lambda:
-  Enabled: false
-
 # we couldn't use named matches in ruby 1.8.7
 Style/PerlBackrefs:
   Exclude:
