@@ -299,6 +299,10 @@ Style/NestedModifier:
 Style/NestedParenthesizedCalls:
   Enabled: false
 
+Style/NumericLiterals:
+  Exclude:
+    - spec/rspec/rails/matchers/action_cable/have_stream_spec.rb
+
 Style/NumericLiteralPrefix:
   EnforcedOctalStyle: zero_only
 
