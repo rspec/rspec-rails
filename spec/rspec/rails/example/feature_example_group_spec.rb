@@ -24,9 +24,10 @@ module RSpec::Rails
           get "/foo", as: :foo, to: "foo#bar"
         end
 
-        group = RSpec::Core::ExampleGroup.describe do
+        outer_group = RSpec::Core::ExampleGroup.describe do
           include RequestExampleGroup
-        end.describe do
+        end
+        group = outer_group.describe do
           include FeatureExampleGroup
         end
 
