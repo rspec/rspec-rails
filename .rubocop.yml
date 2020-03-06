@@ -19,6 +19,9 @@ Layout/AccessModifierIndentation:
 Layout/AssignmentIndentation:
   Enabled: false
 
+Layout/BlockAlignment:
+  EnforcedStyleAlignWith: start_of_block
+
 Layout/ClosingParenthesisIndentation:
   Enabled: false
 

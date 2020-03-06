@@ -71,10 +71,10 @@ module RSpec
 
               it "the generator describes the provided NAME without monkey " \
                  "patching setting the type to `:request`" do
-                expect(request_spec).to contain(
-                  /^RSpec.describe \"Posts\", #{type_metatag(:request)}/
-                )
-              end
+                   expect(request_spec).to contain(
+                     /^RSpec.describe \"Posts\", #{type_metatag(:request)}/
+                   )
+                 end
 
               it "the generator includes a sample GET request" do
                 expect(request_spec).to contain(/describe "GET \/posts"/)
@@ -99,10 +99,10 @@ module RSpec
 
               it "the generator describes the provided NAME without monkey " \
                  "patching setting the type to `:request`" do
-                expect(request_spec).to contain(
-                  /^RSpec.describe \"Api::Posts\", #{type_metatag(:request)}/
-                )
-              end
+                   expect(request_spec).to contain(
+                     /^RSpec.describe \"Api::Posts\", #{type_metatag(:request)}/
+                   )
+                 end
 
               it "the generator includes a sample GET request" do
                 expect(request_spec).to contain(/describe "GET \/api\/posts\"/)
