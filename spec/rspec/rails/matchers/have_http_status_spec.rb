@@ -1,7 +1,7 @@
 RSpec.describe "have_http_status" do
-  def create_response(opts = {})
+  def create_response(opts = { })
     ActionDispatch::TestResponse.new(opts.fetch(:status)).tap { |x|
-      x.request = ActionDispatch::Request.new({})
+      x.request = ActionDispatch::Request.new({ })
     }
   end
 
@@ -9,7 +9,7 @@ RSpec.describe "have_http_status" do
     context "given an ActionDispatch::Response" do
       it "returns true for a response with the same code" do
         response = ::ActionDispatch::Response.new(code).tap { |x|
-          x.request = ActionDispatch::Request.new({})
+          x.request = ActionDispatch::Request.new({ })
         }
 
         expect(matcher.matches?(response)).to be(true)
@@ -19,7 +19,7 @@ RSpec.describe "have_http_status" do
     context "given an ActionDispatch::TestResponse" do
       it "returns true for a response with the same code" do
         response = ::ActionDispatch::TestResponse.new(code).tap { |x|
-          x.request = ActionDispatch::Request.new({})
+          x.request = ActionDispatch::Request.new({ })
         }
 
         expect(matcher.matches?(response)).to be(true)
@@ -31,7 +31,7 @@ RSpec.describe "have_http_status" do
         response = instance_double(
           '::Capybara::Session',
           status_code: code,
-          response_headers: {},
+          response_headers: { },
           body: ""
         )
 
@@ -440,7 +440,7 @@ RSpec.describe "have_http_status" do
         splitter = RSpec::Support::StdErrSplitter.new(previous_stderr)
         $stderr = splitter
         response = ::ActionDispatch::Response.new(code).tap { |x|
-          x.request = ActionDispatch::Request.new({})
+          x.request = ActionDispatch::Request.new({ })
         }
         expect(matcher.matches?(response)).to be(true)
         expect(splitter.has_output?).to be false

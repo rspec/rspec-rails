@@ -46,7 +46,7 @@ module RSpec
               resp.headers.clear
               resp.headers.merge!(obj.response_headers)
               resp.body    = obj.body
-              resp.request = ActionDispatch::Request.new({})
+              resp.request = ActionDispatch::Request.new({ })
             end
             ::ActionDispatch::TestResponse.from_response(obj)
           else

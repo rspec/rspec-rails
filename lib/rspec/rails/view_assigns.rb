@@ -38,7 +38,7 @@ module RSpec
     private
 
       def _encapsulated_assigns
-        @_encapsulated_assigns ||= {}
+        @_encapsulated_assigns ||= { }
       end
     end
   end

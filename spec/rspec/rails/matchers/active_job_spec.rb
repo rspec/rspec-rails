@@ -20,7 +20,7 @@ if RSpec::Rails::FeatureCheck.has_active_job?
       (GlobalIdModel === comparison_object) && (id == comparison_object.id)
     end
 
-    def to_global_id(_options = {})
+    def to_global_id(_options = { })
       @global_id ||= GlobalID.create(self, app: "rspec-suite")
     end
   end
@@ -326,7 +326,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
         hello_job.perform_later(global_id_object, symbolized_key: "asdf")
       }.to have_enqueued_job(hello_job).with { |first_arg, second_arg|
         expect(first_arg).to eq(global_id_object)
-        expect(second_arg).to eq({ symbolized_key: "asdf" })
+        expect(second_arg).to eq({symbolized_key: "asdf"})
       }
     end
 
@@ -629,7 +629,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
         hello_job.perform_later(global_id_object, symbolized_key: "asdf")
       }.to have_performed_job(hello_job).with { |first_arg, second_arg|
         expect(first_arg).to eq(global_id_object)
-        expect(second_arg).to eq({ symbolized_key: "asdf" })
+        expect(second_arg).to eq({symbolized_key: "asdf"})
       }
     end
 

@@ -64,6 +64,10 @@ Layout/MultilineOperationIndentation:
 Layout/ParameterAlignment:
   EnforcedStyle: with_first_parameter
 
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
+  EnforcedStyleForEmptyBraces: space
+
 Layout/SpaceInsidePercentLiteralDelimiters:
   Enabled: false
 
