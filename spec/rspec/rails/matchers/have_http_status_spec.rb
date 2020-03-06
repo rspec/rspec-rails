@@ -48,17 +48,17 @@ RSpec.describe "have_http_status" do
     it "has a failure message reporting it was given another type" do
       response = Object.new
 
-      expect { matcher.matches?(response) }.
-        to change(matcher, :failure_message).
-        to("expected a response object, but an instance of Object was received")
+      expect { matcher.matches?(response) }
+        .to change(matcher, :failure_message)
+        .to("expected a response object, but an instance of Object was received")
     end
 
     it "has a negated failure message reporting it was given another type" do
       response = Object.new
 
-      expect { matcher.matches?(response) }.
-        to change(matcher, :failure_message_when_negated).
-        to("expected a response object, but an instance of Object was received")
+      expect { matcher.matches?(response) }
+        .to change(matcher, :failure_message_when_negated)
+        .to("expected a response object, but an instance of Object was received")
     end
   end
 
@@ -91,8 +91,8 @@ RSpec.describe "have_http_status" do
       any_numeric_code  = 209
       have_numeric_code = have_http_status(any_numeric_code)
 
-      expect(have_numeric_code.description).
-        to eq("respond with numeric status code 209")
+      expect(have_numeric_code.description)
+        .to eq("respond with numeric status code 209")
     end
 
     it "has a failure message reporting the expected and actual status codes" do
@@ -100,17 +100,17 @@ RSpec.describe "have_http_status" do
       have_numeric_code = have_http_status(any_numeric_code)
       response          = create_response(status: any_numeric_code + 1)
 
-      expect { have_numeric_code.matches? response }.
-        to change(have_numeric_code, :failure_message).
-        to("expected the response to have status code 209 but it was 210")
+      expect { have_numeric_code.matches? response }
+        .to change(have_numeric_code, :failure_message)
+        .to("expected the response to have status code 209 but it was 210")
     end
 
     it "has a negated failure message reporting the expected status code" do
       any_numeric_code  = 209
       have_numeric_code = have_http_status(any_numeric_code)
 
-      expect(have_numeric_code.failure_message_when_negated).
-        to eq("expected the response not to have status code 209 but it did")
+      expect(have_numeric_code.failure_message_when_negated)
+        .to eq("expected the response not to have status code 209 but it did")
     end
   end
 
@@ -148,8 +148,8 @@ RSpec.describe "have_http_status" do
       any_symbolic_status  = created_symbolic_status
       have_symbolic_status = have_http_status(any_symbolic_status)
 
-      expect(have_symbolic_status.description).
-        to eq("respond with status code :created (201)")
+      expect(have_symbolic_status.description)
+        .to eq("respond with status code :created (201)")
     end
 
     it "has a failure message reporting the expected and actual statuses" do
@@ -157,17 +157,17 @@ RSpec.describe "have_http_status" do
       have_symbolic_status = have_http_status(any_symbolic_status)
       response             = create_response(status: created_code + 1)
 
-      expect { have_symbolic_status.matches? response }.
-        to change(have_symbolic_status, :failure_message).
-        to("expected the response to have status code :created (201) but it was :accepted (202)")
+      expect { have_symbolic_status.matches? response }
+        .to change(have_symbolic_status, :failure_message)
+        .to("expected the response to have status code :created (201) but it was :accepted (202)")
     end
 
     it "has a negated failure message reporting the expected status code" do
       any_symbolic_status  = created_symbolic_status
       have_symbolic_status = have_http_status(any_symbolic_status)
 
-      expect(have_symbolic_status.failure_message_when_negated).
-        to eq("expected the response not to have status code :created (201) but it did")
+      expect(have_symbolic_status.failure_message_when_negated)
+        .to eq("expected the response not to have status code :created (201) but it did")
     end
 
     it "raises an ArgumentError" do
@@ -207,16 +207,16 @@ RSpec.describe "have_http_status" do
 
     it "has a failure message reporting the expected and actual status codes" do
       response = create_response(status: other_code)
-      expect { matcher.matches? response }.
-        to change(matcher, :failure_message).
-        to(failure_message)
+      expect { matcher.matches? response }
+        .to change(matcher, :failure_message)
+        .to(failure_message)
     end
 
     it "has a negated failure message reporting the expected and actual status codes" do
       response = create_response(status: expected_code)
-      expect { matcher.matches? response }.
-        to change(matcher, :failure_message_when_negated).
-        to(negated_message)
+      expect { matcher.matches? response }
+        .to change(matcher, :failure_message_when_negated)
+        .to(negated_message)
     end
   end
 

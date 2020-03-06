@@ -111,8 +111,8 @@ module RSpec::Rails
 
       it "uses routes helpers" do
         allow(::Rails.application).to receive(:routes).and_return(test_routes)
-        expect(view_spec.image_path(double(to_param: "42"))).
-          to eq "/images/42"
+        expect(view_spec.image_path(double(to_param: "42")))
+          .to eq "/images/42"
       end
     end
 
@@ -203,19 +203,19 @@ module RSpec::Rails
 
       context "with a common _default_file_to_render" do
         it "it returns the directory" do
-          allow(view_spec).to receive(:_default_file_to_render).
-            and_return("things/new.html.erb")
-          expect(view_spec.__send__(:_controller_path)).
-            to eq("things")
+          allow(view_spec).to receive(:_default_file_to_render)
+            .and_return("things/new.html.erb")
+          expect(view_spec.__send__(:_controller_path))
+            .to eq("things")
         end
       end
 
       context "with a nested _default_file_to_render" do
         it "it returns the directory path" do
-          allow(view_spec).to receive(:_default_file_to_render).
-            and_return("admin/things/new.html.erb")
-          expect(view_spec.__send__(:_controller_path)).
-            to eq("admin/things")
+          allow(view_spec).to receive(:_default_file_to_render)
+            .and_return("admin/things/new.html.erb")
+          expect(view_spec.__send__(:_controller_path))
+            .to eq("admin/things")
         end
       end
     end
