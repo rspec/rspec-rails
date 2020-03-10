@@ -8,7 +8,7 @@ def yield_n_times(n)
   before_n_times(n) { yield }
 end
 
-def capture_block_and_yield_n_times(n)
+def capture_block_and_yield_n_times(n, &block) # rubocop:disable Lint/UnusedMethodArgument
   before_n_times(n) { yield }
 end
 
