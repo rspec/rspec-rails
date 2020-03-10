@@ -60,8 +60,6 @@ module Rspec
         template 'routing_spec.rb', template_file
       end
 
-      hook_for :integration_tool, as: :integration
-
     protected
 
       attr_reader :generator_args
