@@ -10,7 +10,7 @@ RSpec.describe "be_routable" do
 
   context "with should" do
     it "passes if routes recognize the path" do
-      allow(routes).to receive(:recognize_path) { { } }
+      allow(routes).to receive(:recognize_path) { {} }
       expect do
         expect({get: "/a/path"}).to be_routable
       end.to_not raise_error

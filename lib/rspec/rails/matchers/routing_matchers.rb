@@ -9,7 +9,7 @@ module RSpec
         class RouteToMatcher < RSpec::Rails::Matchers::BaseMatcher
           def initialize(scope, *expected)
             @scope = scope
-            @expected = expected[1] || { }
+            @expected = expected[1] || {}
             if Hash === expected[0]
               @expected.merge!(expected[0])
             else

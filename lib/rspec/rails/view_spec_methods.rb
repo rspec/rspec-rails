@@ -38,7 +38,7 @@ module RSpec
           #     controller.extra_params
           #     # => { :id => 4 }
           def extra_params
-            @extra_params ||= { }
+            @extra_params ||= {}
             @extra_params.dup.freeze
           end
         end

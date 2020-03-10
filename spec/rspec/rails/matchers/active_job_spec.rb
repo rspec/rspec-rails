@@ -20,7 +20,7 @@ if RSpec::Rails::FeatureCheck.has_active_job?
       (GlobalIdModel === comparison_object) && (id == comparison_object.id)
     end
 
-    def to_global_id(_options = { })
+    def to_global_id(_options = {})
       @global_id ||= GlobalID.create(self, app: "rspec-suite")
     end
   end

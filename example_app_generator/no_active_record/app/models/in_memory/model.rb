@@ -21,7 +21,7 @@ module InMemory
       all.find { |record| record.id == id } || raise
     end
 
-    def create!(attributes = { })
+    def create!(attributes = {})
       record = new(attributes)
       record.save
       record
@@ -43,7 +43,7 @@ module InMemory
       include ::ActiveModel::Conversion
       include ::ActiveModel::Validations
 
-      def initialize(attributes = { })
+      def initialize(attributes = {})
         assign_attributes(attributes)
       end
     end

@@ -10,7 +10,7 @@ RSpec.describe 'Action Mailer railtie hook' do
 
   def as_commandline(ops)
     cmd, ops = ops.reverse
-    ops ||= { }
+    ops ||= {}
     cmd_parts = ops.map { |k, v| "#{k}=#{v}" } << cmd << '2>&1'
     cmd_parts.join(' ')
   end

@@ -20,7 +20,7 @@ RSpec.describe "Configuration" do
   end
 
   shared_examples_for "adds setting" do |accessor, opts|
-    opts ||= { }
+    opts ||= {}
     default_value = opts[:default]
     alias_setting = opts[:alias_with]
     query_method = "#{accessor}?".to_sym

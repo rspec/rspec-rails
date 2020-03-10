@@ -45,7 +45,7 @@ module RSpec
       private
 
         def attributes
-          @attributes ||= { }
+          @attributes ||= {}
         end
 
         def attributes_match?(actual)

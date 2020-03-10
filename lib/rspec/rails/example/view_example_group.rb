@@ -16,7 +16,7 @@ module RSpec
       # @private
       module StubResolverCache
         def self.resolver_for(hash)
-          @resolvers ||= { }
+          @resolvers ||= {}
           @resolvers[hash] ||= ActionView::FixtureResolver.new(hash)
         end
       end
@@ -63,7 +63,7 @@ module RSpec
         #         # ...
         #       end
         #     end
-        def render(options = { }, local_assigns = { }, &block)
+        def render(options = {}, local_assigns = {}, &block)
           options = _default_render_options if Hash === options && options.empty?
           super(options, local_assigns, &block)
         end
@@ -189,7 +189,7 @@ module RSpec
 
           controller.controller_path = _controller_path
 
-          path_params_to_merge = { }
+          path_params_to_merge = {}
           path_params_to_merge[:controller] = _controller_path
           path_params_to_merge[:action] = _inferred_action unless _inferred_action =~ /^_/
 

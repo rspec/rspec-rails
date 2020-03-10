@@ -13,13 +13,13 @@ RSpec.describe "route_to" do
   end
 
   it "delegates to assert_recognizes" do
-    expect(self).to receive(:assert_recognizes).with({"these" => "options"}, {method: :get, path: "path"}, { })
+    expect(self).to receive(:assert_recognizes).with({"these" => "options"}, {method: :get, path: "path"}, {})
     expect({get: "path"}).to route_to("these" => "options")
   end
 
   context "with shortcut syntax" do
     it "routes with extra options" do
-      expect(self).to receive(:assert_recognizes).with({controller: "controller", action: "action", extra: "options"}, {method: :get, path: "path"}, { })
+      expect(self).to receive(:assert_recognizes).with({controller: "controller", action: "action", extra: "options"}, {method: :get, path: "path"}, {})
       expect(get("path")).to route_to("controller#action", extra: "options")
     end
 
@@ -27,7 +27,7 @@ RSpec.describe "route_to" do
       expect(self).to receive(:assert_recognizes).with(
         {controller: "controller", action: "action"},
         {method: :get, path: "path"},
-        { }
+        {}
       )
       expect(get("path")).to route_to("controller#action")
     end
