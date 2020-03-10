@@ -1,5 +1,9 @@
-### Development
-[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.9.0...master)
+### 3.9.1 / 2020-03-10
+[Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.9.0...v3.9.1)
+
+Bug Fixes:
+
+* Add missing require for have_enqueued_mail matcher. (Ignatius Reza, #2117)
 
 ### 3.9.0 / 2019-10-08
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.8.2...v3.9.0)
