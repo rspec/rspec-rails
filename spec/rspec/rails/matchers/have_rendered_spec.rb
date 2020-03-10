@@ -6,8 +6,8 @@
     context "given a hash" do
       def assert_template(*); end
       it "delegates to assert_template" do
-        expect(self).to receive(:assert_template).with({:this => "hash"}, "this message")
-        expect("response").to send(template_expectation, {:this => "hash"}, "this message")
+        expect(self).to receive(:assert_template).with({this: "hash"}, "this message")
+        expect("response").to send(template_expectation, {this: "hash"}, "this message")
       end
     end
 
@@ -98,7 +98,7 @@
           raise ActiveSupport::TestCase::Assertion.new(message)
         end
 
-        def normalize_argument_to_redirection(response_redirect_location)
+        def normalize_argument_to_redirection(_response_redirect_location)
           "http://test.host/widgets/1"
         end
 

@@ -1,5 +1,4 @@
-# -*- encoding: utf-8 -*-
-$LOAD_PATH.unshift File.expand_path("../lib", __FILE__)
+$LOAD_PATH.unshift File.expand_path('lib', __dir__)
 require "rspec/rails/version"
 
 Gem::Specification.new do |s|
@@ -35,9 +34,9 @@ Gem::Specification.new do |s|
 
   version_string = ['>= 4.2']
 
-  s.add_runtime_dependency %q<activesupport>, version_string
-  s.add_runtime_dependency %q<actionpack>,    version_string
-  s.add_runtime_dependency %q<railties>,      version_string
+  s.add_runtime_dependency 'actionpack',    version_string
+  s.add_runtime_dependency 'activesupport', version_string
+  s.add_runtime_dependency 'railties',      version_string
 
   # in these blocks expected_rspec_version is set up to track the released
   # versions of RSpec. RSpec Rails does not have lock step versioning with the
@@ -54,7 +53,7 @@ Gem::Specification.new do |s|
     end
   end
 
-  s.add_development_dependency 'cucumber', '~> 1.3.5'
-  s.add_development_dependency 'aruba',    '~> 0.14.12'
   s.add_development_dependency 'ammeter',  '~> 1.1.2'
+  s.add_development_dependency 'aruba',    '~> 0.14.12'
+  s.add_development_dependency 'cucumber', '~> 1.3.5'
 end

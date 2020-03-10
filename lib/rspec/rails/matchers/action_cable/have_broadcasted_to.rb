@@ -8,7 +8,7 @@ module RSpec
           def initialize(target, channel:)
             @target = target
             @channel = channel
-            @block = Proc.new {}
+            @block = proc { }
             @data = nil
             set_expected_number(:exactly, 1)
           end

@@ -1,6 +1,6 @@
 require 'rspec/rails/feature_check'
 
-DEFAULT_SOURCE_PATH = File.expand_path('..', __FILE__)
+DEFAULT_SOURCE_PATH = File.expand_path(__dir__)
 
 module ExampleAppHooks
   module AR
@@ -96,7 +96,7 @@ generate('scaffold admin/account name:string') # scaffold with nested resource
 generate('rspec:feature gadget')
 generate('controller things custom_action')
 
-using_source_path(File.expand_path('..', __FILE__)) do
+using_source_path(File.expand_path(__dir__)) do
   # rspec-core loads files alphabetically, so we want this to be the first one
   copy_file 'spec/features/model_mocks_integration_spec.rb'
 end
@@ -116,15 +116,15 @@ end
 
 file "app/views/things/custom_action.html.erb",
      "This is a template for a custom action.",
-     :force => true
+     force: true
 
 file "app/views/errors/401.html.erb",
      "This is a template for rendering an error page",
-     :force => true
+     force: true
 
 # Use the absolute path so we can load it without active record too
 apply File.join(DEFAULT_SOURCE_PATH, 'generate_action_mailer_specs.rb')
-using_source_path(File.expand_path('..', __FILE__)) do
+using_source_path(File.expand_path(__dir__)) do
   # rspec-core loads files alphabetically, so we want this to be the first one
   copy_file 'spec/__verify_fixture_load_order_spec.rb'
 end

@@ -34,7 +34,7 @@ if RSpec::Rails::FeatureCheck.has_action_cable_testing?
               next if klass <= ::ActionCable::Channel::Base
 
               raise "Described class is not a channel class.\n" \
-                    "Specify the channel class in the `describe` statement "\
+                    "Specify the channel class in the `describe` statement " \
                     "or set it manually using `tests MyChannelClass`"
             end
           end
@@ -45,7 +45,7 @@ if RSpec::Rails::FeatureCheck.has_action_cable_testing?
               next if klass <= ::ActionCable::Connection::Base
 
               raise "Described class is not a connection class.\n" \
-                    "Specify the connection class in the `describe` statement "\
+                    "Specify the connection class in the `describe` statement " \
                     "or set it manually using `tests MyConnectionClass`"
             end
           end

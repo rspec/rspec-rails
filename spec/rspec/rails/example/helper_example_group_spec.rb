@@ -8,7 +8,7 @@ module RSpec::Rails
     subject { HelperExampleGroup }
 
     it_behaves_like "an rspec-rails example group mixin", :helper,
-      './spec/helpers/', '.\\spec\\helpers\\'
+                    './spec/helpers/', '.\\spec\\helpers\\'
 
     it "provides a controller_path based on the helper module's name" do
       example = double
@@ -67,16 +67,16 @@ module RSpec::Rails
       context "the described is a module" do
         it "returns the module" do
           allow(group).to receive(:described_class) { FoosHelper }
-          expect(group.determine_default_helper_class("ignore this")).
-            to eq(FoosHelper)
+          expect(group.determine_default_helper_class("ignore this"))
+            .to eq(FoosHelper)
         end
       end
 
       context "the described is a class" do
         it "returns nil" do
           allow(group).to receive(:described_class) { FoosHelper::InternalClass }
-          expect(group.determine_default_helper_class("ignore this")).
-            to be_nil
+          expect(group.determine_default_helper_class("ignore this"))
+            .to be_nil
         end
       end
     end

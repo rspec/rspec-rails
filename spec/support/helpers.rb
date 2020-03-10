@@ -10,5 +10,5 @@ module Helpers
     RSpec.configuration = original_config
   end
 
-  RSpec.configure {|c| c.include self}
+  RSpec.configure { |c| c.include self }
 end

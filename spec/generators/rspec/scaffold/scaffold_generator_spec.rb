@@ -9,7 +9,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
     subject { file('spec/controllers/posts_controller_spec.rb') }
 
     describe 'with no options' do
-      before { run_generator %w(posts) }
+      before { run_generator %w[posts] }
       it { is_expected.to contain(/require 'rails_helper'/) }
       it { is_expected.to contain(/^RSpec.describe PostsController, #{type_metatag(:controller)}/) }
       it { is_expected.to contain(/GET #new/) }
@@ -28,12 +28,12 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
     end
 
     describe 'with --no-controller_specs' do
-      before { run_generator %w(posts --no-controller_specs) }
+      before { run_generator %w[posts --no-controller_specs] }
       it { is_expected.not_to exist }
     end
 
     describe 'with --api' do
-      before { run_generator %w(posts --api) }
+      before { run_generator %w[posts --api] }
       it { is_expected.to contain(/require 'rails_helper'/) }
       it { is_expected.to contain(/^RSpec.describe PostsController, #{type_metatag(:controller)}/) }
       it { is_expected.not_to contain(/GET #new/) }
@@ -53,13 +53,13 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
 
   describe 'namespaced controller spec' do
     subject { file('spec/controllers/admin/posts_controller_spec.rb') }
-    before  { run_generator %w(admin/posts) }
-    it { is_expected.to contain(/^RSpec.describe Admin::PostsController, #{type_metatag(:controller)}/)}
+    before  { run_generator %w[admin/posts] }
+    it { is_expected.to contain(/^RSpec.describe Admin::PostsController, #{type_metatag(:controller)}/) }
   end
 
   describe 'view specs' do
     describe 'with no options' do
-      before { run_generator %w(posts) }
+      before { run_generator %w[posts] }
 
       describe 'edit' do
         subject { file("spec/views/posts/edit.html.erb_spec.rb") }
@@ -95,7 +95,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
     end
 
     describe 'with multiple integer attributes index' do
-      before { run_generator %w(posts upvotes:integer downvotes:integer) }
+      before { run_generator %w[posts upvotes:integer downvotes:integer] }
       subject { file("spec/views/posts/index.html.erb_spec.rb") }
       it { is_expected.to exist }
       it { is_expected.to contain('assert_select "tr>td", text: 2.to_s, count: 2') }
@@ -103,7 +103,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
     end
 
     describe 'with multiple float attributes index' do
-      before { run_generator %w(posts upvotes:float downvotes:float) }
+      before { run_generator %w[posts upvotes:float downvotes:float] }
       subject { file("spec/views/posts/index.html.erb_spec.rb") }
       it { is_expected.to exist }
       it { is_expected.to contain('assert_select "tr>td", text: 2.5.to_s, count: 2') }
@@ -112,7 +112,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
 
     if Rails.version.to_f >= 5.1
       describe 'with reference attribute' do
-        before { run_generator %w(posts title:string author:references) }
+        before { run_generator %w[posts title:string author:references] }
         describe 'edit' do
           subject { file("spec/views/posts/edit.html.erb_spec.rb") }
           it { is_expected.to contain(/assert_select "input\[name=\?\]", "post\[author_id\]/) }
@@ -127,7 +127,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
       end
     else
       describe 'with reference attribute' do
-        before { run_generator %w(posts title:string author:references) }
+        before { run_generator %w[posts title:string author:references] }
         describe 'edit' do
           subject { file("spec/views/posts/edit.html.erb_spec.rb") }
           it { is_expected.to contain(/assert_select "input#(.*)_author_id\[name=\?\]", "\1\[author_id\]/) }
@@ -143,7 +143,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
     end
 
     describe 'with --no-template-engine' do
-      before { run_generator %w(posts --no-template-engine) }
+      before { run_generator %w[posts --no-template-engine] }
       describe 'edit' do
         subject { file("spec/views/posts/edit.html._spec.rb") }
         it { is_expected.not_to exist }
@@ -166,7 +166,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
     end
 
     describe 'with --api' do
-      before { run_generator %w(posts --api) }
+      before { run_generator %w[posts --api] }
 
       describe 'edit' do
         subject { file("spec/views/posts/edit.html.erb_spec.rb") }
@@ -190,7 +190,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
     end
 
     describe 'with --no-view-specs' do
-      before { run_generator %w(posts --no-view-specs) }
+      before { run_generator %w[posts --no-view-specs] }
 
       describe 'edit' do
         subject { file("spec/views/posts/edit.html.erb_spec.rb") }
@@ -218,7 +218,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
     subject { file('spec/routing/posts_routing_spec.rb') }
 
     describe 'with default options' do
-      before { run_generator %w(posts) }
+      before { run_generator %w[posts] }
       it { is_expected.to contain(/require "rails_helper"/) }
       it { is_expected.to contain(/^RSpec.describe PostsController, #{type_metatag(:routing)}/) }
       it { is_expected.to contain(/describe "routing"/) }
@@ -228,12 +228,12 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
     end
 
     describe 'with --no-routing-specs' do
-      before { run_generator %w(posts --no-routing_specs) }
+      before { run_generator %w[posts --no-routing_specs] }
       it { is_expected.not_to exist }
     end
 
     describe 'with --api' do
-      before { run_generator %w(posts --api) }
+      before { run_generator %w[posts --api] }
       it { is_expected.not_to contain(/routes to #new/) }
       it { is_expected.not_to contain(/routes to #edit/) }
     end
@@ -242,7 +242,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
       subject { file('spec/routing/api/v1/posts_routing_spec.rb') }
 
       describe 'with default options' do
-        before { run_generator %w(api/v1/posts) }
+        before { run_generator %w[api/v1/posts] }
         it { is_expected.to contain(/^RSpec.describe Api::V1::PostsController, #{type_metatag(:routing)}/) }
         it { is_expected.to contain('route_to("api/v1/posts#new")') }
       end

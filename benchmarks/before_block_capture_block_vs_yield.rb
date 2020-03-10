@@ -8,7 +8,7 @@ def yield_n_times(n)
   before_n_times(n) { yield }
 end
 
-def capture_block_and_yield_n_times(n, &block)
+def capture_block_and_yield_n_times(n, &block) # rubocop:disable Lint/UnusedMethodArgument
   before_n_times(n) { yield }
 end
 
@@ -16,7 +16,7 @@ def capture_block_and_call_n_times(n, &block)
   before_n_times(n) { block.call }
 end
 
-[10, 25, 50, 100, 1000, 10000].each do |count|
+[10, 25, 50, 100, 1000, 10_000].each do |count|
   puts "\n\nInvoking the block #{count} times\n"
 
   Benchmark.ips do |x|

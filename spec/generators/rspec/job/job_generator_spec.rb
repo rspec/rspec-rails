@@ -2,11 +2,11 @@
 require 'generators/rspec/job/job_generator'
 require 'support/generators'
 
-RSpec.describe Rspec::Generators::JobGenerator, :type => :generator, :skip => !RSpec::Rails::FeatureCheck.has_active_job? do
+RSpec.describe Rspec::Generators::JobGenerator, type: :generator, skip: !RSpec::Rails::FeatureCheck.has_active_job? do
   setup_default_destination
 
   describe 'the generated files' do
-    before { run_generator %w(user) }
+    before { run_generator %w[user] }
 
     subject { file('spec/jobs/user_job_spec.rb') }
 

@@ -2,10 +2,10 @@ require 'rails/all'
 
 module RSpecRails
   class Application < ::Rails::Application
-    self.config.secret_key_base = 'ASecretString'
+    config.secret_key_base = 'ASecretString'
 
     if defined?(ActionCable)
-      ActionCable.server.config.cable = { "adapter" => "test" }
+      ActionCable.server.config.cable = {"adapter" => "test"}
       ActionCable.server.config.logger =
         ActiveSupport::TaggedLogging.new ActiveSupport::Logger.new(StringIO.new)
     end
@@ -18,10 +18,10 @@ require 'rspec/support/spec'
 require 'rspec/rails'
 require 'ammeter/init'
 
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each {|f| require f}
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 
 class RSpec::Core::ExampleGroup
-  def self.run_all(reporter=nil)
+  def self.run_all(reporter = nil)
     run(reporter || RSpec::Mocks::Mock.new('reporter').as_null_object)
   end
 end

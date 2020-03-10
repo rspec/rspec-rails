@@ -1,7 +1,7 @@
 require 'active_support'
 require 'active_support/core_ext/module'
 
-using_source_path(File.expand_path('..', __FILE__)) do
+using_source_path(File.expand_path(__dir__)) do
   # Comment out the default mailer stuff
   comment_lines 'config/environments/development.rb', /action_mailer/
   comment_lines 'config/environments/test.rb', /action_mailer/

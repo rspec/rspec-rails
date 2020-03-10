@@ -19,7 +19,7 @@ if RSpec::Rails::FeatureCheck.has_action_cable_testing?
   end
 end
 
-RSpec.describe "have_stream matchers", :skip => !RSpec::Rails::FeatureCheck.has_action_cable_testing?  do
+RSpec.describe "have_stream matchers", skip: !RSpec::Rails::FeatureCheck.has_action_cable_testing?  do
   include RSpec::Rails::ChannelExampleGroup
 
   tests StreamChannel if respond_to?(:tests)

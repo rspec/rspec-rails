@@ -176,8 +176,8 @@ function check_documentation_coverage {
 }
 
 function check_style_and_lint {
-  echo "bin/rubocop lib"
-  eval "(unset RUBYOPT; exec bin/rubocop lib)"
+  echo "bin/rubocop"
+  eval "(unset RUBYOPT; rm -rf tmp/*; exec bin/rubocop)"
 }
 
 function run_all_spec_suites {

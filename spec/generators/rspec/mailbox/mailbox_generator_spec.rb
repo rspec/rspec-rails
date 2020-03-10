@@ -2,7 +2,7 @@
 require 'generators/rspec/mailbox/mailbox_generator'
 require 'support/generators'
 
-RSpec.describe Rspec::Generators::MailboxGenerator, :type => :generator, :skip => !RSpec::Rails::FeatureCheck.has_action_mailbox? do
+RSpec.describe Rspec::Generators::MailboxGenerator, type: :generator, skip: !RSpec::Rails::FeatureCheck.has_action_mailbox? do
   setup_default_destination
 
   describe 'the generated files' do

@@ -6,7 +6,7 @@ module RSpec
           # Tell the generator where to put its output (what it thinks of as
           # Rails.root)
           def set_default_destination
-            destination File.expand_path("../../../tmp", __FILE__)
+            destination File.expand_path('../../tmp', __dir__)
           end
 
           def setup_default_destination
@@ -40,7 +40,7 @@ module RSpec
         shared_examples_for "a request spec generator" do
           describe 'generated with flag `--no-request-specs`' do
             before do
-              run_generator %w(posts --no-request-specs)
+              run_generator %w[posts --no-request-specs]
             end
 
             subject(:request_spec) { file('spec/requests/posts_spec.rb') }
@@ -58,7 +58,7 @@ module RSpec
             subject(:request_spec) { file(spec_file_name) }
 
             context 'When NAME=posts' do
-              let(:name) { %w(posts) }
+              let(:name) { %w[posts] }
               let(:spec_file_name) { 'spec/requests/posts_spec.rb' }
 
               it "creates the request spec" do
@@ -71,10 +71,10 @@ module RSpec
 
               it "the generator describes the provided NAME without monkey " \
                  "patching setting the type to `:request`" do
-                expect(request_spec).to contain(
-                  /^RSpec.describe \"Posts\", #{type_metatag(:request)}/
-                )
-              end
+                   expect(request_spec).to contain(
+                     /^RSpec.describe \"Posts\", #{type_metatag(:request)}/
+                   )
+                 end
 
               it "the generator includes a sample GET request" do
                 expect(request_spec).to contain(/describe "GET \/posts"/)
@@ -86,7 +86,7 @@ module RSpec
             end
 
             context 'When NAME=api/posts' do
-              let(:name) { %w(api/posts) }
+              let(:name) { %w[api/posts] }
               let(:spec_file_name) { 'spec/requests/api/posts_spec.rb' }
 
               it "creates the request spec" do
@@ -99,10 +99,10 @@ module RSpec
 
               it "the generator describes the provided NAME without monkey " \
                  "patching setting the type to `:request`" do
-                expect(request_spec).to contain(
-                  /^RSpec.describe \"Api::Posts\", #{type_metatag(:request)}/
-                )
-              end
+                   expect(request_spec).to contain(
+                     /^RSpec.describe \"Api::Posts\", #{type_metatag(:request)}/
+                   )
+                 end
 
               it "the generator includes a sample GET request" do
                 expect(request_spec).to contain(/describe "GET \/api\/posts\"/)
@@ -120,5 +120,5 @@ module RSpec
 end
 
 RSpec.configure do |config|
-  config.include RSpec::Rails::Specs::Generators, :type => :generator
+  config.include RSpec::Rails::Specs::Generators, type: :generator
 end
