@@ -11,7 +11,7 @@ gem 'yard', '~> 0.9.24', :require => false
 
 group :documentation do
   gem 'github-markup', '~> 3.0.3'
-  gem 'redcarpet', '~> 3.4.0', platforms: [:ruby]
+  gem 'redcarpet', '~> 3.5.0', platforms: [:ruby]
 end
 gem 'relish', '~> 0.7.1'
 
