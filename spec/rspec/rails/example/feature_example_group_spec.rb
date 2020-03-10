@@ -1,12 +1,12 @@
 module RSpec::Rails
   RSpec.describe FeatureExampleGroup do
     it_behaves_like "an rspec-rails example group mixin", :feature,
-      './spec/features/', '.\\spec\\features\\'
+                    './spec/features/', '.\\spec\\features\\'
 
     it "includes Rails route helpers" do
       with_isolated_stderr do
         Rails.application.routes.draw do
-          get "/foo", :as => :foo, :to => "foo#bar"
+          get "/foo", as: :foo, to: "foo#bar"
         end
       end
 
@@ -21,12 +21,13 @@ module RSpec::Rails
     context "when nested inside a request example group" do
       it "includes Rails route helpers" do
         Rails.application.routes.draw do
-          get "/foo", :as => :foo, :to => "foo#bar"
+          get "/foo", as: :foo, to: "foo#bar"
         end
 
-        group = RSpec::Core::ExampleGroup.describe do
+        outer_group = RSpec::Core::ExampleGroup.describe do
           include RequestExampleGroup
-        end.describe do
+        end
+        group = outer_group.describe do
           include FeatureExampleGroup
         end
 

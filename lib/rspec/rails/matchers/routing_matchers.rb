@@ -26,7 +26,7 @@ module RSpec
               path, query = *verb_to_path_map.values.first.split('?')
               @scope.assert_recognizes(
                 @expected,
-                { method: verb_to_path_map.keys.first, path: path },
+                {method: verb_to_path_map.keys.first, path: path},
                 Rack::Utils.parse_nested_query(query)
               )
             end
@@ -115,7 +115,7 @@ module RSpec
           # Shorthand method for matching this type of route.
           %w[get post put patch delete options head].each do |method|
             define_method method do |path|
-              { method.to_sym => path }
+              {method.to_sym => path}
             end
           end
         end

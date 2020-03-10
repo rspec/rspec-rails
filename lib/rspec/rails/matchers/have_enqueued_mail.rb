@@ -93,7 +93,7 @@ module RSpec
         end
 
         def yield_mail_args(block)
-          Proc.new { |*job_args| block.call(*(job_args - base_mailer_args)) }
+          proc { |*job_args| block.call(*(job_args - base_mailer_args)) }
         end
 
         def check_active_job_adapter

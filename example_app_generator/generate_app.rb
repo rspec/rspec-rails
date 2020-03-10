@@ -1,6 +1,6 @@
 require 'nokogiri'
 
-rspec_rails_repo_path = File.expand_path("../../", __FILE__)
+rspec_rails_repo_path = File.expand_path('..', __dir__)
 rspec_dependencies_gemfile = File.join(rspec_rails_repo_path, 'Gemfile-rspec-dependencies')
 rails_dependencies_gemfile = File.join(rspec_rails_repo_path, 'Gemfile-rails-dependencies')
 bundle_install_path = File.join(rspec_rails_repo_path, '..', 'bundle')

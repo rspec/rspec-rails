@@ -48,18 +48,18 @@ RSpec.describe "be_a_new matcher" do
           end
 
           def new_record?; true; end
-        end.new(:foo => 'foo', :bar => 'bar')
+        end.new(foo: 'foo', bar: 'bar')
       end
 
       context "all attributes same" do
         it "passes" do
-          expect(record).to be_a_new(record.class).with(:foo => 'foo', :bar => 'bar')
+          expect(record).to be_a_new(record.class).with(foo: 'foo', bar: 'bar')
         end
       end
 
       context "one attribute same" do
         it "passes" do
-          expect(record).to be_a_new(record.class).with(:foo => 'foo')
+          expect(record).to be_a_new(record.class).with(foo: 'foo')
         end
       end
 
@@ -67,13 +67,13 @@ RSpec.describe "be_a_new matcher" do
         context "one attribute is a composable matcher" do
           it "passes" do
             expect(record).to be_a_new(record.class).with(
-              :foo => a_string_including("foo"))
+              foo: a_string_including("foo"))
           end
 
           it "fails" do
             expect {
               expect(record).to be_a_new(record.class).with(
-                :foo => a_string_matching("bar"))
+                foo: a_string_matching("bar"))
             }.to raise_error("attribute {\"foo\"=>(a string matching \"bar\")} was not set on #{record.inspect}")
           end
 
@@ -81,9 +81,9 @@ RSpec.describe "be_a_new matcher" do
             it "fails" do
               expect {
                 expect(record).to be_a_new(record.class).with(
-                  :foo => a_hash_including({:no_foo => "foo"}))
-              }.to raise_error {|e|
-                  expect(e.message).to eq("no implicit conversion of Hash into String").or eq("can't convert Hash into String")
+                  foo: a_hash_including({no_foo: "foo"}))
+              }.to raise_error { |e|
+                expect(e.message).to eq("no implicit conversion of Hash into String").or eq("can't convert Hash into String")
               }
             end
           end
@@ -93,8 +93,8 @@ RSpec.describe "be_a_new matcher" do
           context "both matchers present in actual" do
             it "passes" do
               expect(record).to be_a_new(record.class).with(
-                :foo => a_string_matching("foo"),
-                :bar => a_string_matching("bar")
+                foo: a_string_matching("foo"),
+                bar: a_string_matching("bar")
               )
             end
           end
@@ -103,8 +103,8 @@ RSpec.describe "be_a_new matcher" do
             it "fails" do
               expect {
                 expect(record).to be_a_new(record.class).with(
-                  :foo => a_string_matching("foo"),
-                  :bar => a_string_matching("barn")
+                  foo: a_string_matching("foo"),
+                  bar: a_string_matching("barn")
                 )
               }.to raise_error("attribute {\"bar\"=>(a string matching \"barn\")} was not set on #{record.inspect}")
             end
@@ -115,8 +115,8 @@ RSpec.describe "be_a_new matcher" do
       context "no attributes same" do
         it "fails" do
           expect {
-            expect(record).to be_a_new(record.class).with(:zoo => 'zoo', :car => 'car')
-          }.to raise_error {|e|
+            expect(record).to be_a_new(record.class).with(zoo: 'zoo', car: 'car')
+          }.to raise_error { |e|
             expect(e.message).to match(/attributes \{.*\} were not set on #{Regexp.escape record.inspect}/)
             expect(e.message).to match(/"zoo"=>"zoo"/)
             expect(e.message).to match(/"car"=>"car"/)
@@ -127,9 +127,9 @@ RSpec.describe "be_a_new matcher" do
       context "one attribute value not the same" do
         it "fails" do
           expect {
-            expect(record).to be_a_new(record.class).with(:foo => 'bar')
+            expect(record).to be_a_new(record.class).with(foo: 'bar')
           }.to raise_error(
-            %Q(attribute {"foo"=>"bar"} was not set on #{record.inspect})
+            %(attribute {"foo"=>"bar"} was not set on #{record.inspect})
           )
         end
       end
@@ -147,13 +147,13 @@ RSpec.describe "be_a_new matcher" do
           end
 
           def new_record?; false; end
-        end.new(:foo => 'foo', :bar => 'bar')
+        end.new(foo: 'foo', bar: 'bar')
       end
 
       context "all attributes same" do
         it "fails" do
           expect {
-            expect(record).to be_a_new(String).with(:foo => 'foo', :bar => 'bar')
+            expect(record).to be_a_new(String).with(foo: 'foo', bar: 'bar')
           }.to raise_error(
             "expected #{record.inspect} to be a new String"
           )
@@ -163,8 +163,8 @@ RSpec.describe "be_a_new matcher" do
       context "no attributes same" do
         it "fails" do
           expect {
-            expect(record).to be_a_new(String).with(:zoo => 'zoo', :car => 'car')
-          }.to raise_error {|e|
+            expect(record).to be_a_new(String).with(zoo: 'zoo', car: 'car')
+          }.to raise_error { |e|
             expect(e.message).to match(/expected #{Regexp.escape record.inspect} to be a new String and attributes \{.*\} were not set on #{Regexp.escape record.inspect}/)
             expect(e.message).to match(/"zoo"=>"zoo"/)
             expect(e.message).to match(/"car"=>"car"/)
@@ -175,10 +175,10 @@ RSpec.describe "be_a_new matcher" do
       context "one attribute value not the same" do
         it "fails" do
           expect {
-            expect(record).to be_a_new(String).with(:foo => 'bar')
+            expect(record).to be_a_new(String).with(foo: 'bar')
           }.to raise_error(
             "expected #{record.inspect} to be a new String and " +
-            %Q(attribute {"foo"=>"bar"} was not set on #{record.inspect})
+            %(attribute {"foo"=>"bar"} was not set on #{record.inspect})
           )
         end
       end

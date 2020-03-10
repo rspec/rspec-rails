@@ -31,8 +31,8 @@ module RSpec
       # sets the default for the `preview_path`
       initializer "rspec_rails.action_mailer",
                   before: "action_mailer.set_configs" do |app|
-        setup_preview_path(app)
-      end
+                    setup_preview_path(app)
+                  end
 
     private
 

@@ -285,9 +285,9 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
       send_time = Date.tomorrow.noon
       queue = 'urgent_mail'
 
-      message = "expected to enqueue TestMailer.email_with_args exactly 1 time with [1, 2], but enqueued 0" + \
-                "\nQueued deliveries:" + \
-                "\n  TestMailer.test_email" + \
+      message = "expected to enqueue TestMailer.email_with_args exactly 1 time with [1, 2], but enqueued 0" \
+                "\nQueued deliveries:" \
+                "\n  TestMailer.test_email" \
                 "\n  TestMailer.email_with_args with [3, 4], on queue #{queue}, at #{send_time}"
 
       expect {
@@ -314,7 +314,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
       expect {
         expect {
           TestMailer.email_with_args('asdf', 'zxcv').deliver_later
-        }.to have_enqueued_mail(TestMailer, :email_with_args).with { |first_arg, second_arg|
+        }.to have_enqueued_mail(TestMailer, :email_with_args).with { |first_arg, _second_arg|
           expect(first_arg).to eq("zxcv")
         }
       }.to raise_error { |e|
@@ -366,7 +366,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
 
         expect {
           TestMailer.with('foo' => 'bar').email_with_args(1, 2).deliver_later
-        }.to have_enqueued_mail(TestMailer, :email_with_args).with({ 'foo' => 'bar' }, 1, 2)
+        }.to have_enqueued_mail(TestMailer, :email_with_args).with({'foo' => 'bar'}, 1, 2)
       end
     end
 
@@ -388,13 +388,13 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
         expect {
           UnifiedMailer.with('foo' => 'bar').test_email.deliver_later
         }.to have_enqueued_mail(UnifiedMailer, :test_email).with(
-          a_hash_including(params: { 'foo' => 'bar' })
+          a_hash_including(params: {'foo' => 'bar'})
         )
 
         expect {
           UnifiedMailer.with('foo' => 'bar').email_with_args(1, 2).deliver_later
         }.to have_enqueued_mail(UnifiedMailer, :email_with_args).with(
-          a_hash_including(params: { 'foo' => 'bar' }, args: [1, 2])
+          a_hash_including(params: {'foo' => 'bar'}, args: [1, 2])
         )
       end
     end

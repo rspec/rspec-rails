@@ -2,7 +2,7 @@
 require 'generators/rspec/controller/controller_generator'
 require 'support/generators'
 
-RSpec.describe Rspec::Generators::ControllerGenerator, :type => :generator do
+RSpec.describe Rspec::Generators::ControllerGenerator, type: :generator do
   setup_default_destination
 
   describe 'request specs' do
@@ -26,7 +26,6 @@ RSpec.describe Rspec::Generators::ControllerGenerator, :type => :generator do
       end
       it { is_expected.not_to exist }
     end
-
 
     describe 'with actions' do
       before do
@@ -56,7 +55,7 @@ RSpec.describe Rspec::Generators::ControllerGenerator, :type => :generator do
     describe 'are not generated' do
       describe 'with no-view-spec flag' do
         before do
-          run_generator %w(posts index show --no-view-specs)
+          run_generator %w[posts index show --no-view-specs]
         end
         describe 'index.html.erb' do
           subject { file('spec/views/posts/index.html.erb_spec.rb') }
@@ -65,7 +64,7 @@ RSpec.describe Rspec::Generators::ControllerGenerator, :type => :generator do
       end
       describe 'with no actions' do
         before do
-          run_generator %w(posts)
+          run_generator %w[posts]
         end
         describe 'index.html.erb' do
           subject { file('spec/views/posts/index.html.erb_spec.rb') }
@@ -75,7 +74,7 @@ RSpec.describe Rspec::Generators::ControllerGenerator, :type => :generator do
 
       describe 'with --no-template-engine' do
         before do
-          run_generator %w(posts index --no-template-engine)
+          run_generator %w[posts index --no-template-engine]
         end
 
         describe 'index.html.erb' do
@@ -88,7 +87,7 @@ RSpec.describe Rspec::Generators::ControllerGenerator, :type => :generator do
     describe 'are generated' do
       describe 'with default template engine' do
         before do
-          run_generator %w(posts index show)
+          run_generator %w[posts index show]
         end
         describe 'index.html.erb' do
           subject { file('spec/views/posts/index.html.erb_spec.rb') }
@@ -105,7 +104,7 @@ RSpec.describe Rspec::Generators::ControllerGenerator, :type => :generator do
       end
       describe 'with haml' do
         before do
-          run_generator %w(posts index --template_engine haml)
+          run_generator %w[posts index --template_engine haml]
         end
         describe 'index.html.haml' do
           subject { file('spec/views/posts/index.html.haml_spec.rb') }
@@ -122,7 +121,7 @@ RSpec.describe Rspec::Generators::ControllerGenerator, :type => :generator do
 
     describe 'with no flag' do
       before do
-        run_generator %w(posts seek and destroy)
+        run_generator %w[posts seek and destroy]
       end
       it { is_expected.not_to exist }
     end
@@ -130,13 +129,13 @@ RSpec.describe Rspec::Generators::ControllerGenerator, :type => :generator do
     describe 'with --routing-specs  flag' do
       describe 'without action parameter' do
         before do
-          run_generator %w(posts --routing-specs)
+          run_generator %w[posts --routing-specs]
         end
         it { is_expected.not_to exist }
       end
 
       describe 'with action parameter' do
-        before { run_generator %w(posts seek --routing-specs) }
+        before { run_generator %w[posts seek --routing-specs] }
 
         it { is_expected.to contain(/require 'rails_helper'/) }
         it { is_expected.to contain(/^RSpec.describe 'PostsController', #{type_metatag(:routing)}/) }
@@ -148,7 +147,7 @@ RSpec.describe Rspec::Generators::ControllerGenerator, :type => :generator do
 
     describe 'with --no-routing-specs flag' do
       before do
-        run_generator %w(posts seek and destroy --no-routing_specs)
+        run_generator %w[posts seek and destroy --no-routing_specs]
       end
       it { is_expected.not_to exist }
     end

@@ -1,13 +1,12 @@
 source "https://rubygems.org"
-version_file = File.expand_path("../.rails-version", __FILE__)
+version_file = File.expand_path('.rails-version', __dir__)
 RAILS_VERSION = ENV['RAILS_VERSION'] || (File.exist?(version_file) && File.read(version_file).chomp) || ""
 
 gemspec
 
-rspec_dependencies_gemfile = File.expand_path("../Gemfile-rspec-dependencies", __FILE__)
-eval_gemfile rspec_dependencies_gemfile
+eval_gemfile 'Gemfile-rspec-dependencies'
 
-gem 'yard', '~> 0.9.24', :require => false
+gem 'yard', '~> 0.9.24', require: false
 
 group :documentation do
   gem 'github-markup', '~> 3.0.3'
@@ -57,10 +56,9 @@ end
 
 gem "rubyzip", '~> 1.2'
 
-gem 'rubocop', '~> 0.79.0'
+gem 'rubocop', '~> 0.80.1'
 
-custom_gemfile = File.expand_path("../Gemfile-custom", __FILE__)
+custom_gemfile = File.expand_path('Gemfile-custom', __dir__)
 eval_gemfile custom_gemfile if File.exist?(custom_gemfile)
 
-rails_dependencies_gemfile = File.expand_path("../Gemfile-rails-dependencies", __FILE__)
-eval_gemfile rails_dependencies_gemfile
+eval_gemfile 'Gemfile-rails-dependencies'

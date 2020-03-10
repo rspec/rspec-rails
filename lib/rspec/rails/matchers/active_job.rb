@@ -15,7 +15,7 @@ module RSpec
             @args = []
             @queue = nil
             @at = nil
-            @block = Proc.new {}
+            @block = proc { }
             set_expected_number(:exactly, 1)
           end
 

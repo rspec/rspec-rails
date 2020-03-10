@@ -55,8 +55,7 @@ module RSpec
     end
 
     # @private
-    # rubocop:disable Metrics/MethodLength
-    def self.initialize_configuration(config)
+    def self.initialize_configuration(config) # rubocop:disable Metrics/MethodLength
       config.backtrace_exclusion_patterns << /vendor\//
       config.backtrace_exclusion_patterns << %r{lib/rspec/rails}
 
@@ -151,7 +150,6 @@ module RSpec
         config.include RSpec::Rails::MailboxExampleGroup, type: :mailbox
       end
     end
-    # rubocop:enable Metrics/MethodLength
 
     initialize_configuration RSpec.configuration
   end

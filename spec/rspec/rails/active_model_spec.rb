@@ -16,7 +16,10 @@ RSpec.describe "ActiveModel support" do
     end
 
     it 'allows you to stub instances of `ActiveModel`' do
-      klass = Class.new { include ActiveModel::AttributeMethods; attr_accessor :name }
+      klass = Class.new do
+        include ActiveModel::AttributeMethods
+        attr_accessor :name
+      end
       model = klass.new
       allow(model).to receive(:name) { 'stubbed name' }
       expect(model.name).to eq 'stubbed name'

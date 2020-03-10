@@ -49,18 +49,18 @@ shared_examples_for "an rspec-rails example group mixin" do |type, *paths|
 
         it "tags groups in that directory with `:type => #{type.inspect}`" do
           group = define_group_in path, "RSpec.describe"
-          expect(group.metadata).to include(:type => type)
+          expect(group.metadata).to include(type: type)
         end
 
         it "allows users to override the type" do
           group = define_group_in path, "RSpec.describe 'group', :type => :other"
-          expect(group.metadata).to include(:type => :other)
+          expect(group.metadata).to include(type: :other)
           expect(group.included_modules).not_to include(mixin)
         end
 
         it "applies configured `before(:context)` hooks with `:type => #{type.inspect}` metadata" do
           block_run = false
-          RSpec.configuration.before(:context, :type => type) { block_run = true }
+          RSpec.configuration.before(:context, type: type) { block_run = true }
 
           group = define_group_in path, "RSpec.describe('group') { it { } }"
           group.run(double.as_null_object)

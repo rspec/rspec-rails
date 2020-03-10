@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe "template rendering", :type => :controller do
+RSpec.describe "template rendering", type: :controller do
   context "without render_views" do
     context "with the standard renderers" do
       controller do
         def index
-          render :template => 'foo', :layout => false
+          render template: 'foo', layout: false
         end
       end
 
@@ -27,7 +27,7 @@ RSpec.describe "template rendering", :type => :controller do
         def index
           prepend_view_path('app/views/some_templates')
 
-          render :template => 'bar', :layout => false
+          render template: 'bar', layout: false
         end
       end
 
@@ -37,7 +37,7 @@ RSpec.describe "template rendering", :type => :controller do
         expect(response).to render_template(:bar)
       end
 
-      it "renders an empty string", :skip => Rails::VERSION::STRING.to_f >= 6.0 do
+      it "renders an empty string", skip: Rails::VERSION::STRING.to_f >= 6.0 do
         get :index
 
         expect(response.body).to eq("")
@@ -49,7 +49,7 @@ RSpec.describe "template rendering", :type => :controller do
         def index
           prepend_view_path(MyResolver.new)
 
-          render :template => 'baz', :layout => false
+          render template: 'baz', layout: false
         end
       end
 
@@ -73,7 +73,7 @@ RSpec.describe "template rendering", :type => :controller do
     context "with the standard renderers" do
       controller do
         def index
-          render :template => 'foo', :layout => false
+          render template: 'foo', layout: false
         end
       end
 
@@ -95,7 +95,7 @@ RSpec.describe "template rendering", :type => :controller do
         def index
           prepend_view_path('app/views/some_templates')
 
-          render :template => 'bar', :layout => false
+          render template: 'bar', layout: false
         end
       end
 
@@ -117,7 +117,7 @@ RSpec.describe "template rendering", :type => :controller do
         def index
           prepend_view_path(MyResolver.new)
 
-          render :template => 'baz', :layout => false
+          render template: 'baz', layout: false
         end
       end
 
@@ -136,9 +136,9 @@ RSpec.describe "template rendering", :type => :controller do
   end
 
   class MyResolver < ActionView::Resolver
-  private
+    private
 
-    def find_templates(name, prefix = nil, partial = false, details = {}, key = nil, locals = [])
+    def find_templates(name, prefix = nil, partial = false, _details = {}, _key = nil, _locals = [])
       name.prepend("_") if partial
       path = [prefix, name].join("/")
       template = find_template(name, path)
@@ -150,10 +150,10 @@ RSpec.describe "template rendering", :type => :controller do
       ActionView::Template.new(
         "",
         name,
-        lambda { |_template, _source = nil| %("Dynamic template with path '#{_template.virtual_path}'") },
-        :virtual_path => path,
-        :format => :html,
-        :locals => []
+        ->(template, _source = nil) { %("Dynamic template with path '#{template.virtual_path}'") },
+        virtual_path: path,
+        format: :html,
+        locals: []
       )
     end
   end

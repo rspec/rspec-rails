@@ -1,7 +1,3 @@
-# ruby 1.8.7 required trailing dots
-Layout/DotPosition:
-  EnforcedStyle: trailing
-
 # Over time we'd like to get this down, but this is what we're at now.
 Metrics/CyclomaticComplexity:
   Max: 9 # default: 6
@@ -13,22 +9,3 @@ Layout/LineLength:
 # Over time we'd like to get this down, but this is what we're at now.
 Metrics/MethodLength:
   Max: 43 # default: 10
-
-# each_with_object was unavailable on ruby 1.8.7
-Style/EachWithObject:
-  Enabled: false
-
-# the new lambda syntax was not supported in ruby 1.8.7
-Style/Lambda:
-  Enabled: false
-
-# we couldn't use named matches in ruby 1.8.7
-Style/PerlBackrefs:
-  Exclude:
-    - lib/generators/rspec/scaffold/scaffold_generator.rb
-
-# On 1.8 `proc` was `lambda`, so we used `Proc.new` to ensure we got real procs
-# on all supported versions.
-# http://batsov.com/articles/2014/02/04/the-elements-of-style-in-ruby-number-12-proc-vs-proc-dot-new/
-Style/Proc:
-  Enabled: false

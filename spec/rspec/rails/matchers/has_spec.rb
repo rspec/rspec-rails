@@ -3,7 +3,7 @@ class CollectionOwner < ActiveRecord::Base
     CREATE TABLE collection_owners (
       id integer PRIMARY KEY AUTOINCREMENT
     )
-SQL
+  SQL
   has_many :associated_items do
     def has_some_quality?; true end
   end
@@ -15,7 +15,7 @@ class AssociatedItem < ActiveRecord::Base
       id integer PRIMARY KEY AUTOINCREMENT,
       collection_owner_id integer
     )
-SQL
+  SQL
   belongs_to :collection_owner
 end
 

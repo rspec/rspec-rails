@@ -1,7 +1,7 @@
 module RSpec::Rails
   RSpec.describe ViewExampleGroup do
     it_behaves_like "an rspec-rails example group mixin", :view,
-      './spec/views/', '.\\spec\\views\\'
+                    './spec/views/', '.\\spec\\views\\'
 
     describe 'automatic inclusion of helpers' do
       module ::ThingsHelper; end
@@ -29,6 +29,7 @@ module RSpec::Rails
 
       it 'operates normally when no helper with the same name exists' do
         raise 'unexpected constant found' if Object.const_defined?('ClocksHelper')
+
         expect {
           RSpec::Core::ExampleGroup.describe 'clocks/show.html.erb' do
             include ViewExampleGroup
@@ -47,7 +48,7 @@ module RSpec::Rails
 
       context 'application helper exists' do
         before do
-          if !Object.const_defined? 'ApplicationHelper'
+          unless Object.const_defined? 'ApplicationHelper'
             module ::ApplicationHelper; end
             @application_helper_defined = true
           end
@@ -110,8 +111,8 @@ module RSpec::Rails
 
       it "uses routes helpers" do
         allow(::Rails.application).to receive(:routes).and_return(test_routes)
-        expect(view_spec.image_path(double(:to_param => "42"))).
-          to eq "/images/42"
+        expect(view_spec.image_path(double(to_param: "42")))
+          .to eq "/images/42"
       end
     end
 
@@ -122,7 +123,7 @@ module RSpec::Rails
             def received
               @received ||= []
             end
-            def render(options={}, local_assigns={}, &block)
+            def render(options = {}, local_assigns = {}, &block)
               received << [options, local_assigns, block]
             end
             def _assigns
@@ -139,25 +140,25 @@ module RSpec::Rails
         it "sends render(:template => (described file)) to the view" do
           allow(view_spec).to receive(:_default_file_to_render) { "widgets/new" }
           view_spec.render
-          expect(view_spec.received.first).to eq([{:template => "widgets/new"},{}, nil])
+          expect(view_spec.received.first).to eq([{template: "widgets/new"}, {}, nil])
         end
 
         it "converts the filename components into render options" do
           allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.html.erb" }
           view_spec.render
-          expect(view_spec.received.first).to eq([{:template => "widgets/new", :locales=>['en'], :formats=>[:html], :handlers=>['erb']}, {}, nil])
+          expect(view_spec.received.first).to eq([{template: "widgets/new", locales: ['en'], formats: [:html], handlers: ['erb']}, {}, nil])
         end
 
         it "converts the filename with variant into render options" do
           allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.html+fancy.erb" }
           view_spec.render
-          expect(view_spec.received.first).to eq([{:template => "widgets/new", :locales=>['en'], :formats=>[:html], :handlers=>['erb'], variants: ['fancy']}, {}, nil])
+          expect(view_spec.received.first).to eq([{template: "widgets/new", locales: ['en'], formats: [:html], handlers: ['erb'], variants: ['fancy']}, {}, nil])
         end
 
         it "converts the filename without format into render options" do
           allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.erb" }
           view_spec.render
-          expect(view_spec.received.first).to eq([{:template => "widgets/new", :locales=>['en'], :handlers=>['erb']}, {}, nil])
+          expect(view_spec.received.first).to eq([{template: "widgets/new", locales: ['en'], handlers: ['erb']}, {}, nil])
         end
       end
 
@@ -170,8 +171,8 @@ module RSpec::Rails
 
       context "given a hash" do
         it "sends the hash as the first arg to render" do
-          view_spec.render(:foo => 'bar')
-          expect(view_spec.received.first).to eq([{:foo => "bar"}, {}, nil])
+          view_spec.render(foo: 'bar')
+          expect(view_spec.received.first).to eq([{foo: "bar"}, {}, nil])
         end
       end
     end
@@ -202,19 +203,19 @@ module RSpec::Rails
 
       context "with a common _default_file_to_render" do
         it "it returns the directory" do
-          allow(view_spec).to receive(:_default_file_to_render).
-            and_return("things/new.html.erb")
-          expect(view_spec.__send__(:_controller_path)).
-            to eq("things")
+          allow(view_spec).to receive(:_default_file_to_render)
+            .and_return("things/new.html.erb")
+          expect(view_spec.__send__(:_controller_path))
+            .to eq("things")
         end
       end
 
       context "with a nested _default_file_to_render" do
         it "it returns the directory path" do
-          allow(view_spec).to receive(:_default_file_to_render).
-            and_return("admin/things/new.html.erb")
-          expect(view_spec.__send__(:_controller_path)).
-            to eq("admin/things")
+          allow(view_spec).to receive(:_default_file_to_render)
+            .and_return("admin/things/new.html.erb")
+          expect(view_spec.__send__(:_controller_path))
+            .to eq("admin/things")
         end
       end
     end
@@ -236,11 +237,11 @@ module RSpec::Rails
       it 'is accessible to hooks' do
         with_isolated_config do
           run_count = 0
-          RSpec.configuration.before(:each, :type => :view) do
+          RSpec.configuration.before(:each, type: :view) do
             allow(view).to receive(:render) { :value }
             run_count += 1
           end
-          group = RSpec::Core::ExampleGroup.describe 'a view', :type => :view do
+          group = RSpec::Core::ExampleGroup.describe 'a view', type: :view do
             specify { true }
           end
           group.run
