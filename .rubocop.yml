@@ -75,6 +75,9 @@ Layout/SpaceInsidePercentLiteralDelimiters:
 Layout/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: space
 
+Layout/SpaceInsideBlockBraces:
+  EnforcedStyleForEmptyBraces: space
+
 Layout/SpaceAroundBlockParameters:
   Enabled: false
 
