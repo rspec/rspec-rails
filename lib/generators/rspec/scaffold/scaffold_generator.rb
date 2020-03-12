@@ -28,30 +28,20 @@ module Rspec
       def generate_controller_spec
         return unless options[:controller_specs]
 
-        template_file = File.join(
-          'spec/controllers',
-          controller_class_path,
-          "#{controller_file_name}_controller_spec.rb"
-        )
         if options[:api]
-          template 'api_controller_spec.rb', template_file
+          template 'api_controller_spec.rb', template_file(folder: 'controllers', suffix: '_controller')
         else
-          template 'controller_spec.rb', template_file
+          template 'controller_spec.rb', template_file(folder: 'controllers', suffix: '_controller')
         end
       end
 
       def generate_request_spec
         return unless options[:request_specs]
 
-        template_file = File.join(
-          'spec/requests',
-          controller_class_path,
-          "#{controller_file_name}_spec.rb"
-        )
         if options[:api]
-          template 'api_request_spec.rb', template_file
+          template 'api_request_spec.rb', template_file(folder: 'requests')
         else
-          template 'request_spec.rb', template_file
+          template 'request_spec.rb', template_file(folder: 'requests')
         end
       end
 
@@ -128,6 +118,10 @@ module Rspec
         else
           attribute.default
         end
+      end
+
+      def template_file(folder:, suffix: '')
+        File.join('spec', folder, controller_class_path, "#{controller_file_name}#{suffix}_spec.rb")
       end
 
       def banner
