@@ -22,7 +22,7 @@ Use **[`rspec-rails` 1.x][]** for Rails 2.x.
 
 ## Installation
 
-**IMPORTANT** Note that rspec-rails 4.0 is still a beta release whilst we work out some
+**IMPORTANT** Note that rspec-rails 4.0 is still a release candidate whilst we work out some
 breaking changes. See the `3-9-maintenance` branch on Github if you want or require
 the latest stable release.
 
@@ -32,8 +32,8 @@ the latest stable release.
    ```ruby
    # Run against the latest stable release
    group :development, :test do
-     # Note that rspec-rails 4.0 is still a beta release
-     gem 'rspec-rails', '~> 4.0.0.beta'
+     # Note that rspec-rails 4.0 is still a pre release
+     gem 'rspec-rails', '~> 4.0.0.rc1'
    end
 
    # Or, run against the master branch

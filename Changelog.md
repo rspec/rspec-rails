@@ -1,5 +1,5 @@
-### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.0.beta4...master)
+### 4.0.0.rc1 / 2020-03-13
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.0.beta4...v4.0.0.rc1)
 
 Enhancements:
 
