@@ -94,6 +94,8 @@ generate('scaffold widget name:string category:string instock:boolean foo_id:int
 generate('scaffold gadget') # scaffold with no attributes
 generate('scaffold ticket original_price:float discounted_price:float')
 generate('scaffold admin/account name:string') # scaffold with nested resource
+generate('scaffold card --api')
+generate('scaffold upload --no-request_specs --controller_specs')
 generate('rspec:feature gadget')
 generate('controller things custom_action')
 
@@ -138,9 +140,21 @@ gsub_file 'spec/spec_helper.rb',
           'config.warnings = false'
 gsub_file '.rspec', '--warnings', ''
 
-# Remove skips so we can test controller specs work
-gsub_file 'spec/controllers/gadgets_controller_spec.rb',
+# Make a generated file work
+gsub_file 'app/views/cards/_card.json.jbuilder',
+          ', :created_at, :updated_at',
+          ''
+
+# Remove skips so we can test specs work
+gsub_file 'spec/requests/cards_spec.rb',
           'skip("Add a hash of attributes valid for your model")',
           '{}'
 
+gsub_file 'spec/requests/gadgets_spec.rb',
+          'skip("Add a hash of attributes valid for your model")',
+          '{}'
+
+gsub_file 'spec/controllers/uploads_controller_spec.rb',
+          'skip("Add a hash of attributes valid for your model")',
+          '{}'
 final_tasks
