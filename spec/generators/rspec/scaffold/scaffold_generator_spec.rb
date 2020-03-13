@@ -5,11 +5,47 @@ require 'support/generators'
 RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
   setup_default_destination
 
+  describe 'standard request specs' do
+    subject { file('spec/requests/posts_spec.rb') }
+
+    describe 'with no options' do
+      before { run_generator %w[posts --request_specs] }
+      it { is_expected.to exist }
+      it { is_expected.to contain("require 'rails_helper'") }
+      it { is_expected.to contain(/^RSpec.describe "\/posts", #{type_metatag(:request)}/) }
+      it { is_expected.to contain('GET /new') }
+      it { is_expected.to contain(/"redirects to the created post"/) }
+      it { is_expected.to contain('get post_url(post)') }
+      it { is_expected.to contain('redirect_to(post_url(Post.last))') }
+      it { is_expected.to contain(/"redirects to the \w+ list"/) }
+    end
+
+    describe 'with --no-request_specs' do
+      before { run_generator %w[posts --no-request_specs] }
+      it { is_expected.not_to exist }
+    end
+
+    describe 'with --api' do
+      before { run_generator %w[posts --api] }
+      it { is_expected.to exist }
+      it { is_expected.to contain(/require 'rails_helper'/) }
+      it { is_expected.to contain(/^RSpec.describe "\/posts", #{type_metatag(:request)}/) }
+      it { is_expected.to contain('as: :json') }
+      it { is_expected.not_to contain('get new_posts_path') }
+      it { is_expected.not_to contain(/"redirects to\w+"/) }
+      it { is_expected.to contain('renders a JSON response with the new post') }
+      it { is_expected.to contain('renders a JSON response with errors for the new post') }
+      it { is_expected.not_to contain('get edit_posts_path') }
+      it { is_expected.to contain('renders a JSON response with the post') }
+      it { is_expected.to contain('renders a JSON response with errors for the post') }
+    end
+  end
+
   describe 'standard controller spec' do
     subject { file('spec/controllers/posts_controller_spec.rb') }
 
-    describe 'with no options' do
-      before { run_generator %w[posts] }
+    describe 'with --controller_specs' do
+      before { run_generator %w[posts --controller_specs] }
       it { is_expected.to contain(/require 'rails_helper'/) }
       it { is_expected.to contain(/^RSpec.describe PostsController, #{type_metatag(:controller)}/) }
       it { is_expected.to contain(/GET #new/) }
@@ -27,13 +63,13 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
       it { is_expected.to contain(/"redirects to the \w+ list"/) }
     end
 
-    describe 'with --no-controller_specs' do
-      before { run_generator %w[posts --no-controller_specs] }
+    describe 'with no options' do
+      before { run_generator %w[posts] }
       it { is_expected.not_to exist }
     end
 
     describe 'with --api' do
-      before { run_generator %w[posts --api] }
+      before { run_generator %w[posts --controller_specs --api] }
       it { is_expected.to contain(/require 'rails_helper'/) }
       it { is_expected.to contain(/^RSpec.describe PostsController, #{type_metatag(:controller)}/) }
       it { is_expected.not_to contain(/GET #new/) }
@@ -51,9 +87,18 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
     end
   end
 
+  describe 'namespaced request spec' do
+    subject { file('spec/requests/admin/posts_spec.rb') }
+    before  { run_generator %w[admin/posts] }
+    it { is_expected.to exist }
+    it { is_expected.to contain(/^RSpec.describe "\/admin\/posts", #{type_metatag(:request)}/) }
+    it { is_expected.to contain('admin_post_url(admin_post)') }
+    it { is_expected.to contain('Admin::Post.create') }
+  end
+
   describe 'namespaced controller spec' do
     subject { file('spec/controllers/admin/posts_controller_spec.rb') }
-    before  { run_generator %w[admin/posts] }
+    before  { run_generator %w[admin/posts --controller_specs] }
     it { is_expected.to contain(/^RSpec.describe Admin::PostsController, #{type_metatag(:controller)}/) }
   end
 
