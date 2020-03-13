@@ -44,6 +44,7 @@ module ExampleAppHooks
 
     def final_tasks
       copy_file 'spec/verify_no_active_record_spec.rb'
+      copy_file 'spec/verify_no_fixture_setup_spec.rb'
     end
 
     def skip_active_record?
