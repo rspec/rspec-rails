@@ -72,12 +72,13 @@ namespace :generate do
         sh "bundle binstubs railties" unless File.exist?("bin/rails")
 
         application_file = File.read("config/application.rb")
+        application_file.gsub!("config.assets.enabled = true", "config.assets.enabled = false")
+        application_file.gsub!('# require "sprockets/railtie"', 'require "sprockets/railtie"')
+
         sh "rm config/application.rb"
+
         File.open("config/application.rb", "w") do |f|
-          f.write application_file.gsub(
-            "config.assets.enabled = true",
-            "config.assets.enabled = false"
-          )
+          f.write(application_file)
         end
       end
     end
@@ -197,12 +198,13 @@ namespace :no_active_record do
           sh "bundle binstubs railties" unless File.exist?("bin/rails")
 
           application_file = File.read("config/application.rb")
+          application_file.gsub!("config.assets.enabled = true", "config.assets.enabled = false")
+          application_file.gsub!('# require "sprockets/railtie"', 'require "sprockets/railtie"')
+
           sh "rm config/application.rb"
+
           File.open("config/application.rb", "w") do |f|
-            f.write application_file.gsub(
-              "config.assets.enabled = true",
-              "config.assets.enabled = false"
-            )
+            f.write(application_file)
           end
         end
       end
