@@ -24,6 +24,7 @@ when /stable$/
   end
 when nil, false, ""
   gem "rails", "~> 6.0.0"
+  gem "puma"
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
 else
   gem "rails", version
