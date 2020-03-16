@@ -81,7 +81,7 @@ module RSpec
 
         attr_reader :driver
 
-        if ::Rails.version.to_f == 5.1
+        if ActionDispatch::SystemTesting::Server.respond_to?(:silence_puma=)
           ActionDispatch::SystemTesting::Server.silence_puma = true
         end
 
