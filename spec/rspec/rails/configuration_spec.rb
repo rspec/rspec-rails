@@ -256,6 +256,31 @@ RSpec.describe "Configuration" do
       expect(group.mailer_class).to be(a_mailer_class)
       expect(group.new).to be_a(RSpec::Rails::MailerExampleGroup)
     end
+
+    describe 'cleans test mailbox between each example in all rspec-rails example' do
+      class BaseMailer < ActionMailer::Base
+        default from: 'from@example.com'
+
+        def welcome(to:)
+          mail(to: to, subject: 'subject', body: render(inline: "Hello", layout: false))
+        end
+      end
+      before do
+        ActionMailer::Base.delivery_method = :test
+      end
+
+      it 'send to email@' do
+        BaseMailer.welcome(to: 'email@example.com').deliver_now
+
+        expect(ActionMailer::Base.deliveries.map(&:to).flatten.sort).to eq(['email@example.com'])
+      end
+
+      it 'send to email_2@' do
+        BaseMailer.welcome(to: 'email_2@example.com').deliver_now
+
+        expect(ActionMailer::Base.deliveries.map(&:to).flatten.sort).to eq(['email_2@example.com'])
+      end
+    end
   end
 
   it "has a default #file_fixture_path of 'spec/fixtures/files'" do
