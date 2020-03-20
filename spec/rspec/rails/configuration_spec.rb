@@ -257,7 +257,7 @@ RSpec.describe "Configuration" do
       expect(group.new).to be_a(RSpec::Rails::MailerExampleGroup)
     end
 
-    describe 'cleans test mailbox between each example in all rspec-rails example' do
+    describe 'leans test mailbox after each example' do
       class BaseMailer < ActionMailer::Base
         default from: 'from@example.com'
 
