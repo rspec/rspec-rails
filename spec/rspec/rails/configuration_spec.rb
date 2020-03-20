@@ -258,25 +258,28 @@ RSpec.describe "Configuration" do
     end
 
     describe 'leans test mailbox after each example' do
-      class BaseMailer < ActionMailer::Base
-        default from: 'from@example.com'
+      let(:base_mailer) do
+        Class.new(ActionMailer::Base) do
+          default from: 'from@example.com'
 
-        def welcome(to:)
-          mail(to: to, subject: 'subject', body: render(inline: "Hello", layout: false))
+          def welcome(to:)
+            mail(to: to, subject: 'subject', body: render(inline: "Hello", layout: false))
+          end
         end
       end
+
       before do
         ActionMailer::Base.delivery_method = :test
       end
 
       it 'send to email@' do
-        BaseMailer.welcome(to: 'email@example.com').deliver_now
+        base_mailer.welcome(to: 'email@example.com').deliver_now
 
         expect(ActionMailer::Base.deliveries.map(&:to).flatten.sort).to eq(['email@example.com'])
       end
 
       it 'send to email_2@' do
-        BaseMailer.welcome(to: 'email_2@example.com').deliver_now
+        base_mailer.welcome(to: 'email_2@example.com').deliver_now
 
         expect(ActionMailer::Base.deliveries.map(&:to).flatten.sort).to eq(['email_2@example.com'])
       end
