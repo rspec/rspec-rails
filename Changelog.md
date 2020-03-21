@@ -18,7 +18,7 @@ Bug Fixes:
   (Jonathan Rochkind, #2242)
 * `rails generate generator` command now creates related spec file (Joel Azemar, #2217)
 * Relax upper `capybara` version constraint to allow for Capybara 3.x (Phil Pirozhkov, #2281)
-* Leans ActionMailer test mailbox after each example (Benoit Tigeot, #2293)
+* Clear ActionMailer test mailbox after each example (Benoit Tigeot, #2293)
 
 ### 4.0.0.beta4
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.0.beta3...v4.0.0.beta4)
