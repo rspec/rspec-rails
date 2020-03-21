@@ -257,8 +257,8 @@ RSpec.describe "Configuration" do
       expect(group.new).to be_a(RSpec::Rails::MailerExampleGroup)
     end
 
-    describe 'leans test mailbox after each example' do
-      let(:base_mailer) do
+    describe 'clears ActionMailer::Base::Deliveries after each example' do
+      let(:mailer) do
         Class.new(ActionMailer::Base) do
           default from: 'from@example.com'
 
@@ -272,14 +272,14 @@ RSpec.describe "Configuration" do
         ActionMailer::Base.delivery_method = :test
       end
 
-      it 'send to email@' do
-        base_mailer.welcome(to: 'email@example.com').deliver_now
+      it 'only has deliveries from this test (e.g. from email@example.com)' do
+        mailer.welcome(to: 'email@example.com').deliver_now
 
         expect(ActionMailer::Base.deliveries.map(&:to).flatten.sort).to eq(['email@example.com'])
       end
 
-      it 'send to email_2@' do
-        base_mailer.welcome(to: 'email_2@example.com').deliver_now
+      it 'only has deliveries from this test (e.g. from email_2@example.com)' do
+        mailer.welcome(to: 'email_2@example.com').deliver_now
 
         expect(ActionMailer::Base.deliveries.map(&:to).flatten.sort).to eq(['email_2@example.com'])
       end
