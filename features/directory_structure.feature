@@ -101,37 +101,37 @@ Feature: Directory Structure
       │   └── books_helper.rb
       ├── models
       │   ├── author.rb
-      │   ├── book.rb
+      │   └── book.rb
       └── views
           ├── books
-          ├── layouts
+          └── layouts
       lib
       ├── country_map.rb
       ├── development_mail_interceptor.rb
       ├── enviroment_mail_interceptor.rb
       └── tasks
-          ├── irc.rake
+          └── irc.rake
       spec
       ├── controllers
-      │   ├── books_controller_spec.rb
+      │   └── books_controller_spec.rb
       ├── country_map_spec.rb
       ├── features
-      │   ├── tracking_book_delivery_spec.rb
+      │   └── tracking_book_delivery_spec.rb
       ├── helpers
       │   └── books_helper_spec.rb
       ├── models
       │   ├── author_spec.rb
-      │   ├── book_spec.rb
+      │   └── book_spec.rb
       ├── rails_helper.rb
       ├── requests
-      │   ├── books_spec.rb
+      │   └── books_spec.rb
       ├── routing
       │   └── books_routing_spec.rb
       ├── spec_helper.rb
-      └── tasks
-      │   ├── irc_spec.rb
+      ├── tasks
+      │   └── irc_spec.rb
       └── views
-          ├── books
+          └── books
 
   Scenario: Standard Rails specs must specify the `:type` metadata
     Given a file named "spec/functional/widgets_controller_spec.rb" with:
