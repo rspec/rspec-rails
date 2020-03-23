@@ -45,7 +45,7 @@ dist: trusty
 matrix:
   include:
     # Rails 6 builds
-    - rvm: jruby-head
+    - rvm: jruby-9.2.11.0
       jdk: oraclejdk11
       env:
         - RAILS_VERSION='~> 6.0.0'
@@ -57,7 +57,7 @@ matrix:
       env: RAILS_VERSION='~> 6.0.0'
 
     # Rails 5.2 builds >= 2.2.2
-    - rvm: jruby-head
+    - rvm: jruby-9.2.11.0
       jdk: oraclejdk11
       env:
         - RAILS_VERSION='~> 5.2.0'
