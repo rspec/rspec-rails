@@ -4,9 +4,8 @@ routing.
 
 ## Rails
 
-rspec-rails 3 supports Rails 3.x and 4.x. For earlier versions of Rails, you
-need [rspec-rails 1](https://github.com/dchelimsky/rspec-rails). For Rails 5.x,
-make sure you are using rspec-rails 3.5.0 or newer.
+rspec-rails 4 supports Rails 5.x and 6.x. For earlier versions of Rails, you
+need [rspec-rails 3](https://github.com/rspec/rspec-rails/tree/3-9-maintenance).
 
 ## Install
 
@@ -25,7 +24,7 @@ This installs the following gems:
 Add rspec-rails to the :test and :development groups in the Gemfile:
 
     group :test, :development do
-      gem 'rspec-rails', '~> 3.0.0'
+      gem 'rspec-rails', '~> 4.0.0'
     end
 
 It needs to be in the :development group to expose generators and rake tasks
