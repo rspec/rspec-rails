@@ -229,3 +229,26 @@ task :verify_private_key_present do
 end
 
 task build: :verify_private_key_present
+
+desc "Updates the rspec.github.io docs"
+task :update_docs, [:version, :branch, :website_path] do |t, args|
+  abort "You must have ag installed to generate docs" if `which ag` == ""
+  args.with_defaults(:website_path => "../rspec.github.io")
+  sh "git checkout #{args[:branch]} && git pull --rebase"
+  cmd = "bundle install && \
+         RUBYOPT='-I#{args[:website_path]}/lib' bundle exec yard \
+                          --yardopts .yardopts \
+                          --plugin rspec-docs-template \
+                          --output-dir #{args[:website_path]}/source/documentation/#{args[:version]}/rspec-rails/"
+  puts cmd
+  Bundler.clean_system(cmd)
+  in_place =
+    if RUBY_PLATFORM =~ /darwin/ # if this is os x then we must modify sed
+      "-i ''"
+    else
+      "-i''"
+    end
+
+  Bundler.clean_system %Q{pushd #{args[:website_path]}; ag -l src=\\"\\\(?:..\/\\\)*js | xargs -I{} sed #{in_place} 's/src="\\\(..\\\/\\\)*js/src="\\\/documentation\\\/#{args[:version]}\\\/rspec-rails\\\/js/' {}; popd}
+  Bundler.clean_system %Q{pushd #{args[:website_path]}; ag -l href=\\"\\\(?:..\/\\\)*css | xargs -I{} sed #{in_place} 's/href="\\\(..\\\/\\\)*css/href="\\\/documentation\\\/#{args[:version]}\\\/rspec-rails\\\/css/' {}; popd}
+end
