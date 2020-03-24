@@ -7,6 +7,8 @@ Enhancements:
 * The scaffold generator now generates request specs in preference to controller specs.
   (Luka Lüdicke, #2288)
 * Add configuration option to disable ActiveRecord. (Jon Rowe, Phil Pirozhkov, Hermann Mayer, #2266)
+*  Set `ActionDispatch::SystemTesting::Server.silence_puma = true` when running system specs.
+  (ta1kt0me, Benoit Tigeot, #2289)
 
 Bug Fixes:
 

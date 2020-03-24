@@ -1,5 +1,12 @@
 language: ruby
 
+sudo: required
+addons:
+  chrome: stable
+  apt:
+    packages:
+      - chromium-chromedriver
+
 # We deviate from the rspec-dev cache setting here.
 #
 # Travis has special bundler support where it knows to run `bundle clean`
@@ -28,6 +35,7 @@ before_script:
   # Rails 4+ complains with a bundler rails binstub in PROJECT_ROOT/bin/
   - rm -f bin/rails
   - bundle exec rails --version
+  - ln -s /usr/lib/chromium-browser/chromedriver ~/bin/chromedriver
 
 script: "script/run_build 2>&1"
 
