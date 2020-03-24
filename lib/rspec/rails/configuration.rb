@@ -137,6 +137,7 @@ module RSpec
 
       if RSpec::Rails::FeatureCheck.has_action_mailer?
         config.include RSpec::Rails::MailerExampleGroup, type: :mailer
+        config.after { ActionMailer::Base.deliveries.clear }
       end
 
       if RSpec::Rails::FeatureCheck.has_active_job?
