@@ -216,6 +216,13 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       }.to have_enqueued_job.at(date)
     end
 
+    it "passes with provided at time" do
+      date = Time.current + 1.day
+      expect {
+        hello_job.set(wait_until: date).perform_later
+      }.to have_enqueued_job.at(date)
+    end
+
     it "accepts composable matchers as an at date" do
       future = 1.minute.from_now
       slightly_earlier = 58.seconds.from_now
