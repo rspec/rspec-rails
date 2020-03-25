@@ -43,10 +43,6 @@ script: "script/run_build 2>&1"
 dist: trusty
 
 matrix:
-  # temporary
-  allow_failures:
-    rvm: jruby-head
-
   include:
     # Rails 6 builds
     - rvm: jruby-head
