@@ -96,8 +96,8 @@ module RSpec
           end
         end
 
-        def driven_by(*args, &blk)
-          @driver = ::ActionDispatch::SystemTestCase.driven_by(*args, &blk).tap(&:use)
+        def driven_by(driver, **driver_options, &blk)
+          @driver = ::ActionDispatch::SystemTestCase.driven_by(driver, **driver_options, &blk).tap(&:use)
         end
 
         before do
