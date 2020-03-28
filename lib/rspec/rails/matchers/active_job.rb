@@ -30,8 +30,12 @@ module RSpec
             self
           end
 
-          def at(date)
-            @at = date
+          def at(time_or_date)
+            case time_or_date
+            when Time then @at = Time.at(time_or_date.to_f)
+            else
+              @at = time_or_date
+            end
             self
           end
 
