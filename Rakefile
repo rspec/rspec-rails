@@ -231,9 +231,9 @@ end
 task build: :verify_private_key_present
 
 desc "Updates the rspec.github.io docs"
-task :update_docs, [:version, :branch, :website_path] do |t, args|
+task :update_docs, [:version, :branch, :website_path] do |_t, args|
   abort "You must have ag installed to generate docs" if `which ag` == ""
-  args.with_defaults(:website_path => "../rspec.github.io")
+  args.with_defaults(website_path: "../rspec.github.io")
   sh "git checkout #{args[:branch]} && git pull --rebase"
   cmd = "bundle install && \
          RUBYOPT='-I#{args[:website_path]}/lib' bundle exec yard \
@@ -249,6 +249,20 @@ task :update_docs, [:version, :branch, :website_path] do |t, args|
       "-i''"
     end
 
-  Bundler.clean_system %Q{pushd #{args[:website_path]}; ag -l src=\\"\\\(?:..\/\\\)*js | xargs -I{} sed #{in_place} 's/src="\\\(..\\\/\\\)*js/src="\\\/documentation\\\/#{args[:version]}\\\/rspec-rails\\\/js/' {}; popd}
-  Bundler.clean_system %Q{pushd #{args[:website_path]}; ag -l href=\\"\\\(?:..\/\\\)*css | xargs -I{} sed #{in_place} 's/href="\\\(..\\\/\\\)*css/href="\\\/documentation\\\/#{args[:version]}\\\/rspec-rails\\\/css/' {}; popd}
+  Bundler.clean_system(
+    %w(
+      pushd #{args[:website_path]};ag -l src=\\"\\\(?:..\/\\\)*js |
+      xargs -I{}
+      sed #{in_place} 's/src="\\\(..\\\/\\\)*js/src="\\\/documentation\\\/#{args[:version]}\\\/rspec-rails\\\/js/' {};
+      popd
+    ).join(" ")
+  )
+  Bundler.clean_system(
+    %w(
+      pushd #{args[:website_path]}; ag -l href=\\"\\\(?:..\/\\\)*css |
+      xargs -I{}
+      sed #{in_place} 's/href="\\\(..\\\/\\\)*css/href="\\\/documentation\\\/#{args[:version]}\\\/rspec-rails\\\/css/' {};
+      popd
+    ).join(" ")
+  )
 end
