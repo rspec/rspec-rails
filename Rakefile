@@ -249,20 +249,8 @@ task :update_docs, [:version, :branch, :website_path] do |_t, args|
       "-i''"
     end
 
-  Bundler.clean_system(
-    %w(
-      pushd #{args[:website_path]};ag -l src=\\"\\\(?:..\/\\\)*js |
-      xargs -I{}
-      sed #{in_place} 's/src="\\\(..\\\/\\\)*js/src="\\\/documentation\\\/#{args[:version]}\\\/rspec-rails\\\/js/' {};
-      popd
-    ).join(" ")
-  )
-  Bundler.clean_system(
-    %w(
-      pushd #{args[:website_path]}; ag -l href=\\"\\\(?:..\/\\\)*css |
-      xargs -I{}
-      sed #{in_place} 's/href="\\\(..\\\/\\\)*css/href="\\\/documentation\\\/#{args[:version]}\\\/rspec-rails\\\/css/' {};
-      popd
-    ).join(" ")
-  )
+  # rubocop: disable Layout/LineLength
+  Bundler.clean_system %{pushd #{args[:website_path]};ag -l src=\\"\\\(?:..\/\\\)*js | xargs -I{} sed #{in_place} 's/src="\\\(..\\\/\\\)*js/src="\\\/documentation\\\/#{args[:version]}\\\/rspec-rails\\\/js/' {}; popd}
+  Bundler.clean_system %{pushd #{args[:website_path]}; ag -l href=\\"\\\(?:..\/\\\)*css | xargs -I{} sed #{in_place} 's/href="\\\(..\\\/\\\)*css/href="\\\/documentation\\\/#{args[:version]}\\\/rspec-rails\\\/css/' {}; popd}
+  # rubocop: enable Layout/LineLength
 end
