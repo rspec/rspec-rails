@@ -130,3 +130,20 @@ $ bin/yard server --reload
 
 Then navigate to `localhost:8808` to view the rendered docs.
 
+### Publish the documentation
+
+In other documented rspec gems, we use a rake command from rspec-dev
+to generate documentation to [rspec.info](https://rspec.info/).
+`rspec-rails` is no more synced with other gems in term of version
+since `rspec-rails` 4.
+If you want to publish updated documentation you need to git clone
+in the parent folder of rspec-rails the `rspec.github.io`
+repository. You also need from [source branch](https://github.com/rspec/rspec.github.io/tree/source)
+the gem that will be needed as yard plugin: [rspec-docs-template](https://github.com/rspec/rspec.github.io#install-rspec-docs-template-yard-plugin).
+
+* `git clone https://github.com/rspec/rspec.github.io && cd rspec.github.io`
+* `git checkout source`
+* `gem build yard-rspec-docs-template.gemspec`
+* `cd ../rspec-rails`
+* `bundle exec rake "update_docs[4.0, 4-0-maintenance]`
+
