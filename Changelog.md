@@ -5,6 +5,7 @@ Bug Fixes:
 
 * Remove warning when calling `driven_by` in system specs. (Aubin Lorieux, #2302)
 * Fix comparison of times for `#at` in job matchers. (Jon Rowe, Markus Doits, #2304)
+* Fix when using a mailer with `delivery_job` set to a sub class of `ActionMailer::DeliveryJob` (Atsushi Yoshida #2305)
 
 ### 4.0.0 / 2020-03-24
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.9.1...v4.0.0)

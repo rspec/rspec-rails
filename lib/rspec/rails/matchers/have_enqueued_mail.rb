@@ -131,15 +131,15 @@ module RSpec
         end
 
         def legacy_mail?(job)
-          job[:job] == ActionMailer::DeliveryJob
+          job[:job] <= ActionMailer::DeliveryJob
         end
 
         def parameterized_mail?(job)
-          RSpec::Rails::FeatureCheck.has_action_mailer_parameterized? && job[:job] == ActionMailer::Parameterized::DeliveryJob
+          RSpec::Rails::FeatureCheck.has_action_mailer_parameterized? && job[:job] <= ActionMailer::Parameterized::DeliveryJob
         end
 
         def unified_mail?(job)
-          RSpec::Rails::FeatureCheck.has_action_mailer_unified_delivery? && job[:job] == ActionMailer::MailDeliveryJob
+          RSpec::Rails::FeatureCheck.has_action_mailer_unified_delivery? && job[:job] <= ActionMailer::MailDeliveryJob
         end
       end
       # @api public

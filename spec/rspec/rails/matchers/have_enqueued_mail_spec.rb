@@ -21,6 +21,15 @@ if RSpec::Rails::FeatureCheck.has_active_job?
       def test_email; end
       def email_with_args(arg1, arg2); end
     end
+
+    class DeliveryJobSubClass < ActionMailer::DeliveryJob
+    end
+
+    class UnifiedMailerWithDeliveryJobSubClass < ActionMailer::Base
+      self.delivery_job = DeliveryJobSubClass
+
+      def test_email; end
+    end
   end
 end
 
@@ -396,6 +405,12 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
         }.to have_enqueued_mail(UnifiedMailer, :email_with_args).with(
           a_hash_including(params: {'foo' => 'bar'}, args: [1, 2])
         )
+      end
+
+      it "passes when using a mailer with `delivery_job` set to a sub class of `ActionMailer::DeliveryJob`" do
+        expect {
+          UnifiedMailerWithDeliveryJobSubClass.test_email.deliver_later
+        }.to have_enqueued_mail(UnifiedMailerWithDeliveryJobSubClass, :test_email)
       end
     end
   end
