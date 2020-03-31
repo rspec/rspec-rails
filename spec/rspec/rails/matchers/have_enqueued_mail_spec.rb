@@ -407,7 +407,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
         )
       end
 
-      it "passes when using a mailer with `delivery_job` set to a sub class of `ActionMailer::Base`" do
+      it "passes when using a mailer with `delivery_job` set to a sub class of `ActionMailer::DeliveryJob`" do
         expect {
           UnifiedMailerWithDeliveryJobSubClass.test_email.deliver_later
         }.to have_enqueued_mail(UnifiedMailerWithDeliveryJobSubClass, :test_email)
