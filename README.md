@@ -8,6 +8,7 @@ They’re also specifications (or _specs,_ for short):
 detailed explanations of how the application is supposed to behave,
 expressed in plain English.
 
+Use **[`rspec-rails` 3.x][]** for Rails earlier than 5.0.
 Use **[`rspec-rails` 1.x][]** for Rails 2.x.
 
 [Build Status]: https://secure.travis-ci.org/rspec/rspec-rails.svg?branch=master
@@ -19,6 +20,7 @@ Use **[`rspec-rails` 1.x][]** for Rails 2.x.
 [RSpec]: https://rspec.info/
 [Ruby on Rails]: https://rubyonrails.org/
 [`rspec-rails` 1.x]: https://github.com/dchelimsky/rspec-rails
+[`rspec-rails` 3.x]: https://github.com/rspec/rspec-rails/tree/3-9-maintenance
 
 ## Installation
 
@@ -190,8 +192,8 @@ to test the various parts of a Rails system:
 | [`be_a_new`][]           |                   | all                             | primarily intended for controller specs                  |
 | [`render_template`][]    | `assert_template` | request / controller / view     | use with `expect(response).to`                           |
 | [`redirect_to`][]        | `assert_redirect` | request / controller            | use with `expect(response).to`                           |
-| [`route_to`]             | `assert_routing`  | routing / controller            | replaces `route_for` from version 1.x                    |
-| [`be_routable`]          |                   | routing / controller            | usu. for `expect(...).not_to be_routable`                |
+| [`route_to`]             | `assert_routing`  | routing / controller            | use with `expect(...).to route_to`                       |
+| [`be_routable`]          |                   | routing / controller            | use with `expect(...).not_to be_routable`                |
 | [`have_http_status`][]   |                   | request / controller / feature  |                                                          |
 | [`match_array`][]        |                   | all                             | for comparing arrays of ActiveRecord objects             |
 | [`have_been_enqueued`][] |                   | all                             | requires config: `ActiveJob::Base.queue_adapter = :test` |
