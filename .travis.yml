@@ -55,9 +55,9 @@ matrix:
         - RAILS_VERSION='~> 6.0.0'
         - JRUBY_OPT=--dev
         - JAVA_OPTS="--add-opens java.base/sun.nio.ch=org.jruby.dist --add-opens java.base/java.io=org.jruby.dist --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.security=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.security.cert=ALL-UNNAMED --add-opens=java.base/java.util.zip=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.util.regex=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED  --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/javax.crypto=ALL-UNNAMED --add-opens=java.management/sun.management=ALL-UNNAMED"
-    - rvm: 2.6.3
+    - rvm: 2.6.6
       env: RAILS_VERSION='~> 6.0.0'
-    - rvm: 2.5.5
+    - rvm: 2.5.8
       env: RAILS_VERSION='~> 6.0.0'
 
     # Rails 5.2 builds >= 2.2.2
@@ -67,31 +67,31 @@ matrix:
         - RAILS_VERSION='~> 5.2.0'
         - JRUBY_OPT=--dev
         - JAVA_OPTS="--add-opens java.base/sun.nio.ch=org.jruby.dist --add-opens java.base/java.io=org.jruby.dist --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.security=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.security.cert=ALL-UNNAMED --add-opens=java.base/java.util.zip=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.util.regex=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED  --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/javax.crypto=ALL-UNNAMED --add-opens=java.management/sun.management=ALL-UNNAMED"
-    - rvm: 2.6.3
+    - rvm: 2.6.6
       env: RAILS_VERSION='~> 5.2.0'
-    - rvm: 2.5.5
+    - rvm: 2.5.8
       env: RAILS_VERSION='~> 5.2.0'
-    - rvm: 2.4.6
+    - rvm: 2.4.10
       env: RAILS_VERSION='~> 5.2.0'
     - rvm: 2.3.8
       env: RAILS_VERSION='~> 5.2.0'
 
     # Rails 5.1 Builds >= 2.2.2
-    - rvm: 2.6.3
+    - rvm: 2.6.6
       env: RAILS_VERSION='~> 5.1.0'
-    - rvm: 2.5.5
+    - rvm: 2.5.8
       env: RAILS_VERSION='~> 5.1.0'
-    - rvm: 2.4.6
+    - rvm: 2.4.10
       env: RAILS_VERSION='~> 5.1.0'
     - rvm: 2.3.8
       env: RAILS_VERSION='~> 5.1.0'
 
     # Rails 5.0 Builds >= 2.2.2
-    - rvm: 2.6.3
+    - rvm: 2.6.6
       env: RAILS_VERSION='~> 5.0.0'
-    - rvm: 2.5.5
+    - rvm: 2.5.8
       env: RAILS_VERSION='~> 5.0.0'
-    - rvm: 2.4.6
+    - rvm: 2.4.10
       env: RAILS_VERSION='~> 5.0.0'
     - rvm: 2.3.8
       env: RAILS_VERSION='~> 5.0.0'
