@@ -3,7 +3,7 @@ function run_cukes {
     bin/rake acceptance --trace
     return $?
   elif is_jruby; then
-    bin/rake smoke:app
+    bin/rake --trace smoke:app
     return $?
   else
     return 0
