@@ -139,16 +139,21 @@ since `rspec-rails` 4, if you want to publish updated documentation you will
 need to run the rake task from this repository.
 
 1) First clone the `rspec.github.io` repository into a sibling folder.
-`cd .. && git clone https://github.com/rspec/rspec.github.io && cd rspec.github.io`
+
+> `cd .. && git clone https://github.com/rspec/rspec.github.io && cd rspec.github.io`
 
 2) Check out the [source branch](https://github.com/rspec/rspec.github.io/tree/source)
-`git checkout source`
+
+> `git checkout source`
 
 3) Install the template gem that will be needed as yard plugin: [rspec-docs-template](https://github.com/rspec/rspec.github.io#install-rspec-docs-template-yard-plugin).
-`gem build yard-rspec-docs-template.gemspec`
+
+> `gem build yard-rspec-docs-template.gemspec`
 
 4) Change back to the `rspec-rails` directory
-`cd ../rspec-rails`
+
+> `cd ../rspec-rails`
 
 5) Generate the docs for the version you want, ensuring you are on the appropriate (released) commit.
-`bundle exec rake "update_docs[4.0, 4-0-maintenance]`
+
+> `bundle exec rake "update_docs[4.0, 4-0-maintenance]`
