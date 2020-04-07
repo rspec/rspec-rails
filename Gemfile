@@ -51,7 +51,7 @@ gem 'capybara', '>= 2.13', '< 4.0', require: false
 if MAJOR < 6
   gem 'nokogiri', '1.9.1'
 else
-  gem 'nokogiri', '>= 1.10.4'
+  gem 'nokogiri', '>= 1.10.8'
 end
 
 gem "rubyzip", '~> 1.2'
