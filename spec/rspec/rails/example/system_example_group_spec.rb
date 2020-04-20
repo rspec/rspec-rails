@@ -58,6 +58,28 @@ module RSpec::Rails
           expect(example).to have_received(:driven_by).once
         end
       end
+
+      describe '#after' do
+        it 'sets the :extra_failure_lines metadata to an array of STDOUT lines' do
+          group = RSpec::Core::ExampleGroup.describe do
+            include SystemExampleGroup
+
+            before do
+              driven_by(:selenium)
+            end
+
+            def take_screenshot
+              puts 'line 1'
+              puts 'line 2'
+            end
+          end
+          example = group.it('fails') { fail }
+
+          group.run
+
+          expect(example.metadata[:extra_failure_lines]).to eq(["line 1\n", "line 2\n"])
+        end
+      end
     end
   end
 end
