@@ -24,3 +24,9 @@ The same generator pattern is available for all specs:
 * integration
 * feature
 * job
+* channel
+* generator
+* mailbox
+* plugin
+* policy
+* system
