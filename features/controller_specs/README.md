@@ -68,7 +68,7 @@ We encourage you to use [request specs](https://relishapp.com/rspec/rspec-rails/
     require "rails_helper"
 
     RSpec.describe TeamsController, type: :controller do
-      describe "GET index"
+      describe "GET index" do
         it "returns a 200" do
           request.headers["Authorization"] = "foo"
           get :show
