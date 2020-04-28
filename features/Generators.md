@@ -20,7 +20,11 @@ The same generator pattern is available for all specs:
 * helper
 * view
 * mailer
-* observer
 * integration
 * feature
 * job
+* channel
+* generator
+* mailbox
+* request
+* system
