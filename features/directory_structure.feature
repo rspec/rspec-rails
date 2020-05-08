@@ -4,10 +4,8 @@ Feature: Directory Structure
   their purpose:
 
   - [Model specs](model-specs) reside in the `spec/models` directory
-  - [Controller specs](controller-specs) reside in the `spec/controllers`
-    directory
-  - [Request specs](request-specs) reside in the `spec/requests` directory. The
-    directory can also be named `integration` or `api`.
+  - [Controller specs](controller-specs) reside in the `spec/controllers` directory
+  - [Request specs](request-specs) reside in the `spec/requests` directory. The directory can also be named `integration` or `api`.
   - [Feature specs](feature-specs) reside in the `spec/features` directory
   - [View specs](view-specs) reside in the `spec/views` directory
   - [Helper specs](helper-specs) reside in the `spec/helpers` directory
