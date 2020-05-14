@@ -50,6 +50,9 @@ matrix:
   include:
     # Rails 6 builds
     - rvm: 2.6.6
-      env: RAILS_VERSION='~> 6.0.0'
+      env: RAILS_VERSION='= 6.0.2.2'
+    - rvm: 2.6.6
+      env: RAILS_VERSION='= 6.0.3'
+
 
   fast_finish: true
