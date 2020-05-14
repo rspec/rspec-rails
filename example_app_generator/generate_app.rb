@@ -32,7 +32,7 @@ in_root do
 
   if Rails::VERSION::STRING >= '6'
     gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 1.4'"
-    gsub_file "Gemfile", /.*rails-controller-testing.*/, "gem 'rails-controller-testing', git: 'https://github.com/rails/rails-controller-testing'"
+    gsub_file "Gemfile", /.*rails-controller-testing.*/, "gem 'rails-controller-testing', git: 'https://github.com/rails/rails-controller-testing', ref: '3c3781d'"
   end
 
   if Rails::VERSION::STRING >= "5.1.0"
@@ -49,6 +49,9 @@ in_root do
   if Rails::VERSION::STRING >= '5.2.0' && Rails::VERSION::STRING < '6'
     copy_file sqlite_initializer, 'config/initializers/sqlite3_fix.rb'
   end
+
+  append_to_file 'Gemfile', "gem 'public_suffix', '4.0.4'\n"
+  append_to_file 'Gemfile', "gem 'mimemagic', '0.3.4'\n"
 
   # Nokogiri version is pinned in rspec-rails' Gemfile since it tend to cause installation problems
   # on Travis CI, so we pin nokogiri in this example app also.
