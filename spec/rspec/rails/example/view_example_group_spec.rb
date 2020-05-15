@@ -1,3 +1,5 @@
+require 'support/group_failure_formatter'
+
 module RSpec::Rails
   RSpec.describe ViewExampleGroup do
     it_behaves_like "an rspec-rails example group mixin", :view,
@@ -242,9 +244,10 @@ module RSpec::Rails
             run_count += 1
           end
           group = RSpec::Core::ExampleGroup.describe 'a view', type: :view do
-            specify { true }
+            specify { expect(true).to eq true }
           end
-          group.run
+          group.run(failure_reporter)
+          expect(failure_reporter.exceptions).to eq []
           expect(run_count).to eq 1
         end
       end
