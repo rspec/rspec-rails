@@ -37,6 +37,7 @@ World(ArubaExt)
 
 Aruba.configure do |config|
   config.exit_timeout = 30
+  config.activate_announcer_on_command_failure = [:stderr, :stdout, :command]
 end
 
 unless File.directory?('./tmp/example_app')
