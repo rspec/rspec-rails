@@ -106,4 +106,4 @@ Feature: System spec
         When I run `rspec spec/system/widget_system_spec.rb`
         Then the output should contain "1 example, 0 failures"
         And the output should not contain "starting Puma"
-        And the exit status should be 0 (ignoring CI failure)
+        And the exit status should be 0
