@@ -7,6 +7,7 @@ Bug Fixes:
 * Fix comparison of times for `#at` in job matchers. (Jon Rowe, Markus Doits, #2304)
 * Allow `have_enqueued_mail` to match when a sub class of `ActionMailer::DeliveryJob`
   is set using `<Class>.delivery_job=`. (Atsushi Yoshida #2305)
+* Restore Ruby 2.2.x compatibility. (Jon Rowe, #2332)
 * Add `required_ruby_version` to gem spec. (Marc-André Lafortune, #2319, #2338)
 
 ### 4.0.0 / 2020-03-24
