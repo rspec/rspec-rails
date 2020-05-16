@@ -78,6 +78,11 @@ matrix:
       env: RAILS_VERSION='~> 5.2.0'
     - rvm: 2.3.8
       env: RAILS_VERSION='~> 5.2.0'
+    - rvm: 2.2.10
+      env: RAILS_VERSION='~> 5.2.0'
+      allow_failure: true
+    - rvm: 2.2.10
+      env: RAILS_VERSION='5-2-stable'
 
     # Rails 5.1 Builds >= 2.2.2
     - rvm: 2.6.6
@@ -88,6 +93,8 @@ matrix:
       env: RAILS_VERSION='~> 5.1.0'
     - rvm: 2.3.8
       env: RAILS_VERSION='~> 5.1.0'
+    - rvm: 2.2.10
+      env: RAILS_VERSION='~> 5.1.0'
 
     # Rails 5.0 Builds >= 2.2.2
     - rvm: 2.6.6
@@ -97,6 +104,8 @@ matrix:
     - rvm: 2.4.10
       env: RAILS_VERSION='~> 5.0.0'
     - rvm: 2.3.8
+      env: RAILS_VERSION='~> 5.0.0'
+    - rvm: 2.2.10
       env: RAILS_VERSION='~> 5.0.0'
 
   fast_finish: true
