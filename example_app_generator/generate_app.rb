@@ -36,7 +36,9 @@ in_root do
   end
 
   if Rails::VERSION::STRING >= "5.1.0"
-    if RUBY_VERSION < "2.4"
+    if RUBY_VERSION < "2.3"
+      gsub_file "Gemfile", /.*capybara.*/, "gem 'capybara', '~> 3.1.0'"
+    elsif RUBY_VERSION < "2.4"
       gsub_file "Gemfile", /.*capybara.*/, "gem 'capybara', '~> 3.15.0'"
     end
     if Rails::VERSION::STRING >= "5.2.0"
