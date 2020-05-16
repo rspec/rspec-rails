@@ -11,6 +11,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/rspec/rspec-rails"
   s.summary     = "RSpec for Rails"
   s.description = "rspec-rails is a testing framework for Rails 5+."
+  s.required_ruby_version = ">= 2.2.0"
 
   s.metadata = {
     'bug_tracker_uri'   => 'https://github.com/rspec/rspec-rails/issues',
