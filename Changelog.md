@@ -7,6 +7,7 @@ Bug Fixes:
 * Fix comparison of times for `#at` in job matchers. (Jon Rowe, Markus Doits, #2304)
 * Allow `have_enqueued_mail` to match when a sub class of `ActionMailer::DeliveryJob`
   is set using `<Class>.delivery_job=`. (Atsushi Yoshida #2305)
+* Add `required_ruby_version` to gem spec. (Marc-André Lafortune, #2319, #2338)
 
 ### 4.0.0 / 2020-03-24
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.9.1...v4.0.0)
