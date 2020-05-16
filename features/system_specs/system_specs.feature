@@ -82,6 +82,7 @@ Feature: System spec
       When I run `rspec spec/system/some_job_system_spec.rb`
       Then the example should pass
 
+    @announce-output
     @system_test
     Scenario: System specs driven by selenium_chrome_headless
         Given a file named "spec/system/widget_system_spec.rb" with:
