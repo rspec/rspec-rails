@@ -5,6 +5,7 @@ addons:
   chrome: stable
   apt:
     packages:
+      - dpkg
       - chromium-chromedriver
 
 # We deviate from the rspec-dev cache setting here.
