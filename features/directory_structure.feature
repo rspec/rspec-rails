@@ -4,16 +4,23 @@ Feature: Directory Structure
   their purpose:
 
   - [Model specs](model-specs) reside in the `spec/models` directory
-  - [Controller specs](controller-specs) reside in the `spec/controllers`
-    directory
-  - [Request specs](request-specs) reside in the `spec/requests` directory. The
-    directory can also be named `integration` or `api`.
+
+  - [Controller specs](controller-specs) reside in the `spec/controllers` directory
+
+  - [Request specs](request-specs) reside in the `spec/requests` directory. The directory can also be named `integration` or `api`.
+
   - [Feature specs](feature-specs) reside in the `spec/features` directory
+
   - [View specs](view-specs) reside in the `spec/views` directory
+
   - [Helper specs](helper-specs) reside in the `spec/helpers` directory
+
   - [Mailer specs](mailer-specs) reside in the `spec/mailers` directory
+
   - [Routing specs](routing-specs) reside in the `spec/routing` directory
+
   - [Job specs](job-specs) reside in the `spec/jobs` directory
+
   - [System specs](system-specs) reside in the `spec/system` directory
 
   Application developers are free to use a different directory structure. In
@@ -101,37 +108,37 @@ Feature: Directory Structure
       │   └── books_helper.rb
       ├── models
       │   ├── author.rb
-      │   ├── book.rb
+      │   └── book.rb
       └── views
           ├── books
-          ├── layouts
+          └── layouts
       lib
       ├── country_map.rb
       ├── development_mail_interceptor.rb
       ├── enviroment_mail_interceptor.rb
       └── tasks
-          ├── irc.rake
+          └── irc.rake
       spec
       ├── controllers
-      │   ├── books_controller_spec.rb
+      │   └── books_controller_spec.rb
       ├── country_map_spec.rb
       ├── features
-      │   ├── tracking_book_delivery_spec.rb
+      │   └── tracking_book_delivery_spec.rb
       ├── helpers
       │   └── books_helper_spec.rb
       ├── models
       │   ├── author_spec.rb
-      │   ├── book_spec.rb
+      │   └── book_spec.rb
       ├── rails_helper.rb
       ├── requests
-      │   ├── books_spec.rb
+      │   └── books_spec.rb
       ├── routing
       │   └── books_routing_spec.rb
       ├── spec_helper.rb
-      └── tasks
-      │   ├── irc_spec.rb
+      ├── tasks
+      │   └── irc_spec.rb
       └── views
-          ├── books
+          └── books
 
   Scenario: Standard Rails specs must specify the `:type` metadata
     Given a file named "spec/functional/widgets_controller_spec.rb" with:
