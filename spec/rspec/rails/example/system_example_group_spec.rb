@@ -74,7 +74,6 @@ module RSpec::Rails
             end
           end
           example = group.it('fails') { fail }
-
           group.run
 
           expect(example.metadata[:extra_failure_lines]).to eq(["line 1\n", "line 2\n"])
