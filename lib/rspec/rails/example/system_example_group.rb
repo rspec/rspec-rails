@@ -114,7 +114,8 @@ module RSpec
             original_after_teardown.bind(self).call
           ensure
             myio = $stdout
-            RSpec.current_example.metadata[:extra_failure_lines] = myio.string
+            myio.rewind
+            RSpec.current_example.metadata[:extra_failure_lines] = myio.readlines
             $stdout = orig_stdout
           end
         end
