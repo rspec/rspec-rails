@@ -63,7 +63,7 @@ Feature: Directory Structure
   their location on the filesystem. This was both confusing to new users and not
   desirable for some veteran users.
 
-  In RSpec 3, this behavior must be explicitly enabled:
+  This behaviour must be explicitly enabled:
 
   ```ruby
   ​# spec/rails_helper.rb
