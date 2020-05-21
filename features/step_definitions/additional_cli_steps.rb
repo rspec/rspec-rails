@@ -6,6 +6,11 @@ begin
   require "action_cable"
 rescue LoadError # rubocop:disable Lint/SuppressedException
 end
+begin
+  require "active_storage"
+  require "action_mailbox"
+rescue LoadError # rubocop:disable Lint/SuppressedException
+end
 
 require "rails/version"
 
@@ -30,5 +35,11 @@ end
 Given /action cable testing is available/ do
   unless RSpec::Rails::FeatureCheck.has_action_cable_testing?
     pending "Action Cable testing is not available"
+  end
+end
+
+Given /action mailbox is available/ do
+  unless RSpec::Rails::FeatureCheck.has_action_mailbox?
+    pending "Action Mailbox is not available"
   end
 end
