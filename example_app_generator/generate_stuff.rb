@@ -105,6 +105,12 @@ using_source_path(File.expand_path(__dir__)) do
 end
 
 begin
+  require 'action_mailbox'
+  run('rails action_mailbox:install')
+rescue LoadError
+end
+
+begin
   require 'active_job'
   generate('job upload_backups')
 rescue LoadError
