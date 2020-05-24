@@ -1,15 +1,15 @@
-Install Rails-3
+Install Rails 6
 
-    $ gem install rails -v "~> 3.0.0"
+    $ gem install rails -v "~> 6.0.0"
 
 ### Generate an app
 
-    $ rails new example
-    $ cd example
+    $ rails new example_app
+    $ cd example_app
 
 ### Add rspec-rails to the Gemfile
 
-    $ echo 'gem "rspec-rails", :group => [:development, :test]' >> Gemfile
+    $ echo 'gem "rspec-rails", group: [:development, :test]' >> Gemfile
 
 ### Install the bundle
 
@@ -29,7 +29,7 @@ the files in the `spec` directory to RSpec.
 
 ### Run migrations
 
-    $ rake db:migrate && rake db:test:prepare
+    $ rails db:migrate && rails db:test:prepare
 
 ### Run RSpec
 
