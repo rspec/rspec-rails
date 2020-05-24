@@ -1,5 +1,3 @@
-- upgrade:
-  - from_1x_to_2x.md (From rspec-rails-1.x to rspec-rails-2)
 - GettingStarted.md (Start from scratch)
 - Generators.md (Generators)
 - Transactions.md
