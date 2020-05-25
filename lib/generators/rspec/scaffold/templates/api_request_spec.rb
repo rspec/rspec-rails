@@ -94,7 +94,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
       it "updates the requested <%= ns_file_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         patch <%= show_helper.tr('@', '') %>,
-              params: { <%= singular_table_name %>: invalid_attributes }, headers: valid_headers, as: :json
+              params: { <%= singular_table_name %>: new_attributes }, headers: valid_headers, as: :json
         <%= file_name %>.reload
         skip("Add assertions for updated state")
       end
@@ -102,9 +102,9 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
       it "renders a JSON response with the <%= ns_file_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         patch <%= show_helper.tr('@', '') %>,
-              params: { <%= singular_table_name %>: invalid_attributes }, headers: valid_headers, as: :json
+              params: { <%= singular_table_name %>: new_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
-        expect(response.content_type).to eq("application/json")
+        expect(response.content_type).to match(a_string_including("application/json"))
       end
     end
 
