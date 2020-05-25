@@ -33,6 +33,8 @@ if RSpec::Rails::FeatureCheck.has_active_job?
 end
 
 RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_active_job? do
+  include ActiveSupport::Testing::TimeHelpers if defined?(ActiveSupport::Testing::TimeHelpers)
+
   around do |example|
     original_logger = ActiveJob::Base.logger
     ActiveJob::Base.logger = Logger.new(nil) # Silence messages "[ActiveJob] Enqueued ...".
@@ -221,6 +223,14 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       expect {
         hello_job.set(wait_until: time).perform_later
       }.to have_enqueued_job.at(time)
+    end
+
+    skip_freeze_time = method_defined?(:freeze_time) ? false : "#freeze_time is undefined"
+    it "works with time offsets", skip: skip_freeze_time do
+      freeze_time do
+        time = Time.current
+        expect { hello_job.set(wait: 5).perform_later }.to have_enqueued_job.at(time + 5)
+      end
     end
 
     it "accepts composable matchers as an at date" do
