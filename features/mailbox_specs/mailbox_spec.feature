@@ -49,7 +49,7 @@ Feature: action mailbox spec
             .to receive_inbound_email(to: "replies@example.com")
         end
 
-        it "marks email as bounced when number tag in subject is valid" do
+        it "marks email as delivered when number tag in subject is valid" do
           mail = Mail.new(
             from: "replies@example.com",
             subject: "[141982763] support ticket"
