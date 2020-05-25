@@ -63,6 +63,10 @@ end
 
 gem "rubyzip", '~> 1.2'
 
+if RUBY_VERSION.to_f < 2.5
+  gem 'sprockets', '~> 3.7.0'
+end
+
 if RUBY_VERSION.to_f >= 2.3
   gem 'rubocop', '~> 0.80.1'
 end
