@@ -33,7 +33,7 @@ if RSpec::Rails::FeatureCheck.has_active_job?
 end
 
 RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_active_job? do
-  include ActiveSupport::Testing::TimeHelpers if defined?(ActiveSupport::Testing::TimeHelpers)
+  include ActiveSupport::Testing::TimeHelpers
 
   around do |example|
     original_logger = ActiveJob::Base.logger
