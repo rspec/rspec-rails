@@ -28,7 +28,7 @@ module RSpec
           # to support Rails 3.0->3.1 using ActionController::TestCase class to resolve fixture_path
           # see https://apidock.com/rails/v3.0.0/ActionDispatch/TestProcess/fixture_file_upload
           def fixture_path=(value)
-            if ActionController::TestCase.respond_to?(:fixture_path)
+            if ActionController::TestCase.respond_to?(:fixture_path=)
               ActionController::TestCase.fixture_path = value
             end
             @fixture_path = value
