@@ -233,6 +233,17 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       end
     end
 
+    it "warns when time offsets are inprecise" do
+      expect(RSpec).to receive(:warn_with).with(/precision error/)
+
+      time = Time.current.change(usec: 550)
+      travel_to time do
+        expect {
+          expect { hello_job.set(wait: 5).perform_later }.to have_enqueued_job.at(time + 5)
+        }.to raise_error(/expected to enqueue exactly 1 jobs/)
+      end
+    end
+
     it "accepts composable matchers as an at date" do
       future = 1.minute.from_now
       slightly_earlier = 58.seconds.from_now
