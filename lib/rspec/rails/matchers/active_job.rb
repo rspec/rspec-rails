@@ -163,7 +163,29 @@ module RSpec
             return job[:at].nil? if @at == :no_wait
             return false unless job[:at]
 
-            values_match?(@at, Time.at(job[:at]))
+            scheduled_at = Time.at(job[:at])
+            values_match?(@at, scheduled_at) || check_for_inprecise_value(scheduled_at)
+          end
+
+          def check_for_inprecise_value(scheduled_at)
+            return unless Time === @at && values_match?(@at.change(usec: 0), scheduled_at)
+
+            RSpec.warn_with((<<-WARNING).gsub(/^\s+\|/, '').chomp)
+            |[WARNING] Your expected `at(...)` value does not match the job scheduled_at value
+            |unless microseconds are removed. This precision error often occurs when checking
+            |values against `Time.current` / `Time.now` which have usec precision, but Rails
+            |uses `n.seconds.from_now` internally which has a usec count of `0`.
+            |
+            |Use `change(usec: 0)` to correct these values. For example:
+            |
+            |`Time.current.change(usec: 0)`
+            |
+            |Note: RSpec cannot do this for you because jobs can be scheduled with usec
+            |precision and we do not know wether it is on purpose or not.
+            |
+            |
+            WARNING
+            false
           end
 
           def set_expected_number(relativity, count)
