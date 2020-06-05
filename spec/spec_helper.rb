@@ -30,15 +30,12 @@ end
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+    expectations.max_formatted_output_length = 1000
   end
 
   config.mock_with :rspec do |mocks|
     mocks.verify_partial_doubles = true
     mocks.verify_doubled_constant_names = true
-  end
-
-  config.expect_with :rspec do |c|
-    c.max_formatted_output_length = 1000
   end
 
   config.filter_run :focus
