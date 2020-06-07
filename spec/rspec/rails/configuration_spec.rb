@@ -23,18 +23,28 @@ RSpec.describe "Configuration" do
     opts ||= {}
     default_value = opts[:default]
     alias_setting = opts[:alias_with]
-    query_method = "#{accessor}?".to_sym
+    predicate_method = "#{accessor}?".to_sym
     command_method = "#{accessor}=".to_sym
 
-    specify "`##{query_method}` is `#{default_value.inspect}` by default" do
-      expect(config.send(query_method)).to be(default_value)
+    specify "`##{accessor}` is `#{default_value.inspect}` by default" do
+      expect(config.send(accessor)).to eq default_value
+    end
+
+    specify "`##{predicate_method}` is `#{!!default_value}` by default" do
+      expect(config.send(predicate_method)).to be !!default_value
+    end
+
+    specify "`##{predicate_method}` is `#{!!default_value}` by default" do
+      expect(config.send(predicate_method)).to be !!default_value
     end
 
     describe "`##{command_method}`" do
-      it "changes `#{query_method}` to the provided value" do
+      it "changes `#{predicate_method}` to the true for a truthy value" do
+        config.send(command_method, nil)
+        expect(config.send(predicate_method)).to be false
         expect {
           config.send(command_method, :a_value)
-        }.to change { config.send(query_method) }.to(:a_value)
+        }.to change { config.send(predicate_method) }.to(true)
       end
 
       it "sets `#{accessor}` to the provided value" do
@@ -72,8 +82,8 @@ RSpec.describe "Configuration" do
 
     include_examples "adds setting", :rendering_views
 
-    specify "`#render_views?` is falsey by default" do
-      expect(config.render_views?).to be_falsey
+    specify "`#render_views?` is false by default" do
+      expect(config.render_views?).to be false
     end
 
     specify "`#render_views` sets `render_views?` to `true`" do
@@ -83,16 +93,14 @@ RSpec.describe "Configuration" do
     end
 
     describe "`#render_views=`" do
-      it "sets `render_views?` to the provided value" do
-        expect {
-          config.render_views = false
-        }.to change { config.render_views? }.from(nil).to(false)
-      end
-
-      it "sets `render_views` to the provided value" do
+      it "sets `render_views?` to the truthyness of the provided value" do
         expect {
           config.render_views = :a_value
-        }.to change { config.render_views? }.to(:a_value)
+        }.to change { config.render_views? }.from(false).to(true)
+        # this is repeated to put the value back to false
+        expect {
+          config.render_views = false
+        }.to change { config.render_views? }.from(true).to(false)
       end
     end
   end
