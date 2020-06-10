@@ -56,7 +56,7 @@ module RSpec
     end
 
     # @private
-    def self.initialize_configuration(config) # rubocop:disable Metrics/MethodLength
+    def self.initialize_configuration(config) # rubocop:disable Metrics/MethodLength,Metrics/CyclomaticComplexity
       config.backtrace_exclusion_patterns << /vendor\//
       config.backtrace_exclusion_patterns << %r{lib/rspec/rails}
 
@@ -109,6 +109,7 @@ module RSpec
           rendering_views?
         end
 
+        undef :rendering_views? if respond_to?(:rendering_views?)
         def rendering_views?
           !!rendering_views
         end
@@ -117,22 +118,27 @@ module RSpec
         # to the bug fix in rspec/rspec-core#2736, note some of these
         # predicates are a bit nonsensical, but they exist for backwards
         # compatibility, we can tidy these up in `rspec-rails` 5.
+        undef :fixture_path? if respond_to?(:fixture_path?)
         def fixture_path?
           !!fixture_path
         end
 
+        undef :global_fixtures? if respond_to?(:global_fixtures?)
         def global_fixtures?
           !!global_fixtures
         end
 
+        undef :infer_base_class_for_anonymous_controllers? if respond_to?(:infer_base_class_for_anonymous_controllers?)
         def infer_base_class_for_anonymous_controllers?
           !!infer_base_class_for_anonymous_controllers
         end
 
+        undef :use_instantiated_fixtures? if respond_to?(:use_instantiated_fixtures?)
         def use_instantiated_fixtures?
           !!use_instantiated_fixtures
         end
 
+        undef :use_transactional_fixtures? if respond_to?(:use_transactional_fixtures?)
         def use_transactional_fixtures?
           !!use_transactional_fixtures
         end
