@@ -10,7 +10,6 @@ Bug Fixes:
 
 * Indent all extra failure lines output from system specs. (Alex Robbin, #2321)
 * Generated request spec for update now uses the correct let. (Paul Hanyzewski, #2344)
-* Issue warning when imprecise time assertion made
 
 ### 4.0.1 / 2020-05-16
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.0...v4.0.1)
