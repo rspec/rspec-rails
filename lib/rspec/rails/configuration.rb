@@ -1,3 +1,4 @@
+# rubocop: disable Metrics/ModuleLength
 module RSpec
   module Rails
     # Fake class to document RSpec Rails configuration options. In practice,
@@ -184,3 +185,4 @@ module RSpec
     initialize_configuration RSpec.configuration
   end
 end
+# rubocop: enable Metrics/ModuleLength
