@@ -1,3 +1,4 @@
+# rubocop: disable Metrics/ModuleLength
 module RSpec
   module Rails
     # Fake class to document RSpec Rails configuration options. In practice,
@@ -105,7 +106,35 @@ module RSpec
         end
 
         def render_views?
-          rendering_views
+          rendering_views?
+        end
+
+        def rendering_views?
+          !!rendering_views
+        end
+
+        # Define boolean predicates rather than relying on rspec-core due
+        # to the bug fix in rspec/rspec-core#2736, note some of these
+        # predicates are a bit nonsensical, but they exist for backwards
+        # compatibility, we can tidy these up in `rspec-rails` 5.
+        def fixture_path?
+          !!fixture_path
+        end
+
+        def global_fixtures?
+          !!global_fixtures
+        end
+
+        def infer_base_class_for_anonymous_controllers?
+          !!infer_base_class_for_anonymous_controllers
+        end
+
+        def use_instantiated_fixtures?
+          !!use_instantiated_fixtures
+        end
+
+        def use_transactional_fixtures?
+          !!use_transactional_fixtures
         end
 
         def infer_spec_type_from_file_location!
@@ -156,3 +185,4 @@ module RSpec
     initialize_configuration RSpec.configuration
   end
 end
+# rubocop: enable Metrics/ModuleLength
