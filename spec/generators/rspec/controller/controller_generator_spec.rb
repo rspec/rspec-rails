@@ -4,6 +4,7 @@ require 'support/generators'
 
 RSpec.describe Rspec::Generators::ControllerGenerator, type: :generator do
   setup_default_destination
+  it_behaves_like "a request spec generator"
 
   describe 'request specs' do
     subject { file('spec/requests/posts_spec.rb') }

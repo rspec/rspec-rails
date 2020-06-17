@@ -4,6 +4,8 @@ module Rspec
   module Generators
     # @private
     class ControllerGenerator < Base
+      source_paths << File.expand_path('../integration/templates', __dir__)
+
       argument :actions, type: :array, default: [], banner: "action action"
 
       class_option :template_engine,  desc: "Template engine to generate view files"
@@ -15,7 +17,8 @@ module Rspec
       def generate_request_spec
         return unless options[:request_specs]
 
-        template 'request_spec.rb',
+        template_file = actions.empty? ? 'request_spec.rb' : 'request_with_actions_spec.rb'
+        template template_file,
                  File.join('spec/requests', class_path, "#{file_name}_spec.rb")
       end
 
