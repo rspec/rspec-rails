@@ -1,4 +1,4 @@
-# This file was generated on 2019-12-18T14:01:39+00:00 from the rspec-dev repo.
+# This file was generated on 2020-06-21T22:22:12+01:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 function is_mri {
@@ -30,18 +30,6 @@ function is_mri_192 {
     fi
   else
     return 1
-  fi
-}
-
-function is_not_mri_193 {
-  if is_mri; then
-    if ruby -e "exit(RUBY_VERSION == '1.9.3')"; then
-      return 1
-    else
-      return 0
-    fi
-  else
-    return 0
   fi
 }
 
@@ -77,8 +65,24 @@ function is_ruby_23_plus {
   fi
 }
 
+function is_ruby_25_plus {
+  if ruby -e "exit(RUBY_VERSION.to_f >= 2.5)"; then
+    return 0
+  else
+    return 1
+  fi
+}
+
 function rspec_rails_compatible {
-  if is_ruby_23_plus; then
+  if is_ruby_25_plus; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+function requires_rspec_rails_maintenance_branch {
+  if [ "$MAINTENANCE_BRANCH" == "3-9-maintenance" ]; then
     return 0
   else
     return 1
