@@ -9,7 +9,7 @@ Install Rails 6
 
 ### Add rspec-rails to the Gemfile
 
-    $ echo 'gem "rspec-rails", group: [:development, :test]' >> Gemfile
+    $ echo 'gem "rspec-rails", group: :test' >> Gemfile
 
 ### Install the bundle
 

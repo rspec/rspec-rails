@@ -66,7 +66,7 @@ in_root do
     |
     |gem 'rspec-rails',
     |    :path => '#{rspec_rails_repo_path}',
-    |    :groups => [:development, :test]
+    |    :groups => [:test]
     |eval_gemfile '#{rspec_dependencies_gemfile}'
     |eval_gemfile '#{rails_dependencies_gemfile}'
   EOT

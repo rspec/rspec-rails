@@ -21,14 +21,11 @@ This installs the following gems:
 
 ## Configure
 
-Add rspec-rails to the :test and :development groups in the Gemfile:
+Add rspec-rails to the :test group in the Gemfile:
 
-    group :test, :development do
+    group :test do
       gem 'rspec-rails', '~> 4.0.0'
     end
-
-It needs to be in the :development group to expose generators and rake tasks
-without having to type RAILS_ENV=test.
 
 Now you can run:
 

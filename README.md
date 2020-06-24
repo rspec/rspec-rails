@@ -27,26 +27,22 @@ Use **[`rspec-rails` 1.x][]** for Rails 2.x.
 **IMPORTANT** This README / branch refers to the current development build.
 See the `4-0-maintenance` branch on Github if you want or require the latest stable release.
 
-1. Add `rspec-rails` to **both** the `:development` and `:test` groups
-   of your app’s `Gemfile`:
+1. Add `rspec-rails` to the `:test` group of your app’s `Gemfile`:
 
    ```ruby
    # Run against the latest stable release
-   group :development, :test do
+   group :test do
      gem 'rspec-rails', '~> 4.0.0'
    end
 
    # Or, run against the master branch
    # (requires master-branch versions of all related RSpec libraries)
-   group :development, :test do
+   group test do
      %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
        gem lib, git: "https://github.com/rspec/#{lib}.git", branch: 'master'
      end
    end
    ```
-
-   (Adding it to the `:development` group is not strictly necessary,
-   but without it, generators and rake tasks must be preceded by `RAILS_ENV=test`.)
 
 2. Then, in your project directory:
 
