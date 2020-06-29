@@ -1,3 +1,11 @@
+### Development
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.9.1...3-9-maintenance)
+
+Bug Fixes:
+
+* Return `true`/`false` from predicate methods in config rather than raw values.
+  (Phil Pirozhkov, Jon Rowe, #2353, #2354)
+
 ### 3.9.1 / 2020-03-10
 [Full Changelog](http://github.com/rspec/rspec-rails/compare/v3.9.0...v3.9.1)
 
