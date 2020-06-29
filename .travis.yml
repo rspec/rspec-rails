@@ -38,57 +38,57 @@ dist: trusty
 matrix:
   include:
     # Rails dev / 6 builds >= 2.4.4
-    - rvm: 2.6.3
+    - rvm: 2.6.6
       env: RAILS_VERSION=master
-    - rvm: 2.5.3
+    - rvm: 2.5.8
       env: RAILS_VERSION=master
-    - rvm: 2.4.4
+    - rvm: 2.4.10
       env: RAILS_VERSION=master
 
     # Rails 5.2 builds >= 2.2.2
-    - rvm: 2.6.3
+    - rvm: 2.6.6
       env: RAILS_VERSION='~> 5.2.0'
-    - rvm: 2.5.3
+    - rvm: 2.5.8
       env: RAILS_VERSION='~> 5.2.0'
-    - rvm: 2.4.4
+    - rvm: 2.4.10
       env: RAILS_VERSION='~> 5.2.0'
-    - rvm: 2.3.7
+    - rvm: 2.3.8
       env: RAILS_VERSION='~> 5.2.0'
     - rvm: 2.2.10
       env: RAILS_VERSION='~> 5.2.0'
 
     # Rails 5.1 Builds >= 2.2.2
-    - rvm: 2.6.3
+    - rvm: 2.6.6
       env: RAILS_VERSION='~> 5.1.0'
-    - rvm: 2.5.3
+    - rvm: 2.5.8
       env: RAILS_VERSION='~> 5.1.0'
-    - rvm: 2.4.4
+    - rvm: 2.4.10
       env: RAILS_VERSION='~> 5.1.0'
-    - rvm: 2.3.7
+    - rvm: 2.3.8
       env: RAILS_VERSION='~> 5.1.0'
     - rvm: 2.2.10
       env: RAILS_VERSION='~> 5.1.0'
 
     # Rails 5.0 Builds >= 2.2.2
-    - rvm: 2.6.3
+    - rvm: 2.6.6
       env: RAILS_VERSION='~> 5.0.0'
-    - rvm: 2.5.3
+    - rvm: 2.5.8
       env: RAILS_VERSION='~> 5.0.0'
-    - rvm: 2.4.4
+    - rvm: 2.4.10
       env: RAILS_VERSION='~> 5.0.0'
-    - rvm: 2.3.7
+    - rvm: 2.3.8
       env: RAILS_VERSION='~> 5.0.0'
     - rvm: 2.2.10
       env: RAILS_VERSION='~> 5.0.0'
 
     # Rails 4.2 Builds >= 1.9.3
-    - rvm: 2.4.4
+    - rvm: 2.4.10
       env: RAILS_VERSION='~> 4.2.0'
-    - rvm: 2.4.4
+    - rvm: 2.4.10
       env: RAILS_VERSION=4-2-stable
-    - rvm: 2.3.7
+    - rvm: 2.3.8
       env: RAILS_VERSION='~> 4.2.0'
-    - rvm: 2.3.7
+    - rvm: 2.3.8
       env: RAILS_VERSION=4-2-stable
     - rvm: 2.2.10
       env: RAILS_VERSION='~> 4.2.0'
@@ -108,9 +108,9 @@ matrix:
       env: RAILS_VERSION=4-2-stable
 
     # Rails 4.1 Builds >= 1.9.3, < 2.4
-    - rvm: 2.3.7
+    - rvm: 2.3.8
       env: RAILS_VERSION='~> 4.1.0'
-    - rvm: 2.3.7
+    - rvm: 2.3.8
       env: RAILS_VERSION=4-1-stable
     - rvm: 2.2.10
       env: RAILS_VERSION='~> 4.1.0'
@@ -130,9 +130,9 @@ matrix:
       env: RAILS_VERSION=4-1-stable
 
     # Rails 4.0 Builds >= 1.8.11, < 2.4
-    - rvm: 2.3.7
+    - rvm: 2.3.8
       env: RAILS_VERSION='~> 4.0.4'
-    - rvm: 2.3.7
+    - rvm: 2.3.8
       env: RAILS_VERSION=4-0-stable
     - rvm: 2.2.10
       env: RAILS_VERSION='~> 4.0.4'
@@ -152,9 +152,9 @@ matrix:
       env: RAILS_VERSION=4-0-stable
 
     # Rails 3.2 Builds < 2.4
-    - rvm: 2.3.7
+    - rvm: 2.3.8
       env: RAILS_VERSION='~> 3.2.17'
-    - rvm: 2.3.7
+    - rvm: 2.3.8
       env: RAILS_VERSION=3-2-stable
     - rvm: 2.2.10
       env: RAILS_VERSION='~> 3.2.17'
@@ -202,11 +202,11 @@ matrix:
       env: RAILS_VERSION='~> 3.0.20'
 
   allow_failures:
-    - rvm: 2.6.3
+    - rvm: 2.6.6
       env: RAILS_VERSION=master
-    - rvm: 2.5.3
+    - rvm: 2.5.8
       env: RAILS_VERSION=master
-    - rvm: 2.4.4
+    - rvm: 2.4.10
       env: RAILS_VERSION=master
   fast_finish: true
 
