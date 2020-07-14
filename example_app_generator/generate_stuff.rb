@@ -18,6 +18,10 @@ module ExampleAppHooks
       copy_file 'app/views/some_templates/bar.html'
       copy_file 'spec/verify_custom_renderers_spec.rb'
       copy_file 'spec/verify_fixture_warning_spec.rb'
+      copy_file 'spec/verify_fixture_file_upload_spec.rb'
+      File.open('spec/fixtures/file_upload.txt', 'w') do |f|
+        f.write('Hello World')
+      end
       run('bin/rake db:migrate')
     end
 
