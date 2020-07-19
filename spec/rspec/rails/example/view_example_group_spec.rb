@@ -218,17 +218,20 @@ module RSpec::Rails
         expect(view_spec.view).to eq(view)
       end
 
-      it 'is accessible to hooks' do
+      # Regression test from rspec/rspec-rails#833
+      it 'is accessible to configuration-level hooks' do
         with_isolated_config do
           run_count = 0
           RSpec.configuration.before(:each, :type => :view) do
-            allow(view).to receive(:a_stubbed_helper) { :value }
+            # `view` is provided from the view example type, and serves to
+            # demonstrate this hook is run in the correct context.
+            allow(view).to receive(:render) { :value }
             run_count += 1
           end
           group = RSpec::Core::ExampleGroup.describe 'a view', :type => :view do
-            specify { true }
+            specify { expect(view.render).to eq(:value) }
           end
-          group.run NullObject.new
+          group.run
           expect(run_count).to eq 1
         end
       end
