@@ -14,7 +14,7 @@ module ArubaExt
   end
 
   def unset_bundler_env_vars
-    empty_env = with_environment { with_unbundled_env { ENV.to_h } }
+    empty_env = with_environment { with_unbundled_env { env_to_h } }
     aruba_env = aruba.environment.to_h
     (aruba_env.keys - empty_env.keys).each do |key|
       delete_environment_variable key
@@ -29,6 +29,14 @@ module ArubaExt
       Bundler.with_unbundled_env { yield }
     else
       Bundler.with_clean_env { yield }
+    end
+  end
+
+  def env_to_h
+    if RUBY_VERSION > '2.0'
+      ENV.to_h
+    else
+      ENV.inject({}) { |h, (k, v)| h[k] = v; h }
     end
   end
 end
