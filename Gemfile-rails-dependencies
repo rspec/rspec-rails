@@ -26,13 +26,12 @@ when /stable$/
   gem_list = %w[rails railties actionmailer actionpack activerecord activesupport]
   gem_list << 'activejob'  if version > '4-1-stable'
   gem_list << 'actionview' if version > '4-0-stable'
-  if RUBY_VERSION  >= "2.2"
-    gem_list << 'puma' if version > '5-0-stable'
-  end
 
   gem_list.each do |rails_gem|
     gem rails_gem, :git => "https://github.com/rails/rails.git", :branch => version
   end
+
+  gem 'puma' if RUBY_VERSION  >= '2.2' && version > '5-0-stable'
 when nil, false, ""
   if RUBY_VERSION < '1.9.3'
     # Rails 4+ requires 1.9.3+, so on earlier versions default to the last 3.x release.
