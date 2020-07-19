@@ -54,7 +54,9 @@ module RSpec
     end
 
     # @private
-    def self.initialize_configuration(config) # rubocop:disable Metrics/MethodLength,Metrics/CyclomaticComplexity
+    # rubocop:disable Style/MethodLength
+    # rubocop:disable Style/CyclomaticComplexity
+    def self.initialize_configuration(config)
       config.backtrace_exclusion_patterns << /vendor\//
       config.backtrace_exclusion_patterns << %r{lib/rspec/rails}
 
@@ -176,6 +178,7 @@ module RSpec
       end
     end
     # rubocop:enable Style/MethodLength
+    # rubocop:enable Style/CyclomaticComplexity
 
     initialize_configuration RSpec.configuration
   end
