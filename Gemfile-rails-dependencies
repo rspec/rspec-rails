@@ -27,6 +27,8 @@ when /stable$/
   end
 
   gem 'puma' if RUBY_VERSION  >= '2.2' && version > '5-0-stable'
+
+  gem "sprockets", '~> 3.0' if RUBY_VERSION < '2.5' && version >= '4-0-stable'
 when nil, false, ""
   if RUBY_VERSION < '1.9.3'
     # Rails 4+ requires 1.9.3+, so on earlier versions default to the last 3.x release.
@@ -40,11 +42,15 @@ when nil, false, ""
 else
   gem "rails", version
 
-  if version >= '5-1-stable' && RUBY_VERSION  >= "2.2"
+  major_minor_version = version.gsub(/[^\d\.]/,'').to_f
+
+  if major_minor_version >= 5.1 && RUBY_VERSION  >= "2.2"
     gem "puma"
   end
 
-  if version.gsub(/[^\d\.]/,'').to_f >= 6.0
+  gem "sprockets", '~> 3.0' if RUBY_VERSION < '2.5' && major_minor_version >= 4.0
+
+  if major_minor_version >= 6.0
     gem "activerecord-jdbcsqlite3-adapter", "~> 60.0.rc1", :platforms => [:jruby]
   else
     gem 'activerecord-jdbcsqlite3-adapter', :platforms => [:jruby]
@@ -70,8 +76,6 @@ if RUBY_VERSION < '2.2'
 elsif RUBY_VERSION < '2.3'
   gem "rack", '< 2.2.0', '!= 2.1.0'
 end
-
-gem "sprockets", '~> 3.0' if RUBY_VERSION < '2.5'
 
 gem "test-unit" if RUBY_VERSION >= '2.2.0' && version =~ /3[.-]2[.-]/
 
