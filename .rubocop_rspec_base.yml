@@ -69,10 +69,6 @@ LineLength:
 MethodLength:
   Max: 15
 
-# Who cares what we call the argument for binary operator methods?
-BinaryOperatorParameterName:
-  Enabled: false
-
 PercentLiteralDelimiters:
   PreferredDelimiters:
     '%':  ()      # double-quoted string
