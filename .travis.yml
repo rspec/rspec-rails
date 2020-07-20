@@ -55,7 +55,11 @@ matrix:
     - rvm: 2.3.8
       env: RAILS_VERSION='~> 5.2.0'
     - rvm: 2.2.10
-      env: RAILS_VERSION='~> 5.2.0'
+      # An incompatibility with Ruby 2.2 in Rails 5.2.4.0 (still not fixed 5.2.4.3)
+      # prevents from testing against this combination. This bug is not in 5-2-stable:
+      #   lib/action_dispatch/request/session.rb:96: syntax error, unexpected '.'
+      #             id&.public_id
+      env: RAILS_VERSION='5-2-stable'
 
     # Rails 5.1 Builds >= 2.2.2
     - rvm: 2.6.6
