@@ -67,7 +67,15 @@ end
 
 gem "nio4r", '< 2.4.0' if RUBY_VERSION < '2.3'
 
-gem "public_suffix", '< 4.0.0' if RUBY_VERSION < '2.3'
+if RUBY_VERSION < '1.9.3'
+  gem "public_suffix", '< 1.4.0'
+elsif RUBY_VERSION < '2.0'
+  gem "public_suffix", '< 2.0.0'
+elsif RUBY_VERSION < '2.1'
+  gem "public_suffix", '< 3.0.0'
+elsif RUBY_VERSION < '2.3'
+  gem "public_suffix", '< 4.0.0'
+end
 
 # rack 2.1.0 introduces a deprecation warning that rails is triggering,
 # but in later versions this warning is removed.
