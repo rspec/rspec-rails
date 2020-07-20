@@ -30,8 +30,10 @@ end
 
 if RUBY_VERSION < '1.9'
   gem 'ffi', '< 1.9.19' # ffi dropped Ruby 1.8 support in 1.9.19
-else
-  gem 'ffi', '~> 1.9.25'
+elsif RUBY_VERSION < '2.0'
+  gem 'ffi', '< 1.11.0' # ffi dropped Ruby 2.0 support in 1.11.0
+elsif RUBY_VERSION < '2.3'
+  gem 'ffi', '< 1.13.0'
 end
 
 if RUBY_VERSION >= '2.0.0'
