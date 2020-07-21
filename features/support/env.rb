@@ -2,13 +2,27 @@ require 'aruba/cucumber'
 require 'fileutils'
 
 module ArubaExt
-  def run_command(cmd, timeout = nil)
-    exec_cmd = cmd =~ /^rspec/ ? "bin/#{cmd}" : cmd
-    unset_bundler_env_vars
-    # Ensure the correct Gemfile and binstubs are found
-    in_current_directory do
-      with_unbundled_env do
-        super(exec_cmd, timeout)
+  if defined?(Aruba::VERSION) && Aruba::VERSION >= '0.14.12'
+    def run_command(cmd, timeout = nil)
+      exec_cmd = cmd =~ /^rspec/ ? "bin/#{cmd}" : cmd
+      unset_bundler_env_vars
+      # Ensure the correct Gemfile and binstubs are found
+      in_current_directory do
+        with_unbundled_env do
+          super(exec_cmd, timeout)
+        end
+      end
+    end
+  else
+    def run(cmd, timeout = nil)
+      exec_cmd = cmd =~ /^rspec/ ? "bin/#{cmd}" : cmd
+      super(exec_cmd, timeout)
+    end
+    # This method overrides Aruba 0.5.4 implementation so that we can reset Bundler to use the sample app Gemfile
+    def in_current_dir(&block)
+      Bundler.with_clean_env do
+        _mkdir(current_dir)
+        Dir.chdir(current_dir, &block)
       end
     end
   end
@@ -41,11 +55,17 @@ module ArubaExt
   end
 end
 
-World(ArubaExt)
-
-Aruba.configure do |config|
-  config.exit_timeout = 30
+if defined?(Aruba::VERSION) && Aruba::VERSION >= '0.14.12'
+  Aruba.configure do |config|
+    config.exit_timeout = 30
+  end
+else
+  Before do
+    @aruba_timeout_seconds = 30
+  end
 end
+
+World(ArubaExt)
 
 unless File.directory?('./tmp/example_app')
   system "rake generate:app generate:stuff"
