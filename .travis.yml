@@ -212,6 +212,11 @@ matrix:
       env: RAILS_VERSION=master
     - rvm: 2.4.10
       env: RAILS_VERSION=master
+    - rvm: 2.2.10
+      # An actual incompatibility of 5.2.4.0-5.2.4.3 forces to use `5-2-stable`,
+      # but there's a minor difference in the generated tests that results in a
+      # minor failure.
+      env: RAILS_VERSION='5-2-stable'
   fast_finish: true
 
 branches:
