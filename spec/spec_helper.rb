@@ -23,6 +23,7 @@ end
 I18n.enforce_available_locales = true
 
 require 'rspec/support/spec'
+require 'rspec/core/sandbox'
 require 'rspec/rails'
 require 'ammeter/init'
 
@@ -59,10 +60,16 @@ RSpec.configure do |config|
   config.warnings = true
   config.raise_on_warning = true
 
+  # Execute a provided block with RSpec global objects (configuration,
+  # world, current example) reset. This is used to test specs with RSpec.
   config.around(:example) do |example|
-    real_world = RSpec.world
-    RSpec.instance_variable_set(:@world, RSpec::Core::World.new)
-    example.run
-    RSpec.instance_variable_set(:@world, real_world)
+    RSpec::Core::Sandbox.sandboxed do |sandbox_config|
+      # If there is an example-within-an-example, we want to make sure the inner
+      # example does not get a reference to the outer example (the real spec) if
+      # it calls something like `pending`.
+      sandbox_config.before(:context) { RSpec.current_example = nil }
+      RSpec::Rails.initialize_configuration(sandbox_config)
+      example.run
+    end
   end
 end

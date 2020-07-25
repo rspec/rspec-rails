@@ -27,10 +27,6 @@ shared_examples_for "an rspec-rails example group mixin" do |type, *paths|
     end
   end
 
-  around(:example) do |ex|
-    with_isolated_config(&ex)
-  end
-
   it "adds does not add `:type` metadata on inclusion" do
     mixin = self.mixin
     group = RSpec.describe { include mixin }

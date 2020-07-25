@@ -249,21 +249,19 @@ module RSpec::Rails
 
       # Regression test from rspec/rspec-rails#833
       it 'is accessible to configuration-level hooks', pending: pending_only_on_ruby_22_rails_52 do
-        with_isolated_config do
-          run_count = 0
-          RSpec.configuration.before(:each, type: :view) do
-            # `view` is provided from the view example type, and serves to
-            # demonstrate this hook is run in the correct context.
-            allow(view).to receive(:render) { :value }
-            run_count += 1
-          end
-          group = RSpec::Core::ExampleGroup.describe 'a view', type: :view do
-            specify { expect(view.render).to eq(:value) }
-          end
-          group.run(failure_reporter)
-          expect(failure_reporter.exceptions).to eq []
-          expect(run_count).to eq 1
+        run_count = 0
+        RSpec.configuration.before(:each, type: :view) do
+          # `view` is provided from the view example type, and serves to
+          # demonstrate this hook is run in the correct context.
+          allow(view).to receive(:render) { :value }
+          run_count += 1
         end
+        group = RSpec::Core::ExampleGroup.describe 'a view', type: :view do
+          specify { expect(view.render).to eq(:value) }
+        end
+        group.run(failure_reporter)
+        expect(failure_reporter.exceptions).to eq []
+        expect(run_count).to eq 1
       end
     end
 
