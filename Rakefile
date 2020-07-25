@@ -224,7 +224,7 @@ task default: [:spec, :acceptance]
 task :verify_private_key_present do
   private_key = File.expand_path('~/.gem/rspec-gem-private_key.pem')
   unless File.exist?(private_key)
-    raise "Your private key is not present. This gem should not be built without that."
+    raise "Your private key is not present. This gem should not be built without it."
   end
 end
 
