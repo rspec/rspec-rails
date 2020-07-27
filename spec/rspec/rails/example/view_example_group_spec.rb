@@ -247,15 +247,18 @@ module RSpec::Rails
         pending_only_on_ruby_22_rails_52 = false
       end
 
-      it 'is accessible to hooks', pending: pending_only_on_ruby_22_rails_52 do
+      # Regression test from rspec/rspec-rails#833
+      it 'is accessible to configuration-level hooks', pending: pending_only_on_ruby_22_rails_52 do
         with_isolated_config do
           run_count = 0
           RSpec.configuration.before(:each, type: :view) do
+            # `view` is provided from the view example type, and serves to
+            # demonstrate this hook is run in the correct context.
             allow(view).to receive(:render) { :value }
             run_count += 1
           end
           group = RSpec::Core::ExampleGroup.describe 'a view', type: :view do
-            specify { expect(true).to eq true }
+            specify { expect(view.render).to eq(:value) }
           end
           group.run(failure_reporter)
           expect(failure_reporter.exceptions).to eq []
