@@ -10,6 +10,6 @@ if is_ruby_23_plus; then
   gem install --no-document bundler
 else
   echo "Warning installing older versions of Rubygems / Bundler"
-  gem update --system '2.7.8'
+  gem update --system '2.7.10'
   gem install bundler -v '1.17.3'
 fi
