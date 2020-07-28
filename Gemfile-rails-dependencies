@@ -1,10 +1,5 @@
 version_file = File.expand_path("../.rails-version", __FILE__)
 
-# FIXME: rack 2.1.0 introduces a deprecation warning that rails is triggering,
-# but in later versions this warning will be removed. Get rid of this hack once
-# rack 2.1.0+ is out.
-gem 'rack', '!= 2.1.0'
-
 case version = ENV['RAILS_VERSION'] || (File.exist?(version_file) && File.read(version_file).chomp) || ''
 when /master/
   gem "rails", :git => "https://github.com/rails/rails.git"
@@ -26,13 +21,14 @@ when /stable$/
   gem_list = %w[rails railties actionmailer actionpack activerecord activesupport]
   gem_list << 'activejob'  if version > '4-1-stable'
   gem_list << 'actionview' if version > '4-0-stable'
-  if RUBY_VERSION  >= "2.2"
-    gem_list << 'puma' if version > '5-0-stable'
-  end
 
   gem_list.each do |rails_gem|
     gem rails_gem, :git => "https://github.com/rails/rails.git", :branch => version
   end
+
+  gem 'puma' if RUBY_VERSION  >= '2.2' && version > '5-0-stable'
+
+  gem "sprockets", '~> 3.0' if RUBY_VERSION < '2.5' && version >= '4-0-stable'
 when nil, false, ""
   if RUBY_VERSION < '1.9.3'
     # Rails 4+ requires 1.9.3+, so on earlier versions default to the last 3.x release.
@@ -46,20 +42,49 @@ when nil, false, ""
 else
   gem "rails", version
 
-  if version >= '5-1-stable' && RUBY_VERSION  >= "2.2"
+  major_minor_version = version.gsub(/[^\d\.]/,'').to_f
+
+  if major_minor_version >= 5.1 && RUBY_VERSION  >= "2.2"
     gem "puma"
   end
 
-  if RUBY_VERSION < "2.5"
-    gem "sprockets", "~> 3.0"
-  end
+  gem "sprockets", '~> 3.0' if RUBY_VERSION < '2.5' && major_minor_version >= 4.0
 
-  if version.gsub(/[^\d\.]/,'').to_f >= 6.0
+  if major_minor_version >= 6.0
     gem "activerecord-jdbcsqlite3-adapter", "~> 60.0.rc1", :platforms => [:jruby]
   else
     gem 'activerecord-jdbcsqlite3-adapter', :platforms => [:jruby]
   end
 end
 
-gem "i18n", '< 0.7.0' if RUBY_VERSION < '1.9.3'
+gem "childprocess", '< 2.0.0' if RUBY_VERSION < '2.3'
+
+if RUBY_VERSION < '1.9.3'
+  gem "i18n", '< 0.7.0'
+elsif RUBY_VERSION < '2.3.0'
+  gem "i18n", '< 1.5.2'
+end
+
+gem "nio4r", '< 2.4.0' if RUBY_VERSION < '2.3'
+
+if RUBY_VERSION < '1.9.3'
+  gem "public_suffix", '< 1.4.0'
+elsif RUBY_VERSION < '2.0'
+  gem "public_suffix", '< 2.0.0'
+elsif RUBY_VERSION < '2.1'
+  gem "public_suffix", '< 3.0.0'
+elsif RUBY_VERSION < '2.3'
+  gem "public_suffix", '< 4.0.0'
+end
+
+# rack 2.1.0 introduces a deprecation warning that rails is triggering,
+# but in later versions this warning is removed.
+if RUBY_VERSION < '2.2'
+  gem "rack", '< 2.0.0', '!= 2.1.0'
+elsif RUBY_VERSION < '2.3'
+  gem "rack", '< 2.2.0', '!= 2.1.0'
+end
+
 gem "test-unit" if RUBY_VERSION >= '2.2.0' && version =~ /3[.-]2[.-]/
+
+gem "xpath", '< 3.2.0' if RUBY_VERSION < '2.3'

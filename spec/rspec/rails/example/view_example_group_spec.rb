@@ -218,17 +218,31 @@ module RSpec::Rails
         expect(view_spec.view).to eq(view)
       end
 
-      it 'is accessible to hooks' do
+      if RUBY_VERSION <= "2.3.0" && ENV["RAILS_VERSION"] !~ /stable/ && ::Rails.version.to_f == 5.2
+        pending_only_on_ruby_22_rails_52 = """
+          Rails 5.2.4.2 has a syntax error in ActionDispatch::Request::Session.
+          (A &. usage which does not work in 2.2.10)
+          It has been fixed but not released, this spec will not pass until that
+          has been released.
+        """
+      else
+        pending_only_on_ruby_22_rails_52 = false
+      end
+
+      # Regression test from rspec/rspec-rails#833
+      it 'is accessible to configuration-level hooks', :pending => pending_only_on_ruby_22_rails_52 do
         with_isolated_config do
           run_count = 0
           RSpec.configuration.before(:each, :type => :view) do
-            allow(view).to receive(:a_stubbed_helper) { :value }
+            # `view` is provided from the view example type, and serves to
+            # demonstrate this hook is run in the correct context.
+            allow(view).to receive(:render) { :value }
             run_count += 1
           end
           group = RSpec::Core::ExampleGroup.describe 'a view', :type => :view do
-            specify { true }
+            specify { expect(view.render).to eq(:value) }
           end
-          group.run NullObject.new
+          group.run
           expect(run_count).to eq 1
         end
       end

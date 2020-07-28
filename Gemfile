@@ -11,9 +11,9 @@ gem 'yard', '~> 0.9.24', :require => false
 
 ### deps for rdoc.info
 group :documentation do
-  gem 'redcarpet'
-  gem 'github-markup'
   if RUBY_VERSION > '2.0.0'
+    gem 'redcarpet'
+    gem 'github-markup'
     gem 'relish'
   end
 end
@@ -30,8 +30,10 @@ end
 
 if RUBY_VERSION < '1.9'
   gem 'ffi', '< 1.9.19' # ffi dropped Ruby 1.8 support in 1.9.19
-else
-  gem 'ffi', '~> 1.9.25'
+elsif RUBY_VERSION < '2.0'
+  gem 'ffi', '< 1.11.0' # ffi dropped Ruby 2.0 support in 1.11.0
+elsif RUBY_VERSION < '2.3'
+  gem 'ffi', '< 1.13.0'
 end
 
 if RUBY_VERSION >= '2.0.0'
@@ -80,8 +82,8 @@ if RUBY_VERSION <= '1.8.7'
   # cucumber and gherkin require rubyzip as a runtime dependency on 1.8.7
   # Only < 1.0 supports 1.8.7
   gem 'rubyzip', '< 1.0'
-else
-  gem "rubyzip", '>= 1.2.2'
+elsif RUBY_VERSION < '2.4'
+  gem 'rubyzip', '>= 1.2.2', '< 2.0.0'
 end
 
 if RUBY_VERSION >= '2.0.0' && RUBY_VERSION < '2.2.0'
