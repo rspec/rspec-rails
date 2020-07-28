@@ -52,7 +52,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'cucumber', '~> 1.3.5'
   if ENV['RAILS_VERSION'].gsub(/[^\d\.-]/, '').tr('-', '.') < '4.0'
-    # aruba > 0.9 depends on thor ~> 0.19, while railties < 4.0 depend on thor ~> 0.14.6
+    # We use aruba `~> 0.5.4` as the last known working version and later versions (> 0.9) depend on thor ~> 0.19, which is incompatible with railties < 4.0.
     s.add_development_dependency 'aruba', '~> 0.5.4'
   else
     s.add_development_dependency 'aruba', '~> 0.14.12'
