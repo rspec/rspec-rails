@@ -49,8 +49,12 @@ gem 'rake', '~> 12'
 
 gem 'mime-types', "~> 3"
 
-if RUBY_VERSION.to_f == 2.2
+if RUBY_VERSION.to_f < 2.3
   gem 'capybara', '~> 3.1.0'
+elsif RUBY_VERSION.to_f < 2.4
+  gem 'capybara', '< 3.16'
+elsif RUBY_VERSION.to_f < 2.5
+  gem 'capybara', '< 3.33'
 else
   gem 'capybara', '>= 2.13', '< 4.0', require: false
 end

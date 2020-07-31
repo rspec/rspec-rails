@@ -35,11 +35,22 @@ in_root do
     gsub_file "Gemfile", /.*rails-controller-testing.*/, "gem 'rails-controller-testing', git: 'https://github.com/rails/rails-controller-testing'"
   end
 
+  if RUBY_VERSION < "2.3.0"
+    gsub_file "Gemfile", /.*childprocess.*/, "gem 'childprocess', '< 2.0.0'"
+    gsub_file "Gemfile", /.*i18n.*/, "gem 'i18n', '< 1.5.2'"
+    gsub_file "Gemfile", /.*nio4r.*/, "gem 'nio4r', '< 2.4.0'"
+    gsub_file "Gemfile", /.*public_suffix.*/, "gem 'public_suffix', '< 4.0.0'"
+    gsub_file "Gemfile", /.*rack.*/, "gem 'rack', '< 2.2.0', '!= 2.1.0'"
+    gsub_file "Gemfile", /.*xpath.*/, "gem 'xpath', '< 3.2.0'"
+  end
+
   if Rails::VERSION::STRING >= "5.1.0"
     if RUBY_VERSION < "2.3"
       gsub_file "Gemfile", /.*capybara.*/, "gem 'capybara', '~> 3.1.0'"
     elsif RUBY_VERSION < "2.4"
       gsub_file "Gemfile", /.*capybara.*/, "gem 'capybara', '~> 3.15.0'"
+    elsif RUBY_VERSION < "2.5"
+      gsub_file "Gemfile", /.*capybara.*/, "gem 'capybara', '~> 3.32.0'"
     end
     if Rails::VERSION::STRING >= "5.2.0"
       gsub_file "Gemfile", /.*chromedriver-helper.*/, "gem 'webdrivers', '< 4.0.0'"
