@@ -32,7 +32,7 @@ To specify outcomes, you can use:
     ```ruby
     expect(response).to have_http_status(:created)
     ```
-  - [`be_a_new`](#)
+  - [`be_a_new`](matchers/be-a-new-matcher)
 
     ```ruby
     expect(assigns(:widget)).to be_a_new(Widget)
