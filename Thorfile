@@ -5,7 +5,7 @@ class Version < Thor
   def use(version)
     remove_file "Gemfile.lock"
     run "echo '#{version}' > ./.rails-version"
-    run "bundle install --binstubs"
+    run "bundle install --verbose --binstubs"
   end
 
   desc "which", "print out the configured rails version"
