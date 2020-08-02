@@ -8,7 +8,7 @@ version: "{build}"
 # and once for the merge commit that github creates for each mergable PR.
 branches:
   only:
-    - master
+    - main
     - /.*-maintenance$/
 
 # Disable normal Windows builds in favor of our test script.

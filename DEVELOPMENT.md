@@ -51,7 +51,7 @@ The rspec-dev project contains many rake tasks for helping manage
 an RSpec development environment, making it easy to do things like:
 
 * Change branches across all repos
-* Update all repos with the latest code from `master`
+* Update all repos with the latest code from `main`
 * Cut a new release across all repos
 * Push out updated build scripts to all repos
 

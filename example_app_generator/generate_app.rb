@@ -16,7 +16,7 @@ sqlite_initializer = File.join(rspec_rails_repo_path, "example_app_generator/con
 in_root do
   prepend_to_file "Rakefile", "require 'active_support/all'"
 
-  # Remove the existing rails version so we can properly use master or other
+  # Remove the existing rails version so we can properly use main or other
   # edge branches
   gsub_file 'Gemfile', /^.*\bgem 'rails.*$/, ''
   gsub_file "Gemfile", /.*web-console.*/, ''

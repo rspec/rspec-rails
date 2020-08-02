@@ -19,7 +19,7 @@ platforms :jruby do
 end
 
 case RAILS_VERSION
-when /master/
+when /main/
   MAJOR = 6
   MINOR = 0
 when /5-2-stable/
