@@ -10,6 +10,14 @@ module RSpecRails
         ActiveSupport::TaggedLogging.new ActiveSupport::Logger.new(StringIO.new)
     end
   end
+
+  def self.world
+    @world
+  end
+
+  def self.world=(world)
+    @world = world
+  end
 end
 
 I18n.enforce_available_locales = true
