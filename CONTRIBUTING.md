@@ -49,7 +49,7 @@ immediately. These are good ones to tackle to help us actively fix bugs.
 
 Maintenance branches are how we manage the different supported point releases
 of RSpec. As such, while they might look like good candidates to merge into
-master, please do not open pull requests to merge them.
+main, please do not open pull requests to merge them.
 
 ## How do the cukes work?
 

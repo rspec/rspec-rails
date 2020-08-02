@@ -28,7 +28,7 @@ end
 
 Cucumber::Rake::Task.new(:cucumber) do |t|
   version = ENV.fetch("RAILS_VERSION", "~> 6.0.0")[/\d[\.-]\d/].tr('-', '.')
-  if version == "master" || version.nil?
+  if version == "main" || version.nil?
     version = Float::INFINITY
   end
   tags = []

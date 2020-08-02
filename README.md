@@ -11,7 +11,7 @@ expressed in plain English.
 Use **[`rspec-rails` 3.x][]** for Rails earlier than 5.0.
 Use **[`rspec-rails` 1.x][]** for Rails 2.x.
 
-[Build Status]: https://secure.travis-ci.org/rspec/rspec-rails.svg?branch=master
+[Build Status]: https://secure.travis-ci.org/rspec/rspec-rails.svg?branch=main
 [travis-ci]: https://travis-ci.org/rspec/rspec-rails
 [Code Climate]: https://codeclimate.com/github/rspec/rspec-rails.svg
 [code-climate]: https://codeclimate.com/github/rspec/rspec-rails
@@ -36,11 +36,11 @@ See the `4-0-maintenance` branch on Github if you want or require the latest sta
      gem 'rspec-rails', '~> 4.0.1'
    end
 
-   # Or, run against the master branch
-   # (requires master-branch versions of all related RSpec libraries)
+   # Or, run against the main branch
+   # (requires main-branch versions of all related RSpec libraries)
    group :development, :test do
      %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
-       gem lib, git: "https://github.com/rspec/#{lib}.git", branch: 'master'
+       gem lib, git: "https://github.com/rspec/#{lib}.git", branch: 'main'
      end
    end
    ```
