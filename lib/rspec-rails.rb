@@ -1,3 +1,5 @@
+warn "This branch is deprecated. Please use `main`."
+
 require 'rspec/rails/feature_check'
 
 # Namespace for all core RSpec projects.
