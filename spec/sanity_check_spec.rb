@@ -45,8 +45,10 @@ RSpec.describe "Verify required rspec dependencies" do
     end
     FileUtils.chmod 0777, script
 
+    output = `bundle exec #{script} 2>&1`.split("\n").reject { |line| line =~ /This branch is deprecated/ }.compact
+
     with_clean_env do
-      expect(`bundle exec #{script} 2>&1`).to be_empty
+      expect(output).to eq []
       expect($?.exitstatus).to eq(0)
     end
   end
