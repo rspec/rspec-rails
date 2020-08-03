@@ -17,6 +17,7 @@ module RSpec
 
         def self.included(klass)
           klass.extend(Macros)
+          klass.include(RSpec::Rails::FeatureCheck)
         end
 
         shared_examples_for 'a model generator with fixtures' do |name, class_name|

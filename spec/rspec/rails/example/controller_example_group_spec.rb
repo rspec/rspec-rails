@@ -31,18 +31,16 @@ module RSpec::Rails
         # before #738 implicit subject definition for controllers caused
         # external methods to take precedence over our let definitions
 
-        with_isolated_config do |config|
-          mod = Module.new do
-            def my_helper
-              "other_value"
-            end
+        mod = Module.new do
+          def my_helper
+            "other_value"
           end
-          config.include mod
-          group.class_exec do
-            let(:my_helper) { "my_value" }
-          end
-          expect(group.new.my_helper).to eq "my_value"
         end
+        config.include mod
+        group.class_exec do
+          let(:my_helper) { "my_value" }
+        end
+        expect(group.new.my_helper).to eq "my_value"
       end
     end
 
@@ -109,10 +107,8 @@ module RSpec::Rails
 
       context "when infer_base_class_for_anonymous_controllers is true" do
         around(:example) do |ex|
-          with_isolated_config do |config|
-            config.infer_base_class_for_anonymous_controllers = true
-            ex.run
-          end
+          RSpec.configuration.infer_base_class_for_anonymous_controllers = true
+          ex.run
         end
 
         it "infers the anonymous controller class" do
@@ -129,10 +125,8 @@ module RSpec::Rails
 
       context "when infer_base_class_for_anonymous_controllers is false" do
         around(:example) do |ex|
-          with_isolated_config do |config|
-            config.infer_base_class_for_anonymous_controllers = false
-            ex.run
-          end
+          RSpec.configuration.infer_base_class_for_anonymous_controllers = false
+          ex.run
         end
 
         it "sets the anonymous controller class to ApplicationController" do
