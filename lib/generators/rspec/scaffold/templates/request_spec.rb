@@ -14,13 +14,12 @@
 
 <% module_namespacing do -%>
 RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %> do
-  # <%= class_name %>. As you add validations to <%= class_name %>, be sure to
-  # adjust the attributes here as well.
   <% if mountable_engine? -%>
     include Engine.routes.url_helpers
-
   <% end -%>
 
+  # <%= class_name %>. As you add validations to <%= class_name %>, be sure to
+  # adjust the attributes here as well.
   let(:valid_attributes) {
     skip("Add a hash of attributes valid for your model")
   }
