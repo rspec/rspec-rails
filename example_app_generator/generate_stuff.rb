@@ -84,8 +84,12 @@ setup_tasks
 generate('rspec:install')
 generate('controller wombats index') # plural
 generate('controller welcome index') # singular
-generate('rspec:request wombats')
-generate('integration_test widgets')
+# Generate controllers so that Rails generates routes
+generate('controller logins index --no-request_specs --no-view_specs --no-helper_specs')
+generate('controller signups index --no-request_specs --no-view_specs --no-helper_specs')
+# The generated specs from IntegrationGenerator rely on index routes being present
+generate('rspec:request logins')
+generate('integration_test signups')
 generate('mailer Notifications signup')
 
 generate('model thing name:string')
