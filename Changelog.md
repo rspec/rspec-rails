@@ -5,6 +5,8 @@ Enhancements:
 
 * Issue a warning when using job matchers with `#at` mis-match on `usec` precision.
   (Jon Rowe, #2350)
+* Generate request specs with consistent file naming, without `request_spec` suffix.
+  (Eloy Espinaco, #2355)
 
 Bug Fixes:
 
