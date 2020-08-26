@@ -39,6 +39,15 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
       it { is_expected.to contain('renders a JSON response with the post') }
       it { is_expected.to contain('renders a JSON response with errors for the post') }
     end
+
+    describe 'in an engine' do
+      before do
+        allow_any_instance_of(::Rails::Generators::NamedBase).to receive(:mountable_engine?).and_return(true)
+        run_generator %w[posts --request_specs]
+      end
+
+      it { is_expected.to contain('Engine.routes.url_helpers') }
+    end
   end
 
   describe 'standard controller spec' do
