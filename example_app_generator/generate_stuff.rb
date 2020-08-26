@@ -85,7 +85,10 @@ setup_tasks
 generate('rspec:install')
 generate('controller wombats index') # plural
 generate('controller welcome index') # singular
-generate('rspec:request wombats')
+
+# request specs are now the default
+generate('rspec:controller wombats --no-request-specs --controller-specs --no-view-specs')
+
 generate('integration_test widgets')
 generate('mailer Notifications signup')
 
