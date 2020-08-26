@@ -6,7 +6,7 @@ Enhancements:
 * Issue a warning when using job matchers with `#at` mis-match on `usec` precision.
   (Jon Rowe, #2350)
 * Generated request specs now have a bare `_spec` suffix instead of `request_spec`.
-  (Eloy Espinaco, Luka Lüdicke, #2355, #2356)
+  (Eloy Espinaco, Luka Lüdicke, #2355, #2356, #2378)
 
 Bug Fixes:
 
