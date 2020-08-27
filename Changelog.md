@@ -7,6 +7,8 @@ Enhancements:
   (Jon Rowe, #2350)
 * Generated request specs now have a bare `_spec` suffix instead of `request_spec`.
   (Eloy Espinaco, Luka Lüdicke, #2355, #2356, #2378)
+* Generated scaffold now includes engine route helpers when inside a mountable engine.
+  (Andrew W. Lee, #2372)
 
 Bug Fixes:
 
