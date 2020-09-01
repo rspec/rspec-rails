@@ -14,61 +14,30 @@ group :documentation do
   gem 'relish', '~> 0.7.1'
 end
 
-platforms :jruby do
-  gem "jruby-openssl"
-end
-
-case RAILS_VERSION
-when /main/
-  MAJOR = 6
-  MINOR = 0
-when /5-2-stable/
-  MAJOR = 5
-  MINOR = 2
-when /stable/
-  MAJOR = 6
-  MINOR = 0
-when nil, false, ""
-  MAJOR = 6
-  MINOR = 0
-else
-  match = /(\d+)(\.|-)(\d+)/.match(RAILS_VERSION)
-  MAJOR, MINOR = match.captures.map(&:to_i).compact
-end
-
-if MAJOR >= 6
-  gem 'selenium-webdriver', '~> 3.5', require: false
-  gem 'sqlite3', '~> 1.4', platforms: [:ruby]
-else
-  gem 'sqlite3', '~> 1.3.6', platforms: [:ruby]
-end
-
-gem 'ffi', '~> 1.9.25'
-
 gem 'rake', '~> 12'
-
-gem 'mime-types', "~> 3"
-
-if RUBY_VERSION.to_f < 2.3
-  gem 'capybara', '~> 3.1.0'
-elsif RUBY_VERSION.to_f < 2.4
-  gem 'capybara', '< 3.16'
-elsif RUBY_VERSION.to_f < 2.5
-  gem 'capybara', '< 3.33'
-else
-  gem 'capybara', '>= 2.13', '< 4.0', require: false
-end
-
-if MAJOR < 6
-  gem 'nokogiri', '1.9.1'
-else
-  gem 'nokogiri', '>= 1.10.8'
-end
-
-gem "rubyzip", '~> 1.2'
 
 if RUBY_VERSION.to_f >= 2.3
   gem 'rubocop', '~> 0.80.1'
+end
+
+gem 'capybara'
+
+MAJOR =
+  case RAILS_VERSION
+  when /5-2-stable/
+    5
+  when /main/, /stable/, nil, false, ''
+    6
+  else
+    /(\d+)[\.|-]\d+/.match(RAILS_VERSION).captures.first.to_i
+  end
+
+if MAJOR >= 6
+  # sqlite3 is an optional, unspecified, dependency and Rails 6.0 only supports `~> 1.4`
+  gem 'sqlite3', '~> 1.4', platforms: [:ruby]
+else
+  # Similarly, Rails 5.0 only supports '~> 1.3.6'. Rails 5.1-5.2 support '~> 1.3', '>= 1.3.6'
+  gem 'sqlite3', '~> 1.3.6', platforms: [:ruby]
 end
 
 custom_gemfile = File.expand_path('Gemfile-custom', __dir__)
