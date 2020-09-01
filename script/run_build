@@ -20,6 +20,7 @@ fi
 
 fold "cukes" run_cukes
 
+# Yard on JRuby fails with a strange message, skip
 if documentation_enforced; then
   fold "doc check" check_documentation_coverage
 fi
