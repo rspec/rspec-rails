@@ -14,9 +14,7 @@ when /master/
   gem 'i18n', :git => 'https://github.com/svenfuchs/i18n.git', :branch => 'master'
   gem 'sprockets', :git => 'https://github.com/rails/sprockets.git', :branch => 'master'
   gem 'sprockets-rails', :git => 'https://github.com/rails/sprockets-rails.git', :branch => 'master'
-  if RUBY_VERSION  >= "2.2"
-    gem 'puma', :git => 'https://github.com/puma/puma', :branch => 'master'
-  end
+  gem 'puma', :git => 'https://github.com/puma/puma', :branch => 'master'
 when /stable$/
   gem_list = %w[rails railties actionmailer actionpack activerecord activesupport]
   gem_list << 'activejob'  if version > '4-1-stable'
@@ -30,15 +28,7 @@ when /stable$/
 
   gem "sprockets", '~> 3.0' if RUBY_VERSION < '2.5' && version >= '4-0-stable'
 when nil, false, ""
-  if RUBY_VERSION < '1.9.3'
-    # Rails 4+ requires 1.9.3+, so on earlier versions default to the last 3.x release.
-    gem "rails", "~> 3.2.17"
-  elsif RUBY_VERSION < '2.2.0'
-    # Rails 5+ requires 2.2+, so on earlier versions default to the last 4.x release.
-    gem "rails", "~> 4.2.0"
-  else
-    gem "rails", "~> 5.0.0"
-  end
+  gem "rails"
 else
   gem "rails", version
 
@@ -48,43 +38,7 @@ else
     gem "puma"
   end
 
-  gem "sprockets", '~> 3.0' if RUBY_VERSION < '2.5' && major_minor_version >= 4.0
+  gem "sprockets"
 
-  if major_minor_version >= 6.0
-    gem "activerecord-jdbcsqlite3-adapter", "~> 60.0.rc1", :platforms => [:jruby]
-  else
-    gem 'activerecord-jdbcsqlite3-adapter', :platforms => [:jruby]
-  end
+  gem 'activerecord-jdbcsqlite3-adapter', :platforms => [:jruby]
 end
-
-gem "childprocess", '< 2.0.0' if RUBY_VERSION < '2.3'
-
-if RUBY_VERSION < '1.9.3'
-  gem "i18n", '< 0.7.0'
-elsif RUBY_VERSION < '2.3.0'
-  gem "i18n", '< 1.5.2'
-end
-
-gem "nio4r", '< 2.4.0' if RUBY_VERSION < '2.3'
-
-if RUBY_VERSION < '1.9.3'
-  gem "public_suffix", '< 1.4.0'
-elsif RUBY_VERSION < '2.0'
-  gem "public_suffix", '< 2.0.0'
-elsif RUBY_VERSION < '2.1'
-  gem "public_suffix", '< 3.0.0'
-elsif RUBY_VERSION < '2.3'
-  gem "public_suffix", '< 4.0.0'
-end
-
-# rack 2.1.0 introduces a deprecation warning that rails is triggering,
-# but in later versions this warning is removed.
-if RUBY_VERSION < '2.2'
-  gem "rack", '< 2.0.0', '!= 2.1.0'
-elsif RUBY_VERSION < '2.3'
-  gem "rack", '< 2.2.0', '!= 2.1.0'
-end
-
-gem "test-unit" if RUBY_VERSION >= '2.2.0' && version =~ /3[.-]2[.-]/
-
-gem "xpath", '< 3.2.0' if RUBY_VERSION < '2.3'
