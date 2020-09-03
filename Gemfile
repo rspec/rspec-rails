@@ -14,7 +14,7 @@ group :documentation do
   gem 'relish', '~> 0.7.1'
 end
 
-gem 'rake', '~> 12'
+gem 'rake', '> 12'
 
 if RUBY_VERSION.to_f >= 2.3
   gem 'rubocop', '~> 0.80.1'
