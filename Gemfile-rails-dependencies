@@ -14,11 +14,11 @@ when /main/
   gem 'sprockets-rails', :git => 'https://github.com/rails/sprockets-rails.git', :branch => 'master'
   gem 'puma', "3.12.1"
   gem 'activerecord-jdbcsqlite3-adapter', git: 'https://github.com/jruby/activerecord-jdbc-adapter', platforms: [:jruby]
+  gem 'selenium-webdriver', require: false
 when /stable$/
   gem_list = %w[rails railties actionmailer actionpack activerecord activesupport activejob actionview]
   gem 'puma', "3.12.1" if version > '5-0-stable'
   gem 'activerecord-jdbcsqlite3-adapter', git: 'https://github.com/jruby/activerecord-jdbc-adapter', platforms: [:jruby]
-  gem "sprockets", '~> 3.0' if RUBY_VERSION < '2.5'
 
   gem_list.each do |rails_gem|
     gem rails_gem, :git => "https://github.com/rails/rails.git", :branch => version
@@ -27,14 +27,13 @@ when nil, false, ""
   gem "rails", "~> 6.0.0"
   gem "puma"
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
+  gem 'selenium-webdriver', require: false
 else
   gem "rails", version
   gem "sprockets", '~> 3.0' if RUBY_VERSION < '2.5'
   gem "puma" if version >= '5-1-stable'
-
-  if version.gsub(/[^\d\.]/,'').to_f >= 6.0
-    gem "activerecord-jdbcsqlite3-adapter", "~> 60.0.rc1", platforms: [:jruby]
-  else
-    gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
-  end
+  gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
+  gem 'selenium-webdriver', require: false if version >= '5'
 end
+
+gem 'jruby-openssl', platforms: [:jruby]
