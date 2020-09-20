@@ -1,6 +1,9 @@
 inherit_from:
   - .rubocop_todo.yml
 
+require:
+  - rubocop-packaging
+
 AllCops:
   Exclude:
     # Templates are really ERB which Rubocop does not parse
@@ -119,6 +122,9 @@ Lint/EmptyExpression:
   Enabled: false
 
 Lint/ImplicitStringConcatenation:
+  Enabled: false
+
+Lint/MissingSuper:
   Enabled: false
 
 Lint/NestedMethodDefinition:
@@ -280,9 +286,6 @@ Style/IfInsideElse:
   Enabled: false
 
 Style/IfUnlessModifier:
-  Enabled: false
-
-Style/MethodMissingSuper:
   Enabled: false
 
 Style/MissingRespondToMissing:
