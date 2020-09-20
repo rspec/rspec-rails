@@ -1,5 +1,6 @@
 $LOAD_PATH.unshift File.expand_path('lib', __dir__)
 require "rspec/rails/version"
+require "rake/file_list"
 
 Gem::Specification.new do |s|
   s.name        = "rspec-rails"
@@ -21,7 +22,7 @@ Gem::Specification.new do |s|
     'source_code_uri'   => 'https://github.com/rspec/rspec-rails',
   }
 
-  s.files            = `git ls-files -- lib/*`.split("\n")
+  s.files            = Rake::FileList["lib/**/{.*,*}"].exclude(*File.read(".gitignore").split).reject { |f| File.directory?(f) }
   s.files           += %w[README.md LICENSE.md Changelog.md Capybara.md .yardopts .document]
   s.test_files       = []
   s.rdoc_options     = ["--charset=UTF-8"]
