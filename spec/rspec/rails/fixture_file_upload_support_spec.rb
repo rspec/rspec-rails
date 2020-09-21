@@ -25,6 +25,12 @@ module RSpec::Rails
       end
     end
 
+    context 'ActionDispatch::TestProcess on Rails 6.1' do
+      it 'can read the file_fixture_path attribute' do
+          expect(FixtureFileUploadSupport::RailsFixtureFileWrapper).to respond_to(:file_fixture_path)
+      end
+    end
+
     def fixture_file_upload_resolved(fixture_name, fixture_path = nil)
       RSpec::Core::ExampleGroup.describe do
         include RSpec::Rails::FixtureFileUploadSupport
