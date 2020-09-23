@@ -22,21 +22,11 @@ module RSpec
         include ActionDispatch::TestProcess if defined?(ActionDispatch::TestProcess)
 
         class << self
-          attr_reader :fixture_path
+          attr_accessor :fixture_path
 
           # Get instance of wrapper
           def instance
             @instance ||= new
-          end
-
-          # Override fixture_path set
-          # to support Rails 3.0->3.1 using ActionController::TestCase class to resolve fixture_path
-          # see https://apidock.com/rails/v3.0.0/ActionDispatch/TestProcess/fixture_file_upload
-          def fixture_path=(value)
-            if ActionController::TestCase.respond_to?(:fixture_path)
-              ActionController::TestCase.fixture_path = value
-            end
-            @fixture_path = value
           end
         end
       end
