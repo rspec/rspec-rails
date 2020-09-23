@@ -23,6 +23,7 @@ module RSpec
 
         class << self
           attr_accessor :fixture_path
+          attr_reader :file_fixture_path
 
           # Get instance of wrapper
           def instance

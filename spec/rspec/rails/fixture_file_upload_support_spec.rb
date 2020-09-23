@@ -27,7 +27,7 @@ module RSpec::Rails
 
     context 'ActionDispatch::TestProcess on Rails 6.1' do
       it 'can read the file_fixture_path attribute' do
-          expect(FixtureFileUploadSupport::RailsFixtureFileWrapper).to respond_to(:file_fixture_path)
+        expect(FixtureFileUploadSupport::RailsFixtureFileWrapper).to respond_to(:file_fixture_path)
       end
     end
 
