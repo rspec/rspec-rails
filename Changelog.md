@@ -16,6 +16,8 @@ Bug Fixes:
 * Generated request spec for update now uses the correct let. (Paul Hanyzewski, #2344)
 * Return `true`/`false` from predicate methods in config rather than raw values.
   (Phil Pirozhkov, Jon Rowe, #2353, #2354)
+* Remove old #fixture_path feature detection code which broke under newer Rails.
+  (Koen Punt, Jon Rowe, #2370)
 
 ### 4.0.1 / 2020-05-16
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.0...v4.0.1)
