@@ -21,23 +21,18 @@ in_root do
   gsub_file 'Gemfile', /^.*\bgem 'rails.*$/, ''
   gsub_file "Gemfile", /.*web-console.*/, ''
   gsub_file "Gemfile", /.*debugger.*/, ''
-  gsub_file "Gemfile", /.*byebug.*/, "gem 'byebug', '~> 9.0.6'"
   gsub_file "Gemfile", /.*puma.*/, ""
-  gsub_file "Gemfile", /.*sqlite3.*/, "gem 'sqlite3', '~> 1.3.6'"
-  if RUBY_VERSION < '2.2.2'
-    gsub_file "Gemfile", /.*rdoc.*/, "gem 'rdoc', '< 6'"
-  end
+  gsub_file "Gemfile", /.*sqlite3.*/, ""
 
   if Rails::VERSION::STRING >= '5.0.0'
     append_to_file('Gemfile', "gem 'rails-controller-testing', :git => 'https://github.com/rails/rails-controller-testing'\n")
   end
 
   if Rails::VERSION::STRING >= "5.1.0"
-    if Rails::VERSION::STRING >= "5.2.0" && RUBY_VERSION < '2.3.0'
-      gsub_file "Gemfile", /.*chromedriver-helper.*/, "gem 'webdrivers', '< 4.0.0'"
-    else
-      gsub_file "Gemfile", /.*chromedriver-helper.*/, "gem 'webdrivers'"
-    end
+    # webdrivers 4 up until 4.3.0 don't specify `required_ruby_version`, but contain
+    # Ruby 2.2-incompatible syntax (safe navigation).
+    # That basically means we use pre-4.0 for Ruby 2.2, and 4.3+ for newer Rubies.
+    gsub_file "Gemfile", /.*chromedriver-helper.*/, "gem 'webdrivers', '!= 4.0.0', '!= 4.0.1', '!= 4.1.0', '!= 4.1.1', '!= 4.1.2', '!= 4.1.3', '!= 4.2.0'"
   end
 
   if Rails::VERSION::STRING >= '5.2.0' && Rails::VERSION::STRING < '6'
@@ -50,22 +45,6 @@ in_root do
 
   # Use our version of RSpec and Rails
   append_to_file 'Gemfile', <<-EOT.gsub(/^ +\|/, '')
-    |# Rack::Cache 1.3.0 requires Ruby >= 2.0.0
-    |gem 'rack-cache', '< 1.3.0' if RUBY_VERSION < '2.0.0'
-    |
-    |if RUBY_VERSION >= '2.0.0'
-    |  gem 'rake', '>= 10.0.0'
-    |elsif RUBY_VERSION >= '1.9.3'
-    |  gem 'rake', '< 12.0.0' # rake 12 requires Ruby 2.0.0 or later
-    |else
-    |  gem 'rake', '< 11.0.0' # rake 11 requires Ruby 1.9.3 or later
-    |end
-    |
-    |# Version 3 of mime-types 3 requires Ruby 2.0
-    |if RUBY_VERSION < '2.0.0'
-    |  gem 'mime-types', '< 3'
-    |end
-    |
     |gem 'rspec-rails',
     |    :path => '#{rspec_rails_repo_path}',
     |    :groups => [:development, :test]
