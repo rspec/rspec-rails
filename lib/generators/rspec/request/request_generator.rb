@@ -6,8 +6,6 @@ module Rspec
     class RequestGenerator < Base
       class_option :request_specs, type: :boolean, default: true, desc: 'Generate request specs'
 
-      source_paths << File.expand_path('../integration/templates', __dir__)
-
       def generate_request_spec
         return unless options[:request_specs]
 
