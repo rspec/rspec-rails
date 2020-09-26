@@ -199,8 +199,6 @@ module RSpec::Rails
           expect(controller_class.name).to eq "AnonymousController"
         end
       end
-
-      pending "sets up resourceful routes on the example"
     end
   end
 end
