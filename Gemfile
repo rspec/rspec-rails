@@ -16,7 +16,7 @@ end
 
 gem 'rake', '> 12'
 
-if RUBY_VERSION.to_f >= 2.4
+if RUBY_VERSION.to_f >= 2.4 && RUBY_ENGINE == 'ruby'
   gem 'rubocop', '~> 0.91.0'
   gem 'rubocop-packaging', '~> 0.5'
 end
