@@ -32,6 +32,11 @@ in_root do
 
   if Rails::VERSION::STRING >= '6'
     gsub_file "Gemfile", /.*rails-controller-testing.*/, "gem 'rails-controller-testing', git: 'https://github.com/rails/rails-controller-testing'"
+
+    # TODO: To remove when Rails released with https://github.com/rails/rails/pull/40281
+    append_to_file 'Gemfile', <<-EOT.gsub(/^ +\|/, '')
+      |gem 'rexml'
+    EOT
   end
 
   if Rails::VERSION::STRING >= '6'
