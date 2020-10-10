@@ -26,7 +26,7 @@ MAJOR =
   case RAILS_VERSION
   when /5-2-stable/
     5
-  when /main/, /stable/, nil, false, ''
+  when /stable/, nil, false, ''
     6
   else
     /(\d+)[\.|-]\d+/.match(RAILS_VERSION).captures.first.to_i
