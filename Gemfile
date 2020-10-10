@@ -27,14 +27,14 @@ if RUBY_VERSION >= '1.9.3'
   end
 end
 
+# Nokogiri is required by Capybara, but we require Capybara only on Ruby 1.9.3+,
+# so we need to explicitly specify Nokogiri dependency on Ruby 1.9.2 to run cukes
+gem 'nokogiri' if RUBY_VERSION == '1.9.2'
+
 # Minitest version 5.12.0 rely on Ruby 2.4 features and doesn't specify a Ruby version constraint
 gem 'minitest', '!= 5.12.0'
 
-gem 'mime-types'
-gem 'nokogiri'
 gem 'rake'
-gem 'rack-cache'
-gem 'rubyzip'
 
 if RUBY_VERSION >= '2.0.0' && RUBY_VERSION < '2.2.0'
   # our current rubocop version doesn't support the json version required by Ruby 2.4
