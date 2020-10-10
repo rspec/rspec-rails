@@ -35,5 +35,3 @@ else
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
   gem 'selenium-webdriver', require: false if version >= '5'
 end
-
-gem 'jruby-openssl', platforms: [:jruby]
