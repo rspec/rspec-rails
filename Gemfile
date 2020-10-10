@@ -18,42 +18,6 @@ group :documentation do
   end
 end
 
-platforms :jruby do
-  gem "jruby-openssl"
-end
-
-gem 'sqlite3', '~> 1.3.6'
-
-if RUBY_VERSION >= '2.4.0'
-  gem 'json', '>= 2.0.2'
-end
-
-if RUBY_VERSION < '1.9'
-  gem 'ffi', '< 1.9.19' # ffi dropped Ruby 1.8 support in 1.9.19
-elsif RUBY_VERSION < '2.0'
-  gem 'ffi', '< 1.11.0' # ffi dropped Ruby 2.0 support in 1.11.0
-elsif RUBY_VERSION < '2.3'
-  gem 'ffi', '< 1.13.0'
-end
-
-if RUBY_VERSION >= '2.0.0'
-  gem 'rake', '>= 10.0.0'
-elsif RUBY_VERSION >= '1.9.3'
-  gem 'rake', '< 12.0.0' # rake 12 requires Ruby 2.0.0 or later
-else
-  gem 'rake', '< 11.0.0' # rake 11 requires Ruby 1.9.3 or later
-end
-
-# Version 3 of mime-types 3 requires Ruby 2.0
-if RUBY_VERSION < '2.0.0'
-  gem 'mime-types', '< 3'
-end
-
-# Version 5.12 of minitest requires Ruby 2.4
-if RUBY_VERSION < '2.4.0'
-  gem 'minitest', '< 5.12.0'
-end
-
 # Capybara versions that support RSpec 3 only support RUBY_VERSION >= 1.9.3
 if RUBY_VERSION >= '1.9.3'
   if /5(\.|-)[1-9]\d*/ === RAILS_VERSION || "master" == RAILS_VERSION
@@ -63,28 +27,14 @@ if RUBY_VERSION >= '1.9.3'
   end
 end
 
-# Rack::Cache 1.3.0 requires Ruby >= 2.0.0
-gem 'rack-cache', '< 1.3.0' if RUBY_VERSION < '2.0.0'
+# Nokogiri is required by Capybara, but we require Capybara only on Ruby 1.9.3+,
+# so we need to explicitly specify Nokogiri dependency on Ruby 1.9.2 to run cukes
+gem 'nokogiri' if RUBY_VERSION == '1.9.2'
 
-if RUBY_VERSION < '1.9.2'
-  gem 'nokogiri', '~> 1.5.0'
-elsif RUBY_VERSION < '1.9.3'
-  gem 'nokogiri', '1.5.2'
-elsif RUBY_VERSION < '2.1.0'
-  gem 'nokogiri', '1.6.8.1'
-elsif RUBY_VERSION < '2.3.0'
-  gem 'nokogiri', '1.8.5'
-else
-  gem 'nokogiri', '~> 1.10'
-end
+# Minitest version 5.12.0 rely on Ruby 2.4 features and doesn't specify a Ruby version constraint
+gem 'minitest', '!= 5.12.0'
 
-if RUBY_VERSION <= '1.8.7'
-  # cucumber and gherkin require rubyzip as a runtime dependency on 1.8.7
-  # Only < 1.0 supports 1.8.7
-  gem 'rubyzip', '< 1.0'
-elsif RUBY_VERSION < '2.4'
-  gem 'rubyzip', '>= 1.2.2', '< 2.0.0'
-end
+gem 'rake'
 
 if RUBY_VERSION >= '2.0.0' && RUBY_VERSION < '2.2.0'
   # our current rubocop version doesn't support the json version required by Ruby 2.4
