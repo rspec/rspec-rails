@@ -1,3 +1,8 @@
+### Rails 6.1 Development
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/main...rails-6-1-dev)
+
+* Support new #file_fixture_path and new fixture test support code. (Jon Rowe, #2398)
+
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.1...main)
 
