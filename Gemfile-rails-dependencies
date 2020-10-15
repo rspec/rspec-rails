@@ -1,7 +1,7 @@
 version_file = File.expand_path("../.rails-version", __FILE__)
 
 case version = ENV['RAILS_VERSION'] || (File.exist?(version_file) && File.read(version_file).chomp) || ''
-when /main/
+when /master/
   gem "rails", :git => "https://github.com/rails/rails.git"
   gem "arel", :git => "https://github.com/rails/arel.git"
   gem "journey", :git => "https://github.com/rails/journey.git"
