@@ -89,7 +89,7 @@ generate('controller welcome index') # singular
 # request specs are now the default
 generate('rspec:controller wombats --no-request-specs --controller-specs --no-view-specs')
 
-generate('integration_test widgets')
+generate('integration_test widgets') # deprecated
 generate('mailer Notifications signup')
 
 generate('model thing name:string')
