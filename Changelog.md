@@ -6,6 +6,12 @@ Breaking Changes:
 * Change the order of `after_teardown` from `after` to `around` in system
   specs to improve compatibility with extensions and Capybara. (Tim Diggins, #2596)
 
+Deprecations:
+
+* Deprecates integration spec generator (`rspec:integration`)
+  which was an alias of request spec generator (`rspec:request`)
+  (Luka Lüdicke, #2374)
+
 ### 6.0.0.rc1
 
 Enhancements:
