@@ -1,7 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe "<%= class_name.pluralize %>", <%= type_metatag(:request) %> do
-<% namespaced_path = regular_class_path.join('/') %>
+<% namespaced_path = regular_class_path.join('/') -%>
+<% if actions.empty? -%>
+  describe "GET /index" do
+    it "returns http success" do
+      pending "add some scenarios (or delete) #{__FILE__}"
+    end
+  end
+<% end -%>
 <% for action in actions -%>
   describe "GET /<%= action %>" do
     it "returns http success" do

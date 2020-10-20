@@ -14,7 +14,6 @@ module Rspec
 
       def generate_request_spec
         return unless options[:request_specs]
-
         template 'request_spec.rb',
                  File.join('spec/requests', class_path, "#{file_name}_spec.rb")
       end
