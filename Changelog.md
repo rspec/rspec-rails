@@ -14,6 +14,8 @@ Enhancements:
   (Eloy Espinaco, Luka Lüdicke, #2355, #2356, #2378)
 * Generated scaffold now includes engine route helpers when inside a mountable engine.
   (Andrew W. Lee, #2372)
+* Improve request spec "controller" scafold when no action is specified.
+  (Thomas Hareau, #2399)
 
 Bug Fixes:
 
