@@ -58,3 +58,4 @@ branches:
   only:
     - master
     - /^\d+-\d+-maintenance$/
+    - /^\d+-\d+-dev$/
