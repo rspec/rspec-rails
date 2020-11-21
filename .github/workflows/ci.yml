@@ -81,16 +81,13 @@ jobs:
          - ruby: 2.2.10
            env:
              RAILS_VERSION: '~> 5.0.0'
+    env: ${{ matrix.env }}
+    continue-on-error: ${{ matrix.allow_failure || false }}
     steps:
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
-          bundler-cache: false
-      - run: script/update_rubygems_and_install_bundler
-        env: ${{ matrix.env }}
       - run: script/clone_all_rspec_repos
-        env: ${{ matrix.env }}
-      - run: bundle install --binstubs && script/run_build
-        env: ${{ matrix.env }}
-        continue-on-error: ${{ matrix.allow_failure || false }}
+      - run: bundle binstubs rspec rspec-core rake cucumber rails
+      - run: script/run_build
