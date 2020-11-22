@@ -89,5 +89,5 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
       - run: script/clone_all_rspec_repos
-      - run: bundle binstubs rspec rspec-core rake cucumber rails
+      - run: bundle install --binstubs
       - run: script/run_build
