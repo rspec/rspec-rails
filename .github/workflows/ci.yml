@@ -82,7 +82,6 @@ jobs:
            env:
              RAILS_VERSION: '~> 5.0.0'
     env: ${{ matrix.env }}
-    continue-on-error: ${{ matrix.allow_failure || false }}
     steps:
       - uses: actions/checkout@v2
       - uses: ruby/setup-ruby@v1
@@ -91,3 +90,4 @@ jobs:
       - run: script/clone_all_rspec_repos
       - run: bundle install --binstubs
       - run: script/run_build
+        continue-on-error: ${{ matrix.allow_failure || false }}
