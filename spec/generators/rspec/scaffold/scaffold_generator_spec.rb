@@ -1,8 +1,10 @@
 # Generators are not automatically loaded by Rails
 require 'generators/rspec/scaffold/scaffold_generator'
 require 'support/generators'
+require 'rspec/support/spec/in_sub_process'
 
 RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
+  include RSpec::Support::InSubProcess
   setup_default_destination
 
   describe 'standard request specs' do
@@ -41,12 +43,13 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
     end
 
     describe 'in an engine' do
-      before do
-        allow_any_instance_of(::Rails::Generators::NamedBase).to receive(:mountable_engine?).and_return(true)
-        run_generator %w[posts --request_specs]
+      it 'generates files with Engine url_helpers' do
+        in_sub_process do
+          allow_any_instance_of(::Rails::Generators::NamedBase).to receive(:mountable_engine?).and_return(true)
+          run_generator %w[posts --request_specs]
+          is_expected.to contain('Engine.routes.url_helpers')
+        end
       end
-
-      it { is_expected.to contain('Engine.routes.url_helpers') }
     end
   end
 
