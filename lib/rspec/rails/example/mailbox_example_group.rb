@@ -13,7 +13,7 @@ module RSpec
         def self.create_inbound_email(arg)
           case arg
           when Hash
-            create_inbound_email_from_mail(arg)
+            create_inbound_email_from_mail(**arg)
           else
             create_inbound_email_from_source(arg.to_s)
           end
