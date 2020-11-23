@@ -16,7 +16,7 @@ Feature: have_broadcasted matcher
         it "matches with stream name" do
           expect {
             ActionCable.server.broadcast(
-              "notifications", text: 'Hello!'
+              "notifications", { text: "Hello!" }
             )
           }.to have_broadcasted_to("notifications")
         end
@@ -34,7 +34,7 @@ Feature: have_broadcasted matcher
         it "matches with message" do
           expect {
             ActionCable.server.broadcast(
-              "notifications", text: 'Hello!'
+              "notifications", { text: "Hello!" }
             )
           }.to have_broadcasted_to("notifications").with(text: 'Hello!')
         end
@@ -52,7 +52,7 @@ Feature: have_broadcasted matcher
         it "matches with message" do
           expect {
             ActionCable.server.broadcast(
-              "notifications", text: 'Hello!', user_id: 12
+              "notifications", { text: 'Hello!', user_id: 12 }
             )
           }.to have_broadcasted_to("notifications").with(a_hash_including(text: 'Hello!'))
         end
@@ -70,7 +70,7 @@ Feature: have_broadcasted matcher
         it "matches with message" do
           expect {
             ActionCable.server.broadcast(
-              "notifications", text: 'Hello!', user_id: 12
+              "notifications", { text: 'Hello!', user_id: 12 }
             )
           }.to have_broadcasted_to("notifications").with { |data|
             expect(data['user_id']).to eq 12
@@ -90,7 +90,7 @@ Feature: have_broadcasted matcher
         it "matches with stream name" do
           expect {
             ActionCable.server.broadcast(
-              "notifications", text: 'Hello!'
+              "notifications", { text: 'Hello!' }
             )
           }.to broadcast_to("notifications")
         end

@@ -1,8 +1,10 @@
 # Generators are not automatically loaded by Rails
 require 'generators/rspec/scaffold/scaffold_generator'
 require 'support/generators'
+require 'rspec/support/spec/in_sub_process'
 
 RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
+  include RSpec::Support::InSubProcess
   setup_default_destination
 
   describe 'standard request specs' do
