@@ -87,6 +87,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
       - run: script/clone_all_rspec_repos
       - run: bundle install --binstubs
       - run: script/run_build
