@@ -18,18 +18,17 @@ jobs:
        include:
          # Rails 6.1 builds >= 2.5
          - ruby: ruby-3.0.0-preview1
-           allow_failure: true
            env:
-             RAILS_VERSION: 'master'
+             RAILS_VERSION: '6.1.0.rc2'
          - ruby: 2.7.1
            env:
-             RAILS_VERSION: 'master'
+             RAILS_VERSION: '6.1.0.rc2'
          - ruby: 2.6.6
            env:
-             RAILS_VERSION: 'master'
+             RAILS_VERSION: '6.1.0.rc2'
          - ruby: 2.5.8
            env:
-             RAILS_VERSION: 'master'
+             RAILS_VERSION: '6.1.0.rc2'
 
          # Rails 6.0 builds >= 2.5.0
          - ruby: 3.0.0-preview1
