@@ -18,15 +18,19 @@ jobs:
        include:
          # Rails Master builds >= 2.5
          - ruby: ruby-3.0.0-preview1
+           allow_failure: true
            env:
              RAILS_VERSION: 'master'
          - ruby: 2.7.1
+           allow_failure: true
            env:
              RAILS_VERSION: 'master'
          - ruby: 2.6.6
+           allow_failure: true
            env:
              RAILS_VERSION: 'master'
          - ruby: 2.5.8
+           allow_failure: true
            env:
              RAILS_VERSION: 'master'
 
