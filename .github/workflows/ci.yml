@@ -16,7 +16,21 @@ jobs:
       fail-fast: false
       matrix:
        include:
-         # Rails 6.1 builds >= 2.5
+         # Rails Master builds >= 2.5
+         - ruby: ruby-3.0.0-preview1
+           env:
+             RAILS_VERSION: 'master'
+         - ruby: 2.7.1
+           env:
+             RAILS_VERSION: 'master'
+         - ruby: 2.6.6
+           env:
+             RAILS_VERSION: 'master'
+         - ruby: 2.5.8
+           env:
+             RAILS_VERSION: 'master'
+
+         # Rails 6.1.0.rc2 builds >= 2.5
          - ruby: ruby-3.0.0-preview1
            env:
              RAILS_VERSION: '6.1.0.rc2'
