@@ -1,3 +1,10 @@
+if !defined?(Gem::Version)
+  require 'rspec/support/comparable_version'
+  module Gem
+    Version = RSpec::Support::ComparableVersion
+  end
+end
+
 require 'rails/all'
 
 module RSpecRails
