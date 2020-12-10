@@ -702,4 +702,16 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       }.to raise_error(/expected to perform exactly 1 jobs, but performed 0/)
     end
   end
+
+  describe 'Active Job test helpers' do
+    include ActiveJob::TestHelper
+
+    it 'does not raise that "assert_nothing_raised" is undefined' do
+      expect {
+        perform_enqueued_jobs do
+          :foo
+        end
+      }.to_not raise_error
+    end
+  end
 end
