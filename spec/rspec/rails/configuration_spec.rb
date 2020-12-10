@@ -297,4 +297,16 @@ RSpec.describe "Configuration" do
   it "has a default #file_fixture_path of 'spec/fixtures/files'" do
     expect(config.file_fixture_path).to eq("spec/fixtures/files")
   end
+
+  if Rails.version.to_f >= 6.0
+    describe 'ActiveSupport::Testing::Assertions requirements' do
+      it 'does not raise that "assert_nothing_raised" is undefined' do
+        expect {
+          assert_nothing_raised do
+            :foo
+          end
+        }.to_not raise_error
+      end
+    end
+  end
 end
