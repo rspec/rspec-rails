@@ -22,11 +22,20 @@ module RSpec
             @inbound_email = create_inbound_email(message)
           end
 
-          def matches?(mailbox)
-            @mailbox  = mailbox
-            @receiver = ApplicationMailbox.router.send(:match_to_mailbox, inbound_email)
+          if defined?(::ApplicationMailbox) && ::ApplicationMailbox.router.respond_to?(:mailbox_for)
+            def matches?(mailbox)
+              @mailbox  = mailbox
+              @receiver = ApplicationMailbox.router.mailbox_for(inbound_email)
 
-            @receiver == @mailbox
+              @receiver == @mailbox
+            end
+          else
+            def matches?(mailbox)
+              @mailbox  = mailbox
+              @receiver = ApplicationMailbox.router.send(:match_to_mailbox, inbound_email)
+
+              @receiver == @mailbox
+            end
           end
 
           def failure_message
@@ -41,7 +50,7 @@ module RSpec
             "expected #{describe_inbound_email} not to route to #{mailbox}"
           end
 
-        private
+          private
 
           attr_reader :inbound_email, :mailbox, :receiver
 

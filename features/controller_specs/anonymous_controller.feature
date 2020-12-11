@@ -101,6 +101,8 @@ Feature: anonymous controller
     When I run `rspec spec`
     Then the examples should all pass
 
+  # Deprecated support removed in https://github.com/rails/rails/commit/d52d7739468153bd6cb7c629f60bd5cd7ebea3eb
+  @rails_pre_6
   Scenario: Specify error handling in `ApplicationController` with render :file
     Given a file named "spec/controllers/application_controller_spec.rb" with:
       """ruby
