@@ -17,7 +17,7 @@ jobs:
       matrix:
        include:
          # Rails 6.0 builds >= 2.5.0
-         - ruby: 3.0.0-preview1
+         - ruby: 3.0.0-preview2
            env:
              RAILS_VERSION: '~> 6.0.0'
          - ruby: 2.7
