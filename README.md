@@ -187,17 +187,17 @@ In addition to [the matchers that come standard in RSpec][],
 here are some extras that make it easier
 to test the various parts of a Rails system:
 
-| RSpec matcher            | Delegates to      | Available in                    | Notes                                                    |
-| ------------------------ | ----------------- | ------------------------------- | -------------------------------------------------------- |
-| [`be_a_new`][]           |                   | all                             | primarily intended for controller specs                  |
-| [`render_template`][]    | `assert_template` | request / controller / view     | use with `expect(response).to`                           |
-| [`redirect_to`][]        | `assert_redirect` | request / controller            | use with `expect(response).to`                           |
-| [`route_to`]             | `assert_routing`  | routing / controller            | use with `expect(...).to route_to`                       |
-| [`be_routable`]          |                   | routing / controller            | use with `expect(...).not_to be_routable`                |
-| [`have_http_status`][]   |                   | request / controller / feature  |                                                          |
-| [`match_array`][]        |                   | all                             | for comparing arrays of ActiveRecord objects             |
-| [`have_been_enqueued`][] |                   | all                             | requires config: `ActiveJob::Base.queue_adapter = :test` |
-| [`have_enqueued_job`][]  |                   | all                             | requires config: `ActiveJob::Base.queue_adapter = :test` |
+| RSpec matcher            | Delegates to        | Available in                    | Notes                                                    |
+| ------------------------ | ------------------- | ------------------------------- | -------------------------------------------------------- |
+| [`be_a_new`][]           |                     | all                             | primarily intended for controller specs                  |
+| [`render_template`][]    | `assert_template`   | request / controller / view     | use with `expect(response).to`                           |
+| [`redirect_to`][]        | `assert_redirect`   | request / controller            | use with `expect(response).to`                           |
+| [`route_to`]             | `assert_recognizes` | routing / controller            | use with `expect(...).to route_to`                       |
+| [`be_routable`]          |                     | routing / controller            | use with `expect(...).not_to be_routable`                |
+| [`have_http_status`][]   |                     | request / controller / feature  |                                                          |
+| [`match_array`][]        |                     | all                             | for comparing arrays of ActiveRecord objects             |
+| [`have_been_enqueued`][] |                     | all                             | requires config: `ActiveJob::Base.queue_adapter = :test` |
+| [`have_enqueued_job`][]  |                     | all                             | requires config: `ActiveJob::Base.queue_adapter = :test` |
 
 Follow the links above for examples of how each matcher is used.
 
