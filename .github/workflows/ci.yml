@@ -36,6 +36,7 @@ jobs:
 
          # Rails 6.1.0 builds >= 2.5
          - ruby: ruby-3.0.0-preview2
+           allow_failure: true
            env:
              RAILS_VERSION: '~> 6.1.0'
          - ruby: 2.7.1
@@ -47,7 +48,6 @@ jobs:
          - ruby: 2.5.8
            env:
              RAILS_VERSION: '~> 6.1.0'
-
          # Rails 6.0 builds >= 2.5.0
          - ruby: 3.0.0-preview2
            env:

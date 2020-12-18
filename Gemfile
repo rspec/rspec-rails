@@ -40,6 +40,9 @@ else
   gem 'sqlite3', '~> 1.3.6', platforms: [:ruby]
 end
 
+# Until 1.13.2 is released due to Rubygems usage
+gem 'ffi', '~> 1.12.0'
+
 custom_gemfile = File.expand_path('Gemfile-custom', __dir__)
 eval_gemfile custom_gemfile if File.exist?(custom_gemfile)
 
