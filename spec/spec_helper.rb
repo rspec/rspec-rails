@@ -55,7 +55,8 @@ RSpec.configure do |config|
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
-  config.disable_monkey_patching!
+  # Zero monkey patching mode is the default and only mode in RSpec 4
+  config.disable_monkey_patching! if config.respond_to?(:disable_monkey_patching!)
 
   config.warnings = true
   config.raise_on_warning = true
