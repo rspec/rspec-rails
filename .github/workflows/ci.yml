@@ -42,7 +42,7 @@ jobs:
              RAILS_VERSION: '~> 6.1.0'
 
          # Rails 6.0 builds >= 2.5.0
-         - ruby: 3.0
+         - ruby: 3.0.0-rc1
            env:
              RAILS_VERSION: '~> 6.0.0'
          - ruby: 2.7
