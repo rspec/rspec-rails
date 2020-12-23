@@ -1,5 +1,5 @@
 <!---
-This file was generated on 2019-12-05T21:32:23+00:00 from the rspec-dev repo.
+This file was generated on 2020-12-23T15:58:33+01:00 from the rspec-dev repo.
 DO NOT modify it by hand as your changes will get lost the next time it is generated.
 -->
 
@@ -108,7 +108,7 @@ Here's a short, non-exhaustive checklist of things we typically ask contributors
 - [ ] New behavior is covered by tests and all tests are passing.
 - [ ] No Ruby warnings are issued by your changes.
 - [ ] Documentation reflects changes and renders as intended.
-- [ ] Rubocop passes (e.g. `bundle exec rubocop`).
+- [ ] Rubocop passes (e.g. `bundle exec rubocop lib`).
 - [ ] Commits are squashed into a reasonable number of logical changesets that tell an easy-to-follow story.
 - [ ] No changelog entry is necessary (we'll add it as part of the merge process!)
 
@@ -130,30 +130,3 @@ $ bin/yard server --reload
 
 Then navigate to `localhost:8808` to view the rendered docs.
 
-### Publishing the documentation
-
-In the other documented rspec gems, we use a rake command in rspec-dev
-to generate documentation for [rspec.info](https://rspec.info/).
-As `rspec-rails` is no longer sync with the other gems in terms of versioning
-since `rspec-rails` 4, if you want to publish updated documentation you will
-need to run the rake task from this repository.
-
-1) First clone the `rspec.github.io` repository into a sibling folder.
-
-> `cd .. && git clone https://github.com/rspec/rspec.github.io && cd rspec.github.io`
-
-2) Check out the [source branch](https://github.com/rspec/rspec.github.io/tree/source)
-
-> `git checkout source`
-
-3) Install the template gem that will be needed as yard plugin: [rspec-docs-template](https://github.com/rspec/rspec.github.io#install-rspec-docs-template-yard-plugin).
-
-> `gem build yard-rspec-docs-template.gemspec`
-
-4) Change back to the `rspec-rails` directory
-
-> `cd ../rspec-rails`
-
-5) Generate the docs for the version you want, ensuring you are on the appropriate (released) commit.
-
-> `bundle exec rake "update_docs[4.0, 4-0-maintenance]`
