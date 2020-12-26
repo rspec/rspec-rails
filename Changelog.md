@@ -1,5 +1,5 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.1...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.2...main)
 
 Enhancements:
 
@@ -14,6 +14,9 @@ Enhancements:
 * Introduce testing snippets concept (Phil Pirozhkov, Benoit Tigeot, #2423)
 * Prevent collisions with `let(:name)` for Rails 6.1 and `let(:method_name)` on older
   Rails. (Benoit Tigeot, #2461)
+
+### 4.0.2 / 2020-12-26
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.1...v4.0.2)
 
 Bug Fixes:
 
