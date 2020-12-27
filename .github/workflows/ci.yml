@@ -17,39 +17,40 @@ jobs:
       matrix:
        include:
          # Rails Master builds >= 2.5
-         - ruby: ruby-3.0.0-preview2
+         - ruby: 3.0
            allow_failure: true
            env:
              RAILS_VERSION: 'master'
-         - ruby: 2.7.1
+         - ruby: 2.7
            allow_failure: true
            env:
              RAILS_VERSION: 'master'
-         - ruby: 2.6.6
+         - ruby: 2.6
            allow_failure: true
            env:
              RAILS_VERSION: 'master'
-         - ruby: 2.5.8
+         - ruby: 2.5
            allow_failure: true
            env:
              RAILS_VERSION: 'master'
 
          # Rails 6.1.0 builds >= 2.5
-         - ruby: ruby-3.0.0-preview2
+         - ruby: 3.0
            allow_failure: true
            env:
              RAILS_VERSION: '~> 6.1.0'
-         - ruby: 2.7.1
+         - ruby: 2.7
            env:
              RAILS_VERSION: '~> 6.1.0'
-         - ruby: 2.6.6
+         - ruby: 2.6
            env:
              RAILS_VERSION: '~> 6.1.0'
-         - ruby: 2.5.8
+         - ruby: 2.5
            env:
              RAILS_VERSION: '~> 6.1.0'
+
          # Rails 6.0 builds >= 2.5.0
-         - ruby: 3.0.0-preview2
+         - ruby: 3.0
            env:
              RAILS_VERSION: '~> 6.0.0'
          - ruby: 2.7
