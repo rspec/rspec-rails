@@ -47,8 +47,7 @@ RSpec.configure do |config|
     mocks.verify_doubled_constant_names = true
   end
 
-  config.filter_run :focus
-  config.run_all_when_everything_filtered = true
+  config.filter_run_when_matching :focus
 
   config.order = :random
   Kernel.srand config.seed
