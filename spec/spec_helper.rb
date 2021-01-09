@@ -52,7 +52,8 @@ RSpec.configure do |config|
   config.order = :random
   Kernel.srand config.seed
 
-  config.shared_context_metadata_behavior = :apply_to_host_groups
+  # shared_context_metadata_behavior is removed in RSpec 4
+  config.shared_context_metadata_behavior = :apply_to_host_groups if config.respond_to?(:shared_context_metadata_behavior=)
 
   # Zero monkey patching mode is the default and only mode in RSpec 4
   config.disable_monkey_patching! if config.respond_to?(:disable_monkey_patching!)
