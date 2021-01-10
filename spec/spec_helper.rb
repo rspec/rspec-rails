@@ -38,7 +38,8 @@ end
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
-    expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+    # include_chain_clauses_in_custom_matcher_descriptions is removed in RSpec Expectations 4
+    expectations.include_chain_clauses_in_custom_matcher_descriptions = true if expectations.respond_to?(:include_chain_clauses_in_custom_matcher_descriptions=)
     expectations.max_formatted_output_length = 1000
   end
 
