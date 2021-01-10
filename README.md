@@ -33,7 +33,7 @@ See the `4-0-maintenance` branch on Github if you want or require the latest sta
    ```ruby
    # Run against the latest stable release
    group :development, :test do
-     gem 'rspec-rails', '~> 4.0.1'
+     gem 'rspec-rails', '~> 4.0.2'
    end
 
    # Or, run against the main branch
