@@ -9,6 +9,12 @@ module RSpec
         include RSpec::Rails::MinitestAssertionAdapter
         include ActiveRecord::TestFixtures
 
+        if ::Rails.version.to_f >= 6.1
+          def name
+            @example
+          end
+        end
+
         included do
           if RSpec.configuration.use_active_record?
             include Fixtures
@@ -51,12 +57,6 @@ module RSpec
             end
           end
 
-          if ::Rails.version.to_f >= 6.1
-            # @private return the example name for TestFixtures
-            def name
-              @example
-            end
-          end
         end
       end
     end
