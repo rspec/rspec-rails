@@ -20,6 +20,8 @@ fi
 
 fold "cukes" run_cukes
 
+fold "snippets" script/run_snippets.sh
+
 if documentation_enforced; then
   fold "doc check" check_documentation_coverage
 fi
