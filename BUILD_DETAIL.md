@@ -66,6 +66,21 @@ $ bundle exec cucumber
 $ bin/cucumber
 ```
 
+## Snippets
+
+RSpec Rails uses snippets, self-contained examples that are used to cover
+cases and regressions that don't need a full-blown example application to
+reproduce.
+
+Snippets reuse the already installed gems, and don't attempt to install gem
+versions that are not on the system already to prevent version mismatches.
+
+Run with:
+
+```
+$ script/run_snippets.sh
+```
+
 ## YARD documentation
 
 RSpec uses [YARD](https://yardoc.org/) for API documentation on the [rspec.info site](https://rspec.info/).
