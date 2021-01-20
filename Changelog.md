@@ -16,6 +16,7 @@ Enhancements:
   (Andrew W. Lee, #2372)
 * Improve request spec "controller" scafold when no action is specified.
   (Thomas Hareau, #2399)
+* Introduce testing snippets concept (Phil Pirozhkov, Benoit Tigeot, #2423)
 
 Bug Fixes:
 
@@ -25,6 +26,7 @@ Bug Fixes:
   (Phil Pirozhkov, Jon Rowe, #2353, #2354)
 * Remove old #fixture_path feature detection code which broke under newer Rails.
   (Koen Punt, Jon Rowe, #2370)
+* Fix an error when `use_active_record` is `false` (Phil Pirozhkov, #2423)
 
 ### 4.0.1 / 2020-05-16
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.0...v4.0.1)
