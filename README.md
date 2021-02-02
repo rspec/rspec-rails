@@ -25,7 +25,7 @@ Use **[`rspec-rails` 1.x][]** for Rails 2.x.
 ## Installation
 
 **IMPORTANT** This README / branch refers to the current development build.
-See the `4-0-maintenance` branch on Github if you want or require the latest stable release.
+See the `4-1-maintenance` branch on Github if you want or require the latest stable release.
 
 1. Add `rspec-rails` to **both** the `:development` and `:test` groups
    of your app’s `Gemfile`:
@@ -36,12 +36,25 @@ See the `4-0-maintenance` branch on Github if you want or require the latest sta
      gem 'rspec-rails', '~> 4.0.1'
    end
 
-   # Or, run against the main branch
-   # (requires main-branch versions of all related RSpec libraries)
+   # Or, run against the main branch to get the most recent code for the
+   # latest released minor version.
+   # It requires main-branch versions of all related RSpec libraries.
    group :development, :test do
      %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
        gem lib, git: "https://github.com/rspec/#{lib}.git", branch: 'main'
      end
+   end
+   ```
+
+   # To have support for the edge version of Rails, or when the version
+   # of when `rspec-rails` does not support the latest released Rails
+   # version, use the `next` branch to get in-development version.
+   # It requires `main` branch versions of all related RSpec libraries.
+   group :development, :test do
+     %w[rspec-core rspec-expectations rspec-mocks rspec-support].each do |lib|
+       gem lib, git: "https://github.com/rspec/#{lib}.git", branch: 'main'
+     end
+     gem 'rspec-rails', git: "https://github.com/rspec/rspec-rails.git", branch: 'next'
    end
    ```
 
