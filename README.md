@@ -31,11 +31,12 @@ Use **[`rspec-rails` 1.x][]** for Rails 2.x.
      gem 'rspec-rails', '~> 3.9'
    end
 
-   # Or, run against the master branch
-   # (requires master-branch versions of all related RSpec libraries)
+   # Or, run against the maintenance branch
+   # (requires the same maintenance branch for all related RSpec libraries)
+   # Note that 3.9 is end of life and all changes have been released.
    group :development, :test do
      %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
-       gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => 'master'
+       gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => '3-9-maintenance'
      end
    end
    ```
