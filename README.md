@@ -20,20 +20,35 @@ Use **[`rspec-rails` 1.x][]** for Rails 2.x.
 [Ruby on Rails]: https://rubyonrails.org/
 [`rspec-rails` 1.x]: https://github.com/dchelimsky/rspec-rails
 
+## Important note for using 3.9.x
+
+Development of the 3.x versions of `rspec-rails` **has ended**. The last release was `3.9.1`.
+
+Prior to version 4 of `rspec-rails`, it required the same "major minor" pair of other RSpec
+gems. So you may need to run:
+
+```
+bundle update rspec-rails rspec-core rspec-mocks rspec-expectations rspec-support
+```
+
+To change to the 3.9.x series of `rspec-rails`.
+
 ## Installation
 
 1. Add `rspec-rails` to **both** the `:development` and `:test` groups
    of your app’s `Gemfile`:
 
    ```ruby
-   # Run against the latest stable release
+   # Run against the last stable release in 3.9.x, see the `main` branch
+   # for instructions for the current release of `rspec-rails`.
    group :development, :test do
-     gem 'rspec-rails', '~> 3.9'
+     gem 'rspec-rails', '~> 3.9.1'
    end
 
-   # Or, run against the maintenance branch
-   # (requires the same maintenance branch for all related RSpec libraries)
-   # Note that 3.9 is end of life and all changes have been released.
+   # Or, run against the maintenance branch (requires the same
+   # maintenance branch for all related RSpec libraries)
+   #
+   # **Note:** There are no unreleased changes in this branch, it exists for legacy builds pointing to it.
    group :development, :test do
      %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
        gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => '3-9-maintenance'
