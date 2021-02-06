@@ -18,6 +18,40 @@ module RSpec::Rails
         end
       end
 
+      describe 'rails url helpers' do
+        it 'have the rails system test default host' do
+          full_url = nil
+          group = RSpec::Core::ExampleGroup.describe do
+            include SystemExampleGroup
+
+            specify do
+              @routes.draw { get "/" => "page#index", as: :root }
+              full_url = root_url
+            end
+          end
+          group.run(failure_reporter)
+          expect(failure_reporter.exceptions).to eq []
+          expect(full_url).to match a_string_including(ActionDispatch::SystemTesting::TestHelpers::SetupAndTeardown::DEFAULT_HOST)
+        end
+      end
+
+      describe '#url_options' do
+        it 'has the rails system test default host' do
+          rails_url_options = {}
+          group = RSpec::Core::ExampleGroup.describe do
+            include SystemExampleGroup
+
+            specify { rails_url_options.merge!(url_options) }
+          end
+          group.run(failure_reporter)
+          expect(failure_reporter.exceptions).to eq []
+
+          expect(
+            rails_url_options
+          ).to match hash_including(host: ActionDispatch::SystemTesting::TestHelpers::SetupAndTeardown::DEFAULT_HOST)
+        end
+      end
+
       describe '#driver' do
         it 'uses :selenium driver by default' do
           group = RSpec::Core::ExampleGroup.describe do

@@ -102,9 +102,12 @@ module RSpec
 
         before do
           @routes = ::Rails.application.routes
+          @original_host = default_url_options[:host]
+          default_url_options.merge!(host: Capybara.app_host)
         end
 
         after do
+          default_url_options.merge!(host: @original_host)
           orig_stdout = $stdout
           $stdout = StringIO.new
           begin
