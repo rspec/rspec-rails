@@ -82,10 +82,17 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
         }.to change(<%= class_name %>, :count).by(0)
       end
 
+    <% if Rails.version.to_f < 6.1 || Rails.version == '6.1.0' %>
       it "renders a successful response (i.e. to display the 'new' template)" do
         post <%= index_helper %>_url, params: { <%= ns_file_name %>: invalid_attributes }
         expect(response).to be_successful
       end
+    <% else %>
+      it "renders a response with 422 status - unporcessable entity" do
+        post <%= index_helper %>_url, params: { <%= ns_file_name %>: invalid_attributes }
+        expect(response.status).to eq(422)
+      end
+    <% end %>
     end
   end
 
