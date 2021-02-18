@@ -13,7 +13,7 @@ module RSpec
         # Monkey patched to avoid collisions with 'let(:name)' in Rails 6.1 and after
         # and let(:method_name) before Rails 6.1.
         def run_in_transaction?
-          use_transactional_tests && !self.class.uses_transaction?(@example)
+          use_transactional_tests && !self.class.uses_transaction?(self)
         end
 
         included do
