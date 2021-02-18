@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
        include:
-         # Rails Master builds >= 2.5
+         # Rails Master (7.0) builds >= 2.7
          - ruby: 3.0
            allow_failure: true
            env:
@@ -25,16 +25,8 @@ jobs:
            allow_failure: true
            env:
              RAILS_VERSION: 'master'
-         - ruby: 2.6
-           allow_failure: true
-           env:
-             RAILS_VERSION: 'master'
-         - ruby: 2.5
-           allow_failure: true
-           env:
-             RAILS_VERSION: 'master'
 
-         # Rails 6.1.0 builds >= 2.5
+         # Rails 6.1 builds >= 2.5
          - ruby: 3.0
            allow_failure: true
            env:
