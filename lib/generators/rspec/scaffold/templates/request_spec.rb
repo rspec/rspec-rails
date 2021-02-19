@@ -118,11 +118,19 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
     end
 
     context "with invalid parameters" do
+    <% if Rails.version.to_f < 6.1 || Rails.version == '6.1.0' %>
       it "renders a successful response (i.e. to display the 'edit' template)" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         patch <%= show_helper.tr('@', '') %>, params: { <%= singular_table_name %>: invalid_attributes }
         expect(response).to be_successful
       end
+     <% else %>
+      it "renders a response with 422 status - unporcessable entity" do
+        <%= file_name %> = <%= class_name %>.create! valid_attributes
+        patch <%= show_helper.tr('@', '') %>, params: { <%= singular_table_name %>: invalid_attributes }
+        expect(response.status).to eq(422)
+      end
+    <% end %>
     end
   end
 
