@@ -167,4 +167,17 @@ gsub_file 'spec/requests/gadgets_spec.rb',
 gsub_file 'spec/controllers/uploads_controller_spec.rb',
           'skip("Add a hash of attributes valid for your model")',
           '{}'
+
+# adds validation to widget so our test for happy and unhappy path will be ready to test validation
+gsub_file 'spec/requests/widgets_spec.rb',
+          'skip("Add a hash of attributes invalid for your model")',
+          '{ name: "" }'
+
+gsub_file 'spec/requests/widgets_spec.rb',
+          'skip("Add a hash of attributes valid for your model")',
+          '{ name: "lorem" }'
+
+gsub_file 'app/models/widget.rb',
+          'end',
+          'validates :name, presence: true; end'
 final_tasks
