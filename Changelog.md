@@ -3,6 +3,11 @@
 
 * Support new #file_fixture_path and new fixture test support code. (Jon Rowe, #2398)
 
+Bug Fixes:
+
+* Prevent collisions with `let(:name)` for Rails 6.1 and `let(:method_name)` on older
+  Rails. (Benoit Tigeot, #2461)
+
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.1...main)
 
