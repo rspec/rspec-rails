@@ -43,6 +43,9 @@ end
 # Until 1.13.2 is released due to Rubygems usage
 gem 'ffi', '~> 1.12.0'
 
+# Until https://github.com/alexrothenberg/ammeter/pull/64 is merged and released
+gem 'ammeter', github: 'pirj/ammeter', branch: 'support-rspec-4'
+
 custom_gemfile = File.expand_path('Gemfile-custom', __dir__)
 eval_gemfile custom_gemfile if File.exist?(custom_gemfile)
 
