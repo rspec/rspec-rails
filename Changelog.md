@@ -11,6 +11,9 @@ Enhancements:
   (Andrew W. Lee, #2372)
 * Improve request spec "controller" scafold when no action is specified.
   (Thomas Hareau, #2399)
+* Introduce testing snippets concept (Phil Pirozhkov, Benoit Tigeot, #2423)
+* Prevent collisions with `let(:name)` for Rails 6.1 and `let(:method_name)` on older
+  Rails. (Benoit Tigeot, #2461)
 
 Bug Fixes:
 

@@ -9,6 +9,13 @@ module RSpec
         include RSpec::Rails::MinitestAssertionAdapter
         include ActiveRecord::TestFixtures
 
+        # @private prevent ActiveSupport::TestFixtures to start a DB transaction.
+        # Monkey patched to avoid collisions with 'let(:name)' in Rails 6.1 and after
+        # and let(:method_name) before Rails 6.1.
+        def run_in_transaction?
+          use_transactional_tests && !self.class.uses_transaction?(self)
+        end
+
         included do
           if RSpec.configuration.use_active_record?
             include Fixtures
@@ -48,13 +55,6 @@ module RSpec
                   orig_implementation.bind(self).call(*args, &blk)
                 end
               end
-            end
-          end
-
-          if ::Rails.version.to_f >= 6.1
-            # @private return the example name for TestFixtures
-            def name
-              @example
             end
           end
         end
