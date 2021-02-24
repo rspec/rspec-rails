@@ -74,8 +74,4 @@ RSpec.configure do |config|
       example.run
     end
   end
-
-  # TODO: Remove once https://github.com/alexrothenberg/ammeter/pull/64 is merged
-  # Work around ammeter's incompatibility with RSpec 4
-  config.include Ammeter::RSpec::Rails::GeneratorExampleGroup, type: :generator
 end
