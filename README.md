@@ -25,7 +25,7 @@ Use **[`rspec-rails` 1.x][]** for Rails 2.x.
 ## Installation
 
 **IMPORTANT** This README / branch refers to the current development build.
-See the `4-0-maintenance` branch on Github if you want or require the latest stable release.
+See the [`4-0-maintenance` branch on Github](https://github.com/rspec/rspec-rails/tree/4-0-maintenance) if you want or require the latest stable release.
 
 1. Add `rspec-rails` to **both** the `:development` and `:test` groups
    of your app’s `Gemfile`:
