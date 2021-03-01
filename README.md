@@ -24,16 +24,13 @@ Use **[`rspec-rails` 1.x][]** for Rails 2.x.
 
 ## Installation
 
-**IMPORTANT** This README / branch refers to the current development build.
-See the `4-0-maintenance` branch on Github if you want or require the latest stable release.
-
 1. Add `rspec-rails` to **both** the `:development` and `:test` groups
    of your app’s `Gemfile`:
 
    ```ruby
    # Run against the latest stable release
    group :development, :test do
-     gem 'rspec-rails', '~> 4.0.1'
+     gem 'rspec-rails', '~> 4.1.0'
    end
 
    # Or, run against the main branch
