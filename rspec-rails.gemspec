@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
     s.cert_chain = [File.expand_path('~/.gem/rspec-gem-public_cert.pem')]
   end
 
-  version_string = ['>= 3.0']
+  version_string = ['>= 3.0', '< 6.1']
 
   if RUBY_VERSION <= '1.8.7' && ENV['RAILS_VERSION'] != '3-2-stable'
     version_string << '!= 3.2.22.1'
