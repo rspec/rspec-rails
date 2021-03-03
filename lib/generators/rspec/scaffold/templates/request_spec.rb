@@ -18,6 +18,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
     include Engine.routes.url_helpers
   <% end -%>
 
+  # This should return the minimal set of attributes required to create a valid
   # <%= class_name %>. As you add validations to <%= class_name %>, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
