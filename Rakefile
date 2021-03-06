@@ -13,11 +13,7 @@ require 'cucumber/rake/task'
 
 def rails_template_command
   require "rails/version"
-  if Rails.version.to_f >= 5.0
-    "app:template"
-  else
-    "rails:template"
-  end
+  "app:template"
 end
 
 desc "Run all examples"
@@ -35,14 +31,6 @@ Cucumber::Rake::Task.new(:cucumber) do |t|
       string_version[/\d[\.-]\d/].tr('-', '.')
     end
   tags = []
-
-  if version.to_f >= 5.1
-    tags << "~@rails_pre_5.1"
-  end
-
-  if version.to_f == 5.0
-    tags << "~@system_test"
-  end
 
   if version.to_f >= 6.0
     tags << "~@rails_pre_6"
