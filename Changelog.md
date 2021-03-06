@@ -1,8 +1,14 @@
-### Development
+### 5.0.0
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.1.0...main)
+
+Enhancements:
 
 * Support new #file_fixture_path and new fixture test support code. (Jon Rowe, #2398)
 * Support for Rails 6.1. (Benoit Tigeot, Jon Rowe, Phil Pirozhkov, and more #2398)
+
+Breaking Changes:
+
+* Drop support for Rails below 5.2.
 
 ### 4.1.0 / 2021-03-06
 
