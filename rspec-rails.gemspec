@@ -46,7 +46,7 @@ Gem::Specification.new do |s|
   # get released.
   %w[core expectations mocks support].each do |name|
     if ENV['RSPEC_CI']
-      s.add_runtime_dependency "rspec-#{name}", "= 4.0.0.pre"
+      s.add_runtime_dependency "rspec-#{name}", ENV.fetch('RSPEC_VERSION', '3.11.0.pre')
     elsif RSpec::Rails::Version::STRING =~ /pre/ # prerelease builds
       expected_rspec_version = "3.11.0.pre"
       s.add_runtime_dependency "rspec-#{name}", "= #{expected_rspec_version}"
@@ -56,7 +56,7 @@ Gem::Specification.new do |s|
     end
   end
 
-  s.add_development_dependency 'ammeter',  '~> 1.1.2'
+  s.add_development_dependency 'ammeter',  '~> 1.1.5'
   s.add_development_dependency 'aruba',    '~> 0.14.12'
   s.add_development_dependency 'cucumber', '~> 1.3.5'
 end
