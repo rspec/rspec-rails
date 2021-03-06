@@ -74,38 +74,6 @@ jobs:
          - ruby: 2.2.10
            env:
              RAILS_VERSION: '5-2-stable'
-         # Rails 5.1 Builds >= 2.2.2
-         - ruby: 2.6.6
-           env:
-             RAILS_VERSION: '~> 5.1.0'
-         - ruby: 2.5.8
-           env:
-             RAILS_VERSION: '~> 5.1.0'
-         - ruby: 2.4.10
-           env:
-             RAILS_VERSION: '~> 5.1.0'
-         - ruby: 2.3.8
-           env:
-             RAILS_VERSION: '~> 5.1.0'
-         - ruby: 2.2.10
-           env:
-             RAILS_VERSION: '~> 5.1.0'
-         # Rails 5.0 Builds >= 2.2.2
-         - ruby: 2.6.6
-           env:
-             RAILS_VERSION: '~> 5.0.0'
-         - ruby: 2.5.8
-           env:
-             RAILS_VERSION: '~> 5.0.0'
-         - ruby: 2.4.10
-           env:
-             RAILS_VERSION: '~> 5.0.0'
-         - ruby: 2.3.8
-           env:
-             RAILS_VERSION: '~> 5.0.0'
-         - ruby: 2.2.10
-           env:
-             RAILS_VERSION: '~> 5.0.0'
     env: ${{ matrix.env }}
     steps:
       - uses: actions/checkout@v2
