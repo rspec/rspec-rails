@@ -1,5 +1,5 @@
-### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.2...main)
+### 4.1.0 / 2021-03-06
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.2...v4.1.0)
 
 Enhancements:
 
