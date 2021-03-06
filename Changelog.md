@@ -1,5 +1,10 @@
+### Development
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.1.0...main)
+
+* Support new #file_fixture_path and new fixture test support code. (Jon Rowe, #2398)
+* Support for Rails 6.1. (Benoit Tigeot, Jon Rowe, Phil Pirozhkov, and more #2398)
+
 ### 4.1.0 / 2021-03-06
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.2...v4.1.0)
 
 Enhancements:
 
@@ -26,6 +31,7 @@ Bug Fixes:
   (Phil Pirozhkov, Jon Rowe, #2353, #2354)
 * Remove old #fixture_path feature detection code which broke under newer Rails.
   (Koen Punt, Jon Rowe, #2370)
+* Fix an error when `use_active_record` is `false` (Phil Pirozhkov, #2423)
 
 ### 4.0.1 / 2020-05-16
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.0...v4.0.1)

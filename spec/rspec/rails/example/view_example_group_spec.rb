@@ -13,6 +13,7 @@ module RSpec::Rails
         group = RSpec::Core::ExampleGroup.describe('things/show.html.erb') do
           def self.helper(*); end # Stub method
         end
+        allow(group).to receive(:helper)
         expect(group).to receive(:helper).with(ThingsHelper)
         group.class_exec do
           include ViewExampleGroup
@@ -23,6 +24,7 @@ module RSpec::Rails
         group = RSpec::Core::ExampleGroup.describe('namespaced/things/show.html.erb') do
           def self.helper(*); end # Stub method
         end
+        allow(group).to receive(:helper)
         expect(group).to receive(:helper).with(Namespaced::ThingsHelper)
         group.class_exec do
           include ViewExampleGroup
@@ -66,6 +68,7 @@ module RSpec::Rails
           group = RSpec::Core::ExampleGroup.describe('bars/new.html.erb') do
             def self.helper(*); end # Stub method
           end
+          allow(group).to receive(:helper)
           expect(group).to receive(:helper).with(ApplicationHelper)
           group.class_exec do
             include ViewExampleGroup

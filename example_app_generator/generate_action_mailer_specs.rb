@@ -14,15 +14,20 @@ using_source_path(File.expand_path(__dir__)) do
       end
     end
   CODE
-  gsub_file 'config/initializers/action_mailer.rb',
-            /ExampleApp/,
-            Rails.application.class.parent.to_s
+
+  rails_parent =
+    if Rails.version.to_f >= 6.0
+      Rails.application.class.module_parent.to_s
+    else
+      Rails.application.class.parent.to_s
+    end
+
+  gsub_file 'config/initializers/action_mailer.rb', /ExampleApp/, rails_parent
 
   copy_file 'spec/support/default_preview_path'
   chmod 'spec/support/default_preview_path', 0755
-  gsub_file 'spec/support/default_preview_path',
-            /ExampleApp/,
-            Rails.application.class.parent.to_s
+  gsub_file 'spec/support/default_preview_path', /ExampleApp/, rails_parent
+
   if skip_active_record?
     comment_lines 'spec/support/default_preview_path', /active_record/
     comment_lines 'spec/support/default_preview_path', /active_storage/

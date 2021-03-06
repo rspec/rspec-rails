@@ -36,7 +36,14 @@ module RSpec::Rails
             "other_value"
           end
         end
-        config.include mod
+
+        # Rails 6.1 removes config from ./activerecord/lib/active_record/test_fixtures.rb
+        if respond_to?(:config)
+          config.include mod
+        else
+          ActiveRecord::Base.include mod
+        end
+
         group.class_exec do
           let(:my_helper) { "my_value" }
         end
