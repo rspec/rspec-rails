@@ -115,6 +115,11 @@ RSpec.describe Rspec::Generators::ControllerGenerator, type: :generator do
         end
       end
     end
+
+    describe 'are removed' do
+      subject { run_generator %w[posts], behavior: :revoke }
+      it { is_expected.to match('remove  spec/views/posts') }
+    end
   end
 
   describe 'routing spec' do
