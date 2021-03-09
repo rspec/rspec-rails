@@ -17,7 +17,7 @@ when /master/
   gem 'selenium-webdriver', require: false
 when /stable$/
   gem_list = %w[rails railties actionmailer actionpack activerecord activesupport activejob actionview]
-  gem 'puma', "3.12.1" if version > '5-0-stable'
+  gem 'puma', "3.12.1"
   gem 'activerecord-jdbcsqlite3-adapter', git: 'https://github.com/jruby/activerecord-jdbc-adapter', platforms: [:jruby]
 
   gem_list.each do |rails_gem|
@@ -31,7 +31,7 @@ when nil, false, ""
 else
   gem "rails", version
   gem "sprockets", '~> 3.0' if RUBY_VERSION < '2.5'
-  gem "puma" if version >= '5-1-stable'
+  gem "puma"
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
-  gem 'selenium-webdriver', require: false if version >= '5'
+  gem 'selenium-webdriver', require: false
 end

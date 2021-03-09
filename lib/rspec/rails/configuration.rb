@@ -80,10 +80,8 @@ module RSpec
       #   `RSpec::Rails::FixtureSupport` directly instead
       config.include RSpec::Rails::FixtureSupport
 
-      if ::Rails::VERSION::STRING > '5'
-        config.add_setting :file_fixture_path, default: 'spec/fixtures/files'
-        config.include RSpec::Rails::FileFixtureSupport
-      end
+      config.add_setting :file_fixture_path, default: 'spec/fixtures/files'
+      config.include RSpec::Rails::FileFixtureSupport
 
       # Add support for fixture_path on fixture_file_upload
       config.include RSpec::Rails::FixtureFileUploadSupport

@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
     s.cert_chain = [File.expand_path('~/.gem/rspec-gem-public_cert.pem')]
   end
 
-  version_string = ['>= 4.2']
+  version_string = ['>= 5.2']
 
   s.add_runtime_dependency 'actionpack',    version_string
   s.add_runtime_dependency 'activesupport', version_string

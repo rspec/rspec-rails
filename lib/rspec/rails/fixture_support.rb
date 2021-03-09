@@ -21,11 +21,7 @@ module RSpec
             include Fixtures
 
             self.fixture_path = RSpec.configuration.fixture_path
-            if ::Rails::VERSION::STRING > '5'
-              self.use_transactional_tests = RSpec.configuration.use_transactional_fixtures
-            else
-              self.use_transactional_fixtures = RSpec.configuration.use_transactional_fixtures
-            end
+            self.use_transactional_tests = RSpec.configuration.use_transactional_fixtures
             self.use_instantiated_fixtures = RSpec.configuration.use_instantiated_fixtures
 
             fixtures RSpec.configuration.global_fixtures if RSpec.configuration.global_fixtures

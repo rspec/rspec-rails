@@ -7,13 +7,11 @@ module RSpec
     # Railtie to hook into Rails.
     class Railtie < ::Rails::Railtie
       # As of Rails 5.1.0 you can register directories to work with `rake notes`
-      if ::Rails::VERSION::STRING >= '5.1'
-        require 'rails/source_annotation_extractor'
-        if ::Rails::VERSION::STRING >= '6.0'
-          ::Rails::SourceAnnotationExtractor::Annotation.register_directories("spec")
-        else
-          SourceAnnotationExtractor::Annotation.register_directories("spec")
-        end
+      require 'rails/source_annotation_extractor'
+      if ::Rails::VERSION::STRING >= '6.0'
+        ::Rails::SourceAnnotationExtractor::Annotation.register_directories("spec")
+      else
+        SourceAnnotationExtractor::Annotation.register_directories("spec")
       end
       generators = config.app_generators
       generators.integration_tool :rspec

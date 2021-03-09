@@ -10,10 +10,7 @@ module RSpec
       include RSpec::Rails::Matchers::RedirectTo
       include RSpec::Rails::Matchers::RenderTemplate
       include ActionController::TemplateAssertions
-
-      if ActionPack::VERSION::MAJOR >= 5
-        include ActionDispatch::IntegrationTest::Behavior
-      end
+      include ActionDispatch::IntegrationTest::Behavior
 
       # Delegates to `Rails.application`.
       def app
