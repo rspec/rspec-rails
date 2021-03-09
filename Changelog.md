@@ -1,5 +1,5 @@
 ### 5.0.0
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.1.0...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.1.1...main)
 
 Enhancements:
 
@@ -9,6 +9,8 @@ Enhancements:
 Breaking Changes:
 
 * Drop support for Rails below 5.2.
+
+### 4.1.1 / 2021-03-09
 
 Bug Fixes:
 
