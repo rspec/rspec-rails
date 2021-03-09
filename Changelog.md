@@ -10,6 +10,11 @@ Breaking Changes:
 
 * Drop support for Rails below 5.2.
 
+Bug Fixes:
+
+* Remove generated specs when destroying a generated controller.
+  (@Naokimi, #2475)
+
 ### 4.1.0 / 2021-03-06
 
 Enhancements:
