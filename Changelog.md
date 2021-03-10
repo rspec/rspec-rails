@@ -1,3 +1,10 @@
+### Development
+
+Bug Fixes:
+
+* Prevent `NoMethodError` on Rails 4.2 when checking if a test is run
+  in transaction. (Geremia Taglialatela, #2480)
+
 ### 4.1.1 / 2021-03-09
 
 Bug Fixes:
