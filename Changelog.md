@@ -1,11 +1,17 @@
-### Development
+### 4.1.2 / 2021-03-10
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.1.1...v4.1.2)
 
 Bug Fixes:
 
 * Prevent `NoMethodError` on Rails 4.2 when checking if a test is run
   in transaction. (Geremia Taglialatela, #2480)
 
+*Note* Rails 4.2 is only soft supported by the 4.x series of rspec-rails,
+an exception was made here as it was a regression introduced by another
+bug fix.
+
 ### 4.1.1 / 2021-03-09
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.1.0...v4.1.1)
 
 Bug Fixes:
 
