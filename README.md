@@ -8,6 +8,7 @@ They’re also specifications (or _specs,_ for short):
 detailed explanations of how the application is supposed to behave,
 expressed in plain English.
 
+Use **[`rspec-rails` 4.x][]** for Rails from 5.0 to 6.0.
 Use **[`rspec-rails` 3.x][]** for Rails earlier than 5.0.
 Use **[`rspec-rails` 1.x][]** for Rails 2.x.
 
@@ -21,19 +22,20 @@ Use **[`rspec-rails` 1.x][]** for Rails 2.x.
 [Ruby on Rails]: https://rubyonrails.org/
 [`rspec-rails` 1.x]: https://github.com/dchelimsky/rspec-rails
 [`rspec-rails` 3.x]: https://github.com/rspec/rspec-rails/tree/3-9-maintenance
+[`rspec-rails` 4.x]: https://github.com/rspec/rspec-rails/tree/4-1-maintenance
 
 ## Installation
 
-**IMPORTANT** This README / branch refers to the current development build.
-See the [`4-1-maintenance` branch on Github](https://github.com/rspec/rspec-rails/tree/4-0-maintenance) if you want or require the latest stable release.
+**IMPORTANT** This README / branch refers to the 5.0.x series of releases.
+See the [`main` branch on Github](https://github.com/rspec/rspec-rails/tree/main) for more up to date releases.
 
 1. Add `rspec-rails` to **both** the `:development` and `:test` groups
    of your app’s `Gemfile`:
 
    ```ruby
-   # Run against the latest stable release
+   # Run against this stable release
    group :development, :test do
-     gem 'rspec-rails', '~> 4.1.0'
+     gem 'rspec-rails', '~> 5.0.0'
    end
 
    # Or, run against the main branch
