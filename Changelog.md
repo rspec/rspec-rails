@@ -1,6 +1,11 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.0.0...main)
 
+Bug Fixes:
+
+* Limit multibyte example descriptions when used in system tests for #method_name
+  which ends up as screenshot names etc. (@y-yagi, #2405, #2487)
+
 ### 5.0.0 / 2021-03-09
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.1.1...v5.0.0)
 
