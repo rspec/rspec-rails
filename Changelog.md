@@ -1,6 +1,11 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.0.0...main)
 
+Enhancements:
+
+* Make the API request scaffold template more consistent and compatible with
+  Rails 6.1. (Naoto Hamada, #2484)
+
 Bug Fixes:
 
 * Limit multibyte example descriptions when used in system tests for #method_name
