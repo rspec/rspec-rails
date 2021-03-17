@@ -15,6 +15,18 @@ module RSpec::Rails
           expect(example.send(:method_name)).to start_with('method_name')
         end
       end
+
+      it "handles long method names which include unicode characters" do
+        group =
+          RSpec::Core::ExampleGroup.describe do
+            include SystemExampleGroup
+          end
+
+        example = group.new
+        allow(example.class).to receive(:name) { "really long unicode example name - #{'あ'*100}" }
+
+        expect(example.send(:method_name).bytesize).to be <= 210
+      end
     end
 
     describe '#driver' do
