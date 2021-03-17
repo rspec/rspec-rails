@@ -14,15 +14,18 @@ module RSpec::Rails
           allow(example).to receive(:class).and_return(example_class_mock)
           expect(example.send(:method_name)).to start_with('method_name')
         end
+      end
 
-        it "slices long method name - #{'あ'*100}" do
-          group = RSpec::Core::ExampleGroup.describe do
+      it "handles long method names which include unicode characters" do
+        group =
+          RSpec::Core::ExampleGroup.describe do
             include SystemExampleGroup
           end
-          example = group.new
-          group.hooks.run(:before, :example, example)
-          expect(example.send(:method_name).bytesize).to be <= 210
-        end
+
+        example = group.new
+        allow(example.class).to receive(:name) { "really long unicode example name - #{'あ'*100}" }
+
+        expect(example.send(:method_name).bytesize).to be <= 210
       end
     end
 
