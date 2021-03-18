@@ -8,6 +8,10 @@ They’re also specifications (or _specs,_ for short):
 detailed explanations of how the application is supposed to behave,
 expressed in plain English.
 
+This branch is the last release in 4.x, it supports Rails 5.0 to 6.0, see
+[`rspec-rails` 5.x][] for the next release, and [`rspec-rails` main] for
+development.
+
 Use **[`rspec-rails` 3.x][]** for Rails earlier than 5.0.
 Use **[`rspec-rails` 1.x][]** for Rails 2.x.
 
@@ -21,6 +25,8 @@ Use **[`rspec-rails` 1.x][]** for Rails 2.x.
 [Ruby on Rails]: https://rubyonrails.org/
 [`rspec-rails` 1.x]: https://github.com/dchelimsky/rspec-rails
 [`rspec-rails` 3.x]: https://github.com/rspec/rspec-rails/tree/3-9-maintenance
+[`rspec-rails` 5.x]: https://github.com/rspec/rspec-rails/tree/5-0-maintenance
+[`rspec-rails` main]: https://github.com/rspec/rspec-rails/tree/main
 
 ## Installation
 
