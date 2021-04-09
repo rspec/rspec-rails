@@ -2,7 +2,7 @@
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-source $SCRIPT_DIR/travis_functions.sh
+source $SCRIPT_DIR/ci_functions.sh
 source $SCRIPT_DIR/predicate_functions.sh
 
 # If JRUBY_OPTS isn't set, use these.

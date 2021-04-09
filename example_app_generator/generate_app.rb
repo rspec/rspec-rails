@@ -5,10 +5,10 @@ rspec_dependencies_gemfile = File.join(rspec_rails_repo_path, 'Gemfile-rspec-dep
 rails_dependencies_gemfile = File.join(rspec_rails_repo_path, 'Gemfile-rails-dependencies')
 bundle_install_path = File.join(rspec_rails_repo_path, '..', 'bundle')
 maintenance_branch_file = File.join(rspec_rails_repo_path, 'maintenance-branch')
-travis_retry_script = File.join(
+ci_retry_script = File.join(
   rspec_rails_repo_path,
   'example_app_generator',
-  'travis_retry_bundle_install.sh'
+  'ci_retry_bundle_install.sh'
 )
 function_script_file = File.join(rspec_rails_repo_path, 'script/functions.sh')
 sqlite_initializer = File.join(rspec_rails_repo_path, "example_app_generator/config/initializers/sqlite3_fix.rb")
@@ -69,12 +69,12 @@ in_root do
 
   copy_file maintenance_branch_file, 'maintenance-branch'
 
-  copy_file travis_retry_script, 'travis_retry_bundle_install.sh'
-  gsub_file 'travis_retry_bundle_install.sh',
+  copy_file ci_retry_script, 'ci_retry_bundle_install.sh'
+  gsub_file 'ci_retry_bundle_install.sh',
             'FUNCTIONS_SCRIPT_FILE',
             function_script_file
-  gsub_file 'travis_retry_bundle_install.sh',
+  gsub_file 'ci_retry_bundle_install.sh',
             'REPLACE_BUNDLE_PATH',
             bundle_install_path
-  chmod 'travis_retry_bundle_install.sh', 0755
+  chmod 'ci_retry_bundle_install.sh', 0755
 end
