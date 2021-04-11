@@ -41,7 +41,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
   describe "GET /show" do
     it "renders a successful response" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
-      get <%= show_helper.tr('@', '') %>
+      get <%= show_helper %>
       expect(response).to be_successful
     end
   end
@@ -71,7 +71,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
 
       it "redirects to the created <%= ns_file_name %>" do
         post <%= index_helper %>_url, params: { <%= ns_file_name %>: valid_attributes }
-        expect(response).to redirect_to(<%= show_helper.gsub("\@#{file_name}", class_name+".last") %>)
+        expect(response).to redirect_to(<%= show_helper(class_name+".last") %>)
       end
     end
 
@@ -97,14 +97,14 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
 
       it "updates the requested <%= ns_file_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-        patch <%= show_helper.tr('@', '') %>, params: { <%= singular_table_name %>: new_attributes }
+        patch <%= show_helper %>, params: { <%= singular_table_name %>: new_attributes }
         <%= file_name %>.reload
         skip("Add assertions for updated state")
       end
 
       it "redirects to the <%= ns_file_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-        patch <%= show_helper.tr('@', '') %>, params: { <%= singular_table_name %>: new_attributes }
+        patch <%= show_helper %>, params: { <%= singular_table_name %>: new_attributes }
         <%= file_name %>.reload
         expect(response).to redirect_to(<%= singular_table_name %>_url(<%= file_name %>))
       end
@@ -113,7 +113,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
     context "with invalid parameters" do
       it "renders a successful response (i.e. to display the 'edit' template)" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-        patch <%= show_helper.tr('@', '') %>, params: { <%= singular_table_name %>: invalid_attributes }
+        patch <%= show_helper %>, params: { <%= singular_table_name %>: invalid_attributes }
         expect(response).to be_successful
       end
     end
@@ -123,13 +123,13 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
     it "destroys the requested <%= ns_file_name %>" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
       expect {
-        delete <%= show_helper.tr('@', '') %>
+        delete <%= show_helper %>
       }.to change(<%= class_name %>, :count).by(-1)
     end
 
     it "redirects to the <%= table_name %> list" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
-      delete <%= show_helper.tr('@', '') %>
+      delete <%= show_helper %>
       expect(response).to redirect_to(<%= index_helper %>_url)
     end
   end

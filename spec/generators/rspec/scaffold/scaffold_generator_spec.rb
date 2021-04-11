@@ -104,7 +104,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
     before  { run_generator %w[admin/posts] }
     it { is_expected.to exist }
     it { is_expected.to contain(/^RSpec.describe "\/admin\/posts", #{type_metatag(:request)}/) }
-    it { is_expected.to contain('admin_post_url(admin_post)') }
+    it { is_expected.to contain('admin_post_url(post)') }
     it { is_expected.to contain('Admin::Post.create') }
   end
 
