@@ -56,7 +56,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
   describe "GET /edit" do
     it "renders a successful response" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
-      get <%= edit_helper.tr('@','') %>
+      get <%= edit_helper %>
       expect(response).to be_successful
     end
   end
