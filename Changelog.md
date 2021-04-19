@@ -5,6 +5,8 @@ Enhancements:
 
 * Make the API request scaffold template more consistent and compatible with
   Rails 6.1. (Naoto Hamada, #2484)
+* Provide support to turn off transactional tests for select examples.
+  (Stan Lo, #2495)
 
 ### 5.0.1 / 2021-03-18
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.0.0...v5.0.1)
