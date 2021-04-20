@@ -5,7 +5,8 @@ module Rspec
     # @private
     class JobGenerator < Base
       def create_job_spec
-        template 'job_spec.rb.erb', File.join('spec/jobs', class_path, "#{file_name}_job_spec.rb")
+        file_suffix = file_name.end_with?('job') ? 'spec.rb' : 'job_spec.rb'
+        template 'job_spec.rb.erb', File.join('spec/jobs', class_path, [file_name, file_suffix].join('_'))
       end
     end
   end
