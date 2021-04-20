@@ -6,6 +6,11 @@ Enhancements:
 * Make the API request scaffold template more consistent and compatible with
   Rails 6.1. (Naoto Hamada, #2484)
 
+Bug Fixes:
+
+* Prevent generated job specs from duplicating `_job` in filenames.
+  (Nick Flückiger, #2496)
+
 ### 5.0.1 / 2021-03-18
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.0.0...v5.0.1)
 
@@ -98,7 +103,7 @@ Enhancements:
   generating a controller (Luka Lüdicke, #2222)
 * Allow `ActiveJob` matchers `#on_queue` modifier to take symbolic queue names. (Nils Sommer, #2283)
 * The scaffold generator now generates request specs in preference to controller specs.
-  (Luka Lüdicke, #2288)
+  (Luka Lüdicke, #2288)
 * Add configuration option to disable ActiveRecord. (Jon Rowe, Phil Pirozhkov, Hermann Mayer, #2266)
 *  Set `ActionDispatch::SystemTesting::Server.silence_puma = true` when running system specs.
   (ta1kt0me, Benoit Tigeot, #2289)
