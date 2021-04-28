@@ -5,6 +5,8 @@ Enhancements:
 
 * Make the API request scaffold template more consistent and compatible with
   Rails 6.1. (Naoto Hamada, #2484)
+* Provide support to turn off transactional tests for select examples.
+  (Stan Lo, #2495)
 
 Bug Fixes:
 
