@@ -5,6 +5,9 @@ Bug Fixes:
 
 * Prevent generated job specs from duplicating `_job` in filenames.
   (Nick Flückiger, #2496)
+* Fix `ActiveRecord::TestFixture#uses_transaction` by using example description
+  to replace example name rather than example in our monkey patched
+  `run_in_transaction?` method.  (Stan Lo, #2495)
 
 ### 5.0.1 / 2021-03-18
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.0.0...v5.0.1)
