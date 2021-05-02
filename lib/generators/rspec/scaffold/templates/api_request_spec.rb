@@ -46,7 +46,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
   describe "GET /show" do
     it "renders a successful response" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
-      get <%= show_helper.tr('@', '') %>, as: :json
+      get <%= show_helper %>, as: :json
       expect(response).to be_successful
     end
   end
@@ -93,7 +93,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
 
       it "updates the requested <%= ns_file_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-        patch <%= show_helper.tr('@', '') %>,
+        patch <%= show_helper %>,
               params: { <%= singular_table_name %>: new_attributes }, headers: valid_headers, as: :json
         <%= file_name %>.reload
         skip("Add assertions for updated state")
@@ -101,7 +101,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
 
       it "renders a JSON response with the <%= ns_file_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-        patch <%= show_helper.tr('@', '') %>,
+        patch <%= show_helper %>,
               params: { <%= singular_table_name %>: new_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to match(a_string_including("application/json"))
@@ -111,7 +111,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
     context "with invalid parameters" do
       it "renders a JSON response with errors for the <%= ns_file_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-        patch <%= show_helper.tr('@', '') %>,
+        patch <%= show_helper %>,
               params: { <%= singular_table_name %>: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including("application/json"))
@@ -123,7 +123,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
     it "destroys the requested <%= ns_file_name %>" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
       expect {
-        delete <%= show_helper.tr('@', '') %>, headers: valid_headers, as: :json
+        delete <%= show_helper %>, headers: valid_headers, as: :json
       }.to change(<%= class_name %>, :count).by(-1)
     end
   end

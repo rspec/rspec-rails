@@ -127,6 +127,10 @@ module Rspec
       def banner
         self.class.banner
       end
+
+      def show_helper(resource_name = file_name)
+        "#{singular_route_name}_url(#{resource_name})"
+      end
     end
   end
 end
