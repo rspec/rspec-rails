@@ -8,7 +8,11 @@ They’re also specifications (or _specs,_ for short):
 detailed explanations of how the application is supposed to behave,
 expressed in plain English.
 
-According to [RSpec Rails new versioning strategy][], use **[`rspec-rails` 5.x][]** for Rails 6.x, **[`rspec-rails` 4.x][]** for Rails 5.x, **[`rspec-rails` 3.x][]** for Rails earlier than 5.0 and **[`rspec-rails` 1.x][]** for Rails 2.x.
+According to [RSpec Rails new versioning strategy][] use:
+* **[`rspec-rails` 5.x][]** for Rails 6.x.
+* **[`rspec-rails` 4.x][]** for Rails from 5.x or 6.x.
+* **[`rspec-rails` 3.x][]** for Rails earlier than 5.0.
+* **[`rspec-rails` 1.x][]** for Rails 2.x.
 
 [Build Status]: https://secure.travis-ci.org/rspec/rspec-rails.svg?branch=main
 [travis-ci]: https://travis-ci.org/rspec/rspec-rails
