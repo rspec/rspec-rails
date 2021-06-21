@@ -58,8 +58,8 @@ module Rspec
       def generate_routing_spec
         return unless options[:routing_specs]
 
-        template_file = File.join(
-          'spec/routing',
+        template_file = target_path(
+          'routing',
           controller_class_path,
           "#{controller_file_name}_routing_spec.rb"
         )
@@ -72,7 +72,7 @@ module Rspec
 
       def copy_view(view)
         template "#{view}_spec.rb",
-                 File.join("spec/views", controller_file_path, "#{view}.html.#{options[:template_engine]}_spec.rb")
+                 target_path("views", controller_file_path, "#{view}.html.#{options[:template_engine]}_spec.rb")
       end
 
       # support for namespaced-resources
@@ -121,7 +121,7 @@ module Rspec
       end
 
       def template_file(folder:, suffix: '')
-        File.join('spec', folder, controller_class_path, "#{controller_file_name}#{suffix}_spec.rb")
+        target_path(folder, controller_class_path, "#{controller_file_name}#{suffix}_spec.rb")
       end
 
       def banner

@@ -10,7 +10,7 @@ module Rspec
       def generate_feature_spec
         return unless options[:feature_specs]
 
-        template template_name, File.join('spec/features', class_path, filename)
+        template template_name, target_path('features', class_path, filename)
       end
 
       def template_name
