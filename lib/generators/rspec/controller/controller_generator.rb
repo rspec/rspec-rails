@@ -16,14 +16,14 @@ module Rspec
         return unless options[:request_specs]
 
         template 'request_spec.rb',
-                 File.join('spec/requests', class_path, "#{file_name}_spec.rb")
+                 target_path('requests', class_path, "#{file_name}_spec.rb")
       end
 
       def generate_controller_spec
         return unless options[:controller_specs]
 
         template 'controller_spec.rb',
-                 File.join('spec/controllers', class_path, "#{file_name}_controller_spec.rb")
+                 target_path('controllers', class_path, "#{file_name}_controller_spec.rb")
       end
 
       def generate_view_specs
@@ -35,7 +35,7 @@ module Rspec
         actions.each do |action|
           @action = action
           template 'view_spec.rb',
-                   File.join("spec", "views", file_path, "#{@action}.html.#{options[:template_engine]}_spec.rb")
+                   target_path('views', file_path, "#{@action}.html.#{options[:template_engine]}_spec.rb")
         end
       end
 
@@ -44,7 +44,7 @@ module Rspec
         return unless options[:routing_specs]
 
         template 'routing_spec.rb',
-                 File.join('spec/routing', class_path, "#{file_name}_routing_spec.rb")
+                 target_path('routing', class_path, "#{file_name}_routing_spec.rb")
       end
     end
   end

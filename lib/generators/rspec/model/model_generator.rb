@@ -11,8 +11,8 @@ module Rspec
       class_option :fixture, type: :boolean
 
       def create_model_spec
-        template_file = File.join(
-          'spec/models',
+        template_file = target_path(
+          'models',
           class_path,
           "#{file_name}_spec.rb"
         )
@@ -24,7 +24,7 @@ module Rspec
       def create_fixture_file
         return unless missing_fixture_replacement?
 
-        template 'fixtures.yml', File.join('spec/fixtures', class_path, "#{(pluralize_table_names? ? plural_file_name : file_name)}.yml")
+        template 'fixtures.yml', target_path('fixtures', class_path, "#{(pluralize_table_names? ? plural_file_name : file_name)}.yml")
       end
 
     private

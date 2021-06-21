@@ -9,7 +9,7 @@ module Rspec
       def generate_generator_spec
         return unless options[:generator_specs]
 
-        template template_name, File.join('spec/generator', class_path, filename)
+        template template_name, target_path('generator', class_path, filename)
       end
 
       def template_name
