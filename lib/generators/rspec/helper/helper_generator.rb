@@ -9,7 +9,7 @@ module Rspec
       def generate_helper_spec
         return unless options[:helper_specs]
 
-        template 'helper_spec.rb', File.join('spec/helpers', class_path, "#{file_name}_helper_spec.rb")
+        template 'helper_spec.rb', target_path('helpers', class_path, "#{file_name}_helper_spec.rb")
       end
     end
   end

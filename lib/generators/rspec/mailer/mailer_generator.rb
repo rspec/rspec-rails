@@ -8,20 +8,20 @@ module Rspec
       argument :actions, type: :array, default: [], banner: "method method"
 
       def generate_mailer_spec
-        template "mailer_spec.rb", File.join('spec/mailers', class_path, "#{file_name}_spec.rb")
+        template "mailer_spec.rb", target_path('mailers', class_path, "#{file_name}_spec.rb")
       end
 
       def generate_fixtures_files
         actions.each do |action|
           @action, @path = action, File.join(file_path, action)
-          template "fixture", File.join("spec/fixtures", @path)
+          template "fixture", target_path("fixtures", @path)
         end
       end
 
       def generate_preview_files
         return unless RSpec::Rails::FeatureCheck.has_action_mailer_preview?
 
-        template "preview.rb", File.join("spec/mailers/previews", class_path, "#{file_name}_preview.rb")
+        template "preview.rb", target_path("mailers/previews", class_path, "#{file_name}_preview.rb")
       end
     end
   end
