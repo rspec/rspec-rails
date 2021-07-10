@@ -20,8 +20,19 @@ module Rspec
         end
       end
 
+      # This is specifically to parse and load `.rspec` file,
+      # So we can use different directory.
+      def self.configuration
+        @configuration ||= begin
+                             configuration = RSpec.configuration
+                             options = RSpec::Core::ConfigurationOptions.new({})
+                             options.configure(configuration)
+                             configuration
+                           end
+      end
+
       def target_path(*paths)
-        File.join(RSpec.configuration.default_path, *paths)
+        File.join(self.class.configuration.default_path, *paths)
       end
     end
   end
