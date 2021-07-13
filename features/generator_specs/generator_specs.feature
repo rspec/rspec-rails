@@ -14,3 +14,17 @@ Feature: Generator spec
                 invoke  rspec
                 create    spec/generator/my_generators_generator_spec.rb
           """
+
+    Scenario: Use custom generator with different default path
+        When I run `bundle exec rails generate rspec:install --default-path behaviour --force`
+        And I run `bundle exec rails generate generator my_generator`
+        Then the features should pass
+        Then the output should contain:
+          """
+                create  lib/generators/my_generator
+                create  lib/generators/my_generator/my_generator_generator.rb
+                create  lib/generators/my_generator/USAGE
+                create  lib/generators/my_generator/templates
+                invoke  rspec
+                create    behaviour/generator/my_generators_generator_spec.rb
+          """
