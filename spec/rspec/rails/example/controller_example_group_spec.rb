@@ -19,6 +19,13 @@ module RSpec::Rails
       expect(group.included_modules).to include(RSpec::Rails::Matchers::RoutingMatchers)
     end
 
+    it "handles dynamic matchers with keywords (big change from ruby 2 to ruby 3)" do
+      example = group.new
+      example.define_singleton_method(:has_val?) { |val:| val == 1 }
+      expect(example).to example.have_val(val: 1)
+      expect(example).to_not example.have_val(val: 2)
+    end
+
     context "with implicit subject" do
       it "uses the controller as the subject" do
         controller = double('controller')
