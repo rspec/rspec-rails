@@ -20,8 +20,7 @@ module Rspec
         end
       end
 
-      # This is specifically to parse and load `.rspec` file,
-      # So we can use different directory.
+      # Read configuration options from files to respect `--default-path`
       def self.configuration
         @configuration ||= begin
                              configuration = RSpec.configuration
