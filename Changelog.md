@@ -73,6 +73,8 @@ Bug Fixes:
   `run_in_transaction?` method.  (Stan Lo, #2495)
 * Prevent keyword arguments being lost when methods are invoked dynamically
   in controller specs. (Josh Cheek, #2509, #2514)
+* Read configuration options from files to respect spec path setting.
+  (@vivekmiyani, #2508)
 
 ### 5.0.1 / 2021-03-18
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.0.0...v5.0.1)
