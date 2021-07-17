@@ -12,6 +12,8 @@ Description:
     Copy rspec files to your application.
 DESC
 
+      class_option :default_path, type: :string, default: 'spec'
+
       def self.source_root
         @source_root ||= File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
       end
@@ -20,12 +22,12 @@ DESC
         Dir.mktmpdir do |dir|
           generate_rspec_init dir
           template File.join(dir, '.rspec'), '.rspec'
-          directory File.join(dir, 'spec'), 'spec'
+          directory File.join(dir, 'spec'), default_path
         end
       end
 
       def copy_rails_files
-        template 'spec/rails_helper.rb'
+        template 'spec/rails_helper.rb', "#{default_path}/rails_helper.rb"
       end
 
     private
@@ -41,6 +43,10 @@ DESC
 
         replace_generator_command(spec_helper_path)
         remove_warnings_configuration(spec_helper_path)
+
+        dot_rspec_path = File.join(tmpdir, '.rspec')
+
+        append_default_path(dot_rspec_path)
       end
 
       def replace_generator_command(spec_helper_path)
@@ -57,6 +63,15 @@ DESC
                   /#{empty_line}(#{comment_line})+\s+config\.warnings = true\n/,
                   '',
                   verbose: false
+      end
+
+      def append_default_path(dot_rspec_path)
+        append_to_file dot_rspec_path,
+                       "--default-path #{default_path}"
+      end
+
+      def default_path
+        options[:default_path]
       end
     end
   end

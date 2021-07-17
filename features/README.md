@@ -34,10 +34,14 @@ without having to type RAILS_ENV=test.
 
 Now you can run:
 
-    script/rails generate rspec:install
+    bundle exec rails generate rspec:install
 
 This adds the spec directory and some skeleton files, including a .rspec
 file.
+
+You can also customize the default spec path with `--default-path` option:
+
+    bundle exec rails generate rspec:install --default-path behaviour
 
 ## Issues
 

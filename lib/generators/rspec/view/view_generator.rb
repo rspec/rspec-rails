@@ -9,12 +9,12 @@ module Rspec
       class_option :template_engine, desc: "Template engine to generate view files"
 
       def create_view_specs
-        empty_directory File.join("spec", "views", file_path)
+        empty_directory target_path("views", file_path)
 
         actions.each do |action|
           @action = action
           template 'view_spec.rb',
-                   File.join("spec", "views", file_path, "#{@action}.html.#{options[:template_engine]}_spec.rb")
+                   target_path("views", file_path, "#{@action}.html.#{options[:template_engine]}_spec.rb")
         end
       end
     end
