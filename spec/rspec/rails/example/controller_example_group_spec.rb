@@ -19,7 +19,7 @@ module RSpec::Rails
       expect(group.included_modules).to include(RSpec::Rails::Matchers::RoutingMatchers)
     end
 
-    it "handles dynamic matchers with keywords" do
+    it "handles methods invoked via `method_missing` that use keywords" do
       example = group.new
       example.define_singleton_method(:has_val?) { |val:| val == 1 }
       expect(example).to example.have_val(val: 1)
