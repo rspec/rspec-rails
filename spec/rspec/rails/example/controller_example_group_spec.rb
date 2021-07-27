@@ -21,9 +21,8 @@ module RSpec::Rails
 
     it "handles methods invoked via `method_missing` that use keywords" do
       example = group.new
-      example.define_singleton_method(:has_val?) { |val:| val == 1 }
-      expect(example).to example.have_val(val: 1)
-      expect(example).to_not example.have_val(val: 2)
+      example.define_singleton_method(:keyword_value) { |value:| value }
+      expect(example.keyword_value(value: 42)).to eq 42
     end
 
     context "with implicit subject" do
