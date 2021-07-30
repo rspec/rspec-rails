@@ -46,7 +46,7 @@ module RSpec
             def proxy_method_warning_if_called_in_before_context_scope(method_name)
               orig_implementation = instance_method(method_name)
               define_method(method_name) do |*args, &blk|
-                if inspect.include?("before(:context)")
+                if RSpec.current_scope == :before_context_hook
                   RSpec.warn_with("Calling fixture method in before :context ")
                 else
                   orig_implementation.bind(self).call(*args, &blk)
