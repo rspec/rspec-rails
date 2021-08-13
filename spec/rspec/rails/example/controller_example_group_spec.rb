@@ -25,6 +25,10 @@ module RSpec::Rails
           def a_method(value:); value; end
           def method_missing(_name, *_args, **kwargs, &_block); a_method(**kwargs); end
 
+          # This example requires prepend so that the `method_missing` definition
+          # from `ControllerExampleGroup` bubbles up to our artificial one, in reality
+          # this is likely to be either an internal RSpec dispatch or one from a 3rd
+          # party gem.
           prepend ControllerExampleGroup
         end
       example = group.new
