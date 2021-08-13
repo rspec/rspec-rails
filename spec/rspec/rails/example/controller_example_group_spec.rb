@@ -19,6 +19,19 @@ module RSpec::Rails
       expect(group.included_modules).to include(RSpec::Rails::Matchers::RoutingMatchers)
     end
 
+    it "handles methods invoked via `method_missing` that use keywords" do
+      group =
+        RSpec::Core::ExampleGroup.describe ApplicationController do
+          def a_method(value:); value; end
+          def method_missing(_name, *_args, **kwargs, &_block); a_method(**kwargs); end
+
+          prepend ControllerExampleGroup
+        end
+      example = group.new
+
+      expect(example.call_a_method(value: :value)).to eq :value
+    end
+
     context "with implicit subject" do
       it "uses the controller as the subject" do
         controller = double('controller')
