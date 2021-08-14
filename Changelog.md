@@ -1,10 +1,13 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.0.1...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.0.2...5-0-maintenance)
 
 Enhancements:
 
 * Make the API request scaffold template more consistent and compatible with
   Rails 6.1. (Naoto Hamada, #2484)
+
+### 5.0.2 / 2021-08-14
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.0.1...v5.0.2)
 
 Bug Fixes:
 
