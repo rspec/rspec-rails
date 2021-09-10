@@ -393,18 +393,22 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
         }.to have_enqueued_mail(UnifiedMailer, :test_email).and have_enqueued_mail(UnifiedMailer, :email_with_args)
       end
 
-      it "passes with provided argument matchers" do
+      it "matches arguments when mailer has only args" do
+        expect {
+          UnifiedMailer.email_with_args(1, 2).deliver_later
+        }.to have_enqueued_mail(UnifiedMailer, :email_with_args).with(1, 2)
+      end
+
+      it "matches arguments when mailer is parameterized" do
         expect {
           UnifiedMailer.with('foo' => 'bar').test_email.deliver_later
-        }.to have_enqueued_mail(UnifiedMailer, :test_email).with(
-          a_hash_including(params: {'foo' => 'bar'})
-        )
+        }.to have_enqueued_mail(UnifiedMailer, :test_email).with('foo' => 'bar')
+      end
 
+      it "matches arguments when mixing parameterized and non-parameterized emails" do
         expect {
           UnifiedMailer.with('foo' => 'bar').email_with_args(1, 2).deliver_later
-        }.to have_enqueued_mail(UnifiedMailer, :email_with_args).with(
-          a_hash_including(params: {'foo' => 'bar'}, args: [1, 2])
-        )
+        }.to have_enqueued_mail(UnifiedMailer, :email_with_args).with({'foo' => 'bar'}, 1, 2)
       end
 
       it "passes when using a mailer with `delivery_job` set to a sub class of `ActionMailer::DeliveryJob`" do
