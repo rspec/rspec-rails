@@ -89,14 +89,14 @@ module RSpec
         end
 
         def process_arguments(job, given_mail_args)
-          if job[:job] == ActionMailer::MailDeliveryJob
-            if given_mail_args.first.is_a?(Hash) && job[:args][3]['params'].present?
-              [hash_including(params: given_mail_args[0], args: given_mail_args.drop(1))]
-            else
-              [hash_including(args: given_mail_args)]
-            end
+          # Old matcher behavior working with all builtin classes but ActionMailer::MailDeliveryJob
+          return given_mail_args unless defined?(ActionMailer::MailDeliveryJob) && job[:job] <= ActionMailer::MailDeliveryJob
+
+          # If matching args starts with a hash and job instance has params match with them
+          if given_mail_args.first.is_a?(Hash) && job[:args][3]['params'].present?
+            [hash_including(params: given_mail_args[0], args: given_mail_args.drop(1))]
           else
-            given_mail_args
+            [hash_including(args: given_mail_args)]
           end
         end
 
