@@ -7,6 +7,7 @@ require "rspec/rails/matchers/active_job"
 module RSpec
   module Rails
     module Matchers
+      # rubocop: disable Metrics/ClassLength
       # Matcher class for `have_enqueued_mail`. Should not be instantiated directly.
       #
       # @private
@@ -153,6 +154,8 @@ module RSpec
           RSpec::Rails::FeatureCheck.has_action_mailer_unified_delivery? && job[:job] <= ActionMailer::MailDeliveryJob
         end
       end
+      # rubocop: enable Metrics/ClassLength
+
       # @api public
       # Passes if an email has been enqueued inside block.
       # May chain with to specify expected arguments.
