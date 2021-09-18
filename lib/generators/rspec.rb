@@ -20,7 +20,8 @@ module Rspec
         end
       end
 
-      # Read configuration options from files to respect `--default-path`
+      # @private
+      # Load configuration from RSpec to ensure `--default-path` is set
       def self.configuration
         @configuration ||= begin
                              configuration = RSpec.configuration
