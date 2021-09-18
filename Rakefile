@@ -22,28 +22,7 @@ RSpec::Core::RakeTask.new(:spec) do |t|
   t.rspec_opts = %w[--color]
 end
 
-Cucumber::Rake::Task.new(:cucumber) do |t|
-  string_version = ENV.fetch("RAILS_VERSION", "~> 6.0.0")
-  version =
-    if string_version == "master" || string_version.nil?
-      Float::INFINITY
-    else
-      string_version[/\d[\.-]\d/].tr('-', '.')
-    end
-  tags = []
-
-  if version.to_f >= 6.0
-    tags << "'not @rails_pre_6'"
-  end
-
-  if version.to_f < 6.0
-    tags << "'not @rails_post_6'"
-  end
-
-  cucumber_flag = tags.map { |tag| "--tag #{tag}" }
-
-  t.cucumber_opts = cucumber_flag
-end
+Cucumber::Rake::Task.new(:cucumber)
 
 namespace :generate do
   desc "generate a fresh app with rspec installed"
