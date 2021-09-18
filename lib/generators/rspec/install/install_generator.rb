@@ -44,9 +44,11 @@ DESC
         replace_generator_command(spec_helper_path)
         remove_warnings_configuration(spec_helper_path)
 
-        dot_rspec_path = File.join(tmpdir, '.rspec')
+        unless default_path == "spec"
+          dot_rspec_path = File.join(tmpdir, '.rspec')
 
-        append_default_path(dot_rspec_path)
+          append_default_path(dot_rspec_path)
+        end
       end
 
       def replace_generator_command(spec_helper_path)
