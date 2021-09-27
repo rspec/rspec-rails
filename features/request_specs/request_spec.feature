@@ -152,3 +152,23 @@ Feature: request spec
       """
     When I run `rspec spec`
     Then the example should pass
+
+  Scenario: testing subdomain constrained requests
+    Given a file named "spec/requests/widgets_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe "Widget management", :type => :request do
+        before { host! "api.example.com" }
+
+        it "creates a Widget" do
+          headers = { "ACCEPT" => "application/json" }
+          post "/widgets", :params => { :widget => {:name => "My Widget"} }, :headers => headers
+
+          expect(response.content_type).to eq("application/json; charset=utf-8")
+          expect(response).to have_http_status(:created)
+        end
+      end
+      """
+    When I run `rspec spec`
+    Then the example should pass
