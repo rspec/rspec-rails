@@ -158,6 +158,10 @@ Feature: request spec
       """ruby
       require "rails_helper"
 
+      Rails.application.routes.draw do
+        resources :widgets, constraints: { subdomain: "api" }
+      end
+
       RSpec.describe "Widget management", :type => :request do
         before { host! "api.example.com" }
 
