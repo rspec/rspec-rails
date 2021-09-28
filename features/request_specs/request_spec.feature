@@ -167,9 +167,9 @@ Feature: request spec
 
         it "creates a Widget" do
           headers = { "ACCEPT" => "application/json" }
-          post "/widgets", :params => { :widget => {:name => "My Widget"} }, :headers => headers
+          post "/widgets", :params => { :widget => { :name => "My Widget" } }, :headers => headers
 
-          expect(response.content_type).to eq("application/json; charset=utf-8")
+          expect(response.content_type).to start_with("application/json")
           expect(response).to have_http_status(:created)
         end
       end
