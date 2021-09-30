@@ -150,7 +150,7 @@ module RSpec
           match = path_regex.match(_default_file_to_render)
 
           render_options = {template: match[:template]}
-          render_options[:handlers] = [match[:handler]] if match[:handler]
+          render_options[:handlers] = [match[:handler].to_sym] if match[:handler]
           render_options[:formats] = [match[:format].to_sym] if match[:format]
           render_options[:locales] = [match[:locale]] if match[:locale]
           render_options[:variants] = [match[:variant]] if match[:variant]
