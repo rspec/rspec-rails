@@ -151,19 +151,19 @@ module RSpec::Rails
         it "converts the filename components into render options" do
           allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.html.erb" }
           view_spec.render
-          expect(view_spec.received.first).to eq([{template: "widgets/new", locales: ['en'], formats: [:html], handlers: ['erb']}, {}, nil])
+          expect(view_spec.received.first).to eq([{template: "widgets/new", locales: ['en'], formats: [:html], handlers: [:erb]}, {}, nil])
         end
 
         it "converts the filename with variant into render options" do
           allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.html+fancy.erb" }
           view_spec.render
-          expect(view_spec.received.first).to eq([{template: "widgets/new", locales: ['en'], formats: [:html], handlers: ['erb'], variants: ['fancy']}, {}, nil])
+          expect(view_spec.received.first).to eq([{template: "widgets/new", locales: ['en'], formats: [:html], handlers: [:erb], variants: ['fancy']}, {}, nil])
         end
 
         it "converts the filename without format into render options" do
           allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.erb" }
           view_spec.render
-          expect(view_spec.received.first).to eq([{template: "widgets/new", locales: ['en'], handlers: ['erb']}, {}, nil])
+          expect(view_spec.received.first).to eq([{template: "widgets/new", locales: ['en'], handlers: [:erb]}, {}, nil])
         end
       end
 
