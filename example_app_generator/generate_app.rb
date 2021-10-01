@@ -78,4 +78,11 @@ in_root do
             'REPLACE_BUNDLE_PATH',
             bundle_install_path
   chmod 'ci_retry_bundle_install.sh', 0755
+
+  if Rails::VERSION::STRING > '7'
+    create_file 'app/assets/config/manifest.js' do
+      "//= link application.css"
+    end
+    create_file 'app/assets/stylesheets/application.css'
+  end
 end
