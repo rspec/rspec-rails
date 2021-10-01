@@ -19,6 +19,7 @@ in_root do
   # Remove the existing rails version so we can properly use main or other
   # edge branches
   gsub_file 'Gemfile', /^.*\bgem ['"]rails.*$/, ''
+  gsub_file 'Gemfile', /^.*\bgem ['"]selenium\-webdriver.*$/, ''
   gsub_file "Gemfile", /.*web-console.*/, ''
   gsub_file "Gemfile", /.*debug.*/, ''
   gsub_file "Gemfile", /.*puma.*/, ''
