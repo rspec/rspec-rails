@@ -20,7 +20,7 @@ in_root do
   # edge branches
   gsub_file 'Gemfile', /^.*\bgem ['"]rails.*$/, ''
   gsub_file "Gemfile", /.*web-console.*/, ''
-  gsub_file "Gemfile", /.*debugger.*/, ''
+  gsub_file "Gemfile", /.*debug.*/, ''
   gsub_file "Gemfile", /.*puma.*/, ''
   gsub_file "Gemfile", /.*bootsnap.*/, ''
 
