@@ -68,7 +68,6 @@ jobs:
            env:
              RAILS_VERSION: '~> 5.2.0'
          - ruby: 2.2.10
-           allow_failure: true
            env:
              RAILS_VERSION: '~> 5.2.0'
          - ruby: 2.2.10
