@@ -80,7 +80,7 @@ Feature: view spec
         it "displays the widget" do
           assign(:widget, Widget.create!(:name => "slicer"))
 
-          render :template => "widgets/widget.html.erb"
+          render :template => "widgets/widget"
 
           expect(rendered).to match /slicer/
         end
@@ -103,7 +103,7 @@ Feature: view spec
           it "displays the widget" do
             assign(:widget, Widget.create!(:name => "slicer"))
 
-            render :template => "widgets/widget.html.erb", :layout => "layouts/inventory"
+            render :template => "widgets/widget", :layout => "layouts/inventory"
 
             expect(rendered).to match /slicer/
           end
@@ -162,7 +162,7 @@ Feature: view spec
         it "displays the widget" do
           widget = Widget.create!(:name => "slicer")
 
-          render :partial => "widgets/widget.html.erb", :locals => {:widget => widget}
+          render :partial => "widgets/widget", :locals => {:widget => widget}
 
           expect(rendered).to match /slicer/
         end
