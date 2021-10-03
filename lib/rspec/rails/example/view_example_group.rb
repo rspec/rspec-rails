@@ -152,8 +152,8 @@ module RSpec
           render_options = {template: match[:template]}
           render_options[:handlers] = [match[:handler].to_sym] if match[:handler]
           render_options[:formats] = [match[:format].to_sym] if match[:format]
-          render_options[:locales] = [match[:locale]] if match[:locale]
-          render_options[:variants] = [match[:variant]] if match[:variant]
+          render_options[:locales] = [match[:locale].to_sym] if match[:locale]
+          render_options[:variants] = [match[:variant].to_sym] if match[:variant]
 
           render_options
         end
