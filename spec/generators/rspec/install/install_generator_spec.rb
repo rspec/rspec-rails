@@ -19,6 +19,10 @@ RSpec.describe Rspec::Generators::InstallGenerator, type: :generator do
     match(/ActiveRecord::Migration\.maintain_test_schema!/m)
   end
 
+  def require_rails_environment
+    match(/^require_relative '\.\.\/config\/environment'$/m)
+  end
+
   def require_rspec_rails
     match(/^require 'rspec\/rails'$/m)
   end
@@ -62,6 +66,11 @@ RSpec.describe Rspec::Generators::InstallGenerator, type: :generator do
   end
 
   context "generates spec/rails_helper.rb" do
+    specify "requiring Rails environment" do
+      run_generator
+      expect(rails_helper).to require_rails_environment
+    end
+
     specify "requiring rspec/rails" do
       run_generator
       expect(rails_helper).to require_rspec_rails
@@ -97,6 +106,11 @@ RSpec.describe Rspec::Generators::InstallGenerator, type: :generator do
   context "generates spec/rails_helper.rb", "without ActiveRecord available" do
     before do
       hide_const("ActiveRecord")
+    end
+
+    specify "requiring Rails environment" do
+      run_generator
+      expect(rails_helper).to require_rails_environment
     end
 
     specify "requiring rspec/rails" do
