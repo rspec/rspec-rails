@@ -69,7 +69,7 @@ Feature: be_routable matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe WidgetsController, :type => :routing do
+      RSpec.describe WidgetsController, :type => :controller do
         it "routes to /widgets" do
           expect(:get => "/widgets").to be_routable
         end
