@@ -101,11 +101,22 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
 
   describe 'namespaced request spec' do
     subject { file('spec/requests/admin/posts_spec.rb') }
-    before  { run_generator %w[admin/posts] }
-    it { is_expected.to exist }
-    it { is_expected.to contain(/^RSpec.describe "\/admin\/posts", #{type_metatag(:request)}/) }
-    it { is_expected.to contain('admin_post_url(post)') }
-    it { is_expected.to contain('Admin::Post.create') }
+
+    describe 'with no options' do
+      before  { run_generator %w[admin/posts] }
+      it { is_expected.to exist }
+      it { is_expected.to contain(/^RSpec.describe "\/admin\/posts", #{type_metatag(:request)}/) }
+      it { is_expected.to contain('post admin_posts_url, params: { admin_post: valid_attributes }') }
+      it { is_expected.to contain('admin_post_url(post)') }
+      it { is_expected.to contain('Admin::Post.create') }
+    end
+
+    describe 'with --model-name' do
+      before  { run_generator %w[admin/posts --model-name=post] }
+      it { is_expected.to contain('post admin_posts_url, params: { post: valid_attributes }') }
+      it { is_expected.not_to contain('params: { admin_post: valid_attributes }') }
+      it { is_expected.to contain(' Post.create') }
+    end
   end
 
   describe 'namespaced controller spec' do
