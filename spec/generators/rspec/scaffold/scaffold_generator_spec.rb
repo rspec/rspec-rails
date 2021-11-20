@@ -118,10 +118,19 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
       it { is_expected.to contain(' Post.create') }
     end
 
-    describe 'with --model-name & --api' do
-      before { run_generator %w[admin/posts --api --model-name=post] }
-      it { is_expected.to contain('params: { post: valid_attributes }') }
-      it { is_expected.not_to contain('params: { admin_post: valid_attributes }') }
+    context 'with --api' do
+      describe 'with default options' do
+        before { run_generator %w[admin/posts --api] }
+        it { is_expected.to contain('params: { admin_post: valid_attributes }') }
+        it { is_expected.to contain('Admin::Post.create') }
+      end
+
+      describe 'with --model-name' do
+        before { run_generator %w[admin/posts --api --model-name=post] }
+        it { is_expected.to contain('params: { post: valid_attributes }') }
+        it { is_expected.not_to contain('params: { admin_post: valid_attributes }') }
+        it { is_expected.to contain(' Post.create') }
+      end
     end
   end
 
