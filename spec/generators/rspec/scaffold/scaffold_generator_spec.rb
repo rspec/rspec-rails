@@ -102,8 +102,8 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
   describe 'namespaced request spec' do
     subject { file('spec/requests/admin/posts_spec.rb') }
 
-    describe 'with no options' do
-      before  { run_generator %w[admin/posts] }
+    describe 'with default options' do
+      before { run_generator %w[admin/posts] }
       it { is_expected.to exist }
       it { is_expected.to contain(/^RSpec.describe "\/admin\/posts", #{type_metatag(:request)}/) }
       it { is_expected.to contain('post admin_posts_url, params: { admin_post: valid_attributes }') }
@@ -112,7 +112,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
     end
 
     describe 'with --model-name' do
-      before  { run_generator %w[admin/posts --model-name=post] }
+      before { run_generator %w[admin/posts --model-name=post] }
       it { is_expected.to contain('post admin_posts_url, params: { post: valid_attributes }') }
       it { is_expected.not_to contain('params: { admin_post: valid_attributes }') }
       it { is_expected.to contain(' Post.create') }
@@ -137,18 +137,33 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
   describe 'namespaced controller spec' do
     subject { file('spec/controllers/admin/posts_controller_spec.rb') }
 
-    describe 'with no options' do
-      before  { run_generator %w[admin/posts --controller_specs] }
+    describe 'with default options' do
+      before { run_generator %w[admin/posts --controller_specs] }
       it { is_expected.to contain(/^RSpec.describe Admin::PostsController, #{type_metatag(:controller)}/) }
       it { is_expected.to contain('post :create, params: {admin_post: valid_attributes}') }
       it { is_expected.to contain('Admin::Post.create') }
     end
 
     describe 'with --model-name' do
-      before  { run_generator %w[admin/posts --model-name=post --controller_specs] }
+      before { run_generator %w[admin/posts --model-name=post --controller_specs] }
       it { is_expected.to contain('post :create, params: {post: valid_attributes}') }
       it { is_expected.not_to contain('params: {admin_post: valid_attributes}') }
       it { is_expected.to contain(' Post.create') }
+    end
+
+    context 'with --api' do
+      describe 'with default options' do
+        before { run_generator %w[admin/posts --api --controller_specs] }
+        it { is_expected.to contain('post :create, params: {admin_post: valid_attributes}') }
+        it { is_expected.to contain('Admin::Post.create') }
+      end
+
+      describe 'with --model-name' do
+        before { run_generator %w[admin/posts --api --model-name=post --controller_specs] }
+        it { is_expected.to contain('post :create, params: {post: valid_attributes}') }
+        it { is_expected.not_to contain('params: {admin_post: valid_attributes}') }
+        it { is_expected.to contain(' Post.create') }
+      end
     end
   end
 

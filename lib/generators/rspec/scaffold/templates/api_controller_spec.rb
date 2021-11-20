@@ -64,21 +64,21 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
     context "with valid params" do
       it "creates a new <%= class_name %>" do
         expect {
-          post :create, params: {<%= ns_file_name %>: valid_attributes}, session: valid_session
+          post :create, params: {<%= singular_table_name %>: valid_attributes}, session: valid_session
         }.to change(<%= class_name %>, :count).by(1)
       end
 
-      it "renders a JSON response with the new <%= ns_file_name %>" do
-        post :create, params: {<%= ns_file_name %>: valid_attributes}, session: valid_session
+      it "renders a JSON response with the new <%= singular_table_name %>" do
+        post :create, params: {<%= singular_table_name %>: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:created)
         expect(response.content_type).to eq('application/json')
-        expect(response.location).to eq(<%= ns_file_name %>_url(<%= class_name %>.last))
+        expect(response.location).to eq(<%= singular_table_name %>_url(<%= class_name %>.last))
       end
     end
 
     context "with invalid params" do
-      it "renders a JSON response with errors for the new <%= ns_file_name %>" do
-        post :create, params: {<%= ns_file_name %>: invalid_attributes}, session: valid_session
+      it "renders a JSON response with errors for the new <%= singular_table_name %>" do
+        post :create, params: {<%= singular_table_name %>: invalid_attributes}, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -91,25 +91,25 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested <%= ns_file_name %>" do
+      it "updates the requested <%= singular_table_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-        put :update, params: {id: <%= file_name %>.to_param, <%= ns_file_name %>: new_attributes}, session: valid_session
+        put :update, params: {id: <%= file_name %>.to_param, <%= singular_table_name %>: new_attributes}, session: valid_session
         <%= file_name %>.reload
         skip("Add assertions for updated state")
       end
 
-      it "renders a JSON response with the <%= ns_file_name %>" do
+      it "renders a JSON response with the <%= singular_table_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-        put :update, params: {id: <%= file_name %>.to_param, <%= ns_file_name %>: valid_attributes}, session: valid_session
+        put :update, params: {id: <%= file_name %>.to_param, <%= singular_table_name %>: valid_attributes}, session: valid_session
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to eq('application/json')
       end
     end
 
     context "with invalid params" do
-      it "renders a JSON response with errors for the <%= ns_file_name %>" do
+      it "renders a JSON response with errors for the <%= singular_table_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-        put :update, params: {id: <%= file_name %>.to_param, <%= ns_file_name %>: invalid_attributes}, session: valid_session
+        put :update, params: {id: <%= file_name %>.to_param, <%= singular_table_name %>: invalid_attributes}, session: valid_session
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -117,7 +117,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested <%= ns_file_name %>" do
+    it "destroys the requested <%= singular_table_name %>" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
       expect {
         delete :destroy, params: {id: <%= file_name %>.to_param}, session: valid_session
