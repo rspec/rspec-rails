@@ -224,7 +224,7 @@ RSpec.describe "have_http_status" do
     # The error query is an alias for `server_error?`:
     #
     # - https://github.com/rails/rails/blob/ca200378/actionpack/lib/action_dispatch/testing/test_response.rb#L27
-    # - https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/testing/test_response.rb
+    # - https://github.com/rails/rails/blob/main/actionpack/lib/action_dispatch/testing/test_response.rb
     #
     # `server_error?` is part of the Rack Helpers and is defined as:
     #
@@ -278,7 +278,7 @@ RSpec.describe "have_http_status" do
     # The success query is an alias for `successful?`:
     #
     # - https://github.com/rails/rails/blob/ca200378/actionpack/lib/action_dispatch/testing/test_response.rb#L18
-    # - https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/testing/test_response.rb
+    # - https://github.com/rails/rails/blob/main/actionpack/lib/action_dispatch/testing/test_response.rb
     #
     # `successful?` is part of the Rack Helpers and is defined as:
     #
@@ -336,7 +336,7 @@ RSpec.describe "have_http_status" do
     # The missing query is an alias for `not_found?`:
     #
     # - https://github.com/rails/rails/blob/ca200378/actionpack/lib/action_dispatch/testing/test_response.rb#L21
-    # - https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/testing/test_response.rb
+    # - https://github.com/rails/rails/blob/main/actionpack/lib/action_dispatch/testing/test_response.rb
     #
     # `not_found?` is part of the Rack Helpers and is defined as:
     #
@@ -395,7 +395,7 @@ RSpec.describe "have_http_status" do
     # The redirect query is an alias for `redirection?`:
     #
     # - https://github.com/rails/rails/blob/ca200378/actionpack/lib/action_dispatch/testing/test_response.rb#L24
-    # - https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/testing/test_response.rb
+    # - https://github.com/rails/rails/blob/main/actionpack/lib/action_dispatch/testing/test_response.rb
     #
     # `redirection?` is part of the Rack Helpers and is defined as:
     #

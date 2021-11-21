@@ -2,7 +2,7 @@ Controller specs are marked by `:type => :controller` or if you have set
 `config.infer_spec_type_from_file_location!` by placing them in `spec/controllers`.
 
 A controller spec is an RSpec wrapper for a Rails functional test
-([ActionController::TestCase::Behavior](https://github.com/rails/rails/blob/master/actionpack/lib/action_controller/test_case.rb)).
+([ActionController::TestCase::Behavior](https://github.com/rails/rails/blob/main/actionpack/lib/action_controller/test_case.rb)).
 It allows you to simulate a single http request in each example, and then
 specify expected outcomes such as:
 

@@ -1,6 +1,6 @@
 # The following code inspired and modified from Rails' `assert_response`:
 #
-#   https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/testing/assertions/response.rb#L22-L38
+#   https://github.com/rails/rails/blob/main/actionpack/lib/action_dispatch/testing/assertions/response.rb#L22-L38
 #
 # Thank you to all the Rails devs who did the heavy lifting on this!
 
@@ -243,7 +243,7 @@ module RSpec
 
           # @return [Array<Symbol>] of status codes which represent a HTTP status
           #   code "group"
-          # @see https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/testing/test_response.rb `ActionDispatch::TestResponse`
+          # @see https://github.com/rails/rails/blob/main/actionpack/lib/action_dispatch/testing/test_response.rb `ActionDispatch::TestResponse`
           def self.valid_statuses
             [
               :error, :success, :missing,
@@ -313,7 +313,7 @@ module RSpec
 
           # @return [String] formatting the associated code(s) for the various
           #   status code "groups"
-          # @see https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/testing/test_response.rb `ActionDispatch::TestResponse`
+          # @see https://github.com/rails/rails/blob/main/actionpack/lib/action_dispatch/testing/test_response.rb `ActionDispatch::TestResponse`
           # @see https://github.com/rack/rack/blob/master/lib/rack/response.rb `Rack::Response`
           def type_codes
             # At the time of this commit the most recent version of
@@ -373,7 +373,7 @@ module RSpec
       #   expect(response).to have_http_status(404)
       #   expect(page).to     have_http_status(:created)
       #
-      # @see https://github.com/rails/rails/blob/master/actionpack/lib/action_dispatch/testing/test_response.rb `ActionDispatch::TestResponse`
+      # @see https://github.com/rails/rails/blob/main/actionpack/lib/action_dispatch/testing/test_response.rb `ActionDispatch::TestResponse`
       # @see https://github.com/rack/rack/blob/master/lib/rack/utils.rb `Rack::Utils::SYMBOL_TO_STATUS_CODE`
       def have_http_status(target)
         raise ArgumentError, "Invalid HTTP status: nil" unless target
