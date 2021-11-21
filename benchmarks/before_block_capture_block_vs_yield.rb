@@ -42,11 +42,11 @@ capturing the block and then performing an `instance_exec` on it later in the
 example context.
 
 rspec-core has already performed [many related benchmarks about
-this](https://github.com/rspec/rspec-core/tree/master/benchmarks):
+this](https://github.com/rspec/rspec-core/tree/main/benchmarks):
 
-- [call vs yield](https://github.com/rspec/rspec-core/blob/master/benchmarks/call_v_yield.rb)
-- [capture block vs yield](https://github.com/rspec/rspec-core/blob/master/benchmarks/capture_block_vs_yield.rb)
-- [flat map vs inject](https://github.com/rspec/rspec-core/blob/master/benchmarks/flat_map_vs_inject.rb)
+- [call vs yield](https://github.com/rspec/rspec-core/blob/main/benchmarks/call_v_yield.rb)
+- [capture block vs yield](https://github.com/rspec/rspec-core/blob/main/benchmarks/capture_block_vs_yield.rb)
+- [flat map vs inject](https://github.com/rspec/rspec-core/blob/main/benchmarks/flat_map_vs_inject.rb)
 
 The results are very interesting:
 
@@ -64,7 +64,7 @@ The results are very interesting:
 > See also `flat_map_vs_inject.rb`, which appears to contradict these
 > results a little bit.
 >
-> -- https://github.com/rspec/rspec-core/blob/master/benchmarks/capture_block_vs_yield.rb#L83-L95
+> -- https://github.com/rspec/rspec-core/blob/main/benchmarks/capture_block_vs_yield.rb#L83-L95
 
 and
 
@@ -75,7 +75,7 @@ and
 > version remains faster in my benchmarks here no matter how small
 > I shrink the `words` array. I'm not sure why!
 >
-> -- https://github.com/rspec/rspec-core/blob/master/benchmarks/flat_map_vs_inject.rb#L37-L42
+> -- https://github.com/rspec/rspec-core/blob/main/benchmarks/flat_map_vs_inject.rb#L37-L42
 
 This seems to show that the error margin is enough to negate any benefit from
 capturing the block initially. It also shows that not capturing the block is
