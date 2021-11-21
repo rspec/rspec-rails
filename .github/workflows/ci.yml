@@ -16,15 +16,15 @@ jobs:
       fail-fast: false
       matrix:
        include:
-         # Rails Master (7.0) builds >= 2.7
+         # Edge Rails (7.0) builds >= 2.7
          - ruby: 3.0
            allow_failure: true
            env:
-             RAILS_VERSION: 'master'
+             RAILS_VERSION: 'main'
          - ruby: 2.7
            allow_failure: true
            env:
-             RAILS_VERSION: 'master'
+             RAILS_VERSION: 'main'
 
          # Rails 6.1 builds >= 2.5
          - ruby: 3.0

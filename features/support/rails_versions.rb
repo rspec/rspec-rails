@@ -1,6 +1,6 @@
 def rails_version
   string_version = ENV.fetch("RAILS_VERSION", "~> 6.0.0")
-  if string_version == "master" || string_version.nil?
+  if string_version == "main" || string_version.nil?
     Float::INFINITY
   else
     string_version[/\d[\.-]\d/].tr('-', '.')
