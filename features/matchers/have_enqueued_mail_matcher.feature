@@ -62,14 +62,64 @@ Feature: have_enqueued_mail matcher
           expect {
             MyMailer.signup('user').deliver_later
           }.to have_enqueued_mail(MyMailer, :signup).with('user')
+        end
+      end
+      """
+    When I run `rspec spec/mailers/my_mailer_spec.rb`
+    Then the examples should all pass
+
+  Scenario: Parameterize the mailer
+    Given a file named "app/mailers/my_mailer.rb" with:
+      """ruby
+      class MyMailer < ApplicationMailer
+
+        def signup(user = nil)
+          @user = user
+
+          mail to: "to@example.org"
+        end
+      end
+      """
+    Given a file named "spec/mailers/my_mailer_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe MyMailer do
+        it "matches with enqueued mailer" do
+          ActiveJob::Base.queue_adapter = :test
           # Works with named parameters
           expect {
-            MyMailer.with('foo' => 'bar').signup.deliver_later
-          }.to have_enqueued_mail(MyMailer, :signup).with('foo' => 'bar')
+            MyMailer.with(foo: 'bar').signup.deliver_later
+          }.to have_enqueued_mail(MyMailer, :signup).with(foo: 'bar')
+        end
+      end
+      """
+    When I run `rspec spec/mailers/my_mailer_spec.rb`
+    Then the examples should all pass
+
+  Scenario: Parameterize and pass an argument to the mailer
+    Given a file named "app/mailers/my_mailer.rb" with:
+      """ruby
+      class MyMailer < ApplicationMailer
+
+        def signup(user = nil)
+          @user = user
+
+          mail to: "to@example.org"
+        end
+      end
+      """
+    Given a file named "spec/mailers/my_mailer_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe MyMailer do
+        it "matches with enqueued mailer" do
+          ActiveJob::Base.queue_adapter = :test
           # Works also with both, named parameters match first argument
           expect {
             MyMailer.with('foo' => 'bar').signup('user').deliver_later
-          }.to have_enqueued_mail(MyMailer, :signup).with({'foo' => 'bar'}, 'user')
+          }.to have_enqueued_mail(MyMailer, :signup).with({foo: 'bar'}, 'user')
         end
       end
       """
