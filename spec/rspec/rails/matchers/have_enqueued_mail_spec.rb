@@ -22,7 +22,12 @@ if RSpec::Rails::FeatureCheck.has_active_job?
       def email_with_args(arg1, arg2); end
     end
 
-    class DeliveryJobSubClass < ActionMailer::DeliveryJob
+    if RSpec::Rails::FeatureCheck.has_action_mailer_legacy_delivery_job?
+      class DeliveryJobSubClass < ActionMailer::DeliveryJob
+      end
+    else
+      class DeliveryJobSubClass < ActionMailer::MailDeliveryJob
+      end
     end
 
     class UnifiedMailerWithDeliveryJobSubClass < ActionMailer::Base
