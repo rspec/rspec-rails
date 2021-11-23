@@ -143,7 +143,7 @@ module RSpec
         end
 
         def legacy_mail?(job)
-          job[:job] <= ActionMailer::DeliveryJob
+          RSpec::Rails::FeatureCheck.has_action_mailer_legacy_delivery_job? && job[:job] <= ActionMailer::DeliveryJob
         end
 
         def parameterized_mail?(job)
