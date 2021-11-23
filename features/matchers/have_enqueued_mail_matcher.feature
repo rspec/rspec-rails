@@ -73,8 +73,8 @@ Feature: have_enqueued_mail matcher
       """ruby
       class MyMailer < ApplicationMailer
 
-        def signup(user = nil)
-          @user = user
+        def signup
+          @foo = params[:foo]
 
           mail to: "to@example.org"
         end
@@ -102,8 +102,9 @@ Feature: have_enqueued_mail matcher
       """ruby
       class MyMailer < ApplicationMailer
 
-        def signup(user = nil)
+        def signup(user)
           @user = user
+          @foo = params[:foo]
 
           mail to: "to@example.org"
         end
@@ -118,7 +119,7 @@ Feature: have_enqueued_mail matcher
           ActiveJob::Base.queue_adapter = :test
           # Works also with both, named parameters match first argument
           expect {
-            MyMailer.with('foo' => 'bar').signup('user').deliver_later
+            MyMailer.with(foo: 'bar').signup('user').deliver_later
           }.to have_enqueued_mail(MyMailer, :signup).with({foo: 'bar'}, 'user')
         end
       end
