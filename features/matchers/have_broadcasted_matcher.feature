@@ -105,7 +105,7 @@ Feature: have_broadcasted matcher
       require "rails_helper"
 
       RSpec.describe ChatChannel, type: :channel do
-        it "successfully subscribes" do
+        it "matches with stream name" do
           user = User.new(42)
 
           expect {
