@@ -233,18 +233,18 @@ Each one inherits from one of Rails’ built-in `TestCase` classes,
 meaning the helper methods provided by default in Rails tests
 are available in RSpec, as well.
 
-  | Spec type      | Corresponding Rails test class        |
-  | -------------- | --------------------------------      |
-  | [model][]      |                                       |
-  | [controller][] | [`ActionController::TestCase`][]      |
-  | [mailer][]     | `ActionMailer::TestCase`              |
-  | [job][]        |                                       |
-  | [view][]       | `ActionView::TestCase`                |
-  | [routing][]    |                                       |
-  | [helper][]     | `ActionView::TestCase`                |
-  | [request][]    | [`ActionDispatch::IntegrationTest`][] |
-  | [feature][]    |                                       |
-  | [system][]     | [`ActionDispatch::SystemTestCase`][]  |
+| Spec type      | Corresponding Rails test class        |
+| -------------- | --------------------------------      |
+| [model][]      |                                       |
+| [controller][] | [`ActionController::TestCase`][]      |
+| [mailer][]     | `ActionMailer::TestCase`              |
+| [job][]        |                                       |
+| [view][]       | `ActionView::TestCase`                |
+| [routing][]    |                                       |
+| [helper][]     | `ActionView::TestCase`                |
+| [request][]    | [`ActionDispatch::IntegrationTest`][] |
+| [feature][]    |                                       |
+| [system][]     | [`ActionDispatch::SystemTestCase`][]  |
 
 Follow the links above to see examples of each spec type,
 or for official Rails API documentation on the given `TestCase` class.
