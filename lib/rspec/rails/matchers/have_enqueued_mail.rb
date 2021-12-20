@@ -106,7 +106,14 @@ module RSpec
         end
 
         def yield_mail_args(block)
-          proc { |*job_args| block.call(*(job_args - base_mailer_args)) }
+          proc do |*job_args|
+            mailer_args = job_args - base_mailer_args
+            if mailer_args.first.is_a?(Hash)
+              block.call(*mailer_args.first[:args])
+            else
+              block.call(*mailer_args)
+            end
+          end
         end
 
         def check_active_job_adapter
@@ -133,7 +140,8 @@ module RSpec
 
         def mail_job_message(job)
           mailer_method = job[:args][0..1].join('.')
-          mailer_args = job[:args][3..-1]
+          mailer_args = deserialize_arguments(job)[3..-1]
+          mailer_args = mailer_args.first[:args] if unified_mail?(job)
           msg_parts = []
           msg_parts << "with #{mailer_args}" if mailer_args.any?
           msg_parts << "on queue #{job[:queue]}" if job[:queue] && job[:queue] != 'mailers'
