@@ -72,6 +72,7 @@ module RSpec::Rails
 
     describe '#after' do
       it 'sets the :extra_failure_lines metadata to an array of STDOUT lines' do
+        allow(Capybara::Session).to receive(:instance_created?).and_return(true)
         group = RSpec::Core::ExampleGroup.describe do
           include SystemExampleGroup
 
