@@ -56,13 +56,13 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
       it "creates a new <%= class_name %>" do
         expect {
           post <%= index_helper %>_url,
-               params: { <%= ns_file_name %>: valid_attributes }, headers: valid_headers, as: :json
+               params: { <%= singular_table_name %>: valid_attributes }, headers: valid_headers, as: :json
         }.to change(<%= class_name %>, :count).by(1)
       end
 
-      it "renders a JSON response with the new <%= ns_file_name %>" do
+      it "renders a JSON response with the new <%= singular_table_name %>" do
         post <%= index_helper %>_url,
-             params: { <%= ns_file_name %>: valid_attributes }, headers: valid_headers, as: :json
+             params: { <%= singular_table_name %>: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including("application/json"))
       end
@@ -72,13 +72,13 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
       it "does not create a new <%= class_name %>" do
         expect {
           post <%= index_helper %>_url,
-               params: { <%= ns_file_name %>: invalid_attributes }, as: :json
+               params: { <%= singular_table_name %>: invalid_attributes }, as: :json
         }.to change(<%= class_name %>, :count).by(0)
       end
 
-      it "renders a JSON response with errors for the new <%= ns_file_name %>" do
+      it "renders a JSON response with errors for the new <%= singular_table_name %>" do
         post <%= index_helper %>_url,
-             params: { <%= ns_file_name %>: invalid_attributes }, headers: valid_headers, as: :json
+             params: { <%= singular_table_name %>: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to match(a_string_including("application/json"))
       end
@@ -91,7 +91,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested <%= ns_file_name %>" do
+      it "updates the requested <%= singular_table_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         patch <%= show_helper %>,
               params: { <%= singular_table_name %>: new_attributes }, headers: valid_headers, as: :json
@@ -99,7 +99,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
         skip("Add assertions for updated state")
       end
 
-      it "renders a JSON response with the <%= ns_file_name %>" do
+      it "renders a JSON response with the <%= singular_table_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         patch <%= show_helper %>,
               params: { <%= singular_table_name %>: new_attributes }, headers: valid_headers, as: :json
@@ -109,7 +109,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
     end
 
     context "with invalid parameters" do
-      it "renders a JSON response with errors for the <%= ns_file_name %>" do
+      it "renders a JSON response with errors for the <%= singular_table_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         patch <%= show_helper %>,
               params: { <%= singular_table_name %>: invalid_attributes }, headers: valid_headers, as: :json
@@ -120,7 +120,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
   end
 
   describe "DELETE /destroy" do
-    it "destroys the requested <%= ns_file_name %>" do
+    it "destroys the requested <%= singular_table_name %>" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
       expect {
         delete <%= show_helper %>, headers: valid_headers, as: :json
