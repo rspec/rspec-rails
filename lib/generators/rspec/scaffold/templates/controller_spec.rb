@@ -79,19 +79,19 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
     context "with valid params" do
       it "creates a new <%= class_name %>" do
         expect {
-          post :create, params: {<%= ns_file_name %>: valid_attributes}, session: valid_session
+          post :create, params: {<%= singular_table_name %>: valid_attributes}, session: valid_session
         }.to change(<%= class_name %>, :count).by(1)
       end
 
-      it "redirects to the created <%= ns_file_name %>" do
-        post :create, params: {<%= ns_file_name %>: valid_attributes}, session: valid_session
+      it "redirects to the created <%= singular_table_name %>" do
+        post :create, params: {<%= singular_table_name %>: valid_attributes}, session: valid_session
         expect(response).to redirect_to(<%= class_name %>.last)
       end
     end
 
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'new' template)" do
-        post :create, params: {<%= ns_file_name %>: invalid_attributes}, session: valid_session
+        post :create, params: {<%= singular_table_name %>: invalid_attributes}, session: valid_session
         expect(response).to be_successful
       end
     end
@@ -103,16 +103,16 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
         skip("Add a hash of attributes valid for your model")
       }
 
-      it "updates the requested <%= ns_file_name %>" do
+      it "updates the requested <%= singular_table_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-        put :update, params: {id: <%= file_name %>.to_param, <%= ns_file_name %>: new_attributes}, session: valid_session
+        put :update, params: {id: <%= file_name %>.to_param, <%= singular_table_name %>: new_attributes}, session: valid_session
         <%= file_name %>.reload
         skip("Add assertions for updated state")
       end
 
-      it "redirects to the <%= ns_file_name %>" do
+      it "redirects to the <%= singular_table_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-        put :update, params: {id: <%= file_name %>.to_param, <%= ns_file_name %>: valid_attributes}, session: valid_session
+        put :update, params: {id: <%= file_name %>.to_param, <%= singular_table_name %>: valid_attributes}, session: valid_session
         expect(response).to redirect_to(<%= file_name %>)
       end
     end
@@ -120,14 +120,14 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
     context "with invalid params" do
       it "returns a success response (i.e. to display the 'edit' template)" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
-        put :update, params: {id: <%= file_name %>.to_param, <%= ns_file_name %>: invalid_attributes}, session: valid_session
+        put :update, params: {id: <%= file_name %>.to_param, <%= singular_table_name %>: invalid_attributes}, session: valid_session
         expect(response).to be_successful
       end
     end
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested <%= ns_file_name %>" do
+    it "destroys the requested <%= singular_table_name %>" do
       <%= file_name %> = <%= class_name %>.create! valid_attributes
       expect {
         delete :destroy, params: {id: <%= file_name %>.to_param}, session: valid_session
