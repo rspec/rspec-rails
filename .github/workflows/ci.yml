@@ -109,6 +109,7 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
+      - run: script/update_rubygems_and_install_bundler
       - run: script/clone_all_rspec_repos
       - run: bundle install --binstubs
       - run: script/run_build
