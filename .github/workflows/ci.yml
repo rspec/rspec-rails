@@ -16,8 +16,8 @@ jobs:
       fail-fast: false
       matrix:
        include:
-         # Edge Rails (7.0) builds >= 2.7
-         - ruby: 3.0
+         # Edge Rails (7.1) builds >= 2.7
+         - ruby: '3.0'
            allow_failure: true
            env:
              RAILS_VERSION: 'main'
@@ -26,8 +26,22 @@ jobs:
            env:
              RAILS_VERSION: 'main'
 
+         # Rails 7.0 builds >= 2.7
+         - ruby: 3.1
+           allow_failure: true
+           env:
+             RAILS_VERSION: '~> 7.0.0'
+         - ruby: '3.0'
+           allow_failure: true
+           env:
+             RAILS_VERSION: '~> 7.0.0'
+         - ruby: 2.7
+           allow_failure: true
+           env:
+             RAILS_VERSION: '~> 7.0.0'
+
          # Rails 6.1 builds >= 2.5
-         - ruby: 3.0
+         - ruby: '3.0'
            env:
              RAILS_VERSION: '~> 6.1.0'
          - ruby: 2.7
@@ -46,7 +60,7 @@ jobs:
              JAVA_OPTS: '--add-opens java.base/sun.nio.ch=org.jruby.dist --add-opens java.base/java.io=org.jruby.dist --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.security=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.security.cert=ALL-UNNAMED --add-opens=java.base/java.util.zip=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.util.regex=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED  --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/javax.crypto=ALL-UNNAMED --add-opens=java.management/sun.management=ALL-UNNAMED'
 
          # Rails 6.0 builds >= 2.5.0
-         - ruby: 3.0
+         - ruby: '3.0'
            env:
              RAILS_VERSION: '~> 6.0.0'
          - ruby: 2.7
