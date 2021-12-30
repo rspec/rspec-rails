@@ -18,25 +18,20 @@ jobs:
        include:
          # Edge Rails (7.1) builds >= 2.7
          - ruby: '3.0'
-           allow_failure: true
            env:
              RAILS_VERSION: 'main'
          - ruby: 2.7
-           allow_failure: true
            env:
              RAILS_VERSION: 'main'
 
          # Rails 7.0 builds >= 2.7
          - ruby: 3.1
-           allow_failure: true
            env:
              RAILS_VERSION: '~> 7.0.0'
          - ruby: '3.0'
-           allow_failure: true
            env:
              RAILS_VERSION: '~> 7.0.0'
          - ruby: 2.7
-           allow_failure: true
            env:
              RAILS_VERSION: '~> 7.0.0'
 
@@ -113,4 +108,4 @@ jobs:
       - run: script/clone_all_rspec_repos
       - run: bundle install --binstubs
       - run: script/run_build
-        continue-on-error: ${{ matrix.allow_failure || false }}
+        continue-on-error: false
