@@ -7,7 +7,6 @@ require "rspec/rails/matchers/active_job"
 module RSpec
   module Rails
     module Matchers
-      # rubocop: disable Metrics/ClassLength
       # Matcher class for `have_enqueued_mail`. Should not be instantiated directly.
       #
       # @private
@@ -91,7 +90,7 @@ module RSpec
 
         def process_arguments(job, given_mail_args)
           # Old matcher behavior working with all builtin classes but ActionMailer::MailDeliveryJob
-          return given_mail_args unless defined?(ActionMailer::MailDeliveryJob) && job[:job] <= ActionMailer::MailDeliveryJob
+          return given_mail_args if use_given_mail_args?(job)
 
           # If matching args starts with a hash and job instance has params match with them
           if given_mail_args.first.is_a?(Hash) && job[:args][3]['params'].present?
@@ -99,6 +98,13 @@ module RSpec
           else
             [hash_including(args: given_mail_args)]
           end
+        end
+
+        def use_given_mail_args?(job)
+          return true if FeatureCheck.has_action_mailer_parameterized? && job[:job] <= ActionMailer::Parameterized::DeliveryJob
+          return false if FeatureCheck.ruby_3_1?
+
+          !(FeatureCheck.has_action_mailer_unified_delivery? && job[:job] <= ActionMailer::MailDeliveryJob)
         end
 
         def base_mailer_args
@@ -143,11 +149,18 @@ module RSpec
           mailer_args = deserialize_arguments(job)[3..-1]
           mailer_args = mailer_args.first[:args] if unified_mail?(job)
           msg_parts = []
-          msg_parts << "with #{mailer_args}" if mailer_args.any?
+          display_args = display_mailer_args(mailer_args)
+          msg_parts << "with #{display_args}" if display_args.any?
           msg_parts << "on queue #{job[:queue]}" if job[:queue] && job[:queue] != 'mailers'
           msg_parts << "at #{Time.at(job[:at])}" if job[:at]
 
           "#{mailer_method} #{msg_parts.join(', ')}".strip
+        end
+
+        def display_mailer_args(mailer_args)
+          return mailer_args unless mailer_args.first.is_a?(Hash) && mailer_args.first.key?(:args)
+
+          mailer_args.first[:args]
         end
 
         def legacy_mail?(job)
@@ -162,7 +175,6 @@ module RSpec
           RSpec::Rails::FeatureCheck.has_action_mailer_unified_delivery? && job[:job] <= ActionMailer::MailDeliveryJob
         end
       end
-      # rubocop: enable Metrics/ClassLength
 
       # @api public
       # Passes if an email has been enqueued inside block.
