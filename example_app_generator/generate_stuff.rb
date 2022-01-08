@@ -167,4 +167,10 @@ gsub_file 'spec/requests/gadgets_spec.rb',
 gsub_file 'spec/controllers/uploads_controller_spec.rb',
           'skip("Add a hash of attributes valid for your model")',
           '{}'
+
+if Rails.version >= '7.0.0'
+  # Some gems (ActionMailBox, ActionCable, etc.) are not used when running `example_app_generator/spec/verify_mailer_preview_path_spec.rb`, so `eager_load` must be false.
+  gsub_file "config/environments/test.rb", 'ENV["CI"].present?', "false"
+end
+
 final_tasks
