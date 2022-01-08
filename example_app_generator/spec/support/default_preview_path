@@ -26,6 +26,10 @@ require_file_stub 'config/environment' do
     require "action_controller/railtie"
     require "action_mailer/railtie" unless ENV['NO_ACTION_MAILER']
     require "action_view/railtie"
+    if Rails::VERSION::STRING >= '6'
+      require "action_cable/engine"
+      require "action_mailbox/engine"
+    end
 
     # Require the gems listed in Gemfile, including any gems
     # you've limited to :test, :development, or :production.
@@ -44,6 +48,8 @@ require_file_stub 'config/environment' do
         if ENV['SHOW_PREVIEWS']
           config.action_mailer.show_previews = (ENV['SHOW_PREVIEWS'] == 'true')
         end
+
+        config.active_record.legacy_connection_handling = false if Rails::VERSION::STRING >= '7'
       end
     end
 

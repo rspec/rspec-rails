@@ -102,9 +102,17 @@ module RSpec
 
         def use_given_mail_args?(job)
           return true if FeatureCheck.has_action_mailer_parameterized? && job[:job] <= ActionMailer::Parameterized::DeliveryJob
-          return false if FeatureCheck.ruby_3_1?
+          return false if rails_6_1_and_ruby_3_1?
 
           !(FeatureCheck.has_action_mailer_unified_delivery? && job[:job] <= ActionMailer::MailDeliveryJob)
+        end
+
+        # TODO: move to FeatureCheck
+        def rails_6_1_and_ruby_3_1?
+          return false unless RUBY_VERSION >= "3.1"
+          return false unless ::Rails::VERSION::STRING >= '6.1'
+
+          ::Rails::VERSION::STRING < '7'
         end
 
         def base_mailer_args

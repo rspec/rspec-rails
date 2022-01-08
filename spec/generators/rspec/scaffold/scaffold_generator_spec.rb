@@ -208,16 +208,16 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
       before { run_generator %w[posts upvotes:integer downvotes:integer] }
       subject { file("spec/views/posts/index.html.erb_spec.rb") }
       it { is_expected.to exist }
-      it { is_expected.to contain('assert_select "tr>td", text: 2.to_s, count: 2') }
-      it { is_expected.to contain('assert_select "tr>td", text: 3.to_s, count: 2') }
+      it { is_expected.to contain('assert_select cell_selector, text: Regexp.new(2.to_s), count: 2') }
+      it { is_expected.to contain('assert_select cell_selector, text: Regexp.new(3.to_s), count: 2') }
     end
 
     describe 'with multiple float attributes index' do
       before { run_generator %w[posts upvotes:float downvotes:float] }
       subject { file("spec/views/posts/index.html.erb_spec.rb") }
       it { is_expected.to exist }
-      it { is_expected.to contain('assert_select "tr>td", text: 2.5.to_s, count: 2') }
-      it { is_expected.to contain('assert_select "tr>td", text: 3.5.to_s, count: 2') }
+      it { is_expected.to contain('assert_select cell_selector, text: Regexp.new(2.5.to_s), count: 2') }
+      it { is_expected.to contain('assert_select cell_selector, text: Regexp.new(3.5.to_s), count: 2') }
     end
 
     describe 'with reference attribute' do
