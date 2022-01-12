@@ -26,10 +26,6 @@ if documentation_enforced; then
   fold "doc check" check_documentation_coverage
 fi
 
-if style_and_lint_enforced; then
-  fold "rubocop" check_style_and_lint
-fi
-
 if is_mri; then
   fold "one-by-one specs" run_specs_one_by_one
   run_all_spec_suites

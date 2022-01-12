@@ -97,11 +97,3 @@ function documentation_enforced {
     return 1
   fi
 }
-
-function style_and_lint_enforced {
- if [ -x ./bin/rubocop ]; then
-   return 0
- else
-   return 1
- fi
-}
