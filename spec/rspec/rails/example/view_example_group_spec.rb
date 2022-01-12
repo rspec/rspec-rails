@@ -145,25 +145,25 @@ module RSpec::Rails
         it "sends render(:template => (described file)) to the view" do
           allow(view_spec).to receive(:_default_file_to_render) { "widgets/new" }
           view_spec.render
-          expect(view_spec.received.first).to eq([{template: "widgets/new"}, {}, nil])
+          expect(view_spec.received.first).to eq([{ template: "widgets/new" }, {}, nil])
         end
 
         it "converts the filename components into render options" do
           allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.html.erb" }
           view_spec.render
-          expect(view_spec.received.first).to eq([{template: "widgets/new", locales: [:en], formats: [:html], handlers: [:erb]}, {}, nil])
+          expect(view_spec.received.first).to eq([{ template: "widgets/new", locales: [:en], formats: [:html], handlers: [:erb] }, {}, nil])
         end
 
         it "converts the filename with variant into render options" do
           allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.html+fancy.erb" }
           view_spec.render
-          expect(view_spec.received.first).to eq([{template: "widgets/new", locales: [:en], formats: [:html], handlers: [:erb], variants: [:fancy]}, {}, nil])
+          expect(view_spec.received.first).to eq([{ template: "widgets/new", locales: [:en], formats: [:html], handlers: [:erb], variants: [:fancy] }, {}, nil])
         end
 
         it "converts the filename without format into render options" do
           allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.erb" }
           view_spec.render
-          expect(view_spec.received.first).to eq([{template: "widgets/new", locales: [:en], handlers: [:erb]}, {}, nil])
+          expect(view_spec.received.first).to eq([{ template: "widgets/new", locales: [:en], handlers: [:erb] }, {}, nil])
         end
       end
 
@@ -177,7 +177,7 @@ module RSpec::Rails
       context "given a hash" do
         it "sends the hash as the first arg to render" do
           view_spec.render(foo: 'bar')
-          expect(view_spec.received.first).to eq([{foo: "bar"}, {}, nil])
+          expect(view_spec.received.first).to eq([{ foo: "bar" }, {}, nil])
         end
       end
     end

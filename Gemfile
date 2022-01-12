@@ -15,7 +15,7 @@ end
 gem 'capybara'
 gem 'ffi', '~> 1.15.5'
 gem 'rake', '> 12'
-gem 'rubocop', '~> 0.80.1'
+gem 'rubocop', '~> 1.28.2'
 
 custom_gemfile = File.expand_path('Gemfile-custom', __dir__)
 eval_gemfile custom_gemfile if File.exist?(custom_gemfile)

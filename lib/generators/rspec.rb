@@ -23,12 +23,13 @@ module Rspec
       # @private
       # Load configuration from RSpec to ensure `--default-path` is set
       def self.configuration
-        @configuration ||= begin
-                             configuration = RSpec.configuration
-                             options = RSpec::Core::ConfigurationOptions.new({})
-                             options.configure(configuration)
-                             configuration
-                           end
+        @configuration ||=
+          begin
+            configuration = RSpec.configuration
+            options = RSpec::Core::ConfigurationOptions.new({})
+            options.configure(configuration)
+            configuration
+          end
       end
 
       def target_path(*paths)

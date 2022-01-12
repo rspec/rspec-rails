@@ -16,7 +16,7 @@ RSpec.describe 'Action Mailer railtie hook' do
   end
 
   def capture_exec(*ops)
-    ops << {err: [:child, :out]}
+    ops << { err: [:child, :out] }
     io = IO.popen(ops)
     # Necessary to ignore warnings from Rails code base
     out =  io.readlines
@@ -40,7 +40,7 @@ RSpec.describe 'Action Mailer railtie hook' do
 
   if RSpec::Rails::FeatureCheck.has_action_mailer_preview?
     context 'in the development environment' do
-      let(:custom_env) { {'RAILS_ENV' => rails_env} }
+      let(:custom_env) { { 'RAILS_ENV' => rails_env } }
       let(:rails_env) { 'development' }
 
       it 'sets the preview path to the default rspec path' do
@@ -88,7 +88,7 @@ RSpec.describe 'Action Mailer railtie hook' do
     end
 
     context 'in a non-development environment' do
-      let(:custom_env) { {'RAILS_ENV' => rails_env} }
+      let(:custom_env) { { 'RAILS_ENV' => rails_env } }
       let(:rails_env) { 'test' }
 
       it 'does not set the preview path by default' do
@@ -123,7 +123,7 @@ RSpec.describe 'Action Mailer railtie hook' do
     end
   else
     context 'in the development environment' do
-      let(:custom_env) { {'RAILS_ENV' => rails_env} }
+      let(:custom_env) { { 'RAILS_ENV' => rails_env } }
       let(:rails_env) { 'development' }
 
       it 'handles no action mailer preview' do
@@ -150,7 +150,7 @@ RSpec.describe 'Action Mailer railtie hook' do
     end
 
     context 'in a non-development environment' do
-      let(:custom_env) { {'RAILS_ENV' => rails_env} }
+      let(:custom_env) { { 'RAILS_ENV' => rails_env } }
       let(:rails_env) { 'test' }
 
       it 'handles no action mailer preview' do
