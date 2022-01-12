@@ -354,7 +354,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
         hello_job.perform_later(global_id_object, symbolized_key: "asdf")
       }.to have_enqueued_job(hello_job).with { |first_arg, second_arg|
         expect(first_arg).to eq(global_id_object)
-        expect(second_arg).to eq({symbolized_key: "asdf"})
+        expect(second_arg).to eq({ symbolized_key: "asdf" })
       }
     end
 
@@ -655,7 +655,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
         hello_job.perform_later(global_id_object, symbolized_key: "asdf")
       }.to have_performed_job(hello_job).with { |first_arg, second_arg|
         expect(first_arg).to eq(global_id_object)
-        expect(second_arg).to eq({symbolized_key: "asdf"})
+        expect(second_arg).to eq({ symbolized_key: "asdf" })
       }
     end
 
