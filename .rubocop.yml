@@ -5,7 +5,9 @@ AllCops:
   Exclude:
     # Templates are really ERB which Rubocop does not parse
     - bin/**/*
+    - bundle/**/*
     - lib/generators/rspec/*/templates/**/*
+    - tmp/**/*
 
 Bundler/DuplicatedGem:
   Enabled: false
