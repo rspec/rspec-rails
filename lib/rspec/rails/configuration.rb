@@ -26,19 +26,19 @@ module RSpec
     #
     # @api private
     DIRECTORY_MAPPINGS = {
-      channel:    %w[spec channels],
+      channel: %w[spec channels],
       controller: %w[spec controllers],
-      generator:  %w[spec generator],
-      helper:     %w[spec helpers],
-      job:        %w[spec jobs],
-      mailer:     %w[spec mailers],
-      model:      %w[spec models],
-      request:    %w[spec (requests|integration|api)],
-      routing:    %w[spec routing],
-      view:       %w[spec views],
-      feature:    %w[spec features],
-      system:     %w[spec system],
-      mailbox:    %w[spec mailboxes]
+      generator: %w[spec generator],
+      helper: %w[spec helpers],
+      job: %w[spec jobs],
+      mailer: %w[spec mailers],
+      model: %w[spec models],
+      request: %w[spec (requests|integration|api)],
+      routing: %w[spec routing],
+      view: %w[spec views],
+      feature: %w[spec features],
+      system: %w[spec system],
+      mailbox: %w[spec mailboxes]
     }
 
     # Sets up the different example group modules for the different spec types

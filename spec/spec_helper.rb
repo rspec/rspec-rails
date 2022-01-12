@@ -5,7 +5,7 @@ module RSpecRails
     config.secret_key_base = 'ASecretString'
 
     if defined?(ActionCable)
-      ActionCable.server.config.cable = {"adapter" => "test"}
+      ActionCable.server.config.cable = { "adapter" => "test" }
       ActionCable.server.config.logger =
         ActiveSupport::TaggedLogging.new ActiveSupport::Logger.new(StringIO.new)
     end

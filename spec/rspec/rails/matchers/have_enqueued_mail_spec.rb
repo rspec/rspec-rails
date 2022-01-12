@@ -386,7 +386,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
 
         expect {
           TestMailer.with('foo' => 'bar').email_with_args(1, 2).deliver_later
-        }.to have_enqueued_mail(TestMailer, :email_with_args).with({'foo' => 'bar'}, 1, 2)
+        }.to have_enqueued_mail(TestMailer, :email_with_args).with({ 'foo' => 'bar' }, 1, 2)
       end
     end
 
@@ -414,13 +414,13 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
         expect {
           UnifiedMailer.with('foo' => 'bar').test_email.deliver_later
         }.to have_enqueued_mail(UnifiedMailer, :test_email).with(
-          a_hash_including(params: {'foo' => 'bar'})
+          a_hash_including(params: { 'foo' => 'bar' })
         )
 
         expect {
           UnifiedMailer.with('foo' => 'bar').email_with_args(1, 2).deliver_later
         }.to have_enqueued_mail(UnifiedMailer, :email_with_args).with(
-          a_hash_including(params: {'foo' => 'bar'}, args: [1, 2])
+          a_hash_including(params: { 'foo' => 'bar' }, args: [1, 2])
         )
       end
 
