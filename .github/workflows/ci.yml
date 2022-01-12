@@ -9,6 +9,19 @@ on:
     branches:
       - '*'
 jobs:
+  rubocop:
+    name: Rubocop
+    runs-on: 'ubuntu-20.04'
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+      - run: script/update_rubygems_and_install_bundler
+      - run: bundle install --standalone
+      - run: bundle binstubs --all
+      - run: script/run_rubocop
+
   test:
     name: 'Ruby: ${{ matrix.ruby }}, Rails: ${{ matrix.env.RAILS_VERSION }}'
     runs-on: ubuntu-20.04
