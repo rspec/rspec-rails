@@ -28,7 +28,7 @@ require_file_stub 'config/environment' do
     require "action_view/railtie"
     if Rails::VERSION::STRING >= '6'
       require "action_cable/engine"
-      require "action_mailbox/engine"
+      require "active_job/railtie"
     end
 
     # Require the gems listed in Gemfile, including any gems
