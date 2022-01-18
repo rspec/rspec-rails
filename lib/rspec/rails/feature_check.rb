@@ -28,11 +28,15 @@ module RSpec
       end
 
       def has_action_mailer_parameterized?
-        has_action_mailer? && defined?(::ActionMailer::Parameterized)
+        has_action_mailer? && defined?(::ActionMailer::Parameterized::DeliveryJob)
       end
 
       def has_action_mailer_unified_delivery?
         has_action_mailer? && defined?(::ActionMailer::MailDeliveryJob)
+      end
+
+      def has_action_mailer_legacy_delivery_job?
+        defined?(ActionMailer::DeliveryJob)
       end
 
       def has_action_mailbox?

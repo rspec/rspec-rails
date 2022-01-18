@@ -22,6 +22,9 @@ RSpec.describe 'Action Mailer railtie hook' do
     out =  io.readlines
               .reject { |line| line =~ /warning: circular argument reference/ }
               .reject { |line| line =~ /Gem::Specification#rubyforge_project=/ }
+              .reject { |line| line =~ /DEPRECATION WARNING/ }
+              .reject { |line| line =~ /warning: previous/ }
+              .reject { |line| line =~ /warning: already/ }
               .join
               .chomp
     CaptureExec.new(out, $?.exitstatus)
