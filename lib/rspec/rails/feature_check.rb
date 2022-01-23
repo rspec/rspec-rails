@@ -43,8 +43,11 @@ module RSpec
         defined?(::ActionMailbox)
       end
 
-      def ruby_3_1?
-        RUBY_VERSION >= "3.1"
+      # TODO: add a self-explanatory method name. See https://github.com/rspec/rspec-rails/pull/2552#issuecomment-1009508693 for hints
+      def rails_6_1_and_ruby_3_1?
+        return false if RUBY_VERSION < "3.1"
+
+        ::Rails::VERSION::STRING >= "6.1" && ::Rails::VERSION::STRING < "7"
       end
 
       def type_metatag(type)
