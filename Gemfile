@@ -20,8 +20,11 @@ end
 
 gem 'capybara'
 
-# Until 1.13.2 is released due to Rubygems usage
-gem 'ffi', '~> 1.12.0'
+if RUBY_VERSION.to_f >= 2.3
+  gem 'ffi', '~> 1.15.5'
+else
+  gem 'ffi', '~> 1.12.0'
+end
 
 custom_gemfile = File.expand_path('Gemfile-custom', __dir__)
 eval_gemfile custom_gemfile if File.exist?(custom_gemfile)
