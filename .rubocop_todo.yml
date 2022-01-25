@@ -9,7 +9,3 @@ Layout/LineLength:
 # Over time we'd like to get this down, but this is what we're at now.
 Metrics/MethodLength:
   Max: 43 # default: 10
-
-Metrics/ClassLength:
-  Exclude:
-    - lib/rspec/rails/matchers/have_enqueued_mail.rb

@@ -4,6 +4,7 @@
 require "rspec/mocks/argument_matchers"
 require "rspec/rails/matchers/active_job"
 
+# rubocop: disable Metrics/ClassLength
 module RSpec
   module Rails
     module Matchers
@@ -76,7 +77,7 @@ module RSpec
         def arguments_match?(job)
           @args =
             if @mail_args.any?
-              base_mailer_args + process_arguments(job, @mail_args)
+              base_mailer_args + @mail_args
             elsif @mailer_class && @method_name
               base_mailer_args + [any_args]
             elsif @mailer_class
@@ -88,38 +89,12 @@ module RSpec
           super(job)
         end
 
-        def process_arguments(job, given_mail_args)
-          # Old matcher behavior working with all builtin classes but ActionMailer::MailDeliveryJob
-          return given_mail_args if use_given_mail_args?(job)
-
-          # If matching args starts with a hash and job instance has params match with them
-          if given_mail_args.first.is_a?(Hash) && job[:args][3]['params'].present?
-            [hash_including(params: given_mail_args[0], args: given_mail_args.drop(1))]
-          else
-            [hash_including(args: given_mail_args)]
-          end
-        end
-
-        def use_given_mail_args?(job)
-          return true if FeatureCheck.has_action_mailer_parameterized? && job[:job] <= ActionMailer::Parameterized::DeliveryJob
-          return false if FeatureCheck.ruby_3_1?
-
-          !(FeatureCheck.has_action_mailer_unified_delivery? && job[:job] <= ActionMailer::MailDeliveryJob)
-        end
-
         def base_mailer_args
           [mailer_class_name, @method_name.to_s, MAILER_JOB_METHOD]
         end
 
         def yield_mail_args(block)
-          proc do |*job_args|
-            mailer_args = job_args - base_mailer_args
-            if mailer_args.first.is_a?(Hash)
-              block.call(*mailer_args.first[:args])
-            else
-              block.call(*mailer_args)
-            end
-          end
+          proc { |*job_args| block.call(*(job_args - base_mailer_args)) }
         end
 
         def check_active_job_adapter
@@ -145,22 +120,41 @@ module RSpec
         end
 
         def mail_job_message(job)
-          mailer_method = job[:args][0..1].join('.')
-          mailer_args = deserialize_arguments(job)[3..-1]
-          mailer_args = mailer_args.first[:args] if unified_mail?(job)
+          job_args = deserialize_arguments(job)
+
+          mailer_method = job_args[0..1].join('.')
+          mailer_args = job_args[3..-1]
+
           msg_parts = []
-          display_args = display_mailer_args(mailer_args)
-          msg_parts << "with #{display_args}" if display_args.any?
+          msg_parts << "with #{mailer_args}" if mailer_args.any?
           msg_parts << "on queue #{job[:queue]}" if job[:queue] && job[:queue] != 'mailers'
           msg_parts << "at #{Time.at(job[:at])}" if job[:at]
 
           "#{mailer_method} #{msg_parts.join(', ')}".strip
         end
 
-        def display_mailer_args(mailer_args)
-          return mailer_args unless mailer_args.first.is_a?(Hash) && mailer_args.first.key?(:args)
+        # Ruby 3.1 changed how params were serialized on Rails 6.1
+        # so we override the active job implementation and customise it here.
+        def deserialize_arguments(job)
+          args = super
 
-          mailer_args.first[:args]
+          return args unless Hash === args.last
+
+          hash = args.pop
+
+          if hash.key?("_aj_ruby2_keywords")
+            keywords = hash["_aj_ruby2_keywords"]
+
+            original_hash = keywords.each_with_object({}) { |new_hash, keyword| new_hash[keyword.to_sym] = hash[keyword] }
+
+            args + [original_hash]
+          elsif hash.key?(:args) && hash.key?(:params)
+            args + [hash]
+          elsif hash.key?(:args)
+            args + hash[:args]
+          else
+            args + [hash]
+          end
         end
 
         def legacy_mail?(job)
@@ -230,3 +224,4 @@ module RSpec
     end
   end
 end
+# rubocop: enable Metrics/ClassLength
