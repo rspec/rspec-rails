@@ -29,10 +29,31 @@ jobs:
       fail-fast: false
       matrix:
        include:
-         # Rails 6.1 builds >= 2.5
-         - ruby: '3.1'
+         # Edge Rails (7.1) builds >= 2.7
+         - ruby: '3.0'
+           allow_failure: true
            env:
-             RAILS_VERSION: '~> 6.1.0'
+             RAILS_VERSION: 'main'
+         - ruby: 2.7
+           allow_failure: true
+           env:
+             RAILS_VERSION: 'main'
+
+         # Rails 7.0 builds >= 2.7
+         - ruby: 3.1
+           allow_failure: true
+           env:
+             RAILS_VERSION: '~> 7.0.0'
+         - ruby: '3.0'
+           allow_failure: true
+           env:
+             RAILS_VERSION: '~> 7.0.0'
+         - ruby: 2.7
+           allow_failure: true
+           env:
+             RAILS_VERSION: '~> 7.0.0'
+
+         # Rails 6.1 builds >= 2.5
          - ruby: '3.0'
            env:
              RAILS_VERSION: '~> 6.1.0'
