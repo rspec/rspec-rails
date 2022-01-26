@@ -151,19 +151,19 @@ module RSpec::Rails
         it "converts the filename components into render options" do
           allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.html.erb" }
           view_spec.render
-          expect(view_spec.received.first).to eq([{template: "widgets/new", locales: ['en'], formats: [:html], handlers: ['erb']}, {}, nil])
+          expect(view_spec.received.first).to eq([{template: "widgets/new", locales: [:en], formats: [:html], handlers: [:erb]}, {}, nil])
         end
 
         it "converts the filename with variant into render options" do
           allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.html+fancy.erb" }
           view_spec.render
-          expect(view_spec.received.first).to eq([{template: "widgets/new", locales: ['en'], formats: [:html], handlers: ['erb'], variants: ['fancy']}, {}, nil])
+          expect(view_spec.received.first).to eq([{template: "widgets/new", locales: [:en], formats: [:html], handlers: [:erb], variants: [:fancy]}, {}, nil])
         end
 
         it "converts the filename without format into render options" do
           allow(view_spec).to receive(:_default_file_to_render) { "widgets/new.en.erb" }
           view_spec.render
-          expect(view_spec.received.first).to eq([{template: "widgets/new", locales: ['en'], handlers: ['erb']}, {}, nil])
+          expect(view_spec.received.first).to eq([{template: "widgets/new", locales: [:en], handlers: [:erb]}, {}, nil])
         end
       end
 
@@ -239,19 +239,8 @@ module RSpec::Rails
         expect(view_spec.view).to eq(view)
       end
 
-      if RUBY_VERSION <= "2.3.0" && ENV["RAILS_VERSION"] !~ /stable/ && ::Rails.version.to_f == 5.2
-        pending_only_on_ruby_22_rails_52 = """
-          Rails 5.2.4.2 has a syntax error in ActionDispatch::Request::Session.
-          (A &. usage which does not work in 2.2.10)
-          It has been fixed but not released, this spec will not pass until that
-          has been released.
-        """
-      else
-        pending_only_on_ruby_22_rails_52 = false
-      end
-
       # Regression test from rspec/rspec-rails#833
-      it 'is accessible to configuration-level hooks', pending: pending_only_on_ruby_22_rails_52 do
+      it 'is accessible to configuration-level hooks' do
         run_count = 0
         RSpec.configuration.before(:each, type: :view) do
           # `view` is provided from the view example type, and serves to
