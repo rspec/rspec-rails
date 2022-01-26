@@ -1,5 +1,5 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.0.2...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.0.3...main)
 
 Enhancements:
 
@@ -7,6 +7,9 @@ Enhancements:
   Rails 6.1. (Naoto Hamada, #2484)
 * Change the scaffold `rails_helper.rb` template to use `require_relative`.
   (Jon Dufresne, #2528)
+
+### 5.0.3 / 2022-01-26
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.0.2...v5.0.3)
 
 Bug Fixes:
 
