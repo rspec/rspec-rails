@@ -25,15 +25,15 @@ else
   gem "puma"
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
   gem 'selenium-webdriver', require: false
+end
 
-  # This is required for Ruby 3.1 and Rails 6.1.x as of time
-  # of writing, because in Ruby 3.1 these gems are no longer
-  # automatically included.  This issue was fixed on the Rails
-  # side in Rails 7.0.1, but is not yet fixed in the Rails 6.1.x
-  # branch.  Discussion can be found here - https://github.com/mikel/mail/pull/1439
-  if RUBY_VERSION >= '3.1' && version.split(' ').last < '7.0'
-    gem 'net-smtp', require: false
-    gem 'net-imap', require: false
-    gem 'net-pop', require: false
-  end
+# This is required for Ruby 3.1 and Rails 6.1.x as of time
+# of writing, because in Ruby 3.1 these gems are no longer
+# automatically included.  This issue was fixed on the Rails
+# side in Rails 7.0.1, but is not yet fixed in the Rails 6.1.x
+# branch.  Discussion can be found here - https://github.com/mikel/mail/pull/1439
+if RUBY_VERSION >= '3.1' && version.split(' ').last < '7.0'
+  gem 'net-smtp', require: false
+  gem 'net-imap', require: false
+  gem 'net-pop', require: false
 end
