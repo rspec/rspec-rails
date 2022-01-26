@@ -5,6 +5,8 @@ Bug Fixes:
 
 * Properly name params in controller and request spec templates when
   using the `--model-name` parameter. (@kenzo-tanaka, #2534)
+* Fix support for `have_enqueued_mail` on Ruby 3.1 with Rails 6.1.
+  (Fabio Napoleoni, Mikael Henriksson, Phil Pirozhkov, Jon Rowe, #2566)
 
 ### 5.0.2 / 2021-08-14
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.0.1...v5.0.2)
