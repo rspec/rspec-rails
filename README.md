@@ -9,7 +9,8 @@ detailed explanations of how the application is supposed to behave,
 expressed in plain English.
 
 According to [RSpec Rails new versioning strategy][] use:
-* **[`rspec-rails` 5.x][]** for Rails 6.x.
+* **[`rspec-rails` 6.x][]** for Rails 6.1 or 7.x.
+* **[`rspec-rails` 5.x][]** for Rails 5.2 or 6.x.
 * **[`rspec-rails` 4.x][]** for Rails from 5.x or 6.x.
 * **[`rspec-rails` 3.x][]** for Rails earlier than 5.0.
 * **[`rspec-rails` 1.x][]** for Rails 2.x.
@@ -25,13 +26,14 @@ According to [RSpec Rails new versioning strategy][] use:
 [`rspec-rails` 1.x]: https://github.com/dchelimsky/rspec-rails
 [`rspec-rails` 3.x]: https://github.com/rspec/rspec-rails/tree/3-9-maintenance
 [`rspec-rails` 4.x]: https://github.com/rspec/rspec-rails/tree/4-1-maintenance
-[`rspec-rails` 5.x]: https://github.com/rspec/rspec-rails/tree/5-0-maintenance
+[`rspec-rails` 5.x]: https://github.com/rspec/rspec-rails/tree/5-1-maintenance
+[`rspec-rails` 6.x]: https://github.com/rspec/rspec-rails/tree/6-0-maintenance
 [RSpec Rails new versioning strategy]: https://github.com/rspec/rspec-rails/blob/main/rfcs/versioning-strategy.md
 
 ## Installation
 
 **IMPORTANT** This README / branch refers to the current development build.
-See the [`5-0-maintenance` branch on Github](https://github.com/rspec/rspec-rails/tree/5-0-maintenance) if you want or require the latest stable release.
+See the [`6-0-maintenance` branch on Github](https://github.com/rspec/rspec-rails/tree/6-0-maintenance) if you want or require the latest stable release.
 
 1. Add `rspec-rails` to **both** the `:development` and `:test` groups
    of your app’s `Gemfile`:
@@ -39,7 +41,7 @@ See the [`5-0-maintenance` branch on Github](https://github.com/rspec/rspec-rail
    ```ruby
    # Run against this stable release
    group :development, :test do
-     gem 'rspec-rails', '~> 5.0.0'
+     gem 'rspec-rails', '~> 6.0.0'
    end
 
    # Or, run against the main branch

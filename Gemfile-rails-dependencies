@@ -26,23 +26,14 @@ when /stable$/
     gem rails_gem, :git => "https://github.com/rails/rails.git", :branch => version
   end
 when nil, false, ""
-  add_net_gems_dependency # TODO: remove when we use switch to "~> 7.0.0" that declares dependency on those gems on itself
-  gem "rails", "~> 6.0.0"
+  gem "rails", "~> 7.0.0"
   gem "puma"
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
   gem 'selenium-webdriver', require: false
 else
-  rails_version = version.split(' ').last
-
-  add_net_gems_dependency if rails_version < '7.0'
+  add_net_gems_dependency if version.split(' ').last < '7.0'
 
   gem "rails", version
-
-  if rails_version < '6.0' && RUBY_VERSION < '2.3'
-    gem "activesupport", "~> 5.2", "!= 5.2.6.1", "!= 5.2.6.2"
-  end
-
-  gem "sprockets", '~> 3.0' if RUBY_VERSION < '2.5'
   gem "puma"
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
   gem 'selenium-webdriver', require: false
