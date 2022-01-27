@@ -1,5 +1,16 @@
 version_file = File.expand_path("../.rails-version", __FILE__)
 
+# This is required for Ruby 3.1, because in Ruby 3.1 these gems were moved to
+# bundled gems from default gems. This issue was fixed in Rails Rails 7.0.1.
+# Discussion can be found here - https://github.com/mikel/mail/pull/1439
+def add_net_gems_dependency
+  if RUBY_VERSION >= '3.1'
+    gem 'net-smtp', require: false
+    gem 'net-imap', require: false
+    gem 'net-pop', require: false
+  end
+end
+
 case version = ENV['RAILS_VERSION'] || (File.exist?(version_file) && File.read(version_file).chomp) || ''
 when /main/
   gem "rails", :git => "https://github.com/rails/rails.git"
@@ -15,25 +26,16 @@ when /stable$/
     gem rails_gem, :git => "https://github.com/rails/rails.git", :branch => version
   end
 when nil, false, ""
+  add_net_gems_dependency # TODO: remove when we use switch to "~> 7.0.0" that declares dependency on those gems on itself
   gem "rails", "~> 6.0.0"
   gem "puma"
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
   gem 'selenium-webdriver', require: false
 else
+  add_net_gems_dependency if version.split(' ').last < '7.0'
   gem "rails", version
   gem "sprockets", '~> 3.0' if RUBY_VERSION < '2.5'
   gem "puma"
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
   gem 'selenium-webdriver', require: false
-end
-
-# This is required for Ruby 3.1 and Rails 6.1.x as of time
-# of writing, because in Ruby 3.1 these gems are no longer
-# automatically included.  This issue was fixed on the Rails
-# side in Rails 7.0.1, but is not yet fixed in the Rails 6.1.x
-# branch.  Discussion can be found here - https://github.com/mikel/mail/pull/1439
-if RUBY_VERSION >= '3.1' && version.split(' ').last < '7.0'
-  gem 'net-smtp', require: false
-  gem 'net-imap', require: false
-  gem 'net-pop', require: false
 end
