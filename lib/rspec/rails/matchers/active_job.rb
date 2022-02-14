@@ -230,11 +230,26 @@ module RSpec
           def matches?(proc)
             raise ArgumentError, "have_enqueued_job and enqueue_job only support block expectations" unless Proc === proc
 
-            original_enqueued_jobs_count = queue_adapter.enqueued_jobs.count
-            proc.call
-            in_block_jobs = queue_adapter.enqueued_jobs.drop(original_enqueued_jobs_count)
+            original_enqueued_jobs_hashes = queue_adapter.enqueued_jobs.map(&:hash)
 
-            check(in_block_jobs)
+            proc.call
+
+            in_block_jobs = queue_adapter.enqueued_jobs.each_with_object({}) do |job, jobs|
+              jobs[job.hash] ||= { job: job, count: 0 }
+              jobs[job.hash][:count] += 1
+            end
+
+            original_enqueued_jobs_hashes.each do |job_hash|
+              in_block_jobs[job_hash][:count] -= 1 if in_block_jobs.key?(job_hash)
+            end
+
+            in_block_jobs = in_block_jobs.each_value.flat_map do |job_and_count|
+              count, job = job_and_count.values_at(:count, :job)
+
+              Array.new(count, job) if count.positive?
+            end
+
+            check(in_block_jobs.compact)
           end
 
           def does_not_match?(proc)
