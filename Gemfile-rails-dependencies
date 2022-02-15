@@ -23,8 +23,14 @@ when /stable$/
   gem 'activerecord-jdbcsqlite3-adapter', git: 'https://github.com/jruby/activerecord-jdbc-adapter', platforms: [:jruby]
 
   gem_list.each do |rails_gem|
-    gem rails_gem, :git => "https://github.com/rails/rails.git", :branch => version
+    if version == '5-2-stable' && RUBY_VERSION < '2.3'
+      # Until 5-2-stable is fixed on Ruby 2.2, pin to last working version
+      gem rails_gem, :git => "https://github.com/rails/rails.git", :branch => "v5.2.6"
+    else
+      gem rails_gem, :git => "https://github.com/rails/rails.git", :branch => version
+    end
   end
+
 when nil, false, ""
   add_net_gems_dependency # TODO: remove when we use switch to "~> 7.0.0" that declares dependency on those gems on itself
   gem "rails", "~> 6.0.0"
@@ -32,8 +38,16 @@ when nil, false, ""
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
   gem 'selenium-webdriver', require: false
 else
-  add_net_gems_dependency if version.split(' ').last < '7.0'
+  rails_version = version.split(' ').last
+
+  add_net_gems_dependency if rails_version < '7.0'
+
   gem "rails", version
+
+  if rails_version < '6.0' && RUBY_VERSION < '2.3'
+    gem "activesupport", "~> 5.2", "!= 5.2.6.1", "!= 5.2.6.2"
+  end
+
   gem "sprockets", '~> 3.0' if RUBY_VERSION < '2.5'
   gem "puma"
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
