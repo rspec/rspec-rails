@@ -20,7 +20,14 @@ when nil, false, ""
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
   gem 'selenium-webdriver', require: false
 else
+  rails_version = version.split(' ').last
+
   gem "rails", version
+
+  if rails_version < '6.0' && RUBY_VERSION < '2.3'
+    gem "activesupport", "~> 5.2", "!= 5.2.6.1", "!= 5.2.6.2"
+  end
+
   gem "sprockets", '~> 3.0' if RUBY_VERSION < '2.5'
   gem "puma"
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
@@ -31,7 +38,7 @@ else
   # automatically included.  This issue was fixed on the Rails
   # side in Rails 7.0.1, but is not yet fixed in the Rails 6.1.x
   # branch.  Discussion can be found here - https://github.com/mikel/mail/pull/1439
-  if RUBY_VERSION >= '3.1' && version.split(' ').last < '7.0'
+  if RUBY_VERSION >= '3.1' && rails_version < '7.0'
     gem 'net-smtp', require: false
     gem 'net-imap', require: false
     gem 'net-pop', require: false
