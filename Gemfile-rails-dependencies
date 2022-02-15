@@ -23,14 +23,8 @@ when /stable$/
   gem 'activerecord-jdbcsqlite3-adapter', git: 'https://github.com/jruby/activerecord-jdbc-adapter', platforms: [:jruby]
 
   gem_list.each do |rails_gem|
-    if version == '5-2-stable' && RUBY_VERSION < '2.3'
-      # Until 5-2-stable is fixed on Ruby 2.2, pin to last working version
-      gem rails_gem, :git => "https://github.com/rails/rails.git", :branch => "v5.2.6"
-    else
-      gem rails_gem, :git => "https://github.com/rails/rails.git", :branch => version
-    end
+    gem rails_gem, :git => "https://github.com/rails/rails.git", :branch => version
   end
-
 when nil, false, ""
   add_net_gems_dependency # TODO: remove when we use switch to "~> 7.0.0" that declares dependency on those gems on itself
   gem "rails", "~> 6.0.0"
