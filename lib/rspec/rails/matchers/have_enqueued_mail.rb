@@ -145,7 +145,7 @@ module RSpec
           if hash.key?("_aj_ruby2_keywords")
             keywords = hash["_aj_ruby2_keywords"]
 
-            original_hash = keywords.each_with_object({}) { |new_hash, keyword| new_hash[keyword.to_sym] = hash[keyword] }
+            original_hash = keywords.each_with_object({}) { |keyword, new_hash| new_hash[keyword.to_sym] = hash[keyword] }
 
             args + [original_hash]
           elsif hash.key?(:args) && hash.key?(:params)
