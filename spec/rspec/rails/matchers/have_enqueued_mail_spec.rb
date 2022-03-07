@@ -4,6 +4,12 @@ if RSpec::Rails::FeatureCheck.has_active_job?
   require "action_mailer"
   require "rspec/rails/matchers/have_enqueued_mail"
 
+  class GlobalIDArgument
+    include GlobalID::Identification
+    def id; 1; end
+    def to_global_id(options = {}); super(options.merge(app: 'rspec-rails')); end
+  end
+
   class TestMailer < ActionMailer::Base
     def test_email; end
     def email_with_args(arg1, arg2); end
@@ -416,6 +422,12 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
         }.to have_enqueued_mail(UnifiedMailer, :email_with_args).with(
           a_hash_including(params: {'foo' => 'bar'}, args: [1, 2])
         )
+      end
+
+      it "passes when given a global id serialised argument" do
+        expect {
+          UnifiedMailer.with(inquiry: GlobalIDArgument.new).test_email.deliver_later
+        }.to have_enqueued_email(UnifiedMailer, :test_email)
       end
 
       it "passes when using a mailer with `delivery_job` set to a sub class of `ActionMailer::DeliveryJob`" do
