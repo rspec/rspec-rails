@@ -1,5 +1,8 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.1.0...5-1-maintenance)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.1.1...5-1-maintenance)
+
+### 5.1.1 / 2022-03-07
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.1.0...v5.1.1)
 
 Bug Fixes:
 
