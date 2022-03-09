@@ -41,6 +41,9 @@ DESC
 
         replace_generator_command(spec_helper_path)
         remove_warnings_configuration(spec_helper_path)
+
+        dot_rspec_path = File.join(tmpdir, '.rspec')
+        prepend_require_rails_helper_option(dot_rspec_path)
       end
 
       def replace_generator_command(spec_helper_path)
@@ -57,6 +60,12 @@ DESC
                   /#{empty_line}(#{comment_line})+\s+config\.warnings = true\n/,
                   '',
                   verbose: false
+      end
+
+      def prepend_require_rails_helper_option(dot_rspec_path)
+        prepend_to_file dot_rspec_path,
+                        "--require rails_helper\n",
+                        verbose: false
       end
     end
   end

@@ -47,11 +47,12 @@ RSpec.describe Rspec::Generators::InstallGenerator, type: :generator do
 
   let(:rails_helper) { content_for('spec/rails_helper.rb') }
   let(:spec_helper) { content_for('spec/spec_helper.rb') }
+  let(:dot_rspec) { content_for('.rspec') }
   let(:developmentrb) { content_for('config/environments/development.rb')  }
 
   it "generates .rspec" do
     run_generator
-    expect(file('.rspec')).to exist
+    expect(dot_rspec).to match(/\A--require rails_helper\n/)
   end
 
   it "generates spec/spec_helper.rb" do
