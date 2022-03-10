@@ -12,6 +12,11 @@ module RSpec
       include RSpec::Rails::MinitestLifecycleAdapter
       include RSpec::Rails::MinitestAssertionAdapter
       include RSpec::Rails::FixtureSupport
+
+      if ::Rails::VERSION::MAJOR >= 7
+        require 'active_support/testing/tagged_logging'
+        include ActiveSupport::Testing::TaggedLogging
+      end
     end
   end
 end
