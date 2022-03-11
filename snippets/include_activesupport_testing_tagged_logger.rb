@@ -57,8 +57,8 @@ RSpec.describe 'Foo', type: :job do
     it 'raises the explicitly thrown error' do
       allow_any_instance_of(TestJob).to receive(:perform).and_raise(TestError)
 
-      # Rails 7+ wraps unexpected errors in tests
-      expected_error = if Rails::VERSION::MAJOR >= 7
+      # Rails 6.1+ wraps unexpected errors in tests
+      expected_error = if Rails::VERSION::STRING.to_f >= 6.1
                          Minitest::UnexpectedError.new(TestError)
                        else
                          TestError
