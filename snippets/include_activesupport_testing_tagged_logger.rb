@@ -44,10 +44,6 @@ ActiveJob::Base.queue_adapter = :test
 # This connection will do for database-independent bug reports
 ActiveRecord::Base.establish_connection(adapter: "sqlite3", database: ":memory:")
 
-RSpec.configure do |config|
-  config.use_transactional_fixtures = true
-end
-
 class TestJob < ActiveJob::Base
   def perform; end
 end
