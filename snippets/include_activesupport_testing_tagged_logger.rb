@@ -57,12 +57,11 @@ RSpec.describe 'Foo', type: :job do
     it 'raises the explicitly thrown error' do
       allow_any_instance_of(TestJob).to receive(:perform).and_raise(TestError)
 
-      test_error = TestError.new('foo')
       # Rails 6.1+ wraps unexpected errors in tests
       expected_error = if Rails::VERSION::STRING.to_f >= 6.1
-                         Minitest::UnexpectedError.new(test_error)
+                         Minitest::UnexpectedError.new(TestError)
                        else
-                         test_error
+                         TestError
                        end
 
       expect { perform_enqueued_jobs { TestJob.perform_later } }
