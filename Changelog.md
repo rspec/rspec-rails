@@ -1,5 +1,12 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.1.0...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.1.1...main)
+
+### 5.1.1 / 2022-03-07
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.1.0...v5.1.1)
+
+Bug Fixes:
+
+* Fix have_enqueued_mail with global id arguments (@JonRowe, #2578)
 
 ### 5.1.0 / 2022-01-26
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.0.3...v5.1.0)
