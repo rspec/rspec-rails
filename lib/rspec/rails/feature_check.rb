@@ -43,10 +43,6 @@ module RSpec
         defined?(::ActionMailbox)
       end
 
-      def ruby_3_1?
-        RUBY_VERSION >= "3.1"
-      end
-
       def type_metatag(type)
         "type: :#{type}"
       end

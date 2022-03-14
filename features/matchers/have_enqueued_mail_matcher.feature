@@ -68,6 +68,7 @@ Feature: have_enqueued_mail matcher
     When I run `rspec spec/mailers/my_mailer_spec.rb`
     Then the examples should all pass
 
+  @rails_post_6
   Scenario: Parameterize the mailer
     Given a file named "app/mailers/my_mailer.rb" with:
       """ruby
@@ -90,13 +91,14 @@ Feature: have_enqueued_mail matcher
           # Works with named parameters
           expect {
             MyMailer.with(foo: 'bar').signup.deliver_later
-          }.to have_enqueued_mail(MyMailer, :signup).with(foo: 'bar')
+          }.to have_enqueued_mail(MyMailer, :signup).with(a_hash_including(params: {foo: 'bar'}))
         end
       end
       """
     When I run `rspec spec/mailers/my_mailer_spec.rb`
     Then the examples should all pass
 
+  @rails_post_6
   Scenario: Parameterize and pass an argument to the mailer
     Given a file named "app/mailers/my_mailer.rb" with:
       """ruby
@@ -120,7 +122,7 @@ Feature: have_enqueued_mail matcher
           # Works also with both, named parameters match first argument
           expect {
             MyMailer.with(foo: 'bar').signup('user').deliver_later
-          }.to have_enqueued_mail(MyMailer, :signup).with({foo: 'bar'}, 'user')
+          }.to have_enqueued_mail(MyMailer, :signup).with(params: {foo: 'bar'}, args: ['user'])
         end
       end
       """
