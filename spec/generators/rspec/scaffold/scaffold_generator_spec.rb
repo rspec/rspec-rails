@@ -20,6 +20,14 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
       it { is_expected.to contain('get post_url(post)') }
       it { is_expected.to contain('redirect_to(post_url(Post.last))') }
       it { is_expected.to contain(/"redirects to the \w+ list"/) }
+
+      if ::Rails::VERSION::STRING >= '7.0.0'
+        it { is_expected.to contain(/renders a response with 422 status \(i.e. to display the 'new' template\)/) }
+        it { is_expected.to contain(/renders a response with 422 status \(i.e. to display the 'edit' template\)/) }
+      else
+        it { is_expected.to contain(/renders a successful response \(i.e. to display the 'new' template\)/) }
+        it { is_expected.to contain(/renders a successful response \(i.e. to display the 'edit' template\)/) }
+      end
     end
 
     describe 'with --no-request_specs' do
@@ -62,13 +70,21 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
       it { is_expected.to contain(/^RSpec.describe PostsController, #{type_metatag(:controller)}/) }
       it { is_expected.to contain(/GET #new/) }
       it { is_expected.to contain(/"redirects to the created \w+"/) }
-      it { is_expected.to contain(/display the 'new' template/) }
+      if ::Rails::VERSION::STRING >= '7.0.0'
+        it { is_expected.to contain(/renders a response with 422 status \(i.e. to display the 'new' template\)/) }
+      else
+        it { is_expected.to contain(/returns a success response \(i.e. to display the 'new' template\)/) }
+      end
       it { is_expected.not_to contain(/"renders a JSON response with the new \w+"/) }
       it { is_expected.not_to contain(/"renders a JSON response with errors for the new \w+"/) }
 
       it { is_expected.to contain(/GET #edit/) }
       it { is_expected.to contain(/"redirects to the \w+"/) }
-      it { is_expected.to contain(/display the 'edit' template/) }
+      if ::Rails::VERSION::STRING >= '7.0.0'
+        it { is_expected.to contain(/renders a response with 422 status \(i.e. to display the 'edit' template\)/) }
+      else
+        it { is_expected.to contain(/returns a success response \(i.e. to display the 'edit' template\)/) }
+      end
       it { is_expected.not_to contain(/"renders a JSON response with the \w+"/) }
       it { is_expected.not_to contain(/"renders a JSON response with errors for the \w+"/) }
 
