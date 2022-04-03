@@ -1,6 +1,17 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.1.1...main)
 
+### 6.0.0.rc1
+
+Enhancements:
+
+* Support Rails 7
+
+Breaking Changes:
+
+* Drop support for Rails below 6.1
+* Drop support for Ruby below 2.5 (following supported versions of Rails 6.1)
+
 ### 5.1.1 / 2022-03-07
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.1.0...v5.1.1)
 
