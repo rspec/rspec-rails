@@ -31,6 +31,7 @@ using_source_path(File.expand_path(__dir__)) do
   if skip_active_record?
     comment_lines 'spec/support/default_preview_path', /active_record/
     comment_lines 'spec/support/default_preview_path', /active_storage/
+    comment_lines 'spec/support/default_preview_path', /action_mailbox/
   end
   copy_file 'spec/verify_mailer_preview_path_spec.rb'
 end

@@ -1,5 +1,7 @@
 raise "ActiveRecord is defined but should not be!" if defined?(::ActiveRecord)
 
+require 'active_model'
+
 module InMemory
   module Persistence
     def all

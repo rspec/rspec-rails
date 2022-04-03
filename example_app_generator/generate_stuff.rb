@@ -167,4 +167,5 @@ gsub_file 'spec/requests/gadgets_spec.rb',
 gsub_file 'spec/controllers/uploads_controller_spec.rb',
           'skip("Add a hash of attributes valid for your model")',
           '{}'
+
 final_tasks
