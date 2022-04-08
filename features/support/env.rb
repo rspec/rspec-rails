@@ -36,7 +36,11 @@ end
 World(ArubaExt)
 
 Aruba.configure do |config|
-  config.exit_timeout = 30
+  if defined?(RUBY_ENGINE) && RUBY_ENGINE == 'truffleruby'
+    config.exit_timeout = 120
+  else
+    config.exit_timeout = 30
+  end
 end
 
 unless File.directory?('./tmp/example_app')
