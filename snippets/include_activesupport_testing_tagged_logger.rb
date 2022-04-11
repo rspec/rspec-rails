@@ -20,7 +20,6 @@ gemfile(false) do
   # Those Gemfiles carefully pick the right versions depending on
   # settings in the ENV, `.rails-version` and `maintenance-branch`.
   Dir.chdir('..') do
-    eval_gemfile 'Gemfile-sqlite-dependencies'
     # This Gemfile expects `maintenance-branch` file to be present
     # in the current directory.
     eval_gemfile 'Gemfile-rspec-dependencies'
@@ -44,19 +43,19 @@ ActiveJob::Base.queue_adapter = :test
 # This connection will do for database-independent bug reports
 ActiveRecord::Base.establish_connection(adapter: "sqlite3", database: ":memory:")
 
-class TestJob < ActiveJob::Base
-  def perform; end
-end
-
 class TestError < StandardError; end
+
+class TestJob < ActiveJob::Base
+  def perform
+    raise TestError
+  end
+end
 
 RSpec.describe 'Foo', type: :job do
   include ::ActiveJob::TestHelper
 
   describe 'error raised in perform_enqueued_jobs with block' do
     it 'raises the explicitly thrown error' do
-      allow_any_instance_of(TestJob).to receive(:perform).and_raise(TestError)
-
       # Rails 6.1+ wraps unexpected errors in tests
       expected_error = if Rails::VERSION::STRING.to_f >= 6.1
                          Minitest::UnexpectedError.new(TestError)

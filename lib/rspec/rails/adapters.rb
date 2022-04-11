@@ -181,5 +181,15 @@ module RSpec
     #
     # @private
     TestUnitAssertionAdapter = MinitestAssertionAdapter
+
+    # @private
+    module TaggedLoggingAdapter
+      require 'active_support/testing/tagged_logging'
+      include ActiveSupport::Testing::TaggedLogging
+
+      # Just a stub as TaggedLogging is calling `name`
+      def name
+      end
+    end
   end
 end
