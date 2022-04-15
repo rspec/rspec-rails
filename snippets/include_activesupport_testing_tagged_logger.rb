@@ -29,6 +29,7 @@ gemfile(false) do
   end
 
   gem "rspec-rails", path: "../"
+  gem 'pry-byebug'
 end
 
 # Run specs at exit
@@ -54,6 +55,14 @@ RSpec.describe 'Foo', type: :job do
   include ::ActiveJob::TestHelper
 
   describe 'error raised in perform_enqueued_jobs with block' do
+    class StringIncompatible
+      def to_s
+        raise 'to_s was called on `name`'
+      end
+    end
+
+    let(:name) { StringIncompatible.new }
+
     it 'raises the explicitly thrown error' do
       allow_any_instance_of(TestJob).to receive(:perform).and_raise(TestError)
 
@@ -64,8 +73,13 @@ RSpec.describe 'Foo', type: :job do
                          TestError
                        end
 
-      expect { perform_enqueued_jobs { TestJob.perform_later } }
-        .to raise_error(expected_error)
+      # expect {
+        # Necessary to make sure the tagged logging hook runs
+        Rails.logger = Logger.new($stderr)
+
+        expect { perform_enqueued_jobs { TestJob.perform_later } }
+          .to raise_error(expected_error)
+      # }.to output(/\[ActiveJob\] \[TestJob\] \[[^\]]+\] Error performing TestJob/).to_stderr
     end
   end
 end

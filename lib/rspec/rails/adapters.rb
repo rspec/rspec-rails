@@ -185,10 +185,31 @@ module RSpec
     # @private
     module TaggedLoggingAdapter
       require 'active_support/testing/tagged_logging'
-      include ActiveSupport::Testing::TaggedLogging
 
-      # Just a stub as TaggedLogging is calling `name`
-      def name
+      def before_setup
+        @__wrapped_tagged_logger = WrappedTaggedLogging.new(@__inspect_output)
+        @__wrapped_tagged_logger.before_setup
+      end
+
+      def tagged_logger
+        @__wrapped_tagged_logger.tagged_logger
+      end
+
+      class WrappedTaggedLogging
+        # TaggedLogging attempts calling `super`
+        include Module.new { def before_setup; end }
+        include ActiveSupport::Testing::TaggedLogging
+
+        attr_reader :name
+
+        def initialize(name)
+          @name = name
+        end
+
+        # It is private in the TaggedLogging module
+        def tagged_logger
+          super
+        end
       end
     end
   end
