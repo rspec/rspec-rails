@@ -1,5 +1,9 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.1.1...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.0.rc1...6-0-maintenance)
+
+Bug Fixes:
+
+* Fix controller scaffold templates parameter name.  (Taketo Takashima, #2591)
 
 ### 6.0.0.rc1
 
