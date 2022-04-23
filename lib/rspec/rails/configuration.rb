@@ -28,6 +28,7 @@ module RSpec
     DIRECTORY_MAPPINGS = {
       channel:    %w[spec channels],
       controller: %w[spec controllers],
+      generator:  %w[spec generator],
       helper:     %w[spec helpers],
       job:        %w[spec jobs],
       mailer:     %w[spec mailers],
