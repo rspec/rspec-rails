@@ -4,6 +4,7 @@
 Bug Fixes:
 
 * Fix controller scaffold templates parameter name.  (Taketo Takashima, #2591)
+* Include generator specs in the inferred list of specs. (Jason Karns, #2597)
 
 ### 6.0.0.rc1
 
