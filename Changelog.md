@@ -4,6 +4,7 @@
 Bug Fixes:
 
 * Fix controller scaffold templates parameter name.  (Taketo Takashima, #2591)
+* Include generator specs in the inferred list of specs. (Jason Karns, #2597)
 
 ### 5.1.1 / 2022-03-07
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.1.0...v5.1.1)
