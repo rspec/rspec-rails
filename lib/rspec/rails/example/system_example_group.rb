@@ -108,9 +108,7 @@ module RSpec
           orig_stdout = $stdout
           $stdout = StringIO.new
           begin
-            if ::Rails::VERSION::STRING >= '6.0'
-              original_before_teardown.bind(self).call
-            end
+            original_before_teardown.bind(self).call
             original_after_teardown.bind(self).call
           ensure
             myio = $stdout
