@@ -6,6 +6,7 @@
 Enhancements:
 
 * Support Rails 7
+* Template tweaks to remove instance variables from generated specs. (Takuma Ishikawa, #2599)
 
 Breaking Changes:
 
