@@ -1,6 +1,11 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.0.rc1...main)
 
+Breaking Changes:
+
+* Change the order of `after_teardown` from `after` to `around` in system
+  specs to improve compatibility with extensions and Capybara. (Tim Diggins, #2596)
+
 ### 6.0.0.rc1
 
 Enhancements:
