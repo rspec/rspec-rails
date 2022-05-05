@@ -91,5 +91,38 @@ module RSpec::Rails
         expect(example.metadata[:extra_failure_lines]).to eq(["line 1\n", "line 2\n"])
       end
     end
+
+    describe "hook order" do
+      it 'calls Capybara.reset_sessions (TestUnit after_teardown) after any after hooks' do
+        calls_in_order = []
+        allow(Capybara).to receive(:reset_sessions!) { calls_in_order << :reset_sessions! }
+
+        group = RSpec::Core::ExampleGroup.describe do
+          include SystemExampleGroup
+
+          before do
+            driven_by(:selenium)
+          end
+
+          after do
+            calls_in_order << :after_hook
+          end
+
+          append_after do
+            calls_in_order << :append_after_hook
+          end
+
+          around do |example|
+            example.run
+            calls_in_order << :around_hook_after_example
+          end
+        end
+        group.it('works') { }
+        group.run
+
+        expect(calls_in_order).to eq([:after_hook, :append_after_hook, :around_hook_after_example, :reset_sessions!])
+      end
+
+    end
   end
 end

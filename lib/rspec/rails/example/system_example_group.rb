@@ -108,16 +108,18 @@ module RSpec
           orig_stdout = $stdout
           $stdout = StringIO.new
           begin
-            if ::Rails::VERSION::STRING >= '6.0'
-              original_before_teardown.bind(self).call
-            end
-            original_after_teardown.bind(self).call
+            original_before_teardown.bind(self).call
           ensure
             myio = $stdout
             myio.rewind
             RSpec.current_example.metadata[:extra_failure_lines] = myio.readlines
             $stdout = orig_stdout
           end
+        end
+
+        around do |example|
+          example.run
+          original_after_teardown.bind(self).call
         end
       end
     end
