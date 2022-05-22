@@ -71,7 +71,7 @@ and
 > Surprisingly, `flat_map(&block)` appears to be faster than
 > `flat_map { yield }` in spite of the fact that our array here
 > is smaller than the break-even point of 20-25 measured in the
-> `capture_block_vs_yield.rb` benchmark. In fact, the forwaded-block
+> `capture_block_vs_yield.rb` benchmark. In fact, the forwarded-block
 > version remains faster in my benchmarks here no matter how small
 > I shrink the `words` array. I'm not sure why!
 >
