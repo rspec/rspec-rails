@@ -134,7 +134,7 @@ module RSpec
         end
 
         # Ruby 3.1 changed how params were serialized on Rails 6.1
-        # so we override the active job implementation and customise it here.
+        # so we override the active job implementation and customize it here.
         def deserialize_arguments(job)
           args = super
 
