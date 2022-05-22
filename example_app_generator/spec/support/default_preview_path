@@ -69,5 +69,5 @@ elsif defined?(::ActionMailer::Preview)
 end
 
 # This will force the loading of ActionMailer settings to ensure we do not
-# accicentally set something we should not
+# accidentally set something we should not
 ActionMailer::Base.smtp_settings
