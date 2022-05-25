@@ -4,7 +4,7 @@ Feature: have_stream_from matcher
   The `have_stream_from` matcher is used to check if a channel has been subscribed to a given stream specified as a String.
   If you use `stream_for` in you channel to subscribe to a model, use `have_stream_for` matcher instead.
 
-  The `have_no_streams` matcher is used to check if a channe hasn't been subscribed to any stream.
+  The `have_no_streams` matcher is used to check if a channel hasn't been subscribed to any stream.
 
   It is available only in channel specs.
 

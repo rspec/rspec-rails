@@ -54,7 +54,7 @@ The results are very interesting:
 > a high constant cost, taking about 5x longer than a single `yield`
 > (even if the block is never used!).
 >
-> However, fowarding a captured block can be faster than using `yield`
+> However, forwarding a captured block can be faster than using `yield`
 > if the block is used many times (the breakeven point is at about 20-25
 > invocations), so it appears that he per-invocation cost of `yield`
 > is higher than that of a captured-and-forwarded block.
@@ -71,7 +71,7 @@ and
 > Surprisingly, `flat_map(&block)` appears to be faster than
 > `flat_map { yield }` in spite of the fact that our array here
 > is smaller than the break-even point of 20-25 measured in the
-> `capture_block_vs_yield.rb` benchmark. In fact, the forwaded-block
+> `capture_block_vs_yield.rb` benchmark. In fact, the forwarded-block
 > version remains faster in my benchmarks here no matter how small
 > I shrink the `words` array. I'm not sure why!
 >

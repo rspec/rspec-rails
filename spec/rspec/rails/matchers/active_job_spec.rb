@@ -347,7 +347,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       }
     end
 
-    it "passess deserialized arguments to with block" do
+    it "passes deserialized arguments to with block" do
       global_id_object = GlobalIdModel.new("42")
 
       expect {
@@ -650,7 +650,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       }
     end
 
-    it "passess deserialized arguments to with block" do
+    it "passes deserialized arguments to with block" do
       global_id_object = GlobalIdModel.new("42")
 
       expect {
