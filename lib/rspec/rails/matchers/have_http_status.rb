@@ -305,7 +305,7 @@ module RSpec
 
         private
 
-          # @return [String] formating the expected status and associated code(s)
+          # @return [String] formatting the expected status and associated code(s)
           def type_message
             @type_message ||= (expected == :error ? "an error" : "a #{expected}") +
               " status code (#{type_codes})"

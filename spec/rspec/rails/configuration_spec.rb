@@ -93,7 +93,7 @@ RSpec.describe "Configuration" do
     end
 
     describe "`#render_views=`" do
-      it "sets `render_views?` to the truthyness of the provided value" do
+      it "sets `render_views?` to the truthiness of the provided value" do
         expect {
           config.render_views = :a_value
         }.to change { config.render_views? }.from(false).to(true)

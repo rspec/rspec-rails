@@ -60,7 +60,7 @@ module RSpec::Rails
         end
       end
 
-      it 'propogates to examples in nested groups properly' do
+      it 'propagates to examples in nested groups properly' do
         value = :unset
 
         group.class_exec do

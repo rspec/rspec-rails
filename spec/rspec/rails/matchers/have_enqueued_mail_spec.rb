@@ -424,7 +424,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
         )
       end
 
-      it "passes when given a global id serialised argument" do
+      it "passes when given a global id serialized argument" do
         expect {
           UnifiedMailer.with(inquiry: GlobalIDArgument.new).test_email.deliver_later
         }.to have_enqueued_email(UnifiedMailer, :test_email)
