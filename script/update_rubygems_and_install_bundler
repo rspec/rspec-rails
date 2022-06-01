@@ -1,15 +1,20 @@
 #!/bin/bash
-# This file was generated on 2019-12-18T14:01:39+00:00 from the rspec-dev repo.
+# This file was generated on 2022-06-01T13:16:05+02:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 set -e
 source script/functions.sh
 
-if is_ruby_23_plus; then
-  gem update --no-document --system
-  gem install --no-document bundler
+if is_ruby_31_plus; then
+  echo "Installing rubygems 3.3.6 / bundler 2.3.6"
+  yes | gem update --system '3.3.6'
+  yes | gem install bundler -v '2.3.6'
+elif is_ruby_23_plus; then
+  echo "Installing rubygems 3.2.22 / bundler 2.2.22"
+  yes | gem update --system '3.2.22'
+  yes | gem install bundler -v '2.2.22'
 else
   echo "Warning installing older versions of Rubygems / Bundler"
-  gem update --system '2.7.10'
+  gem update --system '2.7.8'
   gem install bundler -v '1.17.3'
 fi

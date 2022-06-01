@@ -5,10 +5,4 @@
 set -e
 source script/functions.sh
 
-# Allow repos to override the default functions and add their own
-if [ -f script/custom_build_functions.sh ]; then
-  source script/custom_build_functions.sh
-fi
-
-
-fold "rubocop" check_style_and_lint
+run_cukes

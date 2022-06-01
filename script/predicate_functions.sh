@@ -1,4 +1,4 @@
-# This file was generated on 2019-12-18T14:01:39+00:00 from the rspec-dev repo.
+# This file was generated on 2022-06-01T13:16:05+02:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 function is_mri {
@@ -9,6 +9,28 @@ function is_mri {
   else
     return 1
   fi;
+}
+
+function is_ruby_head {
+  # This checks for the presence of our CI's ruby-head env variable
+  if [ -z ${RUBY_HEAD+x} ]; then
+    return 1
+  else
+    return 0
+  fi;
+}
+
+function supports_cross_build_checks {
+  if is_mri; then
+    # We don't run cross build checks on ruby-head
+    if is_ruby_head; then
+      return 1
+    else
+      return 0
+    fi
+  else
+    return 1
+  fi
 }
 
 function is_jruby {
@@ -65,9 +87,38 @@ function is_ruby_23_plus {
   fi
 }
 
-function rspec_rails_compatible {
-  if is_ruby_23_plus; then
+function is_ruby_25_plus {
+  if ruby -e "exit(RUBY_VERSION.to_f >= 2.5)"; then
     return 0
+  else
+    return 1
+  fi
+}
+
+function is_ruby_27_plus {
+  if ruby -e "exit(RUBY_VERSION.to_f >= 2.7)"; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+function is_ruby_31_plus {
+  if ruby -e "exit(RUBY_VERSION.to_f >= 3.1)"; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+function rspec_rails_compatible {
+  if is_ruby_25_plus; then
+    # TODO remove when RSpec-Rails build is 3.1 safe by default
+    if is_ruby_31_plus; then
+      return 1
+    else
+      return 0
+    fi
   else
     return 1
   fi
@@ -96,4 +147,16 @@ function documentation_enforced {
   else
     return 1
   fi
+}
+
+function style_and_lint_enforced {
+  if is_ruby_head; then
+   return 1
+ else
+   if [ -x ./bin/rubocop ]; then
+     return 0
+   else
+     return 1
+   fi
+ fi
 }

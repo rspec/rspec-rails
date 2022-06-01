@@ -1,4 +1,4 @@
-# This file was generated on 2019-12-18T14:01:39+00:00 from the rspec-dev repo.
+# This file was generated on 2022-06-01T13:16:05+02:00 from the rspec-dev repo.
 # DO NOT modify it by hand as your changes will get lost the next time it is generated.
 
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
@@ -13,13 +13,19 @@ MAINTENANCE_BRANCH=`cat maintenance-branch`
 
 # Don't allow rubygems to pollute what's loaded. Also, things boot faster
 # without the extra load time of rubygems. Only works on MRI Ruby 1.9+
-if is_mri; then
+if is_mri_192_plus; then
   export RUBYOPT="--disable=gem"
 fi
 
 function clone_repo {
   if [ ! -d $1 ]; then # don't clone if the dir is already there
-    travis_retry eval "git clone https://github.com/rspec/$1 --depth 1 --branch $MAINTENANCE_BRANCH"
+    if [ -z "$2" ]; then
+      BRANCH_TO_CLONE="${MAINTENANCE_BRANCH?}";
+    else
+      BRANCH_TO_CLONE="$2";
+    fi;
+
+    travis_retry eval "git clone https://github.com/rspec/$1 --depth 1 --branch ${BRANCH_TO_CLONE?}"
   fi;
 }
 
@@ -47,7 +53,12 @@ function run_cukes {
 
     echo "${PWD}/bin/cucumber"
 
-    if is_jruby; then
+    if is_mri_192; then
+      # For some reason we get SystemStackError on 1.9.2 when using
+      # the bin/cucumber approach below. That approach is faster
+      # (as it avoids the bundler tax), so we use it on rubies where we can.
+      bundle exec cucumber --strict
+    elif is_jruby; then
       # For some reason JRuby doesn't like our improved bundler setup
       RUBYOPT="-I${PWD}/../bundle -rbundler/setup" \
          PATH="${PWD}/bin:$PATH" \
@@ -77,8 +88,9 @@ function run_spec_suite_for {
       echo "Running specs for $1"
       pushd ../$1
       unset BUNDLE_GEMFILE
-      bundle_install_flags=`cat .travis.yml | grep bundler_args | tr -d '"' | grep -o " .*"`
+      bundle_install_flags=`cat .github/workflows/ci.yml | grep "bundle install" | sed 's/.* bundle install//'`
       travis_retry eval "(unset RUBYOPT; exec bundle install $bundle_install_flags)"
+      travis_retry eval "(unset RUBYOPT; exec bundle binstubs --all)"
       run_specs_and_record_done
       popd
     else
@@ -128,10 +140,7 @@ function check_binstubs {
     echo "  $ bundle binstubs$gems"
     echo
     echo "  # To binstub all gems"
-    echo "  $ bundle install --binstubs"
-    echo
-    echo "  # To binstub all gems and avoid loading bundler"
-    echo "  $ bundle install --binstubs --standalone"
+    echo "  $ bundle binstubs --all"
   fi
 
   return $success
@@ -158,8 +167,6 @@ function check_documentation_coverage {
     end
   "
 
-  echo "bin/yard doc --no-cache"
-
   # Some warnings only show up when generating docs, so do that as well.
   bin/yard doc --no-cache | ruby -e "
     while line = gets
@@ -176,14 +183,22 @@ function check_documentation_coverage {
 }
 
 function check_style_and_lint {
-  echo "bin/rubocop"
-  eval "(unset RUBYOPT; rm -rf tmp/*; exec bin/rubocop)"
+  echo "bin/rubocop lib"
+  eval "(unset RUBYOPT; exec bin/rubocop lib)"
 }
 
 function run_all_spec_suites {
   fold "rspec-core specs" run_spec_suite_for "rspec-core"
   fold "rspec-expectations specs" run_spec_suite_for "rspec-expectations"
   fold "rspec-mocks specs" run_spec_suite_for "rspec-mocks"
-  fold "rspec-rails specs" run_spec_suite_for "rspec-rails"
-  fold "rspec-support specs" run_spec_suite_for "rspec-support"
+  if rspec_rails_compatible; then
+    if ! is_ruby_27_plus; then
+      export RAILS_VERSION='~> 6.1.0'
+    fi
+    fold "rspec-rails specs" run_spec_suite_for "rspec-rails"
+  fi
+
+  if rspec_support_compatible; then
+    fold "rspec-support specs" run_spec_suite_for "rspec-support"
+  fi
 }
