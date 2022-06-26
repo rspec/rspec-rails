@@ -36,7 +36,7 @@ end
 
 __END__
 
-This attemps to measure the performance of how `routes` works in RSpec. It's
+This attempts to measure the performance of how `routes` works in RSpec. It's
 actually a method which delegates to `before`. RSpec executes `before` hooks by
 capturing the block and then performing an `instance_exec` on it later in the
 example context.

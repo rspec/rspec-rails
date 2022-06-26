@@ -38,7 +38,7 @@ function run_specs_and_record_done {
 
 function run_cukes {
   if [ -d features ]; then
-    # force jRuby to use client mode JVM or a compilation mode thats as close as possible,
+    # force jRuby to use client mode JVM or a compilation mode that's as close as possible,
     # idea taken from https://github.com/jruby/jruby/wiki/Improving-startup-time
     #
     # Note that we delay setting this until we run the cukes because we've seen
