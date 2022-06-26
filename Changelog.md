@@ -99,7 +99,7 @@ Bug Fixes:
 
 Enhancements:
 
-* Issue a warning when using job matchers with `#at` mis-match on `usec` precision.
+* Issue a warning when using job matchers with `#at` mismatch on `usec` precision.
   (Jon Rowe, #2350)
 * Generated request specs now have a bare `_spec` suffix instead of `request_spec`.
   (Eloy Espinaco, Luka Lüdicke, #2355, #2356, #2378)
@@ -226,7 +226,7 @@ Bug Fixes:
 
 Bug Fixes:
 
-* Namespaced fixtures now generate a `/` seperated path rather than an `_`.
+* Namespaced fixtures now generate a `/` separated path rather than an `_`.
   (@nxlith, #2077)
 * Check the arity of `errors` before attempting to use it to generate the `be_valid`
   error message. (Kevin Kuchta, #2096)
@@ -386,7 +386,7 @@ Enhancements:
 
 Bug fixes:
 
-* Prevent asset helpers from taking precendence over route helpers. (Prem Sichanugrist, #1496)
+* Prevent asset helpers from taking precedence over route helpers. (Prem Sichanugrist, #1496)
 * Prevent `NoMethodError` during failed `have_rendered` assertions on weird templates.
   (Jon Rowe, #1623).
 
