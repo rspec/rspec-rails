@@ -181,7 +181,7 @@ module RSpec
             |`Time.current.change(usec: 0)`
             |
             |Note: RSpec cannot do this for you because jobs can be scheduled with usec
-            |precision and we do not know wether it is on purpose or not.
+            |precision and we do not know whether it is on purpose or not.
             |
             |
             WARNING
