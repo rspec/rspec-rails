@@ -14,9 +14,6 @@ Feature: Controller generator spec
                 create    app/helpers/posts_helper.rb
                 invoke    rspec
                 create      spec/helpers/posts_helper_spec.rb
-                invoke  assets
-                invoke    css
-                create      app/assets/stylesheets/posts.css
           """
 
     Scenario: Controller generator with customized `default-path`
@@ -37,7 +34,4 @@ Feature: Controller generator spec
                 create    app/helpers/posts_helper.rb
                 invoke    rspec
                 create      behaviour/helpers/posts_helper_spec.rb
-                invoke  assets
-                invoke    css
-                create      app/assets/stylesheets/posts.css
           """
