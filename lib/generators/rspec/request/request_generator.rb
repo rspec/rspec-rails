@@ -10,7 +10,7 @@ module Rspec
         return unless options[:request_specs]
 
         template 'request_spec.rb',
-                 File.join('spec/requests', "#{name.underscore.pluralize}_spec.rb")
+                 target_path('requests', "#{name.underscore.pluralize}_spec.rb")
       end
     end
   end
