@@ -11,6 +11,9 @@ def add_net_gems_dependency
   end
 end
 
+# sqlite3 is an optional, unspecified, dependency and Rails 6.0 only supports `~> 1.4`
+gem 'sqlite3', '~> 1.4', platforms: [:ruby]
+
 case version = ENV['RAILS_VERSION'] || (File.exist?(version_file) && File.read(version_file).chomp) || ''
 when /main/
   gem "rails", :git => "https://github.com/rails/rails.git"
