@@ -1,3 +1,9 @@
+# Upgrading from rspec-rails 5.x to version 6
+
+RSpec Rails 6 is a major version under semantic versioning, it also follows our new versioning strategy for RSpec-Rails, which is to keep in step with Rails supported versions. Thus it supports 6.1 and 7.0. There are no changes required to upgrade to RSpec Rails 6 if you are using a supported version of Rails.
+
+If you are using an older version of Rails, you can use 5.x which hard supports 5.2 and 6.x.
+
 # Upgrading from rspec-rails 4.x to version 5
 
 RSpec Rails 5 is a major version under semantic versioning, it also follows our new versioning strategy for RSpec-Rails, which is to keep in step with Rails supported versions. Thus it supports 5.2, 6.0 and 6.1. There are no changes required to upgrade to RSpec Rails 5 if you are using a supported version of Rails.

@@ -26,22 +26,12 @@ in_root do
 
   append_to_file 'Gemfile', "gem 'rails-controller-testing'\n"
 
-  if Rails::VERSION::STRING >= '6'
-    gsub_file "Gemfile", /.*rails-controller-testing.*/, "gem 'rails-controller-testing', git: 'https://github.com/rails/rails-controller-testing'"
-
-    # TODO: To remove when Rails released with https://github.com/rails/rails/pull/40281
-    append_to_file 'Gemfile', <<-EOT.gsub(/^ +\|/, '')
-      |gem 'rexml'
-    EOT
-  end
+  gsub_file "Gemfile", /.*rails-controller-testing.*/, "gem 'rails-controller-testing', git: 'https://github.com/rails/rails-controller-testing'"
 
   # sqlite3 is an optional, unspecified, dependency and Rails 6.0 only supports `~> 1.4`
   gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 1.4'"
 
-  # webdrivers 4 up until 4.3.0 don't specify `required_ruby_version`, but contain
-  # Ruby 2.2-incompatible syntax (safe navigation).
-  # That basically means we use pre-4.0 for Ruby 2.2, and 4.3+ for newer Rubies.
-  gsub_file "Gemfile", /.*chromedriver-helper.*/, "gem 'webdrivers', '!= 4.0.0', '!= 4.0.1', '!= 4.1.0', '!= 4.1.1', '!= 4.1.2', '!= 4.1.3', '!= 4.2.0'"
+  gsub_file "Gemfile", /.*chromedriver-helper.*/, "gem 'webdrivers'"
 
   if RUBY_ENGINE == "jruby"
     gsub_file "Gemfile", /.*jdbc.*/, ''

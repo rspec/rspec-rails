@@ -62,14 +62,8 @@ module RSpec
           end
         end
 
-        if ::Rails::VERSION::STRING >= '6'
-          def self.template_format(template)
-            template.format
-          end
-        else
-          def self.template_format(template)
-            template.formats
-          end
+        def self.template_format(template)
+          template.format
         end
 
         # Delegates all methods to the submitted resolver and for all methods

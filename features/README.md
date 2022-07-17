@@ -4,9 +4,10 @@ routing.
 
 ## Rails
 
-rspec-rails 5 supports Rails 5.2 to 6.1. For earlier versions of Rails, you
-should use [rspec-rails-4](https://github.com/rspec/rspec-rails/tree/4-1-maintenance)
-for Rails 5.x and [rspec-rails 3](https://github.com/rspec/rspec-rails/tree/3-9-maintenance)
+rspec-rails 6 supports Rails 6.1 to 7.0. For earlier versions of Rails, you
+should use [rspec-rails-5](https://github.com/rspec/rspec-rails/tree/5-1-maintenance)
+for Rails 5.2 and 6.0, [rspec-rails-4](https://github.com/rspec/rspec-rails/tree/4-1-maintenance)
+for Rails 5.x, and [rspec-rails 3](https://github.com/rspec/rspec-rails/tree/3-9-maintenance)
 for even older versions.
 
 ## Install
@@ -26,7 +27,7 @@ This installs the following gems:
 Add rspec-rails to the :test and :development groups in the Gemfile:
 
     group :test, :development do
-      gem 'rspec-rails', '~> 5.0.0'
+      gem 'rspec-rails', '~> 6.0.0'
     end
 
 It needs to be in the :development group to expose generators and rake tasks

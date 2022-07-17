@@ -26,11 +26,9 @@ require_file_stub 'config/environment' do
     require "action_controller/railtie"
     require "action_mailer/railtie" unless ENV['NO_ACTION_MAILER']
     require "action_view/railtie"
-    if Rails::VERSION::STRING >= '6'
-      require "action_cable/engine"
-      require "active_job/railtie"
-      require "action_mailbox/engine"
-    end
+    require "action_cable/engine"
+    require "active_job/railtie"
+    require "action_mailbox/engine"
 
     # Require the gems listed in Gemfile, including any gems
     # you've limited to :test, :development, or :production.

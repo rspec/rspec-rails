@@ -35,11 +35,7 @@ module RSpec::Rails
       RSpec::Core::ExampleGroup.describe do
         include RSpec::Rails::FixtureFileUploadSupport
 
-        if ::Rails.version.to_f >= 6.1
-          self.file_fixture_path = fixture_path
-        else
-          self.fixture_path = fixture_path
-        end
+        self.file_fixture_path = fixture_path
 
         it 'supports fixture file upload' do
           file = fixture_file_upload(fixture_name)
