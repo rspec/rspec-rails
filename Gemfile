@@ -29,5 +29,4 @@ end
 custom_gemfile = File.expand_path('Gemfile-custom', __dir__)
 eval_gemfile custom_gemfile if File.exist?(custom_gemfile)
 
-eval_gemfile 'Gemfile-sqlite-dependencies'
 eval_gemfile 'Gemfile-rails-dependencies'
