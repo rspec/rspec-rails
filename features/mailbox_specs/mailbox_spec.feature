@@ -1,4 +1,3 @@
-@rails_post_6
 Feature: action mailbox spec
 
   Mailbox specs provide alternative assertions to those available in `ActiveMailbox::TestHelper` and help assert behaviour of how the email

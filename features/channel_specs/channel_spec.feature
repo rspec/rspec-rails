@@ -1,4 +1,3 @@
-@rails_post_6
 Feature: channel spec
 
   Channel specs are marked by `:type => :channel` or if you have set

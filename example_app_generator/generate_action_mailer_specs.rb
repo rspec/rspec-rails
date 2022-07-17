@@ -15,12 +15,7 @@ using_source_path(File.expand_path(__dir__)) do
     end
   CODE
 
-  rails_parent =
-    if Rails.version.to_f >= 6.0
-      Rails.application.class.module_parent.to_s
-    else
-      Rails.application.class.parent.to_s
-    end
+  rails_parent = Rails.application.class.module_parent.to_s
 
   gsub_file 'config/initializers/action_mailer.rb', /ExampleApp/, rails_parent
 

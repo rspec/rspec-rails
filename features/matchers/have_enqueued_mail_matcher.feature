@@ -68,7 +68,6 @@ Feature: have_enqueued_mail matcher
     When I run `rspec spec/mailers/my_mailer_spec.rb`
     Then the examples should all pass
 
-  @rails_post_6
   Scenario: Parameterize the mailer
     Given a file named "app/mailers/my_mailer.rb" with:
       """ruby
@@ -98,7 +97,6 @@ Feature: have_enqueued_mail matcher
     When I run `rspec spec/mailers/my_mailer_spec.rb`
     Then the examples should all pass
 
-  @rails_post_6
   Scenario: Parameterize and pass an argument to the mailer
     Given a file named "app/mailers/my_mailer.rb" with:
       """ruby

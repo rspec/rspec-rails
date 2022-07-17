@@ -1,4 +1,3 @@
-@rails_post_6
 Feature: have_stream_from matcher
 
   The `have_stream_from` matcher is used to check if a channel has been subscribed to a given stream specified as a String.
