@@ -7,10 +7,10 @@ Feature: Channel generator spec
           """
                 invoke  rspec
                 create    spec/channels/group_channel_spec.rb
+          """
+        Then the output should contain:
+          """
                 create  app/channels/group_channel.rb
-             identical  app/javascript/channels/index.js
-             identical  app/javascript/channels/consumer.js
-                create  app/javascript/channels/group_channel.js
           """
 
     Scenario: Channel generator with customized `default-path`
@@ -24,8 +24,8 @@ Feature: Channel generator spec
           """
                 invoke  rspec
                 create    behaviour/channels/group_channel_spec.rb
+          """
+        Then the output should contain:
+          """
                 create  app/channels/group_channel.rb
-             identical  app/javascript/channels/index.js
-             identical  app/javascript/channels/consumer.js
-                create  app/javascript/channels/group_channel.js
           """
