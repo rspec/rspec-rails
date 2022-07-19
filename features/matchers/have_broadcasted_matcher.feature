@@ -1,4 +1,3 @@
-@rails_post_6
 Feature: have_broadcasted matcher
 
   The `have_broadcasted_to` (also aliased as `broadcast_to`) matcher is used

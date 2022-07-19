@@ -379,22 +379,20 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       }
     end
 
-    if Rails.version.to_f >= 6.0
-      it "passes with Time" do
-        usec_time = Time.iso8601('2016-07-01T00:00:00.000001Z')
+    it "passes with Time" do
+      usec_time = Time.iso8601('2016-07-01T00:00:00.000001Z')
 
-        expect {
-          hello_job.perform_later(usec_time)
-        }.to have_enqueued_job(hello_job).with(usec_time)
-      end
+      expect {
+        hello_job.perform_later(usec_time)
+      }.to have_enqueued_job(hello_job).with(usec_time)
+    end
 
-      it "passes with ActiveSupport::TimeWithZone" do
-        usec_time = Time.iso8601('2016-07-01T00:00:00.000001Z').in_time_zone
+    it "passes with ActiveSupport::TimeWithZone" do
+      usec_time = Time.iso8601('2016-07-01T00:00:00.000001Z').in_time_zone
 
-        expect {
-          hello_job.perform_later(usec_time)
-        }.to have_enqueued_job(hello_job).with(usec_time)
-      end
+      expect {
+        hello_job.perform_later(usec_time)
+      }.to have_enqueued_job(hello_job).with(usec_time)
     end
   end
 

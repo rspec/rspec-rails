@@ -39,7 +39,7 @@ module RSpec::Rails
       end
     end
 
-    it "will allow #setup_fixture to run successfully", skip: Rails.version.to_f <= 6.0 do
+    it "will allow #setup_fixture to run successfully" do
       group = RSpec::Core::ExampleGroup.describe do
         include FixtureSupport
 

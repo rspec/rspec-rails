@@ -12,22 +12,12 @@ group :documentation do
   gem 'relish', '~> 0.7.1'
 end
 
-gem 'rake', '> 12'
-
-if RUBY_VERSION.to_f >= 2.3
-  gem 'rubocop', '~> 0.80.1'
-end
-
 gem 'capybara'
-
-if RUBY_VERSION.to_f >= 2.3
-  gem 'ffi', '~> 1.15.5'
-else
-  gem 'ffi', '~> 1.12.0'
-end
+gem 'ffi', '~> 1.15.5'
+gem 'rake', '> 12'
+gem 'rubocop', '~> 0.80.1'
 
 custom_gemfile = File.expand_path('Gemfile-custom', __dir__)
 eval_gemfile custom_gemfile if File.exist?(custom_gemfile)
 
-eval_gemfile 'Gemfile-sqlite-dependencies'
 eval_gemfile 'Gemfile-rails-dependencies'

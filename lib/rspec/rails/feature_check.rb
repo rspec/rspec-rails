@@ -24,7 +24,7 @@ module RSpec
       end
 
       def has_action_cable_testing?
-        defined?(::ActionCable) && ActionCable::VERSION::MAJOR >= 6
+        defined?(::ActionCable)
       end
 
       def has_action_mailer_parameterized?

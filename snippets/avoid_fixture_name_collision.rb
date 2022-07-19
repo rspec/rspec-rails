@@ -20,7 +20,6 @@ gemfile(false) do
   # Those Gemfiles carefully pick the right versions depending on
   # settings in the ENV, `.rails-version` and `maintenance-branch`.
   Dir.chdir('..') do
-    eval_gemfile 'Gemfile-sqlite-dependencies'
     # This Gemfile expects `maintenance-branch` file to be present
     # in the current directory.
     eval_gemfile 'Gemfile-rspec-dependencies'

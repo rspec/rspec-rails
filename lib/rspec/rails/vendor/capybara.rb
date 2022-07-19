@@ -12,9 +12,7 @@ if defined?(Capybara)
   RSpec.configure do |c|
     if defined?(Capybara::DSL)
       c.include Capybara::DSL, type: :feature
-      if defined?(ActionPack) && ActionPack::VERSION::STRING >= "5.1"
-        c.include Capybara::DSL, type: :system
-      end
+      c.include Capybara::DSL, type: :system
     end
 
     if defined?(Capybara::RSpecMatchers)

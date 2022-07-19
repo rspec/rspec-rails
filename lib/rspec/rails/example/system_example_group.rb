@@ -54,23 +54,22 @@ module RSpec
           ActionDispatch::SystemTesting::Server.silence_puma = true
         end
 
+        require 'action_dispatch/system_test_case'
+
         begin
           require 'capybara'
-          require 'action_dispatch/system_test_case'
         rescue LoadError => e
           abort """
             LoadError: #{e.message}
-            System test integration requires Rails >= 5.1 and has a hard
+            System test integration has a hard
             dependency on a webserver and `capybara`, please add capybara to
             your Gemfile and configure a webserver (e.g. `Capybara.server =
-            :webrick`) before attempting to use system specs.
+            :puma`) before attempting to use system specs.
           """.gsub(/\s+/, ' ').strip
         end
 
-        if ::Rails::VERSION::STRING >= '6.0'
-          original_before_teardown =
-            ::ActionDispatch::SystemTesting::TestHelpers::SetupAndTeardown.instance_method(:before_teardown)
-        end
+        original_before_teardown =
+          ::ActionDispatch::SystemTesting::TestHelpers::SetupAndTeardown.instance_method(:before_teardown)
 
         original_after_teardown =
           ::ActionDispatch::SystemTesting::TestHelpers::SetupAndTeardown.instance_method(:after_teardown)

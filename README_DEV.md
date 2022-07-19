@@ -34,6 +34,6 @@ Rails than you are trying to use now.
 To run the specs against a different version of Rails, use the `thor` command:
 
 ```bash
-bin/thor version:use 6.0.2.2
+bin/thor version:use 7.0.3.1
 bin/rake
 ```
