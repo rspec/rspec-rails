@@ -12,6 +12,7 @@ module RSpec
       include RSpec::Rails::MinitestLifecycleAdapter
       include RSpec::Rails::MinitestAssertionAdapter
       include RSpec::Rails::FixtureSupport
+      include RSpec::Rails::TaggedLoggingAdapter if ::Rails::VERSION::MAJOR >= 7
     end
   end
 end
