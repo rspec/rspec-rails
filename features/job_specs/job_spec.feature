@@ -22,7 +22,7 @@ Feature: job spec
     Given active job is available
 
   Scenario: specify that job was enqueued
-    Given a file named "spec/jobs/upload_backups_spec.rb" with:
+    Given a file named "spec/jobs/upload_backups_job_spec.rb" with:
     """ruby
     require "rails_helper"
 
@@ -37,11 +37,11 @@ Feature: job spec
       end
     end
     """
-    When I run `rspec spec/jobs/upload_backups_spec.rb`
+    When I run `rspec spec/jobs/upload_backups_job_spec.rb`
     Then the example should pass
 
   Scenario: specify that job was enqueued for the correct date and time
-    Given a file named "spec/jobs/upload_backups_spec.rb" with:
+    Given a file named "spec/jobs/upload_backups_job_spec.rb" with:
     """ruby
     require "rails_helper"
 
@@ -56,11 +56,11 @@ Feature: job spec
       end
     end
     """
-    When I run `rspec spec/jobs/upload_backups_spec.rb`
+    When I run `rspec spec/jobs/upload_backups_job_spec.rb`
     Then the example should pass
 
   Scenario: specify that job was enqueued with no wait
-    Given a file named "spec/jobs/upload_backups_spec.rb" with:
+    Given a file named "spec/jobs/upload_backups_job_spec.rb" with:
     """ruby
     require "rails_helper"
 
@@ -75,11 +75,11 @@ Feature: job spec
       end
     end
     """
-    When I run `rspec spec/jobs/upload_backups_spec.rb`
+    When I run `rspec spec/jobs/upload_backups_job_spec.rb`
     Then the example should pass
 
   Scenario: specify that job was enqueued with alias block syntax
-    Given a file named "spec/jobs/upload_backups_spec.rb" with:
+    Given a file named "spec/jobs/upload_backups_job_spec.rb" with:
     """ruby
     require "rails_helper"
 
@@ -94,11 +94,11 @@ Feature: job spec
       end
     end
     """
-    When I run `rspec spec/jobs/upload_backups_spec.rb`
+    When I run `rspec spec/jobs/upload_backups_job_spec.rb`
     Then the example should pass
 
   Scenario: specify that job was enqueued with imperative syntax
-    Given a file named "spec/jobs/upload_backups_spec.rb" with:
+    Given a file named "spec/jobs/upload_backups_job_spec.rb" with:
     """ruby
     require "rails_helper"
 
@@ -112,11 +112,11 @@ Feature: job spec
       end
     end
     """
-    When I run `rspec spec/jobs/upload_backups_spec.rb`
+    When I run `rspec spec/jobs/upload_backups_job_spec.rb`
     Then the example should pass
 
   Scenario: specify that job was enqueued with imperative syntax and a chained expectation
-    Given a file named "spec/jobs/upload_backups_spec.rb" with:
+    Given a file named "spec/jobs/upload_backups_job_spec.rb" with:
     """ruby
     require "rails_helper"
 
@@ -130,11 +130,11 @@ Feature: job spec
       end
     end
     """
-    When I run `rspec spec/jobs/upload_backups_spec.rb`
+    When I run `rspec spec/jobs/upload_backups_job_spec.rb`
     Then the example should pass
 
   Scenario: the test adapter must be set to :test
-    Given a file named "spec/jobs/upload_backups_spec.rb" with:
+    Given a file named "spec/jobs/upload_backups_job_spec.rb" with:
     """ruby
     require "rails_helper"
 
@@ -146,5 +146,5 @@ Feature: job spec
       end
     end
     """
-    When I run `rspec spec/jobs/upload_backups_spec.rb`
+    When I run `rspec spec/jobs/upload_backups_job_spec.rb`
     Then the example should fail
