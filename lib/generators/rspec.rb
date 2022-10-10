@@ -1,4 +1,5 @@
 require 'rails/generators/named_base'
+require 'rspec/core'
 require 'rspec/rails/feature_check'
 
 # @private
@@ -17,6 +18,21 @@ module Rspec
         else
           @_rspec_source_root ||= File.expand_path(File.join(File.dirname(__FILE__), 'rspec', generator_name, 'templates'))
         end
+      end
+
+      # @private
+      # Load configuration from RSpec to ensure `--default-path` is set
+      def self.configuration
+        @configuration ||= begin
+                             configuration = RSpec.configuration
+                             options = RSpec::Core::ConfigurationOptions.new({})
+                             options.configure(configuration)
+                             configuration
+                           end
+      end
+
+      def target_path(*paths)
+        File.join(self.class.configuration.default_path, *paths)
       end
     end
   end

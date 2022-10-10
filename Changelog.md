@@ -1,6 +1,10 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.0.rc1...6-0-maintenance)
 
+Enhancements:
+
+* Generators now respects default path configuration option. (@vivekmiyani, #2508)
+
 Breaking Changes:
 
 * Change the order of `after_teardown` from `after` to `around` in system
