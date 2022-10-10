@@ -1,12 +1,19 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.0.rc1...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.0...main)
+
+### 6.0.0
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.1.2...6.0.0)
 
 Enhancements:
 
+* Support Rails 7
+* Template tweaks to remove instance variables from generated specs. (Takuma Ishikawa, #2599)
 * Generators now respects default path configuration option. (@vivekmiyani, #2508)
 
 Breaking Changes:
 
+* Drop support for Rails below 6.1
+* Drop support for Ruby below 2.5 (following supported versions of Rails 6.1)
 * Change the order of `after_teardown` from `after` to `around` in system
   specs to improve compatibility with extensions and Capybara. (Tim Diggins, #2596)
 
@@ -15,18 +22,6 @@ Deprecations:
 * Deprecates integration spec generator (`rspec:integration`)
   which was an alias of request spec generator (`rspec:request`)
   (Luka Lüdicke, #2374)
-
-### 6.0.0.rc1
-
-Enhancements:
-
-* Support Rails 7
-* Template tweaks to remove instance variables from generated specs. (Takuma Ishikawa, #2599)
-
-Breaking Changes:
-
-* Drop support for Rails below 6.1
-* Drop support for Ruby below 2.5 (following supported versions of Rails 6.1)
 
 ### 5.1.2 / 2022-04-24
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.1.1...v5.1.2)
