@@ -1,6 +1,10 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.0...main)
 
+Bug Fixes:
+
+* Prevent tagged logged support in Rails 7 calling `#name`. (Jon Rowe, #2625)
+
 ### 6.0.0
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.1.2...6.0.0)
 
