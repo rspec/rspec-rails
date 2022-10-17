@@ -184,11 +184,12 @@ module RSpec
 
     # @private
     module TaggedLoggingAdapter
-      require 'active_support/testing/tagged_logging'
-      include ActiveSupport::Testing::TaggedLogging
-
-      # Just a stub as TaggedLogging is calling `name`
-      def name
+      private
+      # Vendored from activesupport/lib/active_support/testing/tagged_logging.rb
+      # This implements the tagged_logger method where it is expected, but
+      # doesn't call `name` or set it up like Rails does.
+      def tagged_logger
+        @tagged_logger ||= (defined?(Rails.logger) && Rails.logger)
       end
     end
   end
