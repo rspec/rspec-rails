@@ -73,7 +73,7 @@ RSpec.describe "route_to" do
     context "when assert_recognizes fails with an assertion failure" do
       it "fails with message from assert_recognizes" do
         def assert_recognizes(*)
-          raise ActiveSupport::TestCase::Assertion.new("this message")
+          raise ActiveSupport::TestCase::Assertion, "this message"
         end
         expect do
           expect({ get: "path" }).to route_to("these" => "options")
@@ -84,7 +84,7 @@ RSpec.describe "route_to" do
     context "when assert_recognizes fails with a routing error" do
       it "fails with message from assert_recognizes" do
         def assert_recognizes(*)
-          raise ActionController::RoutingError.new("this message")
+          raise ActionController::RoutingError, "this message"
         end
         expect do
           expect({ get: "path" }).to route_to("these" => "options")
@@ -116,7 +116,7 @@ RSpec.describe "route_to" do
     context "when assert_recognizes fails with an assertion failure" do
       it "passes" do
         def assert_recognizes(*)
-          raise ActiveSupport::TestCase::Assertion.new("this message")
+          raise ActiveSupport::TestCase::Assertion, "this message"
         end
         expect do
           expect({ get: "path" }).not_to route_to("these" => "options")
@@ -127,7 +127,7 @@ RSpec.describe "route_to" do
     context "when assert_recognizes fails with a routing error" do
       it "passes" do
         def assert_recognizes(*)
-          raise ActionController::RoutingError.new("this message")
+          raise ActionController::RoutingError, "this message"
         end
         expect do
           expect({ get: "path" }).not_to route_to("these" => "options")
