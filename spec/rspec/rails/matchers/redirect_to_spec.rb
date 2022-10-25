@@ -19,7 +19,7 @@ RSpec.describe "redirect_to" do
 
     context "when assert_redirected_to fails" do
       def assert_redirected_to(*)
-        raise ActiveSupport::TestCase::Assertion.new("this message")
+        raise ActiveSupport::TestCase::Assertion, "this message"
       end
 
       it "uses failure message from assert_redirected_to" do
@@ -45,7 +45,7 @@ RSpec.describe "redirect_to" do
   context "with should_not" do
     context "when assert_redirected_to fails" do
       def assert_redirected_to(*)
-        raise ActiveSupport::TestCase::Assertion.new("this message")
+        raise ActiveSupport::TestCase::Assertion, "this message"
       end
 
       it "passes" do
@@ -61,7 +61,7 @@ RSpec.describe "redirect_to" do
       it "fails with custom failure message" do
         expect do
           expect(response).not_to redirect_to("destination")
-        end.to raise_exception(/expected not to redirect to \"destination\", but did/)
+        end.to raise_exception(/expected not to redirect to "destination", but did/)
       end
     end
 
