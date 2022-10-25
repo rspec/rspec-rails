@@ -40,7 +40,7 @@
       context "when assert_template fails" do
         it "uses failure message from assert_template" do
           def assert_template(*)
-            raise ActiveSupport::TestCase::Assertion.new("this message")
+            raise ActiveSupport::TestCase::Assertion, "this message"
           end
           expect do
             expect(response).to send(template_expectation, "template_name")
@@ -64,7 +64,7 @@
       context "when assert_template fails" do
         it "passes" do
           def assert_template(*)
-            raise ActiveSupport::TestCase::Assertion.new("this message")
+            raise ActiveSupport::TestCase::Assertion, "this message"
           end
           expect do
             expect(response).to_not send(template_expectation, "template_name")
@@ -77,7 +77,7 @@
           def assert_template(*); end
           expect do
             expect(response).to_not send(template_expectation, "template_name")
-          end.to raise_error(/expected not to render \"template_name\", but did/)
+          end.to raise_error(/expected not to render "template_name", but did/)
         end
       end
 
@@ -95,7 +95,7 @@
 
         def assert_template(*)
           message = "expecting <'template_name'> but rendering with <[]>"
-          raise ActiveSupport::TestCase::Assertion.new(message)
+          raise ActiveSupport::TestCase::Assertion, message
         end
 
         def normalize_argument_to_redirection(_response_redirect_location)
@@ -113,7 +113,7 @@
         context 'with a badly formatted error message' do
           def assert_template(*)
             message = 'expected [] to include "some/path"'
-            raise ActiveSupport::TestCase::Assertion.new(message)
+            raise ActiveSupport::TestCase::Assertion, message
           end
 
           it 'falls back to something informative' do
