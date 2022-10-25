@@ -226,7 +226,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
     end
 
     it "works with time offsets" do
-      # note that Time.current does not replicate Rails behavior for 5 seconds from now.
+      # NOTE: Time.current does not replicate Rails behavior for 5 seconds from now.
       time = Time.current.change(usec: 0)
       travel_to time do
         expect { hello_job.set(wait: 5).perform_later }.to have_enqueued_job.at(time + 5)
