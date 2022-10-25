@@ -16,7 +16,7 @@ RSpec.describe Rspec::Generators::GeneratorGenerator, type: :generator do
       expect(generator_spec).to contain(/require 'rails_helper'/)
     end
     it "includes the generator type in the metadata" do
-      expect(generator_spec).to contain(/^RSpec.describe \"Posts\", #{type_metatag(:generator)}/)
+      expect(generator_spec).to contain(/^RSpec.describe "Posts", #{type_metatag(:generator)}/)
     end
   end
 end

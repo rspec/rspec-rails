@@ -98,7 +98,7 @@ RSpec.describe "have_stream matchers", skip: !RSpec::Rails::FeatureCheck.has_act
 
       expect {
         expect(subscription).to have_stream_from("chat_2")
-      }.to raise_error(/expected to have stream "chat_2" started, but have \[\"chat_1\"\]/)
+      }.to raise_error(/expected to have stream "chat_2" started, but have \["chat_1"\]/)
     end
 
     context "with negated form" do
@@ -113,7 +113,7 @@ RSpec.describe "have_stream matchers", skip: !RSpec::Rails::FeatureCheck.has_act
 
         expect {
           expect(subscription).not_to have_stream_from("chat_1")
-        }.to raise_error(/expected not to have stream "chat_1" started, but have \[\"chat_1\"\]/)
+        }.to raise_error(/expected not to have stream "chat_1" started, but have \["chat_1"\]/)
       end
     end
 
@@ -129,7 +129,7 @@ RSpec.describe "have_stream matchers", skip: !RSpec::Rails::FeatureCheck.has_act
 
         expect {
           expect(subscription).to have_stream_from(a_string_starting_with("room"))
-        }.to raise_error(/expected to have stream a string starting with "room" started, but have \[\"chat_1\"\]/)
+        }.to raise_error(/expected to have stream a string starting with "room" started, but have \["chat_1"\]/)
       end
     end
   end
@@ -160,7 +160,7 @@ RSpec.describe "have_stream matchers", skip: !RSpec::Rails::FeatureCheck.has_act
 
       expect {
         expect(subscription).to have_stream_for(StreamModel.new(31_337))
-      }.to raise_error(/expected to have stream "broadcast:StreamModel#31337" started, but have \[\"broadcast:StreamModel#42\"\]/)
+      }.to raise_error(/expected to have stream "broadcast:StreamModel#31337" started, but have \["broadcast:StreamModel#42"\]/)
     end
 
     context "with negated form" do
@@ -175,7 +175,7 @@ RSpec.describe "have_stream matchers", skip: !RSpec::Rails::FeatureCheck.has_act
 
         expect {
           expect(subscription).not_to have_stream_for(StreamModel.new(42))
-        }.to raise_error(/expected not to have stream "broadcast:StreamModel#42" started, but have \[\"broadcast:StreamModel#42\"\]/)
+        }.to raise_error(/expected not to have stream "broadcast:StreamModel#42" started, but have \["broadcast:StreamModel#42"\]/)
       end
     end
   end

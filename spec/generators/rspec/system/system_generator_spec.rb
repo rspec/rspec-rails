@@ -19,7 +19,7 @@ RSpec.describe Rspec::Generators::SystemGenerator, type: :generator do
           expect(system_spec).to contain(/require 'rails_helper'/)
         end
         it "contains the system" do
-          expect(system_spec).to contain(/^RSpec.describe \"Posts\", #{type_metatag(:system)}/)
+          expect(system_spec).to contain(/^RSpec.describe "Posts", #{type_metatag(:system)}/)
         end
       end
     end
