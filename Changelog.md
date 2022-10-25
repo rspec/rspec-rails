@@ -2,14 +2,14 @@
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.1...main)
 
 ### 6.0.1 / 2022-10-18
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.0...6.0.1)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.0...v6.0.1)
 
 Bug Fixes:
 
 * Prevent tagged logged support in Rails 7 calling `#name`. (Jon Rowe, #2625)
 
 ### 6.0.0 / 2022-10-10
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.1.2...6.0.0)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.1.2...v6.0.0)
 
 Enhancements:
 
