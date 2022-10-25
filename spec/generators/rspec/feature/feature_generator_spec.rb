@@ -19,7 +19,7 @@ RSpec.describe Rspec::Generators::FeatureGenerator, type: :generator do
           expect(feature_spec).to contain(/require 'rails_helper'/)
         end
         it "contains the feature" do
-          expect(feature_spec).to contain(/^RSpec.feature \"Posts\", #{type_metatag(:feature)}/)
+          expect(feature_spec).to contain(/^RSpec.feature "Posts", #{type_metatag(:feature)}/)
         end
       end
     end
@@ -34,7 +34,7 @@ RSpec.describe Rspec::Generators::FeatureGenerator, type: :generator do
           expect(feature_spec).to exist
         end
         it "contains the feature" do
-          expect(feature_spec).to contain(/^RSpec.feature \"Folder::Posts\", #{type_metatag(:feature)}/)
+          expect(feature_spec).to contain(/^RSpec.feature "Folder::Posts", #{type_metatag(:feature)}/)
         end
       end
     end
@@ -49,7 +49,7 @@ RSpec.describe Rspec::Generators::FeatureGenerator, type: :generator do
           expect(feature_spec).to exist
         end
         it "contains the singularized feature" do
-          expect(feature_spec).to contain(/^RSpec.feature \"Post\", #{type_metatag(:feature)}/)
+          expect(feature_spec).to contain(/^RSpec.feature "Post", #{type_metatag(:feature)}/)
         end
       end
     end
