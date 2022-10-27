@@ -101,24 +101,22 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
     context "when job is retried" do
       include ActiveJob::TestHelper
 
-      let(:retried_job) do
+      let(:unreliable_job) do
         Class.new(ActiveJob::Base) do
           retry_on StandardError, wait: 5, queue: :retry
 
-          def self.name; "RetriedJob"; end
+          def self.name; "UnreliableJob"; end
           def perform; raise StandardError; end
         end
       end
 
-      before do
-        stub_const("RetriedJob", retried_job)
-        queue_adapter.perform_enqueued_jobs = true
-      end
+      before { stub_const("UnreliableJob", unreliable_job) }
 
       it "passes with reenqueued job" do
         time = Time.current.change(usec: 0)
         travel_to time do
-          expect  { retried_job.perform_later }.to have_enqueued_job(retried_job).on_queue(:retry).at(time + 5)
+          UnreliableJob.perform_later
+          expect { perform_enqueued_jobs }.to have_enqueued_job(UnreliableJob).on_queue(:retry).at(time + 5)
         end
       end
     end
