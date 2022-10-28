@@ -119,11 +119,11 @@ module RSpec
       # @private
       module EmptyTemplates
         def prepend_view_path(new_path)
-          lookup_context.view_paths.unshift(*_path_decorator(*new_path))
+          super(_path_decorator(*new_path))
         end
 
         def append_view_path(new_path)
-          lookup_context.view_paths.push(*_path_decorator(*new_path))
+          super(_path_decorator(*new_path))
         end
 
       private
