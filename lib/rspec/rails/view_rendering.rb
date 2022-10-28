@@ -71,7 +71,15 @@ module RSpec
         # templates with modified source
         #
         # @private
-        class ResolverDecorator
+        class ResolverDecorator < ::ActionView::Resolver
+          (::ActionView::Resolver.instance_methods - Object.instance_methods).each do |method|
+            undef_method method
+          end
+
+          (::ActionView::Resolver.methods - Object.methods).each do |method|
+            singleton_class.undef_method method
+          end
+
           def initialize(resolver)
             @resolver = resolver
           end
