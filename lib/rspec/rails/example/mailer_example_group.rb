@@ -10,7 +10,7 @@ module RSpec
   end
 end
 
-if defined?(ActionMailer)
+if defined?(ActionMailer::TestCase)
   module RSpec
     module Rails
       # Container module for mailer spec functionality.
