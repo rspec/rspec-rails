@@ -1,6 +1,10 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.1...main)
 
+Breaking Changes:
+
+* Only include Minitest assertions when RSpec is configured to use them. (Phil Pirozhkov, #????)
+
 Bug Fixes:
 
 * Fix ActionView::PathSet when `render_views` is off for Rails 7.1.

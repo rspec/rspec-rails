@@ -6,7 +6,7 @@ module RSpec
         extend ActiveSupport::Concern
         include RSpec::Rails::SetupAndTeardownAdapter
         include RSpec::Rails::MinitestLifecycleAdapter
-        include RSpec::Rails::MinitestAssertionAdapter
+        include RSpec::Rails::MinitestAssertionAdapter if defined?(::RSpec::Core::MinitestAssertionsAdapter)
         include ActiveRecord::TestFixtures
 
         # @private prevent ActiveSupport::TestFixtures to start a DB transaction.

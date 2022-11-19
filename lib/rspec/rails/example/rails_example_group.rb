@@ -10,7 +10,7 @@ module RSpec
       extend ActiveSupport::Concern
       include RSpec::Rails::SetupAndTeardownAdapter
       include RSpec::Rails::MinitestLifecycleAdapter
-      include RSpec::Rails::MinitestAssertionAdapter
+      include RSpec::Rails::MinitestAssertionAdapter if defined?(::RSpec::Core::MinitestAssertionsAdapter)
       include RSpec::Rails::FixtureSupport
       include RSpec::Rails::TaggedLoggingAdapter if ::Rails::VERSION::MAJOR >= 7
     end
