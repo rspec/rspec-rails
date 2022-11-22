@@ -1,6 +1,10 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.1...main)
 
+Enhancements:
+
+* Minor tweak to generated `rails_helper.rb` to use `Rails.root.join`, (@masato-bkn, #2640)
+
 Bug Fixes:
 
 * Fix ActionView::PathSet when `render_views` is off for Rails 7.1.
