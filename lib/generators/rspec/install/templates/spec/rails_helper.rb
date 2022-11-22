@@ -34,7 +34,7 @@ end
 RSpec.configure do |config|
 <% if RSpec::Rails::FeatureCheck.has_active_record? -%>
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = Rails.root.join('spec/fixtures')
+  config.fixture_path = Rails.root.join('spec', 'fixtures')
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
