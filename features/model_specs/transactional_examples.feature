@@ -10,7 +10,7 @@ Feature: transactional examples
       """ruby
       require "rails_helper"
 
-      RSpec.describe Widget, :type => :model do
+      RSpec.describe Widget, type: :model do
         it "has none to begin with" do
           expect(Widget.count).to eq 0
         end
@@ -37,7 +37,7 @@ Feature: transactional examples
         c.use_transactional_examples = true
       end
 
-      RSpec.describe Widget, :type => :model do
+      RSpec.describe Widget, type: :model do
         it "has none to begin with" do
           expect(Widget.count).to eq 0
         end
@@ -65,7 +65,7 @@ Feature: transactional examples
         c.order = "defined"
       end
 
-      RSpec.describe Widget, :type => :model do
+      RSpec.describe Widget, type: :model do
         it "has none to begin with" do
           expect(Widget.count).to eq 0
         end
@@ -90,7 +90,7 @@ Feature: transactional examples
       """ruby
       require "rails_helper"
 
-      RSpec.describe Thing, :type => :model do
+      RSpec.describe Thing, type: :model do
         fixtures :things
         it "fixture method defined" do
           things(:one)

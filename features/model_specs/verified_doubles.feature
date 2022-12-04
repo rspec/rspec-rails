@@ -9,7 +9,7 @@ Feature: verified doubles
       """ruby
       require "rails_helper"
 
-      RSpec.describe Widget, :type => :model do
+      RSpec.describe Widget, type: :model do
         it "has one after adding one" do
           instance_double("Widget", :name => "my name")
         end

@@ -9,7 +9,7 @@ Feature: be_routable matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe "routes for Widgets", :type => :routing do
+      RSpec.describe "routes for Widgets", type: :routing do
         it "does not route to widgets" do
           expect(:get => "/widgets").not_to be_routable
         end
@@ -24,7 +24,7 @@ Feature: be_routable matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe "routes for Widgets", :type => :routing do
+      RSpec.describe "routes for Widgets", type: :routing do
         it "does not route to widgets/foo/bar" do
           expect(:get => "/widgets/foo/bar").not_to be_routable
         end
@@ -39,7 +39,7 @@ Feature: be_routable matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe "routes for Widgets", :type => :routing do
+      RSpec.describe "routes for Widgets", type: :routing do
         it "routes to /widgets" do
           expect(:get => "/widgets").to be_routable
         end
@@ -54,7 +54,7 @@ Feature: be_routable matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe "routes for Widgets", :type => :routing do
+      RSpec.describe "routes for Widgets", type: :routing do
         it "routes to widgets/foo/bar" do
           expect(:get => "/widgets/foo/bar").to be_routable
         end
@@ -69,7 +69,7 @@ Feature: be_routable matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe WidgetsController, :type => :controller do
+      RSpec.describe WidgetsController, type: :controller do
         it "routes to /widgets" do
           expect(:get => "/widgets").to be_routable
         end

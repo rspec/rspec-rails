@@ -1,4 +1,4 @@
-Routing specs are marked by `:type => :routing` or if you have set
+Routing specs are marked by `type: :routing` or if you have set
 `config.infer_spec_type_from_file_location!` by placing them in `spec/routing`.
 
 Simple apps with nothing but standard RESTful routes won't get much value from

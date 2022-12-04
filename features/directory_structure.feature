@@ -145,7 +145,7 @@ Feature: Directory Structure
       """ruby
       require "rails_helper"
 
-      RSpec.describe WidgetsController, :type => :controller do
+      RSpec.describe WidgetsController, type: :controller do
         it "responds successfully" do
           get :index
           expect(response.status).to eq(200)
@@ -205,7 +205,7 @@ Feature: Directory Structure
 
       # Due to limitations in the Rails routing test framework, routes that
       # perform redirects must actually be tested via request specs
-      RSpec.describe "/example", :type => :request do
+      RSpec.describe "/example", type: :request do
         it "redirects to example.com" do
           get "/example"
           expect(response).to redirect_to("http://example.com")

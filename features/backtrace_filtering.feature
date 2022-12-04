@@ -21,7 +21,7 @@ Feature: backtrace filtering
       config.filter_rails_from_backtrace!
     end
 
-    RSpec.describe "Controller", :type => :controller do
+    RSpec.describe "Controller", type: :controller do
       controller do
         def index
           raise "Something went wrong."

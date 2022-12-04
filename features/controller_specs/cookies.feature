@@ -11,7 +11,7 @@ Feature: Cookies
       """ruby
       require "rails_helper"
 
-      RSpec.describe ApplicationController, :type => :controller do
+      RSpec.describe ApplicationController, type: :controller do
         controller do
           def clear_cookie
             cookies.delete(:user_name)

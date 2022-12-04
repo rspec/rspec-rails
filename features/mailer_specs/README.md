@@ -1,5 +1,5 @@
 By default Mailer specs reside in the `spec/mailers` folder. Adding the metadata
-`:type => :mailer` to any context makes its examples be treated as mailer specs.
+`type: :mailer` to any context makes its examples be treated as mailer specs.
 
 A mailer spec is a thin wrapper for an ActionMailer::TestCase, and includes all
 of the behavior and assertions that it provides, in addition to RSpec's own
@@ -9,7 +9,7 @@ behavior and expectations.
 
     require "rails_helper"
 
-    RSpec.describe Notifications, :type => :mailer do
+    RSpec.describe Notifications, type: :mailer do
       describe "notify" do
         let(:mail) { Notifications.signup }
 

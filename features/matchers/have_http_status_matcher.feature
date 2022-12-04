@@ -15,7 +15,7 @@ Feature: `have_http_status` matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe ApplicationController, :type => :controller do
+      RSpec.describe ApplicationController, type: :controller do
 
         controller do
           def index
@@ -40,7 +40,7 @@ Feature: `have_http_status` matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe ApplicationController, :type => :controller do
+      RSpec.describe ApplicationController, type: :controller do
 
         controller do
           def index
@@ -65,7 +65,7 @@ Feature: `have_http_status` matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe ApplicationController, :type => :controller do
+      RSpec.describe ApplicationController, type: :controller do
 
         controller do
           def index
@@ -90,7 +90,7 @@ Feature: `have_http_status` matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe GadgetsController, :type => :controller do
+      RSpec.describe GadgetsController, type: :controller do
 
         describe "GET #index" do
           it "returns a 200 OK status" do
@@ -109,7 +109,7 @@ Feature: `have_http_status` matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe "Widget management", :type => :request do
+      RSpec.describe "Widget management", type: :request do
 
         it "creates a Widget and redirects to the Widget's page" do
           get "/widgets/new"
@@ -134,7 +134,7 @@ Feature: `have_http_status` matcher
       """ruby
       require "rails_helper"
 
-      RSpec.feature "Widget management", :type => :feature do
+      RSpec.feature "Widget management", type: :feature do
 
         scenario "User creates a new widget" do
           visit "/widgets/new"
