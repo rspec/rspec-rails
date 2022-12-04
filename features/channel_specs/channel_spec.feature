@@ -1,6 +1,6 @@
 Feature: channel spec
 
-  Channel specs are marked by `:type => :channel` or if you have set
+  Channel specs are marked by `type: :channel` or if you have set
   `config.infer_spec_type_from_file_location!` by placing them in `spec/channels`.
 
   A channel spec is a thin wrapper for an `ActionCable::Channel::TestCase`, and includes all
@@ -37,7 +37,7 @@ Feature: channel spec
       """ruby
       require "rails_helper"
 
-      RSpec.describe ChatChannel, :type => :channel do
+      RSpec.describe ChatChannel, type: :channel do
         it "successfully subscribes" do
           subscribe room_id: 42
           expect(subscription).to be_confirmed
@@ -52,7 +52,7 @@ Feature: channel spec
       """ruby
       require "rails_helper"
 
-      RSpec.describe ChatChannel, :type => :channel do
+      RSpec.describe ChatChannel, type: :channel do
         it "rejects subscription" do
           subscribe room_id: nil
           expect(subscription).to be_rejected
@@ -67,7 +67,7 @@ Feature: channel spec
       """ruby
       require "rails_helper"
 
-      RSpec.describe ChatChannel, :type => :channel do
+      RSpec.describe ChatChannel, type: :channel do
         it "successfully subscribes" do
           subscribe room_id: 42
 
@@ -95,7 +95,7 @@ Feature: channel spec
       """ruby
       require "rails_helper"
 
-      RSpec.describe ApplicationCable::Connection, :type => :channel do
+      RSpec.describe ApplicationCable::Connection, type: :channel do
         it "successfully connects" do
           connect "/cable?user_id=323"
           expect(connection.user_id).to eq "323"
@@ -121,7 +121,7 @@ Feature: channel spec
       """ruby
       require "rails_helper"
 
-      RSpec.describe ApplicationCable::Connection, :type => :channel do
+      RSpec.describe ApplicationCable::Connection, type: :channel do
         it "successfully connects" do
           cookies.signed[:user_id] = "324"
 
@@ -149,7 +149,7 @@ Feature: channel spec
       """ruby
       require "rails_helper"
 
-      RSpec.describe ApplicationCable::Connection, :type => :channel do
+      RSpec.describe ApplicationCable::Connection, type: :channel do
         it "successfully connects" do
           connect "/cable", headers: { "X-USER-ID" => "325" }
           expect(connection.user_id).to eq "325"
@@ -175,7 +175,7 @@ Feature: channel spec
       """ruby
       require "rails_helper"
 
-      RSpec.describe ApplicationCable::Connection, :type => :channel do
+      RSpec.describe ApplicationCable::Connection, type: :channel do
         it "rejects connection" do
           expect { connect "/cable?user_id=" }.to have_rejected_connection
         end
@@ -204,7 +204,7 @@ Feature: channel spec
       """ruby
       require "rails_helper"
 
-      RSpec.describe ApplicationCable::Connection, :type => :channel do
+      RSpec.describe ApplicationCable::Connection, type: :channel do
         it "disconnects" do
           connect "/cable?user_id=42"
           expect { disconnect }.to output(/User 42 disconnected/).to_stdout

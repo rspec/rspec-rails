@@ -30,7 +30,7 @@ Feature: bypass rescue
 
       require 'controllers/gadgets_controller_spec_context'
 
-      RSpec.describe GadgetsController, :type => :controller do
+      RSpec.describe GadgetsController, type: :controller do
         before do
           def controller.index
             raise AccessDenied
@@ -55,7 +55,7 @@ Feature: bypass rescue
 
       require 'controllers/gadgets_controller_spec_context'
 
-      RSpec.describe GadgetsController, :type => :controller do
+      RSpec.describe GadgetsController, type: :controller do
         before do
           def controller.index
             raise AccessDenied

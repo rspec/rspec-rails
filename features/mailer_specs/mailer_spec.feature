@@ -5,7 +5,7 @@ Feature: mailer spec
       """ruby
       require "rails_helper"
 
-      RSpec.describe NotificationsMailer, :type => :mailer do
+      RSpec.describe NotificationsMailer, type: :mailer do
         describe "notify" do
           let(:mail) { NotificationsMailer.signup }
 

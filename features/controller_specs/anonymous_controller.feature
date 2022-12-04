@@ -20,7 +20,7 @@ Feature: anonymous controller
     c.infer_base_class_for_anonymous_controllers = false
   end
 
-  RSpec.describe BaseController, :type => :controller do
+  RSpec.describe BaseController, type: :controller do
     controller do
       def index; end
 
@@ -48,7 +48,7 @@ Feature: anonymous controller
         end
       end
 
-      RSpec.describe ApplicationController, :type => :controller do
+      RSpec.describe ApplicationController, type: :controller do
         controller do
           def index
             raise ApplicationController::AccessDenied
@@ -83,7 +83,7 @@ Feature: anonymous controller
         end
       end
 
-      RSpec.describe ApplicationController, :type => :controller do
+      RSpec.describe ApplicationController, type: :controller do
         controller do
           def index
             raise ApplicationController::AccessDenied
@@ -122,7 +122,7 @@ Feature: anonymous controller
         end
       end
 
-      RSpec.describe FoosController, :type => :controller do
+      RSpec.describe FoosController, type: :controller do
         controller(FoosController) do
           def index
             raise ApplicationController::AccessDenied
@@ -149,7 +149,7 @@ Feature: anonymous controller
 
       class FoosController < ApplicationController; end
 
-      RSpec.describe FoosController, :type => :controller do
+      RSpec.describe FoosController, type: :controller do
         controller do
           def index
             render :plain => "Hello World"
@@ -172,7 +172,7 @@ Feature: anonymous controller
       class ApplicationController < ActionController::Base; end
       class FoosController < ApplicationController; end
 
-      RSpec.describe "Access controller names", :type => :controller do
+      RSpec.describe "Access controller names", type: :controller do
         controller FoosController do
           def index
             @name = self.class.name
@@ -211,7 +211,7 @@ Feature: anonymous controller
         end
       end
 
-      RSpec.describe ApplicationController, :type => :controller do
+      RSpec.describe ApplicationController, type: :controller do
         controller do
           def index
             render :plain => ""
@@ -239,7 +239,7 @@ Feature: anonymous controller
         ExpectedRoutingError = ActionController::RoutingError
       end
 
-      RSpec.describe ApplicationController, :type => :controller do
+      RSpec.describe ApplicationController, type: :controller do
         controller do
           def index
             render :plain => "index called"
@@ -417,7 +417,7 @@ Feature: anonymous controller
       """ruby
       require "rails_helper"
 
-      RSpec.describe ApplicationController, :type => :controller do
+      RSpec.describe ApplicationController, type: :controller do
         controller do
           def custom
             render :plain => "custom called"
@@ -442,7 +442,7 @@ Feature: anonymous controller
       class OtherController < ActionController::Base
       end
 
-      RSpec.describe OtherController, :type => :controller do
+      RSpec.describe OtherController, type: :controller do
         controller do
           def custom
             render :plain => "custom called"
@@ -467,7 +467,7 @@ Feature: anonymous controller
 
       class FoosController < ApplicationController; end
 
-      RSpec.describe ApplicationController, :type => :controller do
+      RSpec.describe ApplicationController, type: :controller do
         controller FoosController do
           def custom
             render :plain => "custom called"
@@ -498,7 +498,7 @@ Feature: anonymous controller
         end
       end
 
-      RSpec.describe Outer::Inner::FoosController, :type => :controller do
+      RSpec.describe Outer::Inner::FoosController, type: :controller do
         controller do
           def index
             @name = self.class.name
@@ -535,7 +535,7 @@ Feature: anonymous controller
         match "/login" => "sessions#new", :as => "login", :via => "get"
       end
 
-      RSpec.describe ApplicationController, :type => :controller do
+      RSpec.describe ApplicationController, type: :controller do
         controller do
           def index
             redirect_to login_url

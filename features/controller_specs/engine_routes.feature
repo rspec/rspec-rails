@@ -33,7 +33,7 @@ Feature: engine routes for controllers
         end
       end
 
-      RSpec.describe MyEngine::WidgetsController, :type => :controller do
+      RSpec.describe MyEngine::WidgetsController, type: :controller do
         routes { MyEngine::Engine.routes }
 
         it "redirects to a random widget" do
