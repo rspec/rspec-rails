@@ -43,18 +43,18 @@ RSpec.shared_examples_for "an rspec-rails example group mixin" do |type, *paths|
           expect(group.included_modules).to include(mixin)
         end
 
-        it "tags groups in that directory with `:type => #{type.inspect}`" do
+        it "tags groups in that directory with `type: #{type.inspect}`" do
           group = define_group_in path, "RSpec.describe"
           expect(group.metadata).to include(type: type)
         end
 
         it "allows users to override the type" do
-          group = define_group_in path, "RSpec.describe 'group', :type => :other"
+          group = define_group_in path, "RSpec.describe 'group', type: :other"
           expect(group.metadata).to include(type: :other)
           expect(group.included_modules).not_to include(mixin)
         end
 
-        it "applies configured `before(:context)` hooks with `:type => #{type.inspect}` metadata" do
+        it "applies configured `before(:context)` hooks with `type: #{type.inspect}` metadata" do
           block_run = false
           RSpec.configuration.before(:context, type: type) { block_run = true }
 
@@ -66,15 +66,15 @@ RSpec.shared_examples_for "an rspec-rails example group mixin" do |type, *paths|
       end
     end
 
-    it "includes itself in example groups tagged with `:type => #{type.inspect}`" do
-      group = define_group_in "spec/other", "RSpec.describe 'group', :type => #{type.inspect}"
+    it "includes itself in example groups tagged with `type: #{type.inspect}`" do
+      group = define_group_in "spec/other", "RSpec.describe 'group', type: #{type.inspect}"
       expect(group.included_modules).to include(mixin)
     end
   end
 
   context 'when `infer_spec_type_from_file_location!` is not configured' do
-    it "includes itself in example groups tagged with `:type => #{type.inspect}`" do
-      group = define_group_in "spec/other", "RSpec.describe 'group', :type => #{type.inspect}"
+    it "includes itself in example groups tagged with `type: #{type.inspect}`" do
+      group = define_group_in "spec/other", "RSpec.describe 'group', type: #{type.inspect}"
       expect(group.included_modules).to include(mixin)
     end
 
@@ -85,7 +85,7 @@ RSpec.shared_examples_for "an rspec-rails example group mixin" do |type, *paths|
           expect(group.included_modules).not_to include(mixin)
         end
 
-        it "does not tag groups in that directory with `:type => #{type.inspect}`" do
+        it "does not tag groups in that directory with `type: #{type.inspect}`" do
           group = define_group_in path, "RSpec.describe"
           expect(group.metadata).not_to include(:type)
         end

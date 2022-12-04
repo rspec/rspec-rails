@@ -12,7 +12,7 @@ Feature: views are stubbed by default
       """ruby
       require "rails_helper"
 
-      RSpec.describe WidgetsController, :type => :controller do
+      RSpec.describe WidgetsController, type: :controller do
         describe "index" do
           it "renders the index template" do
             get :index
@@ -35,7 +35,7 @@ Feature: views are stubbed by default
       """ruby
       require "rails_helper"
 
-      RSpec.describe WidgetsController, :type => :controller do
+      RSpec.describe WidgetsController, type: :controller do
         describe "index" do
           it "renders the 'new' template" do
             get :index
@@ -52,7 +52,7 @@ Feature: views are stubbed by default
       """ruby
       require "rails_helper"
 
-      RSpec.describe ThingsController, :type => :controller do
+      RSpec.describe ThingsController, type: :controller do
         describe "custom_action" do
           it "renders an empty custom_action template" do
             controller.prepend_view_path 'app/views'
@@ -83,7 +83,7 @@ Feature: views are stubbed by default
       """ruby
       require "rails_helper"
 
-      RSpec.describe ThingsController, :type => :controller do
+      RSpec.describe ThingsController, type: :controller do
         render_views
 
         it "renders the real custom_action template" do

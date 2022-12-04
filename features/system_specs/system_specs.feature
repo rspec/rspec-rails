@@ -11,7 +11,7 @@ Feature: System spec
     > Chrome browser, and a screen size of 1400x1400. The next section explains
     > how to change the default settings.
 
-    System specs are marked by setting type to :system, e.g. `:type => :system`.
+    System specs are marked by setting type to :system, e.g. `type: :system`.
 
     The Capybara gem is automatically required, and Rails includes it in
     generated application Gemfiles. Configure a webserver (e.g.
@@ -30,7 +30,7 @@ Feature: System spec
           """ruby
           require "rails_helper"
 
-          RSpec.describe "Widget management", :type => :system do
+          RSpec.describe "Widget management", type: :system do
             before do
               driven_by(:rack_test)
             end
@@ -63,7 +63,7 @@ Feature: System spec
         end
       end
 
-      RSpec.describe "spec/system/some_job_system_spec.rb", :type => :system do
+      RSpec.describe "spec/system/some_job_system_spec.rb", type: :system do
         describe "#perform_later" do
           before do
             ActiveJob::Base.queue_adapter = :inline
@@ -88,7 +88,7 @@ Feature: System spec
           """ruby
           require "rails_helper"
 
-          RSpec.describe "Widget management", :type => :system do
+          RSpec.describe "Widget management", type: :system do
             before do
               driven_by(:selenium_chrome_headless)
             end

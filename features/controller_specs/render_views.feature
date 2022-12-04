@@ -8,7 +8,7 @@ Feature: render_views
       """ruby
       require "rails_helper"
 
-      RSpec.describe WidgetsController, :type => :controller do
+      RSpec.describe WidgetsController, type: :controller do
         render_views
 
         describe "GET index" do
@@ -27,7 +27,7 @@ Feature: render_views
       """ruby
       require "rails_helper"
 
-      RSpec.describe WidgetsController, :type => :controller do
+      RSpec.describe WidgetsController, type: :controller do
         context "with render_views" do
           render_views
 
@@ -101,7 +101,7 @@ Feature: render_views
       require "rails_helper"
       require "support/render_views"
 
-      RSpec.describe WidgetsController, :type => :controller do
+      RSpec.describe WidgetsController, type: :controller do
         describe "GET index" do
           it "renders the index template" do
             get :index

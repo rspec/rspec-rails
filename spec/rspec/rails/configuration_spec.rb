@@ -170,7 +170,7 @@ RSpec.describe "Configuration" do
     end
   end
 
-  it "metadata `:type => :controller` sets up controller example groups" do
+  it "metadata `type: :controller` sets up controller example groups" do
     a_controller_class = Class.new
     stub_const "SomeController", a_controller_class
 

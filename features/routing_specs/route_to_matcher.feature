@@ -15,7 +15,7 @@ Feature: route_to matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe "routes for Widgets", :type => :routing do
+      RSpec.describe "routes for Widgets", type: :routing do
         it "routes /widgets to the widgets controller" do
           expect(get("/widgets")).
             to route_to("widgets#index")
@@ -31,7 +31,7 @@ Feature: route_to matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe "routes for Widgets", :type => :routing do
+      RSpec.describe "routes for Widgets", type: :routing do
         it "routes /widgets to the widgets controller" do
           expect(:get => "/widgets").
             to route_to(:controller => "widgets", :action => "index")
@@ -47,7 +47,7 @@ Feature: route_to matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe "routes for Widgets", :type => :routing do
+      RSpec.describe "routes for Widgets", type: :routing do
         it "routes /widgets/foo to the /foo action" do
           expect(get("/widgets/foo")).to route_to("widgets#foo")
         end
@@ -62,7 +62,7 @@ Feature: route_to matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe "routes for Widgets", :type => :routing do
+      RSpec.describe "routes for Widgets", type: :routing do
         it "routes /admin/accounts to the admin/accounts controller" do
           expect(get("/admin/accounts")).
             to route_to("admin/accounts#index")
@@ -78,7 +78,7 @@ Feature: route_to matcher
      """ruby
      require "rails_helper"
 
-     RSpec.describe "routes for Widgets", :type => :routing do
+     RSpec.describe "routes for Widgets", type: :routing do
        it "routes /admin/accounts to the admin/accounts controller" do
          expect(get("/admin/accounts")).
            to route_to(:controller => "admin/accounts", :action => "index")

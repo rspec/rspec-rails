@@ -4,7 +4,7 @@ Feature: request spec
   designed to drive behavior through the full stack, including routing
   (provided by Rails) and without stubbing (that's up to you).
 
-  Request specs are marked by `:type => :request` or if you have set
+  Request specs are marked by `type: :request` or if you have set
   `config.infer_spec_type_from_file_location!` by placing them in `spec/requests`.
 
   With request specs, you can:
@@ -31,7 +31,7 @@ Feature: request spec
       """ruby
       require "rails_helper"
 
-      RSpec.describe "Widget management", :type => :request do
+      RSpec.describe "Widget management", type: :request do
 
         it "creates a Widget and redirects to the Widget's page" do
           get "/widgets/new"
@@ -60,7 +60,7 @@ Feature: request spec
     """ruby
     require "rails_helper"
 
-    RSpec.describe "Widget management", :type => :request do
+    RSpec.describe "Widget management", type: :request do
       it "creates a Widget" do
         headers = { "ACCEPT" => "application/json" }
         post "/widgets", :params => { :widget => {:name => "My Widget"} }, :headers => headers
@@ -78,7 +78,7 @@ Feature: request spec
     """ruby
     require "rails_helper"
 
-    RSpec.describe "Widget management", :type => :request do
+    RSpec.describe "Widget management", type: :request do
 
       it "creates a Widget and redirects to the Widget's page" do
         headers = { "CONTENT_TYPE" => "application/json" }
@@ -118,7 +118,7 @@ Feature: request spec
       end
 
       module MyEngine
-        RSpec.describe "Links", :type => :request do
+        RSpec.describe "Links", type: :request do
           include Engine.routes.url_helpers
 
           it "redirects to a random widget" do
@@ -140,7 +140,7 @@ Feature: request spec
         resources :widgets, constraints: { subdomain: "api" }
       end
 
-      RSpec.describe "Widget management", :type => :request do
+      RSpec.describe "Widget management", type: :request do
         before { host! "api.example.com" }
 
         it "creates a Widget" do

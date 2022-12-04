@@ -5,7 +5,7 @@ Feature: controller spec
       """ruby
       require "rails_helper"
 
-      RSpec.describe WidgetsController, :type => :controller do
+      RSpec.describe WidgetsController, type: :controller do
         describe "GET index" do
           it "has a 200 status code" do
             get :index
@@ -24,7 +24,7 @@ Feature: controller spec
 
       RSpec.configure {|c| c.before { expect(controller).not_to be_nil }}
 
-      RSpec.describe WidgetsController, :type => :controller do
+      RSpec.describe WidgetsController, type: :controller do
         describe "GET index" do
           it "doesn't matter" do
           end
@@ -39,7 +39,7 @@ Feature: controller spec
     """ruby
     require "rails_helper"
 
-    RSpec.describe WidgetsController, :type => :controller do
+    RSpec.describe WidgetsController, type: :controller do
       describe "responds to" do
         it "responds to html by default" do
           post :create, :params => { :widget => { :name => "Any Name" } }
@@ -61,7 +61,7 @@ Feature: controller spec
     """ruby
     require "rails_helper"
 
-    RSpec.describe WidgetsController, :type => :controller do
+    RSpec.describe WidgetsController, type: :controller do
       describe "responds to" do
         it "responds to html by default" do
           post :create, :params => { :widget => { :name => "Any Name" } }

@@ -30,7 +30,7 @@ Feature: have_stream_from matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe ChatChannel, :type => :channel do
+      RSpec.describe ChatChannel, type: :channel do
         it "successfully subscribes" do
           subscribe room_id: 42
 
@@ -47,7 +47,7 @@ Feature: have_stream_from matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe ChatChannel, :type => :channel do
+      RSpec.describe ChatChannel, type: :channel do
         it "successfully subscribes" do
           subscribe(room_id: 42)
 
@@ -87,7 +87,7 @@ Feature: have_stream_from matcher
     And a file named "spec/channels/user_channel_spec.rb" with:
       """ruby
       require "rails_helper"
-      RSpec.describe NotificationsChannel, :type => :channel do
+      RSpec.describe NotificationsChannel, type: :channel do
         it "successfully subscribes to user's stream" do
           stub_connection current_user: User.new(42)
           subscribe
