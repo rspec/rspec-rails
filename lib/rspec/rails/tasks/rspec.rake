@@ -37,6 +37,10 @@ namespace :spec do
 
   task :statsetup do
     require 'rails/code_statistics'
+    
+    # call rspec statsetup
+    Rake::Task["spec:statsetup"].execute
+
     types.each do |type, dir|
       name = type.singularize.capitalize
 
