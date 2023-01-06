@@ -5,9 +5,13 @@
 set -e
 source script/functions.sh
 
-if is_ruby_23_plus; then
+if is_ruby_26_plus; then
   gem update --no-document --system
   gem install --no-document bundler
+elif is_ruby_23_plus; then
+  echo "Warning installing older versions of Rubygems / Bundler"
+  gem update --system '3.3.26'
+  gem install bundler -v '2.3.26'
 else
   echo "Warning installing older versions of Rubygems / Bundler"
   gem update --system '2.7.10'

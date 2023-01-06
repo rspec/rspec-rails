@@ -33,6 +33,10 @@ jobs:
       matrix:
        include:
          # Edge Rails (7.1) builds >= 2.7
+         - ruby: 3.2
+           allow_failure: true
+           env:
+             RAILS_VERSION: 'main'
          - ruby: 3.1
            allow_failure: true
            env:
@@ -47,6 +51,9 @@ jobs:
              RAILS_VERSION: 'main'
 
          # Rails 7.0 builds >= 2.7
+         - ruby: 3.2
+           env:
+             RAILS_VERSION: '~> 7.0.0'
          - ruby: 3.1
            env:
              RAILS_VERSION: '~> 7.0.0'
