@@ -10,6 +10,9 @@ on:
       - '*'
 permissions:
   contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.github.head_ref || github.run_id }}
+  cancel-in-progress: true
 
 jobs:
   rubocop:
