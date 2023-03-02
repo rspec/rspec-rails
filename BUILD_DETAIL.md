@@ -1,5 +1,5 @@
 <!---
-This file was generated on 2020-12-25T18:48:30+00:00 from the rspec-dev repo.
+This file was generated on 2023-03-02T14:06:18+00:00 from the rspec-dev repo.
 DO NOT modify it by hand as your changes will get lost the next time it is generated.
 -->
 
@@ -64,21 +64,6 @@ $ bundle exec cucumber
 # or, if you installed your bundle with `--standalone --binstubs`:
 
 $ bin/cucumber
-```
-
-## Snippets
-
-RSpec Rails uses snippets, self-contained examples that are used to cover
-cases and regressions that don't need a full-blown example application to
-reproduce.
-
-Snippets reuse the already installed gems, and don't attempt to install gem
-versions that are not on the system already to prevent version mismatches.
-
-Run with:
-
-```
-$ script/run_snippets.sh
 ```
 
 ## YARD documentation
