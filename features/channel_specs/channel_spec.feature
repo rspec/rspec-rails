@@ -32,7 +32,7 @@ Feature: Channel specs
       end
       """
 
-  Scenario: simple passing example
+  Scenario: A simple passing example
     Given a file named "spec/channels/chat_channel_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -47,7 +47,7 @@ Feature: Channel specs
     When I run `rspec spec/channels/chat_channel_spec.rb`
     Then the example should pass
 
-  Scenario: verifying that subscription is rejected
+  Scenario: Verifying that a subscription is rejected
     Given a file named "spec/channels/chat_channel_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -62,7 +62,7 @@ Feature: Channel specs
     When I run `rspec spec/channels/chat_channel_spec.rb`
     Then the example should pass
 
-  Scenario: performing actions and checking transmissions
+  Scenario: Performing actions and checking transmissions
     Given a file named "spec/channels/chat_channel_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -79,7 +79,7 @@ Feature: Channel specs
     When I run `rspec spec/channels/chat_channel_spec.rb`
     Then the example should pass
 
-  Scenario: successful connection with url params
+  Scenario: A successful connection with url params
     Given a file named "app/channels/application_cable/connection.rb" with:
       """ruby
       class ApplicationCable::Connection < ActionCable::Connection::Base
@@ -105,7 +105,7 @@ Feature: Channel specs
     When I run `rspec spec/channels/connection_spec.rb`
     Then the example should pass
 
-  Scenario: successful connection with cookies
+  Scenario: A successful connection with cookies
     Given a file named "app/channels/application_cable/connection.rb" with:
       """ruby
       class ApplicationCable::Connection < ActionCable::Connection::Base
@@ -133,7 +133,7 @@ Feature: Channel specs
     When I run `rspec spec/channels/connection_spec.rb`
     Then the example should pass
 
-  Scenario: successful connection with headers
+  Scenario: A successful connection with headers
     Given a file named "app/channels/application_cable/connection.rb" with:
       """ruby
       class ApplicationCable::Connection < ActionCable::Connection::Base
@@ -159,7 +159,7 @@ Feature: Channel specs
     When I run `rspec spec/channels/connection_spec.rb`
     Then the example should pass
 
-  Scenario: rejected connection
+  Scenario: A rejected connection
     Given a file named "app/channels/application_cable/connection.rb" with:
       """ruby
       class ApplicationCable::Connection < ActionCable::Connection::Base
@@ -184,7 +184,7 @@ Feature: Channel specs
     When I run `rspec spec/channels/connection_spec.rb`
     Then the example should pass
 
-  Scenario: disconnect connection
+  Scenario: Disconnect a connection
     Given a file named "app/channels/application_cable/connection.rb" with:
       """ruby
       class ApplicationCable::Connection < ActionCable::Connection::Base

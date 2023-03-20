@@ -4,7 +4,7 @@ Feature: ActiveRecord::Relation match array
   (scope). The assertion will pass if the scope would return all of the
   elements specified in the array on the right hand side.
 
-  Scenario: example spec with relation match_array matcher
+  Scenario: An example spec with relation match_array matcher
     Given a file named "spec/models/widget_spec.rb" with:
       """ruby
       require "rails_helper"

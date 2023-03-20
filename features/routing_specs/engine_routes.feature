@@ -3,7 +3,7 @@ Feature: Using engine routes
   Routing specs can specify the routeset that will be used for the example
   group. This is most useful when testing Rails engines.
 
-  Scenario: specify engine route
+  Scenario: Specify engine routes
     Given a file named "spec/routing/engine_routes_spec.rb" with:
       """ruby
       require "rails_helper"

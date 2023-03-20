@@ -18,7 +18,7 @@ Feature: Feature specs
   `type: :feature` automatically for you.
 
   @capybara
-  Scenario: specify creating a Widget by driving the application with capybara
+  Scenario: Specify creating a Widget by driving the application with capybara
     Given a file named "spec/features/widget_management_spec.rb" with:
       """ruby
       require "rails_helper"

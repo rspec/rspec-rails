@@ -23,7 +23,7 @@ Feature: Using `bypass_rescue`
       end
       """
 
-  Scenario: standard exception handling using `rescue_from`
+  Scenario: Standard exception handling using `rescue_from`
     Given a file named "spec/controllers/gadgets_controller_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -48,7 +48,7 @@ Feature: Using `bypass_rescue`
     When I run `rspec spec/controllers/gadgets_controller_spec.rb`
     Then the examples should all pass
 
-  Scenario: bypass `rescue_from` handling with `bypass_rescue`
+  Scenario: Bypass `rescue_from` handling with `bypass_rescue`
     Given a file named "spec/controllers/gadgets_controller_spec.rb" with:
       """ruby
       require "rails_helper"

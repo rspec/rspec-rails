@@ -3,7 +3,7 @@ Feature: Engine routes for controllers
   Controller specs can specify the routeset that will be used for the example
   group. This is most useful when testing Rails engines.
 
-  Scenario: specify engine route
+  Scenario: Specify engine routes
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """ruby
       require "rails_helper"
