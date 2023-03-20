@@ -3,7 +3,7 @@ Feature: Using `render_views`
   You can tell a controller example group to render views with the
   `render_views` declaration in any individual group, or globally.
 
-  Scenario: render_views directly in a single group
+  Scenario: Use `render_views` directly in a single group
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -22,7 +22,7 @@ Feature: Using `render_views`
     When I run `rspec spec`
     Then the examples should all pass
 
-  Scenario: render_views on and off in nested groups
+  Scenario: Use `render_views` on and off in nested groups
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -89,7 +89,7 @@ Feature: Using `render_views`
             renders the actual template
       """
 
-  Scenario: render_views globally
+  Scenario: Use `render_views` globally
     Given a file named "spec/support/render_views.rb" with:
       """ruby
       RSpec.configure do |config|

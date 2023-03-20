@@ -9,7 +9,7 @@ Feature: `render_template` matcher
 
   NOTE: use `redirect_to(:action => 'new')` for redirects, not `render_template`.
 
-  Scenario: render_template with three possible options
+  Scenario: Using `render_template` with three possible options
     Given a file named "spec/controllers/gadgets_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -33,7 +33,7 @@ Feature: `render_template` matcher
     When I run `rspec spec/controllers/gadgets_spec.rb`
     Then the examples should all pass
 
-  Scenario: specify that a request renders a given layout
+  Scenario: Specify that a request renders a given layout
     Given a file named "spec/controllers/gadgets_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -55,7 +55,7 @@ Feature: `render_template` matcher
     When I run `rspec spec/controllers/gadgets_spec.rb`
     Then the examples should all pass
 
-  Scenario: render_template in a view spec
+  Scenario: Using `render_template` in a view spec
     Given a file named "spec/views/gadgets/index.html.erb_spec.rb" with:
       """ruby
       require "rails_helper"

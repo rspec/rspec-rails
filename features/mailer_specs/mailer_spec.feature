@@ -1,6 +1,6 @@
 Feature: Mailer specs
 
-  Scenario: simple passing example
+  Scenario: A simple passing example
     Given a file named "spec/mailers/notifications_mailer_spec.rb" with:
       """ruby
       require "rails_helper"

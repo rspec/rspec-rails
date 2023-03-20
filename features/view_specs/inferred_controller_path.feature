@@ -1,6 +1,6 @@
 Feature: View specs infer controller's path and action
 
-  Scenario: infer controller path
+  Scenario: Infer controller path
     Given a file named "spec/views/widgets/new.html.erb_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -15,7 +15,7 @@ Feature: View specs infer controller's path and action
     When I run `rspec spec/views`
     Then the examples should all pass
 
-  Scenario: infer action
+  Scenario: Infer action
     Given a file named "spec/views/widgets/new.html.erb_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -29,7 +29,7 @@ Feature: View specs infer controller's path and action
     When I run `rspec spec/views`
     Then the examples should all pass
 
-  Scenario: do not infer action in a partial
+  Scenario: Do not infer action in a partial
     Given a file named "spec/views/widgets/_form.html.erb_spec.rb" with:
       """ruby
       require "rails_helper"

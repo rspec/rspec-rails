@@ -3,7 +3,7 @@ Feature: Using `stub_template`
   In order to isolate view specs from the partials rendered by the primary
   view, rspec-rails (since 2.2) provides the stub_template method.
 
-  Scenario: stub template that does not exist
+  Scenario: Stub a template that does not exist
     Given a file named "spec/views/gadgets/list.html.erb_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -29,7 +29,7 @@ Feature: Using `stub_template`
     When I run `rspec spec/views/gadgets/list.html.erb_spec.rb`
     Then the examples should all pass
 
-  Scenario: stub template that exists
+  Scenario: Stub a template that exists
     Given a file named "spec/views/gadgets/edit.html.erb_spec.rb" with:
       """ruby
       require "rails_helper"

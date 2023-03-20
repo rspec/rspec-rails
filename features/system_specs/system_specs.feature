@@ -50,7 +50,7 @@ Feature: System specs
     And the output should contain "1 example, 0 failures"
 
   @system_test
-  Scenario: the ActiveJob queue_adapter can be changed
+  Scenario: The ActiveJob queue_adapter can be changed
     Given a file named "spec/system/some_job_system_spec.rb" with:
     """ruby
     require "rails_helper"

@@ -7,7 +7,7 @@ Feature: Views are stubbed by default
 
   NOTE: unlike rspec-rails-1.x, the real template must exist.
 
-  Scenario: expect template that is rendered by controller action (passes)
+  Scenario: Expect a template that is rendered by controller action (passes)
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -30,7 +30,7 @@ Feature: Views are stubbed by default
     When I run `rspec spec`
     Then the examples should all pass
 
-  Scenario: expect template that is not rendered by controller action (fails)
+  Scenario: Expect a template that is not rendered by controller action (fails)
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -47,7 +47,7 @@ Feature: Views are stubbed by default
     When I run `rspec spec`
     Then the output should contain "1 example, 1 failure"
 
-  Scenario: expect empty templates to render when view path is changed at runtime (passes)
+  Scenario: Expect empty templates to render when view path is changed at runtime (passes)
     Given a file named "spec/controllers/things_controller_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -78,7 +78,7 @@ Feature: Views are stubbed by default
     When I run `rspec spec`
     Then the examples should all pass
 
-  Scenario: expect template to render the real template with render_views when view path is changed at runtime
+  Scenario: Expect a template to render the real template with render_views when view path is changed at runtime
     Given a file named "spec/controllers/things_controller_spec.rb" with:
       """ruby
       require "rails_helper"

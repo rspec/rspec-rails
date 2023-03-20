@@ -7,7 +7,7 @@ Feature: `redirect_to` matcher
   It is available in controller specs (spec/controllers) and request
   specs (spec/requests).
 
-  Scenario: redirect_to with four possible options
+  Scenario: Using `redirect_to` with four possible options
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """ruby
       require "rails_helper"

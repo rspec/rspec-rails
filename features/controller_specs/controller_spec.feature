@@ -1,6 +1,6 @@
 Feature: Controller specs
 
-  Scenario: simple passing example
+  Scenario: A simple passing example
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -17,7 +17,7 @@ Feature: Controller specs
     When I run `rspec spec`
     Then the example should pass
 
-  Scenario: controller is exposed to global before hooks
+  Scenario: A controller is exposed to global before hooks
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -34,7 +34,7 @@ Feature: Controller specs
     When I run `rspec spec`
     Then the example should pass
 
-  Scenario: setting a different content type for example json (request type)
+  Scenario: Setting a different content type for example json (request type)
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
     """ruby
     require "rails_helper"
@@ -56,7 +56,7 @@ Feature: Controller specs
     When I run `rspec spec`
     Then the example should pass
 
-  Scenario: setting a different media type for example json (request type)
+  Scenario: Setting a different media type for example json (request type)
     Given a file named "spec/controllers/widgets_controller_spec.rb" with:
     """ruby
     require "rails_helper"

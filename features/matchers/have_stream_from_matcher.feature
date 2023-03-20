@@ -25,7 +25,7 @@ Feature: `have_stream_from` matcher
       end
       """
 
-  Scenario: subscribing with params and checking streams
+  Scenario: Subscribing with params and checking streams
     Given a file named "spec/channels/chat_channel_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -42,7 +42,7 @@ Feature: `have_stream_from` matcher
     When I run `rspec spec/channels/chat_channel_spec.rb`
     Then the example should pass
 
-  Scenario: stopping all streams
+  Scenario: Stopping all streams
     Given a file named "spec/channels/chat_channel_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -61,7 +61,7 @@ Feature: `have_stream_from` matcher
     When I run `rspec spec/channels/chat_channel_spec.rb`
     Then the example should pass
 
-  Scenario: subscribing and checking streams for models
+  Scenario: Subscribing and checking streams for models
     Given a file named "app/channels/notifications_channel.rb" with:
       """ruby
       class NotificationsChannel < ApplicationCable::Channel

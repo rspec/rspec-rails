@@ -2,7 +2,7 @@ Feature: Using named routes
 
   Routing specs have access to named routes.
 
-  Scenario: access named route
+  Scenario: Access named route
     Given a file named "spec/routing/widget_routes_spec.rb" with:
       """ruby
       require "rails_helper"

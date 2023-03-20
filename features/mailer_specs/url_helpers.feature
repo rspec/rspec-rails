@@ -3,7 +3,7 @@ Feature: URL helpers in mailer examples
   Mailer specs are marked by `type: :mailer` or if you have set
   `config.infer_spec_type_from_file_location!` by placing them in `spec/mailers`.
 
-  Scenario: using URL helpers with default options
+  Scenario: Using URL helpers with default options
     Given a file named "config/initializers/mailer_defaults.rb" with:
       """ruby
       Rails.configuration.action_mailer.default_url_options = { :host => 'example.com' }
@@ -21,7 +21,7 @@ Feature: URL helpers in mailer examples
     When I run `rspec spec`
     Then the examples should all pass
 
-  Scenario: using URL helpers without default options
+  Scenario: Using URL helpers without default options
     Given a file named "config/initializers/mailer_defaults.rb" with:
       """ruby
       # no default options

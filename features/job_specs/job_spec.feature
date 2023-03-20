@@ -21,7 +21,7 @@ Feature: Job specs
   Background:
     Given active job is available
 
-  Scenario: specify that job was enqueued
+  Scenario: Specify that job was enqueued
     Given a file named "spec/jobs/upload_backups_job_spec.rb" with:
     """ruby
     require "rails_helper"
@@ -40,7 +40,7 @@ Feature: Job specs
     When I run `rspec spec/jobs/upload_backups_job_spec.rb`
     Then the example should pass
 
-  Scenario: specify that job was enqueued for the correct date and time
+  Scenario: Specify that job was enqueued for the correct date and time
     Given a file named "spec/jobs/upload_backups_job_spec.rb" with:
     """ruby
     require "rails_helper"
@@ -59,7 +59,7 @@ Feature: Job specs
     When I run `rspec spec/jobs/upload_backups_job_spec.rb`
     Then the example should pass
 
-  Scenario: specify that job was enqueued with no wait
+  Scenario: Specify that job was enqueued with no wait
     Given a file named "spec/jobs/upload_backups_job_spec.rb" with:
     """ruby
     require "rails_helper"
@@ -78,7 +78,7 @@ Feature: Job specs
     When I run `rspec spec/jobs/upload_backups_job_spec.rb`
     Then the example should pass
 
-  Scenario: specify that job was enqueued with alias block syntax
+  Scenario: Specify that job was enqueued with alias block syntax
     Given a file named "spec/jobs/upload_backups_job_spec.rb" with:
     """ruby
     require "rails_helper"
@@ -97,7 +97,7 @@ Feature: Job specs
     When I run `rspec spec/jobs/upload_backups_job_spec.rb`
     Then the example should pass
 
-  Scenario: specify that job was enqueued with imperative syntax
+  Scenario: Specify that job was enqueued with imperative syntax
     Given a file named "spec/jobs/upload_backups_job_spec.rb" with:
     """ruby
     require "rails_helper"
@@ -115,7 +115,7 @@ Feature: Job specs
     When I run `rspec spec/jobs/upload_backups_job_spec.rb`
     Then the example should pass
 
-  Scenario: specify that job was enqueued with imperative syntax and a chained expectation
+  Scenario: Specify that job was enqueued with imperative syntax and a chained expectation
     Given a file named "spec/jobs/upload_backups_job_spec.rb" with:
     """ruby
     require "rails_helper"
@@ -133,7 +133,7 @@ Feature: Job specs
     When I run `rspec spec/jobs/upload_backups_job_spec.rb`
     Then the example should pass
 
-  Scenario: the test adapter must be set to :test
+  Scenario: The test adapter must be set to `:test`
     Given a file named "spec/jobs/upload_backups_job_spec.rb" with:
     """ruby
     require "rails_helper"

@@ -13,7 +13,7 @@ Feature: Helper specs
 
   NOTE: helper methods defined in controllers are not included.
 
-  Scenario: helper method that returns a value
+  Scenario: A helper method that returns a value
     Given a file named "spec/helpers/application_helper_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -37,7 +37,7 @@ Feature: Helper specs
     When I run `rspec spec/helpers/application_helper_spec.rb`
     Then the examples should all pass
 
-  Scenario: helper method that accesses an instance variable
+  Scenario: A helper method that accesses an instance variable
     Given a file named "spec/helpers/application_helper_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -62,7 +62,7 @@ Feature: Helper specs
     When I run `rspec spec/helpers/application_helper_spec.rb`
     Then the examples should all pass
 
-  Scenario: application helper is included in helper object
+  Scenario: Application helper is included in helper object
     Given a file named "spec/helpers/widgets_helper_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -95,7 +95,7 @@ Feature: Helper specs
     When I run `rspec spec/helpers/widgets_helper_spec.rb`
     Then the examples should all pass
 
-  Scenario: url helpers are defined
+  Scenario: Url helpers are defined
     Given a file named "spec/helpers/widgets_helper_spec.rb" with:
       """ruby
       require "rails_helper"

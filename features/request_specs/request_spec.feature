@@ -26,7 +26,7 @@ Feature: Request specs
   request specs. The recommended way to use Capybara is with
   [feature specs](../feature-specs/feature-spec).
 
-  Scenario: specify managing a Widget with Rails integration methods
+  Scenario: Specify managing a Widget with Rails integration methods
     Given a file named "spec/requests/widget_management_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -55,7 +55,7 @@ Feature: Request specs
     When I run `rspec spec/requests/widget_management_spec.rb`
     Then the example should pass
 
-  Scenario: requesting a JSON response
+  Scenario: Requesting a JSON response
     Given a file named "spec/requests/widget_management_spec.rb" with:
     """ruby
     require "rails_helper"
@@ -73,7 +73,7 @@ Feature: Request specs
     When I run `rspec spec/requests/widget_management_spec.rb`
     Then the example should pass
 
-  Scenario: providing JSON data
+  Scenario: Providing JSON data
     Given a file named "spec/requests/widget_management_spec.rb" with:
     """ruby
     require "rails_helper"
@@ -91,7 +91,7 @@ Feature: Request specs
     When I run `rspec spec/requests/widget_management_spec.rb`
     Then the example should pass
 
-  Scenario: using engine route helpers
+  Scenario: Using engine route helpers
     Given a file named "spec/requests/widgets_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -131,7 +131,7 @@ Feature: Request specs
     When I run `rspec spec`
     Then the example should pass
 
-  Scenario: testing subdomain constrained requests
+  Scenario: Testing subdomain constrained requests
     Given a file named "spec/requests/widgets_spec.rb" with:
       """ruby
       require "rails_helper"

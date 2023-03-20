@@ -10,7 +10,7 @@ Feature: `route_to` matcher
 
       expect(:get => "/").to route_to(:controller => "welcome")
 
-  Scenario: passing route spec with shortcut syntax
+  Scenario: Passing route spec with shortcut syntax
     Given a file named "spec/routing/widgets_routing_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -26,7 +26,7 @@ Feature: `route_to` matcher
     When I run `rspec spec/routing/widgets_routing_spec.rb`
     Then the examples should all pass
 
-  Scenario: passing route spec with verbose syntax
+  Scenario: Passing route spec with verbose syntax
     Given a file named "spec/routing/widgets_routing_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -42,7 +42,7 @@ Feature: `route_to` matcher
     When I run `rspec spec/routing/widgets_routing_spec.rb`
     Then the examples should all pass
 
-  Scenario: route spec for a route that doesn't exist (fails)
+  Scenario: Route spec for a route that doesn't exist (fails)
     Given a file named "spec/routing/widgets_routing_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -57,7 +57,7 @@ Feature: `route_to` matcher
     When I run `rspec spec/routing/widgets_routing_spec.rb`
     Then the output should contain "1 failure"
 
-  Scenario: route spec for a namespaced route with shortcut specifier
+  Scenario: Route spec for a namespaced route with shortcut specifier
     Given a file named "spec/routing/admin_routing_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -73,7 +73,7 @@ Feature: `route_to` matcher
     When I run `rspec spec/routing/admin_routing_spec.rb`
     Then the examples should all pass
 
-  Scenario: route spec for a namespaced route with verbose specifier
+  Scenario: Route spec for a namespaced route with verbose specifier
    Given a file named "spec/routing/admin_routing_spec.rb" with:
      """ruby
      require "rails_helper"

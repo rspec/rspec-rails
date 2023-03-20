@@ -5,7 +5,7 @@ Feature: Transactional examples
   You can also explicitly enable/disable transactions the configuration
   property 'use_transactional_examples'.
 
-  Scenario: run in transactions (default)
+  Scenario: Run in transactions (default)
     Given a file named "spec/models/widget_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -28,7 +28,7 @@ Feature: Transactional examples
     When I run `rspec spec/models/widget_spec.rb`
     Then the examples should all pass
 
-  Scenario: run in transactions (explicit)
+  Scenario: Run in transactions (explicit)
     Given a file named "spec/models/widget_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -55,7 +55,7 @@ Feature: Transactional examples
     When I run `rspec spec/models/widget_spec.rb`
     Then the examples should all pass
 
-  Scenario: disable transactions (explicit)
+  Scenario: Disable transactions (explicit)
     Given a file named "spec/models/widget_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -85,7 +85,7 @@ Feature: Transactional examples
     When I run `rspec spec/models/widget_spec.rb`
     Then the examples should all pass
 
-  Scenario: run in transactions with fixture
+  Scenario: Run in transactions with fixture
     Given a file named "spec/models/thing_spec.rb" with:
       """ruby
       require "rails_helper"
