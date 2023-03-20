@@ -65,7 +65,7 @@ To specify outcomes, you can use:
 
 ## Headers
 
-We encourage you to use [request specs](../request-specs/request-spec) if you want to set headers in your call. If you still want to use controller specs with custom http headers you can use `request.headers`:
+We encourage you to use [request specs](./request-specs/request-spec) if you want to set headers in your call. If you still want to use controller specs with custom http headers you can use `request.headers`:
 
     require "rails_helper"
 
