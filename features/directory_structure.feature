@@ -3,25 +3,25 @@ Feature: Directory Structure
   Specs are usually placed in a canonical directory structure that describes
   their purpose:
 
-  - [Model specs](model-specs) reside in the `spec/models` directory
+  - [Model specs](./model-specs) reside in the `spec/models` directory
 
-  - [Controller specs](controller-specs) reside in the `spec/controllers` directory
+  - [Controller specs](./controller-specs) reside in the `spec/controllers` directory
 
-  - [Request specs](request-specs) reside in the `spec/requests` directory. The directory can also be named `integration` or `api`.
+  - [Request specs](./request-specs) reside in the `spec/requests` directory. The directory can also be named `integration` or `api`.
 
-  - [Feature specs](feature-specs) reside in the `spec/features` directory
+  - [Feature specs](./feature-specs) reside in the `spec/features` directory
 
-  - [View specs](view-specs) reside in the `spec/views` directory
+  - [View specs](./view-specs) reside in the `spec/views` directory
 
-  - [Helper specs](helper-specs) reside in the `spec/helpers` directory
+  - [Helper specs](./helper-specs) reside in the `spec/helpers` directory
 
-  - [Mailer specs](mailer-specs) reside in the `spec/mailers` directory
+  - [Mailer specs](./mailer-specs) reside in the `spec/mailers` directory
 
-  - [Routing specs](routing-specs) reside in the `spec/routing` directory
+  - [Routing specs](./routing-specs) reside in the `spec/routing` directory
 
-  - [Job specs](job-specs) reside in the `spec/jobs` directory
+  - [Job specs](./job-specs) reside in the `spec/jobs` directory
 
-  - [System specs](system-specs) reside in the `spec/system` directory
+  - [System specs](./system-specs) reside in the `spec/system` directory
 
   Application developers are free to use a different directory structure. In
   order to include the correct `rspec-rails` support functions, the specs need
@@ -43,10 +43,10 @@ Feature: Directory Structure
   `RSpec.describe` block with the `type: :controller` metadata:
 
   ```ruby
-  ​# spec/legacy/things_controller_spec.rb
+  # spec/legacy/things_controller_spec.rb
   RSpec.describe ThingsController, type: :controller do
     describe "GET index" do
-      ​# Examples
+      # Examples
     end
   end
   ```
@@ -54,10 +54,9 @@ Feature: Directory Structure
   **Note:** Standard RSpec specs do not require any additional metadata by
   default.
 
-  Check out the [`rspec-core`](/rspec/rspec-core/docs) documentation on [using metadata](/rspec/rspec-core/docs/metadata) for more details.
+  Check out the [`rspec-core`](../../latest/rspec-core) documentation on [using metadata](../../latest/rspec-core/metadata) for more details.
 
-  Automatically Adding Metadata
-  -----------------------------
+  ## Automatically Adding Metadata
 
   RSpec versions before 3.0.0 automatically added metadata to specs based on
   their location on the filesystem. This was both confusing to new users and not
@@ -66,7 +65,7 @@ Feature: Directory Structure
   This behaviour must be explicitly enabled:
 
   ```ruby
-  ​# spec/rails_helper.rb
+  # spec/rails_helper.rb
   RSpec.configure do |config|
     config.infer_spec_type_from_file_location!
   end
@@ -82,7 +81,7 @@ Feature: Directory Structure
   If you want to set metadata for a custom directory that doesn't follow fit the canonical structure above, you can do the following:
 
   ```ruby
-  ​# set `:type` for serializers directory
+  # set `:type` for serializers directory
   RSpec.configure do |config|
     config.define_derived_metadata(:file_path => Regexp.new('/spec/serializers/')) do |metadata|
       metadata[:type] = :serializer
@@ -90,8 +89,7 @@ Feature: Directory Structure
   end
   ```
 
-  Tips on Spec Location
-  ---------------------
+  ## Tips on Spec Location
 
   It is suggested that the `spec/` directory structure generally mirror both
   `app/` and `lib/`. This makes it easy to locate corresponding code and spec

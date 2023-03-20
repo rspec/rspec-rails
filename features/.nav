@@ -1,8 +1,6 @@
 - GettingStarted.md (Start from scratch)
 - Generators.md (Generators)
 - Transactions.md
-- Changelog.md
-- RailsVersions.md (Rails versions)
 - directory_structure.feature
 - backtrace_filtering.feature
 - model_specs:
@@ -11,7 +9,7 @@
   - mock_model.feature
   - stub_model.feature
 - controller_specs:
-  - Cookies.md
+  - cookies.feature
   - controller_spec.feature
   - isolation_from_views.feature
   - render_views.feature

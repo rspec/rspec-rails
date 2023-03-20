@@ -17,22 +17,22 @@ To specify outcomes, you can use:
 - standard test/unit assertions (`assert_equal 200, response.status`)
 - rails assertions (`assert_response 200`)
 - rails-specific matchers:
-  - [`render_template`](matchers/render-template-matcher)
+  - [`render_template`](../matchers/render-template-matcher)
 
     ```ruby
     expect(response).to render_template(:new)   # wraps assert_template
     ```
-  - [`redirect_to`](matchers/redirect-to-matcher)
+  - [`redirect_to`](../matchers/redirect-to-matcher)
 
     ```ruby
     expect(response).to redirect_to(location)   # wraps assert_redirected_to
     ```
-  - [`have_http_status`](matchers/have-http-status-matcher)
+  - [`have_http_status`](../matchers/have-http-status-matcher)
 
     ```ruby
     expect(response).to have_http_status(:created)
     ```
-  - [`be_a_new`](matchers/be-a-new-matcher)
+  - [`be_a_new`](../matchers/be-a-new-matcher)
 
     ```ruby
     expect(assigns(:widget)).to be_a_new(Widget)
