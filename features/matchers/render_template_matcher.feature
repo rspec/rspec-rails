@@ -2,7 +2,7 @@ Feature: `render_template` matcher
 
   The `render_template` matcher is used to specify that a request renders a
   given template or layout.  It delegates to
-  [`assert_template`](https://api.rubyonrails.org/classes/ActionController/TemplateAssertions.html#method-i-assert_template)
+  [`assert_template`](https://api.rubyonrails.org/v5.2/classes/ActionController/TemplateAssertions.html#method-i-assert_template)
 
   It is available in controller specs (spec/controllers) and request
   specs (spec/requests).

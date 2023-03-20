@@ -54,7 +54,7 @@ Feature: The directory structure
   **Note:** Standard RSpec specs do not require any additional metadata by
   default.
 
-  Check out the [`rspec-core`](../../latest/rspec-core) documentation on [using metadata](../../latest/rspec-core/metadata) for more details.
+  Check out the [`rspec-core`](../../3-12/rspec-core) documentation on [using metadata](../../3-12/rspec-core/metadata) for more details.
 
   **Automatically Adding Metadata**
 
