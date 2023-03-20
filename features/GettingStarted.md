@@ -1,3 +1,5 @@
+# Getting Started
+
 Install Rails 6
 
     $ gem install rails -v "~> 6.0.0"
@@ -7,7 +9,7 @@ Install Rails 6
     $ rails new example_app
     $ cd example_app
 
-### Add rspec-rails to the Gemfile
+### Add `rspec-rails` to the Gemfile
 
     $ echo 'gem "rspec-rails", group: [:development, :test]' >> Gemfile
 

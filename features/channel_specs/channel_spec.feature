@@ -1,4 +1,4 @@
-Feature: channel spec
+Feature: Channel specs
 
   Channel specs are marked by `type: :channel` or if you have set
   `config.infer_spec_type_from_file_location!` by placing them in `spec/channels`.

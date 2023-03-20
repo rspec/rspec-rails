@@ -1,4 +1,4 @@
-Feature: backtrace filtering
+Feature: Backtrace filtering
 
   The following configuration setting will filter out lines in backtraces
   that come from Rails gems in order to reduce the noise in test failure output:

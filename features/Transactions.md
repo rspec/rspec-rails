@@ -1,3 +1,5 @@
+# Transactions
+
 When you run `rails generate rspec:install`, the `spec/rails_helper.rb` file
 includes the following configuration:
 

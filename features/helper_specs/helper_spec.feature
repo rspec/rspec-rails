@@ -1,4 +1,4 @@
-Feature: helper spec
+Feature: Helper specs
 
   Helper specs are marked by `type: :helper` or if you have set
   `config.infer_spec_type_from_file_location!` by placing them in `spec/helpers`.

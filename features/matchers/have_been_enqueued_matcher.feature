@@ -1,4 +1,4 @@
-Feature: have_been_enqueued matcher
+Feature: `have_been_enqueued` matcher
 
   The `have_been_enqueued` matcher is used to check if given ActiveJob job was enqueued.
 

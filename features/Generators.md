@@ -1,3 +1,5 @@
+# Using generators
+
 RSpec spec are normally generated alongside other application components.
 For instance, `rails generate model` will also generate an RSpec spec file
 for the model.

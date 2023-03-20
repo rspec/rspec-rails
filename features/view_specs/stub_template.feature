@@ -1,4 +1,4 @@
-Feature: stub template
+Feature: Using `stub_template`
 
   In order to isolate view specs from the partials rendered by the primary
   view, rspec-rails (since 2.2) provides the stub_template method.
@@ -48,4 +48,3 @@ Feature: stub template
       """
     When I run `rspec spec/views/gadgets/edit.html.erb_spec.rb`
     Then the examples should all pass
-

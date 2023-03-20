@@ -1,4 +1,4 @@
-Feature: render_template matcher
+Feature: `render_template` matcher
 
   The `render_template` matcher is used to specify that a request renders a
   given template or layout.  It delegates to

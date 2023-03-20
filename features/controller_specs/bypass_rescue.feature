@@ -1,4 +1,4 @@
-Feature: bypass rescue
+Feature: Using `bypass_rescue`
 
   Use `bypass_rescue` to bypass both Rails' default handling of errors in
   controller actions, and any custom handling declared with a `rescue_from`
@@ -72,4 +72,3 @@ Feature: bypass rescue
       """
     When I run `rspec spec/controllers/gadgets_controller_spec.rb`
     Then the examples should all pass
-

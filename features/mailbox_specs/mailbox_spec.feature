@@ -1,4 +1,4 @@
-Feature: action mailbox spec
+Feature: Action mailbox specs
 
   Mailbox specs provide alternative assertions to those available in `ActiveMailbox::TestHelper` and help assert behaviour of how the email
   are routed, delivered, bounced or failed.

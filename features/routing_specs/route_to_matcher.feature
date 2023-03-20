@@ -1,4 +1,4 @@
-Feature: route_to matcher
+Feature: `route_to` matcher
 
   The `route_to` matcher specifies that a request (verb + path) is routable.
   It is most valuable when specifying routes other than standard RESTful

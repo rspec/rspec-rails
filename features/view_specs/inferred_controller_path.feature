@@ -1,4 +1,4 @@
-Feature: view spec infers controller path and action
+Feature: View specs infer controller's path and action
 
   Scenario: infer controller path
     Given a file named "spec/views/widgets/new.html.erb_spec.rb" with:
@@ -42,4 +42,3 @@ Feature: view spec infers controller path and action
       """
     When I run `rspec spec/views`
     Then the examples should all pass
-

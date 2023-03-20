@@ -1,3 +1,5 @@
+# Routing specs
+
 Routing specs are marked by `type: :routing` or if you have set
 `config.infer_spec_type_from_file_location!` by placing them in `spec/routing`.
 

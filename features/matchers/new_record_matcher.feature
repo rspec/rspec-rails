@@ -1,4 +1,4 @@
-Feature: be_a_new matcher
+Feature: `be_a_new` matcher
 
   The `be_a_new` matcher accepts a class and passes if the subject is an
   instance of that class that returns false to persisted?

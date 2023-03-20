@@ -1,4 +1,4 @@
-Feature: transactional examples
+Feature: Transactional examples
 
   By default rspec executes each individual example in a transaction.
 
@@ -104,6 +104,3 @@ Feature: transactional examples
       """
     When I run `rspec spec/models/thing_spec.rb`
     Then the examples should all pass
-
-
-

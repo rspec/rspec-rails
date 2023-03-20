@@ -1,4 +1,4 @@
-Feature: have_enqueued_mail matcher
+Feature: `have_enqueued_mail` matcher
 
   The `have_enqueued_mail` (also aliased as `enqueue_mail`) matcher is used to check if given mailer was enqueued.
 

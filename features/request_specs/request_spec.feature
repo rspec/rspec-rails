@@ -1,4 +1,4 @@
-Feature: request spec
+Feature: Request specs
 
   Request specs provide a thin wrapper around Rails' integration tests, and are
   designed to drive behavior through the full stack, including routing
