@@ -1,4 +1,5 @@
-Feature: file fixture
+Feature: Using `file_fixture`
+
   Rails 5 adds simple access to sample files called file fixtures.
   File fixtures are normal files stored in spec/fixtures/files by default.
 

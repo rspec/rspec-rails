@@ -1,4 +1,4 @@
-Feature: render_views
+Feature: Using `render_views`
 
   You can tell a controller example group to render views with the
   `render_views` declaration in any individual group, or globally.

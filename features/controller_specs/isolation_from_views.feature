@@ -1,4 +1,4 @@
-Feature: views are stubbed by default
+Feature: Views are stubbed by default
 
   By default, controller specs stub views with a template that renders an empty
   string instead of the views in the app. This allows you specify which view

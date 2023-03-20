@@ -1,4 +1,4 @@
-Feature: verified doubles
+Feature: Using verified doubles
 
   By default rspec verified doubles dont support dynamic methods on
   `instance_double`. `rspec-rails` enabled this support for column

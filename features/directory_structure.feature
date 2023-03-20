@@ -1,4 +1,4 @@
-Feature: Directory Structure
+Feature: The directory structure
 
   Specs are usually placed in a canonical directory structure that describes
   their purpose:

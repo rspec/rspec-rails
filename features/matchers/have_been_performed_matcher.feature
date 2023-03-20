@@ -1,4 +1,4 @@
-Feature: have_been_performed matcher
+Feature: `have_been_performed` matcher
 
   The `have_been_performed` matcher is used to check if given ActiveJob job was performed.
 

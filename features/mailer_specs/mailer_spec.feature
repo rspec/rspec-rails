@@ -1,4 +1,4 @@
-Feature: mailer spec
+Feature: Mailer specs
 
   Scenario: simple passing example
     Given a file named "spec/mailers/notifications_mailer_spec.rb" with:

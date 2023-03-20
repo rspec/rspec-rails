@@ -1,3 +1,5 @@
+# Controller specs
+
 Controller specs are marked by `type: :controller` or if you have set
 `config.infer_spec_type_from_file_location!` by placing them in `spec/controllers`.
 

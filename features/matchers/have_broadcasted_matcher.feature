@@ -1,4 +1,4 @@
-Feature: have_broadcasted matcher
+Feature: `have_broadcasted_to` matcher
 
   The `have_broadcasted_to` (also aliased as `broadcast_to`) matcher is used
   to check if a message has been broadcasted to a given stream.

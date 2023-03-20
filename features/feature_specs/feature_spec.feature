@@ -1,4 +1,4 @@
-Feature: Feature spec
+Feature: Feature specs
 
   Feature specs are high-level tests meant to exercise slices of functionality
   through an application. They should drive the application only via its external

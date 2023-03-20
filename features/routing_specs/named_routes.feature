@@ -1,4 +1,4 @@
-Feature: named routes
+Feature: Using named routes
 
   Routing specs have access to named routes.
 

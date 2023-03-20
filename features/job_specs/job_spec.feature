@@ -1,4 +1,4 @@
-Feature: job spec
+Feature: Job specs
 
   Job specs provide alternative assertions to those available in `ActiveJob::TestHelper` and help assert behaviour of the jobs themselves and that other entities correctly enqueue them.
 

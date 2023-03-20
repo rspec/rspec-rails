@@ -1,6 +1,9 @@
-rspec-rails extends Rails' built-in testing framework to support rspec
+# RSpec Rails
+
+`rspec-rails` extends Rails' built-in testing framework to support rspec
 examples for requests, controllers, models, views, helpers, mailers and
-routing.
+routing. It is a thin framework around Rails own helpers and you can
+check their documentation for help as well.
 
 ## Rails
 

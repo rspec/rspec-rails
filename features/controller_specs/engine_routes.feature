@@ -1,4 +1,4 @@
-Feature: engine routes for controllers
+Feature: Engine routes for controllers
 
   Controller specs can specify the routeset that will be used for the example
   group. This is most useful when testing Rails engines.

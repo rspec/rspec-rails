@@ -1,4 +1,4 @@
-Feature: view spec
+Feature: View specs
 
   View specs are marked by `type: :view`
   or if you have set `config.infer_spec_type_from_file_location!`

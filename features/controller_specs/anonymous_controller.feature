@@ -1,4 +1,4 @@
-Feature: anonymous controller
+Feature: Using an anonymous controller
 
   Use the `controller` method to define an anonymous controller that will
   inherit from the described class. This is useful for specifying behavior like
