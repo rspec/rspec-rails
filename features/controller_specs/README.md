@@ -19,22 +19,22 @@ To specify outcomes, you can use:
 - standard test/unit assertions (`assert_equal 200, response.status`)
 - rails assertions (`assert_response 200`)
 - rails-specific matchers:
-  - [`render_template`](../matchers/render-template-matcher)
+  - [`render_template`](./matchers/render-template-matcher)
 
     ```ruby
     expect(response).to render_template(:new)   # wraps assert_template
     ```
-  - [`redirect_to`](../matchers/redirect-to-matcher)
+  - [`redirect_to`](./matchers/redirect-to-matcher)
 
     ```ruby
     expect(response).to redirect_to(location)   # wraps assert_redirected_to
     ```
-  - [`have_http_status`](../matchers/have-http-status-matcher)
+  - [`have_http_status`](./matchers/have-http-status-matcher)
 
     ```ruby
     expect(response).to have_http_status(:created)
     ```
-  - [`be_a_new`](../matchers/be-a-new-matcher)
+  - [`be_a_new`](./matchers/new-record-matcher)
 
     ```ruby
     expect(assigns(:widget)).to be_a_new(Widget)
@@ -60,12 +60,12 @@ To specify outcomes, you can use:
 ## Views
 
 * by default, views are not rendered. See
-  [views are stubbed by default](controller-specs/views-are-stubbed-by-default) and
-  [render_views](controller-specs/render-views) for details.
+  [views are stubbed by default](./controller-specs/isolation-from-views) and
+  [render_views](./controller-specs/render-views) for details.
 
 ## Headers
 
-We encourage you to use [request specs](https://rspec.info/features/6-0/rspec-rails/request-specs/request-spec) if you want to set headers in your call. If you still want to use controller specs with custom http headers you can use `request.headers`:
+We encourage you to use [request specs](../request-specs/request-spec) if you want to set headers in your call. If you still want to use controller specs with custom http headers you can use `request.headers`:
 
     require "rails_helper"
 
