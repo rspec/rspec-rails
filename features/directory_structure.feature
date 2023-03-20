@@ -43,10 +43,10 @@ Feature: The directory structure
   `RSpec.describe` block with the `type: :controller` metadata:
 
   ```ruby
-  # spec/legacy/things_controller_spec.rb
+  ​# spec/legacy/things_controller_spec.rb
   RSpec.describe ThingsController, type: :controller do
     describe "GET index" do
-      # Examples
+      ​# Examples
     end
   end
   ```
@@ -56,7 +56,7 @@ Feature: The directory structure
 
   Check out the [`rspec-core`](../../latest/rspec-core) documentation on [using metadata](../../latest/rspec-core/metadata) for more details.
 
-  ## Automatically Adding Metadata
+  **Automatically Adding Metadata**
 
   RSpec versions before 3.0.0 automatically added metadata to specs based on
   their location on the filesystem. This was both confusing to new users and not
@@ -65,7 +65,7 @@ Feature: The directory structure
   This behaviour must be explicitly enabled:
 
   ```ruby
-  # spec/rails_helper.rb
+  ​# spec/rails_helper.rb
   RSpec.configure do |config|
     config.infer_spec_type_from_file_location!
   end
@@ -81,7 +81,7 @@ Feature: The directory structure
   If you want to set metadata for a custom directory that doesn't follow fit the canonical structure above, you can do the following:
 
   ```ruby
-  # set `:type` for serializers directory
+  ​# set `:type` for serializers directory
   RSpec.configure do |config|
     config.define_derived_metadata(:file_path => Regexp.new('/spec/serializers/')) do |metadata|
       metadata[:type] = :serializer
@@ -89,7 +89,7 @@ Feature: The directory structure
   end
   ```
 
-  ## Tips on Spec Location
+  **Tips on Spec Location**
 
   It is suggested that the `spec/` directory structure generally mirror both
   `app/` and `lib/`. This makes it easy to locate corresponding code and spec
