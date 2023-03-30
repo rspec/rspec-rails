@@ -5,8 +5,7 @@ DO NOT modify it by hand as your changes will get lost the next time it is gener
 
 # The CI build, in detail
 
-The [Travis CI build](https://travis-ci.org/rspec/rspec-rails)
-runs many verification steps to prevent regressions and
+The CI build runs many verification steps to prevent regressions and
 ensure high-quality code. To run the Travis build locally, run:
 
 ```
@@ -50,7 +49,7 @@ project-specific threshold, the build will fail.
 ## Cukes
 
 RSpec uses [cucumber](https://cucumber.io/) for both acceptance testing
-and [documentation](https://relishapp.com/rspec). Since we publish our cukes
+and [documentation](https://rspec.info/documentation). Since we publish our cukes
 as documentation, please limit new cucumber scenarios to user-facing examples
 that help demonstrate usage. Any tests that exist purely to prevent regressions
 should be written as specs, even if they are written in an acceptance style.

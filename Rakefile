@@ -112,20 +112,6 @@ namespace :clobber do
   end
 end
 
-desc "Push docs/cukes to relishapp using the relish-client-gem"
-task :relish, :version do |_t, args|
-  raise "rake relish[VERSION]" unless args[:version]
-
-  sh "cp Changelog.md features/"
-  if `relish versions rspec/rspec-rails`.split.map(&:strip).include? args[:version]
-    puts "Version #{args[:version]} already exists"
-  else
-    sh "relish versions:add rspec/rspec-rails:#{args[:version]}"
-  end
-  sh "relish push rspec/rspec-rails:#{args[:version]}"
-  sh "rm features/Changelog.md"
-end
-
 namespace :no_active_record do
   example_app_dir = './tmp/no_ar_example_app'
 

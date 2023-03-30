@@ -8,7 +8,7 @@ This RFC captures a proposal for RSpec Rails' new versioning strategy. Specifica
 
 ## Need
 
-Currently, the RSpec Rails [build matrix](https://travis-ci.org/rspec/rspec-rails)
+Currently, the RSpec Rails build matrix
 has 63 entries. This permutes rubies since 1.8.7 and Rails versions since 3.0.
 As of right now the full build takes over an hour to run, and this makes cycling
 for PRs and quick iterative development very difficult.
