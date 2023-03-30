@@ -15,8 +15,6 @@ According to [RSpec Rails new versioning strategy][] use:
 * **[`rspec-rails` 3.x][]** for Rails earlier than 5.0.
 * **[`rspec-rails` 1.x][]** for Rails 2.x.
 
-[Build Status]: https://secure.travis-ci.org/rspec/rspec-rails.svg?branch=main
-[travis-ci]: https://travis-ci.org/rspec/rspec-rails
 [Code Climate]: https://codeclimate.com/github/rspec/rspec-rails.svg
 [code-climate]: https://codeclimate.com/github/rspec/rspec-rails
 [Gem Version]: https://badge.fury.io/rb/rspec-rails.svg
@@ -88,8 +86,8 @@ read the [`rspec-rails` upgrade notes][] to find out what to watch out for.
 
 Be sure to check the general [RSpec upgrade notes][] as well.
 
-[`rspec-rails` upgrade notes]: https://www.relishapp.com/rspec/rspec-rails/docs/upgrade
-[RSpec upgrade notes]: https://relishapp.com/rspec/docs/upgrade
+[`rspec-rails` upgrade notes]: https://rspec.info/features/6-0/rspec-rails/upgrade
+[RSpec upgrade notes]: https://rspec.info/upgrading-from-rspec-2/
 
 ## Usage
 
@@ -183,7 +181,7 @@ rspec ./spec/models/post_spec.rb:3 # Post before publication cannot have comment
 For an in-depth look at the RSpec DSL, including lots of examples,
 read the official Cucumber documentation for [RSpec Core][].
 
-[RSpec Core]: https://relishapp.com/rspec/rspec-core/docs
+[RSpec Core]: https://rspec.info/features/3-12/rspec-core
 
 ### Helpful Rails Matchers
 
@@ -209,23 +207,23 @@ to test the various parts of a Rails system:
 
 Follow the links above for examples of how each matcher is used.
 
-[the matchers that come standard in RSpec]: https://relishapp.com/rspec/rspec-expectations/docs/built-in-matchers
-[`be_a_new`]: https://relishapp.com/rspec/rspec-rails/docs/matchers/be-a-new-matcher
-[`render_template`]: https://relishapp.com/rspec/rspec-rails/docs/matchers/render-template-matcher
-[`redirect_to`]: https://relishapp.com/rspec/rspec-rails/docs/matchers/redirect-to-matcher
-[`route_to`]: https://relishapp.com/rspec/rspec-rails/docs/routing-specs/route-to-matcher
-[`be_routable`]: https://relishapp.com/rspec/rspec-rails/docs/routing-specs/be-routable-matcher
-[`have_http_status`]: https://relishapp.com/rspec/rspec-rails/docs/matchers/have-http-status-matcher
-[`match_array`]: https://relishapp.com/rspec/rspec-rails/docs/matchers/activerecord-relation-match-array
-[`have_been_enqueued`]: https://relishapp.com/rspec/rspec-rails/docs/matchers/have-been-enqueued-matcher
-[`have_enqueued_job`]: https://relishapp.com/rspec/rspec-rails/docs/matchers/have-enqueued-job-matcher
+[the matchers that come standard in RSpec]: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers
+[`be_a_new`]: https://rspec.info/features/6-0/rspec-rails/matchers/new-record-matcher
+[`render_template`]: https://rspec.info/features/6-0/rspec-rails/matchers/render-template-matcher
+[`redirect_to`]: https://rspec.info/features/6-0/rspec-rails/matchers/redirect-to-matcher
+[`route_to`]: https://rspec.info/features/6-0/rspec-rails/routing-specs/route-to-matcher
+[`be_routable`]: https://rspec.info/features/6-0/rspec-rails/routing-specs/be-routable-matcher
+[`have_http_status`]: https://rspec.info/features/6-0/rspec-rails/matchers/have-http-status-matcher
+[`match_array`]: https://rspec.info/features/6-0/rspec-rails/matchers/relation-match-array
+[`have_been_enqueued`]: https://rspec.info/features/6-0/rspec-rails/matchers/have-been-enqueued-matcher
+[`have_enqueued_job`]: https://rspec.info/features/6-0/rspec-rails/matchers/have-enqueued-job-matcher
 
 ### What else does RSpec Rails add?
 
 For a comprehensive look at RSpec Rails’ features,
 read the [official Cucumber documentation][].
 
-[official Cucumber documentation]: https://relishapp.com/rspec/rspec-rails/docs
+[official Cucumber documentation]: https://rspec.info/features/6-0/rspec-rails
 
 ## What tests should I write?
 
@@ -270,20 +268,20 @@ RSpec.describe User, type: :model do
 ...
 ```
 
-[request]: https://relishapp.com/rspec/rspec-rails/docs/request-specs/request-spec
-[feature]: https://www.relishapp.com/rspec/rspec-rails/docs/feature-specs/feature-spec
-[system]: https://relishapp.com/rspec/rspec-rails/docs/system-specs/system-spec
-[model]: https://www.relishapp.com/rspec/rspec-rails/docs/model-specs
-[controller]: https://www.relishapp.com/rspec/rspec-rails/docs/controller-specs
-[mailer]: https://relishapp.com/rspec/rspec-rails/docs/mailer-specs
-[job]: https://relishapp.com/rspec/rspec-rails/docs/job-specs/job-spec
-[view]: https://www.relishapp.com/rspec/rspec-rails/docs/view-specs/view-spec
-[routing]: https://www.relishapp.com/rspec/rspec-rails/docs/routing-specs
-[helper]: https://www.relishapp.com/rspec/rspec-rails/docs/helper-specs/helper-spec
+[request]: https://rspec.info/features/6-0/rspec-rails/request-specs/request-spec
+[feature]: https://rspec.info/features/6-0/rspec-rails/feature-specs/feature-spec
+[system]: https://rspec.info/features/6-0/rspec-rails/system-specs/system-specs
+[model]: https://rspec.info/features/6-0/rspec-rails/model-specs
+[controller]: https://rspec.info/features/6-0/rspec-rails/controller-specs
+[mailer]: https://rspec.info/features/6-0/rspec-rails/mailer-specs
+[job]: https://rspec.info/features/6-0/rspec-rails/job-specs/job-spec
+[view]: https://rspec.info/features/6-0/rspec-rails/view-specs/view-spec
+[routing]: https://rspec.info/features/6-0/rspec-rails/routing-specs
+[helper]: https://rspec.info/features/6-0/rspec-rails/helper-specs/helper-spec
 [`ActionDispatch::IntegrationTest`]: https://api.rubyonrails.org/classes/ActionDispatch/IntegrationTest.html
 [`ActionDispatch::SystemTestCase`]: https://api.rubyonrails.org/classes/ActionDispatch/SystemTestCase.html
 [`ActionController::TestCase`]: https://api.rubyonrails.org/classes/ActionController/TestCase.html
-[in the appropriate folder]: https://relishapp.com/rspec/rspec-rails/docs/directory-structure
+[in the appropriate folder]: https://rspec.info/features/6-0/rspec-rails/directory-structure
 
 ### System specs, feature specs, request specs–what’s the difference?
 
@@ -366,10 +364,10 @@ you can run the specs and Cucumber features, or submit a pull request.
 
 ### RSpec base libraries
 
-* <https://github.com/rspec/rspec>
-* <https://github.com/rspec/rspec-core>
-* <https://github.com/rspec/rspec-expectations>
-* <https://github.com/rspec/rspec-mocks>
+* https://github.com/rspec/rspec
+* https://github.com/rspec/rspec-core
+* https://github.com/rspec/rspec-expectations
+* https://github.com/rspec/rspec-mocks
 
 ### Recommended third-party extensions
 

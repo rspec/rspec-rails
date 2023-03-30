@@ -16,4 +16,4 @@ RSpec Rails 4 is a major version under semantic versioning, it allowed us to cha
 
 If you are using Rails 4.2 you can use RSpec Rails 4, but note that support for it is not maintained, we consider this a breaking change hence the version change, and you must be on Ruby 2.2 as a minimum.
 
-If you are upgrading from an earlier version of RSpec Rails, please consult [the upgrading 2.x to 3.x guide](https://relishapp.com/rspec/rspec-rails/v/3-9/docs/upgrade).
+If you are upgrading from an earlier version of RSpec Rails, please consult [the upgrading 2.x to 3.x guide](https://web.archive.org/web/20220124160827/https://relishapp.com/rspec/rspec-rails/v/3-9/docs/upgrade).

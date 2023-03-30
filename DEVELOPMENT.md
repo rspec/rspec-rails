@@ -85,9 +85,8 @@ gem declarations. The `Gemfile` evaluates that file if it exists, and it is git-
 
 # Running the build
 
-The [Travis CI build](https://travis-ci.org/rspec/rspec-rails)
-runs many verification steps to prevent regressions and
-ensure high-quality code. To run the Travis build locally, run:
+The CI build runs many verification steps to prevent regressions and
+ensure high-quality code. To run the build locally, run:
 
 ```
 $ script/run_build
