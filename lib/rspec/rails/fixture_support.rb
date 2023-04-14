@@ -21,7 +21,7 @@ module RSpec
           if RSpec.configuration.use_active_record?
             include Fixtures
 
-            self.fixture_path = RSpec.configuration.fixture_path
+            self.fixture_paths = RSpec.configuration.fixture_path
             self.use_transactional_tests = RSpec.configuration.use_transactional_fixtures
             self.use_instantiated_fixtures = RSpec.configuration.use_instantiated_fixtures
 
