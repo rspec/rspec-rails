@@ -71,7 +71,7 @@ Feature: Using `render_views`
         end
       end
       """
-    When I run `rspec spec --order default --format documentation`
+    When I run `rspec spec --order defined --format documentation`
     Then the output should contain:
       """ruby
       WidgetsController
