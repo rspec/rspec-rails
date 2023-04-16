@@ -1,5 +1,5 @@
 <!---
-This file was generated on 2020-12-25T18:48:30+00:00 from the rspec-dev repo.
+This file was generated on 2023-04-16T20:53:24+01:00 from the rspec-dev repo.
 DO NOT modify it by hand as your changes will get lost the next time it is generated.
 -->
 
@@ -13,7 +13,7 @@ If you'd like to help make RSpec better, here are some ways you can contribute:
   - by running RSpec HEAD to help us catch bugs before new releases
   - by [reporting bugs you encounter](https://github.com/rspec/rspec-rails/issues/new?template=bug_report.md)
   - by [suggesting new features](https://github.com/rspec/rspec-rails/issues/new?template=feature_request.md)
-  - by improving RSpec's [Gherkin](https://rspec.info/documentation/) or [API](https://rspec.info/documentation/) documentation
+  - by improving RSpec's Feature or API [documentation](https://rspec.info/documentation/)
   - by improving [RSpec's website](https://rspec.info/) ([source](https://github.com/rspec/rspec.github.io))
   - by taking part in [feature and issue discussions](https://github.com/rspec/rspec-rails/issues)
   - by adding a failing test for reproducible [reported bugs](https://github.com/rspec/rspec-rails/issues)
