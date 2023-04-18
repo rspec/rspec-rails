@@ -164,7 +164,7 @@ RSpec.describe "Configuration" do
 
       group = RSpec.describe("Arbitrary Description", :use_fixtures)
 
-      if ::Rails::VERSION::MAJOR < 7
+      if ::Rails::VERSION::STRING < '7.1.0'
         expect(group).to respond_to(:fixture_path)
         expect(group.fixture_path).to eq("custom/path")
       else
