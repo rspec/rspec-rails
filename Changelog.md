@@ -9,6 +9,8 @@ Bug Fixes:
 
 * Fix ActionView::PathSet when `render_views` is off for Rails 7.1.
   (Eugene Kenny, Iliana, #2631)
+* Support Rails 7.1's `#fixtures_paths` in example groups (removes a deprecation warning).
+  (Nicholas Simmons, #2664)
 
 ### 6.0.1 / 2022-10-18
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.0...v6.0.1)
