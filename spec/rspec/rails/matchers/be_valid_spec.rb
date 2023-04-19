@@ -40,7 +40,7 @@ RSpec.describe "be_valid matcher" do
   it "includes the error messages in the failure message" do
     expect {
       expect(post).to be_valid
-    }.to raise_exception(/Title can't be blank/)
+    }.to raise_exception(/Title can.t be blank/)
   end
 
   it "includes the error messages for simple implementations of error messages" do
