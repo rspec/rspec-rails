@@ -48,7 +48,7 @@ require_file_stub 'config/environment' do
           config.action_mailer.show_previews = (ENV['SHOW_PREVIEWS'] == 'true')
         end
 
-        config.active_record.legacy_connection_handling = false if Rails::VERSION::STRING >= '7'
+        config.active_record.legacy_connection_handling = false if Rails::VERSION::STRING.start_with?('7.0')
       end
     end
 
