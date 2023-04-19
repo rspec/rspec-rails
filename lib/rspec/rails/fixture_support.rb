@@ -21,7 +21,12 @@ module RSpec
           if RSpec.configuration.use_active_record?
             include Fixtures
 
-            self.fixture_path = RSpec.configuration.fixture_path
+            # TestFixtures#fixture_path is deprecated and will be removed in Rails 7.2
+            if respond_to?(:fixture_paths=)
+              fixture_paths << RSpec.configuration.fixture_path
+            else
+              self.fixture_path = RSpec.configuration.fixture_path
+            end
             self.use_transactional_tests = RSpec.configuration.use_transactional_fixtures
             self.use_instantiated_fixtures = RSpec.configuration.use_instantiated_fixtures
 
