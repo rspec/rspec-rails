@@ -78,7 +78,11 @@ RSpec.describe "Configuration" do
 
     include_examples "adds setting", :global_fixtures
 
-    include_examples "adds setting", :fixture_path
+    if ::Rails::VERSION::STRING < "7.1.0"
+      include_examples "adds setting", :fixture_path
+    else
+      include_examples "adds setting", :fixture_paths
+    end
 
     include_examples "adds setting", :rendering_views
 
@@ -157,22 +161,49 @@ RSpec.describe "Configuration" do
     include_examples "infers type from location", :feature, "spec/features"
   end
 
-  it "fixture support is included with metadata `:use_fixtures`" do
-    in_sub_process do
-      RSpec.configuration.global_fixtures = [:foo]
-      RSpec.configuration.fixture_path = "custom/path"
+  if ::Rails::VERSION::STRING < "7.1.0"
+    it "fixture support is included with metadata `:use_fixtures`" do
+      in_sub_process do
+        RSpec.configuration.global_fixtures = [:foo]
+        RSpec.configuration.fixture_path = "custom/path"
 
-      group = RSpec.describe("Arbitrary Description", :use_fixtures)
+        group = RSpec.describe("Arbitrary Description", :use_fixtures)
 
-      if ::Rails::VERSION::STRING < '7.1.0'
         expect(group).to respond_to(:fixture_path)
         expect(group.fixture_path).to eq("custom/path")
-      else
-        expect(group).to respond_to(:fixture_paths)
-        expect(group.fixture_paths).to include("custom/path")
-      end
 
-      expect(group.new.respond_to?(:foo, true)).to be(true)
+        expect(group.new.respond_to?(:foo, true)).to be(true)
+      end
+    end
+  else
+    it "fixture support is included with metadata `:use_fixtures` and fixture_paths configured" do
+      in_sub_process do
+        RSpec.configuration.global_fixtures = [:foo]
+        RSpec.configuration.fixture_paths = ["custom/path", "other/custom/path"]
+
+        group = RSpec.describe("Arbitrary Description", :use_fixtures)
+
+        expect(group).to respond_to(:fixture_paths)
+        expect(group.fixture_paths).to eq(["custom/path", "other/custom/path"])
+
+        expect(group.new.respond_to?(:foo, true)).to be(true)
+      end
+    end
+
+    it "fixture support is included with metadata `:use_fixtures` and deprecated fixture_path configured" do
+      in_sub_process do
+        expect(RSpec).to receive(:deprecate)
+
+        RSpec.configuration.global_fixtures = [:foo]
+        RSpec.configuration.fixture_path = "custom/path"
+
+        group = RSpec.describe("Arbitrary Description", :use_fixtures)
+
+        expect(group).to respond_to(:fixture_paths)
+        expect(group.fixture_paths).to eq(["custom/path"])
+
+        expect(group.new.respond_to?(:foo, true)).to be(true)
+      end
     end
   end
 

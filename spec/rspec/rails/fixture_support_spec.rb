@@ -1,14 +1,19 @@
 module RSpec::Rails
   RSpec.describe FixtureSupport do
     context "with use_transactional_fixtures set to false" do
-      it "still supports fixture_path" do
+      it "still supports fixture_path and fixture_paths" do
         allow(RSpec.configuration).to receive(:use_transactional_fixtures) { false }
         group = RSpec::Core::ExampleGroup.describe do
           include FixtureSupport
         end
 
-        expect(group).to respond_to(:fixture_path)
-        expect(group).to respond_to(:fixture_path=)
+        if ::Rails::VERSION::STRING < "7.1.0"
+          expect(group).to respond_to(:fixture_path)
+          expect(group).to respond_to(:fixture_path=)
+        else
+          expect(group).to respond_to(:fixture_paths)
+          expect(group).to respond_to(:fixture_paths=)
+        end
       end
     end
 
