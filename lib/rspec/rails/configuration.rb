@@ -57,7 +57,7 @@ module RSpec
     end
 
     # @private
-    def self.initialize_configuration(config) # rubocop:disable Metrics/MethodLength,Metrics/CyclomaticComplexity
+    def self.initialize_configuration(config) # rubocop:disable Metrics/MethodLength,Metrics/CyclomaticComplexity,Metrics/AbcSize,Metrics/PerceivedComplexity
       config.backtrace_exclusion_patterns << /vendor\//
       config.backtrace_exclusion_patterns << %r{lib/rspec/rails}
 
@@ -69,7 +69,13 @@ module RSpec
       config.add_setting :use_transactional_fixtures, alias_with: :use_transactional_examples
       config.add_setting :use_instantiated_fixtures
       config.add_setting :global_fixtures
-      config.add_setting :fixture_path
+
+      if ::Rails::VERSION::STRING < "7.1.0"
+        config.add_setting :fixture_path
+      else
+        config.add_setting :fixture_paths
+      end
+
       config.include RSpec::Rails::FixtureSupport, :use_fixtures
 
       # We'll need to create a deprecated module in order to properly report to
@@ -156,6 +162,18 @@ module RSpec
           filter_gems_from_backtrace "actionmailer", "actionpack", "actionview"
           filter_gems_from_backtrace "activemodel", "activerecord",
                                      "activesupport", "activejob"
+        end
+
+        # @deprecated TestFixtures#fixture_path is deprecated and will be removed in Rails 7.2
+        if ::Rails::VERSION::STRING >= "7.1.0"
+          def config.fixture_path=(path)
+            RSpec.deprecate(
+              "config.fixture_path =  #{path.inspect}",
+              replacement: "config.fixture_paths = [#{path.inspect}]",
+              message: "Rails 7.1 has deprecated the singular fixture_path in favour of an array"
+            )
+            self.fixture_paths = Array(path)
+          end
         end
       end
 

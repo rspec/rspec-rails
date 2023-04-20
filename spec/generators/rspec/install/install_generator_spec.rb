@@ -15,6 +15,10 @@ RSpec.describe Rspec::Generators::InstallGenerator, type: :generator do
     match(/^  config\.fixture_path = /m)
   end
 
+  def have_fixture_paths
+    match(/^  config\.fixture_paths = /m)
+  end
+
   def maintain_test_schema
     match(/ActiveRecord::Migration\.maintain_test_schema!/m)
   end
@@ -84,7 +88,11 @@ RSpec.describe Rspec::Generators::InstallGenerator, type: :generator do
 
     specify "with default fixture path" do
       run_generator
-      expect(rails_helper).to have_a_fixture_path
+      if ::Rails::VERSION::STRING < "7.1.0"
+        expect(rails_helper).to have_a_fixture_path
+      else
+        expect(rails_helper).to have_fixture_paths
+      end
     end
 
     specify "with transactional fixtures" do
@@ -127,6 +135,7 @@ RSpec.describe Rspec::Generators::InstallGenerator, type: :generator do
     specify "without fixture path" do
       run_generator
       expect(rails_helper).not_to have_a_fixture_path
+      expect(rails_helper).not_to have_fixture_paths
     end
 
     specify "without transactional fixtures" do
