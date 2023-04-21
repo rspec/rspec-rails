@@ -14,6 +14,8 @@ module RSpec
         resolved_fixture_path =
           if respond_to?(:file_fixture_path) && !file_fixture_path.nil?
             file_fixture_path.to_s
+          elsif respond_to?(:fixture_paths)
+            (RSpec.configuration.fixture_paths&.first || '').to_s
           else
             (RSpec.configuration.fixture_path || '').to_s
           end
@@ -26,7 +28,11 @@ module RSpec
         include ActiveSupport::Testing::FileFixtures
 
         class << self
-          attr_accessor :fixture_path
+          if ::Rails::VERSION::STRING < "7.1.0"
+            attr_accessor :fixture_path
+          else
+            attr_accessor :fixture_paths
+          end
 
           # Get instance of wrapper
           def instance
