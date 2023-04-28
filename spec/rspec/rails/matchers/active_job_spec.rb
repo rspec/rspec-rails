@@ -98,6 +98,43 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       expect { }.not_to have_enqueued_job
     end
 
+    context "when previously enqueued jobs were performed" do
+      include ActiveJob::TestHelper
+
+      before { stub_const("HeavyLiftingJob", heavy_lifting_job) }
+
+      it "counts newly enqueued jobs" do
+        heavy_lifting_job.perform_later
+        expect {
+          perform_enqueued_jobs
+          hello_job.perform_later
+        }.to have_enqueued_job(hello_job)
+      end
+    end
+
+    context "when job is retried" do
+      include ActiveJob::TestHelper
+
+      let(:unreliable_job) do
+        Class.new(ActiveJob::Base) do
+          retry_on StandardError, wait: 5, queue: :retry
+
+          def self.name; "UnreliableJob"; end
+          def perform; raise StandardError; end
+        end
+      end
+
+      before { stub_const("UnreliableJob", unreliable_job) }
+
+      it "passes with reenqueued job" do
+        time = Time.current.change(usec: 0)
+        travel_to time do
+          UnreliableJob.perform_later
+          expect { perform_enqueued_jobs }.to have_enqueued_job(UnreliableJob).on_queue(:retry).at(time + 5)
+        end
+      end
+    end
+
     it "fails when job is not enqueued" do
       expect {
         expect { }.to have_enqueued_job
