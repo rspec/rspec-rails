@@ -230,11 +230,11 @@ module RSpec
           def matches?(proc)
             raise ArgumentError, "have_enqueued_job and enqueue_job only support block expectations" unless Proc === proc
 
-            original_enqueued_jobs_count = queue_adapter.enqueued_jobs.count
+            original_enqueued_jobs = Set.new(queue_adapter.enqueued_jobs)
             proc.call
-            in_block_jobs = queue_adapter.enqueued_jobs.drop(original_enqueued_jobs_count)
+            enqueued_jobs = Set.new(queue_adapter.enqueued_jobs)
 
-            check(in_block_jobs)
+            check(enqueued_jobs - original_enqueued_jobs)
           end
 
           def does_not_match?(proc)
