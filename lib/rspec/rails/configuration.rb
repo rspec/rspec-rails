@@ -166,7 +166,7 @@ module RSpec
 
         # @deprecated TestFixtures#fixture_path is deprecated and will be removed in Rails 7.2
         if ::Rails::VERSION::STRING >= "7.1.0"
-          def config.fixture_path=(path)
+          def fixture_path=(path)
             RSpec.deprecate(
               "config.fixture_path =  #{path.inspect}",
               replacement: "config.fixture_paths = [#{path.inspect}]",

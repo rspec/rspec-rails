@@ -1,7 +1,7 @@
 module RSpec::Rails
   RSpec.describe FixtureSupport do
     context "with use_transactional_fixtures set to false" do
-      it "still supports fixture_path and fixture_paths" do
+      it "still supports fixture_path/fixture_paths" do
         allow(RSpec.configuration).to receive(:use_transactional_fixtures) { false }
         group = RSpec::Core::ExampleGroup.describe do
           include FixtureSupport
