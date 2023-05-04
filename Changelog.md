@@ -1,9 +1,12 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.1...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.2...main)
 
 Enhancements:
 
 * Minor tweak to generated `rails_helper.rb` to use `Rails.root.join`, (@masato-bkn, #2640)
+
+### 6.0.2 / 2023-05-04
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.1...v6.0.2)
 
 Bug Fixes:
 
