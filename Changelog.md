@@ -5,6 +5,11 @@ Enhancements:
 
 * Minor tweak to generated `rails_helper.rb` to use `Rails.root.join`, (@masato-bkn, #2640)
 
+Bug Fixes:
+
+* Set `ActiveStorage::FixtureSet.file_fixture_path` when including file fixture support.
+  (Jason Yates, #2671)
+
 ### 6.0.2 / 2023-05-04
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.1...v6.0.2)
 
