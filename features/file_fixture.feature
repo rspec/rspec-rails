@@ -36,3 +36,22 @@ Feature: Using `file_fixture`
       """
     When I run `rspec spec/lib/file_spec.rb`
     Then the examples should all pass
+
+  @rails_post_7
+  Scenario: Creating a ActiveStorage::Blob from a file fixture
+    Given a file named "spec/fixtures/files/sample.txt" with:
+      """
+      Hello
+      """
+    And a file named "spec/lib/fixture_set_blob.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe "blob" do
+        it "creates a blob from a sample file" do
+          expect(ActiveStorage::FixtureSet.blob(filename: "sample.txt")).to include("sample.txt")
+        end
+      end
+      """
+    When I run `rspec spec/lib/fixture_set_blob.rb`
+    Then the examples should all pass
