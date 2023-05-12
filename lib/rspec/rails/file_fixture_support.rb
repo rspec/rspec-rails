@@ -9,6 +9,9 @@ module RSpec
 
       included do
         self.file_fixture_path = RSpec.configuration.file_fixture_path
+        if defined?(ActiveStorage::FixtureSet)
+          ActiveStorage::FixtureSet.file_fixture_path = RSpec.configuration.file_fixture_path
+        end
       end
     end
   end
