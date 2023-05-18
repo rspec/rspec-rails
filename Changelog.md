@@ -3,7 +3,8 @@
 
 Enhancements:
 
-* Minor tweak to generated `rails_helper.rb` to use `Rails.root.join`, (@masato-bkn, #2640)
+* Minor tweak to generated `rails_helper.rb` to use `Rails.root.join`.
+  (@masato-bkn, Ryo Nakamura, #2640, #2678)
 
 Bug Fixes:
 
