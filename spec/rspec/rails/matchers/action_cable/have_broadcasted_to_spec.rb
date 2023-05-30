@@ -50,6 +50,12 @@ RSpec.describe "have_broadcasted_to matchers", skip: !RSpec::Rails::FeatureCheck
       }.to have_broadcasted_to('stream')
     end
 
+    it "passes when using symbol target" do
+      expect {
+        broadcast(:stream, 'hello')
+      }.to have_broadcasted_to(:stream)
+    end
+
     it "passes when using alias" do
       expect {
         broadcast('stream', 'hello')
