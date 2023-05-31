@@ -96,8 +96,11 @@ module RSpec
         private
 
           def stream
-            @stream ||= if @target.is_a?(String)
+            @stream ||= case @target
+                        when String
                           @target
+                        when Symbol
+                          @target.to_s
                         else
                           check_channel_presence
                           @channel.broadcasting_for(@target)
