@@ -170,6 +170,12 @@ RSpec.describe "have_broadcasted_to matchers", skip: !RSpec::Rails::FeatureCheck
       }.to have_broadcasted_to('stream').with(a_hash_including(name: "David", id: 42))
     end
 
+    it "passes with provided data matchers with anything" do
+      expect {
+        broadcast('stream', id: 42, name: "David", message_id: 123)
+      }.to have_broadcasted_to('stream').with({ name: anything, id: anything, message_id: anything })
+    end
+
     it "generates failure message when data not match" do
       expect {
         expect {
