@@ -112,7 +112,7 @@ module RSpec
               decoded = ActiveSupport::JSON.decode(msg)
               decoded = decoded.with_indifferent_access if decoded.is_a?(Hash)
 
-              if @data.nil? || @data === decoded
+              if @data.nil? || values_match?(@data, decoded)
                 @block.call(decoded)
                 true
               else
