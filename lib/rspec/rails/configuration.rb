@@ -166,9 +166,18 @@ module RSpec
 
         # @deprecated TestFixtures#fixture_path is deprecated and will be removed in Rails 7.2
         if ::Rails::VERSION::STRING >= "7.1.0"
+          def fixture_path
+            RSpec.deprecate(
+              "config.fixture_path",
+              replacement: "config.fixture_paths",
+              message: "Rails 7.1 has deprecated the singular fixture_path in favour of an array"
+            )
+            fixture_paths&.first
+          end
+
           def fixture_path=(path)
             RSpec.deprecate(
-              "config.fixture_path =  #{path.inspect}",
+              "config.fixture_path = #{path.inspect}",
               replacement: "config.fixture_paths = [#{path.inspect}]",
               message: "Rails 7.1 has deprecated the singular fixture_path in favour of an array"
             )

@@ -161,21 +161,47 @@ RSpec.describe "Configuration" do
     include_examples "infers type from location", :feature, "spec/features"
   end
 
-  if ::Rails::VERSION::STRING < "7.1.0"
-    it "fixture support is included with metadata `:use_fixtures`" do
-      in_sub_process do
-        RSpec.configuration.global_fixtures = [:foo]
-        RSpec.configuration.fixture_path = "custom/path"
-
-        group = RSpec.describe("Arbitrary Description", :use_fixtures)
-
-        expect(group).to respond_to(:fixture_path)
-        expect(group.fixture_path).to eq("custom/path")
-
-        expect(group.new.respond_to?(:foo, true)).to be(true)
+  it "fixture support is included with metadata `:use_fixtures`" do
+    in_sub_process do
+      a_hash = an_instance_of(Hash)
+      if ::Rails::VERSION::STRING >= "7.1.0"
+        expect(RSpec).to receive(:deprecate).with("config.fixture_path = \"custom/path\"", a_hash)
       end
+
+      RSpec.configuration.global_fixtures = [:foo]
+      RSpec.configuration.fixture_path = "custom/path"
+
+      group = RSpec.describe("Arbitrary Description", :use_fixtures)
+
+      expect(group).to respond_to(:fixture_path)
+
+      if ::Rails::VERSION::STRING >= "7.1.0"
+        with_isolated_stderr { expect(group.fixture_path).to eq("custom/path") }
+      else
+        expect(group.fixture_path).to eq("custom/path")
+      end
+
+      expect(group.new.respond_to?(:foo, true)).to be(true)
     end
-  else
+  end
+
+  if ::Rails::VERSION::STRING >= "7.1.0"
+    it "deprecates fixture_path" do
+      expect_deprecation_with_call_site(__FILE__, __LINE__ + 1, "config.fixture_path")
+      RSpec.configuration.fixture_path
+
+      RSpec.configuration.fixture_paths = []
+      expect_deprecation_with_call_site(__FILE__, __LINE__ + 1, "config.fixture_path")
+      RSpec.configuration.fixture_path
+    end
+
+    it "deprecates fixture_path =" do
+      expect_deprecation_with_call_site(__FILE__, __LINE__ + 1, /config.fixture_path =/)
+      RSpec.configuration.fixture_path = "some path"
+
+      expect(RSpec.configuration.fixture_paths).to eq(["some path"])
+    end
+
     it "fixture support is included with metadata `:use_fixtures` and fixture_paths configured" do
       in_sub_process do
         RSpec.configuration.global_fixtures = [:foo]
