@@ -36,10 +36,6 @@ RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
 <% if ::Rails::VERSION::STRING < "7.1.0" -%>
   config.fixture_path = Rails.root.join('spec/fixtures')
-  # Starting with Rails 7.1, use this instead:
-  # config.fixture_paths = [
-  #  Rails.root.join('spec/fixtures')
-  # ]
 <% else -%>
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
