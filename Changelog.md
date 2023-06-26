@@ -8,6 +8,8 @@ Enhancements:
 * Add `RSpec::Rails::Configuration.fixture_paths` configuration to support
   the matching change to `ActiveRecord::TestFixtures`, previous singular
   form is deprecated and will be removed in Rails 7.2. (Juan Gueçaimburu, #2673)
+* Add `send_email` matcher to match emails rather than specific jobs.
+  (Andrei Kaleshka, #2670)
 
 Bug Fixes:
 
