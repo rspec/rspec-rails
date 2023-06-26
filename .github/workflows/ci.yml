@@ -5,6 +5,7 @@ on:
       - 'main'
       - '*-maintenance'
       - '*-dev'
+      - 'pr-*'
   pull_request:
     branches:
       - '*'
