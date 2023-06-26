@@ -5,6 +5,9 @@ Enhancements:
 
 * Minor tweak to generated `rails_helper.rb` to use `Rails.root.join`.
   (@masato-bkn, Ryo Nakamura, #2640, #2678)
+* Add `RSpec::Rails::Configuration.fixture_paths` configuration to support
+  the matching change to `ActiveRecord::TestFixtures`, previous singular
+  form is deprecated and will be removed in Rails 7.2. (Juan Gueçaimburu, #2673)
 
 Bug Fixes:
 
