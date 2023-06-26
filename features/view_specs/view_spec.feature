@@ -153,6 +153,28 @@ Feature: View specs
     When I run `rspec spec/views`
     Then the examples should all pass
 
+  Scenario: View specs can render a template with locals
+    Given a file named "spec/views/widgets/_widget.html.erb_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe "widgets/index" do
+        it "displays the widget" do
+          widget = Widget.create!(:name => "slicer")
+
+          render :locals => {:widget => widget}
+
+          expect(rendered).to match /slicer/
+        end
+      end
+      """
+    And a file named "app/views/widgets/index.html.erb" with:
+      """
+      <h3><%= widget.name %></h3>
+      """
+    When I run `rspec spec/views`
+    Then the examples should all pass
+
   Scenario: View specs can render locals in a partial
     Given a file named "spec/views/widgets/_widget.html.erb_spec.rb" with:
       """ruby
