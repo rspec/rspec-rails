@@ -95,6 +95,11 @@ end
 namespace :smoke do
   desc "create a new example app with generated specs and run them"
   task app: ["clobber:app", "generate:app", "generate:stuff", :smoke]
+
+  desc "run RSPEC_OPTS environment variable in the example app for local dev"
+  task :rspec do
+    in_example_app "LOCATION='../../example_app_generator/run_specs.rb' bin/rspec #{ENV.fetch("RSPEC_OPTS")}"
+  end
 end
 
 desc 'clobber generated files'
