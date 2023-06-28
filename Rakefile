@@ -134,6 +134,11 @@ namespace :no_active_record do
       "no_active_record:generate:stuff",
       "no_active_record:smoke",
     ]
+
+    desc "run RSPEC_OPTS environment variable in the example app for local dev"
+    task :rspec do
+      in_example_app "LOCATION='../../example_app_generator/run_specs.rb' bin/rspec #{ENV.fetch("RSPEC_OPTS")}", app_dir: example_app_dir
+    end
   end
 
   desc "remove the old non-ActiveRecord app"
