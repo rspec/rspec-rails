@@ -65,6 +65,7 @@ module RSpec
         #     end
         def render(options = {}, local_assigns = {}, &block)
           options = _default_render_options if Hash === options && options.empty?
+          options = options.merge(_default_render_options) if Hash === options && options.keys == [:locals]
           super(options, local_assigns, &block)
         end
 
