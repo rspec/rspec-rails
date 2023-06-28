@@ -72,11 +72,13 @@ module InMemory
       self.class.all << self
       true
     end
+    alias :save! :save
 
     def destroy
       self.class.all.delete(self)
       true
     end
+    alias :destroy! :destroy
 
     def reload(*)
       self
