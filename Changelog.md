@@ -5,6 +5,8 @@ Bug Fixes:
 
 * Fuzzy match `have_broadcasted_to` so that argument matchers can be used.
   (Timothy Peraza, #2684)
+* Fix fixture warning during `:context` hooks on Rails `main`. (Jon Rowe, #2685)
+* Fix `stub_template` on Rails `main`. (Jon Rowe, #2685)
 
 ### 6.0.3 / 2023-05-31
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.2...v6.0.3)
