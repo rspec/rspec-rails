@@ -37,28 +37,50 @@ module RSpec
         module Fixtures
           extend ActiveSupport::Concern
 
+          # rubocop:disable Metrics/BlockLength
           class_methods do
-            def fixtures(*args)
-              orig_methods = private_instance_methods
-              super.tap do
-                new_methods = private_instance_methods - orig_methods
-                new_methods.each do |method_name|
-                  proxy_method_warning_if_called_in_before_context_scope(method_name)
+            if ::Rails.version.to_f >= 7.1
+              def fixtures(*args)
+                super.tap do
+                  fixture_sets.each_key do |fixture_name|
+                    proxy_method_warning_if_called_in_before_context_scope(fixture_name)
+                  end
                 end
               end
-            end
 
-            def proxy_method_warning_if_called_in_before_context_scope(method_name)
-              orig_implementation = instance_method(method_name)
-              define_method(method_name) do |*args, &blk|
-                if RSpec.current_scope == :before_context_hook
-                  RSpec.warn_with("Calling fixture method in before :context ")
-                else
-                  orig_implementation.bind(self).call(*args, &blk)
+              def proxy_method_warning_if_called_in_before_context_scope(fixture_name)
+                define_method(fixture_name) do |*args, **kwargs, &blk|
+                  if RSpec.current_scope == :before_context_hook
+                    RSpec.warn_with("Calling fixture method in before :context ")
+                  else
+                    access_fixture(fixture_name, *args, **kwargs, &blk)
+                  end
+                end
+              end
+            else
+              def fixtures(*args)
+                orig_methods = private_instance_methods
+                super.tap do
+                  new_methods = private_instance_methods - orig_methods
+                  new_methods.each do |method_name|
+                    proxy_method_warning_if_called_in_before_context_scope(method_name)
+                  end
+                end
+              end
+
+              def proxy_method_warning_if_called_in_before_context_scope(method_name)
+                orig_implementation = instance_method(method_name)
+                define_method(method_name) do |*args, &blk|
+                  if RSpec.current_scope == :before_context_hook
+                    RSpec.warn_with("Calling fixture method in before :context ")
+                  else
+                    orig_implementation.bind(self).call(*args, &blk)
+                  end
                 end
               end
             end
           end
+          # rubocop:enable Metrics/BlockLength
         end
       end
     end

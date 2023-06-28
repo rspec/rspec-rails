@@ -14,8 +14,11 @@ end
 # sqlite3 is an optional, unspecified, dependency and Rails 6.0 only supports `~> 1.4`
 gem 'sqlite3', '~> 1.4', platforms: [:ruby]
 
-# Due to capybara strings issue
-gem 'puma', '< 6.0.0'
+if RUBY_VERSION.to_f < 2.7
+  gem 'puma', '< 6.0.0'
+else
+  gem 'puma'
+end
 
 case version = ENV['RAILS_VERSION'] || (File.exist?(version_file) && File.read(version_file).chomp) || ''
 when /main/
