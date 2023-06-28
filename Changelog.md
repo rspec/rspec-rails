@@ -10,6 +10,9 @@ Enhancements:
   form is deprecated and will be removed in Rails 7.2. (Juan Gueçaimburu, #2673)
 * Add `send_email` matcher to match emails rather than specific jobs.
   (Andrei Kaleshka, #2670)
+* When using `render` in view specs, `:locals` will now be merged into the
+  default implicit template, allowing `render locals: {...}` style calls.
+  (Jon Rowe, #2686)
 
 Bug Fixes:
 
