@@ -83,14 +83,26 @@ module RSpec
           _view
         end
 
-        # Simulates the presence of a template on the file system by adding a
-        # Rails' FixtureResolver to the front of the view_paths list. Designed to
-        # help isolate view examples from partials rendered by the view template
-        # that is the subject of the example.
-        #
-        #     stub_template("widgets/_widget.html.erb" => "This content.")
-        def stub_template(hash)
-          view.view_paths.unshift(StubResolverCache.resolver_for(hash))
+        if ::Rails.version.to_f >= 7.1
+          # Simulates the presence of a template on the file system by adding a
+          # Rails' FixtureResolver to the front of the view_paths list. Designed to
+          # help isolate view examples from partials rendered by the view template
+          # that is the subject of the example.
+          #
+          #     stub_template("widgets/_widget.html.erb" => "This content.")
+          def stub_template(hash)
+            view.view_paths.send(:initialize_copy, ActionView::PathSet.new([StubResolverCache.resolver_for(hash)] + view.view_paths.paths))
+          end
+        else
+          # Simulates the presence of a template on the file system by adding a
+          # Rails' FixtureResolver to the front of the view_paths list. Designed to
+          # help isolate view examples from partials rendered by the view template
+          # that is the subject of the example.
+          #
+          #     stub_template("widgets/_widget.html.erb" => "This content.")
+          def stub_template(hash)
+            view.view_paths.unshift(StubResolverCache.resolver_for(hash))
+          end
         end
 
         # Provides access to the params hash that will be available within the

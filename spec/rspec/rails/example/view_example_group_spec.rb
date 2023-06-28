@@ -283,7 +283,7 @@ module RSpec::Rails
         Class.new do
           include ViewExampleGroup::ExampleMethods
           def _view
-            @_view ||= Struct.new(:view_paths).new(['some-path'])
+            @_view ||= Struct.new(:view_paths).new(ActionView::PathSet.new(['some-path']))
           end
         end
       end
