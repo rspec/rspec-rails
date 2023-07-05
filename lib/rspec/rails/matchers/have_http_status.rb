@@ -33,7 +33,16 @@ module RSpec
         # @param obj [Object] object to convert to a response
         # @return [ActionDispatch::TestResponse]
         def as_test_response(obj)
-          if ::ActionDispatch::Response === obj
+          if defined?(::HTTP::Response) && ::HTTP::Response === obj
+            obj = ActionDispatch::Response.new.tap do |resp|
+              resp.status  = obj.status.code
+              resp.headers.clear
+              resp.headers.merge!(obj.headers.to_h)
+              resp.body    = obj.body.to_s
+              resp.request = ActionDispatch::Request.new({})
+            end
+            ::ActionDispatch::TestResponse.from_response(obj)
+          elsif ::ActionDispatch::Response === obj
             ::ActionDispatch::TestResponse.from_response(obj)
           elsif ::ActionDispatch::TestResponse === obj
             obj
