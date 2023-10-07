@@ -192,6 +192,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
         it { is_expected.to exist }
         it { is_expected.to contain(/require 'rails_helper'/) }
         it { is_expected.to contain(/^RSpec.describe "(.*)\/edit", #{type_metatag(:view)}/) }
+        it { is_expected.to contain(/assign\(:post, post\)/) }
         it { is_expected.to contain(/it "renders the edit (.*) form"/) }
       end
 
@@ -200,6 +201,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
         it { is_expected.to exist }
         it { is_expected.to contain(/require 'rails_helper'/) }
         it { is_expected.to contain(/^RSpec.describe "(.*)\/index", #{type_metatag(:view)}/) }
+        it { is_expected.to contain(/assign\(:posts, /) }
         it { is_expected.to contain(/it "renders a list of (.*)"/) }
       end
 
@@ -208,6 +210,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
         it { is_expected.to exist }
         it { is_expected.to contain(/require 'rails_helper'/) }
         it { is_expected.to contain(/^RSpec.describe "(.*)\/new", #{type_metatag(:view)}/) }
+        it { is_expected.to contain(/assign\(:post, /) }
         it { is_expected.to contain(/it "renders new (.*) form"/) }
       end
 
@@ -216,6 +219,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
         it { is_expected.to exist }
         it { is_expected.to contain(/require 'rails_helper'/) }
         it { is_expected.to contain(/^RSpec.describe "(.*)\/show", #{type_metatag(:view)}/) }
+        it { is_expected.to contain(/assign\(:post, /) }
         it { is_expected.to contain(/it "renders attributes in <p>"/) }
       end
     end
@@ -248,6 +252,62 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
         subject { file("spec/views/posts/new.html.erb_spec.rb") }
         it { is_expected.to contain(/assert_select "input\[name=\?\]", "post\[author_id\]"/) }
         it { is_expected.to contain(/assert_select "input\[name=\?\]", "post\[title\]/) }
+      end
+    end
+
+    describe 'with namespace' do
+      before { run_generator %w[admin/posts] }
+
+      describe 'edit' do
+        subject { file("spec/views/admin/posts/edit.html.erb_spec.rb") }
+        it { is_expected.to exist }
+        it { is_expected.to contain(/assign\(:admin_post, admin_post\)/) }
+      end
+
+      describe 'index' do
+        subject { file("spec/views/admin/posts/index.html.erb_spec.rb") }
+        it { is_expected.to exist }
+        it { is_expected.to contain(/assign\(:admin_posts, /) }
+      end
+
+      describe 'new' do
+        subject { file("spec/views/admin/posts/new.html.erb_spec.rb") }
+        it { is_expected.to exist }
+        it { is_expected.to contain(/assign\(:admin_post, /) }
+      end
+
+      describe 'show' do
+        subject { file("spec/views/admin/posts/show.html.erb_spec.rb") }
+        it { is_expected.to exist }
+        it { is_expected.to contain(/assign\(:admin_post, /) }
+      end
+    end
+
+    describe 'with namespace and --model-name' do
+      before { run_generator %w[admin/posts --model-name=Post] }
+
+      describe 'edit' do
+        subject { file("spec/views/admin/posts/edit.html.erb_spec.rb") }
+        it { is_expected.to exist }
+        it { is_expected.to contain(/assign\(:post, post\)/) }
+      end
+
+      describe 'index' do
+        subject { file("spec/views/admin/posts/index.html.erb_spec.rb") }
+        it { is_expected.to exist }
+        it { is_expected.to contain(/assign\(:posts, /) }
+      end
+
+      describe 'new' do
+        subject { file("spec/views/admin/posts/new.html.erb_spec.rb") }
+        it { is_expected.to exist }
+        it { is_expected.to contain(/assign\(:post, /) }
+      end
+
+      describe 'show' do
+        subject { file("spec/views/admin/posts/show.html.erb_spec.rb") }
+        it { is_expected.to exist }
+        it { is_expected.to contain(/assign\(:post, /) }
       end
     end
 
