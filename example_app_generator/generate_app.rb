@@ -31,7 +31,8 @@ in_root do
   # sqlite3 is an optional, unspecified, dependency and Rails 6.0 only supports `~> 1.4`
   gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 1.4'"
 
-  gsub_file "Gemfile", /.*chromedriver-helper.*/, "gem 'webdrivers'"
+  # remove webdrivers
+  gsub_file "Gemfile", /gem ['"]webdrivers['"]/, ""
 
   if RUBY_ENGINE == "jruby"
     gsub_file "Gemfile", /.*jdbc.*/, ''
