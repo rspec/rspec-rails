@@ -97,7 +97,11 @@ namespace :smoke do
   task app: ["clobber:app", "generate:app", "generate:stuff", :smoke]
 
   desc "run in the example app"
-  task({ run: ["clobber:app", "generate:app", "generate:stuff"] }, [:cmd]) do |_t, args|
+  task :run, [:cmd] do |_t, args|
+    unless ENV['SKIP_GENERATE']
+      ["clobber:app", "generate:app", "generate:stuff"].map { |task| Rake::Task[task].invoke }
+    end
+
     in_example_app args.cmd.to_s
   end
 

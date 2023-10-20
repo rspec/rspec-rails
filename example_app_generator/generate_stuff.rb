@@ -32,6 +32,7 @@ module ExampleAppHooks
     end
 
     def setup_tasks
+      copy_file 'config/initializers/zeitwerk.rb'
       copy_file 'app/models/in_memory/model.rb'
       copy_file 'lib/rails/generators/in_memory/model/model_generator.rb'
       copy_file 'lib/rails/generators/in_memory/model/templates/model.rb.erb'
