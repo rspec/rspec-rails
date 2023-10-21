@@ -22,22 +22,22 @@ module RSpec
       end
 
       # This is called after the environment has been loaded but before Rails
-      # sets the default for the `preview_path`
+      # sets the default for the `preview_paths`
       initializer "rspec_rails.action_mailer",
                   before: "action_mailer.set_configs" do |app|
-                    setup_preview_path(app)
+                    setup_preview_paths(app)
                   end
 
     private
 
-      def setup_preview_path(app)
+      def setup_preview_paths(app)
         return unless supports_action_mailer_previews?(app.config)
 
         options = app.config.action_mailer
-        config_default_preview_path(options) if config_preview_path?(options)
+        config_default_preview_paths(options) if config_preview_paths?(options)
       end
 
-      def config_preview_path?(options)
+      def config_preview_paths?(options)
         # We cannot use `respond_to?(:show_previews)` here as it will always
         # return `true`.
         if options.show_previews.nil?
@@ -47,10 +47,10 @@ module RSpec
         end
       end
 
-      def config_default_preview_path(options)
-        return unless options.preview_path.blank?
+      def config_default_preview_paths(options)
+        return unless options.preview_paths.blank?
 
-        options.preview_path = "#{::Rails.root}/spec/mailers/previews"
+        options.preview_paths << "#{::Rails.root}/spec/mailers/previews"
       end
 
       def supports_action_mailer_previews?(config)
