@@ -44,6 +44,52 @@ module RSpec
         ].join("_").tr(CHARS_TO_TRANSLATE.join, "_").byteslice(0...200).scrub("") + "_#{rand(1000)}"
       end
 
+      if ::Rails::VERSION::STRING.to_f >= 7.1
+        # @private
+        # Allows failure screenshot to work whilst not exposing metadata
+        class SuppressRailsScreenshotMetadata
+          def initialize
+            @example_data = {}
+          end
+
+          def [](key)
+            if @example_data.key?(key)
+              @example_data[key]
+            else
+              raise_wrong_scope_error
+            end
+          end
+
+          def []=(key, value)
+            if key == :failure_screenshot_path
+              @example_data[key] = value
+            else
+              raise_wrong_scope_error
+            end
+          end
+
+          def method_missing(_name, *_args, &_block)
+            raise_wrong_scope_error
+          end
+
+          private
+
+          def raise_wrong_scope_error
+            raise RSpec::Core::ExampleGroup::WrongScopeError,
+                  "`metadata` is not available from within an example " \
+                  "(e.g. an `it` block) or from constructs that run in the " \
+                  "scope of an example (e.g. `before`, `let`, etc). It is " \
+                  "only available on an example group (e.g. a `describe` or "\
+                  "`context` block)"
+          end
+        end
+
+        # @private
+        def metadata
+          @metadata ||= SuppressRailsScreenshotMetadata.new
+        end
+      end
+
       # Delegates to `Rails.application`.
       def app
         ::Rails.application
