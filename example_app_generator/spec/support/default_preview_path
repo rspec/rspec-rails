@@ -43,9 +43,12 @@ require_file_stub 'config/environment' do
 
         # Don't care if the mailer can't send.
         config.action_mailer.raise_delivery_errors = false unless ENV['NO_ACTION_MAILER']
-
         if ENV['CUSTOM_PREVIEW_PATH']
-          config.action_mailer.preview_path = ENV['CUSTOM_PREVIEW_PATH']
+          if Rails::VERSION::STRING.start_with?('7.1')
+            config.action_mailer.preview_paths = [ENV['CUSTOM_PREVIEW_PATH']]
+          else
+            config.action_mailer.preview_path = ENV['CUSTOM_PREVIEW_PATH']
+          end
         end
         if ENV['SHOW_PREVIEWS']
           config.action_mailer.show_previews = (ENV['SHOW_PREVIEWS'] == 'true')
@@ -66,7 +69,11 @@ exit if ENV['NO_ACTION_MAILER']
 if ENV['DEFAULT_URL']
   puts ActionMailer::Base.default_url_options[:host]
 elsif defined?(::ActionMailer::Preview)
-  puts Rails.application.config.action_mailer.preview_path
+  if Rails::VERSION::STRING.start_with?('7.1')
+    puts Rails.application.config.action_mailer.preview_paths
+  else
+    puts Rails.application.config.action_mailer.preview_path
+  end
 end
 
 # This will force the loading of ActionMailer settings to ensure we do not
