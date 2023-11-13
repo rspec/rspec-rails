@@ -30,7 +30,7 @@ RSpec.describe 'Action Mailer railtie hook' do
     CaptureExec.new(out, $?.exitstatus)
   end
 
-  if Rails::VERSION::STRING.start_with?('7.1')
+  if Rails::VERSION::STRING.to_f >= 7.1
     let(:expected_custom_path) { "/custom/path\n#{::Rails.root}/test/mailers/previews" }
     let(:expected_rspec_path) { "#{::Rails.root}/spec/mailers/previews\n#{::Rails.root}/test/mailers/previews" }
 

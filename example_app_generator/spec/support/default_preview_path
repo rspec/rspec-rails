@@ -37,14 +37,14 @@ require_file_stub 'config/environment' do
     module ExampleApp
       class Application < Rails::Application
         config.eager_load = false
-        if Rails::VERSION::STRING.start_with?('7')
+        if Rails::VERSION::STRING.to_f >= 7.0
           config.active_support.cache_format_version = 7.0
         end
 
         # Don't care if the mailer can't send.
         config.action_mailer.raise_delivery_errors = false unless ENV['NO_ACTION_MAILER']
         if ENV['CUSTOM_PREVIEW_PATH']
-          if Rails::VERSION::STRING.start_with?('7.1')
+          if Rails::VERSION::STRING.to_f >= 7.1
             config.action_mailer.preview_paths = [ENV['CUSTOM_PREVIEW_PATH']]
           else
             config.action_mailer.preview_path = ENV['CUSTOM_PREVIEW_PATH']
