@@ -65,7 +65,7 @@ require_file_stub 'config/environment' do
   Rails.application.initialize!
 end
 
-exit if ENV['NO_ACTION_MAILER']
+exit(0) if ENV['NO_ACTION_MAILER']
 if ENV['DEFAULT_URL']
   puts ActionMailer::Base.default_url_options[:host]
 elsif defined?(::ActionMailer::Preview)
@@ -79,3 +79,4 @@ end
 # This will force the loading of ActionMailer settings to ensure we do not
 # accidentally set something we should not
 ActionMailer::Base.smtp_settings
+exit 0

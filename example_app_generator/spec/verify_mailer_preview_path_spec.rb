@@ -17,9 +17,17 @@ RSpec.describe 'Action Mailer railtie hook' do
 
   def capture_exec(*ops)
     ops << { err: [:child, :out] }
-    io = IO.popen(ops)
+    lines = []
+
+    _process =
+      IO.popen(ops) do |io|
+        while (line = io.gets)
+          lines << line
+        end
+      end
+
     # Necessary to ignore warnings from Rails code base
-    out =  io.readlines
+    out = lines
               .reject { |line| line =~ /warning: circular argument reference/ }
               .reject { |line| line =~ /Gem::Specification#rubyforge_project=/ }
               .reject { |line| line =~ /DEPRECATION WARNING/ }
