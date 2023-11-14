@@ -13,6 +13,8 @@ Enhancements:
 * When using `render` in view specs, `:locals` will now be merged into the
   default implicit template, allowing `render locals: {...}` style calls.
   (Jon Rowe, #2686)
+* Add support for `Rails.config.action_mailer.preview_paths` on Rails 7.1/
+  (Jon Rowe, #2706)
 
 Bug Fixes:
 
