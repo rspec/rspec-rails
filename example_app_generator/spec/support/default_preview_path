@@ -37,10 +37,12 @@ require_file_stub 'config/environment' do
     module ExampleApp
       class Application < Rails::Application
         config.eager_load = false
+        if Rails::VERSION::STRING.to_f >= 7.0
+          config.active_support.cache_format_version = 7.0
+        end
 
         # Don't care if the mailer can't send.
         config.action_mailer.raise_delivery_errors = false unless ENV['NO_ACTION_MAILER']
-
         if ENV['CUSTOM_PREVIEW_PATH']
           config.action_mailer.preview_path = ENV['CUSTOM_PREVIEW_PATH']
         end
@@ -59,13 +61,18 @@ require_file_stub 'config/environment' do
   Rails.application.initialize!
 end
 
-exit if ENV['NO_ACTION_MAILER']
+exit(0) if ENV['NO_ACTION_MAILER']
 if ENV['DEFAULT_URL']
   puts ActionMailer::Base.default_url_options[:host]
 elsif defined?(::ActionMailer::Preview)
-  puts Rails.application.config.action_mailer.preview_path
+  if Rails::VERSION::STRING.start_with?('7.1')
+    puts Rails.application.config.action_mailer.preview_paths
+  else
+    puts Rails.application.config.action_mailer.preview_path
+  end
 end
 
 # This will force the loading of ActionMailer settings to ensure we do not
 # accidentally set something we should not
 ActionMailer::Base.smtp_settings
+exit 0
