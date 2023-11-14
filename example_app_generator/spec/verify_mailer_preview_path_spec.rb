@@ -17,9 +17,17 @@ RSpec.describe 'Action Mailer railtie hook' do
 
   def capture_exec(*ops)
     ops << { err: [:child, :out] }
-    io = IO.popen(ops)
+    lines = []
+
+    _process =
+      IO.popen(ops) do |io|
+        while (line = io.gets)
+          lines << line
+        end
+      end
+
     # Necessary to ignore warnings from Rails code base
-    out =  io.readlines
+    out = lines
               .reject { |line| line =~ /warning: circular argument reference/ }
               .reject { |line| line =~ /Gem::Specification#rubyforge_project=/ }
               .reject { |line| line =~ /DEPRECATION WARNING/ }
@@ -30,12 +38,32 @@ RSpec.describe 'Action Mailer railtie hook' do
     CaptureExec.new(out, $?.exitstatus)
   end
 
-  def have_no_preview
-    have_attributes(io: be_blank, exit_status: 0)
+  if ENV['RAILS_VERSION'] == 'main' && Rails::VERSION::STRING == "7.2.0.alpha"
+    before do
+      skip('This is broken on Rails main but is skipped for green builds of 7.1.x, please fix')
+    end
   end
 
-  before do
-    skip("Currently broken for unknown reasons")
+  if Rails::VERSION::STRING.to_f >= 7.1
+    let(:expected_custom_path) { "/custom/path\n#{::Rails.root}/test/mailers/previews" }
+    let(:expected_rspec_path) { "#{::Rails.root}/spec/mailers/previews\n#{::Rails.root}/test/mailers/previews" }
+
+    def have_no_preview(opts = {})
+      expected_io =
+        if opts[:actually_blank]
+          be_blank
+        else
+          "#{::Rails.root}/test/mailers/previews"
+        end
+      have_attributes(io: expected_io, exit_status: 0)
+    end
+  else
+    let(:expected_custom_path) { '/custom/path' }
+    let(:expected_rspec_path) { "#{::Rails.root}/spec/mailers/previews" }
+
+    def have_no_preview(_opts = {})
+      have_attributes(io: be_blank, exit_status: 0)
+    end
   end
 
   let(:exec_script) {
@@ -49,9 +77,7 @@ RSpec.describe 'Action Mailer railtie hook' do
 
       it 'sets the preview path to the default rspec path' do
         skip "this spec fails singularly on JRuby due to weird env things" if RUBY_ENGINE == "jruby"
-        expect(capture_exec(custom_env, exec_script)).to eq(
-          "#{::Rails.root}/spec/mailers/previews"
-        )
+        expect(capture_exec(custom_env, exec_script)).to eq(expected_rspec_path)
       end
 
       it 'respects the setting from `show_previews`' do
@@ -69,7 +95,7 @@ RSpec.describe 'Action Mailer railtie hook' do
             custom_env.merge('CUSTOM_PREVIEW_PATH' => '/custom/path'),
             exec_script
           )
-        ).to eq('/custom/path')
+        ).to eq(expected_custom_path)
       end
 
       it 'allows initializers to set options' do
@@ -87,7 +113,7 @@ RSpec.describe 'Action Mailer railtie hook' do
             custom_env.merge('NO_ACTION_MAILER' => 'true'),
             exec_script
           )
-        ).to have_no_preview
+        ).to have_no_preview(actually_blank: true)
       end
     end
 
@@ -102,7 +128,7 @@ RSpec.describe 'Action Mailer railtie hook' do
       it 'respects the setting from `show_previews`' do
         expect(
           capture_exec(custom_env.merge('SHOW_PREVIEWS' => 'true'), exec_script)
-        ).to eq("#{::Rails.root}/spec/mailers/previews")
+        ).to eq(expected_rspec_path)
       end
 
       it 'allows initializers to set options' do
