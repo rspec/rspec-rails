@@ -92,6 +92,53 @@ module RSpec::Rails
       end
     end
 
+    describe '#take_screenshot', if: ::Rails::VERSION::STRING.to_f >= 7.1 do
+      it 'handles Rails calling metadata' do
+        allow(Capybara::Session).to receive(:instance_created?).and_return(true)
+        group = RSpec::Core::ExampleGroup.describe do
+          include SystemExampleGroup
+
+          before do
+            driven_by(:selenium)
+          end
+
+          def page
+            instance_double(Capybara::Session, save_screenshot: nil)
+          end
+        end
+        example = group.it('fails') { raise }
+        group.run
+
+        expect(example.metadata[:execution_result].exception).to be_a RuntimeError
+      end
+    end
+
+    describe '#metadata', if: ::Rails::VERSION::STRING.to_f >= 7.1 do
+      let(:group) do
+        RSpec::Core::ExampleGroup.describe do
+          include SystemExampleGroup
+        end
+      end
+
+      it 'fakes out the rails expected method' do
+        example = group.it('does nothing') {
+          metadata[:failure_screenshot_path] = :value
+          expect(metadata[:failure_screenshot_path]).to eq(:value)
+        }
+        group.run
+        expect(example.execution_result.status).to eq :passed
+      end
+
+      it 'still raises correctly if you use it for something else' do
+        examples = []
+        examples << group.it('fails nothing') { metadata[:other] = :value }
+        examples << group.it('fails nothing') { metadata[:other] }
+        examples << group.it('fails nothing') { metadata.key?(:any) }
+        group.run
+        expect(examples.map(&:execution_result)).to all have_attributes status: :failed
+      end
+    end
+
     describe "hook order" do
       it 'calls Capybara.reset_sessions (TestUnit after_teardown) after any after hooks' do
         calls_in_order = []
