@@ -23,7 +23,9 @@ Bug Fixes:
 * Fix fixture warning during `:context` hooks on Rails `main`. (Jon Rowe, #2685)
 * Fix `stub_template` on Rails `main`. (Jon Rowe, #2685)
 * Fix variable name in scaffolded view specs when namespaced. (Taketo Takashima, #2694)
-
+* Prevent `take_failed_screenshot` producing an additional error through `metadata`
+  access. (Jon Rowe, #2704)
+  
 ### 6.0.3 / 2023-05-31
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.2...v6.0.3)
 
