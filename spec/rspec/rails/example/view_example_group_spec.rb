@@ -280,33 +280,65 @@ module RSpec::Rails
 
     describe '#stub_template' do
       let(:view_spec_group) do
-        Class.new do
-          include ViewExampleGroup::ExampleMethods
-          def _view
-            @_view ||= Struct.new(:view_paths).new(ActionView::PathSet.new(['some-path']))
-          end
+        RSpec.describe "a view spec" do
+          include ::RSpec::Rails::ViewExampleGroup
         end
       end
 
       it 'prepends an ActionView::FixtureResolver to the view path' do
-        view_spec = view_spec_group.new
-        view_spec.stub_template('some_path/some_template' => 'stubbed-contents')
+        result = :not_loaded
 
-        result = view_spec.view.view_paths.first
+        view_spec_group.specify do
+          stub_template('some_path/some_template' => 'stubbed-contents')
+          result = view.view_paths.first
+        end
+        view_spec_group.run
 
         expect(result).to be_instance_of(ActionView::FixtureResolver)
         data = result.respond_to?(:data) ? result.data : result.hash
         expect(data).to eq('some_path/some_template' => 'stubbed-contents')
       end
 
+      it 'caches FixtureResolver instances between examples' do
+        example_one_view_paths = :not_set
+        example_two_view_paths = :not_set
+
+        view_spec_group.specify do
+          stub_template('some_path/some_template' => 'stubbed-contents')
+          example_one_view_paths = view.view_paths
+        end
+        view_spec_group.specify do
+          stub_template('some_path/some_template' => 'stubbed-contents')
+          example_two_view_paths = view.view_paths
+        end
+        view_spec_group.run
+
+        expect(example_one_view_paths.first).to eq(example_two_view_paths.first)
+      end
+
       it 'caches FixtureResolver instances between example groups' do
-        view_spec_one = view_spec_group.new
-        view_spec_two = view_spec_group.new
+        example_one_view_paths = :not_set
+        example_two_view_paths = :not_set
 
-        view_spec_one.stub_template('some_path/some_template' => 'stubbed-contents')
-        view_spec_two.stub_template('some_path/some_template' => 'stubbed-contents')
+        RSpec.describe "a view spec" do
+          include ::RSpec::Rails::ViewExampleGroup
 
-        expect(view_spec_one.view.view_paths.first).to eq(view_spec_two.view.view_paths.first)
+          specify do
+            stub_template('some_path/some_template' => 'stubbed-contents')
+            example_one_view_paths = view.view_paths
+          end
+        end.run
+
+        RSpec.describe "another view spec" do
+          include ::RSpec::Rails::ViewExampleGroup
+
+          specify do
+            stub_template('some_path/some_template' => 'stubbed-contents')
+            example_two_view_paths = view.view_paths
+          end
+        end.run
+
+        expect(example_one_view_paths.first).to eq(example_two_view_paths.first)
       end
     end
   end

@@ -91,7 +91,7 @@ module RSpec
           #
           #     stub_template("widgets/_widget.html.erb" => "This content.")
           def stub_template(hash)
-            view.view_paths.send(:initialize_copy, ActionView::PathSet.new([StubResolverCache.resolver_for(hash)] + view.view_paths.paths))
+            controller.prepend_view_path(StubResolverCache.resolver_for(hash))
           end
         else
           # Simulates the presence of a template on the file system by adding a
