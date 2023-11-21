@@ -26,6 +26,7 @@ Bug Fixes:
 * Prevent `take_failed_screenshot` producing an additional error through `metadata`
   access. (Jon Rowe, #2704)
 * Use `ActiveSupport::ExecutionContext::TestHelper` on Rails 7+. (Jon Rowe, #2711)
+* Fix leak of templates stubbed with `stub_template` on Rails 7.1. (Jon Rowe, #2714)
 
 ### 6.0.3 / 2023-05-31
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.2...v6.0.3)
