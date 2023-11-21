@@ -25,13 +25,14 @@ According to [RSpec Rails new versioning strategy][] use:
 [`rspec-rails` 3.x]: https://github.com/rspec/rspec-rails/tree/3-9-maintenance
 [`rspec-rails` 4.x]: https://github.com/rspec/rspec-rails/tree/4-1-maintenance
 [`rspec-rails` 5.x]: https://github.com/rspec/rspec-rails/tree/5-1-maintenance
-[`rspec-rails` 6.x]: https://github.com/rspec/rspec-rails/tree/6-0-maintenance
+[`rspec-rails` 6.x]: https://github.com/rspec/rspec-rails/tree/6-1-maintenance
 [RSpec Rails new versioning strategy]: https://github.com/rspec/rspec-rails/blob/main/rfcs/versioning-strategy.md
 
 ## Installation
 
-**IMPORTANT** This README / branch refers to the current development build.
-See the [`6-0-maintenance` branch on Github](https://github.com/rspec/rspec-rails/tree/6-0-maintenance) if you want or require the latest stable release.
+**IMPORTANT** This README / branch refers to the 6.1.x stable release series, only bugfixes from this series will
+be added here. See the [`main` branch on Github](https://github.com/rspec/rspec-rails/tree/main) if you want or
+require the latest unstable features.
 
 1. Add `rspec-rails` to **both** the `:development` and `:test` groups
    of your app’s `Gemfile`:
@@ -39,7 +40,7 @@ See the [`6-0-maintenance` branch on Github](https://github.com/rspec/rspec-rail
    ```ruby
    # Run against this stable release
    group :development, :test do
-     gem 'rspec-rails', '~> 6.0.0'
+     gem 'rspec-rails', '~> 6.1.0'
    end
 
    # Or, run against the main branch

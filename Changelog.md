@@ -1,8 +1,12 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.4...main)
 
+### 6.1.0 / 2023-11-21
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.4...v6.1.0)
+
 Enhancements:
 
+* Support for Rails 7.1
 * Minor tweak to generated `rails_helper.rb` to use `Rails.root.join`.
   (@masato-bkn, Ryo Nakamura, #2640, #2678)
 * Add `RSpec::Rails::Configuration.fixture_paths` configuration to support
