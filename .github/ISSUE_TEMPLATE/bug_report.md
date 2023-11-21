@@ -47,7 +47,7 @@ Please provide a description of what you expect to be happening, and how that
 differs from the current behaviour.
 -->
 
-## Can you provide an example app?
+## Can you provide an example reproduction?
 
 <!--
 This step is probably the most important in allowing us to quickly debug
