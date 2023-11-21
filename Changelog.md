@@ -1,5 +1,5 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.3...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.4...main)
 
 Enhancements:
 
@@ -15,6 +15,9 @@ Enhancements:
   (Jon Rowe, #2686)
 * Add support for `Rails.config.action_mailer.preview_paths` on Rails 7.1/
   (Jon Rowe, #2706)
+
+### 6.0.4 / 2023-11-21
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.3...v6.0.4)
 
 Bug Fixes:
 
