@@ -43,14 +43,14 @@ module RSpec
             if ::Rails.version.to_f >= 7.1
               def fixtures(*args)
                 super.tap do
-                  fixture_sets.each_key do |fixture_name|
-                    proxy_method_warning_if_called_in_before_context_scope(fixture_name)
+                  fixture_sets.each_pair do |method_name, fixture_name|
+                    proxy_method_warning_if_called_in_before_context_scope(method_name, fixture_name)
                   end
                 end
               end
 
-              def proxy_method_warning_if_called_in_before_context_scope(fixture_name)
-                define_method(fixture_name) do |*args, **kwargs, &blk|
+              def proxy_method_warning_if_called_in_before_context_scope(method_name, fixture_name)
+                define_method(method_name) do |*args, **kwargs, &blk|
                   if RSpec.current_scope == :before_context_hook
                     RSpec.warn_with("Calling fixture method in before :context ")
                   else
