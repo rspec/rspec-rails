@@ -9,14 +9,9 @@ RSpec.describe Rspec::Generators::GeneratorGenerator, type: :generator do
     before do
       run_generator %w[posts]
     end
-    it "creates the spec file by default" do
-      expect(generator_spec).to exist
-    end
-    it "contains 'rails_helper in the spec file'" do
-      expect(generator_spec).to contain(/require 'rails_helper'/)
-    end
-    it "includes the generator type in the metadata" do
-      expect(generator_spec).to contain(/^RSpec.describe "Posts", #{type_metatag(:generator)}/)
+
+    it "include the standard boilerplate" do
+      expect(generator_spec).to contain(/require 'rails_helper'/).and(contain(/^RSpec.describe "Posts", #{type_metatag(:generator)}/))
     end
   end
 end

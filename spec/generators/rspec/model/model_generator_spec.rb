@@ -22,9 +22,9 @@ RSpec.describe Rspec::Generators::ModelGenerator, type: :generator do
       end
 
       describe 'the fixtures' do
-        subject { file('spec/fixtures/posts.yml') }
-
-        it { is_expected.not_to exist }
+        it "will skip the file" do
+          expect(File.exist?(file('spec/fixtures/posts.yml'))).to be false
+        end
       end
     end
   end

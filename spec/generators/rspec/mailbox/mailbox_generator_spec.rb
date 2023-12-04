@@ -8,10 +8,12 @@ RSpec.describe Rspec::Generators::MailboxGenerator, type: :generator, skip: !RSp
   describe 'the generated files' do
     before { run_generator %w[forwards] }
 
-    subject { file('spec/mailboxes/forwards_mailbox_spec.rb') }
+    subject(:mailbox_spec) { file('spec/mailboxes/forwards_mailbox_spec.rb') }
 
-    it { is_expected.to exist }
-    it { is_expected.to contain(/require 'rails_helper'/) }
-    it { is_expected.to contain(/describe ForwardsMailbox, #{type_metatag(:mailbox)}/) }
+    it 'generates the file' do
+      expect(
+        mailbox_spec
+      ).to contain(/require 'rails_helper'/).and contain(/describe ForwardsMailbox, #{type_metatag(:mailbox)}/)
+    end
   end
 end
