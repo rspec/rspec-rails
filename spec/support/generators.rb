@@ -24,17 +24,19 @@ module RSpec
           before { run_generator [name, '--fixture'] }
 
           describe 'the spec' do
-            subject { file("spec/models/#{name}_spec.rb") }
+            subject(:model_spec) { file("spec/models/#{name}_spec.rb") }
 
-            it { is_expected.to exist }
-            it { is_expected.to contain(/require 'rails_helper'/) }
-            it { is_expected.to contain(/^RSpec.describe #{class_name}, #{type_metatag(:model)}/) }
+            it 'contains the standard boilerplate' do
+              expect(model_spec).to contain(/require 'rails_helper'/).and(contain(/^RSpec.describe #{class_name}, #{type_metatag(:model)}/))
+            end
           end
 
           describe 'the fixtures' do
-            subject { file("spec/fixtures/#{name}.yml") }
+            subject(:filename) { file("spec/fixtures/#{name}.yml") }
 
-            it { is_expected.to contain(Regexp.new('# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html')) }
+            it 'contains the standard boilerplate' do
+              expect(filename).to contain(Regexp.new('# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html'))
+            end
           end
         end
 
@@ -47,7 +49,7 @@ module RSpec
             subject(:request_spec) { file('spec/requests/posts_spec.rb') }
 
             it "does not create the request spec" do
-              expect(request_spec).not_to exist
+              expect(File.exist?(request_spec)).to be false
             end
           end
 
@@ -62,27 +64,11 @@ module RSpec
               let(:name) { %w[posts] }
               let(:spec_file_name) { 'spec/requests/posts_spec.rb' }
 
-              it "creates the request spec" do
-                expect(request_spec).to exist
-              end
-
-              it "the generator requires 'rails_helper'" do
+              it 'contains the standard boilerplate' do
                 expect(request_spec).to contain(/require 'rails_helper'/)
-              end
-
-              it "the generator describes the provided NAME without monkey " \
-                 "patching setting the type to `:request`" do
-                   expect(request_spec).to contain(
-                     /^RSpec.describe "Posts", #{type_metatag(:request)}/
-                   )
-                 end
-
-              it "the generator includes a sample GET request" do
-                expect(request_spec).to contain(/describe "GET \/posts"/)
-              end
-
-              it "the generator sends the GET request to the index path" do
-                expect(request_spec).to contain(/get posts_index_path/)
+                                          .and(contain(/^RSpec.describe "Posts", #{type_metatag(:request)}/))
+                                          .and(contain(/describe "GET \/posts"/))
+                                          .and(contain(/get posts_index_path/))
               end
             end
 
@@ -90,27 +76,11 @@ module RSpec
               let(:name) { %w[api/posts] }
               let(:spec_file_name) { 'spec/requests/api/posts_spec.rb' }
 
-              it "creates the request spec" do
-                expect(request_spec).to exist
-              end
-
-              it "the generator requires 'rails_helper'" do
+              it 'contains the standard boilerplate' do
                 expect(request_spec).to contain(/require 'rails_helper'/)
-              end
-
-              it "the generator describes the provided NAME without monkey " \
-                 "patching setting the type to `:request`" do
-                   expect(request_spec).to contain(
-                     /^RSpec.describe "Api::Posts", #{type_metatag(:request)}/
-                   )
-                 end
-
-              it "the generator includes a sample GET request" do
-                expect(request_spec).to contain(/describe "GET \/api\/posts"/)
-              end
-
-              it "the generator sends the GET request to the index path" do
-                expect(request_spec).to contain(/get api_posts_index_path\n/)
+                                          .and(contain(/^RSpec.describe "Api::Posts", #{type_metatag(:request)}/))
+                                          .and(contain(/describe "GET \/api\/posts"/))
+                                          .and(contain(/get api_posts_index_path\n/))
               end
             end
           end

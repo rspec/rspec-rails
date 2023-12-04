@@ -55,7 +55,7 @@ RSpec.describe Rspec::Generators::InstallGenerator, type: :generator do
 
   it "generates .rspec" do
     run_generator
-    expect(file('.rspec')).to exist
+    expect(File.exist?(file('.rspec'))).to be true
   end
 
   it "generates spec/spec_helper.rb" do
