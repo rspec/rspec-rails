@@ -170,7 +170,8 @@ module RSpec
             RSpec.deprecate(
               "config.fixture_path",
               replacement: "config.fixture_paths",
-              message: "Rails 7.1 has deprecated the singular fixture_path in favour of an array"
+              message: "Rails 7.1 has deprecated the singular fixture_path in favour of an array." \
+              "You should migrate to plural:"
             )
             fixture_paths&.first
           end
@@ -179,7 +180,8 @@ module RSpec
             RSpec.deprecate(
               "config.fixture_path = #{path.inspect}",
               replacement: "config.fixture_paths = [#{path.inspect}]",
-              message: "Rails 7.1 has deprecated the singular fixture_path in favour of an array"
+              message: "Rails 7.1 has deprecated the singular fixture_path in favour of an array." \
+              "You should migrate to plural:"
             )
             self.fixture_paths = Array(path)
           end
