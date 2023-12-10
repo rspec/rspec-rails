@@ -51,3 +51,13 @@ class AlternatePrimaryKeyModel < ActiveRecord::Base
 
   attr_accessor :my_id
 end
+
+module Namespaced
+  class Model < ActiveRecord::Base
+    def self.connection_fields
+      { name: :string }
+    end
+
+    extend Connections
+  end
+end
