@@ -5,6 +5,7 @@ Bug Fixes:
 
 * Improved deprecation message for `RSpec::Rails::Configuration.fixture_paths`
   (Benoit Tigeot, #2720)
+* Fix support for namespaced fixtures in Rails 7.1. (Benedikt Deicke, #2716)
 
 ### 6.1.0 / 2023-11-21
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.4...v6.1.0)
