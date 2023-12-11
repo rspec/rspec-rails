@@ -1,5 +1,5 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.4...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.0...6-1-maintenance)
 
 Bug Fixes:
 
