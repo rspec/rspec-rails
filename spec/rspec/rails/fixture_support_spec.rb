@@ -37,12 +37,6 @@ module RSpec::Rails
 
         expect_to_pass(group)
       end
-
-      def expect_to_pass(group)
-        result = group.run(failure_reporter)
-        failure_reporter.exceptions.map { |e| raise e }
-        expect(result).to be true
-      end
     end
 
     it "will allow #setup_fixture to run successfully" do
@@ -53,6 +47,30 @@ module RSpec::Rails
       end
 
       expect { group.new.setup_fixtures }.to_not raise_error
+    end
+
+    it "handles namespaced fixtures" do
+      group = RSpec::Core::ExampleGroup.describe do
+        include FixtureSupport
+        fixtures 'namespaced/model'
+
+        it 'has the fixture' do
+          namespaced_model(:one)
+        end
+      end
+      if Rails.version.to_f >= 7.1
+        group.fixture_paths = [File.expand_path('../../support/fixtures', __dir__)]
+      else
+        group.fixture_path = File.expand_path('../../support/fixtures', __dir__)
+      end
+
+      expect_to_pass(group)
+    end
+
+    def expect_to_pass(group)
+      result = group.run(failure_reporter)
+      failure_reporter.exceptions.map { |e| raise e }
+      expect(result).to be true
     end
   end
 end
