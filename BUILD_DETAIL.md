@@ -6,14 +6,14 @@ DO NOT modify it by hand as your changes will get lost the next time it is gener
 # The CI build, in detail
 
 The CI build runs many verification steps to prevent regressions and
-ensure high-quality code. To run the Travis build locally, run:
+ensure high-quality code. To run the build locally, run:
 
 ```
 $ script/run_build
 ```
 
 It can be useful to run the build steps individually
-to repro a failing part of a Travis build. Let's break
+to repro a failing part of a build. Let's break
 the build down into the individual steps.
 
 ## Specs
