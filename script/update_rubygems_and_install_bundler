@@ -1,19 +1,32 @@
 #!/bin/bash
-# This file was generated on 2019-12-18T14:01:39+00:00 from the rspec-dev repo.
-# DO NOT modify it by hand as your changes will get lost the next time it is generated.
+# This file is manually managed unlike the rest of core rspec gems because it is independant.
 
 set -e
-source script/functions.sh
 
-if is_ruby_26_plus; then
+function is_ruby_3_plus {
+  if ruby -e "exit(RUBY_VERSION.to_f >= 3.0)"; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+function is_ruby_26_plus {
+  if ruby -e "exit(RUBY_VERSION.to_f >= 2.6)"; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+if is_ruby_3_plus; then
   gem update --no-document --system
   gem install --no-document bundler
-elif is_ruby_23_plus; then
+elif is_ruby_26_plus; then
+  gem update --no-document --system '3.4.22'
+  gem install --no-document bundler
+else
   echo "Warning installing older versions of Rubygems / Bundler"
   gem update --system '3.3.26'
   gem install bundler -v '2.3.26'
-else
-  echo "Warning installing older versions of Rubygems / Bundler"
-  gem update --system '2.7.10'
-  gem install bundler -v '1.17.3'
 fi
