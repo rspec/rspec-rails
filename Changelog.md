@@ -1,5 +1,8 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.0...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.1...main)
+
+### 6.1.1 / 2024-01-25
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.0...v6.1.1)
 
 Bug Fixes:
 
