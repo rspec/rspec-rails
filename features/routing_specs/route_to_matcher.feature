@@ -4,14 +4,14 @@ Feature: `route_to` matcher
   It is most valuable when specifying routes other than standard RESTful
   routes.
 
-  ```ruby
-  expect(get("/")).to route_to("welcome#index") # new in 2.6.0
-  ```
+```ruby
+expect(get("/")).to route_to("welcome#index") # new in 2.6.0
+```
   or
 
-  ```ruby
-  expect(:get => "/").to route_to(:controller => "welcome")
-  ```
+```ruby
+expect(:get => "/").to route_to(:controller => "welcome")
+```
 
   Scenario: Passing route spec with shortcut syntax
     Given a file named "spec/routing/widgets_routing_spec.rb" with:

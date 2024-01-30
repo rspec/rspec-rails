@@ -2,39 +2,39 @@
 
 Install Rails 6
 
-```shell
-    $ gem install rails -v "~> 6.0.0"
+```console
+$ gem install rails -v "~> 6.0.0"
 ```
 
 ### Generate an app
 
-```shell
-    $ rails new example_app
-    $ cd example_app
+```console
+$ rails new example_app
+$ cd example_app
 ```
 
 ### Add `rspec-rails` to the Gemfile
 
-```shell
-    $ echo 'gem "rspec-rails", group: [:development, :test]' >> Gemfile
+```console
+$ echo 'gem "rspec-rails", group: [:development, :test]' >> Gemfile
 ```
 
 ### Install the bundle
 
-```shell
-    $ bundle install
+```console
+$ bundle install
 ```
 
 ### Bootstrap RSpec
 
-```shell
-    $ rails generate rspec:install
+```console
+$ rails generate rspec:install
 ```
 
 ### Generate a scaffold
 
-```shell
-    $ rails generate scaffold Widget name:string
+```console
+$ rails generate scaffold Widget name:string
 ```
 
 This generates files in the `app` and `spec` directories. The files in the
@@ -43,20 +43,20 @@ the files in the `spec` directory to RSpec.
 
 ### Run migrations
 
-```shell
-    $ rails db:migrate && rails db:test:prepare
+```console
+$ rails db:migrate && rails db:test:prepare
 ```
 
 ### Run RSpec
 
-```shell
-    $ rake spec
+```console
+$ rake spec
 ```
 
 or
 
-```shell
-    $ rspec spec --format documentation
+```console
+$ rspec spec --format documentation
 ```
 
 If all went well, you should see output ending with:

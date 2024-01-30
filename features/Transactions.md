@@ -4,9 +4,9 @@ When you run `rails generate rspec:install`, the `spec/rails_helper.rb` file
 includes the following configuration:
 
 ```ruby
-    RSpec.configure do |config|
-      config.use_transactional_fixtures = true
-    end
+RSpec.configure do |config|
+  config.use_transactional_fixtures = true
+end
 ```
 
 The name of this setting is a bit misleading. What it really means in Rails
@@ -24,9 +24,9 @@ If you prefer to manage the data yourself, or using another tool like
 simply tell RSpec to tell Rails not to manage transactions:
 
 ```ruby
-    RSpec.configure do |config|
-      config.use_transactional_fixtures = false
-    end
+RSpec.configure do |config|
+  config.use_transactional_fixtures = false
+end
 ```
 
 ### Data created in `before(:example)` are rolled back
@@ -37,19 +37,19 @@ isolated from state that would otherwise be left around by the examples that
 already ran. For example:
 
 ```ruby
-    describe Widget do
-      before(:example) do
-        @widget = Widget.create
-      end
+describe Widget do
+  before(:example) do
+    @widget = Widget.create
+  end
 
-      it "does something" do
-        expect(@widget).to do_something
-      end
+  it "does something" do
+    expect(@widget).to do_something
+  end
 
-      it "does something else" do
-        expect(@widget).to do_something_else
-      end
-    end
+  it "does something else" do
+    expect(@widget).to do_something_else
+  end
+end
 ```
 
 The `@widget` is recreated in each of the two examples above, so each example
@@ -67,13 +67,13 @@ guidelines:
 1.  Be sure to clean up any data in an `after(:context)` hook:
 
 ```ruby
-        before(:context) do
-          @widget = Widget.create!
-        end
+before(:context) do
+  @widget = Widget.create!
+end
 
-        after(:context) do
-          @widget.destroy
-        end
+after(:context) do
+  @widget.destroy
+end
 ```
 
 If you don't do that, you'll leave data lying around that will eventually
@@ -82,13 +82,13 @@ interfere with other examples.
 2.  Reload the object in a `before(:example)` hook.
 
 ```ruby
-        before(:context) do
-          @widget = Widget.create!
-        end
+before(:context) do
+  @widget = Widget.create!
+end
 
-        before(:example) do
-          @widget.reload
-        end
+before(:example) do
+  @widget.reload
+end
 ```
 
 Even though database updates in each example will be rolled back, the

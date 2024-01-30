@@ -10,8 +10,8 @@ out of the box for with Rails' defaults.
 
 RSpec generators can also be run independently. For instance,
 
-```shell
-    rails generate rspec:model widget
+```console
+rails generate rspec:model widget
 ```
 
 will create a new spec file in `spec/models/widget_spec.rb`.
