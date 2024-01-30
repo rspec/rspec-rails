@@ -9,6 +9,7 @@ behavior and expectations.
 
 ## Examples
 
+```ruby
     require "rails_helper"
 
     RSpec.describe Post, type: :model do
@@ -21,3 +22,4 @@ behavior and expectations.
         end
       end
     end
+```

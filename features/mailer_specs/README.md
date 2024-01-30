@@ -9,6 +9,7 @@ behavior and expectations.
 
 ## Examples
 
+```ruby
     require "rails_helper"
 
     RSpec.describe Notifications, type: :mailer do
@@ -26,3 +27,4 @@ behavior and expectations.
         end
       end
     end
+```

@@ -42,6 +42,7 @@ To specify outcomes, you can use:
 
 ## Examples
 
+```ruby
     RSpec.describe TeamsController do
       describe "GET index" do
         it "assigns @teams" do
@@ -56,6 +57,7 @@ To specify outcomes, you can use:
         end
       end
     end
+```
 
 ## Views
 
@@ -67,6 +69,7 @@ To specify outcomes, you can use:
 
 We encourage you to use [request specs](./request-specs/request-spec) if you want to set headers in your call. If you still want to use controller specs with custom http headers you can use `request.headers`:
 
+```ruby
     require "rails_helper"
 
     RSpec.describe TeamsController, type: :controller do
@@ -78,3 +81,4 @@ We encourage you to use [request specs](./request-specs/request-spec) if you wan
         end
       end
     end
+```
