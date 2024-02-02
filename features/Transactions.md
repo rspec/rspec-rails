@@ -66,30 +66,30 @@ guidelines:
 
 1.  Be sure to clean up any data in an `after(:context)` hook:
 
-```ruby
-before(:context) do
-  @widget = Widget.create!
-end
+    ```ruby
+    before(:context) do
+      @widget = Widget.create!
+    end
 
-after(:context) do
-  @widget.destroy
-end
-```
+    after(:context) do
+      @widget.destroy
+    end
+    ```
 
-If you don't do that, you'll leave data lying around that will eventually
+    If you don't do that, you'll leave data lying around that will eventually
 interfere with other examples.
 
 2.  Reload the object in a `before(:example)` hook.
 
-```ruby
-before(:context) do
-  @widget = Widget.create!
-end
+    ```ruby
+    before(:context) do
+      @widget = Widget.create!
+    end
 
-before(:example) do
-  @widget.reload
-end
-```
+    before(:example) do
+      @widget.reload
+    end
+    ```
 
 Even though database updates in each example will be rolled back, the
 object won't _know_ about those rollbacks so the object and its backing
