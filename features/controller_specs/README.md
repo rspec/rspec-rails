@@ -42,20 +42,22 @@ To specify outcomes, you can use:
 
 ## Examples
 
-    RSpec.describe TeamsController do
-      describe "GET index" do
-        it "assigns @teams" do
-          team = Team.create
-          get :index
-          expect(assigns(:teams)).to eq([team])
-        end
-
-        it "renders the index template" do
-          get :index
-          expect(response).to render_template("index")
-        end
-      end
+```ruby
+RSpec.describe TeamsController do
+  describe "GET index" do
+    it "assigns @teams" do
+      team = Team.create
+      get :index
+      expect(assigns(:teams)).to eq([team])
     end
+
+    it "renders the index template" do
+      get :index
+      expect(response).to render_template("index")
+    end
+  end
+end
+```
 
 ## Views
 
@@ -67,14 +69,16 @@ To specify outcomes, you can use:
 
 We encourage you to use [request specs](./request-specs/request-spec) if you want to set headers in your call. If you still want to use controller specs with custom http headers you can use `request.headers`:
 
-    require "rails_helper"
+```ruby
+require "rails_helper"
 
-    RSpec.describe TeamsController, type: :controller do
-      describe "GET index" do
-        it "returns a 200" do
-          request.headers["Authorization"] = "foo"
-          get :show
-          expect(response).to have_http_status(:ok)
-        end
-      end
+RSpec.describe TeamsController, type: :controller do
+  describe "GET index" do
+    it "returns a 200" do
+      request.headers["Authorization"] = "foo"
+      get :show
+      expect(response).to have_http_status(:ok)
     end
+  end
+end
+```

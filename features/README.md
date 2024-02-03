@@ -15,7 +15,9 @@ for even older versions.
 
 ## Install
 
-    gem install rspec-rails
+```console
+gem install rspec-rails
+```
 
 This installs the following gems:
 
@@ -29,23 +31,29 @@ This installs the following gems:
 
 Add rspec-rails to the :test and :development groups in the Gemfile:
 
-    group :test, :development do
-      gem 'rspec-rails', '~> 6.0.0'
-    end
+```ruby
+group :test, :development do
+  gem 'rspec-rails', '~> 6.0.0'
+end
+```
 
 It needs to be in the :development group to expose generators and rake tasks
 without having to type RAILS_ENV=test.
 
 Now you can run:
 
-    bundle exec rails generate rspec:install
+```console
+bundle exec rails generate rspec:install
+```
 
 This adds the spec directory and some skeleton files, including a .rspec
 file.
 
 You can also customize the default spec path with `--default-path` option:
 
-    bundle exec rails generate rspec:install --default-path behaviour
+```console
+bundle exec rails generate rspec:install --default-path behaviour
+```
 
 ## Issues
 
