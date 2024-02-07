@@ -17,7 +17,7 @@ RSpec.describe Rspec::Generators::FeatureGenerator, type: :generator do
         it 'includes the standard boilerplate' do
           expect(
             feature_spec
-          ).to contain(/require 'rails_helper'/).and(contain(/^RSpec.feature "Posts", #{type_metatag(:feature)}/))
+          ).to contain(/require 'rails_helper'/).and(contain(/^RSpec.feature "Posts"/))
         end
       end
     end
@@ -31,7 +31,7 @@ RSpec.describe Rspec::Generators::FeatureGenerator, type: :generator do
         subject(:feature_spec) { file('spec/features/folder/posts_spec.rb') }
 
         it 'includes the standard boilerplate' do
-          expect(feature_spec).to contain(/^RSpec.feature "Folder::Posts", #{type_metatag(:feature)}/)
+          expect(feature_spec).to contain(/^RSpec.feature "Folder::Posts"/)
         end
       end
     end
@@ -45,7 +45,7 @@ RSpec.describe Rspec::Generators::FeatureGenerator, type: :generator do
         subject(:feature_spec) { file('spec/features/post_spec.rb') }
 
         it "contains the singularized feature" do
-          expect(feature_spec).to contain(/^RSpec.feature "Post", #{type_metatag(:feature)}/)
+          expect(feature_spec).to contain(/^RSpec.feature "Post"/)
         end
       end
     end

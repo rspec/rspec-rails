@@ -15,7 +15,7 @@ RSpec.describe Rspec::Generators::ControllerGenerator, type: :generator do
 
       it 'includes the standard boilerplate' do
         expect(filename).to contain(/require 'rails_helper'/)
-                              .and(contain(/^RSpec.describe "Posts", #{type_metatag(:request)}/))
+                              .and(contain(/^RSpec.describe "Posts"/))
                               .and(contain('pending'))
       end
     end
@@ -49,7 +49,7 @@ RSpec.describe Rspec::Generators::ControllerGenerator, type: :generator do
       end
 
       it 'includes the standard boilerplate' do
-        expect(filename).to contain(/^RSpec.describe "Admin::External::Users", #{type_metatag(:request)}/)
+        expect(filename).to contain(/^RSpec.describe "Admin::External::Users"/)
                              .and(contain('get "/admin/external/users/index"'))
                              .and(contain('get "/admin/external/users/custom_action"'))
       end
@@ -112,7 +112,7 @@ RSpec.describe Rspec::Generators::ControllerGenerator, type: :generator do
 
           it 'includes the standard boilerplate' do
             expect(filename).to contain(/require 'rails_helper'/)
-                                 .and(contain(/^RSpec.describe "posts\/index.html.erb", #{type_metatag(:view)}/))
+                                 .and(contain(/^RSpec.describe "posts\/index.html.erb"/))
           end
         end
 
@@ -121,7 +121,7 @@ RSpec.describe Rspec::Generators::ControllerGenerator, type: :generator do
 
           it 'includes the standard boilerplate' do
             expect(filename).to contain(/require 'rails_helper'/)
-                                 .and(contain(/^RSpec.describe "posts\/show.html.erb", #{type_metatag(:view)}/))
+                                 .and(contain(/^RSpec.describe "posts\/show.html.erb"/))
           end
         end
       end
@@ -136,7 +136,7 @@ RSpec.describe Rspec::Generators::ControllerGenerator, type: :generator do
 
           it 'includes the standard boilerplate' do
             expect(filename).to contain(/require 'rails_helper'/)
-                                 .and(contain(/^RSpec.describe "posts\/index.html.haml", #{type_metatag(:view)}/))
+                                 .and(contain(/^RSpec.describe "posts\/index.html.haml"/))
           end
         end
       end
@@ -180,7 +180,7 @@ RSpec.describe Rspec::Generators::ControllerGenerator, type: :generator do
 
         it 'includes the standard boilerplate' do
           expect(filename).to contain(/require 'rails_helper'/)
-                                .and(contain(/^RSpec.describe 'PostsController', #{type_metatag(:routing)}/))
+                                .and(contain(/^RSpec.describe 'PostsController'/))
                                 .and(contain(/describe 'routing'/))
                                 .and(contain(/it 'routes to #seek'/))
                                 .and(contain(/expect\(get: "\/posts\/seek"\).to route_to\("posts#seek"\)/))
@@ -214,7 +214,7 @@ RSpec.describe Rspec::Generators::ControllerGenerator, type: :generator do
       describe 'the spec' do
         it 'includes the standard boilerplate' do
           expect(filename).to contain(/require 'rails_helper'/)
-                               .and(contain(/^RSpec.describe PostsController, #{type_metatag(:controller)}/))
+                               .and(contain(/^RSpec.describe PostsController/))
         end
       end
     end

@@ -13,7 +13,7 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 <% module_namespacing do -%>
-RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %> do
+RSpec.describe "/<%= name.underscore.pluralize %>" do
   <% if mountable_engine? -%>
     include Engine.routes.url_helpers
   <% end -%>

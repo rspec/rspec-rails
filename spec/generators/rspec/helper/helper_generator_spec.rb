@@ -13,7 +13,7 @@ RSpec.describe Rspec::Generators::HelperGenerator, type: :generator do
     end
 
     it 'includes the standard boilerplate' do
-      expect(helper_spec).to contain(/require 'rails_helper'/).and(contain(/^RSpec.describe PostsHelper, #{type_metatag(:helper)}/))
+      expect(helper_spec).to contain(/require 'rails_helper'/).and(contain(/^RSpec.describe PostsHelper/))
     end
   end
 

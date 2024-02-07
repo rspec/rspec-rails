@@ -1,7 +1,7 @@
 require "rails_helper"
 
 <% module_namespacing do -%>
-RSpec.describe <%= class_name.sub(/(Mailer)?$/, 'Mailer') %>, <%= type_metatag(:mailer) %> do
+RSpec.describe <%= class_name.sub(/(Mailer)?$/, 'Mailer') %> do
 <% for action in actions -%>
   describe "<%= action %>" do
     let(:mail) { <%= class_name.sub(/(Mailer)?$/, 'Mailer') %>.<%= action %> }

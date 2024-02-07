@@ -10,6 +10,6 @@ RSpec.describe Rspec::Generators::ChannelGenerator, type: :generator, skip: !RSp
   subject(:channel_spec) { file("spec/channels/chat_channel_spec.rb") }
 
   it "generates a channel spec file" do
-    expect(channel_spec).to contain(/require 'rails_helper'/).and(contain(/describe ChatChannel, #{type_metatag(:channel)}/))
+    expect(channel_spec).to contain(/require 'rails_helper'/).and(contain(/describe ChatChannel/))
   end
 end

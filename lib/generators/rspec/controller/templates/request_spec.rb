@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "<%= class_name.pluralize %>", <%= type_metatag(:request) %> do
+RSpec.describe "<%= class_name.pluralize %>" do
 <% namespaced_path = regular_class_path.join('/') -%>
 <% if actions.empty? -%>
   describe "GET /index" do

@@ -19,7 +19,7 @@ RSpec.describe Rspec::Generators::MailerGenerator, type: :generator do
           filename
         ).to(
           contain(/require "rails_helper"/)
-            .and(contain(/^RSpec.describe PostsMailer, #{type_metatag(:mailer)}/))
+            .and(contain(/^RSpec.describe PostsMailer/))
             .and(contain(/describe "index" do/))
             .and(contain(/describe "show" do/))
         )

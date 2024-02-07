@@ -18,7 +18,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
           filename
         ).to(
           contain("require 'rails_helper'")
-            .and(contain(/^RSpec.describe "\/posts", #{type_metatag(:request)}/))
+            .and(contain(/^RSpec.describe "\/posts"/))
             .and(contain('GET /new'))
             .and(contain(/"redirects to the created post"/))
             .and(contain('get post_url(post)'))
@@ -60,7 +60,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
           filename
         ).to(
           contain(/require 'rails_helper'/)
-            .and(contain(/^RSpec.describe "\/posts", #{type_metatag(:request)}/))
+            .and(contain(/^RSpec.describe "\/posts"/))
             .and(contain('as: :json'))
             .and(contain('renders a JSON response with the new post'))
             .and(contain('renders a JSON response with errors for the new post'))
@@ -97,7 +97,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
           filename
         ).to(
           contain(/require 'rails_helper'/)
-            .and(contain(/^RSpec.describe PostsController, #{type_metatag(:controller)}/))
+            .and(contain(/^RSpec.describe PostsController/))
             .and(contain(/GET #new/))
             .and(contain(/"redirects to the created \w+"/))
             .and(contain(/GET #edit/))
@@ -133,7 +133,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
 
       it "includes the standard boilerplate" do
         expect(filename).to contain(/require 'rails_helper'/)
-                             .and(contain(/^RSpec.describe PostsController, #{type_metatag(:controller)}/))
+                             .and(contain(/^RSpec.describe PostsController/))
                              .and(contain(/"renders a JSON response with the new \w+"/))
                              .and(contain(/"renders a JSON response with errors for the new \w+"/))
                              .and(contain(/"renders a JSON response with the \w+"/))
@@ -157,7 +157,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
       before { run_generator %w[admin/posts] }
 
       it "includes the standard boilerplate" do
-        expect(filename).to contain(/^RSpec.describe "\/admin\/posts", #{type_metatag(:request)}/)
+        expect(filename).to contain(/^RSpec.describe "\/admin\/posts"/)
                            .and(contain('post admin_posts_url, params: { admin_post: valid_attributes }'))
                            .and(contain('admin_post_url(post)'))
                            .and(contain('Admin::Post.create'))
@@ -205,7 +205,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
       before { run_generator %w[admin/posts --controller_specs] }
 
       it "includes the standard boilerplate" do
-        expect(filename).to contain(/^RSpec.describe Admin::PostsController, #{type_metatag(:controller)}/)
+        expect(filename).to contain(/^RSpec.describe Admin::PostsController/)
                              .and(contain('post :create, params: {admin_post: valid_attributes}'))
                              .and(contain('Admin::Post.create'))
       end
@@ -254,7 +254,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
 
         it "includes the standard boilerplate" do
           expect(filename).to contain(/require 'rails_helper'/)
-                             .and(contain(/^RSpec.describe "(.*)\/edit", #{type_metatag(:view)}/))
+                             .and(contain(/^RSpec.describe "(.*)\/edit"/))
                              .and(contain(/assign\(:post, post\)/))
                              .and(contain(/it "renders the edit (.*) form"/))
         end
@@ -265,7 +265,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
 
         it "includes the standard boilerplate" do
           expect(filename).to contain(/require 'rails_helper'/)
-                             .and(contain(/^RSpec.describe "(.*)\/index", #{type_metatag(:view)}/))
+                             .and(contain(/^RSpec.describe "(.*)\/index"/))
                              .and(contain(/assign\(:posts, /))
                              .and(contain(/it "renders a list of (.*)"/))
         end
@@ -276,7 +276,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
 
         it "includes the standard boilerplate" do
           expect(filename).to contain(/require 'rails_helper'/)
-                             .and(contain(/^RSpec.describe "(.*)\/new", #{type_metatag(:view)}/))
+                             .and(contain(/^RSpec.describe "(.*)\/new"/))
                              .and(contain(/assign\(:post, /))
                              .and(contain(/it "renders new (.*) form"/))
         end
@@ -287,7 +287,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
 
         it "includes the standard boilerplate" do
           expect(filename).to contain(/require 'rails_helper'/)
-                             .and(contain(/^RSpec.describe "(.*)\/show", #{type_metatag(:view)}/))
+                             .and(contain(/^RSpec.describe "(.*)\/show"/))
                              .and(contain(/assign\(:post, /))
                              .and(contain(/it "renders attributes in <p>"/))
         end
@@ -524,7 +524,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
 
       it 'includes the standard boilerplate' do
         expect(filename).to contain(/require "rails_helper"/)
-                             .and(contain(/^RSpec.describe PostsController, #{type_metatag(:routing)}/))
+                             .and(contain(/^RSpec.describe PostsController/))
                              .and(contain(/describe "routing"/))
                              .and(contain(/routes to #new/))
                              .and(contain(/routes to #edit/))
@@ -556,7 +556,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
         before { run_generator %w[api/v1/posts] }
 
         it 'includes the standard boilerplate' do
-          expect(filename).to contain(/^RSpec.describe Api::V1::PostsController, #{type_metatag(:routing)}/)
+          expect(filename).to contain(/^RSpec.describe Api::V1::PostsController/)
                                .and(contain('route_to("api/v1/posts#new")'))
         end
       end

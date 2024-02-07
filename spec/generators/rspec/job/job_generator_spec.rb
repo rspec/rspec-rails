@@ -14,7 +14,7 @@ RSpec.describe Rspec::Generators::JobGenerator, type: :generator, skip: !RSpec::
       let(:file_name) { 'user' }
 
       it 'creates the standard boiler plate' do
-        expect(job_spec).to contain(/require 'rails_helper'/).and(contain(/describe UserJob, #{type_metatag(:job)}/))
+        expect(job_spec).to contain(/require 'rails_helper'/).and(contain(/describe UserJob/))
       end
     end
 
@@ -22,7 +22,7 @@ RSpec.describe Rspec::Generators::JobGenerator, type: :generator, skip: !RSpec::
       let(:file_name) { 'user_job' }
 
       it 'creates the standard boiler plate' do
-        expect(job_spec).to contain(/require 'rails_helper'/).and(contain(/describe UserJob, #{type_metatag(:job)}/))
+        expect(job_spec).to contain(/require 'rails_helper'/).and(contain(/describe UserJob/))
       end
     end
   end

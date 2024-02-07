@@ -15,7 +15,7 @@ RSpec.describe Rspec::Generators::SystemGenerator, type: :generator do
 
       describe "the spec" do
         it "contains the standard boilerplate" do
-          expect(system_spec).to contain(/require 'rails_helper'/).and(contain(/^RSpec.describe "Posts", #{type_metatag(:system)}/))
+          expect(system_spec).to contain(/require 'rails_helper'/).and(contain(/^RSpec.describe "Posts"/))
         end
       end
     end

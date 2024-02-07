@@ -42,10 +42,6 @@ module RSpec
       def has_action_mailbox?
         defined?(::ActionMailbox)
       end
-
-      def type_metatag(type)
-        "type: :#{type}"
-      end
     end
   end
 end

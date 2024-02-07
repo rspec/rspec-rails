@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 <% module_namespacing do -%>
-RSpec.describe '<%= class_name %>Controller', <%= type_metatag(:routing) %> do
+RSpec.describe '<%= class_name %>Controller' do
   describe 'routing' do
 <% for action in actions -%>
     it 'routes to #<%= action %>' do

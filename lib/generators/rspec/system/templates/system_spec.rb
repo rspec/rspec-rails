@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "<%= class_name.pluralize %>", <%= type_metatag(:system) %> do
+RSpec.describe "<%= class_name.pluralize %>" do
   before do
     driven_by(:rack_test)
   end

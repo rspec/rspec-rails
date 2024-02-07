@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 <% output_attributes = attributes.reject{|attribute| [:datetime, :timestamp, :time, :date].index(attribute.type) } -%>
-RSpec.describe "<%= ns_table_name %>/show", <%= type_metatag(:view) %> do
+RSpec.describe "<%= ns_table_name %>/show" do
   before(:each) do
     assign(:<%= singular_table_name %>, <%= class_name %>.create!(<%= '))' if output_attributes.empty? %>
 <% output_attributes.each_with_index do |attribute, attribute_index| -%>

@@ -24,7 +24,7 @@ require 'rails_helper'
 # `rails-controller-testing` gem.
 
 <% module_namespacing do -%>
-RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:controller) %> do
+RSpec.describe <%= controller_class_name %>Controller do
 
   # This should return the minimal set of attributes required to create a valid
   # <%= class_name %>. As you add validations to <%= class_name %>, be sure to

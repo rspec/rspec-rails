@@ -27,7 +27,7 @@ module RSpec
             subject(:model_spec) { file("spec/models/#{name}_spec.rb") }
 
             it 'contains the standard boilerplate' do
-              expect(model_spec).to contain(/require 'rails_helper'/).and(contain(/^RSpec.describe #{class_name}, #{type_metatag(:model)}/))
+              expect(model_spec).to contain(/require 'rails_helper'/).and(contain(/^RSpec.describe #{class_name}/))
             end
           end
 
@@ -66,7 +66,7 @@ module RSpec
 
               it 'contains the standard boilerplate' do
                 expect(request_spec).to contain(/require 'rails_helper'/)
-                                          .and(contain(/^RSpec.describe "Posts", #{type_metatag(:request)}/))
+                                          .and(contain(/^RSpec.describe "Posts"/))
                                           .and(contain(/describe "GET \/posts"/))
                                           .and(contain(/get posts_index_path/))
               end
@@ -78,7 +78,7 @@ module RSpec
 
               it 'contains the standard boilerplate' do
                 expect(request_spec).to contain(/require 'rails_helper'/)
-                                          .and(contain(/^RSpec.describe "Api::Posts", #{type_metatag(:request)}/))
+                                          .and(contain(/^RSpec.describe "Api::Posts"/))
                                           .and(contain(/describe "GET \/api\/posts"/))
                                           .and(contain(/get api_posts_index_path\n/))
               end

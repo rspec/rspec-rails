@@ -13,7 +13,7 @@ RSpec.describe Rspec::Generators::MailboxGenerator, type: :generator, skip: !RSp
     it 'generates the file' do
       expect(
         mailbox_spec
-      ).to contain(/require 'rails_helper'/).and contain(/describe ForwardsMailbox, #{type_metatag(:mailbox)}/)
+      ).to contain(/require 'rails_helper'/).and contain(/describe ForwardsMailbox/)
     end
   end
 end
