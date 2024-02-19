@@ -1,5 +1,3 @@
-require "action_dispatch/testing/assertions/routing"
-
 module RSpec
   module Rails
     # @private
