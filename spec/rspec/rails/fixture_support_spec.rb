@@ -45,14 +45,21 @@ module RSpec::Rails
       end
     end
 
-    it "will allow #setup_fixture to run successfully" do
-      group = RSpec::Core::ExampleGroup.describe do
-        include FixtureSupport
+    context "with use_transactional_tests set to false" do
+      it "does not wrap the test in a transaction" do
+        allow(RSpec.configuration).to receive(:use_transactional_fixtures) { true }
+        group = RSpec::Core::ExampleGroup.describe do
+          include FixtureSupport
 
-        self.use_transactional_tests = false
+          self.use_transactional_tests = false
+
+          it "doesn't run in transaction" do
+            expect(ActiveRecord::Base.connection.transaction_open?).to eq(false)
+          end
+        end
+
+        expect_to_pass(group)
       end
-
-      expect { group.new.setup_fixtures }.to_not raise_error
     end
 
     it "handles namespaced fixtures" do
