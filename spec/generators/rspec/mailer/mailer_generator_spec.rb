@@ -6,7 +6,7 @@ RSpec.describe Rspec::Generators::MailerGenerator, type: :generator do
   setup_default_destination
 
   describe 'mailer spec' do
-    subject(:filename) { file('spec/mailers/posts_spec.rb') }
+    subject(:filename) { file('spec/mailers/posts_mailer_spec.rb') }
 
     describe 'a spec is created for each action' do
       before do
@@ -66,13 +66,13 @@ RSpec.describe Rspec::Generators::MailerGenerator, type: :generator do
       run_generator %w[posts index show]
     end
 
-    subject(:filename) { file('spec/mailers/previews/posts_preview.rb') }
+    subject(:filename) { file('spec/mailers/previews/posts_mailer_preview.rb') }
 
     it "includes the standard boilerplate" do
       expect(
         filename
       ).to(
-        contain(/class PostsPreview < ActionMailer::Preview/)
+        contain(/class PostsMailerPreview < ActionMailer::Preview/)
           .and(contain(/def index/))
           .and(contain(/PostsMailer.index/))
           .and(contain(/def show/))
