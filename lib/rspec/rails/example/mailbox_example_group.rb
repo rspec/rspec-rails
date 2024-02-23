@@ -69,7 +69,7 @@ module RSpec
       #
       # @param message [Hash, Mail::Message] a mail message or hash of
       #   attributes used to build one
-      # @return [ActionMaibox::InboundMessage]
+      # @return [ActionMailbox::InboundMessage]
       def process(message)
         MailboxExampleGroup.create_inbound_email(message).tap do |mail|
           self.class.mailbox_class.receive(mail)

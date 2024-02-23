@@ -29,7 +29,7 @@ Bundler/DuplicatedGem:
 
 Gemspec/RequiredRubyVersion:
   # Rubocop checks that the target ruby version matches the gemspec version
-  # but doesnt have a 2.2 option
+  # but doesn't have a 2.2 option
   Enabled: false
 
 Metrics/BlockLength:

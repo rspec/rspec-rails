@@ -1,5 +1,5 @@
 #!/bin/bash
-# This file is manually managed unlike the rest of core rspec gems because it is independant.
+# This file is manually managed unlike the rest of core rspec gems because it is independent.
 
 set -e
 source script/functions.sh
