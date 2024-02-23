@@ -161,26 +161,52 @@ RSpec.describe "Configuration" do
     include_examples "infers type from location", :feature, "spec/features"
   end
 
-  it "fixture support is included with metadata `:use_fixtures`" do
-    in_sub_process do
-      a_hash = an_instance_of(Hash)
-      if ::Rails::VERSION::STRING >= "7.1.0"
-        expect(RSpec).to receive(:deprecate).with("config.fixture_path = \"custom/path\"", a_hash)
-      end
+  if ::Rails::VERSION::STRING >= "7.2.0"
+    it "fixture support is included with metadata `:use_fixtures`" do
+      RSpec.configuration.global_fixtures = [:foo]
+      RSpec.configuration.fixture_paths = ["custom/path"]
 
+      group = RSpec.describe("Arbitrary Description", :use_fixtures)
+
+      expect(group.fixture_paths).to eq(["custom/path"])
+
+      expect(group.new.respond_to?(:foo, true)).to be(true)
+    end
+  elsif ::Rails::VERSION::STRING >= "7.1.0"
+    it "fixture support is included with metadata `:use_fixtures`" do
+      in_sub_process do
+        a_hash = an_instance_of(Hash)
+        if ::Rails::VERSION::STRING >= "7.1.0"
+          expect(RSpec).to receive(:deprecate).with("config.fixture_path = \"custom/path\"", a_hash)
+        end
+
+        RSpec.configuration.global_fixtures = [:foo]
+        RSpec.configuration.fixture_path = "custom/path"
+
+        group = RSpec.describe("Arbitrary Description", :use_fixtures)
+
+        if ::Rails::VERSION::STRING <= "7.2.0"
+          expect(group).to respond_to(:fixture_path)
+        end
+
+        if ::Rails::VERSION::STRING >= "7.1.0"
+          with_isolated_stderr { expect(group.fixture_path).to eq("custom/path") }
+        else
+          expect(group.fixture_path).to eq("custom/path")
+        end
+
+        expect(group.new.respond_to?(:foo, true)).to be(true)
+      end
+    end
+  else
+    it "fixture support is included with metadata `:use_fixtures`" do
       RSpec.configuration.global_fixtures = [:foo]
       RSpec.configuration.fixture_path = "custom/path"
 
       group = RSpec.describe("Arbitrary Description", :use_fixtures)
 
       expect(group).to respond_to(:fixture_path)
-
-      if ::Rails::VERSION::STRING >= "7.1.0"
-        with_isolated_stderr { expect(group.fixture_path).to eq("custom/path") }
-      else
-        expect(group.fixture_path).to eq("custom/path")
-      end
-
+      expect(group.fixture_path).to eq("custom/path")
       expect(group.new.respond_to?(:foo, true)).to be(true)
     end
   end
