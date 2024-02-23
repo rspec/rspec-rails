@@ -7,7 +7,7 @@ source script/functions.sh
 
 pushd ..
 
-clone_repo "rspec"
+clone_repo "rspec-metagem" "rspec"
 clone_repo "rspec-core"
 clone_repo "rspec-expectations"
 clone_repo "rspec-mocks"
