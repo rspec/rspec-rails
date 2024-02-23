@@ -7,13 +7,19 @@ module RSpec::Rails
           include FixtureSupport
         end
 
-        # These are deprecated when Rails is 7.1.0 or above
-        expect(group).to respond_to(:fixture_path)
-        expect(group).to respond_to(:fixture_path=)
-
-        if ::Rails::VERSION::STRING >= "7.1.0"
+        if ::Rails::VERSION::STRING >= "7.2.0"
           expect(group).to respond_to(:fixture_paths)
           expect(group).to respond_to(:fixture_paths=)
+        elsif ::Rails::VERSION::STRING >= "7.1.0"
+          expect(group).to respond_to(:fixture_paths)
+          expect(group).to respond_to(:fixture_paths=)
+
+          # These are deprecated when Rails is 7.1.0 but still exist
+          expect(group).to respond_to(:fixture_path)
+          expect(group).to respond_to(:fixture_path=)
+        else
+          expect(group).to respond_to(:fixture_path)
+          expect(group).to respond_to(:fixture_path=)
         end
       end
     end
