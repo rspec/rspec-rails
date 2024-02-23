@@ -54,8 +54,14 @@ function documentation_enforced {
 }
 
 function clone_repo {
-  if [ ! -d $1 ]; then # don't clone if the dir is already there
-    ci_retry eval "git clone https://github.com/rspec/$1 --depth 1 --branch $MAINTENANCE_BRANCH"
+  if [ -z "$2" ]; then
+    DIR_TARGET="$1"
+  else
+    DIR_TARGET="$2"
+  fi
+
+  if [ ! -d $DIR_TARGET ]; then # don't clone if the dir is already there
+    ci_retry eval "git clone https://github.com/rspec/$1 --depth 1 --branch $MAINTENANCE_BRANCH $DIR_TARGET"
   fi;
 }
 
