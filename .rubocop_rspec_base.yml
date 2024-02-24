@@ -104,7 +104,7 @@ Style/SignalException:
 Layout/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
 
-# We don't care about single vs double qoutes.
+# We don't care about single vs double quotes.
 Style/StringLiterals:
   Enabled: false
 
