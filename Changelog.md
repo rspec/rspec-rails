@@ -181,7 +181,7 @@ Enhancements:
   (Eloy Espinaco, Luka Lüdicke, #2355, #2356, #2378)
 * Generated scaffold now includes engine route helpers when inside a mountable engine.
   (Andrew W. Lee, #2372)
-* Improve request spec "controller" scafold when no action is specified.
+* Improve request spec "controller" scaffold when no action is specified.
   (Thomas Hareau, #2399)
 * Introduce testing snippets concept (Phil Pirozhkov, Benoit Tigeot, #2423)
 * Prevent collisions with `let(:name)` for Rails 6.1 and `let(:method_name)` on older
@@ -584,7 +584,7 @@ Enhancements:
 * Add support for PATCH to route specs created via scaffold. (Igor Zubkov, #1336)
 * Improve controller and routing spec calls to `routes` by using `yield`
   instead of `call`. (Anton Davydov, #1308)
-* Add support for `ActiveJob` specs as standard `RSpec::Rails::RailsExampleGoup`s
+* Add support for `ActiveJob` specs as standard `RSpec::Rails::RailsExampleGroup`s
   via both `type: :job` and inferring type from spec directory `spec/jobs`.
   (Gabe Martin-Dempesy, #1361)
 * Include `RSpec::Rails::FixtureSupport` into example groups using metadata

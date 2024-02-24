@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "verify view path doesnt leak stubs between examples", type: :view, order: :defined do
+RSpec.describe "verify view path doesn't leak stubs between examples", type: :view, order: :defined do
   subject(:html) do
     render partial: "example"
     rendered

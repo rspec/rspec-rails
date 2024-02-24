@@ -113,7 +113,7 @@ Feature: The directory structure
       lib
       ├── country_map.rb
       ├── development_mail_interceptor.rb
-      ├── enviroment_mail_interceptor.rb
+      ├── environment_mail_interceptor.rb
       └── tasks
           └── irc.rake
       spec
