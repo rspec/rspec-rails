@@ -21,3 +21,6 @@ custom_gemfile = File.expand_path('Gemfile-custom', __dir__)
 eval_gemfile custom_gemfile if File.exist?(custom_gemfile)
 
 eval_gemfile 'Gemfile-rails-dependencies'
+
+gem "rspec_junit_formatter", "~> 0.6.0"
+gem 'simplecov', require: false, group: :test

@@ -1,5 +1,7 @@
-require 'rails/all'
+require 'simplecov'
+SimpleCov.start
 
+require 'rails/all'
 module RSpecRails
   class Application < ::Rails::Application
     config.secret_key_base = 'ASecretString'

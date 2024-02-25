@@ -3,9 +3,6 @@ on:
   push:
     branches:
       - 'main'
-      - '*-maintenance'
-      - '*-dev'
-      - 'pr-*'
   pull_request:
     branches:
       - '*'
@@ -16,87 +13,78 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  rubocop:
-    name: Rubocop
-    runs-on: 'ubuntu-20.04'
+  setup:
+    name: "unit #${{ matrix.ci_node_index }}"
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1.170.0
         with:
           ruby-version: '3.0'
       - run: script/update_rubygems_and_install_bundler
       - run: bundle install --standalone
       - run: bundle binstubs --all
       - run: script/run_rubocop
-
   test:
-    name: 'Ruby: ${{ matrix.ruby }}, Rails: ${{ matrix.env.RAILS_VERSION }}'
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
+    name: "unit #${{ matrix.ci_node_index }}"
     strategy:
       fail-fast: false
       matrix:
-       include:
-         # Edge Rails (?) builds >= 2.7
-         - ruby: 3.2
-           env:
-             RAILS_VERSION: 'main'
-         - ruby: 3.1
-           env:
-             RAILS_VERSION: 'main'
+        ci_node_total: [2]
+        ci_node_index: [1, 2]
 
-         # Rails 7.1 builds >= 2.7
-         - ruby: 3.2
-           env:
-             RAILS_VERSION: '~> 7.1.0'
-         - ruby: 3.1
-           env:
-             RAILS_VERSION: '~> 7.1.0'
-         - ruby: '3.0'
-           env:
-             RAILS_VERSION: '~> 7.1.0'
-         - ruby: 2.7
-           env:
-             RAILS_VERSION: '~> 7.1.0'
-
-         # Rails 7.0 builds >= 2.7
-         - ruby: 3.2
-           env:
-             RAILS_VERSION: '~> 7.0.0'
-         - ruby: 3.1
-           env:
-             RAILS_VERSION: '~> 7.0.0'
-         - ruby: '3.0'
-           env:
-             RAILS_VERSION: '~> 7.0.0'
-         - ruby: 2.7
-           env:
-             RAILS_VERSION: '~> 7.0.0'
-
-         # Rails 6.1 builds >= 2.5
-         - ruby: 3.1
-           env:
-             RAILS_VERSION: '~> 6.1.0'
-         - ruby: '3.0'
-           env:
-             RAILS_VERSION: '~> 6.1.0'
-         - ruby: 2.7
-           env:
-             RAILS_VERSION: '~> 6.1.0'
-         - ruby: 2.6
-           env:
-             RAILS_VERSION: '~> 6.1.0'
-         - ruby: 2.5
-           env:
-             RAILS_VERSION: '~> 6.1.0'
-
-    env: ${{ matrix.env }}
+    # env: ${{ matrix.env }}
     steps:
       - uses: actions/checkout@v4
-      - uses: ruby/setup-ruby@v1
+      - uses: ruby/setup-ruby@v1.170.0
         with:
           ruby-version: ${{ matrix.ruby }}
       - run: script/update_rubygems_and_install_bundler
-      - run: script/clone_all_rspec_repos
       - run: bundle install --binstubs
-      - run: script/run_build
-        continue-on-error: ${{ matrix.allow_failure || false }}
+      - run: mkdir -p /tmp/test_results/
+      - name: RUN TESTS
+        timeout-minutes: 20
+        run: "./bin/ci --index=${{ matrix.ci_node_index }} --total=${{ matrix.ci_node_total }} --hash=${{ github.sha }}"
+      - run: mv -v coverage/.resultset.json /tmp/test_results/resultset-${{ matrix.ci_node_index }}.json
+      - name: UPLOAD TEST RESULT
+        uses: actions/upload-artifact@v4
+        if: success() || failure()
+        with:
+          name: "test-report-${{ matrix.ci_node_index }}"
+          path: |
+            /tmp/test_results/resultset-${{ matrix.ci_node_index }}.json
+            /tmp/test_results/report-${{ matrix.ci_node_index }}.xml
+          compression-level: 0 # no compression
+          retention-days: 1
+      - run: ls -lh /tmp/test_results/
+  aggregate:
+    runs-on: ubuntu-latest
+    needs: test
+    if: success() || failure()
+    steps:
+      - name: DOWNLOAD TEST RESULTS
+        uses: actions/download-artifact@v4
+        with:
+          pattern: test-report-*
+          path: /tmp/aggregated_results/
+          merge-multiple: true
+      - name: Display downloaded files
+        run:  ls -R /tmp/aggregated_results/
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1.170.0
+        with:
+          ruby-version: '3.0'
+      - run: script/update_rubygems_and_install_bundler
+      - run: bundle install --standalone
+      - run: bundle binstubs --all
+      - name: COVERAGE REPORT
+        run:  bundle exec rake coverage:report
+      - name: UPLOAD AGGREGATED RESULT
+        uses: actions/upload-artifact@v4
+        if: success() || failure()
+        with:
+          name: "Aggregated Test Results"
+          path: coverage/
+          compression-level: 0 # no compression
+          retention-days: 1

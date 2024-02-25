@@ -1,0 +1,38 @@
+#!/usr/bin/env ruby
+
+require "optparse"
+
+options = {}
+op = OptionParser.new do |opts|
+  opts.banner = "Usage: ci [options]"
+  opts.on("--index=INDEX", Integer, "Current CI node index (1..total)")
+  opts.on("--total=TOTAL", Integer, "Total number of CI nodes")
+  opts.on("--hash=HASH", String, "SHA1 hash of the current commit")
+  opts.on("--seed=[SEED]", Integer, "RSpec seed (optional, will be generated if not provided)")
+end
+
+op.parse!(into: options)
+
+unless %i(index total hash).all? { |key| options.key?(key) }
+  puts op.help
+  exit 1
+end
+
+options[:seed] ||= rand(0xFFFF)
+
+random = Random.new(options[:hash].to_i(16))
+
+tests = Dir["spec/**/*_spec.rb"].sort.shuffle(random: random).select.with_index do |_, i|
+  i % options[:total] == options[:index] - 1
+end
+
+STDERR.puts "To reproduce locally, run \"bin/ci --index=#{options[:index]} --total=#{options[:total]} --hash=#{options[:hash]} --seed=#{options[:seed]}\""
+STDERR.puts "Running #{tests.size} tests on node #{options[:index]} of #{options[:total]}:"
+tests.each { |test| STDERR.puts test }
+STDERR.puts "\n\n"
+
+# exec "bundle exec rspec --seed #{options[:seed]} #{tests.join(" ")}"
+exec "bundle exec rspec --format progress \
+                        --format RspecJunitFormatter \
+                        --out /tmp/test_results/report-#{options[:index]}.xml \
+                        --seed #{options[:seed]} #{tests.join(' ')}"
