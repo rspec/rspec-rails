@@ -43,6 +43,7 @@ jobs:
       - name: RUN TESTS
         timeout-minutes: 20
         run: "./bin/ci --index=${{ matrix.ci_node_index }} --total=${{ matrix.ci_node_total }} --hash=${{ github.sha }}"
+      - run: ls -lh .
       - run: mv -v coverage/coverage.json /tmp/test_results/coverage-${{ matrix.ci_node_index }}.json
       - run: mv -v coverage/.resultset.json /tmp/test_results/resultset-${{ matrix.ci_node_index }}.json
       - name: UPLOAD TEST RESULT
