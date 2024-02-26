@@ -1,5 +1,5 @@
 require 'simplecov'
-require "simplecov-json"
+require 'simplecov_json_formatter'
 SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new([
   SimpleCov::Formatter::HTMLFormatter,
   SimpleCov::Formatter::JSONFormatter
