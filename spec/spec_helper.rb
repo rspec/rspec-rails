@@ -5,11 +5,10 @@ SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new([
   SimpleCov::Formatter::JSONFormatter
 ])
 
-SimpleCov.start
-# do
-#   minimum_coverage 90
-#   minimum_coverage_by_file 90
-# end
+SimpleCov.start "rails" do
+  minimum_coverage 90
+  minimum_coverage_by_file 90
+end
 
 require 'rails/all'
 module RSpecRails

@@ -1,12 +1,8 @@
 name: RSpec CI
+permissions: write-all
 on:
   # push:
   pull_request:
-
-permissions:
-  contents: write
-  pull-requests: write
-  repository-projects: write
 concurrency:
   group: ${{ github.workflow }}-${{ github.github.head_ref || github.run_id }}
   cancel-in-progress: true
