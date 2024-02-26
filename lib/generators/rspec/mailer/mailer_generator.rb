@@ -8,7 +8,8 @@ module Rspec
       argument :actions, type: :array, default: [], banner: "method method"
 
       def generate_mailer_spec
-        template "mailer_spec.rb", target_path('mailers', class_path, "#{file_name}_spec.rb")
+        file_suffix = file_name.end_with?('mailer') ? 'spec.rb' : 'mailer_spec.rb'
+        template "mailer_spec.rb", target_path('mailers', class_path, [file_name, file_suffix].join('_'))
       end
 
       def generate_fixtures_files
@@ -21,7 +22,8 @@ module Rspec
       def generate_preview_files
         return unless RSpec::Rails::FeatureCheck.has_action_mailer_preview?
 
-        template "preview.rb", target_path("mailers/previews", class_path, "#{file_name}_preview.rb")
+        file_suffix = file_name.end_with?('mailer') ? 'preview.rb' : 'mailer_preview.rb'
+        template "preview.rb", target_path("mailers/previews", class_path, [file_name, file_suffix].join('_'))
       end
     end
   end
