@@ -34,6 +34,5 @@ STDERR.puts "\n\n"
 # exec "bundle exec rspec --seed #{options[:seed]} #{tests.join(" ")}"
 exec "bundle exec rspec --format progress \
                         --format RspecJunitFormatter \
-                        --format SimpleCovJSONFormatter \
                         --out /tmp/test_results/report-#{options[:index]}.xml \
                         --seed #{options[:seed]} #{tests.join(' ')}"
