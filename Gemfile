@@ -22,6 +22,6 @@ eval_gemfile custom_gemfile if File.exist?(custom_gemfile)
 
 eval_gemfile 'Gemfile-rails-dependencies'
 
+gem 'rspec_junit_formatter'
 gem 'simplecov', require: false, group: :test
-gem "rspec_junit_formatter"
 gem 'simplecov_json_formatter', github: 'shettytejas/simplecov_json_formatter', require: false
