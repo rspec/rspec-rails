@@ -213,7 +213,8 @@ namespace :coverage do
 
     SimpleCov.collate Dir["/tmp/aggregated_results/resultset*"] do
       formatter SimpleCov::Formatter::MultiFormatter.new([
-        SimpleCov::Formatter::HTMLFormatter
+        SimpleCov::Formatter::HTMLFormatter,
+        SimpleCov::Formatter::JSONFormatter
       ])
     end
   end
