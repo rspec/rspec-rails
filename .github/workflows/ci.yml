@@ -90,6 +90,11 @@ jobs:
           # working-directory: .
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Brakeman Report
+        uses: artplan1/brakeman-action@v1.2.1
+        with:
+          flags: "--color"
+
       - name: UPLOAD AGGREGATED RESULT
         uses: actions/upload-artifact@v4
         if: success() || failure()
