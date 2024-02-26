@@ -88,8 +88,8 @@ jobs:
         uses: shettytejas/simplecov-reporter@v1
         with:
           # More options as given above.
-          result-path: coverage.json
-          working-directory: coverage/
+          result-path: coverage/coverage.json
+          # working-directory: .
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: UPLOAD AGGREGATED RESULT
