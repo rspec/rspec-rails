@@ -1,6 +1,6 @@
 name: RSpec CI
 on:
-  push:
+  # push:
   pull_request:
 
 permissions:
