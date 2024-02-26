@@ -80,6 +80,8 @@ jobs:
       - run: bundle binstubs --all
       - name: COVERAGE REPORT
         run:  bundle exec rake coverage:report
+      - run: ls -lh ./coverage/
+      - run: ls -lh /tmp/aggregated_results/
 
       - name: Simplecov Report
         if: success() || failure() # Recommended to forcefully comment on the PR even if RSpec returns a non-zero status code.
