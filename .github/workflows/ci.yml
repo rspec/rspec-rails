@@ -89,7 +89,7 @@ jobs:
         with:
           # More options as given above.
           result-path: coverage.json
-          working-directory: /tmp/aggregated_results/
+          working-directory: coverage/
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: UPLOAD AGGREGATED RESULT
