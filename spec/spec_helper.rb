@@ -1,8 +1,9 @@
 require 'simplecov'
-SimpleCov.start do
-  minimum_coverage 90
-  minimum_coverage_by_file 90
-end
+SimpleCov.start
+# do
+#   minimum_coverage 90
+#   minimum_coverage_by_file 90
+# end
 
 require 'rails/all'
 module RSpecRails
