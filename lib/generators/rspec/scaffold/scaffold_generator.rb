@@ -129,7 +129,11 @@ module Rspec
       end
 
       def show_helper(arg = file_name, type: :url)
-        super
+        if Rails::VERSION::STRING.to_f >= 7.0
+          super
+        else
+          "#{singular_route_name}_url(#{arg})"
+        end
       end
     end
   end
