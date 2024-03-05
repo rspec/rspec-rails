@@ -128,8 +128,8 @@ module Rspec
         self.class.banner
       end
 
-      def show_helper(resource_name = file_name)
-        "#{singular_route_name}_url(#{resource_name})"
+      def show_helper(arg = file_name, type: :url)
+        super
       end
     end
   end
