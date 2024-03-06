@@ -128,11 +128,9 @@ module Rspec
         self.class.banner
       end
 
-      def show_helper(arg = file_name, type: :url)
-        if Rails::VERSION::STRING.to_f >= 7.0
-          super
-        else
-          "#{singular_route_name}_url(#{arg})"
+      if Rails::VERSION::STRING.to_f < 7.0
+        def show_helper(resource_name = file_name)
+          "#{singular_route_name}_url(#{resource_name})"
         end
       end
     end
