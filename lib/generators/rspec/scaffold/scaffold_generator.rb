@@ -4,7 +4,7 @@ require 'rails/generators/resource_helpers'
 module Rspec
   module Generators
     # @private
-    class ScaffoldGenerator < Base
+    class ScaffoldGenerator < Base # rubocop:disable Metrics/ClassLength
       include ::Rails::Generators::ResourceHelpers
       source_paths << File.expand_path('../helper/templates', __dir__)
       argument :attributes, type: :array, default: [], banner: "field:type field:type"
@@ -131,6 +131,10 @@ module Rspec
       if Rails::VERSION::STRING.to_f < 7.0
         def show_helper(resource_name = file_name)
           "#{singular_route_name}_url(#{resource_name})"
+        end
+      else
+        def show_helper(arg = file_name, type: :url)
+          super
         end
       end
     end
