@@ -45,15 +45,40 @@ module RSpec
     #
     # @api private
     def self.add_test_type_configurations(config)
-      config.include RSpec::Rails::ControllerExampleGroup, type: :controller
-      config.include RSpec::Rails::HelperExampleGroup,     type: :helper
-      config.include RSpec::Rails::ModelExampleGroup,      type: :model
-      config.include RSpec::Rails::RequestExampleGroup,    type: :request
-      config.include RSpec::Rails::RoutingExampleGroup,    type: :routing
-      config.include RSpec::Rails::ViewExampleGroup,       type: :view
-      config.include RSpec::Rails::FeatureExampleGroup,    type: :feature
+      config.define_derived_metadata(type: :controller) do
+        config.include RSpec::Rails::ControllerExampleGroup, type: :controller
+      end
+
+      config.define_derived_metadata(type: :helper) do
+        config.include RSpec::Rails::HelperExampleGroup, type: :helper
+      end
+
+      config.define_derived_metadata(type: :model) do
+        config.include RSpec::Rails::ModelExampleGroup, type: :model
+      end
+
+      config.define_derived_metadata(type: :request) do
+        config.include RSpec::Rails::RequestExampleGroup, type: :request
+      end
+
+      config.define_derived_metadata(type: :routing) do
+        require "action_controller/test_case"
+        config.include RSpec::Rails::RoutingExampleGroup, type: :routing
+      end
+
+      config.define_derived_metadata(type: :view) do
+        config.include RSpec::Rails::ViewExampleGroup, type: :view
+      end
+
+      config.define_derived_metadata(type: :feature) do
+        config.include RSpec::Rails::FeatureExampleGroup, type: :feature
+      end
+
       config.include RSpec::Rails::Matchers
-      config.include RSpec::Rails::SystemExampleGroup, type: :system
+
+      config.define_derived_metadata(type: :system) do
+        config.include RSpec::Rails::SystemExampleGroup, type: :system
+      end
     end
 
     # @private
@@ -192,27 +217,38 @@ module RSpec
 
       if defined?(::Rails::Controller::Testing)
         [:controller, :view, :request].each do |type|
-          config.include ::Rails::Controller::Testing::TestProcess, type: type
-          config.include ::Rails::Controller::Testing::TemplateAssertions, type: type
-          config.include ::Rails::Controller::Testing::Integration, type: type
+          config.define_derived_metadata(type: type) do
+            config.include ::Rails::Controller::Testing::TestProcess, type: type
+            config.include ::Rails::Controller::Testing::TemplateAssertions, type: type
+            config.include ::Rails::Controller::Testing::Integration, type: type
+          end
         end
       end
 
       if RSpec::Rails::FeatureCheck.has_action_mailer?
-        config.include RSpec::Rails::MailerExampleGroup, type: :mailer
+        config.define_derived_metadata(type: :mailer) do
+          config.include RSpec::Rails::MailerExampleGroup, type: :mailer
+        end
+
         config.after { ActionMailer::Base.deliveries.clear }
       end
 
       if RSpec::Rails::FeatureCheck.has_active_job?
-        config.include RSpec::Rails::JobExampleGroup, type: :job
+        config.define_derived_metadata(type: :job) do
+          config.include RSpec::Rails::JobExampleGroup, type: :job
+        end
       end
 
       if RSpec::Rails::FeatureCheck.has_action_cable_testing?
-        config.include RSpec::Rails::ChannelExampleGroup, type: :channel
+        config.define_derived_metadata(type: :channel) do
+          config.include RSpec::Rails::ChannelExampleGroup, type: :channel
+        end
       end
 
       if RSpec::Rails::FeatureCheck.has_action_mailbox?
-        config.include RSpec::Rails::MailboxExampleGroup, type: :mailbox
+        config.define_derived_metadata(type: :mailbox) do
+          config.include RSpec::Rails::MailboxExampleGroup, type: :mailbox
+        end
       end
     end
 
