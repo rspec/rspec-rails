@@ -1,3 +1,6 @@
+# minitest was previously always loaded, and users may have come to depend on it.
+require "minitest"
+
 # rubocop: disable Metrics/ModuleLength
 module RSpec
   module Rails
