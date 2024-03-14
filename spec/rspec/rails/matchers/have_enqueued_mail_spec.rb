@@ -243,6 +243,14 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
       }.not_to have_enqueued_mail(TestMailer, :email_with_args).with(3, 4)
     end
 
+    it "fails if the arguments do not match the mailer method's signature" do
+      expect {
+        expect {
+          TestMailer.email_with_args(1).deliver_later
+        }.to have_enqueued_mail(TestMailer, :email_with_args).with(1)
+      }.to raise_error(ArgumentError, /Wrong number of arguments/)
+    end
+
     it "generates a failure message" do
       expect {
         expect { }.to have_enqueued_email(TestMailer, :test_email)
@@ -388,6 +396,14 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
           TestMailer.with('foo' => 'bar').email_with_args(1, 2).deliver_later
         }.to have_enqueued_mail(TestMailer, :email_with_args).with({ 'foo' => 'bar' }, 1, 2)
       end
+
+      it "fails if the arguments do not match the mailer method's signature" do
+        expect {
+          expect {
+            TestMailer.with('foo' => 'bar').email_with_args(1).deliver_later
+          }.to have_enqueued_mail(TestMailer, :email_with_args).with({ 'foo' => 'bar' }, 1)
+        }.to raise_error(ArgumentError, /Wrong number of arguments/)
+      end
     end
 
     context 'mailer job is unified', skip: !RSpec::Rails::FeatureCheck.has_action_mailer_unified_delivery? do
@@ -434,6 +450,16 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
         expect {
           UnifiedMailerWithDeliveryJobSubClass.test_email.deliver_later
         }.to have_enqueued_mail(UnifiedMailerWithDeliveryJobSubClass, :test_email)
+      end
+
+      it "fails if the arguments do not match the mailer method's signature" do
+        expect {
+          expect {
+            UnifiedMailer.with('foo' => 'bar').email_with_args(1).deliver_later
+          }.to have_enqueued_mail(UnifiedMailer, :email_with_args).with(
+            a_hash_including(params: { 'foo' => 'bar' }, args: [1])
+          )
+        }.to raise_error(ArgumentError, /Wrong number of arguments/)
       end
     end
   end
