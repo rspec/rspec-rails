@@ -89,8 +89,19 @@ module RSpec
           super(job)
         end
 
-        def verify_arguments_match_signature!(_job, _args)
-          # Not implemented for mailers
+        def verify_arguments_match_signature!(job, args)
+          return if @method_name.nil?
+
+          mailer_method = mailer_class_name.constantize.public_instance_method(@method_name)
+          mailer_args = args - base_mailer_args
+
+          if parameterized_mail?(job)
+            mailer_args = mailer_args[1..-1] # ignore parameterized params
+          elsif mailer_args.last.is_a?(Hash) && mailer_args.last.key?(:args)
+            mailer_args = args.last[:args]
+          end
+
+          verify_signature!(mailer_method, mailer_args)
         end
 
         def base_mailer_args
