@@ -64,6 +64,20 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
     end
   end
 
+  let(:two_args_job) do
+    Class.new(ActiveJob::Base) do
+      def perform(one, two); end
+      def self.name; "TwoArgsJob"; end
+    end
+  end
+
+  let(:keyword_args_job) do
+    Class.new(ActiveJob::Base) do
+      def perform(one:, two:); end
+      def self.name; "KeywordArgsJob"; end
+    end
+  end
+
   before do
     ActiveJob::Base.queue_adapter = :test
   end
@@ -324,6 +338,22 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       }.to have_enqueued_job.with(42, "David")
     end
 
+    it "fails if the arguments do not match the job's signature" do
+      expect {
+        expect {
+          two_args_job.perform_later(1)
+        }.to have_enqueued_job.with(1)
+      }.to raise_error(ArgumentError, /Wrong number of arguments/)
+    end
+
+    it "fails if the job's signature/arguments are mismatched keyword/positional arguments" do
+      expect {
+        expect {
+          keyword_args_job.perform_later(1, 2)
+        }.to have_enqueued_job.with(1, 2)
+      }.to raise_error(ArgumentError, /Missing required keyword arguments/)
+    end
+
     it "passes with provided arguments containing global id object" do
       global_id_object = GlobalIdModel.new("42")
 
@@ -455,6 +485,22 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       expect {
         expect(heavy_lifting_job).to have_been_enqueued
       }.to raise_error(/expected to enqueue exactly 1 jobs, but enqueued 0/)
+    end
+
+    it "fails if the arguments do not match the job's signature" do
+      two_args_job.perform_later(1)
+
+      expect {
+        expect(two_args_job).to have_been_enqueued.with(1)
+      }.to raise_error(ArgumentError, /Wrong number of arguments/)
+    end
+
+    it "fails if the job's signature/arguments are mismatched keyword/positional arguments" do
+      keyword_args_job.perform_later(1, 2)
+
+      expect {
+        expect(keyword_args_job).to have_been_enqueued.with(1, 2)
+      }.to raise_error(ArgumentError, /Missing required keyword arguments/)
     end
 
     it "fails when negated and several jobs enqueued" do
