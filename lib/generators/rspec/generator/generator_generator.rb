@@ -4,7 +4,7 @@ module Rspec
   module Generators
     # @private
     class GeneratorGenerator < Base
-      class_option :generator_specs, type: :boolean, default: true,  desc: "Generate generator specs"
+      class_option :generator_specs, type: :boolean, default: true, desc: 'Generate generator specs'
 
       def generate_generator_spec
         return unless options[:generator_specs]
@@ -17,7 +17,7 @@ module Rspec
       end
 
       def filename
-        "#{table_name}_generator_spec.rb"
+        "#{file_name}_generator_spec.rb"
       end
     end
   end
