@@ -89,6 +89,10 @@ module RSpec
           super(job)
         end
 
+        def verify_arguments_match_signature!(_job, _args)
+          # Not implemented for mailers
+        end
+
         def base_mailer_args
           [mailer_class_name, @method_name.to_s, MAILER_JOB_METHOD]
         end

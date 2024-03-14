@@ -103,6 +103,7 @@ module RSpec
             @matching_jobs, @unmatching_jobs = jobs.partition do |job|
               if job_match?(job) && arguments_match?(job) && queue_match?(job) && at_match?(job)
                 args = deserialize_arguments(job)
+                verify_arguments_match_signature!(job, args)
                 @block.call(*args)
                 true
               else
@@ -150,6 +151,18 @@ module RSpec
             else
               true
             end
+          end
+
+          def verify_arguments_match_signature!(job, args)
+            job_method = job.fetch(:job).public_instance_method(:perform)
+            verify_signature!(job_method, args)
+          end
+
+          def verify_signature!(job_method, args)
+            signature = Support::MethodSignature.new(job_method)
+            verifier = Support::StrictSignatureVerifier.new(signature, args)
+
+            raise ArgumentError, verifier.error_message unless verifier.valid?
           end
 
           def queue_match?(job)
