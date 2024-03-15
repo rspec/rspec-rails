@@ -70,6 +70,18 @@ module RSpec::Rails
       end
     end
 
+    describe '#driver', if: ::Rails::VERSION::STRING.to_f >= 7.2 do
+      it 'uses :selenium_chrome_headless driver by default' do
+        group = RSpec::Core::ExampleGroup.describe do
+          include SystemExampleGroup
+        end
+        example = group.new
+        group.hooks.run(:before, :example, example)
+
+        expect(Capybara.current_driver).to eq :selenium_chrome_headless
+      end
+    end
+
     describe '#after' do
       it 'sets the :extra_failure_lines metadata to an array of STDOUT lines' do
         allow(Capybara::Session).to receive(:instance_created?).and_return(true)

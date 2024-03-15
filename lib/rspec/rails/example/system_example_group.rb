@@ -137,7 +137,11 @@ module RSpec
           self.class.before do
             # A user may have already set the driver, so only default if driver
             # is not set
-            driven_by(:selenium) unless @driver
+            if ::Rails::VERSION::STRING.to_f >= 7.2
+              driven_by(:selenium_chrome_headless) unless @driver
+            else
+              driven_by(:selenium) unless @driver
+            end
           end
         end
 
