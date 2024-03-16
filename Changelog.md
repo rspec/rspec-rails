@@ -4,6 +4,7 @@
 Bug Fixes:
 
 * Fix generated mailer paths to match Rails convention. (Patrício dos Santos, #2735)
+* Fix class in generator generator template. (Nicolas Buduroi, #2744)
 
 ### 6.1.1 / 2024-01-25
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.0...v6.1.1)
