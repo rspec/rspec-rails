@@ -1,6 +1,9 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.1...main)
 
+### 6.1.2 / 2024-03-19
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.1...v6.1.2)
+
 Bug Fixes:
 
 * Fix generated mailer paths to match Rails convention. (Patrício dos Santos, #2735)
