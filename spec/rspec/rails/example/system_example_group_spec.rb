@@ -28,9 +28,18 @@ module RSpec::Rails
         expect(example.send(:method_name).bytesize).to be <= 210
       end
     end
+    describe '#driver' do
+      it 'uses :selenium driver by default', if: ::Rails::VERSION::STRING.to_f < 7.2 do
+        group = RSpec::Core::ExampleGroup.describe do
+          include SystemExampleGroup
+        end
+        example = group.new
+        group.hooks.run(:before, :example, example)
 
-    describe '#driver', if: ::Rails::VERSION::STRING.to_f >= 7.2 do
-      it 'uses :selenium_chrome_headless driver by default' do
+        expect(Capybara.current_driver).to eq :selenium
+      end
+
+      it 'uses :selenium_chrome_headless driver by default', if: ::Rails::VERSION::STRING.to_f >= 7.2 do
         group = RSpec::Core::ExampleGroup.describe do
           include SystemExampleGroup
         end
