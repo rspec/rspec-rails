@@ -29,15 +29,15 @@ module RSpec::Rails
       end
     end
 
-    describe '#driver' do
-      it 'uses :selenium driver by default' do
+    describe '#driver', if: ::Rails::VERSION::STRING.to_f >= 7.2 do
+      it 'uses :selenium_chrome_headless driver by default' do
         group = RSpec::Core::ExampleGroup.describe do
           include SystemExampleGroup
         end
         example = group.new
         group.hooks.run(:before, :example, example)
 
-        expect(Capybara.current_driver).to eq :selenium
+        expect(Capybara.current_driver).to eq :selenium_chrome_headless
       end
 
       it 'sets :rack_test driver using by before_action' do
@@ -67,18 +67,6 @@ module RSpec::Rails
         group.hooks.run(:before, :example, example)
 
         expect(example).to have_received(:driven_by).once
-      end
-    end
-
-    describe '#driver', if: ::Rails::VERSION::STRING.to_f >= 7.2 do
-      it 'uses :selenium_chrome_headless driver by default' do
-        group = RSpec::Core::ExampleGroup.describe do
-          include SystemExampleGroup
-        end
-        example = group.new
-        group.hooks.run(:before, :example, example)
-
-        expect(Capybara.current_driver).to eq :selenium_chrome_headless
       end
     end
 
