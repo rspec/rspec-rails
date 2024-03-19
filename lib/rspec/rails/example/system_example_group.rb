@@ -95,6 +95,13 @@ module RSpec
         ::Rails.application
       end
 
+      DEFAULT_DRIVER =
+        if ::Rails::VERSION::STRING.to_f >= 7.2
+          :selenium_chrome_headless
+        else
+          :selenium
+        end
+
       included do |other|
         ActiveSupport.on_load(:action_dispatch_system_test_case) do
           ActionDispatch::SystemTesting::Server.silence_puma = true
@@ -137,11 +144,7 @@ module RSpec
           self.class.before do
             # A user may have already set the driver, so only default if driver
             # is not set
-            if ::Rails::VERSION::STRING.to_f >= 7.2
-              driven_by(:selenium_chrome_headless) unless @driver
-            else
-              driven_by(:selenium) unless @driver
-            end
+            driven_by(DEFAULT_DRIVER) unless @driver
           end
         end
 
