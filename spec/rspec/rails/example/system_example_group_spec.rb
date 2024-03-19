@@ -28,6 +28,7 @@ module RSpec::Rails
         expect(example.send(:method_name).bytesize).to be <= 210
       end
     end
+
     describe '#driver' do
       it 'uses :selenium driver by default', if: ::Rails::VERSION::STRING.to_f < 7.2 do
         group = RSpec::Core::ExampleGroup.describe do
