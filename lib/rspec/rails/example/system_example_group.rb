@@ -95,6 +95,7 @@ module RSpec
         ::Rails.application
       end
 
+      # Default driver to assign if none specified.
       DEFAULT_DRIVER =
         if ::Rails::VERSION::STRING.to_f >= 7.2
           :selenium_chrome_headless
