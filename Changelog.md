@@ -1,5 +1,10 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.1...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.2...main)
+
+Enhancements:
+
+* Change default driver for system specs on Rails 7.2 to match its default.
+  (Steve Polito, #2746)
 
 ### 6.1.2 / 2024-03-19
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.1...v6.1.2)
