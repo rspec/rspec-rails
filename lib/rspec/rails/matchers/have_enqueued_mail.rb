@@ -41,6 +41,8 @@ module RSpec
         end
 
         def failure_message
+          return @failure_message if defined?(@failure_message)
+
           "expected to enqueue #{base_message}".tap do |msg|
             msg << "\n#{unmatching_mail_jobs_message}" if unmatching_mail_jobs.any?
           end
@@ -89,19 +91,20 @@ module RSpec
           super(job)
         end
 
-        def verify_arguments_match_signature!(job, args)
+        def detect_args_signature_mismatch(jobs)
           return if @method_name.nil?
 
-          mailer_method = mailer_class_name.constantize.public_instance_method(@method_name)
-          mailer_args = args - base_mailer_args
+          mailer_class = mailer_class_name.constantize
 
-          if parameterized_mail?(job)
-            mailer_args = mailer_args[1..-1] # ignore parameterized params
-          elsif mailer_args.last.is_a?(Hash) && mailer_args.last.key?(:args)
-            mailer_args = args.last[:args]
+          jobs.each do |job|
+            mailer_args = extract_args_without_parameterized_params(job)
+
+            if (signature_mismatch = check_args_signature_mismatch(mailer_class, @method_name, mailer_args))
+              return signature_mismatch
+            end
           end
 
-          verify_signature!(mailer_method, mailer_args)
+          nil
         end
 
         def base_mailer_args
@@ -170,6 +173,19 @@ module RSpec
           else
             args + [hash]
           end
+        end
+
+        def extract_args_without_parameterized_params(job)
+          args = deserialize_arguments(job)
+          mailer_args = args - base_mailer_args
+
+          if parameterized_mail?(job)
+            mailer_args = mailer_args[1..-1] # ignore parameterized params
+          elsif mailer_args.last.is_a?(Hash) && mailer_args.last.key?(:args)
+            mailer_args = args.last[:args]
+          end
+
+          mailer_args
         end
 
         def legacy_mail?(job)
