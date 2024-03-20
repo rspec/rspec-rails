@@ -248,7 +248,10 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
         expect {
           TestMailer.email_with_args(1).deliver_later
         }.to have_enqueued_mail(TestMailer, :email_with_args).with(1)
-      }.to raise_error(ArgumentError, /Wrong number of arguments/)
+      }.to raise_error(
+        RSpec::Expectations::ExpectationNotMetError,
+        /Incorrect arguments passed to TestMailer: Wrong number of arguments/
+      )
     end
 
     it "generates a failure message" do
@@ -402,7 +405,10 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
           expect {
             TestMailer.with('foo' => 'bar').email_with_args(1).deliver_later
           }.to have_enqueued_mail(TestMailer, :email_with_args).with({ 'foo' => 'bar' }, 1)
-        }.to raise_error(ArgumentError, /Wrong number of arguments/)
+        }.to raise_error(
+          RSpec::Expectations::ExpectationNotMetError,
+          /Incorrect arguments passed to TestMailer: Wrong number of arguments/
+        )
       end
     end
 
@@ -459,7 +465,10 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
           }.to have_enqueued_mail(UnifiedMailer, :email_with_args).with(
             a_hash_including(params: { 'foo' => 'bar' }, args: [1])
           )
-        }.to raise_error(ArgumentError, /Wrong number of arguments/)
+        }.to raise_error(
+          RSpec::Expectations::ExpectationNotMetError,
+          /Incorrect arguments passed to UnifiedMailer: Wrong number of arguments/
+        )
       end
     end
   end

@@ -71,6 +71,8 @@ module RSpec
           end
 
           def failure_message
+            return @failure_message if defined?(@failure_message)
+
             "expected to #{self.class::FAILURE_MESSAGE_EXPECTATION_ACTION} #{base_message}".tap do |msg|
               if @unmatching_jobs.any?
                 msg << "\nQueued jobs:"
@@ -103,13 +105,18 @@ module RSpec
             @matching_jobs, @unmatching_jobs = jobs.partition do |job|
               if job_match?(job) && arguments_match?(job) && queue_match?(job) && at_match?(job)
                 args = deserialize_arguments(job)
-                verify_arguments_match_signature!(job, args)
                 @block.call(*args)
                 true
               else
                 false
               end
             end
+
+            if (signature_mismatch = detect_args_signature_mismatch(@matching_jobs))
+              @failure_message = signature_mismatch
+              return false
+            end
+
             @matching_jobs_count = @matching_jobs.size
 
             case @expectation_type
@@ -153,16 +160,25 @@ module RSpec
             end
           end
 
-          def verify_arguments_match_signature!(job, args)
-            job_method = job.fetch(:job).public_instance_method(:perform)
-            verify_signature!(job_method, args)
+          def detect_args_signature_mismatch(jobs)
+            jobs.each do |job|
+              args = deserialize_arguments(job)
+
+              if (signature_mismatch = check_args_signature_mismatch(job.fetch(:job), :perform, args))
+                return signature_mismatch
+              end
+            end
+
+            nil
           end
 
-          def verify_signature!(job_method, args)
-            signature = Support::MethodSignature.new(job_method)
+          def check_args_signature_mismatch(job_class, job_method, args)
+            signature = Support::MethodSignature.new(job_class.public_instance_method(job_method))
             verifier = Support::StrictSignatureVerifier.new(signature, args)
 
-            raise ArgumentError, verifier.error_message unless verifier.valid?
+            unless verifier.valid?
+              "Incorrect arguments passed to #{job_class.name}: #{verifier.error_message}"
+            end
           end
 
           def queue_match?(job)

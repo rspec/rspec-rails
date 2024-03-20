@@ -343,7 +343,10 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
         expect {
           two_args_job.perform_later(1)
         }.to have_enqueued_job.with(1)
-      }.to raise_error(ArgumentError, /Wrong number of arguments/)
+      }.to raise_error(
+        RSpec::Expectations::ExpectationNotMetError,
+        /Incorrect arguments passed to TwoArgsJob: Wrong number of arguments/
+      )
     end
 
     it "fails if the job's signature/arguments are mismatched keyword/positional arguments" do
@@ -351,7 +354,10 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
         expect {
           keyword_args_job.perform_later(1, 2)
         }.to have_enqueued_job.with(1, 2)
-      }.to raise_error(ArgumentError, /Missing required keyword arguments/)
+      }.to raise_error(
+        RSpec::Expectations::ExpectationNotMetError,
+        /Incorrect arguments passed to KeywordArgsJob: Missing required keyword arguments/
+      )
     end
 
     it "passes with provided arguments containing global id object" do
@@ -492,7 +498,10 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
 
       expect {
         expect(two_args_job).to have_been_enqueued.with(1)
-      }.to raise_error(ArgumentError, /Wrong number of arguments/)
+      }.to raise_error(
+        RSpec::Expectations::ExpectationNotMetError,
+        /Incorrect arguments passed to TwoArgsJob: Wrong number of arguments/
+      )
     end
 
     it "fails if the job's signature/arguments are mismatched keyword/positional arguments" do
@@ -500,7 +509,10 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
 
       expect {
         expect(keyword_args_job).to have_been_enqueued.with(1, 2)
-      }.to raise_error(ArgumentError, /Missing required keyword arguments/)
+      }.to raise_error(
+        RSpec::Expectations::ExpectationNotMetError,
+        /Incorrect arguments passed to KeywordArgsJob: Missing required keyword arguments/
+      )
     end
 
     it "fails when negated and several jobs enqueued" do
