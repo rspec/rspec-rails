@@ -3,6 +3,7 @@
 require 'rspec/rails/matchers'
 
 if ::Rails::VERSION::MAJOR >= 7
+  require "active_support/current_attributes/test_helper"
   require 'active_support/execution_context/test_helper'
 end
 
@@ -18,6 +19,7 @@ module RSpec
       include RSpec::Rails::FixtureSupport
       if ::Rails::VERSION::MAJOR >= 7
         include RSpec::Rails::TaggedLoggingAdapter
+        include ActiveSupport::CurrentAttributes::TestHelper
         include ActiveSupport::ExecutionContext::TestHelper
       end
     end
