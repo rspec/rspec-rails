@@ -19,7 +19,11 @@ module RSpec
         include ActiveSupport::ExecutionContext::TestHelper
         included do |_other|
           around do |example|
-            ::Rails.application.executor.perform { example.call }
+            if ::Rails.configuration.active_support.executor_around_test_case
+              ::Rails.application.executor.perform { example.call }
+            else
+              example.call
+            end
           end
         end
       end
