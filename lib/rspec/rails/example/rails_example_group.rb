@@ -3,7 +3,7 @@
 require 'rspec/rails/matchers'
 
 if ::Rails::VERSION::MAJOR >= 7
-  require "active_support/current_attributes/test_helper"
+  require 'active_support/current_attributes/test_helper'
   require 'active_support/execution_context/test_helper'
 end
 
