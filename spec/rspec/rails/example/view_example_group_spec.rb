@@ -1,3 +1,4 @@
+require 'ostruct'
 require 'support/group_failure_formatter'
 
 module RSpec::Rails
@@ -187,7 +188,7 @@ module RSpec::Rails
         Class.new do
           include ViewExampleGroup::ExampleMethods
           def controller
-            @controller ||= OpenStruct.new(params: nil)
+            @controller ||= ::OpenStruct.new(params: nil)
           end
         end.new
       end
