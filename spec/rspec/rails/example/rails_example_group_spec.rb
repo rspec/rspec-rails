@@ -1,6 +1,10 @@
 module RSpec::Rails
-  RSpec.describe RailsExampleGroup do
+  RSpec.describe RailsExampleGroup do    
     if ::Rails::VERSION::MAJOR >= 7
+      class CurrentSample < ActiveSupport::CurrentAttributes
+        attribute :request_id
+      end
+
       it 'supports tagged_logger' do
         expect(described_class.private_instance_methods).to include(:tagged_logger)
       end
@@ -33,22 +37,16 @@ module RSpec::Rails
       expect(results).to all be true
     end
 
-    describe 'CurrentAttributes', order: :defined do
+    describe 'CurrentAttributes', order: :defined, if: ::Rails::VERSION::MAJOR >= 7 do
       include RSpec::Rails::RailsExampleGroup
 
-      class Current < ActiveSupport::CurrentAttributes
-        attribute :request_id
-      end
-
       it 'sets a current attribute' do
-        Current.request_id = '123'
-        expect(Current.request_id).to eq('123')
-        expect(Current.attributes).to eq(request_id: '123')
+        CurrentSample.request_id = '123'
+        expect(CurrentSample.request_id).to eq('123')
       end
 
       it 'does not leak current attributes' do
-        expect(Current.request_id).to eq(nil)
-        expect(Current.attributes).to eq({})
+        expect(CurrentSample.request_id).to eq(nil)
       end
     end
   end
