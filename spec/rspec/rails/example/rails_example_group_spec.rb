@@ -34,6 +34,8 @@ module RSpec::Rails
     end
 
     describe 'CurrentAttributes', order: :defined do
+      include RSpec::Rails::RailsExampleGroup
+
       class Current < ActiveSupport::CurrentAttributes
         attribute :request_id
       end
