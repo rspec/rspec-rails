@@ -187,7 +187,7 @@ module RSpec::Rails
         Class.new do
           include ViewExampleGroup::ExampleMethods
           def controller
-            @controller ||= OpenStruct.new(params: nil)
+            @controller ||= Struct.new(:params).new(nil)
           end
         end.new
       end
