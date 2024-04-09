@@ -1,5 +1,5 @@
 module RSpec::Rails
-  RSpec.describe RailsExampleGroup do    
+  RSpec.describe RailsExampleGroup do
     if ::Rails::VERSION::MAJOR >= 7
       class CurrentSample < ActiveSupport::CurrentAttributes
         attribute :request_id
