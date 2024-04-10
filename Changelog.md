@@ -1,6 +1,10 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.1...6-1-maintenance)
 
+Bug Fixes:
+
+* Reset `ActiveSupport::CurrentAttributes` between examples. (Javier Julio, #2752)
+
 ### 6.1.2 / 2024-03-19
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.1...v6.1.2)
 
