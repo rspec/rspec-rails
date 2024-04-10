@@ -6,6 +6,7 @@ Enhancements:
 * Change default driver for system specs on Rails 7.2 to match its default.
   (Steve Polito, #2746)
 * Verify ActiveJob arguments by comparing to the method signature. (Oli Peate, #2745)
+* Add suggestion to rails_helper.rb to skip when not in test most. (Glauco Custódio, #2751)
 
 Bug Fixes:
 
