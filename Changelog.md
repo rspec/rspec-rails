@@ -5,6 +5,7 @@ Enhancements:
 
 * Change default driver for system specs on Rails 7.2 to match its default.
   (Steve Polito, #2746)
+* Verify ActiveJob arguments by comparing to the method signature. (Oli Peate, #2745)
 
 Bug Fixes:
 
