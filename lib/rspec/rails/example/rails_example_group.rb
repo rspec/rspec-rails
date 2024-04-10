@@ -2,6 +2,11 @@
 # suite and ammeter.
 require 'rspec/rails/matchers'
 
+if ::Rails::VERSION::MAJOR >= 7
+  require 'active_support/current_attributes/test_helper'
+  require 'active_support/execution_context/test_helper'
+end
+
 module RSpec
   module Rails
     # @api public
@@ -23,10 +28,7 @@ module RSpec
             end
           end
         else
-          require 'active_support/current_attributes/test_helper'
           include ActiveSupport::CurrentAttributes::TestHelper
-
-          require 'active_support/execution_context/test_helper'
           include ActiveSupport::ExecutionContext::TestHelper
         end
       end
