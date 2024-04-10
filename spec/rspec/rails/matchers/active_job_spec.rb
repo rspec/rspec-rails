@@ -152,7 +152,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
     it "fails when job is not enqueued" do
       expect {
         expect { }.to have_enqueued_job
-      }.to raise_error(/expected to enqueue exactly 1 jobs, but enqueued 0/)
+      }.to fail_with(/expected to enqueue exactly 1 jobs, but enqueued 0/)
     end
 
     it "fails when too many jobs enqueued" do
@@ -161,20 +161,20 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
           heavy_lifting_job.perform_later
           heavy_lifting_job.perform_later
         }.to have_enqueued_job.exactly(1)
-      }.to raise_error(/expected to enqueue exactly 1 jobs, but enqueued 2/)
+      }.to fail_with(/expected to enqueue exactly 1 jobs, but enqueued 2/)
     end
 
     it "reports correct number in fail error message" do
       heavy_lifting_job.perform_later
       expect {
         expect { }.to have_enqueued_job.exactly(1)
-      }.to raise_error(/expected to enqueue exactly 1 jobs, but enqueued 0/)
+      }.to fail_with(/expected to enqueue exactly 1 jobs, but enqueued 0/)
     end
 
     it "fails when negated and job is enqueued" do
       expect {
         expect { heavy_lifting_job.perform_later }.not_to have_enqueued_job
-      }.to raise_error(/expected not to enqueue at least 1 jobs, but enqueued 1/)
+      }.to fail_with(/expected not to enqueue at least 1 jobs, but enqueued 1/)
     end
 
     it "fails when negated and several jobs enqueued" do
@@ -183,7 +183,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
           heavy_lifting_job.perform_later
           heavy_lifting_job.perform_later
         }.not_to have_enqueued_job
-      }.to raise_error(/expected not to enqueue at least 1 jobs, but enqueued 2/)
+      }.to fail_with(/expected not to enqueue at least 1 jobs, but enqueued 2/)
     end
 
     it "passes with job name" do
@@ -238,7 +238,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
     it "generates failure message with at least hint" do
       expect {
         expect { }.to have_enqueued_job.at_least(:once)
-      }.to raise_error(/expected to enqueue at least 1 jobs, but enqueued 0/)
+      }.to fail_with(/expected to enqueue at least 1 jobs, but enqueued 0/)
     end
 
     it "generates failure message with at most hint" do
@@ -247,7 +247,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
           hello_job.perform_later
           hello_job.perform_later
         }.to have_enqueued_job.at_most(:once)
-      }.to raise_error(/expected to enqueue at most 1 jobs, but enqueued 2/)
+      }.to fail_with(/expected to enqueue at most 1 jobs, but enqueued 2/)
     end
 
     it "passes with provided queue name as string" do
@@ -291,7 +291,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       travel_to time do
         expect {
           expect { hello_job.set(wait: 5).perform_later }.to have_enqueued_job.at(time + 5)
-        }.to raise_error(/expected to enqueue exactly 1 jobs/)
+        }.to fail_with(/expected to enqueue exactly 1 jobs/)
       end
     end
 
@@ -315,7 +315,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
         expect {
           hello_job.perform_later
         }.to have_enqueued_job.at(date)
-      }.to raise_error(/expected to enqueue exactly 1 jobs, at .+ but enqueued 0/)
+      }.to fail_with(/expected to enqueue exactly 1 jobs, at .+ but enqueued 0/)
     end
 
     it "has an enqueued job when not providing at and there is a wait" do
@@ -343,10 +343,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
         expect {
           two_args_job.perform_later(1)
         }.to have_enqueued_job.with(1)
-      }.to raise_error(
-        RSpec::Expectations::ExpectationNotMetError,
-        /Incorrect arguments passed to TwoArgsJob: Wrong number of arguments/
-      )
+      }.to fail_with(/Incorrect arguments passed to TwoArgsJob: Wrong number of arguments/)
     end
 
     it "fails if the job's signature/arguments are mismatched keyword/positional arguments" do
@@ -354,10 +351,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
         expect {
           keyword_args_job.perform_later(1, 2)
         }.to have_enqueued_job.with(1, 2)
-      }.to raise_error(
-        RSpec::Expectations::ExpectationNotMetError,
-        /Incorrect arguments passed to KeywordArgsJob: Missing required keyword arguments/
-      )
+      }.to fail_with(/Incorrect arguments passed to KeywordArgsJob: Missing required keyword arguments/)
     end
 
     it "passes with provided arguments containing global id object" do
@@ -384,7 +378,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
         expect {
           hello_job.perform_later(1)
         }.to have_enqueued_job(hello_job).with(42).on_queue("low").at(date).exactly(2).times
-      }.to raise_error(message)
+      }.to fail_with(message)
     end
 
     it "throws descriptive error when no test adapter set" do
@@ -490,7 +484,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
     it "fails when job is not enqueued" do
       expect {
         expect(heavy_lifting_job).to have_been_enqueued
-      }.to raise_error(/expected to enqueue exactly 1 jobs, but enqueued 0/)
+      }.to fail_with(/expected to enqueue exactly 1 jobs, but enqueued 0/)
     end
 
     it "fails if the arguments do not match the job's signature" do
@@ -498,10 +492,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
 
       expect {
         expect(two_args_job).to have_been_enqueued.with(1)
-      }.to raise_error(
-        RSpec::Expectations::ExpectationNotMetError,
-        /Incorrect arguments passed to TwoArgsJob: Wrong number of arguments/
-      )
+      }.to fail_with(/Incorrect arguments passed to TwoArgsJob: Wrong number of arguments/)
     end
 
     it "fails if the job's signature/arguments are mismatched keyword/positional arguments" do
@@ -509,10 +500,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
 
       expect {
         expect(keyword_args_job).to have_been_enqueued.with(1, 2)
-      }.to raise_error(
-        RSpec::Expectations::ExpectationNotMetError,
-        /Incorrect arguments passed to KeywordArgsJob: Missing required keyword arguments/
-      )
+      }.to fail_with(/Incorrect arguments passed to KeywordArgsJob: Missing required keyword arguments/)
     end
 
     it "fails when negated and several jobs enqueued" do
@@ -520,7 +508,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       heavy_lifting_job.perform_later
       expect {
         expect(heavy_lifting_job).not_to have_been_enqueued
-      }.to raise_error(/expected not to enqueue at least 1 jobs, but enqueued 2/)
+      }.to fail_with(/expected not to enqueue at least 1 jobs, but enqueued 2/)
     end
 
     it "accepts composable matchers as an at date" do
@@ -569,7 +557,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
     it "fails when job is not performed" do
       expect {
         expect { }.to have_performed_job
-      }.to raise_error(/expected to perform exactly 1 jobs, but performed 0/)
+      }.to fail_with(/expected to perform exactly 1 jobs, but performed 0/)
     end
 
     it "fails when too many jobs performed" do
@@ -578,20 +566,20 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
           heavy_lifting_job.perform_later
           heavy_lifting_job.perform_later
         }.to have_performed_job.exactly(1)
-      }.to raise_error(/expected to perform exactly 1 jobs, but performed 2/)
+      }.to fail_with(/expected to perform exactly 1 jobs, but performed 2/)
     end
 
     it "reports correct number in fail error message" do
       heavy_lifting_job.perform_later
       expect {
         expect { }.to have_performed_job.exactly(1)
-      }.to raise_error(/expected to perform exactly 1 jobs, but performed 0/)
+      }.to fail_with(/expected to perform exactly 1 jobs, but performed 0/)
     end
 
     it "fails when negated and job is performed" do
       expect {
         expect { heavy_lifting_job.perform_later }.not_to have_performed_job
-      }.to raise_error(/expected not to perform exactly 1 jobs, but performed 1/)
+      }.to fail_with(/expected not to perform exactly 1 jobs, but performed 1/)
     end
 
     it "passes with job name" do
@@ -646,7 +634,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
     it "generates failure message with at least hint" do
       expect {
         expect { }.to have_performed_job.at_least(:once)
-      }.to raise_error(/expected to perform at least 1 jobs, but performed 0/)
+      }.to fail_with(/expected to perform at least 1 jobs, but performed 0/)
     end
 
     it "generates failure message with at most hint" do
@@ -655,7 +643,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
           hello_job.perform_later
           hello_job.perform_later
         }.to have_performed_job.at_most(:once)
-      }.to raise_error(/expected to perform at most 1 jobs, but performed 2/)
+      }.to fail_with(/expected to perform at most 1 jobs, but performed 2/)
     end
 
     it "passes with provided queue name as string" do
@@ -707,7 +695,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
         expect {
           hello_job.perform_later(1)
         }.to have_performed_job(hello_job).with(42).on_queue("low").at(date).exactly(2).times
-      }.to raise_error(message)
+      }.to fail_with(message)
     end
 
     it "throws descriptive error when no test adapter set" do
@@ -792,7 +780,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
     it "fails when job is not performed" do
       expect {
         expect(heavy_lifting_job).to have_been_performed
-      }.to raise_error(/expected to perform exactly 1 jobs, but performed 0/)
+      }.to fail_with(/expected to perform exactly 1 jobs, but performed 0/)
     end
   end
 

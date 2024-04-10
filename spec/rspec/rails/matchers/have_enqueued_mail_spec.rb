@@ -110,7 +110,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
         expect {
           AnotherTestMailer.test_email.deliver_later
         }.to have_enqueued_mail(TestMailer)
-      }.to raise_error(/expected to enqueue TestMailer exactly 1 time but enqueued 0/)
+      }.to fail_with(/expected to enqueue TestMailer exactly 1 time but enqueued 0/)
     end
 
     it "counts only emails enqueued in the block" do
@@ -127,7 +127,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
           TestMailer.test_email.deliver_later
           TestMailer.test_email.deliver_later
         }.to have_enqueued_mail(TestMailer, :test_email).exactly(1)
-      }.to raise_error(/expected to enqueue TestMailer.test_email exactly 1 time/)
+      }.to fail_with(/expected to enqueue TestMailer.test_email exactly 1 time/)
     end
 
     it "matches based on mailer class and method name" do
@@ -149,7 +149,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
         expect {
           TestMailer.test_email.deliver_later
         }.not_to have_enqueued_mail(TestMailer, :test_email)
-      }.to raise_error(/expected not to enqueue TestMailer.test_email at least 1 time but enqueued 1/)
+      }.to fail_with(/expected not to enqueue TestMailer.test_email at least 1 time but enqueued 1/)
     end
 
     it "passes with :once count" do
@@ -189,19 +189,19 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
     it "generates a failure message when given 0 argument" do
       expect {
         expect { }.to have_enqueued_mail.at_least(:once)
-      }.to raise_error(/expected to enqueue ActionMailer::Base at least 1 time but enqueued 0/)
+      }.to fail_with(/expected to enqueue ActionMailer::Base at least 1 time but enqueued 0/)
     end
 
     it "generates a failure message when given only mailer argument" do
       expect {
         expect { }.to have_enqueued_mail(TestMailer).at_least(:once)
-      }.to raise_error(/expected to enqueue TestMailer at least 1 time but enqueued 0/)
+      }.to fail_with(/expected to enqueue TestMailer at least 1 time but enqueued 0/)
     end
 
     it "generates a failure message with at least hint" do
       expect {
         expect { }.to have_enqueued_mail(TestMailer, :test_email).at_least(:once)
-      }.to raise_error(/expected to enqueue TestMailer.test_email at least 1 time but enqueued 0/)
+      }.to fail_with(/expected to enqueue TestMailer.test_email at least 1 time but enqueued 0/)
     end
 
     it "generates a failure message with at most hint" do
@@ -210,7 +210,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
           TestMailer.test_email.deliver_later
           TestMailer.test_email.deliver_later
         }.to have_enqueued_mail(TestMailer, :test_email).at_most(:once)
-      }.to raise_error(/expected to enqueue TestMailer.test_email at most 1 time but enqueued 2/)
+      }.to fail_with(/expected to enqueue TestMailer.test_email at most 1 time but enqueued 2/)
     end
 
     it "passes for mailer methods that accept arguments when the provided argument matcher is not used" do
@@ -248,22 +248,19 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
         expect {
           TestMailer.email_with_args(1).deliver_later
         }.to have_enqueued_mail(TestMailer, :email_with_args).with(1)
-      }.to raise_error(
-        RSpec::Expectations::ExpectationNotMetError,
-        /Incorrect arguments passed to TestMailer: Wrong number of arguments/
-      )
+      }.to fail_with(/Incorrect arguments passed to TestMailer: Wrong number of arguments/)
     end
 
     it "generates a failure message" do
       expect {
         expect { }.to have_enqueued_email(TestMailer, :test_email)
-      }.to raise_error(/expected to enqueue TestMailer.test_email/)
+      }.to fail_with(/expected to enqueue TestMailer.test_email/)
     end
 
     it "generates a failure message with arguments" do
       expect {
         expect { }.to have_enqueued_email(TestMailer, :email_with_args).with(1, 2)
-      }.to raise_error(/expected to enqueue TestMailer.email_with_args exactly 1 time with \[1, 2\], but enqueued 0/)
+      }.to fail_with(/expected to enqueue TestMailer.email_with_args exactly 1 time with \[1, 2\], but enqueued 0/)
     end
 
     it "passes when deliver_later is called with a wait_until argument" do
@@ -281,7 +278,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
         expect {
           TestMailer.test_email.deliver_later(wait_until: send_time + 1)
         }.to have_enqueued_email(TestMailer, :test_email).at(send_time)
-      }.to raise_error(/expected to enqueue TestMailer.test_email exactly 1 time at #{send_time.strftime('%F %T')}/)
+      }.to fail_with(/expected to enqueue TestMailer.test_email exactly 1 time at #{send_time.strftime('%F %T')}/)
     end
 
     it "accepts composable matchers as an at date" do
@@ -304,7 +301,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
         expect {
           TestMailer.test_email.deliver_later(queue: 'not_urgent_mail')
         }.to have_enqueued_email(TestMailer, :test_email).on_queue('urgent_mail')
-      }.to raise_error(/expected to enqueue TestMailer.test_email exactly 1 time on queue urgent_mail/)
+      }.to fail_with(/expected to enqueue TestMailer.test_email exactly 1 time on queue urgent_mail/)
     end
 
     it "generates a failure message with unmatching enqueued mail jobs" do
@@ -327,7 +324,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
           TestMailer.test_email.deliver_later
           TestMailer.email_with_args(3, 4).deliver_later(wait_until: send_time, queue: queue)
         }.to have_enqueued_email(TestMailer, :email_with_args).with(1, 2)
-      }.to raise_error(message)
+      }.to fail_with(message)
     end
 
     it "throws descriptive error when no test adapter set" do
@@ -405,10 +402,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
           expect {
             TestMailer.with('foo' => 'bar').email_with_args(1).deliver_later
           }.to have_enqueued_mail(TestMailer, :email_with_args).with({ 'foo' => 'bar' }, 1)
-        }.to raise_error(
-          RSpec::Expectations::ExpectationNotMetError,
-          /Incorrect arguments passed to TestMailer: Wrong number of arguments/
-        )
+        }.to raise_error(/Incorrect arguments passed to TestMailer: Wrong number of arguments/)
       end
     end
 
@@ -465,10 +459,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
           }.to have_enqueued_mail(UnifiedMailer, :email_with_args).with(
             a_hash_including(params: { 'foo' => 'bar' }, args: [1])
           )
-        }.to raise_error(
-          RSpec::Expectations::ExpectationNotMetError,
-          /Incorrect arguments passed to UnifiedMailer: Wrong number of arguments/
-        )
+        }.to fail_with(/Incorrect arguments passed to UnifiedMailer: Wrong number of arguments/)
       end
     end
   end
