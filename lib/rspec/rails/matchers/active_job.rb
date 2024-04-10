@@ -71,6 +71,8 @@ module RSpec
           end
 
           def failure_message
+            return @failure_message if defined?(@failure_message)
+
             "expected to #{self.class::FAILURE_MESSAGE_EXPECTATION_ACTION} #{base_message}".tap do |msg|
               if @unmatching_jobs.any?
                 msg << "\nQueued jobs:"
@@ -109,6 +111,12 @@ module RSpec
                 false
               end
             end
+
+            if (signature_mismatch = detect_args_signature_mismatch(@matching_jobs))
+              @failure_message = signature_mismatch
+              return false
+            end
+
             @matching_jobs_count = @matching_jobs.size
 
             case @expectation_type
@@ -149,6 +157,27 @@ module RSpec
               RSpec::Mocks::ArgumentListMatcher.new(*args).args_match?(*deserialized_args)
             else
               true
+            end
+          end
+
+          def detect_args_signature_mismatch(jobs)
+            jobs.each do |job|
+              args = deserialize_arguments(job)
+
+              if (signature_mismatch = check_args_signature_mismatch(job.fetch(:job), :perform, args))
+                return signature_mismatch
+              end
+            end
+
+            nil
+          end
+
+          def check_args_signature_mismatch(job_class, job_method, args)
+            signature = Support::MethodSignature.new(job_class.public_instance_method(job_method))
+            verifier = Support::StrictSignatureVerifier.new(signature, args)
+
+            unless verifier.valid?
+              "Incorrect arguments passed to #{job_class.name}: #{verifier.error_message}"
             end
           end
 

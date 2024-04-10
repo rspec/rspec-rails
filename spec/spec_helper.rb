@@ -24,6 +24,7 @@ I18n.enforce_available_locales = true
 
 require 'rspec/support/spec'
 require 'rspec/core/sandbox'
+require 'rspec/matchers/fail_matchers'
 require 'rspec/rails'
 require 'ammeter/init'
 
@@ -37,6 +38,9 @@ end
 
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
+  # Bring in the failure matchers from rspec-expectations
+  config.include RSpec::Matchers::FailMatchers
+
   config.expect_with :rspec do |expectations|
     # include_chain_clauses_in_custom_matcher_descriptions is removed in RSpec Expectations 4
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true if expectations.respond_to?(:include_chain_clauses_in_custom_matcher_descriptions=)
