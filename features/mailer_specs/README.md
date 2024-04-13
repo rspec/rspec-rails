@@ -1,4 +1,4 @@
-# Mailer sepcs
+# Mailer specs
 
 By default Mailer specs reside in the `spec/mailers` folder. Adding the metadata
 `type: :mailer` to any context makes its examples be treated as mailer specs.
