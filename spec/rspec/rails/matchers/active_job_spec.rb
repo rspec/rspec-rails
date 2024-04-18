@@ -211,6 +211,18 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       }.to have_enqueued_job.on_queue(:low)
     end
 
+    it "passes with provided priority number as integer" do
+      expect {
+        hello_job.set(priority: 2).perform_later
+      }.to have_enqueued_job.with_priority(2)
+    end
+
+    it "passes with provided priority number as string" do
+      expect {
+        hello_job.set(priority: 2).perform_later
+      }.to have_enqueued_job.with_priority("2")
+    end
+
     it "passes with provided at date" do
       date = Date.tomorrow.noon
       expect {
