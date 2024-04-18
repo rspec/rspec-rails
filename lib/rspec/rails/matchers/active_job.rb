@@ -14,6 +14,7 @@ module RSpec
           def initialize
             @args = []
             @queue = nil
+            @priority = nil
             @at = nil
             @block = proc { }
             set_expected_number(:exactly, 1)
@@ -27,6 +28,11 @@ module RSpec
 
           def on_queue(queue)
             @queue = queue.to_s
+            self
+          end
+
+          def with_priority(priority)
+            @priority = priority.to_i
             self
           end
 
@@ -101,7 +107,7 @@ module RSpec
 
           def check(jobs)
             @matching_jobs, @unmatching_jobs = jobs.partition do |job|
-              if job_match?(job) && arguments_match?(job) && queue_match?(job) && at_match?(job)
+              if job_match?(job) && arguments_match?(job) && queue_match?(job) && at_match?(job) && priority_match?(job)
                 args = deserialize_arguments(job)
                 @block.call(*args)
                 true
@@ -123,6 +129,7 @@ module RSpec
               msg << " with #{@args}," if @args.any?
               msg << " on queue #{@queue}," if @queue
               msg << " at #{@at.inspect}," if @at
+              msg << " with priority #{@priority}," if @priority
               msg << " but #{self.class::MESSAGE_EXPECTATION_ACTION} #{@matching_jobs_count}"
             end
           end
@@ -132,6 +139,7 @@ module RSpec
             msg_parts << "with #{deserialize_arguments(job)}" if job[:args].any?
             msg_parts << "on queue #{job[:queue]}" if job[:queue]
             msg_parts << "at #{Time.at(job[:at])}" if job[:at]
+            msg_parts << "with priority #{job[:priority]}" if job[:priority]
 
             "#{job[:job].name} job".tap do |msg|
               msg << " #{msg_parts.join(', ')}" if msg_parts.any?
@@ -156,6 +164,12 @@ module RSpec
             return true unless @queue
 
             @queue == job[:queue]
+          end
+
+          def priority_match?(job)
+            return true unless @priority
+
+            @priority == job[:priority]
           end
 
           def at_match?(job)
