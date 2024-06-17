@@ -216,11 +216,7 @@ module RSpec
           # @see Rack::Utils::SYMBOL_TO_STATUS_CODE
           # @raise [ArgumentError] if an associated code could not be found
           def set_expected_code!
-            @expected ||=
-              Rack::Utils::SYMBOL_TO_STATUS_CODE.fetch(expected_status) do
-                raise ArgumentError,
-                      "Invalid HTTP status: #{expected_status.inspect}"
-              end
+            @expected ||= Rack::Utils.status_code(expected_status)
           end
         end
 
