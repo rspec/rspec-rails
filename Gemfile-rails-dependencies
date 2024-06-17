@@ -44,7 +44,7 @@ else
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
 
   if version_number == '7.1.0'
-    gem 'selenium-webdriver', '~> 4.19.0', require: false
+    gem 'selenium-webdriver', '< 4.20.0', require: false
   else
     gem 'selenium-webdriver', require: false
   end
