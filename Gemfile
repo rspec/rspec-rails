@@ -9,7 +9,6 @@ gem 'yard', '~> 0.9.24', require: false
 group :documentation do
   gem 'github-markup', '~> 3.0.3'
   gem 'redcarpet', '~> 3.5.1', platforms: [:ruby]
-  gem 'relish', '~> 0.7.1'
 end
 
 gem 'capybara'
