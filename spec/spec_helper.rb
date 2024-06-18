@@ -36,6 +36,11 @@ class RSpec::Core::ExampleGroup
   end
 end
 
+# This behaviour will become the default in Rails 8, for now it silences a deprecation
+if ActiveSupport.respond_to?(:to_time_preserves_timezone)
+  ActiveSupport.to_time_preserves_timezone = true
+end
+
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   # Bring in the failure matchers from rspec-expectations
