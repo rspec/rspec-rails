@@ -43,6 +43,8 @@ else
   gem "rails", version
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
 
+  # This version number reflects our build version not our actual version,
+  # this will be fixed in 7.1.4 and should be removed then.
   if version_number == '7.1.0'
     gem 'selenium-webdriver', '< 4.20.0', require: false
   else
