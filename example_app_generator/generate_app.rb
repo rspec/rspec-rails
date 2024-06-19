@@ -28,8 +28,12 @@ in_root do
 
   gsub_file "Gemfile", /.*rails-controller-testing.*/, "gem 'rails-controller-testing', git: 'https://github.com/rails/rails-controller-testing'"
 
-  # sqlite3 is an optional, unspecified, dependency and Rails 6.0 only supports `~> 1.4`
-  gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 1.4'"
+  # sqlite3 is an optional, unspecified, dependency and Rails 6.0 only supports `~> 1.4`, and Ruby 2.7 only supports < 1.7
+  if RUBY_VERSION.to_f < 3
+    gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 1.4', '< 1.7'"
+  else
+    gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 1.4'"
+  end
 
   # remove webdrivers
   gsub_file "Gemfile", /gem ['"]webdrivers['"]/, ""
