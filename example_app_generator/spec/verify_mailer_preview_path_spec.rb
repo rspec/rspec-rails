@@ -38,7 +38,7 @@ RSpec.describe 'Action Mailer railtie hook' do
     CaptureExec.new(out, $?.exitstatus)
   end
 
-  if ENV['RAILS_VERSION'] == 'main' && Rails::VERSION::STRING == "7.2.0.alpha"
+  if ENV['RAILS_VERSION'] == 'main' && Rails::VERSION::STRING == "8.0.0.alpha"
     before do
       skip('This is broken on Rails main but is skipped for green builds of 7.1.x, please fix')
     end
