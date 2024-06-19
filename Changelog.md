@@ -1,5 +1,5 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.2...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.3...main)
 
 Enhancements:
 
@@ -7,6 +7,9 @@ Enhancements:
   (Steve Polito, #2746)
 * Verify ActiveJob arguments by comparing to the method signature. (Oli Peate, #2745)
 * Add suggestion to rails_helper.rb to skip when not in test most. (Glauco Custódio, #2751)
+
+### 6.1.3 / 2024-06-19
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.2...v6.1.3)
 
 Bug Fixes:
 
