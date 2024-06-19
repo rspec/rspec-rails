@@ -5,7 +5,8 @@ Bug Fixes:
 
 * Reset `ActiveSupport::CurrentAttributes` between examples. (Javier Julio, #2752)
 * Fix a broken link in generated mailer previews. (Chiara Núñez, #2764)
-* Have HttpStatusMatcher use Rack's public API for http status code. (Darren Boyd, #2763)
+* Fix `have_status_code` behaviour with deprecated status names by delegating
+  to `Rack::Utils.status_code/1` to set the expected status code. (Darren Boyd, #2765)
 
 ### 6.1.2 / 2024-03-19
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.1...v6.1.2)
