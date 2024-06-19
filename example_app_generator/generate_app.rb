@@ -11,6 +11,7 @@ ci_retry_script = File.join(
   'ci_retry_bundle_install.sh'
 )
 function_script_file = File.join(rspec_rails_repo_path, 'script/functions.sh')
+capybara_backport_path = File.join(rspec_rails_repo_path, 'example_app_generator/spec/support/capybara.rb')
 
 in_root do
   prepend_to_file "Rakefile", "require 'active_support/all'"
@@ -63,6 +64,8 @@ in_root do
             'REPLACE_BUNDLE_PATH',
             bundle_install_path
   chmod 'ci_retry_bundle_install.sh', 0755
+
+  copy_file capybara_backport_path, 'spec/support/capybara.rb'
 
   if Rails::VERSION::STRING > '7'
     create_file 'app/assets/config/manifest.js' do

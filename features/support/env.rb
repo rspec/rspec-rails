@@ -59,10 +59,20 @@ Before do
   # We want fresh `example_app` project with empty `spec` dir except helpers.
   # FileUtils.cp_r on Ruby 1.9.2 doesn't preserve permissions.
   system('cp', '-r', example_app_dir, aruba_dir)
-  helpers = %w[spec/spec_helper.rb spec/rails_helper.rb]
-  Dir["#{aruba_dir}/spec/*"].each do |path|
+  helpers = %w[spec/spec_helper.rb spec/rails_helper.rb spec/support/capybara.rb]
+  directories = []
+
+  Dir["#{aruba_dir}/spec/**/*"].each do |path|
     next if helpers.any? { |helper| path.end_with?(helper) }
+
+    # Because we now check for things like spec/support we only want to delete empty directories
+    if File.directory?(path)
+      directories << path
+      next
+    end
 
     FileUtils.rm_rf(path)
   end
+
+  directories.each { |dir| FileUtils.rm_rf(dir) if Dir.empty?(dir) }
 end

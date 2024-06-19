@@ -146,6 +146,7 @@ using_source_path(File.expand_path(__dir__)) do
 end
 
 gsub_file 'spec/spec_helper.rb', /^=(begin|end)/, ''
+gsub_file 'spec/rails_helper.rb', /^# Rails\.root\.glob\('spec.support/, "Rails.root.glob('spec/support"
 
 # Warnings are too noisy in the sample apps
 gsub_file 'spec/spec_helper.rb',
