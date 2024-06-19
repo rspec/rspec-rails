@@ -87,7 +87,6 @@ Feature: System specs
     Given a file named "spec/system/widget_system_spec.rb" with:
       """ruby
       require "rails_helper"
-      require_relative "../support/capybara.rb"
 
       RSpec.describe "Widget management", type: :system do
         before do
