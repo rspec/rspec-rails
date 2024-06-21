@@ -255,6 +255,26 @@ module RSpec::Rails
         expect(failure_reporter.exceptions).to eq []
         expect(run_count).to eq 1
       end
+
+      # Rails expects the first prefix to be the controller path.
+      # @see ActionView::AbstractRenderer::ObjectRendering#initialize
+      # Regression test for rspec/rspec-rails#2729
+      it 'injects controller path as first prefix' do
+        prefixes = []
+        RSpec.describe "a view spec" do
+          include ::RSpec::Rails::ViewExampleGroup
+
+          def _controller_path
+            "example/path"
+          end
+
+          specify do
+            prefixes = view.lookup_context.prefixes
+          end
+        end.run
+
+        expect(prefixes).to start_with("example/path")
+      end
     end
 
     describe "#template" do
