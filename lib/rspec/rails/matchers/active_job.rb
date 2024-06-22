@@ -413,33 +413,33 @@ module RSpec
       #
       # @example
       #     expect {
-      #       perform_jobs { HeavyLiftingJob.perform_later }
+      #       perform_enqueued_jobs { HeavyLiftingJob.perform_later }
       #     }.to have_performed_job
       #
       #     expect {
-      #       perform_jobs {
+      #       perform_enqueued_jobs {
       #         HelloJob.perform_later
       #         HeavyLiftingJob.perform_later
       #       }
       #     }.to have_performed_job(HelloJob).exactly(:once)
       #
       #     expect {
-      #       perform_jobs { 3.times { HelloJob.perform_later } }
+      #       perform_enqueued_jobs { 3.times { HelloJob.perform_later } }
       #     }.to have_performed_job(HelloJob).at_least(2).times
       #
       #     expect {
-      #       perform_jobs { HelloJob.perform_later }
+      #       perform_enqueued_jobs { HelloJob.perform_later }
       #     }.to have_performed_job(HelloJob).at_most(:twice)
       #
       #     expect {
-      #       perform_jobs {
+      #       perform_enqueued_jobs {
       #         HelloJob.perform_later
       #         HeavyLiftingJob.perform_later
       #       }
       #     }.to have_performed_job(HelloJob).and have_performed_job(HeavyLiftingJob)
       #
       #     expect {
-      #       perform_jobs {
+      #       perform_enqueued_jobs {
       #         HelloJob.set(wait_until: Date.tomorrow.noon, queue: "low").perform_later(42)
       #       }
       #     }.to have_performed_job.with(42).on_queue("low").at(Date.tomorrow.noon)
