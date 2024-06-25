@@ -16,6 +16,14 @@ RSpec.describe "have_http_status" do
       end
     end
 
+    context "given a Rack::MockResponse" do
+      it "returns true for a response with the same code" do
+        response = ::Rack::MockResponse.new(code, {}, "")
+
+        expect(matcher.matches?(response)).to be(true)
+      end
+    end
+
     context "given an ActionDispatch::TestResponse" do
       it "returns true for a response with the same code" do
         response = ::ActionDispatch::TestResponse.new(code).tap { |x|
