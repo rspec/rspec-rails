@@ -33,7 +33,7 @@ module RSpec
         # @param obj [Object] object to convert to a response
         # @return [ActionDispatch::TestResponse]
         def as_test_response(obj)
-          if ::ActionDispatch::Response === obj
+          if ::ActionDispatch::Response === obj || ::Rack::MockResponse === obj
             ::ActionDispatch::TestResponse.from_response(obj)
           elsif ::ActionDispatch::TestResponse === obj
             obj
