@@ -1,6 +1,11 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.3...6-1-maintenance)
 
+Bug Fixes:
+
+* Prevent `have_http_status` matcher raising an error when encountering a raw `Rack::MockResponse`.
+  (Christophe Bliard, #2771)
+
 ### 6.1.3 / 2024-06-19
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.2...v6.1.3)
 
