@@ -19,7 +19,7 @@ module RSpec
       include RSpec::Rails::FixtureSupport
       if ::Rails::VERSION::MAJOR >= 7
         include RSpec::Rails::TaggedLoggingAdapter
-        include ActiveSupport::CurrentAttributes::TestHelper
+        include RSpec::Rails::ActiveSupportCurrentAttributesAdapter
         include ActiveSupport::ExecutionContext::TestHelper
       end
     end

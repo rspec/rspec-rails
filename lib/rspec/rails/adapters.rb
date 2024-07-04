@@ -137,6 +137,45 @@ module RSpec
     end
 
     # @private
+    #
+    # ActiveSupport::CurrentAttributes::TestHelper uses both before-setup and
+    # after-teardown hooks to clear attributes. These are run in an awkward
+    # order relative to RSpec hooks. Client suite-configured "around each"
+    # hooks run first, the attribute reset hooks next, and contexts or examples
+    # (along with whatever their defined hooks might be) run last. Consequently
+    # a suite which sets up around-each-example attributes could fail, because
+    # the attributes would have been reset by time tests actually run.
+    #
+    # Reworking with "before" rather than "around" hooks sidesteps the problem.
+    # Unfortunately, "executes via a block to clean up after itself" cases such
+    # as with "ActsAsTenant.without_tenant ..." make such a rework either hard
+    # or impossible. Besides, even realising that you may need to do this can
+    # take some significant debugging effort and insight.
+    #
+    # The compromise is to use "half" of what ActiveSupport does - just add the
+    # after-hook. Attributes are now only reset after examples run, but still
+    # before a suite-wide "around" hook's call to "example.run()" returns. If a
+    # test suite depended upon current attribute data still being set *after*
+    # examples within its suite-wide "around" hook, it would fail. This is
+    # unlikely; it's overwhelmingly common to just *set up* data before a test,
+    # and usually the only things you're doing afterwards are cleanup.
+    #
+    # Include this module to reset under the above compromise, instead of
+    # including ActiveSupport::CurrentAttributes::TestHelper.
+    #
+    module ActiveSupportCurrentAttributesAdapter
+      extend ActiveSupport::Concern
+
+      included do
+        def after_teardown
+          puts "AFTER TEARDOWN"
+          super
+          ActiveSupport::CurrentAttributes.reset_all
+        end
+      end
+    end
+
+    # @private
     module MinitestAssertionAdapter
       extend ActiveSupport::Concern
 
