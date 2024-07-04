@@ -62,9 +62,11 @@ module RSpec::Rails
         { configured_around_example_hook: true }
       end
 
+      # rubocop:disable Lint/ConstantDefinitionInBlock
       class CurrentAttrsBetweenHooks < ActiveSupport::CurrentAttributes
         attribute :request_id
       end
+      # rubocop:enable Lint/ConstantDefinitionInBlock
 
       # We have to modify the suite's around-each in RSpec.config, but don't
       # want to pollute other tests with this (whether or not it is harmless
@@ -72,7 +74,7 @@ module RSpec::Rails
       # it's necessary use some private APIs to be able to delete the added
       # hook via 'ensure'.
       #
-      around :each do | example |
+      around :each do | outer_example |
 
         # Client code might legitimately want to wrap examples to ensure
         # all-conditions tidy-up, e.g. "ActsAsTenant.without_tenant do...",
@@ -82,23 +84,23 @@ module RSpec::Rails
         # time their actual tests, or their test hooks ran.
         #
         RSpec.configure do | config |
-          config.around(:each, uniquely_identifiable_metadata()) do | example |
+          config.around(:each, uniquely_identifiable_metadata) do | inner_example |
             CurrentAttrsBetweenHooks.request_id = '123'
-            example.run()
+            inner_example.run
           end
         end
 
-        example.run()
+        outer_example.run
 
       ensure
         around_example_repository = RSpec.configuration.hooks.send(:hooks_for, :around, :example)
-        item_we_added = around_example_repository.items_for(uniquely_identifiable_metadata()).first
-        around_example_repository.delete(item_we_added, uniquely_identifiable_metadata())
+        item_we_added = around_example_repository.items_for(uniquely_identifiable_metadata).first
+        around_example_repository.delete(item_we_added, uniquely_identifiable_metadata)
       end
 
       it 'does not reset ActiveSupport::CurrentAttributes before examples' do
         group =
-          RSpec::Core::ExampleGroup.describe('A group', uniquely_identifiable_metadata()) do
+          RSpec::Core::ExampleGroup.describe('A group', uniquely_identifiable_metadata) do
             include RSpec::Rails::RailsExampleGroup
 
             it 'runs normally' do
@@ -113,7 +115,7 @@ module RSpec::Rails
 
       it 'does not reset ActiveSupport::CurrentAttributes before before-each hooks' do
         group =
-          RSpec::Core::ExampleGroup.describe('A group', uniquely_identifiable_metadata()) do
+          RSpec::Core::ExampleGroup.describe('A group', uniquely_identifiable_metadata) do
             include RSpec::Rails::RailsExampleGroup
 
             # Client code will often have test setup blocks within "*_spec.rb"
@@ -121,7 +123,7 @@ module RSpec::Rails
             # group of tests in e.g. a "before" hook, but would reasonably expect
             # suite-wide 'around' settings to remain intact and not be reset.
             #
-            before :each do | example |
+            before :each do
               expect(CurrentAttrsBetweenHooks.request_id).to eq('123')
               CurrentAttrsBetweenHooks.request_id = '234'
             end
@@ -135,6 +137,6 @@ module RSpec::Rails
           group.run(failure_reporter) ? true : failure_reporter.exceptions
         ).to be true
       end
-    end # "context 'with suite-level around-example hooks configured' ..."
+    end
   end
 end
