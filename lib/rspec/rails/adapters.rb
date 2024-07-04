@@ -148,7 +148,6 @@ module RSpec
 
       included do
         def after_teardown
-          puts "AFTER TEARDOWN"
           super
           ActiveSupport::CurrentAttributes.reset_all
         end
