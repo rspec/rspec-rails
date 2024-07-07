@@ -91,7 +91,6 @@ module RSpec::Rails
       end
 
       it 'does not reset ActiveSupport::CurrentAttributes before examples' do
-        in_sub_process do
           group =
             RSpec::Core::ExampleGroup.describe('A group', uniquely_identifiable_metadata) do
               include RSpec::Rails::RailsExampleGroup
