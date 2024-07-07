@@ -73,7 +73,7 @@ module RSpec::Rails
       # This dirties global state, so tests *MUST* remember to use
       # "in_sub_process".
       #
-      before :each do
+      def configure_rspec_to_set_current_attrs_before_around_example
 
         # Client code might legitimately want to wrap examples to ensure
         # all-conditions tidy-up, e.g. "ActsAsTenant.without_tenant do...",
