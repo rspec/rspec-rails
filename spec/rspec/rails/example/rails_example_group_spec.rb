@@ -60,9 +60,6 @@ module RSpec::Rails
     end
 
     context 'with suite-level around-example hooks configured', if: ::Rails::VERSION::MAJOR >= 7 do
-      let(:uniquely_identifiable_metadata) do
-        { configured_around_example_hook: true }
-      end
 
       # rubocop:disable Lint/ConstantDefinitionInBlock
       class CurrentAttrsBetweenHooks < ActiveSupport::CurrentAttributes
@@ -74,7 +71,7 @@ module RSpec::Rails
       # "in_sub_process".
       #
       def configure_rspec_to_set_current_attrs_before_around_example
-
+        #
         # Client code might legitimately want to wrap examples to ensure
         # all-conditions tidy-up, e.g. "ActsAsTenant.without_tenant do...",
         # wherein an "around" hook is the only available solution, often used
@@ -84,6 +81,7 @@ module RSpec::Rails
         #
         RSpec.configure do |config|
           config.around(:each) do |example|
+            expect(CurrentAttrsBetweenHooks.request_id).to be_nil
             CurrentAttrsBetweenHooks.request_id = '123'
             example.run
           end
@@ -91,9 +89,11 @@ module RSpec::Rails
       end
 
       it 'does not reset ActiveSupport::CurrentAttributes before examples' do
-        configure_rspec_to_set_current_attrs_before_around_example
+        in_sub_process do
+          configure_rspec_to_set_current_attrs_before_around_example
+
           group =
-            RSpec::Core::ExampleGroup.describe('A group', uniquely_identifiable_metadata) do
+            RSpec::Core::ExampleGroup.describe('A group') do
               include RSpec::Rails::RailsExampleGroup
 
               it 'runs normally' do
@@ -109,8 +109,10 @@ module RSpec::Rails
 
       it 'does not reset ActiveSupport::CurrentAttributes before before-each hooks' do
         in_sub_process do
+          configure_rspec_to_set_current_attrs_before_around_example
+
           group =
-            RSpec::Core::ExampleGroup.describe('A group', uniquely_identifiable_metadata) do
+            RSpec::Core::ExampleGroup.describe('A group') do
               include RSpec::Rails::RailsExampleGroup
 
               # Client code will often have test setup blocks within "*_spec.rb"
