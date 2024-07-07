@@ -82,8 +82,8 @@ module RSpec::Rails
         # anything set in CurrentAttributes here to suddenly be reset by the
         # time their actual tests, or their test hooks ran.
         #
-        RSpec.configure do | config |
-          config.around(:each, uniquely_identifiable_metadata) do | example |
+        RSpec.configure do |config|
+          config.around(:each) do |example|
             CurrentAttrsBetweenHooks.request_id = '123'
             example.run
           end
