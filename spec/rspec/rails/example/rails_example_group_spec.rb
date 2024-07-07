@@ -91,6 +91,7 @@ module RSpec::Rails
       end
 
       it 'does not reset ActiveSupport::CurrentAttributes before examples' do
+        configure_rspec_to_set_current_attrs_before_around_example
           group =
             RSpec::Core::ExampleGroup.describe('A group', uniquely_identifiable_metadata) do
               include RSpec::Rails::RailsExampleGroup
