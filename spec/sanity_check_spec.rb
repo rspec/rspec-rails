@@ -28,6 +28,7 @@ RSpec.describe "Verify required rspec dependencies" do
       expect(`bundle exec #{script} 2>&1`)
         .to match(/uninitialized constant RSpec::Support/)
         .or match(/undefined method `require_rspec_core' for RSpec::Support:Module/)
+        .or match(/undefined method `require_rspec_core' for module RSpec::Support/)
 
       expect($?.exitstatus).to eq(1)
     end

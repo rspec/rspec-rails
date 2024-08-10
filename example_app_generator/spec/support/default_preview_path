@@ -69,7 +69,7 @@ exit(0) if ENV['NO_ACTION_MAILER']
 if ENV['DEFAULT_URL']
   puts ActionMailer::Base.default_url_options[:host]
 elsif defined?(::ActionMailer::Preview)
-  if Rails::VERSION::STRING.start_with?('7.1')
+  if Rails::VERSION::STRING.to_f >= 7.1
     puts Rails.application.config.action_mailer.preview_paths
   else
     puts Rails.application.config.action_mailer.preview_path
