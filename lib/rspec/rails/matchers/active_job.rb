@@ -31,7 +31,7 @@ module RSpec
             self
           end
 
-          def with_priority(priority)
+          def at_priority(priority)
             @priority = priority.to_i
             self
           end
