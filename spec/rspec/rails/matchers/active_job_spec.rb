@@ -279,7 +279,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
         expect {
           hello_job.perform_later
         }.to have_enqueued_job.at_priority(2)
-      }.to fail_with(/expected to enqueue exactly 1 jobs, with priority 2, but enqueued 0.+ with no priority specified/)
+      }.to fail_with(/expected to enqueue exactly 1 jobs, with priority 2, but enqueued 0.+ with no priority specified/m)
     end
 
     it "fails when the priority was set to a different value" do
@@ -287,7 +287,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
         expect {
           hello_job.set(priority: 1).perform_later
         }.to have_enqueued_job.at_priority(2)
-      }.to fail_with(/expected to enqueue exactly 1 jobs, with priority 2, but enqueued 0.+ with priority 1/)
+      }.to fail_with(/expected to enqueue exactly 1 jobs, with priority 2, but enqueued 0.+ with priority 1/m)
     end
 
     pending "accepts matchers as arguments to at_priority" do
