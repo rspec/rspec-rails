@@ -147,7 +147,12 @@ module RSpec
             msg_parts << "with #{deserialize_arguments(job)}" if job[:args].any?
             msg_parts << "on queue #{job[:queue]}" if job[:queue]
             msg_parts << "at #{Time.at(job[:at])}" if job[:at]
-            msg_parts << "with priority #{job[:priority]}" if job[:priority]
+            msg_parts <<
+              if job[:priority]
+                "with priority #{job[:priority]}"
+              else
+                "with no priority specified"
+              end
 
             "#{job[:job].name} job".tap do |msg|
               msg << " #{msg_parts.join(', ')}" if msg_parts.any?
