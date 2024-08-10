@@ -14,6 +14,7 @@ module RSpec
           def initialize
             @args = []
             @queue = nil
+            @priority = nil
             @at = nil
             @block = proc { }
             set_expected_number(:exactly, 1)
@@ -27,6 +28,11 @@ module RSpec
 
           def on_queue(queue)
             @queue = queue.to_s
+            self
+          end
+
+          def at_priority(priority)
+            @priority = priority.to_i
             self
           end
 
@@ -103,7 +109,7 @@ module RSpec
 
           def check(jobs)
             @matching_jobs, @unmatching_jobs = jobs.partition do |job|
-              if job_match?(job) && arguments_match?(job) && queue_match?(job) && at_match?(job)
+              if job_match?(job) && arguments_match?(job) && queue_match?(job) && at_match?(job) && priority_match?(job)
                 args = deserialize_arguments(job)
                 @block.call(*args)
                 true
@@ -117,6 +123,10 @@ module RSpec
               return false
             end
 
+            check_countable
+          end
+
+          def check_countable
             @matching_jobs_count = @matching_jobs.size
 
             case @expectation_type
@@ -131,6 +141,7 @@ module RSpec
               msg << " with #{@args}," if @args.any?
               msg << " on queue #{@queue}," if @queue
               msg << " at #{@at.inspect}," if @at
+              msg << " with priority #{@priority}," if @priority
               msg << " but #{self.class::MESSAGE_EXPECTATION_ACTION} #{@matching_jobs_count}"
             end
           end
@@ -140,6 +151,12 @@ module RSpec
             msg_parts << "with #{deserialize_arguments(job)}" if job[:args].any?
             msg_parts << "on queue #{job[:queue]}" if job[:queue]
             msg_parts << "at #{Time.at(job[:at])}" if job[:at]
+            msg_parts <<
+              if fetch_priority(job)
+                "with priority #{fetch_priority(job)}"
+              else
+                "with no priority specified"
+              end
 
             "#{job[:job].name} job".tap do |msg|
               msg << " #{msg_parts.join(', ')}" if msg_parts.any?
@@ -148,6 +165,11 @@ module RSpec
 
           def job_match?(job)
             @job ? @job == job[:job] : true
+          end
+
+          # Rails 6.1 serializes the priority with a string key
+          def fetch_priority(job)
+            job[:priority] || job['priority']
           end
 
           def arguments_match?(job)
@@ -185,6 +207,12 @@ module RSpec
             return true unless @queue
 
             @queue == job[:queue]
+          end
+
+          def priority_match?(job)
+            return true unless @priority
+
+            @priority == fetch_priority(job)
           end
 
           def at_match?(job)

@@ -262,6 +262,40 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       }.to have_enqueued_job.on_queue(:low)
     end
 
+    it "passes with provided priority number as integer" do
+      expect {
+        hello_job.set(priority: 2).perform_later
+      }.to have_enqueued_job.at_priority(2)
+    end
+
+    it "passes with provided priority number as string" do
+      expect {
+        hello_job.set(priority: 2).perform_later
+      }.to have_enqueued_job.at_priority("2")
+    end
+
+    it "fails when the priority wan't set" do
+      expect {
+        expect {
+          hello_job.perform_later
+        }.to have_enqueued_job.at_priority(2)
+      }.to fail_with(/expected to enqueue exactly 1 jobs, with priority 2, but enqueued 0.+ with no priority specified/m)
+    end
+
+    it "fails when the priority was set to a different value" do
+      expect {
+        expect {
+          hello_job.set(priority: 1).perform_later
+        }.to have_enqueued_job.at_priority(2)
+      }.to fail_with(/expected to enqueue exactly 1 jobs, with priority 2, but enqueued 0.+ with priority 1/m)
+    end
+
+    pending "accepts matchers as arguments to at_priority" do
+      expect {
+        hello_job.set(priority: 1).perform_later
+      }.to have_enqueued_job.at_priority(eq(1))
+    end
+
     it "passes with provided at date" do
       date = Date.tomorrow.noon
       expect {
@@ -370,14 +404,14 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
 
     it "generates failure message with all provided options" do
       date = Date.tomorrow.noon
-      message = "expected to enqueue exactly 2 jobs, with [42], on queue low, at #{date}, but enqueued 0" \
+      message = "expected to enqueue exactly 2 jobs, with [42], on queue low, at #{date}, with priority 5, but enqueued 0" \
                 "\nQueued jobs:" \
-                "\n  HelloJob job with [1], on queue default"
+                "\n  HelloJob job with [1], on queue default, with no priority specified"
 
       expect {
         expect {
           hello_job.perform_later(1)
-        }.to have_enqueued_job(hello_job).with(42).on_queue("low").at(date).exactly(2).times
+        }.to have_enqueued_job(hello_job).with(42).on_queue("low").at(date).at_priority(5).exactly(2).times
       }.to fail_with(message)
     end
 
@@ -687,14 +721,14 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
 
     it "generates failure message with all provided options" do
       date = Date.tomorrow.noon
-      message = "expected to perform exactly 2 jobs, with [42], on queue low, at #{date}, but performed 0" \
+      message = "expected to perform exactly 2 jobs, with [42], on queue low, at #{date}, with priority 5, but performed 0" \
                 "\nQueued jobs:" \
-                "\n  HelloJob job with [1], on queue default"
+                "\n  HelloJob job with [1], on queue default, with no priority specified"
 
       expect {
         expect {
           hello_job.perform_later(1)
-        }.to have_performed_job(hello_job).with(42).on_queue("low").at(date).exactly(2).times
+        }.to have_performed_job(hello_job).with(42).on_queue("low").at(date).at_priority(5).exactly(2).times
       }.to fail_with(message)
     end
 

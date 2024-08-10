@@ -78,6 +78,25 @@ Feature: Job specs
     When I run `rspec spec/jobs/upload_backups_job_spec.rb`
     Then the example should pass
 
+  Scenario: Specify that job was enqueued with a priority
+    Given a file named "spec/jobs/upload_backups_job_spec.rb" with:
+    """ruby
+    require "rails_helper"
+
+    RSpec.describe UploadBackupsJob, type: :job do
+      describe "#perform_later" do
+        it "uploads a backup" do
+          ActiveJob::Base.queue_adapter = :test
+          expect {
+            UploadBackupsJob.set(priority: 5).perform_later
+          }.to have_enqueued_job.at_priority(5)
+        end
+      end
+    end
+    """
+    When I run `rspec spec/jobs/upload_backups_job_spec.rb`
+    Then the example should pass
+
   Scenario: Specify that job was enqueued with alias block syntax
     Given a file named "spec/jobs/upload_backups_job_spec.rb" with:
     """ruby
