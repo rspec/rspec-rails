@@ -123,6 +123,10 @@ module RSpec
               return false
             end
 
+            check_countable
+          end
+
+          def check_countable
             @matching_jobs_count = @matching_jobs.size
 
             case @expectation_type
