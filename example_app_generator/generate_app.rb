@@ -67,7 +67,7 @@ in_root do
 
   copy_file capybara_backport_path, 'spec/support/capybara.rb'
 
-  if Rails::VERSION::STRING > '7'
+  if Rails::VERSION::STRING > '7' && Rails::VERSION::STRING < '7.2'
     create_file 'app/assets/config/manifest.js' do
       "//= link application.css"
     end
