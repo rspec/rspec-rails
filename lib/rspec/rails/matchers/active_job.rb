@@ -109,7 +109,7 @@ module RSpec
 
           def check(jobs)
             @matching_jobs, @unmatching_jobs = jobs.partition do |job|
-              if job_match?(job) && arguments_match?(job) && queue_match?(job) && at_match?(job) && priority_match?(job)
+              if matches_constraints?(job)
                 args = deserialize_arguments(job)
                 @block.call(*args)
                 true
@@ -123,10 +123,6 @@ module RSpec
               return false
             end
 
-            check_countable
-          end
-
-          def check_countable
             @matching_jobs_count = @matching_jobs.size
 
             case @expectation_type
@@ -163,7 +159,11 @@ module RSpec
             end
           end
 
-          def job_match?(job)
+          def matches_constraints?(job)
+            job_matches?(job) && arguments_match?(job) && queue_match?(job) && at_match?(job) && priority_match?(job)
+          end
+
+          def job_matches?(job)
             @job ? @job == job[:job] : true
           end
 
