@@ -168,8 +168,14 @@ module RSpec
           end
 
           # Rails 6.1 serializes the priority with a string key
-          def fetch_priority(job)
-            job[:priority] || job['priority']
+          if ::Rails.version.to_f >= 7
+            def fetch_priority(job)
+              job[:priority]
+            end
+          else
+            def fetch_priority(job)
+              job['priority']
+            end
           end
 
           def arguments_match?(job)
