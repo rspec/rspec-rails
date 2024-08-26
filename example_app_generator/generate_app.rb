@@ -33,7 +33,7 @@ in_root do
   if RUBY_VERSION.to_f < 3
     gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 1.4', '< 1.7'"
   else
-    gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 1.4'"
+    gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '>= 1.4'"
   end
 
   # remove webdrivers

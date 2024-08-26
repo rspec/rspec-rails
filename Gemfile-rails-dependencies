@@ -16,7 +16,7 @@ if RUBY_VERSION.to_f < 3
   # sqlite3 1.7.x doesn't work on all platforms for Ruby 2.x
   gem 'sqlite3', '~> 1.4', '< 1.7', platforms: [:ruby]
 else
-  gem 'sqlite3', '~> 1.4', platforms: [:ruby]
+  gem 'sqlite3', '>= 1.4', platforms: [:ruby]
 end
 
 if RUBY_VERSION.to_f < 2.7
