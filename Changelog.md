@@ -9,6 +9,10 @@ Enhancements:
 * Add suggestion to rails_helper.rb to skip when not in test most. (Glauco Custódio, #2751)
 * Add `at_priority` qualifier to `have_enqueued_job` set of matchers. (mbajur, #2759)
 
+Bug Fixes:
+
+* Restore old order of requiring support files. (Franz Liedke, #2785)
+
 ### 6.1.4 / 2024-08-15
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.3...v6.1.4)
 
