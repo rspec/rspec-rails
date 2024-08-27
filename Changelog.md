@@ -1,6 +1,10 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.4...6-1-maintenance)
 
+Bug Fixes:
+
+* Restore old order of requiring support files. (Franz Liedke, #2785)
+
 ### 6.1.4 / 2024-08-15
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.3...v6.1.4)
 
