@@ -9,6 +9,7 @@ module RSpec
       # As of Rails 5.1.0 you can register directories to work with `rake notes`
       require 'rails/source_annotation_extractor'
       ::Rails::SourceAnnotationExtractor::Annotation.register_directories("spec")
+
       generators = config.app_generators
       generators.integration_tool :rspec
       generators.test_framework :rspec
