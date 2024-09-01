@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email       = "rspec@googlegroups.com"
   s.homepage    = "https://github.com/rspec/rspec-rails"
   s.summary     = "RSpec for Rails"
-  s.description = "rspec-rails is a testing framework for Rails 5+."
+  s.description = "rspec-rails is a testing framework for Rails 6.1+."
   s.required_ruby_version = ">= 2.5.0"
 
   s.metadata = {
