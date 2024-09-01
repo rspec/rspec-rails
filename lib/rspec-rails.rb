@@ -13,14 +13,13 @@ module RSpec
       # As of Rails 8.0.0 you can register directories to work with `rails stats`
       if ::Rails::VERSION::STRING >= "8.0.0"
         require 'rails/code_statistics'
-        types = begin
-                  dirs = Dir['./spec/**/*_spec.rb']
-                    .map { |f| f.sub(/^\.\/(spec\/\w+)\/.*/, '\\1') }
-                    .uniq
-                    .select { |f| File.directory?(f) }
-                  Hash[dirs.map { |d| [d.split('/').last, d] }]
-                end
-        types.each do |type, dir|
+
+        dirs = Dir['./spec/**/*_spec.rb']
+          .map { |f| f.sub(/^\.\/(spec\/\w+)\/.*/, '\\1') }
+          .uniq
+          .select { |f| File.directory?(f) }
+
+        Hash[dirs.map { |d| [d.split('/').last, d] }].each do |type, dir|
           name = type.singularize.capitalize
 
           ::Rails::CodeStatistics.register_directory "#{name} specs", dir
