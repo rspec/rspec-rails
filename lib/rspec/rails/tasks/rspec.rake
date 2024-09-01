@@ -5,7 +5,9 @@ end
 
 task default: :spec
 
-task stats: "spec:statsetup"
+if ::Rails::VERSION::STRING < "8.0.0"
+  task stats: "spec:statsetup"
+end
 
 desc "Run all specs in spec directory (excluding plugin specs)"
 RSpec::Core::RakeTask.new(spec: "spec:prepare")
