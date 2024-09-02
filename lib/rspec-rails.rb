@@ -22,8 +22,7 @@ module RSpec
         Hash[dirs.map { |d| [d.split('/').last, d] }].each do |type, dir|
           name = type.singularize.capitalize
 
-          ::Rails::CodeStatistics.register_directory "#{name} specs", dir
-          ::Rails::CodeStatistics::TEST_TYPES << "#{name} specs"
+          ::Rails::CodeStatistics.register_directory "#{name} specs", dir, test_directory: true
         end
       end
 
