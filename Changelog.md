@@ -4,6 +4,7 @@
 Bug Fixes:
 
 * Restore old order of requiring support files. (Franz Liedke, #2785)
+* Prevent running `rake spec:statsetup` on Rails main / 8.0.0. (Petrik de Heus, #2781)
 
 ### 6.1.4 / 2024-08-15
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.3...v6.1.4)
