@@ -40,7 +40,7 @@ RSpec.describe 'Action Mailer railtie hook' do
 
   if ENV['RAILS_VERSION'] == 'main' && Rails::VERSION::STRING == "8.0.0.alpha"
     before do
-      skip('This is broken on Rails main but is skipped for green builds of 7.1.x, please fix')
+      skip('This is broken on Rails main but is skipped for green builds, please fix')
     end
   end
 
