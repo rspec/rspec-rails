@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.homepage    = "https://github.com/rspec/rspec-rails"
   s.summary     = "RSpec for Rails"
   s.description = "rspec-rails integrates the Rails testing helpers into RSpec."
-  s.required_ruby_version = ">= 2.5.0"
+  s.required_ruby_version = ">= 2.7.0"
 
   s.metadata = {
     'bug_tracker_uri'   => 'https://github.com/rspec/rspec-rails/issues',
@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
     s.cert_chain = [File.expand_path('~/.gem/rspec-gem-public_cert.pem')]
   end
 
-  version_string = ['>= 6.1']
+  version_string = ['>= 7.0']
 
   s.add_runtime_dependency 'actionpack',    version_string
   s.add_runtime_dependency 'activesupport', version_string
