@@ -1,5 +1,5 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.4...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.5...main)
 
 Enhancements:
 
@@ -9,6 +9,9 @@ Enhancements:
 * Add suggestion to rails_helper.rb to skip when not in test most. (Glauco Custódio, #2751)
 * Add `at_priority` qualifier to `have_enqueued_job` set of matchers. (mbajur, #2759)
 * Add spec directories to `rails stats` on Rails main / 8.0.0. (Petrik de Heus, #2781)
+
+### 6.1.5 / 2024-09-02
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.4...v6.1.5)
 
 Bug Fixes:
 
