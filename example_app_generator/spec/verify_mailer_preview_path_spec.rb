@@ -139,17 +139,6 @@ RSpec.describe 'Action Mailer railtie hook' do
           )
         ).to eq('test-host')
       end
-
-      it 'handles action mailer not being available' do
-        skip "Rails 7 forces eager loading on CI, loads app/mailers and fails" if Rails::VERSION::STRING.to_f >= 7.0
-
-        expect(
-          capture_exec(
-            custom_env.merge('NO_ACTION_MAILER' => 'true'),
-            exec_script
-          )
-        ).to have_no_preview
-      end
     end
   else
     context 'in the development environment' do
