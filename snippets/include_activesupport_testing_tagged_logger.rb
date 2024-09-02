@@ -56,12 +56,7 @@ RSpec.describe 'Foo', type: :job do
 
   describe 'error raised in perform_enqueued_jobs with block' do
     it 'raises the explicitly thrown error' do
-      # Rails 6.1+ wraps unexpected errors in tests
-      expected_error = if Rails::VERSION::STRING.to_f >= 6.1
-                         Minitest::UnexpectedError.new(TestError)
-                       else
-                         TestError
-                       end
+      expected_error = Minitest::UnexpectedError.new(TestError)
 
       expect { perform_enqueued_jobs { TestJob.perform_later } }
         .to raise_error(expected_error)

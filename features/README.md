@@ -7,8 +7,9 @@ check their documentation for help as well.
 
 ## Rails
 
-rspec-rails 6 supports Rails 6.1 to 7.0. For earlier versions of Rails, you
-should use [rspec-rails-5](https://github.com/rspec/rspec-rails/tree/5-1-maintenance)
+rspec-rails 7 supports Rails 7.0 to 7.2. For earlier versions of Rails, you
+should use [rspec-rails-6](https://github.com/rspec/rspec-rails/tree/5-1-maintenance)
+for Rails 6.1, [rspec-rails-5](https://github.com/rspec/rspec-rails/tree/5-1-maintenance)
 for Rails 5.2 and 6.0, [rspec-rails-4](https://github.com/rspec/rspec-rails/tree/4-1-maintenance)
 for Rails 5.x, and [rspec-rails 3](https://github.com/rspec/rspec-rails/tree/3-9-maintenance)
 for even older versions.
@@ -33,7 +34,7 @@ Add rspec-rails to the :test and :development groups in the Gemfile:
 
 ```ruby
 group :test, :development do
-  gem 'rspec-rails', '~> 6.0.0'
+  gem 'rspec-rails', '~> 7.0.0'
 end
 ```
 

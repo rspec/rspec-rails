@@ -1,8 +1,3 @@
-<!---
-This file was generated on 2023-04-16T20:53:24+01:00 from the rspec-dev repo.
-DO NOT modify it by hand as your changes will get lost the next time it is generated.
--->
-
 # Contributor Code of Conduct
 
 For the purpose of building a welcoming, harassment-free community that

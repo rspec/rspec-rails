@@ -54,12 +54,7 @@ module RSpec::Rails
           end
         end
 
-        # Rails 6.1 removes config from ./activerecord/lib/active_record/test_fixtures.rb
-        if respond_to?(:config)
-          config.include mod
-        else
-          ActiveRecord::Base.include mod
-        end
+        ActiveRecord::Base.include mod
 
         group.class_exec do
           let(:my_helper) { "my_value" }

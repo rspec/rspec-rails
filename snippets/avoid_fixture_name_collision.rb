@@ -47,10 +47,7 @@ end
 RSpec.describe 'Foo' do
   subject { true }
 
-  # Rails 6.1 and after
   let(:name) { raise "Should never raise" }
-  # Before Rails 6.1
-  let(:method_name) { raise "Should never raise" }
 
   it { is_expected.to be_truthy }
 end

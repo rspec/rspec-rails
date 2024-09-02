@@ -10,8 +10,7 @@ module RSpec
         include ActiveRecord::TestFixtures
 
         # @private prevent ActiveSupport::TestFixtures to start a DB transaction.
-        # Monkey patched to avoid collisions with 'let(:name)' in Rails 6.1 and after
-        # and let(:method_name) before Rails 6.1.
+        # Monkey patched to avoid collisions with 'let(:name)' since Rails 6.1
         def run_in_transaction?
           current_example_name = (RSpec.current_example && RSpec.current_example.metadata[:description])
           use_transactional_tests && !self.class.uses_transaction?(current_example_name)

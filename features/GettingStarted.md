@@ -1,9 +1,9 @@
 # Getting Started
 
-Install Rails 6
+Install Rails
 
 ```console
-$ gem install rails -v "~> 6.0.0"
+$ gem install rails -v "~> 7.2.0"
 ```
 
 ### Generate an app

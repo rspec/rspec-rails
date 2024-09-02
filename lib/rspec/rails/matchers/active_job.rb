@@ -148,8 +148,8 @@ module RSpec
             msg_parts << "on queue #{job[:queue]}" if job[:queue]
             msg_parts << "at #{Time.at(job[:at])}" if job[:at]
             msg_parts <<
-              if fetch_priority(job)
-                "with priority #{fetch_priority(job)}"
+              if job[:priority]
+                "with priority #{job[:priority]}"
               else
                 "with no priority specified"
               end
@@ -165,17 +165,6 @@ module RSpec
 
           def job_matches?(job)
             @job ? @job == job[:job] : true
-          end
-
-          # Rails 6.1 serializes the priority with a string key
-          if ::Rails.version.to_f >= 7
-            def fetch_priority(job)
-              job[:priority]
-            end
-          else
-            def fetch_priority(job)
-              job['priority']
-            end
           end
 
           def arguments_match?(job)
@@ -218,7 +207,7 @@ module RSpec
           def priority_match?(job)
             return true unless @priority
 
-            @priority == fetch_priority(job)
+            @priority == job[:priority]
           end
 
           def at_match?(job)

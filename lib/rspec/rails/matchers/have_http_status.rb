@@ -233,7 +233,7 @@ module RSpec
         #   expect(response).to have_http_status(:redirect)
         #
         # @see RSpec::Rails::Matchers#have_http_status
-        # @see https://github.com/rails/rails/blob/6-0-stable/actionpack/lib/action_dispatch/testing/test_response.rb `ActionDispatch::TestResponse`
+        # @see https://github.com/rails/rails/blob/7-2-stable/actionpack/lib/action_dispatch/testing/test_response.rb `ActionDispatch::TestResponse`
         class GenericStatus < RSpec::Rails::Matchers::BaseMatcher
           include HaveHttpStatus
 
