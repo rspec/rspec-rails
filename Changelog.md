@@ -8,10 +8,12 @@ Enhancements:
 * Verify ActiveJob arguments by comparing to the method signature. (Oli Peate, #2745)
 * Add suggestion to rails_helper.rb to skip when not in test most. (Glauco Custódio, #2751)
 * Add `at_priority` qualifier to `have_enqueued_job` set of matchers. (mbajur, #2759)
+* Add spec directories to `rails stats` on Rails main / 8.0.0. (Petrik de Heus, #2781)
 
 Bug Fixes:
 
 * Restore old order of requiring support files. (Franz Liedke, #2785)
+* Prevent running `rake spec:statsetup` on Rails main / 8.0.0. (Petrik de Heus, #2781)
 
 ### 6.1.4 / 2024-08-15
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.3...v6.1.4)
