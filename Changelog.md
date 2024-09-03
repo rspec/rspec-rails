@@ -5,6 +5,8 @@ Bug Fixes:
 
 * Remove mutation of Rails constant in favour of public api. (Petrik de Heus, #2789)
 * Cleanup Rails scaffold for unsupported versions. (Matt Jankowski, #2790)
+* Remove deprecated scaffold that was unintentionally included in 7.0.0
+  (Jon Rowe, #2791)
 
 ### 7.0.0 / 2024-09-02
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.5...v7.0.0)
