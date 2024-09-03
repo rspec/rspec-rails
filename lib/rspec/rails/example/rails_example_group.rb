@@ -2,10 +2,8 @@
 # suite and ammeter.
 require 'rspec/rails/matchers'
 
-if ::Rails::VERSION::MAJOR >= 7
-  require 'active_support/current_attributes/test_helper'
-  require 'active_support/execution_context/test_helper'
-end
+require 'active_support/current_attributes/test_helper'
+require 'active_support/execution_context/test_helper'
 
 module RSpec
   module Rails
@@ -17,11 +15,9 @@ module RSpec
       include RSpec::Rails::MinitestLifecycleAdapter
       include RSpec::Rails::MinitestAssertionAdapter
       include RSpec::Rails::FixtureSupport
-      if ::Rails::VERSION::MAJOR >= 7
-        include RSpec::Rails::TaggedLoggingAdapter
-        include ActiveSupport::CurrentAttributes::TestHelper
-        include ActiveSupport::ExecutionContext::TestHelper
-      end
+      include RSpec::Rails::TaggedLoggingAdapter
+      include ActiveSupport::CurrentAttributes::TestHelper
+      include ActiveSupport::ExecutionContext::TestHelper
     end
   end
 end

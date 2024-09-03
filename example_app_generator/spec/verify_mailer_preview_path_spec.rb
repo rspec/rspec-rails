@@ -40,7 +40,7 @@ RSpec.describe 'Action Mailer railtie hook' do
 
   if ENV['RAILS_VERSION'] == 'main' && Rails::VERSION::STRING == "8.0.0.alpha"
     before do
-      skip('This is broken on Rails main but is skipped for green builds of 7.1.x, please fix')
+      skip('This is broken on Rails main but is skipped for green builds, please fix')
     end
   end
 
@@ -138,17 +138,6 @@ RSpec.describe 'Action Mailer railtie hook' do
             exec_script
           )
         ).to eq('test-host')
-      end
-
-      it 'handles action mailer not being available' do
-        skip "Rails 7 forces eager loading on CI, loads app/mailers and fails" if Rails::VERSION::STRING.to_f >= 7.0
-
-        expect(
-          capture_exec(
-            custom_env.merge('NO_ACTION_MAILER' => 'true'),
-            exec_script
-          )
-        ).to have_no_preview
       end
     end
   else

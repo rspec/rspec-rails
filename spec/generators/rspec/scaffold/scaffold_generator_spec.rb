@@ -26,21 +26,12 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
             .and(contain(/"redirects to the \w+ list"/))
         )
 
-        if ::Rails::VERSION::STRING >= '7.0.0'
-          expect(
-            filename
-          ).to(
-            contain(/renders a response with 422 status \(i.e. to display the 'new' template\)/)
-              .and(contain(/renders a response with 422 status \(i.e. to display the 'edit' template\)/))
-          )
-        else
-          expect(
-            filename
-          ).to(
-            contain(/renders a successful response \(i.e. to display the 'new' template\)/)
-              .and(contain(/renders a successful response \(i.e. to display the 'edit' template\)/))
-          )
-        end
+        expect(
+          filename
+        ).to(
+          contain(/renders a response with 422 status \(i.e. to display the 'new' template\)/)
+            .and(contain(/renders a response with 422 status \(i.e. to display the 'edit' template\)/))
+        )
       end
     end
 
@@ -105,13 +96,8 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
             .and(contain(/"redirects to the \w+ list"/))
         )
 
-        if ::Rails::VERSION::STRING >= '7.0.0'
-          expect(filename).to contain(/renders a response with 422 status \(i.e. to display the 'new' template\)/)
-                                .and(contain(/renders a response with 422 status \(i.e. to display the 'edit' template\)/))
-        else
-          expect(filename).to contain(/returns a success response \(i.e. to display the 'new' template\)/)
-                               .and(contain(/returns a success response \(i.e. to display the 'edit' template\)/))
-        end
+        expect(filename).to contain(/renders a response with 422 status \(i.e. to display the 'new' template\)/)
+                              .and(contain(/renders a response with 422 status \(i.e. to display the 'edit' template\)/))
 
         expect(filename).not_to contain(/"renders a JSON response with the new \w+"/)
         expect(filename).not_to contain(/"renders a JSON response with errors for the new \w+"/)
