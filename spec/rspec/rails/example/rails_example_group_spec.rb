@@ -1,10 +1,10 @@
 module RSpec::Rails
   RSpec.describe RailsExampleGroup do
-    it 'supports tagged_logger', if: ::Rails::VERSION::MAJOR >= 7 do
+    it 'supports tagged_logger' do
       expect(described_class.private_instance_methods).to include(:tagged_logger)
     end
 
-    it 'does not leak context between example groups', if: ::Rails::VERSION::MAJOR >= 7 do
+    it 'does not leak context between example groups' do
       groups =
         [
           RSpec::Core::ExampleGroup.describe("A group") do
@@ -31,7 +31,7 @@ module RSpec::Rails
       expect(results).to all be true
     end
 
-    it 'will not leak ActiveSupport::CurrentAttributes between examples', if: ::Rails::VERSION::MAJOR >= 7 do
+    it 'will not leak ActiveSupport::CurrentAttributes between examples' do
       group =
         RSpec::Core::ExampleGroup.describe("A group", order: :defined) do
           include RSpec::Rails::RailsExampleGroup

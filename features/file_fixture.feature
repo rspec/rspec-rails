@@ -37,7 +37,6 @@ Feature: Using `file_fixture`
     When I run `rspec spec/lib/file_spec.rb`
     Then the examples should all pass
 
-  @rails_post_7
   Scenario: Creating a ActiveStorage::Blob from a file fixture
     Given a file named "spec/fixtures/files/sample.txt" with:
       """

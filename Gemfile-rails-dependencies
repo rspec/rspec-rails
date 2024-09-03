@@ -21,11 +21,7 @@ def add_sqlite3_gem_dependency
   end
 end
 
-if RUBY_VERSION.to_f < 2.7
-  gem 'puma', '< 6.0.0'
-else
-  gem 'puma'
-end
+gem 'puma'
 
 case version = ENV['RAILS_VERSION'] || (File.exist?(version_file) && File.read(version_file).chomp) || ''
 when /main/
