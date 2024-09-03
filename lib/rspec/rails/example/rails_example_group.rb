@@ -17,10 +17,20 @@ module RSpec
       include RSpec::Rails::MinitestLifecycleAdapter
       include RSpec::Rails::MinitestAssertionAdapter
       include RSpec::Rails::FixtureSupport
+
       if ::Rails::VERSION::MAJOR >= 7
         include RSpec::Rails::TaggedLoggingAdapter
-        include ActiveSupport::CurrentAttributes::TestHelper
-        include ActiveSupport::ExecutionContext::TestHelper
+
+        if ::Rails.configuration.active_support.executor_around_test_case
+          included do |_other|
+            around do |example|
+              ::Rails.application.executor.perform { example.call }
+            end
+          end
+        else
+          include ActiveSupport::CurrentAttributes::TestHelper
+          include ActiveSupport::ExecutionContext::TestHelper
+        end
       end
     end
   end
