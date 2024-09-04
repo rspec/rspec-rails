@@ -226,5 +226,36 @@ RSpec.describe "have_broadcasted_to matchers", skip: !RSpec::Rails::FeatureCheck
         end
       end
     end
+
+    it "has an appropriate description" do
+      expect(have_broadcasted_to("my_stream").description).to eq("have broadcasted exactly 1 messages to my_stream")
+    end
+
+    it "has an appropriate description when aliased" do
+      expect(broadcast_to("my_stream").description).to eq("broadcast exactly 1 messages to my_stream")
+    end
+
+    it "has an appropriate description when stream name is passed as an array" do
+      expect(have_broadcasted_to(%w[my_stream stream_2]).from_channel(channel).description).to eq("have broadcasted exactly 1 messages to broadcast:my_stream:stream_2")
+    end
+
+    it "has an appropriate description not mentioning the channel when qualified with `#from_channel`" do
+      expect(have_broadcasted_to("my_stream").from_channel(channel).description).to eq("have broadcasted exactly 1 messages to my_stream")
+    end
+
+    it "has an appropriate description including the expected contents when qualified with `#with`" do
+      expect(have_broadcasted_to("my_stream").from_channel(channel).with("hello world").description).to eq("have broadcasted exactly 1 messages to my_stream with \"hello world\"")
+    end
+
+    it { expect("foo").to eq("foo") }
+
+    it "has an appropriate description including the matcher's description when qualified with `#with` and a composable matcher" do
+      expect(
+        have_broadcasted_to("my_stream")
+          .from_channel(channel)
+          .with(a_hash_including(a: :b))
+          .description
+      ).to eq("have broadcasted exactly 1 messages to my_stream with a hash including {:a => :b}")
+    end
   end
 end

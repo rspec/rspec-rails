@@ -51,6 +51,10 @@ module RSpec
             exactly(:thrice)
           end
 
+          def description
+            "have broadcasted #{base_description}"
+          end
+
           def failure_message
             "expected to broadcast #{base_message}".tap do |msg|
               if @unmatching_msgs.any?
@@ -140,18 +144,21 @@ module RSpec
               end
           end
 
-          def base_message
+          def base_description
             "#{message_expectation_modifier} #{@expected_number} messages to #{stream}".tap do |msg|
               msg << " with #{data_description(@data)}" unless @data.nil?
-              msg << ", but broadcast #{@matching_msgs_count}"
             end
+          end
+
+          def base_message
+            "#{base_description}, but broadcast #{@matching_msgs_count}"
           end
 
           def data_description(data)
             if data.is_a?(RSpec::Matchers::Composable)
               data.description
             else
-              data
+              data.inspect
             end
           end
 
