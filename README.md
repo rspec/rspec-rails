@@ -10,7 +10,7 @@ expressed in plain English.
 
 According to [RSpec Rails new versioning strategy][] use:
 * **[`rspec-rails` 7.x][]** for Rails 7.x.
-* **[`rspec-rails` 6.x][]** for Rails 6.1.
+* **[`rspec-rails` 6.x][]** for Rails 6.1, 7.0 or 7.1.
 * **[`rspec-rails` 5.x][]** for Rails 5.2 or 6.x.
 * **[`rspec-rails` 4.x][]** for Rails from 5.x or 6.x.
 * **[`rspec-rails` 3.x][]** for Rails earlier than 5.0.
