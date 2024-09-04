@@ -373,7 +373,13 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
       }
     end
 
-    context 'when parameterized', skip: !RSpec::Rails::FeatureCheck.has_action_mailer_parameterized? do
+    context 'when parameterized' do
+      before do
+        unless RSpec::Rails::FeatureCheck.has_action_mailer_parameterized?
+          skip "This version of Rails does not support parameterized mailers"
+        end
+      end
+
       it "passes when mailer is parameterized" do
         expect {
           TestMailer.with('foo' => 'bar').test_email.deliver_later

@@ -39,9 +39,9 @@ Feature: Backtrace filtering
   Scenario: Using the bare `rspec` command
     When I run `rspec`
     Then the output should contain "1 example, 1 failure"
-    And the output should not contain "activesupport"
+    And the output should not contain "actionpack"
 
   Scenario: Using `rspec --backtrace`
     When I run `rspec --backtrace`
     Then the output should contain "1 example, 1 failure"
-    And the output should contain "activesupport"
+    And the output should contain "actionpack"
