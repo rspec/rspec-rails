@@ -25,6 +25,7 @@ in_root do
   gsub_file "Gemfile", /.*puma.*/, ''
   gsub_file "Gemfile", /.*bootsnap.*/, ''
 
+  append_to_file 'Gemfile', "gem 'ostruct'\n"
   append_to_file 'Gemfile', "gem 'rails-controller-testing'\n"
 
   gsub_file "Gemfile", /.*rails-controller-testing.*/, "gem 'rails-controller-testing', git: 'https://github.com/rails/rails-controller-testing'"
