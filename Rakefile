@@ -165,7 +165,7 @@ namespace :no_active_record do
         sh "rm -f #{bindir}/rails"
         sh "bundle exec rails new #{example_app_dir} --no-rc --skip-active-record --skip-javascript --skip-bootsnap " \
            "--skip-sprockets --skip-git --skip-test-unit --skip-listen --skip-bundle --skip-spring " \
-           "--skip-action-text --template=example_app_generator/generate_app.rb"
+           "--skip-action-text --skip-solid --template=example_app_generator/generate_app.rb"
 
         in_example_app(app_dir: example_app_dir) do
           sh "./ci_retry_bundle_install.sh 2>&1"
