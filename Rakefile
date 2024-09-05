@@ -105,6 +105,11 @@ namespace :smoke do
     in_example_app args.cmd.to_s
   end
 
+  desc "run rake routes in example app"
+  task :routes do
+    in_example_app "bin/rails routes"
+  end
+
   desc "run RSPEC_OPTS environment variable in the example app for local dev"
   task :rspec do
     in_example_app "LOCATION='../../example_app_generator/run_specs.rb' bin/rspec #{ENV.fetch("RSPEC_OPTS")}"
@@ -143,6 +148,11 @@ namespace :no_active_record do
       "no_active_record:generate:stuff",
       "no_active_record:smoke",
     ]
+
+    desc "run rake routes in example app"
+    task :routes do
+      in_example_app "bin/rails routes", app_dir: example_app_dir
+    end
 
     desc "run RSPEC_OPTS environment variable in the example app for local dev"
     task :rspec do
