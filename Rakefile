@@ -105,6 +105,11 @@ namespace :smoke do
     in_example_app args.cmd.to_s
   end
 
+  desc "run rake routes in example app"
+  task :routes do
+    in_example_app "bin/rails routes"
+  end
+
   desc "run RSPEC_OPTS environment variable in the example app for local dev"
   task :rspec do
     in_example_app "LOCATION='../../example_app_generator/run_specs.rb' bin/rspec #{ENV.fetch("RSPEC_OPTS")}"
@@ -144,6 +149,11 @@ namespace :no_active_record do
       "no_active_record:smoke",
     ]
 
+    desc "run rake routes in example app"
+    task :routes do
+      in_example_app "bin/rails routes", app_dir: example_app_dir
+    end
+
     desc "run RSPEC_OPTS environment variable in the example app for local dev"
     task :rspec do
       in_example_app "LOCATION='../../example_app_generator/run_specs.rb' bin/rspec #{ENV.fetch("RSPEC_OPTS")}", app_dir: example_app_dir
@@ -165,7 +175,7 @@ namespace :no_active_record do
         sh "rm -f #{bindir}/rails"
         sh "bundle exec rails new #{example_app_dir} --no-rc --skip-active-record --skip-javascript --skip-bootsnap " \
            "--skip-sprockets --skip-git --skip-test-unit --skip-listen --skip-bundle --skip-spring " \
-           "--skip-action-text --template=example_app_generator/generate_app.rb"
+           "--skip-action-text --skip-solid --template=example_app_generator/generate_app.rb"
 
         in_example_app(app_dir: example_app_dir) do
           sh "./ci_retry_bundle_install.sh 2>&1"
@@ -188,7 +198,7 @@ namespace :no_active_record do
 
     desc "generate a bunch of stuff with generators"
     task :stuff do
-      in_example_app "bin/rake #{rails_template_command} LOCATION='../../example_app_generator/generate_stuff.rb'", app_dir: example_app_dir
+      in_example_app "bin/rake #{rails_template_command} LOCATION='../../example_app_generator/generate_stuff.rb' __RSPEC_NO_AR=true", app_dir: example_app_dir
     end
   end
 end
