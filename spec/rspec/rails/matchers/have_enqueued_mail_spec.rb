@@ -20,6 +20,10 @@ if RSpec::Rails::FeatureCheck.has_active_job?
     def test_email; end
   end
 
+  class NonMailerJob < ActiveJob::Base
+    def perform; end
+  end
+
   if RSpec::Rails::FeatureCheck.has_action_mailer_unified_delivery?
     class UnifiedMailer < ActionMailer::Base
       self.delivery_job = ActionMailer::MailDeliveryJob
@@ -93,6 +97,10 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
 
     it "passes when negated with 0 arguments" do
       expect { }.not_to have_enqueued_email
+    end
+
+    it "passes when negated with 0 arguments and a non-mailer job is enqueued" do
+      expect { NonMailerJob.perform_later }.not_to have_enqueued_email
     end
 
     it "passes when only given mailer argument" do
@@ -305,11 +313,6 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
     end
 
     it "generates a failure message with unmatching enqueued mail jobs" do
-      non_mailer_job = Class.new(ActiveJob::Base) do
-        def perform; end
-        def self.name; "NonMailerJob"; end
-      end
-
       send_time = Date.tomorrow.noon
       queue = 'urgent_mail'
 
@@ -320,7 +323,7 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
 
       expect {
         expect {
-          non_mailer_job.perform_later
+          NonMailerJob.perform_later
           TestMailer.test_email.deliver_later
           TestMailer.email_with_args(3, 4).deliver_later(wait_until: send_time, queue: queue)
         }.to have_enqueued_email(TestMailer, :email_with_args).with(1, 2)
