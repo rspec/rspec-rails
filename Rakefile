@@ -188,7 +188,7 @@ namespace :no_active_record do
 
     desc "generate a bunch of stuff with generators"
     task :stuff do
-      in_example_app "bin/rake #{rails_template_command} LOCATION='../../example_app_generator/generate_stuff.rb'", app_dir: example_app_dir
+      in_example_app "bin/rake #{rails_template_command} LOCATION='../../example_app_generator/generate_stuff.rb' __RSPEC_NO_AR=true", app_dir: example_app_dir
     end
   end
 end

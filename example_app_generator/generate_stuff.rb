@@ -57,10 +57,10 @@ module ExampleAppHooks
   end
 
   def self.environment_hooks
-    if defined?(ActiveRecord)
-      AR
-    else
+    if ENV['__RSPEC_NO_AR']
       NoAR
+    else
+      AR
     end
   end
 end
