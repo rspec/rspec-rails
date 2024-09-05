@@ -72,7 +72,7 @@ module RSpec
           @mailer_class ? @mailer_class.name : 'ActionMailer::Base'
         end
 
-        def job_match?(job)
+        def job_matches?(job)
           legacy_mail?(job) || parameterized_mail?(job) || unified_mail?(job)
         end
 
@@ -123,7 +123,7 @@ module RSpec
 
         def unmatching_mail_jobs
           @unmatching_jobs.select do |job|
-            job_match?(job)
+            job_matches?(job)
           end
         end
 

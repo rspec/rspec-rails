@@ -1,6 +1,11 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.0.1...7-0-maintenance)
 
+Bug Fixes:
+
+* Fix `have_enqueued_mail` wrongful failure when expecting no enqueued mail but
+  a non-mail job is enqueued. (David Runger, #2793)
+
 ### 7.0.1 / 2024-09-03
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.0.0...v7.0.1)
 
