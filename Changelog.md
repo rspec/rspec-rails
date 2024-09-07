@@ -1,6 +1,11 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.0.1...main)
 
+Enhancements:
+
+* Improve implicit description for ActionCable matchers `have_broadcasted_to` /
+  `have_broadcast`. (Simon Fish, #2795)
+
 Bug Fixes:
 
 * Fix issue with `have_enqueued_mail` when jobs were incorrectly matched due
