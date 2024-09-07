@@ -47,7 +47,6 @@ module RSpec
       #     expect {
       #       ActionCable.server.broadcast "messages", text: 'Hi!'
       #     }.to have_broadcasted_to("messages").with(text: 'Hi!')
-
       def have_broadcasted_to(target = nil)
         check_action_cable_adapter
 
