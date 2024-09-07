@@ -3,6 +3,8 @@ require "rspec/rails/matchers/action_cable/have_broadcasted_to"
 module RSpec
   module Rails
     module Matchers
+      extend RSpec::Matchers::DSL
+
       # Namespace for various implementations of ActionCable features
       #
       # @api private
@@ -50,7 +52,10 @@ module RSpec
 
         ActionCable::HaveBroadcastedTo.new(target, channel: described_class)
       end
-      alias_method :broadcast_to, :have_broadcasted_to
+
+      alias_matcher :broadcast_to, :have_broadcasted_to do |desc|
+        desc.gsub("have broadcasted", "broadcast")
+      end
 
     private
 
