@@ -13,30 +13,25 @@ Feature: `redirect_to` matcher
       require "rails_helper"
 
       RSpec.describe WidgetsController do
-        describe "#create" do
-          it "redirects to widget_url(@widget)" do
-            post :create, :params => { :widget => { :name => "Foo" } }
 
-            expect(response).to redirect_to(widget_url(assigns(:widget)))
+        describe "#create" do
+          subject { post :create, :params => { :widget => { :name => "Foo" } } }
+
+          it "redirects to widget_url(@widget)" do
+            expect(subject).to redirect_to(widget_url(assigns(:widget)))
           end
 
           it "redirects_to :action => :show" do
-            post :create, :params => { :widget => { :name => "Foo" } }
-
-            expect(response).to redirect_to :action => :show,
+            expect(subject).to redirect_to :action => :show,
                                            :id => assigns(:widget).id
           end
 
           it "redirects_to(@widget)" do
-            post :create, :params => { :widget => { :name => "Foo" } }
-
-            expect(response).to redirect_to(assigns(:widget))
+            expect(subject).to redirect_to(assigns(:widget))
           end
 
           it "redirects_to /widgets/:id" do
-            post :create, :params => { :widget => { :name => "Foo" } }
-
-            expect(response).to redirect_to("/widgets/#{assigns(:widget).id}")
+            expect(subject).to redirect_to("/widgets/#{assigns(:widget).id}")
           end
         end
       end
