@@ -16,18 +16,16 @@ Feature: `render_template` matcher
 
       RSpec.describe GadgetsController do
         describe "GET #index" do
-          it "renders the index template" do
-            get :index
+          subject { get :index }
 
-            expect(response).to render_template(:index)
-            expect(response).to render_template("index")
-            expect(response).to render_template("gadgets/index")
+          it "renders the index template" do
+            expect(subject).to render_template(:index)
+            expect(subject).to render_template("index")
+            expect(subject).to render_template("gadgets/index")
           end
 
           it "does not render a different template" do
-            get :index
-
-            expect(response).to_not render_template("gadgets/show")
+            expect(subject).to_not render_template("gadgets/show")
           end
         end
       end
@@ -42,16 +40,14 @@ Feature: `render_template` matcher
 
       RSpec.describe GadgetsController do
         describe "GET #index" do
-          it "renders the application layout" do
-            get :index
+          subject { get :index }
 
-            expect(response).to render_template("layouts/application")
+          it "renders the application layout" do
+            expect(subject).to render_template("layouts/application")
           end
 
           it "does not render a different layout" do
-            get :index
-
-            expect(response).to_not render_template("layouts/admin")
+            expect(subject).to_not render_template("layouts/admin")
           end
         end
       end
