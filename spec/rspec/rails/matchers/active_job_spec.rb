@@ -78,6 +78,17 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
     end
   end
 
+  let(:callback_job) do
+    Class.new(ActiveJob::Base) do
+      before_enqueue do |job|
+        job.arguments << 3
+      end
+
+      def perform(one, two); end
+      def self.name; "CallbackJob"; end
+    end
+  end
+
   before do
     ActiveJob::Base.queue_adapter = :test
   end
@@ -370,6 +381,12 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       expect {
         hello_job.perform_later(42, "David")
       }.to have_enqueued_job.with(42, "David")
+    end
+
+    it "will match arguments added in callbacks" do
+      expect {
+        callback_job.perform_later(1, 2)
+      }.to have_enqueued_job.with(1, 2, 3)
     end
 
     it "fails if the arguments do not match the job's signature" do
