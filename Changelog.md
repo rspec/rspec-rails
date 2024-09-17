@@ -5,6 +5,8 @@ Enhancements:
 
 * Improve implicit description for ActionCable matchers `have_broadcasted_to` /
   `have_broadcast`. (Simon Fish, #2795)
+* Comment out `infer_spec_type_from_file_location!` in newly generated
+  `rails_helper.rb` files. (Jon Rowe, #2804)
 
 Bug Fixes:
 
