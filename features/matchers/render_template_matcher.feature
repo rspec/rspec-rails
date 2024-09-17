@@ -14,7 +14,7 @@ Feature: `render_template` matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe GadgetsController do
+      RSpec.describe GadgetsController , type: :controller do
         describe "GET #index" do
           subject { get :index }
 
@@ -38,7 +38,7 @@ Feature: `render_template` matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe GadgetsController do
+      RSpec.describe GadgetsController , type: :controller do
         describe "GET #index" do
           subject { get :index }
 
@@ -60,7 +60,7 @@ Feature: `render_template` matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe "gadgets/index" do
+      RSpec.describe "gadgets/index" , type: :view do
         it "renders the index template" do
           assign(:gadgets, [Gadget.create!])
           render

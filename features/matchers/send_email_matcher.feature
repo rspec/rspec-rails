@@ -16,7 +16,7 @@ Feature: `send_email` matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe NotificationsMailer do
+      RSpec.describe NotificationsMailer , type: :mailer do
         it "checks email sending by multiple params" do
           expect {
             NotificationsMailer.signup.deliver_now
@@ -36,7 +36,7 @@ Feature: `send_email` matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe NotificationsMailer do
+      RSpec.describe NotificationsMailer , type: :mailer do
         it "checks email sending by one param only" do
           expect {
             NotificationsMailer.signup.deliver_now
@@ -54,7 +54,7 @@ Feature: `send_email` matcher
       """ruby
       require "rails_helper"
 
-      RSpec.describe NotificationsMailer do
+      RSpec.describe NotificationsMailer , type: :mailer do
         it "checks email not sent" do
           expect {
             NotificationsMailer.signup.deliver_now

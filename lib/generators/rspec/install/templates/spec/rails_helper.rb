@@ -67,20 +67,22 @@ RSpec.configure do |config|
   # config.use_transactional_fixtures = true
 
 <% end -%>
-  # RSpec Rails can automatically mix in different behaviours to your tests
-  # based on their file location, for example enabling you to call `get` and
-  # `post` in specs under `spec/controllers`.
+  # RSpec Rails uses metadata to mix in different behaviours to your tests,
+  # for example enabling you to call `get` and `post` in request specs. e.g.:
   #
-  # You can disable this behaviour by removing the line below, and instead
-  # explicitly tag your specs with their type, e.g.:
-  #
-  #     RSpec.describe UsersController, type: :controller do
+  #     RSpec.describe UsersController, type: :request do
   #       # ...
   #     end
   #
   # The different available types are documented in the features, such as in
   # https://rspec.info/features/7-0/rspec-rails
-  config.infer_spec_type_from_file_location!
+  #
+  # You can also this infer these behaviours automatically by location, e.g.
+  # /spec/models would pull in the same behaviour as `type: :model` but this
+  # behaviour is considered legacy and will be removed in a future version.
+  #
+  # To enable this behaviour uncomment the line below.
+  # config.infer_spec_type_from_file_location!
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
