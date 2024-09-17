@@ -27,7 +27,7 @@ Feature: View specs
       """ruby
       require "rails_helper"
 
-      RSpec.describe "widgets/index" do
+      RSpec.describe "widgets/index" , type: :view do
         it "displays all the widgets" do
           assign(:widgets, [
             Widget.create!(:name => "slicer"),
@@ -49,7 +49,7 @@ Feature: View specs
       """ruby
       require "rails_helper"
 
-      RSpec.describe "widgets/index" do
+      RSpec.describe "widgets/index" , type: :view do
 
         context "with 2 widgets" do
           before(:each) do
@@ -76,7 +76,7 @@ Feature: View specs
       """ruby
       require "rails_helper"
 
-      RSpec.describe "rendering the widget template" do
+      RSpec.describe "rendering the widget template" , type: :view do
         it "displays the widget" do
           assign(:widget, Widget.create!(:name => "slicer"))
 
@@ -98,7 +98,7 @@ Feature: View specs
       """ruby
       require "rails_helper"
 
-      RSpec.describe "rendering the widget template" do
+      RSpec.describe "rendering the widget template" , type: :view do
         context "with the inventory layout" do
           it "displays the widget" do
             assign(:widget, Widget.create!(:name => "slicer"))
@@ -126,7 +126,7 @@ Feature: View specs
       """ruby
       require "rails_helper"
 
-      RSpec.describe "widgets/widget.html.erb" do
+      RSpec.describe "widgets/widget.html.erb" , type: :view do
         it "renders the HTML template" do
           render
 
@@ -134,7 +134,7 @@ Feature: View specs
         end
       end
 
-      RSpec.describe "widgets/widget.xml.erb" do
+      RSpec.describe "widgets/widget.xml.erb" , type: :view do
         it "renders the XML template" do
           render
 
@@ -158,7 +158,7 @@ Feature: View specs
       """ruby
       require "rails_helper"
 
-      RSpec.describe "widgets/index" do
+      RSpec.describe "widgets/index" , type: :view do
         it "displays the widget" do
           widget = Widget.create!(:name => "slicer")
 
@@ -180,7 +180,7 @@ Feature: View specs
       """ruby
       require "rails_helper"
 
-      RSpec.describe "rendering locals in a partial" do
+      RSpec.describe "rendering locals in a partial" , type: :view do
         it "displays the widget" do
           widget = Widget.create!(:name => "slicer")
 
@@ -202,7 +202,7 @@ Feature: View specs
       """ruby
       require "rails_helper"
 
-      RSpec.describe "rendering locals in a partial" do
+      RSpec.describe "rendering locals in a partial" , type: :view do
         it "displays the widget" do
           widget = Widget.create!(:name => "slicer")
 
@@ -224,7 +224,7 @@ Feature: View specs
       """ruby
       require "rails_helper"
 
-      RSpec.describe "rendering text directly" do
+      RSpec.describe "rendering text directly" , type: :view do
         it "displays the given text" do
 
           render :plain => "This is directly rendered"
@@ -255,7 +255,7 @@ Feature: View specs
       """ruby
       require 'rails_helper'
 
-      RSpec.describe 'secrets/index' do
+      RSpec.describe 'secrets/index' , type: :view do
         before do
           allow(view).to receive(:admin?).and_return(true)
         end
@@ -274,7 +274,7 @@ Feature: View specs
       """ruby
       require "rails_helper"
 
-      RSpec.describe "controller.request.path_parameters" do
+      RSpec.describe "controller.request.path_parameters" , type: :view do
         it "matches the Rails environment by using symbols for keys" do
           [:controller, :action].each { |k| expect(controller.request.path_parameters.keys).to include(k) }
         end
@@ -288,7 +288,7 @@ Feature: View specs
     """ruby
       require "rails_helper"
 
-      RSpec.describe "widgets/index" do
+      RSpec.describe "widgets/index" , type: :view do
         it "has a request.fullpath that is defined" do
           expect(controller.request.fullpath).to eq widgets_path
         end
@@ -302,7 +302,7 @@ Feature: View specs
     """ruby
       require "rails_helper"
 
-      RSpec.describe "widgets/show" do
+      RSpec.describe "widgets/show" , type: :view do
         it "displays the widget with id: 1" do
           widget = Widget.create!(:name => "slicer")
           controller.extra_params = { :id => widget.id }
