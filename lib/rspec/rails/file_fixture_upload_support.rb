@@ -1,16 +1,20 @@
 module RSpec
   module Rails
     # @private
-    module FixtureFileUploadSupport
-      delegate :fixture_file_upload, to: :rails_fixture_file_wrapper
+    module FileFixtureUploadSupport
+      if ::Rails::VERSION::STRING < "7.1.0"
+        delegate :fixture_file_upload, to: :rails_file_fixture_wrapper
+      else
+        delegate :file_fixture_upload, :fixture_file_upload, to: :rails_file_fixture_wrapper
+      end
 
     private
 
       # In Rails 7.0 fixture file path needs to be relative to `file_fixture_path` instead, this change
       # was brought in with a deprecation warning on 6.1. In Rails 7.0 expect to rework this to remove
       # the old accessor.
-      def rails_fixture_file_wrapper
-        RailsFixtureFileWrapper.file_fixture_path = nil
+      def rails_file_fixture_wrapper
+        RailsFileFixtureWrapper.file_fixture_path = nil
         resolved_fixture_path =
           if respond_to?(:file_fixture_path) && !file_fixture_path.nil?
             file_fixture_path.to_s
@@ -19,11 +23,11 @@ module RSpec
           else
             (RSpec.configuration.fixture_path || '').to_s
           end
-        RailsFixtureFileWrapper.file_fixture_path = File.join(resolved_fixture_path, '') unless resolved_fixture_path.strip.empty?
-        RailsFixtureFileWrapper.instance
+        RailsFileFixtureWrapper.file_fixture_path = File.join(resolved_fixture_path, '') unless resolved_fixture_path.strip.empty?
+        RailsFileFixtureWrapper.instance
       end
 
-      class RailsFixtureFileWrapper
+      class RailsFileFixtureWrapper
         include ActionDispatch::TestProcess if defined?(ActionDispatch::TestProcess)
         include ActiveSupport::Testing::FileFixtures
 
