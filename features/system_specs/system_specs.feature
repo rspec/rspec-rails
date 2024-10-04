@@ -25,7 +25,7 @@ Feature: System specs
   you can use the configuration helpers to do this for every system spec,
   for example by adding the following to `spec/rails_helper.rb`:
 
-  ```
+  ```ruby
   RSpec.configure do |config|
     ...
     config.before(type: :system) do
