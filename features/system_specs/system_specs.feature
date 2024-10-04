@@ -26,8 +26,12 @@ Feature: System specs
   for example by adding the following to `spec/rails_helper.rb`:
 
   ```
-  config.before(type: :system) do
-    driven_by :selenium_headless # Or your preferred default driver
+  RSpec.configure do |config|
+    ...
+    config.before(type: :system) do
+      driven_by :selenium_headless # Or your preferred default driver
+    end
+    ...
   end
   ```
 
