@@ -27,7 +27,7 @@ Feature: System specs
 
   ```
   config.before(type: :system) do
-    driven_by :selenium_headless    # Or your preferred default driver
+    driven_by :selenium_headless # Or your preferred default driver
   end
   ```
 
