@@ -19,7 +19,15 @@ Feature: System specs
 
   RSpec **does not** use your `ApplicationSystemTestCase` helper. Instead it
   uses the default `driven_by(:selenium)` from Rails. If you want to override
-  this behaviour you can call `driven_by` manually in a test.
+  this behaviour you can call `driven_by` manually in a test. Alternatively, 
+  if you want to specify a default driver for all system specs (rather than
+  using `driven_by` in every spec), add the following to `spec/rails_helper.rb`:
+
+  ```
+  config.before(type: :system) do
+    driven_by :selenium_headless    # Or your preferred default driver
+  end
+  ```
 
   System specs run in a transaction. So unlike feature specs with
   javascript, you do not need [DatabaseCleaner](https://github.com/DatabaseCleaner/database_cleaner).
