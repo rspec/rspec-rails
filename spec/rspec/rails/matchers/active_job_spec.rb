@@ -372,20 +372,22 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       }.to have_enqueued_job.with(42, "David")
     end
 
-    it "fails if the arguments do not match the job's signature" do
-      expect {
+    describe "verifying the arguments passed match the job's signature" do
+      it "fails if there is an arity mismatch" do
         expect {
-          two_args_job.perform_later(1)
-        }.to have_enqueued_job.with(1)
-      }.to fail_with(/Incorrect arguments passed to TwoArgsJob: Wrong number of arguments/)
-    end
+          expect {
+            two_args_job.perform_later(1)
+          }.to have_enqueued_job.with(1)
+        }.to fail_with(/Incorrect arguments passed to TwoArgsJob: Wrong number of arguments/)
+      end
 
-    it "fails if the job's signature/arguments are mismatched keyword/positional arguments" do
-      expect {
+      it "fails if there is a keyword/positional arguments mismatch" do
         expect {
-          keyword_args_job.perform_later(1, 2)
-        }.to have_enqueued_job.with(1, 2)
-      }.to fail_with(/Incorrect arguments passed to KeywordArgsJob: Missing required keyword arguments/)
+          expect {
+            keyword_args_job.perform_later(1, 2)
+          }.to have_enqueued_job.with(1, 2)
+        }.to fail_with(/Incorrect arguments passed to KeywordArgsJob: Missing required keyword arguments/)
+      end
     end
 
     it "passes with provided arguments containing global id object" do
@@ -521,20 +523,22 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       }.to fail_with(/expected to enqueue exactly 1 jobs, but enqueued 0/)
     end
 
-    it "fails if the arguments do not match the job's signature" do
-      two_args_job.perform_later(1)
+    describe "verifying the arguments passed match the job's signature" do
+      it "fails if there is an arity mismatch" do
+        two_args_job.perform_later(1)
 
-      expect {
-        expect(two_args_job).to have_been_enqueued.with(1)
-      }.to fail_with(/Incorrect arguments passed to TwoArgsJob: Wrong number of arguments/)
-    end
+        expect {
+          expect(two_args_job).to have_been_enqueued.with(1)
+        }.to fail_with(/Incorrect arguments passed to TwoArgsJob: Wrong number of arguments/)
+      end
 
-    it "fails if the job's signature/arguments are mismatched keyword/positional arguments" do
-      keyword_args_job.perform_later(1, 2)
+      it "fails if there is a keyword/positional arguments mismatch" do
+        keyword_args_job.perform_later(1, 2)
 
-      expect {
-        expect(keyword_args_job).to have_been_enqueued.with(1, 2)
-      }.to fail_with(/Incorrect arguments passed to KeywordArgsJob: Missing required keyword arguments/)
+        expect {
+          expect(keyword_args_job).to have_been_enqueued.with(1, 2)
+        }.to fail_with(/Incorrect arguments passed to KeywordArgsJob: Missing required keyword arguments/)
+      end
     end
 
     it "fails when negated and several jobs enqueued" do

@@ -251,12 +251,14 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
       }.not_to have_enqueued_mail(TestMailer, :email_with_args).with(3, 4)
     end
 
-    it "fails if the arguments do not match the mailer method's signature" do
-      expect {
+    describe "verifying the arguments passed match the mailer's signature" do
+      it "fails if there is a mismatch" do
         expect {
-          TestMailer.email_with_args(1).deliver_later
-        }.to have_enqueued_mail(TestMailer, :email_with_args).with(1)
-      }.to fail_with(/Incorrect arguments passed to TestMailer: Wrong number of arguments/)
+          expect {
+            TestMailer.email_with_args(1).deliver_later
+          }.to have_enqueued_mail(TestMailer, :email_with_args).with(1)
+        }.to fail_with(/Incorrect arguments passed to TestMailer: Wrong number of arguments/)
+      end
     end
 
     it "generates a failure message" do
