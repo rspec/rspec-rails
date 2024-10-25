@@ -398,6 +398,16 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
           }
         end
       end
+
+      context "when partial double verification is temporarily suspended" do
+        it "skips signature checks" do
+          without_partial_double_verification {
+            expect {
+              two_args_job.perform_later(1)
+            }.to have_enqueued_job.with(1)
+          }
+        end
+      end
     end
 
     it "passes with provided arguments containing global id object" do
@@ -555,6 +565,16 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
           keyword_args_job.perform_later(1, 2)
 
           with_temporary_assignment(RSpec::Mocks.configuration, :verify_partial_doubles, false) {
+            expect(keyword_args_job).to have_been_enqueued.with(1, 2)
+          }
+        end
+      end
+
+      context "when partial double verification is temporarily suspended" do
+        it "skips signature checks" do
+          keyword_args_job.perform_later(1, 2)
+
+          without_partial_double_verification {
             expect(keyword_args_job).to have_been_enqueued.with(1, 2)
           }
         end

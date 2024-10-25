@@ -272,6 +272,16 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
           }
         end
       end
+
+      context "when partial double verification is temporarily suspended" do
+        it "skips signature checks" do
+          without_partial_double_verification {
+            expect {
+              TestMailer.email_with_args(1).deliver_later
+            }.to have_enqueued_mail(TestMailer, :email_with_args).with(1)
+          }
+        end
+      end
     end
 
     it "generates a failure message" do
