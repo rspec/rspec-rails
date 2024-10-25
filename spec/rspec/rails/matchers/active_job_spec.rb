@@ -1,4 +1,5 @@
 require "rspec/rails/feature_check"
+require "support/temporary_assignment"
 
 if RSpec::Rails::FeatureCheck.has_active_job?
   require "rspec/rails/matchers/active_job"
@@ -34,6 +35,7 @@ end
 
 RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_active_job? do
   include ActiveSupport::Testing::TimeHelpers
+  include TemporaryAssignment
 
   around do |example|
     original_logger = ActiveJob::Base.logger
@@ -388,6 +390,14 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
           }.to have_enqueued_job.with(1, 2)
         }.to fail_with(/Incorrect arguments passed to KeywordArgsJob: Missing required keyword arguments/)
       end
+
+      context "with partial double verification disabled" do
+        it "skips signature checks" do
+          with_temporary_assignment(RSpec::Mocks.configuration, :verify_partial_doubles, false) {
+            expect { two_args_job.perform_later(1) }.to have_enqueued_job.with(1)
+          }
+        end
+      end
     end
 
     it "passes with provided arguments containing global id object" do
@@ -538,6 +548,16 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
         expect {
           expect(keyword_args_job).to have_been_enqueued.with(1, 2)
         }.to fail_with(/Incorrect arguments passed to KeywordArgsJob: Missing required keyword arguments/)
+      end
+
+      context "with partial double verification disabled" do
+        it "skips signature checks" do
+          keyword_args_job.perform_later(1, 2)
+
+          with_temporary_assignment(RSpec::Mocks.configuration, :verify_partial_doubles, false) {
+            expect(keyword_args_job).to have_been_enqueued.with(1, 2)
+          }
+        end
       end
     end
 

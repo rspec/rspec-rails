@@ -1,4 +1,5 @@
 require "rspec/rails/feature_check"
+require "support/temporary_assignment"
 
 if RSpec::Rails::FeatureCheck.has_active_job?
   require "action_mailer"
@@ -49,6 +50,8 @@ if RSpec::Rails::FeatureCheck.has_active_job?
 end
 
 RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.has_active_job? do
+  include TemporaryAssignment
+
   before do
     ActiveJob::Base.queue_adapter = :test
   end
@@ -258,6 +261,16 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
             TestMailer.email_with_args(1).deliver_later
           }.to have_enqueued_mail(TestMailer, :email_with_args).with(1)
         }.to fail_with(/Incorrect arguments passed to TestMailer: Wrong number of arguments/)
+      end
+
+      context "with partial double verification disabled" do
+        it "skips signature checks" do
+          with_temporary_assignment(RSpec::Mocks.configuration, :verify_partial_doubles, false) {
+            expect {
+              TestMailer.email_with_args(1).deliver_later
+            }.to have_enqueued_mail(TestMailer, :email_with_args).with(1)
+          }
+        end
       end
     end
 

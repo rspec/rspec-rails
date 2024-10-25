@@ -178,6 +178,8 @@ module RSpec
           end
 
           def detect_args_signature_mismatch(jobs)
+            return unless RSpec::Mocks.configuration.verify_partial_doubles?
+
             jobs.each do |job|
               args = deserialize_arguments(job)
 
