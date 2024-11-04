@@ -1,5 +1,4 @@
 require "rspec/rails/feature_check"
-require "support/temporary_assignment"
 
 if RSpec::Rails::FeatureCheck.has_active_job?
   require "action_mailer"
@@ -50,8 +49,6 @@ if RSpec::Rails::FeatureCheck.has_active_job?
 end
 
 RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.has_active_job? do
-  include TemporaryAssignment
-
   before do
     ActiveJob::Base.queue_adapter = :test
   end
@@ -61,6 +58,13 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
     ActiveJob::Base.logger = Logger.new(nil) # Silence messages "[ActiveJob] Enqueued ...".
     example.run
     ActiveJob::Base.logger = original_logger
+  end
+
+  around do |example|
+    original_value = RSpec::Mocks.configuration.verify_partial_doubles?
+    example.run
+  ensure
+    RSpec::Mocks.configuration.verify_partial_doubles = original_value
   end
 
   describe "have_enqueued_mail" do
@@ -264,12 +268,13 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
       end
 
       context "with partial double verification disabled" do
+        before do
+          RSpec::Mocks.configuration.verify_partial_doubles = false
+        end
+
         it "skips signature checks" do
-          with_temporary_assignment(RSpec::Mocks.configuration, :verify_partial_doubles, false) {
-            expect {
-              TestMailer.email_with_args(1).deliver_later
-            }.to have_enqueued_mail(TestMailer, :email_with_args).with(1)
-          }
+          expect { TestMailer.email_with_args(1).deliver_later }
+            .to have_enqueued_mail(TestMailer, :email_with_args).with(1)
         end
       end
 
