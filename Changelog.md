@@ -1,5 +1,5 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.0.1...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.0.2...main)
 
 Enhancements:
 
@@ -9,6 +9,9 @@ Enhancements:
   `rails_helper.rb` files. (Jon Rowe, #2804)
 * Allow turning off active job / mailer argument validation.
   (Oli Peate, #2808)
+
+### 7.0.2 / 2024-11-08
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.0.1...v7.0.2)
 
 Bug Fixes:
 
