@@ -11,13 +11,15 @@ def add_net_gems_dependency
   end
 end
 
-def add_sqlite3_gem_dependency
-  # sqlite3 is an optional, unspecified, dependency and Rails 6.0 only supports `~> 1.4`
+def add_sqlite3_gem_dependency(rails_version)
+  # sqlite3 is an optional, unspecified, dependency and Rails 8.0 only supports `~> 2.0`
   if RUBY_VERSION.to_f < 3
     # sqlite3 1.7.x doesn't work on all platforms for Ruby 2.x
     gem 'sqlite3', '~> 1.4', '< 1.7', platforms: [:ruby]
+  elsif rails_version.to_f >= 8
+    gem 'sqlite3', '~> 2.0', platforms: [:ruby]
   else
-    gem 'sqlite3', '~> 1.4', platforms: [:ruby]
+    gem 'sqlite3', '~> 1.7', platforms: [:ruby]
   end
 end
 
@@ -29,21 +31,12 @@ when /main/
   gem 'activerecord-jdbcsqlite3-adapter', git: 'https://github.com/jruby/activerecord-jdbc-adapter', platforms: [:jruby]
   gem 'selenium-webdriver', require: false
 
-  # Rails 8 requires 2.0.0
   gem 'sqlite3', '~> 2.0', platforms: [:ruby]
-when /stable$/
-  gem_list = %w[rails railties actionmailer actionpack activerecord activesupport activejob actionview]
-  gem 'activerecord-jdbcsqlite3-adapter', git: 'https://github.com/jruby/activerecord-jdbc-adapter', platforms: [:jruby]
-
-  gem_list.each do |rails_gem|
-    gem rails_gem, :git => "https://github.com/rails/rails.git", :branch => version
-  end
-  add_sqlite3_gem_dependency
 when nil, false, ""
-  gem "rails", "~> 7.0.0"
+  gem "rails", "~> 8.0.0"
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
   gem 'selenium-webdriver', require: false
-  add_sqlite3_gem_dependency
+  gem 'sqlite3', '~> 2.0', platforms: [:ruby]
 else
   version_number = version.split(' ').last
   add_net_gems_dependency if version_number < '7.0'
@@ -58,5 +51,5 @@ else
   else
     gem 'selenium-webdriver', require: false
   end
-  add_sqlite3_gem_dependency
+  add_sqlite3_gem_dependency(version_number)
 end
