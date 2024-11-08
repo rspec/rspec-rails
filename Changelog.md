@@ -7,6 +7,8 @@ Enhancements:
   `have_broadcast`. (Simon Fish, #2795)
 * Comment out `infer_spec_type_from_file_location!` in newly generated
   `rails_helper.rb` files. (Jon Rowe, #2804)
+* Allow turning off active job / mailer argument validation.
+  (Oli Peate, #2808)
 
 Bug Fixes:
 
