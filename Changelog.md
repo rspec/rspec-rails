@@ -1,5 +1,5 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.1.0...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.1.0...7-1-maintenance)
 
 ### 7.1.0 / 2024-11-09
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.0.2...v7.1.0)
