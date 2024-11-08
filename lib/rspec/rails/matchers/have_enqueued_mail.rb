@@ -93,6 +93,7 @@ module RSpec
 
         def detect_args_signature_mismatch(jobs)
           return if @method_name.nil?
+          return if skip_signature_verification?
 
           mailer_class = mailer_class_name.constantize
 

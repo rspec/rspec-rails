@@ -60,6 +60,13 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
     ActiveJob::Base.logger = original_logger
   end
 
+  around do |example|
+    original_value = RSpec::Mocks.configuration.verify_partial_doubles?
+    example.run
+  ensure
+    RSpec::Mocks.configuration.verify_partial_doubles = original_value
+  end
+
   describe "have_enqueued_mail" do
     it "passes when a mailer method is called with deliver_later" do
       expect {
@@ -251,12 +258,35 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
       }.not_to have_enqueued_mail(TestMailer, :email_with_args).with(3, 4)
     end
 
-    it "fails if the arguments do not match the mailer method's signature" do
-      expect {
+    describe "verifying the arguments passed match the mailer's signature" do
+      it "fails if there is a mismatch" do
         expect {
-          TestMailer.email_with_args(1).deliver_later
-        }.to have_enqueued_mail(TestMailer, :email_with_args).with(1)
-      }.to fail_with(/Incorrect arguments passed to TestMailer: Wrong number of arguments/)
+          expect {
+            TestMailer.email_with_args(1).deliver_later
+          }.to have_enqueued_mail(TestMailer, :email_with_args).with(1)
+        }.to fail_with(/Incorrect arguments passed to TestMailer: Wrong number of arguments/)
+      end
+
+      context "with partial double verification disabled" do
+        before do
+          RSpec::Mocks.configuration.verify_partial_doubles = false
+        end
+
+        it "skips signature checks" do
+          expect { TestMailer.email_with_args(1).deliver_later }
+            .to have_enqueued_mail(TestMailer, :email_with_args).with(1)
+        end
+      end
+
+      context "when partial double verification is temporarily suspended" do
+        it "skips signature checks" do
+          without_partial_double_verification {
+            expect {
+              TestMailer.email_with_args(1).deliver_later
+            }.to have_enqueued_mail(TestMailer, :email_with_args).with(1)
+          }
+        end
+      end
     end
 
     it "generates a failure message" do

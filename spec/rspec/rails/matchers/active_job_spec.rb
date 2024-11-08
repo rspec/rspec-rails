@@ -42,6 +42,13 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
     ActiveJob::Base.logger = original_logger
   end
 
+  around do |example|
+    original_value = RSpec::Mocks.configuration.verify_partial_doubles?
+    example.run
+  ensure
+    RSpec::Mocks.configuration.verify_partial_doubles = original_value
+  end
+
   let(:heavy_lifting_job) do
     Class.new(ActiveJob::Base) do
       def perform; end
@@ -372,20 +379,42 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       }.to have_enqueued_job.with(42, "David")
     end
 
-    it "fails if the arguments do not match the job's signature" do
-      expect {
+    describe "verifying the arguments passed match the job's signature" do
+      it "fails if there is an arity mismatch" do
         expect {
-          two_args_job.perform_later(1)
-        }.to have_enqueued_job.with(1)
-      }.to fail_with(/Incorrect arguments passed to TwoArgsJob: Wrong number of arguments/)
-    end
+          expect {
+            two_args_job.perform_later(1)
+          }.to have_enqueued_job.with(1)
+        }.to fail_with(/Incorrect arguments passed to TwoArgsJob: Wrong number of arguments/)
+      end
 
-    it "fails if the job's signature/arguments are mismatched keyword/positional arguments" do
-      expect {
+      it "fails if there is a keyword/positional arguments mismatch" do
         expect {
-          keyword_args_job.perform_later(1, 2)
-        }.to have_enqueued_job.with(1, 2)
-      }.to fail_with(/Incorrect arguments passed to KeywordArgsJob: Missing required keyword arguments/)
+          expect {
+            keyword_args_job.perform_later(1, 2)
+          }.to have_enqueued_job.with(1, 2)
+        }.to fail_with(/Incorrect arguments passed to KeywordArgsJob: Missing required keyword arguments/)
+      end
+
+      context "with partial double verification disabled" do
+        before do
+          RSpec::Mocks.configuration.verify_partial_doubles = false
+        end
+
+        it "skips signature checks" do
+          expect { two_args_job.perform_later(1) }.to have_enqueued_job.with(1)
+        end
+      end
+
+      context "when partial double verification is temporarily suspended" do
+        it "skips signature checks" do
+          without_partial_double_verification {
+            expect {
+              two_args_job.perform_later(1)
+            }.to have_enqueued_job.with(1)
+          }
+        end
+      end
     end
 
     it "passes with provided arguments containing global id object" do
@@ -521,20 +550,44 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       }.to fail_with(/expected to enqueue exactly 1 jobs, but enqueued 0/)
     end
 
-    it "fails if the arguments do not match the job's signature" do
-      two_args_job.perform_later(1)
+    describe "verifying the arguments passed match the job's signature" do
+      it "fails if there is an arity mismatch" do
+        two_args_job.perform_later(1)
 
-      expect {
-        expect(two_args_job).to have_been_enqueued.with(1)
-      }.to fail_with(/Incorrect arguments passed to TwoArgsJob: Wrong number of arguments/)
-    end
+        expect {
+          expect(two_args_job).to have_been_enqueued.with(1)
+        }.to fail_with(/Incorrect arguments passed to TwoArgsJob: Wrong number of arguments/)
+      end
 
-    it "fails if the job's signature/arguments are mismatched keyword/positional arguments" do
-      keyword_args_job.perform_later(1, 2)
+      it "fails if there is a keyword/positional arguments mismatch" do
+        keyword_args_job.perform_later(1, 2)
 
-      expect {
-        expect(keyword_args_job).to have_been_enqueued.with(1, 2)
-      }.to fail_with(/Incorrect arguments passed to KeywordArgsJob: Missing required keyword arguments/)
+        expect {
+          expect(keyword_args_job).to have_been_enqueued.with(1, 2)
+        }.to fail_with(/Incorrect arguments passed to KeywordArgsJob: Missing required keyword arguments/)
+      end
+
+      context "with partial double verification disabled" do
+        before do
+          RSpec::Mocks.configuration.verify_partial_doubles = false
+        end
+
+        it "skips signature checks" do
+          keyword_args_job.perform_later(1, 2)
+
+          expect(keyword_args_job).to have_been_enqueued.with(1, 2)
+        end
+      end
+
+      context "when partial double verification is temporarily suspended" do
+        it "skips signature checks" do
+          keyword_args_job.perform_later(1, 2)
+
+          without_partial_double_verification {
+            expect(keyword_args_job).to have_been_enqueued.with(1, 2)
+          }
+        end
+      end
     end
 
     it "fails when negated and several jobs enqueued" do
