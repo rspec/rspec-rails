@@ -35,7 +35,7 @@ in_root do
   elsif Rails::VERSION::STRING > '8'
     gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 2.0'"
   else
-    gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 1.4'"
+    gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 1.7'"
   end
 
   # remove webdrivers
