@@ -246,6 +246,7 @@ RSpec.describe "have_broadcasted_to matchers", skip: !RSpec::Rails::FeatureCheck
     it "has an appropriate description including the expected contents when qualified with `#with`" do
       expect(have_broadcasted_to("my_stream").from_channel(channel).with("hello world").description).to eq("have broadcasted exactly 1 messages to my_stream with \"hello world\"")
     end
+
     it "has an appropriate description including the matcher's description when qualified with `#with` and a composable matcher" do
       expect(
         have_broadcasted_to("my_stream")
