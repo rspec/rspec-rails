@@ -1,8 +1,8 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.1.0...main)
 
-### 7.1.0 / 2024-11-08
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.0.1...v7.0.2)
+### 7.1.0 / 2024-11-09
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.0.2...v7.1.0)
 
 Enhancements:
 
@@ -13,7 +13,7 @@ Enhancements:
 * Allow turning off active job / mailer argument validation.
   (Oli Peate, #2808)
 
-### 7.0.2 / 2024-11-08
+### 7.0.2 / 2024-11-09
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.0.1...v7.0.2)
 
 Bug Fixes:
