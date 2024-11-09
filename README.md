@@ -27,7 +27,7 @@ According to [RSpec Rails new versioning strategy][] use:
 [`rspec-rails` 4.x]: https://github.com/rspec/rspec-rails/tree/4-1-maintenance
 [`rspec-rails` 5.x]: https://github.com/rspec/rspec-rails/tree/5-1-maintenance
 [`rspec-rails` 6.x]: https://github.com/rspec/rspec-rails/tree/6-1-maintenance
-[`rspec-rails` 7.x]: https://github.com/rspec/rspec-rails/tree/7-0-maintenance
+[`rspec-rails` 7.x]: https://github.com/rspec/rspec-rails/tree/7-1-maintenance
 [RSpec Rails new versioning strategy]: https://github.com/rspec/rspec-rails/blob/main/rfcs/versioning-strategy.md
 
 ## Installation
@@ -89,7 +89,7 @@ read the [`rspec-rails` upgrade notes][] to find out what to watch out for.
 
 Be sure to check the general [RSpec upgrade notes][] as well.
 
-[`rspec-rails` upgrade notes]: https://rspec.info/features/7-0/rspec-rails/upgrade
+[`rspec-rails` upgrade notes]: https://rspec.info/features/7-1/rspec-rails/upgrade
 [RSpec upgrade notes]: https://rspec.info/upgrading-from-rspec-2/
 
 ## Usage
@@ -211,22 +211,22 @@ to test the various parts of a Rails system:
 Follow the links above for examples of how each matcher is used.
 
 [the matchers that come standard in RSpec]: https://rspec.info/features/3-12/rspec-expectations/built-in-matchers
-[`be_a_new`]: https://rspec.info/features/7-0/rspec-rails/matchers/new-record-matcher
-[`render_template`]: https://rspec.info/features/7-0/rspec-rails/matchers/render-template-matcher
-[`redirect_to`]: https://rspec.info/features/7-0/rspec-rails/matchers/redirect-to-matcher
-[`route_to`]: https://rspec.info/features/7-0/rspec-rails/routing-specs/route-to-matcher
-[`be_routable`]: https://rspec.info/features/7-0/rspec-rails/routing-specs/be-routable-matcher
-[`have_http_status`]: https://rspec.info/features/7-0/rspec-rails/matchers/have-http-status-matcher
-[`match_array`]: https://rspec.info/features/7-0/rspec-rails/matchers/relation-match-array
-[`have_been_enqueued`]: https://rspec.info/features/7-0/rspec-rails/matchers/have-been-enqueued-matcher
-[`have_enqueued_job`]: https://rspec.info/features/7-0/rspec-rails/matchers/have-enqueued-job-matcher
+[`be_a_new`]: https://rspec.info/features/7-1/rspec-rails/matchers/new-record-matcher
+[`render_template`]: https://rspec.info/features/7-1/rspec-rails/matchers/render-template-matcher
+[`redirect_to`]: https://rspec.info/features/7-1/rspec-rails/matchers/redirect-to-matcher
+[`route_to`]: https://rspec.info/features/7-1/rspec-rails/routing-specs/route-to-matcher
+[`be_routable`]: https://rspec.info/features/7-1/rspec-rails/routing-specs/be-routable-matcher
+[`have_http_status`]: https://rspec.info/features/7-1/rspec-rails/matchers/have-http-status-matcher
+[`match_array`]: https://rspec.info/features/7-1/rspec-rails/matchers/relation-match-array
+[`have_been_enqueued`]: https://rspec.info/features/7-1/rspec-rails/matchers/have-been-enqueued-matcher
+[`have_enqueued_job`]: https://rspec.info/features/7-1/rspec-rails/matchers/have-enqueued-job-matcher
 
 ### What else does RSpec Rails add?
 
 For a comprehensive look at RSpec Rails’ features,
 read the [official Cucumber documentation][].
 
-[official Cucumber documentation]: https://rspec.info/features/7-0/rspec-rails
+[official Cucumber documentation]: https://rspec.info/features/7-1/rspec-rails
 
 ## What tests should I write?
 
@@ -271,20 +271,20 @@ RSpec.describe User, type: :model do
 ...
 ```
 
-[request]: https://rspec.info/features/7-0/rspec-rails/request-specs/request-spec
-[feature]: https://rspec.info/features/7-0/rspec-rails/feature-specs/feature-spec
-[system]: https://rspec.info/features/7-0/rspec-rails/system-specs/system-specs
-[model]: https://rspec.info/features/7-0/rspec-rails/model-specs
-[controller]: https://rspec.info/features/7-0/rspec-rails/controller-specs
-[mailer]: https://rspec.info/features/7-0/rspec-rails/mailer-specs
-[job]: https://rspec.info/features/7-0/rspec-rails/job-specs/job-spec
-[view]: https://rspec.info/features/7-0/rspec-rails/view-specs/view-spec
-[routing]: https://rspec.info/features/7-0/rspec-rails/routing-specs
-[helper]: https://rspec.info/features/7-0/rspec-rails/helper-specs/helper-spec
+[request]: https://rspec.info/features/7-1/rspec-rails/request-specs/request-spec
+[feature]: https://rspec.info/features/7-1/rspec-rails/feature-specs/feature-spec
+[system]: https://rspec.info/features/7-1/rspec-rails/system-specs/system-specs
+[model]: https://rspec.info/features/7-1/rspec-rails/model-specs
+[controller]: https://rspec.info/features/7-1/rspec-rails/controller-specs
+[mailer]: https://rspec.info/features/7-1/rspec-rails/mailer-specs
+[job]: https://rspec.info/features/7-1/rspec-rails/job-specs/job-spec
+[view]: https://rspec.info/features/7-1/rspec-rails/view-specs/view-spec
+[routing]: https://rspec.info/features/7-1/rspec-rails/routing-specs
+[helper]: https://rspec.info/features/7-1/rspec-rails/helper-specs/helper-spec
 [`ActionDispatch::IntegrationTest`]: https://api.rubyonrails.org/classes/ActionDispatch/IntegrationTest.html
 [`ActionDispatch::SystemTestCase`]: https://api.rubyonrails.org/classes/ActionDispatch/SystemTestCase.html
 [`ActionController::TestCase`]: https://api.rubyonrails.org/classes/ActionController/TestCase.html
-[in the appropriate folder]: https://rspec.info/features/7-0/rspec-rails/directory-structure
+[in the appropriate folder]: https://rspec.info/features/7-1/rspec-rails/directory-structure
 
 ### System specs, feature specs, request specs–what’s the difference?
 
