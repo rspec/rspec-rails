@@ -33,10 +33,19 @@ when /main/
 
   gem 'sqlite3', '~> 2.0', platforms: [:ruby]
 when nil, false, ""
-  gem "rails", "~> 8.0.0"
+  if RUBY_VERSION.to_f > 3.1
+    gem "rails", "~> 8.0.0"
+    gem 'sqlite3', '~> 2.0', platforms: [:ruby]
+  elsif RUBY_VERSION.to_f > 3.0
+    gem "rails", "~> 7.2.0"
+    gem 'sqlite3', '~> 1.7', platforms: [:ruby]
+  else
+    gem "rails", "~> 7.1.0"
+    gem 'sqlite3', '~> 1.7', platforms: [:ruby]
+  end
+
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
   gem 'selenium-webdriver', require: false
-  gem 'sqlite3', '~> 2.0', platforms: [:ruby]
 else
   version_number = version.split(' ').last
   add_net_gems_dependency if version_number < '7.0'
