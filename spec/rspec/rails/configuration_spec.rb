@@ -291,6 +291,7 @@ RSpec.describe "Configuration" do
   end
 
   it "metadata `type: :request` sets up request example groups" do
+    require "rspec/rails/example/request_example_group"
     a_rails_app = double("Rails application")
     the_rails_module = Module.new {
       def self.version; end
@@ -328,6 +329,7 @@ RSpec.describe "Configuration" do
   end
 
   it "metadata `type: :feature` sets up feature example groups" do
+    require "rspec/rails/example/feature_example_group"
     a_rails_app = double("Rails application")
     the_rails_module = Module.new {
       def self.version; end
