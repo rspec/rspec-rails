@@ -12,7 +12,7 @@ group :documentation do
 end
 
 gem 'capybara'
-gem 'ffi', '~> 1.15.5'
+gem 'ffi', '> 1.15.5'
 gem 'rake', '> 12'
 gem 'rubocop', '~> 1.28.2'
 
