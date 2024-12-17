@@ -415,6 +415,18 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
           }
         end
       end
+
+      context "without rspec-mocks loaded" do
+        before do
+          # Its hard for us to unload this, but its fairly safe to assume that we can run
+          # a defined? check, this just mocks the "short circuit"
+          allow(::RSpec::Mocks).to receive(:respond_to?).with(:configuration) { false }
+        end
+
+        it "skips signature checks" do
+          expect { two_args_job.perform_later(1) }.to have_enqueued_job.with(1)
+        end
+      end
     end
 
     it "passes with provided arguments containing global id object" do
