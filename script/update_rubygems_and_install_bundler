@@ -11,8 +11,20 @@ function is_ruby_3_plus {
   fi
 }
 
-if is_ruby_3_plus; then
+function is_ruby_3_1_plus {
+  if ruby -e "exit(RUBY_VERSION.to_f >= 3.1)"; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+
+if is_ruby_3_1_plus; then
   gem update --no-document --system
+  gem install --no-document bundler
+elif is_ruby_3_plus; then
+  gem update --no-document --system '3.5.23'
   gem install --no-document bundler
 else
   gem update --no-document --system '3.4.22'
