@@ -18,9 +18,17 @@ RSpec.describe "be_routable" do
 
     it "fails if routes do not recognize the path" do
       allow(routes).to receive(:recognize_path) { raise ActionController::RoutingError, 'ignore' }
+
+      message =
+        if RUBY_VERSION >= '3.4'
+          /expected \{get: "\/a\/path"\} to be routable/
+        else
+          /expected \{:get=>"\/a\/path"\} to be routable/
+        end
+
       expect do
         expect({ get: "/a/path" }).to be_routable
-      end.to raise_error(/expected \{:get=>"\/a\/path"\} to be routable/)
+      end.to raise_error(message)
     end
   end
 
@@ -35,9 +43,17 @@ RSpec.describe "be_routable" do
 
     it "fails if routes recognize the path" do
       allow(routes).to receive(:recognize_path) { { controller: "foo" } }
+
+      message =
+        if RUBY_VERSION >= '3.4'
+          /expected \{get: "\/a\/path"\} not to be routable, but it routes to \{controller: "foo"\}/
+        else
+          /expected \{:get=>"\/a\/path"\} not to be routable, but it routes to \{:controller=>"foo"\}/
+        end
+
       expect do
         expect({ get: "/a/path" }).not_to be_routable
-      end.to raise_error(/expected \{:get=>"\/a\/path"\} not to be routable, but it routes to \{:controller=>"foo"\}/)
+      end.to raise_error(message)
     end
   end
 end
