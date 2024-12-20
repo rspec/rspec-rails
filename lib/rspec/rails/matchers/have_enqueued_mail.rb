@@ -129,13 +129,13 @@ module RSpec
         end
 
         def unmatching_mail_jobs_message
-          msg = "Queued deliveries:"
+          messages = ["Queued deliveries:"]
 
           unmatching_mail_jobs.each do |job|
-            msg << "\n  #{mail_job_message(job)}"
+            messages << "  #{mail_job_message(job)}"
           end
 
-          msg
+          messages.join("\n")
         end
 
         def mail_job_message(job)
