@@ -9,7 +9,15 @@ RSpec.describe "route_to" do
   it "provides a description" do
     matcher = route_to("these" => "options")
     matcher.matches?(get: "path")
-    expect(matcher.description).to eq("route {:get=>\"path\"} to {\"these\"=>\"options\"}")
+
+    description =
+      if RUBY_VERSION >= '3.4'
+        "route {get: \"path\"} to {\"these\" => \"options\"}"
+      else
+        "route {:get=>\"path\"} to {\"these\"=>\"options\"}"
+      end
+
+    expect(matcher.description).to eq(description)
   end
 
   it "delegates to assert_recognizes" do
@@ -107,9 +115,16 @@ RSpec.describe "route_to" do
   context "with should_not" do
     context "when assert_recognizes passes" do
       it "fails with custom message" do
+        message =
+          if RUBY_VERSION >= '3.4'
+            /expected \{get: "path"\} not to route to \{"these" => "options"\}/
+          else
+            /expected \{:get=>"path"\} not to route to \{"these"=>"options"\}/
+          end
+
         expect {
           expect({ get: "path" }).not_to route_to("these" => "options")
-        }.to raise_error(/expected \{:get=>"path"\} not to route to \{"these"=>"options"\}/)
+        }.to raise_error(message)
       end
     end
 
