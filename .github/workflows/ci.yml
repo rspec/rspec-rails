@@ -45,6 +45,9 @@ jobs:
              RAILS_VERSION: 'main'
 
          # Rails 8.0 builds >= 3.2
+         - ruby: 3.4.0-rc1
+           env:
+             RAILS_VERSION: '~> 8.0.0'
          - ruby: 3.3
            env:
              RAILS_VERSION: '~> 8.0.0'
