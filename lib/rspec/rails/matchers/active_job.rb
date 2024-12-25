@@ -1,5 +1,6 @@
 require "active_job/base"
 require "active_job/arguments"
+require "rspec/mocks"
 
 module RSpec
   module Rails
