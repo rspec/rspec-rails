@@ -1,13 +1,9 @@
 branch = File.read(File.expand_path("../maintenance-branch", __FILE__)).chomp
 %w[rspec rspec-core rspec-expectations rspec-mocks rspec-support].each do |lib|
-  library_path = File.expand_path("../../#{lib}", __FILE__)
+  library_path = File.expand_path("../../rspec/#{lib}", __FILE__)
   if File.exist?(library_path) && !ENV['USE_GIT_REPOS']
-    gem lib, :path => library_path, :require => false
+    gem lib, path: library_path, require: false
   else
-    if lib == 'rspec'
-      gem 'rspec', :git => "https://github.com/rspec/rspec-metagem.git", :branch => branch, :require => false
-    else
-      gem lib, :git => "https://github.com/rspec/#{lib}.git", :branch => branch, :require => false
-    end
+    gem lib, git: "https://github.com/rspec/rspec", glob: "#{lib}/#{lib}.gemspec"
   end
 end
