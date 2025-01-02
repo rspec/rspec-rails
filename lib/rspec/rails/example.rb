@@ -1,13 +1,3 @@
-require 'rspec/rails/example/rails_example_group'
-require 'rspec/rails/example/controller_example_group'
-require 'rspec/rails/example/request_example_group'
-require 'rspec/rails/example/helper_example_group'
-require 'rspec/rails/example/view_example_group'
-require 'rspec/rails/example/mailer_example_group'
-require 'rspec/rails/example/routing_example_group'
-require 'rspec/rails/example/model_example_group'
-require 'rspec/rails/example/job_example_group'
-require 'rspec/rails/example/feature_example_group'
-require 'rspec/rails/example/system_example_group'
-require 'rspec/rails/example/channel_example_group'
-require 'rspec/rails/example/mailbox_example_group'
+RSpec.warn_deprecation <<~WARNING
+  Requiring rspec/rails/example.rb no longer has any effect, and it will be removed in RSpec Rails 7.
+WARNING
