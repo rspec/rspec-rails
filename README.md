@@ -48,7 +48,11 @@ See the [`7-1-maintenance` branch on Github](https://github.com/rspec/rspec-rail
    # (requires main-branch versions of all related RSpec libraries)
    group :development, :test do
      %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
-       gem lib, git: "https://github.com/rspec/#{lib}.git", branch: 'main'
+       if lib == 'rspec-rails'
+         gem lib, git: "https://github.com/rspec/rspec-rails"
+       else
+         gem lib, git: "https://github.com/rspec/rspec", glob: "#{lib}/#{lib}.gemspec"
+       end
      end
    end
    ```
