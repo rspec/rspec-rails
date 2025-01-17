@@ -7,6 +7,7 @@ end
 ENV['RAILS_ENV'] ||= 'development'
 # Pick the frameworks you want:
 begin
+  require "openssl"
   require "active_storage"
   require "active_storage/engine"
 rescue LoadError
