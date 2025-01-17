@@ -48,7 +48,6 @@ when nil, false, ""
   gem 'selenium-webdriver', require: false
 else
   version_number = version.split(' ').last
-  add_net_gems_dependency if version_number < '7.0'
 
   gem "rails", version
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
