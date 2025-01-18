@@ -40,12 +40,6 @@ RSpec.describe 'Action Mailer railtie hook' do
     CaptureExec.new(out, $?.exitstatus)
   end
 
-  if ENV['RAILS_VERSION'] == 'main' && Rails::VERSION::STRING == "8.0.0.alpha"
-    before do
-      skip('This is broken on Rails main but is skipped for green builds, please fix')
-    end
-  end
-
   if Rails::VERSION::STRING.to_f >= 7.1
     let(:expected_custom_path) { "/custom/path\n#{::Rails.root}/test/mailers/previews" }
     let(:expected_rspec_path) { "#{::Rails.root}/spec/mailers/previews\n#{::Rails.root}/test/mailers/previews" }
