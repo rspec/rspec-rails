@@ -28,7 +28,9 @@ require 'rspec/rails'
 # Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }
 
 <% if RSpec::Rails::FeatureCheck.has_active_record_migration? -%>
-# Checks for pending migrations and applies them before tests are run.
+# Ensures that the test database schema matches the current schema file.
+# This call checks for pending migrations and, if any are found,
+# purges and recreates the test database by loading the schema.
 # If you are not using ActiveRecord, you can remove these lines.
 begin
   ActiveRecord::Migration.maintain_test_schema!
