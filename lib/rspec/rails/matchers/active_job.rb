@@ -192,6 +192,8 @@ module RSpec
           end
 
           def skip_signature_verification?
+            return true unless defined?(::RSpec::Mocks) && (::RSpec::Mocks.respond_to?(:configuration))
+
             !RSpec::Mocks.configuration.verify_partial_doubles? ||
               RSpec::Mocks.configuration.temporarily_suppress_partial_double_verification
           end
