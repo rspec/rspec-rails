@@ -3,7 +3,9 @@
 
 Enhancements:
 
-* Add Rails 8 authentication generator support. (Jerome Dalbert, #2811)
+* Add Rails 8 authentication generator support. (Jerome Dalbert, rspec/rspec-rails#2811)
+* Improve install generator comment for `ActiveRecord::Migration.maintain_test_schema!`
+(rspec/rspec-rails#2832)
 
 ### 7.1.0 / 2024-11-09
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.0.2...v7.1.0)
