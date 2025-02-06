@@ -13,7 +13,7 @@ Enhancements:
 Bug Fixes:
 
 * Check wether rspec-mocks has been loaded before enabling signature
-  verification for `have_enqueued_job` et al (Jon Rowe, #2823)
+  verification for `have_enqueued_job` et al (Jon Rowe, rspec/rspec-rails#2823)
 
 ### 7.1.0 / 2024-11-09
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.0.2...v7.1.0)
@@ -21,11 +21,11 @@ Bug Fixes:
 Enhancements:
 
 * Improve implicit description for ActionCable matchers `have_broadcasted_to` /
-  `have_broadcast`. (Simon Fish, #2795)
+  `have_broadcast`. (Simon Fish, rspec/rspec-rails#2795)
 * Comment out `infer_spec_type_from_file_location!` in newly generated
-  `rails_helper.rb` files. (Jon Rowe, #2804)
+  `rails_helper.rb` files. (Jon Rowe, rspec/rspec-rails#2804)
 * Allow turning off active job / mailer argument validation.
-  (Oli Peate, #2808)
+  (Oli Peate, rspec/rspec-rails#2808)
 
 ### 7.0.2 / 2024-11-09
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.0.1...v7.0.2)
@@ -33,17 +33,17 @@ Enhancements:
 Bug Fixes:
 
 * Fix issue with `have_enqueued_mail` when jobs were incorrectly matched due
-  to refactoring in #2780. (David Runger, #2793)
+  to refactoring in rspec/rspec-rails#2780. (David Runger, rspec/rspec-rails#2793)
 
 ### 7.0.1 / 2024-09-03
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.0.0...v7.0.1)
 
 Bug Fixes:
 
-* Remove mutation of Rails constant in favour of public api. (Petrik de Heus, #2789)
-* Cleanup Rails scaffold for unsupported versions. (Matt Jankowski, #2790)
+* Remove mutation of Rails constant in favour of public api. (Petrik de Heus, rspec/rspec-rails#2789)
+* Cleanup Rails scaffold for unsupported versions. (Matt Jankowski, rspec/rspec-rails#2790)
 * Remove deprecated scaffold that was unintentionally included in 7.0.0
-  (Jon Rowe, #2791)
+  (Jon Rowe, rspec/rspec-rails#2791)
 
 ### 7.0.0 / 2024-09-02
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.5...v7.0.0)
@@ -51,19 +51,19 @@ Bug Fixes:
 Enhancements:
 
 * Change default driver for system specs on Rails 7.2 to match its default.
-  (Steve Polito, #2746)
-* Verify ActiveJob arguments by comparing to the method signature. (Oli Peate, #2745)
-* Add suggestion to rails_helper.rb to skip when not in test mode. (Glauco Custódio, #2751)
-* Add `at_priority` qualifier to `have_enqueued_job` set of matchers. (mbajur, #2759)
-* Add spec directories to `rails stats` on Rails main / 8.0.0. (Petrik de Heus, #2781)
+  (Steve Polito, rspec/rspec-rails#2746)
+* Verify ActiveJob arguments by comparing to the method signature. (Oli Peate, rspec/rspec-rails#2745)
+* Add suggestion to rails_helper.rb to skip when not in test mode. (Glauco Custódio, rspec/rspec-rails#2751)
+* Add `at_priority` qualifier to `have_enqueued_job` set of matchers. (mbajur, rspec/rspec-rails#2759)
+* Add spec directories to `rails stats` on Rails main / 8.0.0. (Petrik de Heus, rspec/rspec-rails#2781)
 
 ### 6.1.5 / 2024-09-02
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.4...v6.1.5)
 
 Bug Fixes:
 
-* Restore old order of requiring support files. (Franz Liedke, #2785)
-* Prevent running `rake spec:statsetup` on Rails main / 8.0.0. (Petrik de Heus, #2781)
+* Restore old order of requiring support files. (Franz Liedke, rspec/rspec-rails#2785)
+* Prevent running `rake spec:statsetup` on Rails main / 8.0.0. (Petrik de Heus, rspec/rspec-rails#2781)
 
 ### 6.1.4 / 2024-08-15
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.3...v6.1.4)
@@ -71,26 +71,26 @@ Bug Fixes:
 Bug Fixes:
 
 * Prevent `have_http_status` matcher raising an error when encountering a raw `Rack::MockResponse`.
-  (Christophe Bliard, #2771)
-* Move Rails version conditional from index scaffold generated file to template. (Matt Jankowski, #2777)
+  (Christophe Bliard, rspec/rspec-rails#2771)
+* Move Rails version conditional from index scaffold generated file to template. (Matt Jankowski, rspec/rspec-rails#2777)
 
 ### 6.1.3 / 2024-06-19
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.2...v6.1.3)
 
 Bug Fixes:
 
-* Reset `ActiveSupport::CurrentAttributes` between examples. (Javier Julio, #2752)
-* Fix a broken link in generated mailer previews. (Chiara Núñez, #2764)
+* Reset `ActiveSupport::CurrentAttributes` between examples. (Javier Julio, rspec/rspec-rails#2752)
+* Fix a broken link in generated mailer previews. (Chiara Núñez, rspec/rspec-rails#2764)
 * Fix `have_status_code` behaviour with deprecated status names by delegating
-  to `Rack::Utils.status_code/1` to set the expected status code. (Darren Boyd, #2765)
+  to `Rack::Utils.status_code/1` to set the expected status code. (Darren Boyd, rspec/rspec-rails#2765)
 
 ### 6.1.2 / 2024-03-19
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.1...v6.1.2)
 
 Bug Fixes:
 
-* Fix generated mailer paths to match Rails convention. (Patrício dos Santos, #2735)
-* Fix class in template for generator specs. (Nicolas Buduroi, #2744)
+* Fix generated mailer paths to match Rails convention. (Patrício dos Santos, rspec/rspec-rails#2735)
+* Fix class in template for generator specs. (Nicolas Buduroi, rspec/rspec-rails#2744)
 
 ### 6.1.1 / 2024-01-25
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.1.0...v6.1.1)
@@ -98,8 +98,8 @@ Bug Fixes:
 Bug Fixes:
 
 * Improved deprecation message for `RSpec::Rails::Configuration.fixture_paths`
-  (Benoit Tigeot, #2720)
-* Fix support for namespaced fixtures in Rails 7.1. (Benedikt Deicke, #2716)
+  (Benoit Tigeot, rspec/rspec-rails#2720)
+* Fix support for namespaced fixtures in Rails 7.1. (Benedikt Deicke, rspec/rspec-rails#2716)
 
 ### 6.1.0 / 2023-11-21
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.4...v6.1.0)
@@ -108,17 +108,17 @@ Enhancements:
 
 * Support for Rails 7.1
 * Minor tweak to generated `rails_helper.rb` to use `Rails.root.join`.
-  (@masato-bkn, Ryo Nakamura, #2640, #2678)
+  (@masato-bkn, Ryo Nakamura, rspec/rspec-rails#2640, rspec/rspec-rails#2678)
 * Add `RSpec::Rails::Configuration.fixture_paths` configuration to support
   the matching change to `ActiveRecord::TestFixtures`, previous singular
-  form is deprecated and will be removed in Rails 7.2. (Juan Gueçaimburu, #2673)
+  form is deprecated and will be removed in Rails 7.2. (Juan Gueçaimburu, rspec/rspec-rails#2673)
 * Add `send_email` matcher to match emails rather than specific jobs.
-  (Andrei Kaleshka, #2670)
+  (Andrei Kaleshka, rspec/rspec-rails#2670)
 * When using `render` in view specs, `:locals` will now be merged into the
   default implicit template, allowing `render locals: {...}` style calls.
-  (Jon Rowe, #2686)
+  (Jon Rowe, rspec/rspec-rails#2686)
 * Add support for `Rails.config.action_mailer.preview_paths` on Rails 7.1/
-  (Jon Rowe, #2706)
+  (Jon Rowe, rspec/rspec-rails#2706)
 
 ### 6.0.4 / 2023-11-21
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.3...v6.0.4)
@@ -126,14 +126,14 @@ Enhancements:
 Bug Fixes:
 
 * Fuzzy match `have_broadcasted_to` so that argument matchers can be used.
-  (Timothy Peraza, #2684)
-* Fix fixture warning during `:context` hooks on Rails `main`. (Jon Rowe, #2685)
-* Fix `stub_template` on Rails `main`. (Jon Rowe, #2685)
-* Fix variable name in scaffolded view specs when namespaced. (Taketo Takashima, #2694)
+  (Timothy Peraza, rspec/rspec-rails#2684)
+* Fix fixture warning during `:context` hooks on Rails `main`. (Jon Rowe, rspec/rspec-rails#2685)
+* Fix `stub_template` on Rails `main`. (Jon Rowe, rspec/rspec-rails#2685)
+* Fix variable name in scaffolded view specs when namespaced. (Taketo Takashima, rspec/rspec-rails#2694)
 * Prevent `take_failed_screenshot` producing an additional error through `metadata`
-  access. (Jon Rowe, #2704)
-* Use `ActiveSupport::ExecutionContext::TestHelper` on Rails 7+. (Jon Rowe, #2711)
-* Fix leak of templates stubbed with `stub_template` on Rails 7.1. (Jon Rowe, #2714)
+  access. (Jon Rowe, rspec/rspec-rails#2704)
+* Use `ActiveSupport::ExecutionContext::TestHelper` on Rails 7+. (Jon Rowe, rspec/rspec-rails#2711)
+* Fix leak of templates stubbed with `stub_template` on Rails 7.1. (Jon Rowe, rspec/rspec-rails#2714)
 
 ### 6.0.3 / 2023-05-31
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.2...v6.0.3)
@@ -141,8 +141,8 @@ Bug Fixes:
 Bug Fixes:
 
 * Set `ActiveStorage::FixtureSet.file_fixture_path` when including file fixture support.
-  (Jason Yates, #2671)
-* Allow `broadcast_to` matcher to take Symbols. (@Vagab, #2680)
+  (Jason Yates, rspec/rspec-rails#2671)
+* Allow `broadcast_to` matcher to take Symbols. (@Vagab, rspec/rspec-rails#2680)
 
 ### 6.0.2 / 2023-05-04
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.1...v6.0.2)
@@ -150,18 +150,18 @@ Bug Fixes:
 Bug Fixes:
 
 * Fix ActionView::PathSet when `render_views` is off for Rails 7.1.
-  (Eugene Kenny, Iliana, #2631)
+  (Eugene Kenny, Iliana, rspec/rspec-rails#2631)
 * Support Rails 7.1's `#fixtures_paths` in example groups (removes a deprecation warning).
-  (Nicholas Simmons, #2664)
+  (Nicholas Simmons, rspec/rspec-rails#2664)
 * Fix `have_enqueued_job` to properly detect enqueued jobs when other jobs were
-  performed inside the expectation block. (Slava Kardakov, Phil Pirozhkov, #2573)
+  performed inside the expectation block. (Slava Kardakov, Phil Pirozhkov, rspec/rspec-rails#2573)
 
 ### 6.0.1 / 2022-10-18
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v6.0.0...v6.0.1)
 
 Bug Fixes:
 
-* Prevent tagged logged support in Rails 7 calling `#name`. (Jon Rowe, #2625)
+* Prevent tagged logged support in Rails 7 calling `#name`. (Jon Rowe, rspec/rspec-rails#2625)
 
 ### 6.0.0 / 2022-10-10
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.1.2...v6.0.0)
@@ -169,29 +169,29 @@ Bug Fixes:
 Enhancements:
 
 * Support Rails 7
-* Template tweaks to remove instance variables from generated specs. (Takuma Ishikawa, #2599)
-* Generators now respects default path configuration option. (@vivekmiyani, #2508)
+* Template tweaks to remove instance variables from generated specs. (Takuma Ishikawa, rspec/rspec-rails#2599)
+* Generators now respects default path configuration option. (@vivekmiyani, rspec/rspec-rails#2508)
 
 Breaking Changes:
 
 * Drop support for Rails below 6.1
 * Drop support for Ruby below 2.5 (following supported versions of Rails 6.1)
 * Change the order of `after_teardown` from `after` to `around` in system
-  specs to improve compatibility with extensions and Capybara. (Tim Diggins, #2596)
+  specs to improve compatibility with extensions and Capybara. (Tim Diggins, rspec/rspec-rails#2596)
 
 Deprecations:
 
 * Deprecates integration spec generator (`rspec:integration`)
   which was an alias of request spec generator (`rspec:request`)
-  (Luka Lüdicke, #2374)
+  (Luka Lüdicke, rspec/rspec-rails#2374)
 
 ### 5.1.2 / 2022-04-24
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.1.1...v5.1.2)
 
 Bug Fixes:
 
-* Fix controller scaffold templates parameter name.  (Taketo Takashima, #2591)
-* Include generator specs in the inferred list of specs. (Jason Karns, #2597)
+* Fix controller scaffold templates parameter name.  (Taketo Takashima, rspec/rspec-rails#2591)
+* Include generator specs in the inferred list of specs. (Jason Karns, rspec/rspec-rails#2597)
 
 ### 5.1.1 / 2022-03-07
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.1.0...v5.1.1)
@@ -199,7 +199,7 @@ Bug Fixes:
 Bug Fixes:
 
 * Properly handle global id serialised arguments in `have_enqueued_mail`.
-  (Jon Rowe, #2578)
+  (Jon Rowe, rspec/rspec-rails#2578)
 
 ### 5.1.0 / 2022-01-26
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.0.3...v5.1.0)
@@ -207,9 +207,9 @@ Bug Fixes:
 Enhancements:
 
 * Make the API request scaffold template more consistent and compatible with
-  Rails 6.1. (Naoto Hamada, #2484)
+  Rails 6.1. (Naoto Hamada, rspec/rspec-rails#2484)
 * Change the scaffold `rails_helper.rb` template to use `require_relative`.
-  (Jon Dufresne, #2528)
+  (Jon Dufresne, rspec/rspec-rails#2528)
 
 ### 5.0.3 / 2022-01-26
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.0.2...v5.0.3)
@@ -217,10 +217,10 @@ Enhancements:
 Bug Fixes:
 
 * Properly name params in controller and request spec templates when
-  using the `--model-name` parameter. (@kenzo-tanaka, #2534)
+  using the `--model-name` parameter. (@kenzo-tanaka, rspec/rspec-rails#2534)
 * Fix parameter matching with mail delivery job and
-  ActionMailer::MailDeliveryJob. (Fabio Napoleoni, #2516, #2546)
-* Fix Rails 7 `have_enqueued_mail` compatibility (Mikael Henriksson, #2537, #2546)
+  ActionMailer::MailDeliveryJob. (Fabio Napoleoni, rspec/rspec-rails#2516, rspec/rspec-rails#2546)
+* Fix Rails 7 `have_enqueued_mail` compatibility (Mikael Henriksson, rspec/rspec-rails#2537, rspec/rspec-rails#2546)
 
 ### 5.0.2 / 2021-08-14
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.0.1...v5.0.2)
@@ -228,12 +228,12 @@ Bug Fixes:
 Bug Fixes:
 
 * Prevent generated job specs from duplicating `_job` in filenames.
-  (Nick Flückiger, #2496)
+  (Nick Flückiger, rspec/rspec-rails#2496)
 * Fix `ActiveRecord::TestFixture#uses_transaction` by using example description
   to replace example name rather than example in our monkey patched
-  `run_in_transaction?` method.  (Stan Lo, #2495)
+  `run_in_transaction?` method.  (Stan Lo, rspec/rspec-rails#2495)
 * Prevent keyword arguments being lost when methods are invoked dynamically
-  in controller specs. (Josh Cheek, #2509, #2514)
+  in controller specs. (Josh Cheek, rspec/rspec-rails#2509, rspec/rspec-rails#2514)
 
 ### 5.0.1 / 2021-03-18
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v5.0.0...v5.0.1)
@@ -241,15 +241,15 @@ Bug Fixes:
 Bug Fixes:
 
 * Limit multibyte example descriptions when used in system tests for #method_name
-  which ends up as screenshot names etc. (@y-yagi, #2405, #2487)
+  which ends up as screenshot names etc. (@y-yagi, rspec/rspec-rails#2405, rspec/rspec-rails#2487)
 
 ### 5.0.0 / 2021-03-09
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.1.1...v5.0.0)
 
 Enhancements:
 
-* Support new #file_fixture_path and new fixture test support code. (Jon Rowe, #2398)
-* Support for Rails 6.1. (Benoit Tigeot, Jon Rowe, Phil Pirozhkov, and more #2398)
+* Support new #file_fixture_path and new fixture test support code. (Jon Rowe, rspec/rspec-rails#2398)
+* Support for Rails 6.1. (Benoit Tigeot, Jon Rowe, Phil Pirozhkov, and more rspec/rspec-rails#2398)
 
 Breaking Changes:
 
@@ -260,102 +260,102 @@ Breaking Changes:
 Bug Fixes:
 
 * Remove generated specs when destroying a generated controller.
-  (@Naokimi, #2475)
+  (@Naokimi, rspec/rspec-rails#2475)
 
 ### 4.1.0 / 2021-03-06
 
 Enhancements:
 
 * Issue a warning when using job matchers with `#at` mismatch on `usec` precision.
-  (Jon Rowe, #2350)
+  (Jon Rowe, rspec/rspec-rails#2350)
 * Generated request specs now have a bare `_spec` suffix instead of `request_spec`.
-  (Eloy Espinaco, Luka Lüdicke, #2355, #2356, #2378)
+  (Eloy Espinaco, Luka Lüdicke, rspec/rspec-rails#2355, rspec/rspec-rails#2356, rspec/rspec-rails#2378)
 * Generated scaffold now includes engine route helpers when inside a mountable engine.
-  (Andrew W. Lee, #2372)
+  (Andrew W. Lee, rspec/rspec-rails#2372)
 * Improve request spec "controller" scaffold when no action is specified.
-  (Thomas Hareau, #2399)
-* Introduce testing snippets concept (Phil Pirozhkov, Benoit Tigeot, #2423)
+  (Thomas Hareau, rspec/rspec-rails#2399)
+* Introduce testing snippets concept (Phil Pirozhkov, Benoit Tigeot, rspec/rspec-rails#2423)
 * Prevent collisions with `let(:name)` for Rails 6.1 and `let(:method_name)` on older
-  Rails. (Benoit Tigeot, #2461)
+  Rails. (Benoit Tigeot, rspec/rspec-rails#2461)
 
 ### 4.0.2 / 2020-12-26
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.1...v4.0.2)
 
 Bug Fixes:
 
-* Indent all extra failure lines output from system specs. (Alex Robbin, #2321)
-* Generated request spec for update now uses the correct let. (Paul Hanyzewski, #2344)
+* Indent all extra failure lines output from system specs. (Alex Robbin, rspec/rspec-rails#2321)
+* Generated request spec for update now uses the correct let. (Paul Hanyzewski, rspec/rspec-rails#2344)
 * Return `true`/`false` from predicate methods in config rather than raw values.
-  (Phil Pirozhkov, Jon Rowe, #2353, #2354)
+  (Phil Pirozhkov, Jon Rowe, rspec/rspec-rails#2353, rspec/rspec-rails#2354)
 * Remove old #fixture_path feature detection code which broke under newer Rails.
-  (Koen Punt, Jon Rowe, #2370)
-* Fix an error when `use_active_record` is `false` (Phil Pirozhkov, #2423)
+  (Koen Punt, Jon Rowe, rspec/rspec-rails#2370)
+* Fix an error when `use_active_record` is `false` (Phil Pirozhkov, rspec/rspec-rails#2423)
 
 ### 4.0.1 / 2020-05-16
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v4.0.0...v4.0.1)
 
 Bug Fixes:
 
-* Remove warning when calling `driven_by` in system specs. (Aubin Lorieux, #2302)
-* Fix comparison of times for `#at` in job matchers. (Jon Rowe, Markus Doits, #2304)
+* Remove warning when calling `driven_by` in system specs. (Aubin Lorieux, rspec/rspec-rails#2302)
+* Fix comparison of times for `#at` in job matchers. (Jon Rowe, Markus Doits, rspec/rspec-rails#2304)
 * Allow `have_enqueued_mail` to match when a sub class of `ActionMailer::DeliveryJob`
-  is set using `<Class>.delivery_job=`. (Atsushi Yoshida #2305)
-* Restore Ruby 2.2.x compatibility. (Jon Rowe, #2332)
-* Add `required_ruby_version` to gem spec. (Marc-André Lafortune, #2319, #2338)
+  is set using `<Class>.delivery_job=`. (Atsushi Yoshida rspec/rspec-rails#2305)
+* Restore Ruby 2.2.x compatibility. (Jon Rowe, rspec/rspec-rails#2332)
+* Add `required_ruby_version` to gem spec. (Marc-André Lafortune, rspec/rspec-rails#2319, rspec/rspec-rails#2338)
 
 ### 4.0.0 / 2020-03-24
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.9.1...v4.0.0)
 
 Enhancements:
 
-* Adds support for Rails 6. (Penelope Phippen, Benoit Tigeot, Jon Rowe, #2071)
+* Adds support for Rails 6. (Penelope Phippen, Benoit Tigeot, Jon Rowe, rspec/rspec-rails#2071)
 * Adds support for JRuby on Rails 5.2 and 6
-* Add support for parameterised mailers (Ignatius Reza, #2125)
-* Add ActionMailbox spec helpers and test type (James Dabbs, #2119)
-* Add ActionCable spec helpers and test type (Vladimir Dementyev, #2113)
+* Add support for parameterised mailers (Ignatius Reza, rspec/rspec-rails#2125)
+* Add ActionMailbox spec helpers and test type (James Dabbs, rspec/rspec-rails#2119)
+* Add ActionCable spec helpers and test type (Vladimir Dementyev, rspec/rspec-rails#2113)
 * Add support for partial args when using `have_enqueued_mail`
-  (Ignatius Reza, #2118, #2125)
-* Add support for time arguments for `have_enqueued_job` (@alpaca-tc, #2157)
-* Improve path parsing in view specs render options. (John Hawthorn, #2115)
+  (Ignatius Reza, rspec/rspec-rails#2118, rspec/rspec-rails#2125)
+* Add support for time arguments for `have_enqueued_job` (@alpaca-tc, rspec/rspec-rails#2157)
+* Improve path parsing in view specs render options. (John Hawthorn, rspec/rspec-rails#2115)
 * Add routing spec template as an option for generating controller specs.
-  (David Revelo, #2134)
-* Add argument matcher support to `have_enqueued_*` matchers. (Phil Pirozhkov, #2206)
-* Switch generated templates to use ruby 1.9 hash keys. (Tanbir Hasan, #2224)
+  (David Revelo, rspec/rspec-rails#2134)
+* Add argument matcher support to `have_enqueued_*` matchers. (Phil Pirozhkov, rspec/rspec-rails#2206)
+* Switch generated templates to use ruby 1.9 hash keys. (Tanbir Hasan, rspec/rspec-rails#2224)
 * Add `have_been_performed`/`have_performed_job`/`perform_job` ActiveJob
-  matchers (Isaac Seymour, #1785)
+  matchers (Isaac Seymour, rspec/rspec-rails#1785)
 * Default to generating request specs rather than controller specs when
-  generating a controller (Luka Lüdicke, #2222)
-* Allow `ActiveJob` matchers `#on_queue` modifier to take symbolic queue names. (Nils Sommer, #2283)
+  generating a controller (Luka Lüdicke, rspec/rspec-rails#2222)
+* Allow `ActiveJob` matchers `#on_queue` modifier to take symbolic queue names. (Nils Sommer, rspec/rspec-rails#2283)
 * The scaffold generator now generates request specs in preference to controller specs.
-  (Luka Lüdicke, #2288)
-* Add configuration option to disable ActiveRecord. (Jon Rowe, Phil Pirozhkov, Hermann Mayer, #2266)
+  (Luka Lüdicke, rspec/rspec-rails#2288)
+* Add configuration option to disable ActiveRecord. (Jon Rowe, Phil Pirozhkov, Hermann Mayer, rspec/rspec-rails#2266)
 *  Set `ActionDispatch::SystemTesting::Server.silence_puma = true` when running system specs.
-  (ta1kt0me, Benoit Tigeot, #2289)
+  (ta1kt0me, Benoit Tigeot, rspec/rspec-rails#2289)
 
 Bug Fixes:
 
 * `EmptyTemplateHandler.call` now needs to support an additional argument in
-  Rails 6. (Pavel Rosický, #2089)
+  Rails 6. (Pavel Rosický, rspec/rspec-rails#2089)
 * Suppress warning from `SQLite3Adapter.represent_boolean_as_integer` which is
-  deprecated. (Pavel Rosický, #2092)
+  deprecated. (Pavel Rosický, rspec/rspec-rails#2092)
 * `ActionView::Template#formats` has been deprecated and replaced by
-  `ActionView::Template#format`(Seb Jacobs, #2100)
+  `ActionView::Template#format`(Seb Jacobs, rspec/rspec-rails#2100)
 * Replace `before_teardown` as well as `after_teardown` to ensure screenshots
-  are generated correctly. (Jon Rowe, #2164)
+  are generated correctly. (Jon Rowe, rspec/rspec-rails#2164)
 * `ActionView::FixtureResolver#hash` has been renamed to `ActionView::FixtureResolver#data`.
-  (Penelope Phippen, #2076)
+  (Penelope Phippen, rspec/rspec-rails#2076)
 * Prevent `driven_by(:selenium)` being called due to hook precedence.
-  (Takumi Shotoku, #2188)
+  (Takumi Shotoku, rspec/rspec-rails#2188)
 * Prevent a `WrongScopeError` being thrown during loading fixtures on Rails
-  6.1 development version. (Edouard Chin, #2215)
-* Fix Mocha mocking support with `should`. (Phil Pirozhkov, #2256)
+  6.1 development version. (Edouard Chin, rspec/rspec-rails#2215)
+* Fix Mocha mocking support with `should`. (Phil Pirozhkov, rspec/rspec-rails#2256)
 * Restore previous conditional check for setting `default_url_options` in feature
-  specs, prevents a `NoMethodError` in some scenarios. (Eugene Kenny, #2277)
+  specs, prevents a `NoMethodError` in some scenarios. (Eugene Kenny, rspec/rspec-rails#2277)
 * Allow changing `ActiveJob::Base.queue_adapter` inside a system spec.
-  (Jonathan Rochkind, #2242)
-* `rails generate generator` command now creates related spec file (Joel Azemar, #2217)
-* Relax upper `capybara` version constraint to allow for Capybara 3.x (Phil Pirozhkov, #2281)
-* Clear ActionMailer test mailbox after each example (Benoit Tigeot, #2293)
+  (Jonathan Rochkind, rspec/rspec-rails#2242)
+* `rails generate generator` command now creates related spec file (Joel Azemar, rspec/rspec-rails#2217)
+* Relax upper `capybara` version constraint to allow for Capybara 3.x (Phil Pirozhkov, rspec/rspec-rails#2281)
+* Clear ActionMailer test mailbox after each example (Benoit Tigeot, rspec/rspec-rails#2293)
 
 Breaking Changes:
 
@@ -367,7 +367,7 @@ Breaking Changes:
 
 Bug Fixes:
 
-* Add missing require for have_enqueued_mail matcher. (Ignatius Reza, #2117)
+* Add missing require for have_enqueued_mail matcher. (Ignatius Reza, rspec/rspec-rails#2117)
 
 ### 3.9.0 / 2019-10-08
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.8.3...v3.9.0)
@@ -375,18 +375,18 @@ Bug Fixes:
 Enhancements
 
 * Use `__dir__` instead of `__FILE__` in generated `rails_helper.rb` where
-  supported. (OKURA Masafumi, #2048)
+  supported. (OKURA Masafumi, rspec/rspec-rails#2048)
 * Add `have_enqueued_mail` matcher as a "super" matcher to the `ActiveJob` matchers
-  making it easier to match on `ActiveJob` delivered emails. (Joel Lubrano, #2047)
-* Add generator for system specs on Rails 5.1 and above. (Andrzej Sliwa, #1933)
-* Add generator for generator specs. (@ConSou, #2085)
-* Add option to generate routes when generating controller specs. (David Revelo, #2134)
+  making it easier to match on `ActiveJob` delivered emails. (Joel Lubrano, rspec/rspec-rails#2047)
+* Add generator for system specs on Rails 5.1 and above. (Andrzej Sliwa, rspec/rspec-rails#1933)
+* Add generator for generator specs. (@ConSou, rspec/rspec-rails#2085)
+* Add option to generate routes when generating controller specs. (David Revelo, rspec/rspec-rails#2134)
 
 Bug Fixes:
 
 * Make the `ActiveJob` matchers fail when multiple jobs are queued for negated
   matches. e.g. `expect { job; job; }.to_not have_enqueued_job`.
-  (Emric Istanful, #2069)
+  (Emric Istanful, rspec/rspec-rails#2069)
 
 ### 3.8.3 / 2019-10-03
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.8.2...v3.8.3)
@@ -394,9 +394,9 @@ Bug Fixes:
 Bug Fixes:
 
 * Namespaced fixtures now generate a `/` separated path rather than an `_`.
-  (@nxlith, #2077)
+  (@nxlith, rspec/rspec-rails#2077)
 * Check the arity of `errors` before attempting to use it to generate the `be_valid`
-  error message. (Kevin Kuchta, #2096)
+  error message. (Kevin Kuchta, rspec/rspec-rails#2096)
 
 ### 3.8.2 / 2019-01-13
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.8.1...v3.8.2)
@@ -404,13 +404,13 @@ Bug Fixes:
 Bug Fixes:
 
 * Fix issue with generator for preview specs where `Mailer` would be duplicated
-  in the name. (Kohei Sugi, #2037)
-* Fix the request spec generator to handle namespaced files. (Kohei Sugi, #2057)
+  in the name. (Kohei Sugi, rspec/rspec-rails#2037)
+* Fix the request spec generator to handle namespaced files. (Kohei Sugi, rspec/rspec-rails#2057)
 * Further truncate system test filenames to handle cases when extra words are
-  prepended. (Takumi Kaji, #2058)
+  prepended. (Takumi Kaji, rspec/rspec-rails#2058)
 * Backport: Make the `ActiveJob` matchers fail when multiple jobs are queued
   for negated matches. e.g. `expect { job; job; }.to_not have_enqueued_job
-  (Emric Istanful, #2069)
+  (Emric Istanful, rspec/rspec-rails#2069)
 
 ### 3.8.1 / 2018-10-23
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.8.0...v3.8.1)
@@ -418,11 +418,11 @@ Bug Fixes:
 Bug Fixes:
 
 * Fix `NoMethodError: undefined method 'strip'` when using a `Pathname` object
-  as the fixture file path. (Aaron Kromer, #2026)
+  as the fixture file path. (Aaron Kromer, rspec/rspec-rails#2026)
 * When generating feature specs, do not duplicate namespace in the path name.
-  (Laura Paakkinen, #2034)
+  (Laura Paakkinen, rspec/rspec-rails#2034)
 * Prevent `ActiveJob::DeserializationError` from being issued when `ActiveJob`
-  matchers de-serialize arguments. (@aymeric-ledorze, #2036)
+  matchers de-serialize arguments. (@aymeric-ledorze, rspec/rspec-rails#2036)
 
 ### 3.8.0 / 2018-08-04
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.7.2...v3.8.0)
@@ -430,25 +430,25 @@ Bug Fixes:
 Enhancements:
 
 * Improved message when migrations are pending in the default `rails_helper.rb`
-  (Koichi ITO, #1924)
+  (Koichi ITO, rspec/rspec-rails#1924)
 * `have_http_status` matcher now supports Rails 5.2 style response symbols
-  (Douglas Lovell, #1951)
+  (Douglas Lovell, rspec/rspec-rails#1951)
 * Change generated Rails helper to match Rails standards for Rails.root
-  (Alessandro Rodi, #1960)
+  (Alessandro Rodi, rspec/rspec-rails#1960)
 * At support for asserting enqueued jobs have no wait period attached.
-  (Brad Charna, #1977)
+  (Brad Charna, rspec/rspec-rails#1977)
 * Cache instances of `ActionView::Template` used in `stub_template` resulting
-  in increased performance due to less allocations and setup. (Simon Coffey, #1979)
+  in increased performance due to less allocations and setup. (Simon Coffey, rspec/rspec-rails#1979)
 * Rails scaffold generator now respects longer namespaces (e.g. api/v1/\<thing\>).
-  (Laura Paakkinen, #1958)
+  (Laura Paakkinen, rspec/rspec-rails#1958)
 
 Bug Fixes:
 
 * Escape quotation characters when producing method names for system spec
-  screenshots. (Shane Cavanaugh, #1955)
+  screenshots. (Shane Cavanaugh, rspec/rspec-rails#1955)
 * Use relative path for resolving fixtures when `fixture_path` is not set.
-  (Laurent Cobos, #1943)
-* Allow custom template resolvers in view specs. (@ahorek, #1941)
+  (Laurent Cobos, rspec/rspec-rails#1943)
+* Allow custom template resolvers in view specs. (@ahorek, rspec/rspec-rails#1941)
 
 
 ### 3.7.2 / 2017-11-20
@@ -456,16 +456,16 @@ Bug Fixes:
 
 Bug Fixes:
 
-* Delay loading system test integration until used. (Jon Rowe, #1903)
+* Delay loading system test integration until used. (Jon Rowe, rspec/rspec-rails#1903)
 * Ensure specs using the aggregate failures feature take screenshots on failure.
-  (Matt Brictson, #1907)
+  (Matt Brictson, rspec/rspec-rails#1907)
 
 ### 3.7.1 / 2017-10-18
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.7.0...v3.7.1)
 
 Bug Fixes:
 
-* Prevent system test integration loading when puma or capybara are missing (Sam Phippen, #1884)
+* Prevent system test integration loading when puma or capybara are missing (Sam Phippen, rspec/rspec-rails#1884)
 
 ### 3.7.0 / 2017-10-17
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.6.0...v3.7.0)
@@ -473,27 +473,27 @@ Bug Fixes:
 Bug Fixes:
 
 * Prevent "template not rendered" log message from erroring in threaded
-  environments. (Samuel Cochran, #1831)
-* Correctly generate job name in error message. (Wojciech Wnętrzak, #1814)
+  environments. (Samuel Cochran, rspec/rspec-rails#1831)
+* Correctly generate job name in error message. (Wojciech Wnętrzak, rspec/rspec-rails#1814)
 
 Enhancements:
 
 * Allow `be_a_new(...).with(...)` matcher to accept matchers for
-  attribute values. (Britni Alexander, #1811)
-* Only configure RSpec Mocks if it is fully loaded. (James Adam, #1856)
-* Integrate with `ActionDispatch::SystemTestCase`. (Sam Phippen, #1813)
+  attribute values. (Britni Alexander, rspec/rspec-rails#1811)
+* Only configure RSpec Mocks if it is fully loaded. (James Adam, rspec/rspec-rails#1856)
+* Integrate with `ActionDispatch::SystemTestCase`. (Sam Phippen, rspec/rspec-rails#1813)
 
 ### 3.6.0 / 2017-05-04
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.6.0.beta2...v3.6.0)
 
 Enhancements:
 
-* Add compatibility for Rails 5.1. (Sam Phippen, Yuichiro Kaneko, #1790)
+* Add compatibility for Rails 5.1. (Sam Phippen, Yuichiro Kaneko, rspec/rspec-rails#1790)
 
 Bug Fixes:
 
 * Fix scaffold generator so that it does not generate broken controller specs
-  on Rails 3.x and 4.x. (Yuji Nakayama, #1710)
+  on Rails 3.x and 4.x. (Yuji Nakayama, rspec/rspec-rails#1710)
 
 ### 3.6.0.beta2 / 2016-12-12
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.6.0.beta1...v3.6.0.beta2)
@@ -501,19 +501,19 @@ Bug Fixes:
 Enhancements:
 
 * Improve failure output of ActiveJob matchers by listing queued jobs.
-  (Wojciech Wnętrzak, #1722)
+  (Wojciech Wnętrzak, rspec/rspec-rails#1722)
 * Load `spec_helper.rb` earlier in `rails_helper.rb` by default.
-  (Kevin Glowacz, #1795)
+  (Kevin Glowacz, rspec/rspec-rails#1795)
 
 ### 3.6.0.beta1 / 2016-10-09
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.5.2...v3.6.0.beta1)
 
 Enhancements:
 
-* Add support for `rake notes` in Rails `>= 5.1`. (John Meehan, #1661)
+* Add support for `rake notes` in Rails `>= 5.1`. (John Meehan, rspec/rspec-rails#1661)
 * Remove `assigns` and `assert_template` from scaffold spec generators (Josh
-  Justice, #1689)
-* Add support for generating scaffolds for api app specs. (Krzysztof Zych, #1685)
+  Justice, rspec/rspec-rails#1689)
+* Add support for generating scaffolds for api app specs. (Krzysztof Zych, rspec/rspec-rails#1685)
 
 ### 3.5.2 / 2016-08-26
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.5.1...v3.5.2)
@@ -521,9 +521,9 @@ Enhancements:
 Bug Fixes:
 
 * Stop unnecessarily loading `rspec/core` from `rspec/rails` to avoid
-  IRB context warning. (Myron Marston, #1678)
+  IRB context warning. (Myron Marston, rspec/rspec-rails#1678)
 * Deserialize arguments within ActiveJob matchers correctly.
-  (Wojciech Wnętrzak, #1684)
+  (Wojciech Wnętrzak, rspec/rspec-rails#1684)
 
 ### 3.5.1 / 2016-07-08
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.5.0...v3.5.1)
@@ -544,30 +544,30 @@ Bug Fixes:
 
 Enhancements:
 
-* Add support for block when using `with` on `have_enqueued_job`. (John Schroeder, #1578)
-* Add support for `file_fixture(...)`. (Wojciech Wnętrzak, #1587)
-* Add support for `setup` and `teardown` with blocks (Miklós Fazekas, #1598)
+* Add support for block when using `with` on `have_enqueued_job`. (John Schroeder, rspec/rspec-rails#1578)
+* Add support for `file_fixture(...)`. (Wojciech Wnętrzak, rspec/rspec-rails#1587)
+* Add support for `setup` and `teardown` with blocks (Miklós Fazekas, rspec/rspec-rails#1598)
 * Add `enqueue_job ` alias for `have_enqueued_job`, support `once`/`twice`/
   `thrice`, add `have_been_enqueued` matcher to support use without blocks.
-  (Sergey Alexandrovich, #1613)
+  (Sergey Alexandrovich, rspec/rspec-rails#1613)
 
 Bug fixes:
 
-* Prevent asset helpers from taking precedence over route helpers. (Prem Sichanugrist, #1496)
+* Prevent asset helpers from taking precedence over route helpers. (Prem Sichanugrist, rspec/rspec-rails#1496)
 * Prevent `NoMethodError` during failed `have_rendered` assertions on weird templates.
-  (Jon Rowe, #1623).
+  (Jon Rowe, rspec/rspec-rails#1623).
 
 ### 3.5.0.beta3 / 2016-04-02
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.5.0.beta2...v3.5.0.beta3)
 
 Enhancements:
 
-* Add support for Rails 5 Beta 3 (Sam Phippen, Benjamin Quorning, Koen Punt, #1589, #1573)
+* Add support for Rails 5 Beta 3 (Sam Phippen, Benjamin Quorning, Koen Punt, rspec/rspec-rails#1589, rspec/rspec-rails#1573)
 
 Bug fixes:
 
 * Support custom resolvers when preventing views from rendering.
-  (Jon Rowe, Benjamin Quorning, #1580)
+  (Jon Rowe, Benjamin Quorning, rspec/rspec-rails#1580)
 
 ### 3.5.0.beta2 / 2016-03-10
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.5.0.beta1...v3.5.0.beta2)
@@ -576,12 +576,12 @@ Enhancements:
 
 * Include `ActionDispatch::IntegrationTest::Behavior` in request spec
   example groups when on Rails 5, allowing integration test helpers
-  to be used in request specs. (Scott Bronson, #1560)
+  to be used in request specs. (Scott Bronson, rspec/rspec-rails#1560)
 
 Bug fixes:
 
 * Make it possible to use floats in auto generated (scaffold) tests.
-  (Alwahsh, #1550)
+  (Alwahsh, rspec/rspec-rails#1550)
 
 ### 3.5.0.beta1 / 2016-02-06
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.4.2...v3.5.0.beta1)
@@ -589,20 +589,20 @@ Bug fixes:
 Enhancements:
 
 * Add a `--singularize` option for the feature spec generator (Felicity McCabe,
-  #1503)
-* Prevent leaking TestUnit methods in Rails 4+ (Fernando Seror Garcia, #1512)
-* Add support for Rails 5 (Sam Phippen, #1492)
+  rspec/rspec-rails#1503)
+* Prevent leaking TestUnit methods in Rails 4+ (Fernando Seror Garcia, rspec/rspec-rails#1512)
+* Add support for Rails 5 (Sam Phippen, rspec/rspec-rails#1492)
 
 Bug fixes:
 
 * Make it possible to write nested specs within helper specs on classes that are
-  internal to helper classes. (Sam Phippen, Peter Swan, #1499).
+  internal to helper classes. (Sam Phippen, Peter Swan, rspec/rspec-rails#1499).
 * Warn if a fixture method is called from a `before(:context)` block, instead of
-  crashing with a `undefined method for nil:NilClass`. (Sam Phippen, #1501)
-* Expose path to view specs (Ryan Clark, Sarah Mei, Sam Phippen, #1402)
-* Prevent installing Rails 3.2.22.1 on Ruby 1.8.7. (Jon Rowe, #1540)
+  crashing with a `undefined method for nil:NilClass`. (Sam Phippen, rspec/rspec-rails#1501)
+* Expose path to view specs (Ryan Clark, Sarah Mei, Sam Phippen, rspec/rspec-rails#1402)
+* Prevent installing Rails 3.2.22.1 on Ruby 1.8.7. (Jon Rowe, rspec/rspec-rails#1540)
 * Raise a clear error when `have_enqueued_job` is used with non-test
-  adapter. (Wojciech Wnętrzak, #1489)
+  adapter. (Wojciech Wnętrzak, rspec/rspec-rails#1489)
 
 ### 3.4.2 / 2016-02-02
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.4.1...v3.4.2)
@@ -610,7 +610,7 @@ Bug fixes:
 Bug Fixes:
 
 * Cache template resolvers during path lookup to prevent performance
-  regression from #1535. (Andrew White, #1544)
+  regression from rspec/rspec-rails#1535. (Andrew White, rspec/rspec-rails#1544)
 
 ### 3.4.1 / 2016-01-25
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.4.0...v3.4.1)
@@ -618,7 +618,7 @@ Bug Fixes:
 Bug Fixes:
 
 * Fix no method error when rendering templates with explicit `:file`
-  parameters for Rails version `4.2.5.1`. (Andrew White, Sam Phippen, #1535)
+  parameters for Rails version `4.2.5.1`. (Andrew White, Sam Phippen, rspec/rspec-rails#1535)
 
 ### 3.4.0 / 2015-11-11
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.3.3...v3.4.0)
@@ -626,20 +626,20 @@ Bug Fixes:
 Enhancements:
 
 * Improved the failure message for `have_rendered` matcher on a redirect
-  response. (Alex Egan, #1440)
+  response. (Alex Egan, rspec/rspec-rails#1440)
 * Add configuration option to filter out Rails gems from backtraces.
-  (Bradley Schaefer, #1458)
+  (Bradley Schaefer, rspec/rspec-rails#1458)
 * Enable resolver cache for view specs for a large speed improvement
-  (Chris Zetter, #1452)
+  (Chris Zetter, rspec/rspec-rails#1452)
 * Add `have_enqueued_job` matcher for checking if a block has queued jobs.
-  (Wojciech Wnętrzak, #1464)
+  (Wojciech Wnętrzak, rspec/rspec-rails#1464)
 
 Bug Fixes:
 
 * Fix another load order issued which causes an undefined method `fixture_path` error
-  when loading rspec-rails after a spec has been created. (Nikki Murray, #1430)
+  when loading rspec-rails after a spec has been created. (Nikki Murray, rspec/rspec-rails#1430)
 * Removed incorrect surrounding whitespace in the rspec-rails backtrace
-  exclusion pattern for its own `lib` code. (Jam Black, #1439)
+  exclusion pattern for its own `lib` code. (Jam Black, rspec/rspec-rails#1439)
 
 ### 3.3.3 / 2015-07-15
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.3.2...v3.3.3)
@@ -647,7 +647,7 @@ Bug Fixes:
 Bug Fixes:
 
 * Fix issue with generators caused by `Rails.configuration.hidden_namespaces`
-  including symbols. (Dan Kohn, #1414)
+  including symbols. (Dan Kohn, rspec/rspec-rails#1414)
 
 ### 3.3.2 / 2015-06-18
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.3.1...v3.3.2)
@@ -657,7 +657,7 @@ Bug Fixes:
 * Fix regression that caused stubbing abstract ActiveRecord model
   classes to trigger internal errors in rails due the the verifying
   double lifecycle wrongly calling `define_attribute_methods` on the
-  abstract AR class. (Jon Rowe, #1396)
+  abstract AR class. (Jon Rowe, rspec/rspec-rails#1396)
 
 ### 3.3.1 / 2015-06-14
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.3.0...v3.3.1)
@@ -665,25 +665,25 @@ Bug Fixes:
 Bug Fixes:
 
 * Fix regression that caused stubbing ActiveRecord model classes to
-  trigger internal errors in rails. (Myron Marston, Aaron Kromer, #1395)
+  trigger internal errors in rails. (Myron Marston, Aaron Kromer, rspec/rspec-rails#1395)
 
 ### 3.3.0 / 2015-06-12
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.2.3...v3.3.0)
 
 Enhancements:
 
-* Add support for PATCH to route specs created via scaffold. (Igor Zubkov, #1336)
+* Add support for PATCH to route specs created via scaffold. (Igor Zubkov, rspec/rspec-rails#1336)
 * Improve controller and routing spec calls to `routes` by using `yield`
-  instead of `call`. (Anton Davydov, #1308)
+  instead of `call`. (Anton Davydov, rspec/rspec-rails#1308)
 * Add support for `ActiveJob` specs as standard `RSpec::Rails::RailsExampleGroup`s
   via both `type: :job` and inferring type from spec directory `spec/jobs`.
-  (Gabe Martin-Dempesy, #1361)
+  (Gabe Martin-Dempesy, rspec/rspec-rails#1361)
 * Include `RSpec::Rails::FixtureSupport` into example groups using metadata
-  `use_fixtures: true`. (Aaron Kromer, #1372)
+  `use_fixtures: true`. (Aaron Kromer, rspec/rspec-rails#1372)
 * Include `rspec:request` generator for generating request specs; this is an
-  alias of `rspec:integration` (Aaron Kromer, #1378)
+  alias of `rspec:integration` (Aaron Kromer, rspec/rspec-rails#1378)
 * Update `rails_helper` generator with a default check to abort the spec run
-  when the Rails environment is production. (Aaron Kromer, #1383)
+  when the Rails environment is production. (Aaron Kromer, rspec/rspec-rails#1383)
 
 ### 3.2.3 / 2015-06-06
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.2.2...v3.2.3)
@@ -691,7 +691,7 @@ Enhancements:
 Bug Fixes:
 
 * Fix regression with the railtie resulting in undefined method `preview_path=`
-  on Rails 3.x and 4.0 (Aaron Kromer, #1388)
+  on Rails 3.x and 4.0 (Aaron Kromer, rspec/rspec-rails#1388)
 
 ### 3.2.2 / 2015-06-03
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.2.1...v3.2.2)
@@ -699,12 +699,12 @@ Bug Fixes:
 Bug Fixes:
 
 * Fix auto-including of generic `Helper` object for view specs sitting in the
-  `app/views` root (David Daniell, #1289)
-* Remove pre-loading of ActionMailer in the Railtie (Aaron Kromer, #1327)
+  `app/views` root (David Daniell, rspec/rspec-rails#1289)
+* Remove pre-loading of ActionMailer in the Railtie (Aaron Kromer, rspec/rspec-rails#1327)
 * Fix undefined method `need_auto_run=` error when using Ruby 2.1 and Rails 3.2
-  without the test-unit gem (Orien Madgwick, #1350)
+  without the test-unit gem (Orien Madgwick, rspec/rspec-rails#1350)
 * Fix load order issued which causes an undefined method `fixture_path` error
-  when loading rspec-rails after a spec has been created. (Aaron Kromer, #1372)
+  when loading rspec-rails after a spec has been created. (Aaron Kromer, rspec/rspec-rails#1372)
 
 ### 3.2.1 / 2015-02-23
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.2.0...v3.2.1)
@@ -712,71 +712,71 @@ Bug Fixes:
 Bug Fixes:
 
 * Add missing `require` to RSpec generator root fixing an issue where Rail's
-  autoload does not find it in some environments. (Aaron Kromer, #1305)
-* `be_routable` matcher now has the correct description. (Tony Ta, #1310)
-* Fix dependency to allow Rails 4.2.x patches / pre-releases (Lucas Mazza, #1318)
+  autoload does not find it in some environments. (Aaron Kromer, rspec/rspec-rails#1305)
+* `be_routable` matcher now has the correct description. (Tony Ta, rspec/rspec-rails#1310)
+* Fix dependency to allow Rails 4.2.x patches / pre-releases (Lucas Mazza, rspec/rspec-rails#1318)
 * Disable the `test-unit` gem's autorunner on projects running Rails < 4.1 and
-  Ruby < 2.2 (Aaron Kromer, #1320)
+  Ruby < 2.2 (Aaron Kromer, rspec/rspec-rails#1320)
 
 ### 3.2.0 / 2015-02-03
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.1.0...v3.2.0)
 
 Enhancements:
 
-* Include generator for `ActionMailer` mailer previews (Takashi Nakagawa, #1185)
-* Configure the `ActionMailer` preview path via a Railtie (Aaron Kromer, #1236)
-* Show all RSpec generators when running `rails generate` (Eliot Sykes, #1248)
-* Support Ruby 2.2 with Rails 3.2 and 4.x (Aaron Kromer, #1264, #1277)
+* Include generator for `ActionMailer` mailer previews (Takashi Nakagawa, rspec/rspec-rails#1185)
+* Configure the `ActionMailer` preview path via a Railtie (Aaron Kromer, rspec/rspec-rails#1236)
+* Show all RSpec generators when running `rails generate` (Eliot Sykes, rspec/rspec-rails#1248)
+* Support Ruby 2.2 with Rails 3.2 and 4.x (Aaron Kromer, rspec/rspec-rails#1264, rspec/rspec-rails#1277)
 * Improve `instance_double` to support verifying dynamic column methods defined
-  by `ActiveRecord` (Jon Rowe, #1238)
+  by `ActiveRecord` (Jon Rowe, rspec/rspec-rails#1238)
 * Mirror the use of Ruby 1.9 hash syntax for the `type` tags in the spec
-  generators on Rails 4. (Michael Stock, #1292)
+  generators on Rails 4. (Michael Stock, rspec/rspec-rails#1292)
 
 Bug Fixes:
 
 * Fix `rspec:feature` generator to use `RSpec` namespace preventing errors when
-  monkey-patching is disabled. (Rebecca Skinner, #1231)
+  monkey-patching is disabled. (Rebecca Skinner, rspec/rspec-rails#1231)
 * Fix `NoMethodError` caused by calling `RSpec.feature` when Capybara is not
-  available or the Capybara version is < 2.4.0. (Aaron Kromer, #1261)
+  available or the Capybara version is < 2.4.0. (Aaron Kromer, rspec/rspec-rails#1261)
 * Fix `ArgumentError` when using an anonymous controller which inherits an
-  outer group's anonymous controller. (Yuji Nakayama, #1260)
+  outer group's anonymous controller. (Yuji Nakayama, rspec/rspec-rails#1260)
 * Fix "Test is not a class (TypeError)" error when using a custom `Test` class
-  in Rails 4.1 and 4.2. (Aaron Kromer, #1295)
+  in Rails 4.1 and 4.2. (Aaron Kromer, rspec/rspec-rails#1295)
 
 ### 3.1.0 / 2014-09-04
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.0.2...v3.1.0)
 
 Enhancements:
 
-* Switch to using the `have_http_status` matcher in spec generators. (Aaron Kromer, #1086)
+* Switch to using the `have_http_status` matcher in spec generators. (Aaron Kromer, rspec/rspec-rails#1086)
 * Update `rails_helper` generator to allow users to opt-in to auto-loading
-  `spec/support` files instead of forcing it upon them. (Aaron Kromer, #1137)
-* Include generator for `ActiveJob`. (Abdelkader Boudih, #1155)
+  `spec/support` files instead of forcing it upon them. (Aaron Kromer, rspec/rspec-rails#1137)
+* Include generator for `ActiveJob`. (Abdelkader Boudih, rspec/rspec-rails#1155)
 * Improve support for non-ActiveRecord apps by not loading ActiveRecord related
-  settings in the generated `rails_helper`. (Aaron Kromer, #1150)
-* Remove Ruby warnings as a suggested configuration. (Aaron Kromer, #1163)
-* Improve the semantics of the controller spec for scaffolds. (Griffin Smith, #1204)
-* Use `#method` syntax in all generated controller specs. (Griffin Smith, #1206)
+  settings in the generated `rails_helper`. (Aaron Kromer, rspec/rspec-rails#1150)
+* Remove Ruby warnings as a suggested configuration. (Aaron Kromer, rspec/rspec-rails#1163)
+* Improve the semantics of the controller spec for scaffolds. (Griffin Smith, rspec/rspec-rails#1204)
+* Use `#method` syntax in all generated controller specs. (Griffin Smith, rspec/rspec-rails#1206)
 
 Bug Fixes:
 
-* Fix controller route lookup for Rails 4.2. (Tomohiro Hashidate, #1142)
+* Fix controller route lookup for Rails 4.2. (Tomohiro Hashidate, rspec/rspec-rails#1142)
 
 ### 3.0.2 / 2014-07-21
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.0.1...v3.0.2)
 
 Bug Fixes:
 
-* Suppress warning in `SetupAndTeardownAdapter`. (André Arko, #1085)
-* Remove dependency on Rubygems. (Andre Arko & Doc Riteze, #1099)
-* Standardize controller spec template style. (Thomas Kriechbaumer, #1122)
+* Suppress warning in `SetupAndTeardownAdapter`. (André Arko, rspec/rspec-rails#1085)
+* Remove dependency on Rubygems. (Andre Arko & Doc Riteze, rspec/rspec-rails#1099)
+* Standardize controller spec template style. (Thomas Kriechbaumer, rspec/rspec-rails#1122)
 
 ### 3.0.1 / 2014-06-02
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.0.0...v3.0.1)
 
 Bug Fixes:
 
-* Fix missing require in `rails g rspec:install`. (Sam Phippen, #1058)
+* Fix missing require in `rails g rspec:install`. (Sam Phippen, rspec/rspec-rails#1058)
 
 ### 3.0.0 / 2014-06-01
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v3.0.0.rc1...v3.0.0)
