@@ -1,5 +1,13 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.1.0...7-1-maintenance)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.1.1...7-1-maintenance)
+
+### 7.1.1 / 2025-02-06
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.1.0...v7.1.1)
+
+Bug Fixes:
+
+* Check wether rspec-mocks has been loaded before enabling signature
+  verification for `have_enqueued_job` et al (Jon Rowe, #2823)
 
 ### 7.1.0 / 2024-11-09
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.0.2...v7.1.0)
