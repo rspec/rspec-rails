@@ -1,11 +1,19 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.1.0...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.1.1...main)
 
 Enhancements:
 
 * Add Rails 8 authentication generator support. (Jerome Dalbert, rspec/rspec-rails#2811)
 * Improve install generator comment for `ActiveRecord::Migration.maintain_test_schema!`
 (rspec/rspec-rails#2832)
+
+### 7.1.1 / 2025-02-06
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.1.0...v7.1.1)
+
+Bug Fixes:
+
+* Check wether rspec-mocks has been loaded before enabling signature
+  verification for `have_enqueued_job` et al (Jon Rowe, #2823)
 
 ### 7.1.0 / 2024-11-09
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.0.2...v7.1.0)
