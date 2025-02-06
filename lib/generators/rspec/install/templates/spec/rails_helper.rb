@@ -29,8 +29,8 @@ require 'rspec/rails'
 
 <% if RSpec::Rails::FeatureCheck.has_active_record_migration? -%>
 # Ensures that the test database schema matches the current schema file.
-# This call checks for pending migrations and, if any are found,
-# purges and recreates the test database by loading the schema.
+#  If there are pending migrations it will invoke `db:test:prepare` to
+# recreate the test database by loading the schema.
 # If you are not using ActiveRecord, you can remove these lines.
 begin
   ActiveRecord::Migration.maintain_test_schema!
