@@ -242,6 +242,7 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
           expect(filename).to contain(/require 'rails_helper'/)
                              .and(contain(/^RSpec.describe "(.*)\/edit", #{type_metatag(:view)}/))
                              .and(contain(/assign\(:post, post\)/))
+                             .and(contain(/assert_select "form\[action=\?\]\[method=\?\]", post_path\(post\), "post" do/))
                              .and(contain(/it "renders the edit (.*) form"/))
         end
       end
