@@ -18,7 +18,7 @@ concurrency:
 jobs:
   rubocop:
     name: Rubocop
-    runs-on: 'ubuntu-20.04'
+    runs-on: 'ubuntu-latest'
     steps:
       - uses: actions/checkout@v4
       - uses: ruby/setup-ruby@v1
@@ -31,7 +31,7 @@ jobs:
 
   test:
     name: 'Ruby: ${{ matrix.ruby }}, Rails: ${{ matrix.env.RAILS_VERSION }}'
-    runs-on: ubuntu-20.04
+    runs-on: 'ubuntu-latest'
     strategy:
       fail-fast: false
       matrix:
