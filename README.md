@@ -365,9 +365,6 @@ you can run the specs and Cucumber features, or submit a pull request.
 ### RSpec base libraries
 
 * https://github.com/rspec/rspec
-* https://github.com/rspec/rspec-core
-* https://github.com/rspec/rspec-expectations
-* https://github.com/rspec/rspec-mocks
 
 ### Recommended third-party extensions
 
