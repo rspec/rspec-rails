@@ -6,6 +6,7 @@ Enhancements:
 * Add Rails 8 authentication generator support. (Jerome Dalbert, rspec/rspec-rails#2811)
 * Improve install generator comment for `ActiveRecord::Migration.maintain_test_schema!`
 (rspec/rspec-rails#2832)
+* Add support for `served_by` in system specs. (Sam Giffney, rspec/rspec-rails#2841)
 
 ### 7.1.1 / 2025-02-06
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.1.0...v7.1.1)
