@@ -78,6 +78,21 @@ module RSpec::Rails
 
         expect(example).to have_received(:driven_by).once
       end
+
+      it 'calls :served_by method only once', if: ::Rails::VERSION::STRING.to_f >= 7.2 do
+        group = RSpec::Core::ExampleGroup.describe do
+          include SystemExampleGroup
+
+          before do
+            served_by(host: 'rails', port: 8080)
+          end
+        end
+        example = group.new
+        allow(example).to receive(:served_by).and_call_original
+        group.hooks.run(:before, :example, example)
+
+        expect(example).to have_received(:served_by).once
+      end
     end
 
     describe '#after' do
