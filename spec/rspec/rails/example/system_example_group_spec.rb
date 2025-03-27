@@ -79,7 +79,7 @@ module RSpec::Rails
         expect(example).to have_received(:driven_by).once
       end
 
-      it 'calls :served_by method only once' do
+      it 'calls :served_by method only once', if: ::Rails::VERSION::STRING.to_f >= 7.2 do
         group = RSpec::Core::ExampleGroup.describe do
           include SystemExampleGroup
 
