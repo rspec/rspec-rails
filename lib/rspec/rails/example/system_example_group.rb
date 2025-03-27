@@ -153,6 +153,12 @@ module RSpec
           @driver = ::ActionDispatch::SystemTestCase.driven_by(driver, **driver_options, &blk).tap(&:use)
         end
 
+        if ::Rails::VERSION::STRING.to_f >= 7.2
+          def served_by(**options)
+            ::ActionDispatch::SystemTestCase.served_by(**options)
+          end
+        end
+
         before do
           @routes = ::Rails.application.routes
         end
