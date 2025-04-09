@@ -116,7 +116,7 @@ Lint/SuppressedException:
 # AllowedPatterns: (?-mix:(exactly|at_least|at_most)\(\d+\)\.times)
 Lint/UnreachableLoop:
   Exclude:
-    - 'spec/rspec/rails/fixture_file_upload_support_spec.rb'
+    - 'spec/rspec/rails/file_fixture_upload_support_spec.rb'
     - 'spec/rspec/rails/fixture_support_spec.rb'
 
 # Offense count: 12
