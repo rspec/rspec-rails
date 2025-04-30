@@ -1,5 +1,7 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.1.1...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.1.1...v8.0.0)
+
+### 8.0.0 / 2025-04-30
 
 Enhancements:
 
@@ -7,6 +9,10 @@ Enhancements:
 * Improve install generator comment for `ActiveRecord::Migration.maintain_test_schema!`
 (rspec/rspec-rails#2832)
 * Add support for `served_by` in system specs. (Sam Giffney, rspec/rspec-rails#2841)
+
+Breaking Changes:
+
+* Minimum supported Rails version is 7.2.0
 
 ### 7.1.1 / 2025-02-06
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.1.0...v7.1.1)
