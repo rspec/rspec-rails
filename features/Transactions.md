@@ -17,6 +17,9 @@ The idea is to start each example with a clean database, create whatever data
 is necessary for that example, and then remove that data by simply rolling back
 the transaction at the end of the example.
 
+For how this affects methods exposing transaction visibility see:
+https://guides.rubyonrails.org/testing.html#transactions
+
 ### Disabling transactions
 
 If you prefer to manage the data yourself, or using another tool like
