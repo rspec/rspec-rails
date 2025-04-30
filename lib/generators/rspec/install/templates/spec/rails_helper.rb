@@ -41,13 +41,9 @@ end
 RSpec.configure do |config|
 <% if RSpec::Rails::FeatureCheck.has_active_record? -%>
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-<% if ::Rails::VERSION::STRING < "7.1.0" -%>
-  config.fixture_path = Rails.root.join('spec/fixtures')
-<% else -%>
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
   ]
-<% end -%>
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -65,7 +61,9 @@ RSpec.configure do |config|
   # note if you'd prefer not to run each example within a transaction, you
   # should set use_transactional_fixtures to false.
   #
-  # config.fixture_path = Rails.root.join('spec/fixtures')
+  # config.fixture_paths = [
+  #   Rails.root.join('spec/fixtures')
+  # ]
   # config.use_transactional_fixtures = true
 
 <% end -%>
@@ -77,7 +75,7 @@ RSpec.configure do |config|
   #     end
   #
   # The different available types are documented in the features, such as in
-  # https://rspec.info/features/7-1/rspec-rails
+  # https://rspec.info/features/8-0/rspec-rails
   #
   # You can also this infer these behaviours automatically by location, e.g.
   # /spec/models would pull in the same behaviour as `type: :model` but this

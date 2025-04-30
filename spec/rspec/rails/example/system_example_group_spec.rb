@@ -30,17 +30,7 @@ module RSpec::Rails
     end
 
     describe '#driver' do
-      it 'uses :selenium driver by default', if: ::Rails::VERSION::STRING.to_f < 7.2 do
-        group = RSpec::Core::ExampleGroup.describe do
-          include SystemExampleGroup
-        end
-        example = group.new
-        group.hooks.run(:before, :example, example)
-
-        expect(Capybara.current_driver).to eq :selenium
-      end
-
-      it 'uses :selenium_chrome_headless driver by default', if: ::Rails::VERSION::STRING.to_f >= 7.2 do
+      it 'uses :selenium_chrome_headless driver by default' do
         group = RSpec::Core::ExampleGroup.describe do
           include SystemExampleGroup
         end
@@ -79,7 +69,7 @@ module RSpec::Rails
         expect(example).to have_received(:driven_by).once
       end
 
-      it 'calls :served_by method only once', if: ::Rails::VERSION::STRING.to_f >= 7.2 do
+      it 'calls :served_by method only once' do
         group = RSpec::Core::ExampleGroup.describe do
           include SystemExampleGroup
 
@@ -117,7 +107,7 @@ module RSpec::Rails
       end
     end
 
-    describe '#take_screenshot', if: ::Rails::VERSION::STRING.to_f >= 7.1 do
+    describe '#take_screenshot' do
       it 'handles Rails calling metadata' do
         allow(Capybara::Session).to receive(:instance_created?).and_return(true)
         group = RSpec::Core::ExampleGroup.describe do
@@ -138,7 +128,7 @@ module RSpec::Rails
       end
     end
 
-    describe '#metadata', if: ::Rails::VERSION::STRING.to_f >= 7.1 do
+    describe '#metadata' do
       let(:group) do
         RSpec::Core::ExampleGroup.describe do
           include SystemExampleGroup

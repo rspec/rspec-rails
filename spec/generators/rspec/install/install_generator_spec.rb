@@ -88,11 +88,7 @@ RSpec.describe Rspec::Generators::InstallGenerator, type: :generator do
 
     specify "with default fixture path" do
       run_generator
-      if ::Rails::VERSION::STRING < "7.1.0"
-        expect(rails_helper).to have_a_fixture_path
-      else
-        expect(rails_helper).to have_fixture_paths
-      end
+      expect(rails_helper).to have_fixture_paths
     end
 
     specify "with transactional fixtures" do
