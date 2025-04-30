@@ -64,18 +64,10 @@ module RSpec
         end
       end
 
-      if ::Rails::VERSION::STRING >= "7.1.0"
-        def config_default_preview_path(options)
-          return unless options.preview_paths.empty?
+      def config_default_preview_path(options)
+        return unless options.preview_paths.empty?
 
-          options.preview_paths << "#{::Rails.root}/spec/mailers/previews"
-        end
-      else
-        def config_default_preview_path(options)
-          return unless options.preview_path.blank?
-
-          options.preview_path = "#{::Rails.root}/spec/mailers/previews"
-        end
+        options.preview_paths << "#{::Rails.root}/spec/mailers/previews"
       end
 
       def supports_action_mailer_previews?(config)

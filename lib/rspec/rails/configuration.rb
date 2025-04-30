@@ -1,4 +1,3 @@
-# rubocop: disable Metrics/ModuleLength
 module RSpec
   module Rails
     # Fake class to document RSpec Rails configuration options. In practice,
@@ -57,7 +56,7 @@ module RSpec
     end
 
     # @private
-    def self.initialize_configuration(config) # rubocop:disable Metrics/MethodLength,Metrics/CyclomaticComplexity,Metrics/AbcSize,Metrics/PerceivedComplexity
+    def self.initialize_configuration(config) # rubocop:disable Metrics/MethodLength
       config.backtrace_exclusion_patterns << /vendor\//
       config.backtrace_exclusion_patterns << %r{lib/rspec/rails}
 
@@ -69,12 +68,7 @@ module RSpec
       config.add_setting :use_transactional_fixtures, alias_with: :use_transactional_examples
       config.add_setting :use_instantiated_fixtures
       config.add_setting :global_fixtures
-
-      if ::Rails::VERSION::STRING < "7.1.0"
-        config.add_setting :fixture_path
-      else
-        config.add_setting :fixture_paths
-      end
+      config.add_setting :fixture_paths
 
       config.include RSpec::Rails::FixtureSupport, :use_fixtures
 
@@ -90,7 +84,7 @@ module RSpec
       config.add_setting :file_fixture_path, default: 'spec/fixtures/files'
       config.include RSpec::Rails::FileFixtureSupport
 
-      # Add support for fixture_path on fixture_file_upload
+      # Add support for fixture_paths on fixture_file_upload
       config.include RSpec::Rails::FixtureFileUploadSupport
 
       # This allows us to expose `render_views` as a config option even though it
@@ -114,40 +108,6 @@ module RSpec
           rendering_views?
         end
 
-        undef :rendering_views? if respond_to?(:rendering_views?)
-        def rendering_views?
-          !!rendering_views
-        end
-
-        # Define boolean predicates rather than relying on rspec-core due
-        # to the bug fix in rspec/rspec-core#2736, note some of these
-        # predicates are a bit nonsensical, but they exist for backwards
-        # compatibility, we can tidy these up in `rspec-rails` 5.
-        undef :fixture_path? if respond_to?(:fixture_path?)
-        def fixture_path?
-          !!fixture_path
-        end
-
-        undef :global_fixtures? if respond_to?(:global_fixtures?)
-        def global_fixtures?
-          !!global_fixtures
-        end
-
-        undef :infer_base_class_for_anonymous_controllers? if respond_to?(:infer_base_class_for_anonymous_controllers?)
-        def infer_base_class_for_anonymous_controllers?
-          !!infer_base_class_for_anonymous_controllers
-        end
-
-        undef :use_instantiated_fixtures? if respond_to?(:use_instantiated_fixtures?)
-        def use_instantiated_fixtures?
-          !!use_instantiated_fixtures
-        end
-
-        undef :use_transactional_fixtures? if respond_to?(:use_transactional_fixtures?)
-        def use_transactional_fixtures?
-          !!use_transactional_fixtures
-        end
-
         def infer_spec_type_from_file_location!
           DIRECTORY_MAPPINGS.each do |type, dir_parts|
             escaped_path = Regexp.compile(dir_parts.join('[\\\/]') + '[\\\/]')
@@ -162,29 +122,6 @@ module RSpec
           filter_gems_from_backtrace "actionmailer", "actionpack", "actionview"
           filter_gems_from_backtrace "activemodel", "activerecord",
                                      "activesupport", "activejob"
-        end
-
-        # @deprecated TestFixtures#fixture_path is deprecated and will be removed in Rails 7.2
-        if ::Rails::VERSION::STRING >= "7.1.0"
-          def fixture_path
-            RSpec.deprecate(
-              "config.fixture_path",
-              replacement: "config.fixture_paths",
-              message: "Rails 7.1 has deprecated the singular fixture_path in favour of an array." \
-              "You should migrate to plural:"
-            )
-            fixture_paths&.first
-          end
-
-          def fixture_path=(path)
-            RSpec.deprecate(
-              "config.fixture_path = #{path.inspect}",
-              replacement: "config.fixture_paths = [#{path.inspect}]",
-              message: "Rails 7.1 has deprecated the singular fixture_path in favour of an array." \
-              "You should migrate to plural:"
-            )
-            self.fixture_paths = Array(path)
-          end
         end
       end
 
@@ -219,4 +156,3 @@ module RSpec
     initialize_configuration RSpec.configuration
   end
 end
-# rubocop: enable Metrics/ModuleLength

@@ -59,7 +59,7 @@ Before do
   # We want fresh `example_app` project with empty `spec` dir except helpers.
   # FileUtils.cp_r on Ruby 1.9.2 doesn't preserve permissions.
   system('cp', '-r', example_app_dir, aruba_dir)
-  helpers = %w[spec/spec_helper.rb spec/rails_helper.rb spec/support/capybara.rb]
+  helpers = %w[spec/spec_helper.rb spec/rails_helper.rb]
   directories = []
 
   Dir["#{aruba_dir}/spec/**/*"].each do |path|

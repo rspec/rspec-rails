@@ -11,7 +11,6 @@ ci_retry_script = File.join(
   'ci_retry_bundle_install.sh'
 )
 function_script_file = File.join(rspec_rails_repo_path, 'script/functions.sh')
-capybara_backport_path = File.join(rspec_rails_repo_path, 'example_app_generator/spec/support/capybara.rb')
 
 in_root do
   prepend_to_file "Rakefile", "require 'active_support/all'"
@@ -29,10 +28,8 @@ in_root do
 
   gsub_file "Gemfile", /.*rails-controller-testing.*/, "gem 'rails-controller-testing', git: 'https://github.com/rails/rails-controller-testing'"
 
-  # sqlite3 is an optional, unspecified, dependency of which Rails 6.0 only supports `~> 1.4`, Ruby 2.7 only supports < 1.7 and Rails 8.0 only supports `~> 2.0`
-  if RUBY_VERSION.to_f < 3
-    gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 1.4', '< 1.7'"
-  elsif Rails::VERSION::STRING > '8'
+  # sqlite3 is an optional, unspecified, dependency of which Rails 8.0 only supports `~> 2.0`
+  if Rails::VERSION::STRING > '8'
     gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 2.0'"
   else
     gsub_file "Gemfile", /.*gem..sqlite3.*/, "gem 'sqlite3', '~> 1.7'"
@@ -66,13 +63,4 @@ in_root do
             'REPLACE_BUNDLE_PATH',
             bundle_install_path
   chmod 'ci_retry_bundle_install.sh', 0755
-
-  copy_file capybara_backport_path, 'spec/support/capybara.rb'
-
-  if Rails::VERSION::STRING < '7.2'
-    create_file 'app/assets/config/manifest.js' do
-      "//= link application.css"
-    end
-    create_file 'app/assets/stylesheets/application.css'
-  end
 end

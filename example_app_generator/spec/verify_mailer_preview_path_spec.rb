@@ -40,26 +40,17 @@ RSpec.describe 'Action Mailer railtie hook' do
     CaptureExec.new(out, $?.exitstatus)
   end
 
-  if Rails::VERSION::STRING.to_f >= 7.1
-    let(:expected_custom_path) { "/custom/path\n#{::Rails.root}/test/mailers/previews" }
-    let(:expected_rspec_path) { "#{::Rails.root}/spec/mailers/previews\n#{::Rails.root}/test/mailers/previews" }
+  let(:expected_custom_path) { "/custom/path\n#{::Rails.root}/test/mailers/previews" }
+  let(:expected_rspec_path) { "#{::Rails.root}/spec/mailers/previews\n#{::Rails.root}/test/mailers/previews" }
 
-    def have_no_preview(opts = {})
-      expected_io =
-        if opts[:actually_blank]
-          be_blank
-        else
-          "#{::Rails.root}/test/mailers/previews"
-        end
-      have_attributes(io: expected_io, exit_status: 0)
-    end
-  else
-    let(:expected_custom_path) { '/custom/path' }
-    let(:expected_rspec_path) { "#{::Rails.root}/spec/mailers/previews" }
-
-    def have_no_preview(_opts = {})
-      have_attributes(io: be_blank, exit_status: 0)
-    end
+  def have_no_preview(opts = {})
+    expected_io =
+      if opts[:actually_blank]
+        be_blank
+      else
+        "#{::Rails.root}/test/mailers/previews"
+      end
+    have_attributes(io: expected_io, exit_status: 0)
   end
 
   let(:exec_script) {
