@@ -48,8 +48,7 @@ Gem::Specification.new do |s|
     if ENV['RSPEC_CI']
       s.add_runtime_dependency "rspec-#{name}", ENV.fetch('RSPEC_VERSION', '3.14.0.pre')
     else
-      expected_rspec_version = "3.13.0"
-      s.add_runtime_dependency "rspec-#{name}", "~> #{expected_rspec_version.split(".")[0..1].join(".")}"
+      s.add_runtime_dependency "rspec-#{name}", "~> 3.13"
     end
   end
 
