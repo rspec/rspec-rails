@@ -8,7 +8,17 @@ They’re also specifications (or _specs,_ for short):
 detailed explanations of how the application is supposed to behave,
 expressed in plain English.
 
-According to [RSpec Rails new versioning strategy][] use:
+## Supported Versions
+
+We follow a versioning strategy as defined by [RSpec Rails versioning strategy][] the
+TL;DR of which is that we support currently supported versions of Rails, and will
+issue a major version change when removing older versions from support.
+
+**Note** Rails 7.1 is supported by the Rails team until October 2025, and thus `rspec-rails`
+will support bug fixes for this version in the `7-2-maintenance` branch until that time.
+
+Accordingly you should use:
+
 * **[`rspec-rails` 8.x][]** for Rails 8.0 or 7.2.
 * **[`rspec-rails` 7.x][]** for Rails 7.x.
 * **[`rspec-rails` 6.x][]** for Rails 6.1, 7.0 or 7.1.
@@ -30,7 +40,7 @@ According to [RSpec Rails new versioning strategy][] use:
 [`rspec-rails` 6.x]: https://github.com/rspec/rspec-rails/tree/6-1-maintenance
 [`rspec-rails` 7.x]: https://github.com/rspec/rspec-rails/tree/7-1-maintenance
 [`rspec-rails` 8.x]: https://github.com/rspec/rspec-rails/tree/8-0-maintenance
-[RSpec Rails new versioning strategy]: https://github.com/rspec/rspec-rails/blob/main/rfcs/versioning-strategy.md
+[RSpec Rails versioning strategy]: https://github.com/rspec/rspec-rails/blob/main/rfcs/versioning-strategy.md
 
 ## Installation
 
