@@ -95,6 +95,56 @@ RSpec.describe "have_reported_error matcher" do
     end
   end
 
+  describe "failure messages for attribute mismatches" do
+    it "provides detailed failure message when attributes don't match" do
+      test_block = proc do
+        Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "actual" })
+      end
+      matcher = have_reported_error.with(user_id: 456, context: "expected")
+
+      matcher.matches?(test_block)
+
+      expect(matcher.failure_message).to include("Expected error attributes to match")
+      expect(matcher.failure_message).to include("user_id: 456")
+      expect(matcher.failure_message).to include("context: \"expected\"")
+    end
+
+    it "identifies partial attribute mismatches correctly" do
+      test_block = proc do
+        Rails.error.report(StandardError.new("test"), context: { user_id: 123, status: "active", role: "admin" })
+      end
+      matcher = have_reported_error.with(user_id: 456, status: "active") # user_id wrong, status correct
+
+      matcher.matches?(test_block)
+
+      failure_msg = matcher.failure_message
+      expect(failure_msg).to include("got these mismatches: {user_id: 456}")
+    end
+
+    it "handles RSpec matcher mismatches in failure messages" do
+      test_block = proc do
+        Rails.error.report(StandardError.new("test"), context: { params: { foo: "different" } })
+      end
+      matcher = have_reported_error.with(params: a_hash_including(foo: "bar"))
+
+      matcher.matches?(test_block)
+
+      expect(matcher.failure_message).to include("Expected error attributes to match")
+    end
+
+    it "shows actual context values when attributes don't match" do
+      test_block = proc do
+        Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "actual" })
+      end
+      matcher = have_reported_error.with(user_id: 456)
+
+      matcher.matches?(test_block)
+
+      failure_msg = matcher.failure_message
+      expect(failure_msg).to include("actual values are {\"user_id\" => 123, \"context\" => \"actual\"}")
+    end
+  end
+
   describe "attribute matching with .with chain" do
     it "passes when attributes match exactly" do
       test_block = proc do
