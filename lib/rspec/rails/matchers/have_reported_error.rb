@@ -69,10 +69,10 @@ module RSpec
 
         def failure_message
           if !@error_subscriber.events.empty? && !@attributes.empty?
-            event_data = @error_subscriber.events.last[1].with_indifferent_access
-            unmatched = unmatched_attributes(event_data["context"])
+            event_context = @error_subscriber.events.last[1].with_indifferent_access["context"]
+            unmatched = unmatched_attributes(event_context)
             unless unmatched.empty?
-              return "Expected error attributes to match #{@attributes}, but got these mismatches: #{unmatched} and actual values are #{event_data}"
+              return "Expected error attributes to match #{@attributes}, but got these mismatches: #{unmatched} and actual values are #{event_context}"
             end
           elsif @error_subscriber.events.empty?
             return 'Expected the block to report an error, but none was reported.'
@@ -94,13 +94,9 @@ module RSpec
 
         def failure_message_when_negated
           error_count = @error_subscriber.events.count
-          if defined?(ActiveSupport::Inflector)
-            error_word = 'error'.pluralize(error_count)
-            verb = error_count == 1 ? 'has' : 'have'
-          else
-            error_word = error_count == 1 ? 'error' : 'errors'
-            verb = error_count == 1 ? 'has' : 'have'
-          end
+          error_word = 'error'.pluralize(error_count)
+          verb = error_count == 1 ? 'has' : 'have'
+
           "Expected the block not to report any errors, but #{error_count} #{error_word} #{verb} been reported."
         end
 
@@ -129,8 +125,8 @@ module RSpec
           return true if @attributes.empty?
           return false if @error_subscriber.events.empty?
 
-          event_data = @error_subscriber.events.last[1].with_indifferent_access
-          attributes_match?(event_data["context"])
+          event_context = @error_subscriber.events.last[1].with_indifferent_access["context"]
+          attributes_match?(event_context)
         end
 
         def actual_error
@@ -139,7 +135,7 @@ module RSpec
 
         def attributes_match?(actual)
           @attributes.all? do |key, value|
-            if defined?(RSpec::Matchers) && value.respond_to?(:matches?)
+            if value.respond_to?(:matches?)
               value.matches?(actual[key])
             else
               actual[key] == value
@@ -149,7 +145,7 @@ module RSpec
 
         def unmatched_attributes(actual)
           @attributes.reject do |key, value|
-            if defined?(RSpec::Matchers) && value.respond_to?(:matches?)
+            if value.respond_to?(:matches?)
               value.matches?(actual[key])
             else
               actual[key] == value
