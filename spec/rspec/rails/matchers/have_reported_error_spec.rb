@@ -4,29 +4,6 @@ RSpec.describe "have_reported_error matcher" do
   class TestError < StandardError; end
   class AnotherTestError < StandardError; end
 
-  let(:mock_error_reporter) { double("ErrorReporter") }
-  let(:subscribers) { [] }
-
-  before do
-    allow(Rails).to receive(:error).and_return(mock_error_reporter)
-
-    allow(mock_error_reporter).to receive(:subscribe) do |subscriber|
-      subscribers << subscriber
-    end
-
-    allow(mock_error_reporter).to receive(:unsubscribe) do |subscriber|
-      subscribers.delete(subscriber)
-    end
-
-    allow(mock_error_reporter).to receive(:report) do |error, **attrs|
-      subscribers.each { |subscriber| subscriber.report(error, **attrs) }
-    end
-  end
-
-  after do
-    subscribers.clear
-  end
-
   describe "basic functionality" do
     it "passes when an error is reported" do
       test_block = proc do
@@ -118,29 +95,10 @@ RSpec.describe "have_reported_error matcher" do
     end
   end
 
-  describe "symbol error matching" do
-    it "passes when symbol matches" do
-      test_block = proc do
-        Rails.error.report(:test_symbol)
-      end
-
-      expect(test_block).to have_reported_error(:test_symbol)
-    end
-
-    it "fails when symbol does not match" do
-      test_block = proc do
-        Rails.error.report(:actual_symbol)
-      end
-      matcher = have_reported_error(:expected_symbol)
-
-      expect(matcher.matches?(test_block)).to be false
-    end
-  end
-
   describe "attribute matching with .with chain" do
     it "passes when attributes match exactly" do
       test_block = proc do
-        Rails.error.report(StandardError.new("test"), user_id: 123, context: "test")
+        Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "test" })
       end
 
       expect(test_block).to have_reported_error.with(user_id: 123, context: "test")
@@ -148,7 +106,7 @@ RSpec.describe "have_reported_error matcher" do
 
     it "passes with partial attribute matching" do
       test_block = proc do
-        Rails.error.report(StandardError.new("test"), user_id: 123, context: "test", extra: "data")
+        Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "test", extra: "data" })
       end
 
       expect(test_block).to have_reported_error.with(user_id: 123)
@@ -156,7 +114,7 @@ RSpec.describe "have_reported_error matcher" do
 
     it "passes with hash matching using RSpec matchers" do
       test_block = proc do
-        Rails.error.report(StandardError.new("test"), params: { foo: "bar", baz: "qux" })
+        Rails.error.report(StandardError.new("test"), context: { params: { foo: "bar", baz: "qux" } })
       end
 
       expect(test_block).to have_reported_error.with(params: a_hash_including(foo: "bar"))
@@ -164,7 +122,7 @@ RSpec.describe "have_reported_error matcher" do
 
     it "fails when attributes do not match" do
       test_block = proc do
-        Rails.error.report(StandardError.new("test"), user_id: 123, context: "actual")
+        Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "actual" })
       end
       matcher = have_reported_error.with(user_id: 456, context: "expected")
 
@@ -185,8 +143,6 @@ RSpec.describe "have_reported_error matcher" do
         Rails.error.report(StandardError.new("test"))
       end
 
-      expect(mock_error_reporter).to receive(:unsubscribe)
-
       expect(test_block).to have_reported_error
     end
 
@@ -195,8 +151,6 @@ RSpec.describe "have_reported_error matcher" do
         Rails.error.report(StandardError.new("test"))
         raise "unexpected error"
       end
-
-      expect(mock_error_reporter).to receive(:unsubscribe)
 
       expect {
         have_reported_error.matches?(test_block)
@@ -224,7 +178,7 @@ RSpec.describe "have_reported_error matcher" do
 
     it "works with matcher chaining" do
       test_block = proc do
-        Rails.error.report(TestError.new("test"), user_id: 123)
+        Rails.error.report(TestError.new("test"), context: { user_id: 123 })
       end
 
       expect(test_block).to have_reported_error(TestError).and have_reported_error

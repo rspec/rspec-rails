@@ -69,11 +69,8 @@ module RSpec
 
         def failure_message
           if !@error_subscriber.events.empty? && !@attributes.empty?
-            event_data = @error_subscriber.events.last[1]
-            if defined?(ActiveSupport::HashWithIndifferentAccess)
-              event_data = event_data.with_indifferent_access
-            end
-            unmatched = unmatched_attributes(event_data)
+            event_data = @error_subscriber.events.last[1].with_indifferent_access
+            unmatched = unmatched_attributes(event_data["context"])
             unless unmatched.empty?
               return "Expected error attributes to match #{@attributes}, but got these mismatches: #{unmatched} and actual values are #{event_data}"
             end
@@ -132,8 +129,8 @@ module RSpec
           return true if @attributes.empty?
           return false if @error_subscriber.events.empty?
 
-          event_data = @error_subscriber.events.last[1]
-          attributes_match?(event_data)
+          event_data = @error_subscriber.events.last[1].with_indifferent_access
+          attributes_match?(event_data["context"])
         end
 
         def actual_error
