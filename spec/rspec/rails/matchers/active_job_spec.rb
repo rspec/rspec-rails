@@ -543,7 +543,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
 
     it "raises RSpec::Expectations::ExpectationNotMetError when Proc passed to expect" do
       expect {
-        expect{ heavy_lifting_job }.to have_been_enqueued
+        expect { heavy_lifting_job }.to have_been_enqueued
       }.to raise_error(RSpec::Expectations::ExpectationNotMetError)
     end
 
@@ -869,7 +869,7 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
 
     it "raises RSpec::Expectations::ExpectationNotMetError when Proc passed to expect" do
       expect {
-        expect{ heavy_lifting_job }.to have_been_performed
+        expect { heavy_lifting_job }.to have_been_performed
       }.to raise_error(RSpec::Expectations::ExpectationNotMetError)
     end
 
