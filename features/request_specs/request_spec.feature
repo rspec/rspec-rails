@@ -54,7 +54,7 @@ Feature: Request specs
         end
       end
       """
-    When I run `rspec spec/requests/widget_management_spec.rb`
+    When I run `bundle exec rspec spec/requests/widget_management_spec.rb`
     Then I debug
     Then the example should pass
 
