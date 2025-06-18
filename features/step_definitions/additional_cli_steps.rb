@@ -16,6 +16,15 @@ require "rails/version"
 
 require "rspec/rails/feature_check"
 
+Then "I debug" do
+  puts "============================="
+  puts "OUTPUT"
+  puts "#{last_command_started.inspect} => #{}"
+  puts "============================="
+  puts all_output.inspect
+  puts "============================="
+end
+
 Then /^the example(s)? should( all)? pass$/ do |_, _|
   step 'the output should contain "0 failures"'
   step 'the exit status should be 0'

@@ -55,6 +55,7 @@ Feature: Request specs
       end
       """
     When I run `rspec spec/requests/widget_management_spec.rb`
+    Then I debug
     Then the example should pass
 
   Scenario: Requesting a JSON response

@@ -4,16 +4,4 @@
 set -e
 source script/functions.sh
 
-fold "binstub check" check_binstubs
-
-fold "specs" run_specs_and_record_done
-
-fold "acceptance" bin/rake acceptance --trace
-
-fold "snippets" script/run_snippets.sh
-
-if documentation_enforced; then
-  fold "doc check" check_documentation_coverage
-fi
-
-fold "one-by-one specs" run_specs_one_by_one
+bin/cucumber features/request_specs/request_spec.feature:31
