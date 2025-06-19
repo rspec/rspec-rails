@@ -1,6 +1,12 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v7.1.1...v8.0.0)
 
+Bug Fixes:
+
+* Make the `have_been_performed` / `have_been_enqueued` return `false` for
+ `supports_block_expectations?` as they don't supporting block expectations.
+ (Sam Kidman, rspec/rspec-rails#2851)
+
 ### 8.0.0 / 2025-04-30
 
 Enhancements:
