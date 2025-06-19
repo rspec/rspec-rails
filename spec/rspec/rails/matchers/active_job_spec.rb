@@ -541,6 +541,12 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
   describe "have_been_enqueued" do
     before { ActiveJob::Base.queue_adapter.enqueued_jobs.clear }
 
+    it "raises RSpec::Expectations::ExpectationNotMetError when Proc passed to expect" do
+      expect {
+        expect { heavy_lifting_job }.to have_been_enqueued
+      }.to raise_error(RSpec::Expectations::ExpectationNotMetError)
+    end
+
     it "passes with default jobs count (exactly one)" do
       heavy_lifting_job.perform_later
       expect(heavy_lifting_job).to have_been_enqueued
@@ -859,6 +865,12 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       ActiveJob::Base.queue_adapter.perform_enqueued_jobs = true
       ActiveJob::Base.queue_adapter.perform_enqueued_at_jobs = true
       stub_const('HeavyLiftingJob', heavy_lifting_job)
+    end
+
+    it "raises RSpec::Expectations::ExpectationNotMetError when Proc passed to expect" do
+      expect {
+        expect { heavy_lifting_job }.to have_been_performed
+      }.to raise_error(RSpec::Expectations::ExpectationNotMetError)
     end
 
     it "passes with default jobs count (exactly one)" do
