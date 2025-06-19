@@ -2,13 +2,14 @@ require 'aruba/cucumber'
 require 'fileutils'
 
 module ArubaExt
-  def run_command(cmd, timeout = nil)
+  def run_command_and_stop(cmd, opts = {})
     exec_cmd = cmd =~ /^rspec/ ? "bin/#{cmd}" : cmd
+
     unset_bundler_env_vars
     # Ensure the correct Gemfile and binstubs are found
     in_current_directory do
       with_unbundled_env do
-        super(exec_cmd, timeout)
+        super(exec_cmd, opts)
       end
     end
   end
