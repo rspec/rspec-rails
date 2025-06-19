@@ -320,6 +320,10 @@ module RSpec
 
             !matches?(proc)
           end
+
+          def supports_block_expectations?
+            false
+          end
         end
 
         # @private
@@ -351,6 +355,10 @@ module RSpec
           def matches?(job)
             @job = job
             check(queue_adapter.performed_jobs)
+          end
+
+          def supports_block_expectations?
+            false
           end
         end
       end
