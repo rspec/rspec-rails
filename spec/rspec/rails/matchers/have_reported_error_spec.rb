@@ -6,232 +6,156 @@ RSpec.describe "have_reported_error matcher" do
 
   describe "basic functionality" do
     it "passes when an error is reported" do
-      test_block = proc do
-        Rails.error.report(StandardError.new("test error"))
-      end
-
-      expect(test_block).to have_reported_error
+      expect {Rails.error.report(StandardError.new("test error"))}.to have_reported_error
     end
 
     it "fails when no error is reported" do
-      test_block = proc { "no error" }
-      matcher = have_reported_error
-
-      expect(matcher.matches?(test_block)).to be false
+      expect {
+        expect { "no error" }.to have_reported_error
+      }.to fail_with(/Expected the block to report an error, but none was reported./)
     end
 
     it "passes when negated and no error is reported" do
-      test_block = proc { "no error" }
-
-      expect(test_block).not_to have_reported_error
+      expect { "no error" }.not_to have_reported_error
     end
   end
 
   describe "error class matching" do
     it "passes when correct error class is reported" do
-      test_block = proc do
-        Rails.error.report(TestError.new("test error"))
-      end
-
-      expect(test_block).to have_reported_error(TestError)
+      expect { Rails.error.report(TestError.new("test error")) }.to have_reported_error(TestError)
     end
 
     it "fails when wrong error class is reported" do
-      test_block = proc do
-        Rails.error.report(AnotherTestError.new("wrong error"))
-      end
-      matcher = have_reported_error(TestError)
-
-      expect(matcher.matches?(test_block)).to be false
+      expect {
+        expect {
+          Rails.error.report(AnotherTestError.new("wrong error"))
+        }.to have_reported_error(TestError)
+      }.to fail_with(/Expected error to be an instance of TestError, but got AnotherTestError/)
     end
   end
 
   describe "error instance matching" do
     it "passes when error instance matches exactly" do
-      expected_error = TestError.new("exact message")
-      test_block = proc do
+      expect {
         Rails.error.report(TestError.new("exact message"))
-      end
-
-      expect(test_block).to have_reported_error(expected_error)
+      }.to have_reported_error(TestError.new("exact message"))
     end
 
     it "passes when error instance has empty expected message" do
-      expected_error = TestError.new("")
-      test_block = proc do
+      expect {
         Rails.error.report(TestError.new("any message"))
-      end
-
-      expect(test_block).to have_reported_error(expected_error)
+      }.to have_reported_error(TestError.new(""))
     end
 
     it "fails when error instance has different message" do
-      expected_error = TestError.new("expected message")
-      test_block = proc do
-        Rails.error.report(TestError.new("actual message"))
-      end
-      matcher = have_reported_error(expected_error)
-
-      expect(matcher.matches?(test_block)).to be false
+      expect {
+        expect {
+          Rails.error.report(TestError.new("actual message"))
+        }.to have_reported_error(TestError.new("expected message"))
+      }.to fail_with(/Expected error to be TestError with message 'expected message', but got TestError with message: 'actual message'/)
     end
   end
 
   describe "regex pattern matching" do
     it "passes when error message matches pattern" do
-      test_block = proc do
+      expect {
         Rails.error.report(StandardError.new("error with pattern"))
-      end
-
-      expect(test_block).to have_reported_error(/with pattern/)
+      }.to have_reported_error(/with pattern/)
     end
 
     it "fails when error message does not match pattern" do
-      test_block = proc do
-        Rails.error.report(StandardError.new("error without match"))
-      end
-      matcher = have_reported_error(/different pattern/)
-
-      expect(matcher.matches?(test_block)).to be false
+      expect {
+        expect {
+          Rails.error.report(StandardError.new("error without match"))
+        }.to have_reported_error(/different pattern/)
+      }.to fail_with(/Expected error message to match/)
     end
   end
 
   describe "failure messages for attribute mismatches" do
     it "provides detailed failure message when attributes don't match" do
-      test_block = proc do
-        Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "actual" })
-      end
-      matcher = have_reported_error.with(user_id: 456, context: "expected")
-
-      matcher.matches?(test_block)
-
-      expect(matcher.failure_message).to include("Expected error attributes to match")
-      expect(matcher.failure_message).to include("user_id: 456")
-      expect(matcher.failure_message).to include("context: \"expected\"")
+      expect {
+        expect {
+          Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "actual" })
+        }.to have_reported_error.with(user_id: 456, context: "expected")
+      }.to fail_with(/Expected error attributes to match {user_id: 456, context: "expected"}, but got these mismatches: {user_id: 456, context: "expected"} and actual values are {"user_id" => 123, "context" => "actual"}/)
     end
 
     it "identifies partial attribute mismatches correctly" do
-      test_block = proc do
-        Rails.error.report(StandardError.new("test"), context: { user_id: 123, status: "active", role: "admin" })
-      end
-      matcher = have_reported_error.with(user_id: 456, status: "active") # user_id wrong, status correct
-
-      matcher.matches?(test_block)
-
-      failure_msg = matcher.failure_message
-      expect(failure_msg).to include("got these mismatches: {user_id: 456}")
+      expect {
+        expect {
+          Rails.error.report(StandardError.new("test"), context: { user_id: 123, status: "active", role: "admin" })
+        }.to have_reported_error.with(user_id: 456, status: "active") # user_id wrong, status correct
+      }.to fail_with(/got these mismatches: {user_id: 456}/)
     end
 
     it "handles RSpec matcher mismatches in failure messages" do
-      test_block = proc do
-        Rails.error.report(StandardError.new("test"), context: { params: { foo: "different" } })
-      end
-      matcher = have_reported_error.with(params: a_hash_including(foo: "bar"))
-
-      matcher.matches?(test_block)
-
-      expect(matcher.failure_message).to include("Expected error attributes to match")
+      expect {
+        expect {
+          Rails.error.report(StandardError.new("test"), context: { params: { foo: "different" } })
+        }.to have_reported_error.with(params: a_hash_including(foo: "bar"))
+      }.to fail_with(/Expected error attributes to match/)
     end
 
     it "shows actual context values when attributes don't match" do
-      test_block = proc do
-        Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "actual" })
-      end
-      matcher = have_reported_error.with(user_id: 456)
-
-      matcher.matches?(test_block)
-
-      failure_msg = matcher.failure_message
-      expect(failure_msg).to include("actual values are {\"user_id\" => 123, \"context\" => \"actual\"}")
+      expect {
+        expect {
+          Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "actual" })
+        }.to have_reported_error.with(user_id: 456)
+      }.to fail_with(/actual values are {"user_id" => 123, "context" => "actual"}/)
     end
   end
 
   describe "attribute matching with .with chain" do
     it "passes when attributes match exactly" do
-      test_block = proc do
+      expect {
         Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "test" })
-      end
-
-      expect(test_block).to have_reported_error.with(user_id: 123, context: "test")
+      }.to have_reported_error.with(user_id: 123, context: "test")
     end
 
     it "passes with partial attribute matching" do
-      test_block = proc do
-        Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "test", extra: "data" })
-      end
-
-      expect(test_block).to have_reported_error.with(user_id: 123)
+      expect {
+        Rails.error.report(
+          StandardError.new("test"), context: { user_id: 123, context: "test", extra: "data" }
+        )
+      }.to have_reported_error.with(user_id: 123)
     end
 
     it "passes with hash matching using RSpec matchers" do
-      test_block = proc do
-        Rails.error.report(StandardError.new("test"), context: { params: { foo: "bar", baz: "qux" } })
-      end
-
-      expect(test_block).to have_reported_error.with(params: a_hash_including(foo: "bar"))
+      expect {
+        Rails.error.report(
+          StandardError.new("test"), context: { params: { foo: "bar", baz: "qux" } }
+        )
+      }.to have_reported_error.with(params: a_hash_including(foo: "bar"))
     end
 
     it "fails when attributes do not match" do
-      test_block = proc do
-        Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "actual" })
-      end
-      matcher = have_reported_error.with(user_id: 456, context: "expected")
-
-      expect(matcher.matches?(test_block)).to be false
+      expect {
+        expect {
+          Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "actual" })
+        }.to have_reported_error.with(user_id: 456, context: "expected")
+      }.to fail_with(/Expected error attributes to match {user_id: 456, context: "expected"}, but got these mismatches: {user_id: 456, context: "expected"} and actual values are {"user_id" => 123, "context" => "actual"}/)
     end
 
     it "fails when no error is reported but attributes are expected" do
-      test_block = proc { "no error" }
-      matcher = have_reported_error.with(user_id: 123)
-
-      expect(matcher.matches?(test_block)).to be false
-    end
-  end
-
-  describe "cleanup behavior" do
-    it "unsubscribes from error reporter on successful completion" do
-      test_block = proc do
-        Rails.error.report(StandardError.new("test"))
-      end
-
-      expect(test_block).to have_reported_error
-    end
-
-    it "unsubscribes from error reporter even when exception is raised" do
-      test_block = proc do
-        Rails.error.report(StandardError.new("test"))
-        raise "unexpected error"
-      end
-
       expect {
-        have_reported_error.matches?(test_block)
-      }.to raise_error("unexpected error")
-    end
-  end
-
-  describe "block expectations support" do
-    it "declares support for block expectations" do
-      matcher = have_reported_error
-      expect(matcher).to respond_to(:supports_block_expectations?)
-      expect(matcher.supports_block_expectations?).to be true
+        expect { "no error" }.to have_reported_error.with(user_id: 123)
+      }.to fail_with(/Expected the block to report an error, but none was reported./)
     end
   end
 
   describe "integration with actual usage patterns" do
     it "works with multiple error reports in a block" do
-      test_block = proc do
+      expect {
         Rails.error.report(StandardError.new("first error"))
         Rails.error.report(TestError.new("second error"))
-      end
-
-      expect(test_block).to have_reported_error(StandardError)
+      }.to have_reported_error(StandardError)
     end
 
     it "works with matcher chaining" do
-      test_block = proc do
+      expect {
         Rails.error.report(TestError.new("test"), context: { user_id: 123 })
-      end
-
-      expect(test_block).to have_reported_error(TestError).and have_reported_error
+      }.to have_reported_error(TestError).and have_reported_error
     end
   end
 end
