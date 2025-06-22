@@ -7,12 +7,14 @@ module RSpec
       class ErrorSubscriber
         attr_reader :events
 
+        ErrorEvent = Struct.new(:error, :attributes)
+
         def initialize
           @events = []
         end
 
         def report(error, **attrs)
-          @events << [error, attrs]
+          @events << ErrorEvent.new(error, attrs.with_indifferent_access)
         end
       end
 
@@ -47,7 +49,7 @@ module RSpec
 
           return attributes_match_if_specified?
         ensure
-          ::Rails.error.unsubscribe(@error_subscriber) if @error_subscriber
+          ::Rails.error.unsubscribe(@error_subscriber)
         end
 
         def supports_block_expectations?
@@ -73,7 +75,7 @@ module RSpec
 
         def failure_message
           if !@error_subscriber.events.empty? && !@attributes.empty?
-            event_context = @error_subscriber.events.last[1].with_indifferent_access["context"]
+            event_context = @error_subscriber.events.last.attributes[:context]
             unmatched = unmatched_attributes(event_context)
             unless unmatched.empty?
               return "Expected error attributes to match #{@attributes}, but got these mismatches: #{unmatched} and actual values are #{event_context}"
@@ -129,12 +131,12 @@ module RSpec
           return true if @attributes.empty?
           return false if @error_subscriber.events.empty?
 
-          event_context = @error_subscriber.events.last[1].with_indifferent_access["context"]
+          event_context = @error_subscriber.events.last.attributes[:context]
           attributes_match?(event_context)
         end
 
         def actual_error
-          @error_subscriber.events.empty? ? nil : @error_subscriber.events.last[0]
+          @error_subscriber.events.empty? ? nil : @error_subscriber.events.last.error
         end
 
         def attributes_match?(actual)
