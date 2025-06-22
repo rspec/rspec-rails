@@ -122,8 +122,6 @@ module RSpec
             actual_error.message&.match(@expected_error)
           when Symbol
             actual_error == @expected_error
-          else
-            true
           end
         end
 
