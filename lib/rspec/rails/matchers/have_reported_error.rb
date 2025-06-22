@@ -34,6 +34,10 @@ module RSpec
           self
         end
 
+        def and(_)
+          raise ArgumentError, "Chaining is not supported"
+        end
+
         def matches?(block)
           if block.nil?
             raise ArgumentError, "block is required for have_reported_error matcher"

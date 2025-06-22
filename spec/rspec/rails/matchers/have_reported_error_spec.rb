@@ -164,8 +164,10 @@ RSpec.describe "have_reported_error matcher" do
 
     it "works with matcher chaining" do
       expect {
-        Rails.error.report(TestError.new("test"), context: { user_id: 123 })
-      }.to have_reported_error(TestError).and have_reported_error
+        expect {
+          Rails.error.report(TestError.new("test"))
+        }.to have_reported_error(TestError).and have_reported_error
+      }.to raise_error(ArgumentError, "Chaining is not supported")
     end
   end
 end
