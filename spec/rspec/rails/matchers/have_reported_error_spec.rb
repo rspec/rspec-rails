@@ -11,7 +11,7 @@ RSpec.describe "have_reported_error matcher" do
   it "warns that passing value expectation doesn't work" do
     expect {
       expect(Rails.error.report(StandardError.new("test error"))).to have_reported_error
-    }.to raise_error(ArgumentError, "block is required for have_reported_error matcher")
+    }.to raise_error(ArgumentError, "this matcher doesn’t work with value expectations")
   end
 
   describe "basic functionality" do

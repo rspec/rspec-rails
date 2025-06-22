@@ -40,7 +40,7 @@ module RSpec
 
         def matches?(block)
           if block.nil?
-            raise ArgumentError, "block is required for have_reported_error matcher"
+            raise ArgumentError, "this matcher doesn’t work with value expectations"
           end
 
           @error_subscriber = ErrorSubscriber.new
