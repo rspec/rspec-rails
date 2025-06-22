@@ -114,7 +114,6 @@ module RSpec
 
         def error_matches_expectation?
           return true if @expected_error.nil? && @error_subscriber.events.any?
-          return false if actual_error.nil?
 
           case @expected_error
           when Class
