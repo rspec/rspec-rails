@@ -4,6 +4,16 @@ RSpec.describe "have_reported_error matcher" do
   class TestError < StandardError; end
   class AnotherTestError < StandardError; end
 
+  it "has an reports_error alias" do
+    expect {Rails.error.report(StandardError.new("test error"))}.to reports_error
+  end
+
+  it "warns that passing value expectation doesn't work" do
+    expect {
+      expect(Rails.error.report(StandardError.new("test error"))).to have_reported_error
+    }.to raise_error(ArgumentError, "block is required for have_reported_error matcher")
+  end
+
   describe "basic functionality" do
     it "passes when an error is reported" do
       expect {Rails.error.report(StandardError.new("test error"))}.to have_reported_error

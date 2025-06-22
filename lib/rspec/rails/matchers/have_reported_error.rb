@@ -33,6 +33,10 @@ module RSpec
         end
 
         def matches?(block)
+          if block.nil?
+            raise ArgumentError, "block is required for have_reported_error matcher"
+          end
+
           @error_subscriber = ErrorSubscriber.new
           ::Rails.error.subscribe(@error_subscriber)
 
@@ -181,6 +185,8 @@ module RSpec
       def have_reported_error(expected_error = nil)
         HaveReportedError.new(expected_error)
       end
+
+      alias_method :reports_error, :have_reported_error
     end
   end
 end
