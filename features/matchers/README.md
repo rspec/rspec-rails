@@ -28,6 +28,6 @@ expect(assigns(:widget)).to be_a_new(Widget)
 ### error reporting
 
 ```ruby
-# passes if Rails.error.report was called with specific error instance and message
+# passes when `Rails.error.report` is called with specific error instance and message
 expect { Rails.error.report(MyError.new("message")) }.to have_reported_error(MyError.new("message"))
 ```

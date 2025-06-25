@@ -6,7 +6,7 @@ Feature: `have_reported_error` matcher
 
   The matcher supports several matching strategies:
   * Any error reported
-  * Specific error class
+  * A specific error class
   * Specific error instance with message
   * Error message patterns using regular expressions
   * Error attributes using `.with()`
@@ -18,6 +18,7 @@ Feature: `have_reported_error` matcher
     Given a file named "app/models/user.rb" with:
       """ruby
       class User < ApplicationRecord
+        class ValidationError < StandardError; end
         def self.process_data
           Rails.error.report(StandardError.new("Processing failed"))
         end
@@ -31,11 +32,6 @@ Feature: `have_reported_error` matcher
         end
       end
       """
-    And a file named "app/errors/validation_error.rb" with:
-      """ruby
-      class ValidationError < StandardError
-      end
-      """
 
   Scenario: Checking for any error being reported
     Given a file named "spec/models/user_spec.rb" with:
@@ -43,7 +39,7 @@ Feature: `have_reported_error` matcher
       require "rails_helper"
 
       RSpec.describe User do
-        it "reports an error during processing" do
+        it "reports errors" do
           expect {
             User.process_data
           }.to have_reported_error
@@ -53,7 +49,7 @@ Feature: `have_reported_error` matcher
     When I run `rspec spec/models/user_spec.rb`
     Then the examples should all pass
 
-  Scenario: Checking for specific error class
+  Scenario: Checking for a specific error class
     Given a file named "spec/models/user_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -97,29 +93,23 @@ Feature: `have_reported_error` matcher
     When I run `rspec spec/models/user_spec.rb`
     Then the examples should all pass
 
-  Scenario: Checking error message patterns with regular expressions
+  Scenario: Checking error messages using regular expressions
     Given a file named "spec/models/user_spec.rb" with:
       """ruby
       require "rails_helper"
 
       RSpec.describe User do
-        it "reports error with message matching pattern" do
+        it "reports errors with a message matching a pattern" do
           expect {
             User.process_data
           }.to have_reported_error(/Processing/)
-        end
-
-        it "reports error with message containing 'failed'" do
-          expect {
-            User.process_data
-          }.to have_reported_error(/failed$/)
         end
       end
       """
     When I run `rspec spec/models/user_spec.rb`
     Then the examples should all pass
 
-  Scenario: Checking error attributes using `with`
+  Scenario: Constraining error matches to their attributes using `with`
     Given a file named "spec/models/user_spec.rb" with:
       """ruby
       require "rails_helper"

@@ -3,7 +3,7 @@ require "rspec/rails/matchers/base_matcher"
 module RSpec
   module Rails
     module Matchers
-      # @private
+      # @api private
       class ErrorSubscriber
         attr_reader :events
 
@@ -20,7 +20,7 @@ module RSpec
 
       # Matcher class for `have_reported_error`. Should not be instantiated directly.
       #
-      # @private
+      # @api private
       # @see RSpec::Rails::Matchers#have_reported_error
       class HaveReportedError < RSpec::Rails::Matchers::BaseMatcher
         def initialize(expected_error = nil)

@@ -4,38 +4,38 @@ RSpec.describe "have_reported_error matcher" do
   class TestError < StandardError; end
   class AnotherTestError < StandardError; end
 
-  it "has an reports_error alias" do
+  it "is aliased as reports_error" do
     expect {Rails.error.report(StandardError.new("test error"))}.to reports_error
   end
 
-  it "warns that passing value expectation doesn't work" do
+  it "warns when used as a value expectation" do
     expect {
       expect(Rails.error.report(StandardError.new("test error"))).to have_reported_error
     }.to raise_error(ArgumentError, "this matcher doesn’t work with value expectations")
   end
 
-  describe "basic functionality" do
+  context "without constraint" do
     it "passes when an error is reported" do
       expect {Rails.error.report(StandardError.new("test error"))}.to have_reported_error
     end
 
-    it "fails when no error is reported" do
+    it "fails when no errors are reported" do
       expect {
         expect { "no error" }.to have_reported_error
       }.to fail_with(/Expected the block to report an error, but none was reported./)
     end
 
-    it "passes when negated and no error is reported" do
+    it "passes when negated and no errors are reported" do
       expect { "no error" }.not_to have_reported_error
     end
   end
 
-  describe "error class matching" do
-    it "passes when correct error class is reported" do
+  context "constrained to a specific error class" do
+    it "passes when an error with the correct class is reported" do
       expect { Rails.error.report(TestError.new("test error")) }.to have_reported_error(TestError)
     end
 
-    it "fails when wrong error class is reported" do
+    it "fails when an error with the wrong class is reported" do
       expect {
         expect {
           Rails.error.report(AnotherTestError.new("wrong error"))
@@ -44,20 +44,20 @@ RSpec.describe "have_reported_error matcher" do
     end
   end
 
-  describe "error instance matching" do
-    it "passes when error instance matches exactly" do
+  context "constrained to a matching error (class and message)" do
+    it "passes with an error that matches exactly" do
       expect {
         Rails.error.report(TestError.new("exact message"))
       }.to have_reported_error(TestError.new("exact message"))
     end
 
-    it "passes when error instance has empty expected message" do
+    it "passes any error of the same class if the expected message is empty" do
       expect {
         Rails.error.report(TestError.new("any message"))
       }.to have_reported_error(TestError.new(""))
     end
 
-    it "fails when error instance has different message" do
+    it "fails when the error has different message to the expected" do
       expect {
         expect {
           Rails.error.report(TestError.new("actual message"))
@@ -66,14 +66,14 @@ RSpec.describe "have_reported_error matcher" do
     end
   end
 
-  describe "regex pattern matching" do
-    it "passes when error message matches pattern" do
+  context "constrained by regex pattern matching" do
+    it "passes when an error message matches the pattern" do
       expect {
         Rails.error.report(StandardError.new("error with pattern"))
       }.to have_reported_error(/with pattern/)
     end
 
-    it "fails when error message does not match pattern" do
+    it "fails when no error messages match the pattern" do
       expect {
         expect {
           Rails.error.report(StandardError.new("error without match"))
@@ -82,8 +82,8 @@ RSpec.describe "have_reported_error matcher" do
     end
   end
 
-  describe "failure messages for attribute mismatches" do
-    it "provides detailed failure message when attributes don't match" do
+  describe "#failure_message" do
+    it "provides details about mismatched attributes" do
       expect {
         expect {
           Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "actual" })
@@ -116,7 +116,7 @@ RSpec.describe "have_reported_error matcher" do
     end
   end
 
-  describe "attribute matching with .with chain" do
+  describe "#with" do
     it "passes when attributes match exactly" do
       expect {
         Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "test" })
