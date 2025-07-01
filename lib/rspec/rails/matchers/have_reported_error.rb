@@ -29,7 +29,7 @@ module RSpec
           @error_subscriber = nil
         end
 
-        def with(expected_attributes)
+        def with_context(expected_attributes)
           @attributes.merge!(expected_attributes)
           self
         end
@@ -46,7 +46,7 @@ module RSpec
           @error_subscriber = ErrorSubscriber.new
           ::Rails.error.subscribe(@error_subscriber)
 
-          block&.call
+          block.call
 
           return false if @error_subscriber.events.empty? && !@expected_error.nil?
           return false unless error_matches_expectation?
@@ -176,7 +176,7 @@ module RSpec
       #   expect { Rails.error.report(MyError.new("message")) }.to have_reported_error(MyError.new("message"))
       #
       # @example Checking error attributes
-      #   expect { Rails.error.report(StandardError.new, context: "test") }.to have_reported_error.with(context: "test")
+      #   expect { Rails.error.report(StandardError.new, context: "test") }.to have_reported_error.with_context(context: "test")
       #
       # @example Checking error message patterns
       #   expect { Rails.error.report(StandardError.new("test message")) }.to have_reported_error(/test/)

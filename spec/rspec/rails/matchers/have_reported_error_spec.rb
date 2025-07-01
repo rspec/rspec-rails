@@ -85,7 +85,7 @@ RSpec.describe "have_reported_error matcher" do
       expect {
         expect {
           Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "actual" })
-        }.to have_reported_error.with(user_id: 456, context: "expected")
+        }.to have_reported_error.with_context(user_id: 456, context: "expected")
       }.to fail_with(/Expected error attributes to match {user_id: 456, context: "expected"}, but got these mismatches: {user_id: 456, context: "expected"} and actual values are {"user_id" => 123, "context" => "actual"}/)
     end
 
@@ -93,7 +93,7 @@ RSpec.describe "have_reported_error matcher" do
       expect {
         expect {
           Rails.error.report(StandardError.new("test"), context: { user_id: 123, status: "active", role: "admin" })
-        }.to have_reported_error.with(user_id: 456, status: "active") # user_id wrong, status correct
+        }.to have_reported_error.with_context(user_id: 456, status: "active") # user_id wrong, status correct
       }.to fail_with(/got these mismatches: {user_id: 456}/)
     end
 
@@ -101,7 +101,7 @@ RSpec.describe "have_reported_error matcher" do
       expect {
         expect {
           Rails.error.report(StandardError.new("test"), context: { params: { foo: "different" } })
-        }.to have_reported_error.with(params: a_hash_including(foo: "bar"))
+        }.to have_reported_error.with_context(params: a_hash_including(foo: "bar"))
       }.to fail_with(/Expected error attributes to match/)
     end
 
@@ -109,16 +109,16 @@ RSpec.describe "have_reported_error matcher" do
       expect {
         expect {
           Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "actual" })
-        }.to have_reported_error.with(user_id: 456)
+        }.to have_reported_error.with_context(user_id: 456)
       }.to fail_with(/actual values are {"user_id" => 123, "context" => "actual"}/)
     end
   end
 
-  describe "#with" do
+  describe "#with_context" do
     it "passes when attributes match exactly" do
       expect {
         Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "test" })
-      }.to have_reported_error.with(user_id: 123, context: "test")
+      }.to have_reported_error.with_context(user_id: 123, context: "test")
     end
 
     it "passes with partial attribute matching" do
@@ -126,7 +126,7 @@ RSpec.describe "have_reported_error matcher" do
         Rails.error.report(
           StandardError.new("test"), context: { user_id: 123, context: "test", extra: "data" }
         )
-      }.to have_reported_error.with(user_id: 123)
+      }.to have_reported_error.with_context(user_id: 123)
     end
 
     it "passes with hash matching using RSpec matchers" do
@@ -134,20 +134,20 @@ RSpec.describe "have_reported_error matcher" do
         Rails.error.report(
           StandardError.new("test"), context: { params: { foo: "bar", baz: "qux" } }
         )
-      }.to have_reported_error.with(params: a_hash_including(foo: "bar"))
+      }.to have_reported_error.with_context(params: a_hash_including(foo: "bar"))
     end
 
     it "fails when attributes do not match" do
       expect {
         expect {
           Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "actual" })
-        }.to have_reported_error.with(user_id: 456, context: "expected")
+        }.to have_reported_error.with_context(user_id: 456, context: "expected")
       }.to fail_with(/Expected error attributes to match {user_id: 456, context: "expected"}, but got these mismatches: {user_id: 456, context: "expected"} and actual values are {"user_id" => 123, "context" => "actual"}/)
     end
 
     it "fails when no error is reported but attributes are expected" do
       expect {
-        expect { "no error" }.to have_reported_error.with(user_id: 123)
+        expect { "no error" }.to have_reported_error.with_context(user_id: 123)
       }.to fail_with(/Expected the block to report an error, but none was reported./)
     end
   end
