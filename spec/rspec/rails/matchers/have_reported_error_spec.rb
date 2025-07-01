@@ -1,5 +1,3 @@
-require "rspec/rails/matchers/have_reported_error"
-
 RSpec.describe "have_reported_error matcher" do
   class TestError < StandardError; end
   class AnotherTestError < StandardError; end
