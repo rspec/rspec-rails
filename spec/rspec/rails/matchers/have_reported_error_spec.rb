@@ -9,7 +9,7 @@ RSpec.describe "have_reported_error matcher" do
   it "warns when used as a value expectation" do
     expect {
       expect(Rails.error.report(StandardError.new("test error"))).to have_reported_error
-    }.to raise_error(ArgumentError, "this matcher doesn’t work with value expectations")
+    }.to raise_error(ArgumentError, "this matcher doesn't work with value expectations")
   end
 
   context "without constraint" do
