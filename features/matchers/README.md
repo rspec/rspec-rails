@@ -28,6 +28,21 @@ expect(assigns(:widget)).to be_a_new(Widget)
 ### error reporting
 
 ```ruby
-# passes when `Rails.error.report` is called with specific error instance and message
+# passes when any error is reported
+expect { Rails.error.report(StandardError.new) }.to have_reported_error
+
+# passes when specific error class is reported
+expect { Rails.error.report(MyError.new) }.to have_reported_error(MyError)
+
+# passes when specific error class with exact message is reported
+expect { Rails.error.report(MyError.new("message")) }.to have_reported_error(MyError, "message")
+
+# passes when specific error class with message matching pattern is reported
+expect { Rails.error.report(MyError.new("test message")) }.to have_reported_error(MyError, /test/)
+
+# passes when error is reported with specific context attributes
+expect { Rails.error.report(StandardError.new, context: { user_id: 123 }) }.to have_reported_error.with_context(user_id: 123)
+
+# backward compatibility - accepts error instances
 expect { Rails.error.report(MyError.new("message")) }.to have_reported_error(MyError.new("message"))
 ```

@@ -46,21 +46,21 @@ RSpec.describe "have_reported_error matcher" do
     it "passes with an error that matches exactly" do
       expect {
         Rails.error.report(TestError.new("exact message"))
-      }.to have_reported_error(TestError.new("exact message"))
+      }.to have_reported_error(TestError, "exact message")
     end
 
-    it "passes any error of the same class if the expected message is empty" do
+    it "passes any error of the same class if no message is specified" do
       expect {
         Rails.error.report(TestError.new("any message"))
-      }.to have_reported_error(TestError.new(""))
+      }.to have_reported_error(TestError)
     end
 
     it "fails when the error has different message to the expected" do
       expect {
         expect {
           Rails.error.report(TestError.new("actual message"))
-        }.to have_reported_error(TestError.new("expected message"))
-      }.to fail_with(/Expected error to be TestError with message 'expected message', but got TestError with message: 'actual message'/)
+        }.to have_reported_error(TestError, "expected message")
+      }.to fail_with(/Expected error message to be 'expected message', but got: 'actual message'/)
     end
   end
 
@@ -68,14 +68,14 @@ RSpec.describe "have_reported_error matcher" do
     it "passes when an error message matches the pattern" do
       expect {
         Rails.error.report(StandardError.new("error with pattern"))
-      }.to have_reported_error(/with pattern/)
+      }.to have_reported_error(StandardError, /with pattern/)
     end
 
     it "fails when no error messages match the pattern" do
       expect {
         expect {
           Rails.error.report(StandardError.new("error without match"))
-        }.to have_reported_error(/different pattern/)
+        }.to have_reported_error(StandardError, /different pattern/)
       }.to fail_with(/Expected error message to match/)
     end
   end
@@ -149,6 +149,44 @@ RSpec.describe "have_reported_error matcher" do
       expect {
         expect { "no error" }.to have_reported_error.with_context(user_id: 123)
       }.to fail_with(/Expected the block to report an error, but none was reported./)
+    end
+  end
+
+  context "backward compatibility with old API" do
+    it "accepts Exception instances and matches class and message" do
+      expect {
+        Rails.error.report(TestError.new("exact message"))
+      }.to have_reported_error(TestError.new("exact message"))
+    end
+
+    it "accepts Exception instances with empty message and matches any message of that class" do
+      expect {
+        Rails.error.report(TestError.new("any message"))
+      }.to have_reported_error(TestError.new(""))
+    end
+
+    it "accepts Regexp directly for message matching" do
+      expect {
+        Rails.error.report(StandardError.new("error with pattern"))
+      }.to have_reported_error(/with pattern/)
+    end
+
+
+
+    it "fails when Exception instance class doesn't match" do
+      expect {
+        expect {
+          Rails.error.report(AnotherTestError.new("message"))
+        }.to have_reported_error(TestError.new("message"))
+      }.to fail_with(/Expected error to be an instance of TestError, but got AnotherTestError/)
+    end
+
+    it "fails when Exception instance message doesn't match" do
+      expect {
+        expect {
+          Rails.error.report(TestError.new("actual message"))
+        }.to have_reported_error(TestError.new("expected message"))
+      }.to fail_with(/Expected error message to be 'expected message', but got: 'actual message'/)
     end
   end
 
