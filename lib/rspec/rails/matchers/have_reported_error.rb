@@ -4,6 +4,11 @@ module RSpec
   module Rails
     module Matchers
       # @api private
+      # Sentinel value to distinguish between no argument passed vs explicitly passed nil.
+      # This follows the same pattern as RSpec's raise_error matcher.
+      UndefinedValue = Object.new.freeze
+
+      # @api private
       class ErrorSubscriber
         attr_reader :events
 
@@ -28,17 +33,20 @@ module RSpec
       class HaveReportedError < RSpec::Rails::Matchers::BaseMatcher
         # Initialize the matcher following raise_error patterns
         #
+        # Uses UndefinedValue as default to distinguish between no argument 
+        # passed vs explicitly passed nil (same as raise_error matcher).
+        #
         # @param expected_error_or_message [Class, String, Regexp, nil] 
         #   Error class, message string, or message pattern
         # @param expected_message [String, Regexp, nil] 
         #   Expected message when first param is a class
-        def initialize(expected_error_or_message = nil, expected_message = nil)
+        def initialize(expected_error_or_message = UndefinedValue, expected_message = nil)
           @actual_error = nil
           @attributes = {}
           @error_subscriber = nil
           
           case expected_error_or_message
-          when nil
+          when nil, UndefinedValue
             @expected_error = nil
             @expected_message = expected_message
           when String, Regexp
@@ -232,7 +240,7 @@ module RSpec
       #
       # @param expected_error_or_message [Class, String, Regexp, nil] the expected error class, message string, or message pattern
       # @param expected_message [String, Regexp, nil] the expected error message to match
-      def have_reported_error(expected_error_or_message = nil, expected_message = nil)
+      def have_reported_error(expected_error_or_message = UndefinedValue, expected_message = nil)
         HaveReportedError.new(expected_error_or_message, expected_message)
       end
 
