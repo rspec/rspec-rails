@@ -23,22 +23,16 @@ module RSpec
       # @api private
       # @see RSpec::Rails::Matchers#have_reported_error
       class HaveReportedError < RSpec::Rails::Matchers::BaseMatcher
-        def initialize(expected_error_class = nil, expected_message = nil)
-          # Handle backward compatibility with old API
-          if expected_error_class.is_a?(Exception)
-            @expected_error_class = expected_error_class.class
-            @expected_message = expected_error_class.message.empty? ? nil : expected_error_class.message
-          elsif expected_error_class.is_a?(Regexp)
+        def initialize(expected_error_or_message = nil, expected_message = nil)
+          if expected_error_or_message.is_a?(Regexp)
             @expected_error_class = nil
-            @expected_message = expected_error_class
-          elsif expected_error_class.is_a?(Symbol)
-            @expected_error_symbol = expected_error_class
+            @expected_message = expected_error_or_message
+          elsif expected_error_or_message.is_a?(String)
             @expected_error_class = nil
-            @expected_message = nil
+            @expected_message = expected_error_or_message
           else
-            @expected_error_class = expected_error_class
+            @expected_error_class = expected_error_or_message
             @expected_message = expected_message
-            @expected_error_symbol = nil
           end
           
           @attributes = {}
@@ -77,22 +71,26 @@ module RSpec
         end
 
         def description
-          desc = "report an error"
-          if @expected_error_symbol
-            desc = "report #{@expected_error_symbol}"
-          elsif @expected_error_class
-            desc = "report a #{@expected_error_class} error"
-          end
-          if @expected_message
-            case @expected_message
-            when Regexp
-              desc += " with message matching #{@expected_message}"
-            when String
-              desc += " with message '#{@expected_message}'"
-            end
-          end
-          desc += " with #{@attributes}" unless @attributes.empty?
-          desc
+          base_desc = if @expected_error_class
+                        "report a #{@expected_error_class} error"
+                      else
+                        "report an error"
+                      end
+
+          message_desc = if @expected_message
+                           case @expected_message
+                           when Regexp
+                             " with message matching #{@expected_message}"
+                           when String
+                             " with message '#{@expected_message}'"
+                           end
+                         else
+                           ""
+                         end
+
+          attributes_desc = @attributes.empty? ? "" : " with #{@attributes}"
+
+          base_desc + message_desc + attributes_desc
         end
 
         def failure_message
@@ -105,9 +103,7 @@ module RSpec
           elsif @error_subscriber.events.empty?
             return 'Expected the block to report an error, but none was reported.'
           else
-            if @expected_error_symbol
-              return "Expected error to be #{@expected_error_symbol}, but got: #{actual_error}"
-            elsif @expected_error_class && !actual_error.is_a?(@expected_error_class)
+            if @expected_error_class && !actual_error.is_a?(@expected_error_class)
               return "Expected error to be an instance of #{@expected_error_class}, but got #{actual_error.class} with message: '#{actual_error.message}'"
             elsif @expected_message
               case @expected_message
@@ -135,11 +131,6 @@ module RSpec
         def error_matches_expectation?
           # If no events were reported, we can't match anything
           return false if @error_subscriber.events.empty?
-          
-          # Handle symbol matching (backward compatibility)
-          if @expected_error_symbol
-            return actual_error == @expected_error_symbol
-          end
           
           # If no constraints are given, any error should match
           return true if @expected_error_class.nil? && @expected_message.nil?
@@ -206,23 +197,25 @@ module RSpec
       # @example Checking for specific error class with message
       #   expect { Rails.error.report(MyError.new("message")) }.to have_reported_error(MyError, "message")
       #
-      # @example Checking for specific error instance (backward compatibility)
-      #   expect { Rails.error.report(MyError.new("message")) }.to have_reported_error(MyError.new("message"))
+      # @example Checking for error with exact message (any class)
+      #   expect { Rails.error.report(StandardError.new("exact message")) }.to have_reported_error("exact message")
+      #
+      # @example Checking for error with message pattern (any class)
+      #   expect { Rails.error.report(StandardError.new("test message")) }.to have_reported_error(/test/)
+      #
+      # @example Checking for specific error class with message pattern
+      #   expect { Rails.error.report(StandardError.new("test message")) }.to have_reported_error(StandardError, /test/)
       #
       # @example Checking error attributes
       #   expect { Rails.error.report(StandardError.new, context: "test") }.to have_reported_error.with_context(context: "test")
       #
-      # @example Checking error message patterns
-      #   expect { Rails.error.report(StandardError.new("test message")) }.to have_reported_error(StandardError, /test/)
-      #   expect { Rails.error.report(StandardError.new("test message")) }.to have_reported_error(/test/)
-      #
       # @example Negation
       #   expect { "safe code" }.not_to have_reported_error
       #
-      # @param expected_error_class [Class, Exception, Regexp, Symbol, nil] the expected error class to match, or error instance for backward compatibility
+      # @param expected_error_or_message [Class, String, Regexp, nil] the expected error class, message string, or message pattern
       # @param expected_message [String, Regexp, nil] the expected error message to match
-      def have_reported_error(expected_error_class = nil, expected_message = nil)
-        HaveReportedError.new(expected_error_class, expected_message)
+      def have_reported_error(expected_error_or_message = nil, expected_message = nil)
+        HaveReportedError.new(expected_error_or_message, expected_message)
       end
 
       alias_method :reports_error, :have_reported_error

@@ -40,9 +40,14 @@ expect { Rails.error.report(MyError.new("message")) }.to have_reported_error(MyE
 # passes when specific error class with message matching pattern is reported
 expect { Rails.error.report(MyError.new("test message")) }.to have_reported_error(MyError, /test/)
 
+# passes when any error with exact message is reported
+expect { Rails.error.report(StandardError.new("exact message")) }.to have_reported_error("exact message")
+
+# passes when any error with message matching pattern is reported
+expect { Rails.error.report(StandardError.new("test message")) }.to have_reported_error(/test/)
+
 # passes when error is reported with specific context attributes
 expect { Rails.error.report(StandardError.new, context: { user_id: 123 }) }.to have_reported_error.with_context(user_id: 123)
 
-# backward compatibility - accepts error instances
-expect { Rails.error.report(MyError.new("message")) }.to have_reported_error(MyError.new("message"))
+
 ```

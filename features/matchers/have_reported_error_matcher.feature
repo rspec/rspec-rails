@@ -2,15 +2,15 @@ Feature: `have_reported_error` matcher
 
   The `have_reported_error` matcher is used to check if an error was reported
   to Rails error reporting system (`Rails.error`). It can match against error
-  classes, instances, messages, and attributes.
+  classes, messages, and attributes.
 
   The matcher supports several matching strategies:
   * Any error reported
   * A specific error class
-  * Specific error instance with message
+  * A specific error class with message
   * Error message patterns using regular expressions
-  * Error attributes using `.with()`
-  * Symbol errors
+  * Message-only matching (any class)
+  * Error attributes using `.with_context()`
 
   The matcher is available in all spec types where Rails error reporting is used.
 
@@ -24,7 +24,7 @@ Feature: `have_reported_error` matcher
         end
 
         def self.process_with_context
-          Rails.error.report(ArgumentError.new("Invalid input"), context: "user_processing", severity: "high")
+          Rails.error.report(ArgumentError.new("Invalid input"), context: { context: "user_processing", severity: :error })
         end
 
         def self.process_custom_error
@@ -43,6 +43,28 @@ Feature: `have_reported_error` matcher
           expect {
             User.process_data
           }.to have_reported_error
+        end
+      end
+      """
+    When I run `rspec spec/models/user_spec.rb`
+    Then the examples should all pass
+
+  Scenario: Checking for message-only matching
+    Given a file named "spec/models/user_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe User do
+        it "reports error with exact message (any class)" do
+          expect {
+            User.process_data
+          }.to have_reported_error("Processing failed")
+        end
+
+        it "reports error with message pattern (any class)" do
+          expect {
+            User.process_custom_error
+          }.to have_reported_error(/Email/)
         end
       end
       """
@@ -71,7 +93,7 @@ Feature: `have_reported_error` matcher
     When I run `rspec spec/models/user_spec.rb`
     Then the examples should all pass
 
-  Scenario: Checking for specific error instance with message
+  Scenario: Checking for specific error class with message
     Given a file named "spec/models/user_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -80,13 +102,13 @@ Feature: `have_reported_error` matcher
         it "reports error with specific message" do
           expect {
             User.process_data
-          }.to have_reported_error(StandardError.new("Processing failed"))
+          }.to have_reported_error(StandardError, "Processing failed")
         end
 
         it "reports ArgumentError with specific message" do
           expect {
             User.process_with_context
-          }.to have_reported_error(ArgumentError.new("Invalid input"))
+          }.to have_reported_error(ArgumentError, "Invalid input")
         end
       end
       """
@@ -99,17 +121,23 @@ Feature: `have_reported_error` matcher
       require "rails_helper"
 
       RSpec.describe User do
-        it "reports errors with a message matching a pattern" do
+        it "reports errors with a message matching a pattern (any class)" do
           expect {
             User.process_data
           }.to have_reported_error(/Processing/)
+        end
+
+        it "reports specific class with message matching a pattern" do
+          expect {
+            User.process_data
+          }.to have_reported_error(StandardError, /Processing/)
         end
       end
       """
     When I run `rspec spec/models/user_spec.rb`
     Then the examples should all pass
 
-  Scenario: Constraining error matches to their attributes using `with`
+  Scenario: Constraining error matches to their attributes using `with_context`
     Given a file named "spec/models/user_spec.rb" with:
       """ruby
       require "rails_helper"
@@ -118,13 +146,13 @@ Feature: `have_reported_error` matcher
         it "reports error with specific context" do
           expect {
             User.process_with_context
-          }.to have_reported_error.with(context: "user_processing")
+          }.to have_reported_error.with_context(context: "user_processing")
         end
 
         it "reports error with multiple attributes" do
           expect {
             User.process_with_context
-          }.to have_reported_error(ArgumentError).with(context: "user_processing", severity: "high")
+          }.to have_reported_error(ArgumentError).with_context(context: "user_processing", severity: :error)
         end
       end
       """
@@ -140,13 +168,13 @@ Feature: `have_reported_error` matcher
         it "reports a ValidationError" do
           expect {
             User.process_custom_error
-          }.to have_reported_error(ValidationError)
+          }.to have_reported_error(User::ValidationError)
         end
 
         it "reports ValidationError with specific message" do
           expect {
             User.process_custom_error
-          }.to have_reported_error(ValidationError.new("Email is invalid"))
+          }.to have_reported_error(User::ValidationError, "Email is invalid")
         end
       end
       """
