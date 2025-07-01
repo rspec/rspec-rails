@@ -1,5 +1,3 @@
-require "rspec/rails/matchers/base_matcher"
-
 module RSpec
   module Rails
     module Matchers
@@ -26,25 +24,20 @@ module RSpec
       # Matcher class for `have_reported_error`. Should not be instantiated directly.
       #
       # Provides a way to test that an error was reported to Rails.error.
-      # This matcher follows the same patterns as RSpec's built-in `raise_error` matcher.
       #
       # @api private
       # @see RSpec::Rails::Matchers#have_reported_error
       class HaveReportedError < RSpec::Rails::Matchers::BaseMatcher
-        # Initialize the matcher following raise_error patterns
+        # Uses UndefinedValue as default to distinguish between no argument
+        # passed vs explicitly passed nil.
         #
-        # Uses UndefinedValue as default to distinguish between no argument 
-        # passed vs explicitly passed nil (same as raise_error matcher).
-        #
-        # @param expected_error_or_message [Class, String, Regexp, nil] 
+        # @param expected_error_or_message [Class, String, Regexp, nil]
         #   Error class, message string, or message pattern
-        # @param expected_message [String, Regexp, nil] 
+        # @param expected_message [String, Regexp, nil]
         #   Expected message when first param is a class
         def initialize(expected_error_or_message = UndefinedValue, expected_message = nil)
-          @actual_error = nil
           @attributes = {}
-          @error_subscriber = nil
-          
+
           case expected_error_or_message
           when nil, UndefinedValue
             @expected_error = nil
@@ -67,7 +60,6 @@ module RSpec
           raise ArgumentError, "Chaining is not supported"
         end
 
-        # Check if the block reports an error matching our expectations
         def matches?(block)
           if block.nil?
             raise ArgumentError, "this matcher doesn't work with value expectations"
@@ -122,16 +114,22 @@ module RSpec
             end
           elsif @error_subscriber.events.empty?
             return 'Expected the block to report an error, but none was reported.'
+          elsif actual_error.nil?
+            reported_errors = @error_subscriber.events.map { |event| "#{event.error.class}: '#{event.error.message}'" }.join(', ')
+            if @expected_error && @expected_message
+              return "Expected error to be an instance of #{@expected_error} with message '#{@expected_message}', but got: #{reported_errors}"
+            elsif @expected_error
+              return "Expected error to be an instance of #{@expected_error}, but got: #{reported_errors}"
+            elsif @expected_message.is_a?(Regexp)
+              return "Expected error message to match #{@expected_message}, but got: #{reported_errors}"
+            elsif @expected_message.is_a?(String)
+              return "Expected error message to be '#{@expected_message}', but got: #{reported_errors}"
+            end
           else
             if @expected_error && !actual_error.is_a?(@expected_error)
               return "Expected error to be an instance of #{@expected_error}, but got #{actual_error.class} with message: '#{actual_error.message}'"
             elsif @expected_message
-              case @expected_message
-              when Regexp
-                return "Expected error message to match #{@expected_message}, but got: '#{actual_error.message}'"
-              when String
-                return "Expected error message to be '#{@expected_message}', but got: '#{actual_error.message}'"
-              end
+              return "Expected error message to #{@expected_message.is_a?(Regexp) ? "match" : "be" } #{@expected_message}, but got: '#{actual_error.message}'"
             else
               return "Expected specific error, but got #{actual_error.class} with message: '#{actual_error.message}'"
             end
@@ -148,28 +146,27 @@ module RSpec
 
         private
 
-        # Check if the reported error matches our class and message expectations
         def error_matches_expectation?
-          return false if @error_subscriber.events.empty?
-          return true if @expected_error.nil? && @expected_message.nil?
+          return true if @expected_error.nil? && @expected_message.nil? && @error_subscriber.events.count.positive?
 
-          error_class_matches? && error_message_matches?
+          @error_subscriber.events.any? do |event|
+            error_class_matches?(event.error) && error_message_matches?(event.error)
+          end
         end
 
-        # Check if the actual error class matches the expected error class
-        def error_class_matches?
-          @expected_error.nil? || actual_error.is_a?(@expected_error)
+        def error_class_matches?(error)
+          @expected_error.nil? || error.is_a?(@expected_error)
         end
 
-        # Check if the actual error message matches the expected message pattern
-        def error_message_matches?
+        # Check if the given error message matches the expected message pattern
+        def error_message_matches?(error)
           return true if @expected_message.nil?
-          
+
           case @expected_message
           when Regexp
-            actual_error.message&.match(@expected_message)
+            error.message&.match(@expected_message)
           when String
-            actual_error.message == @expected_message
+            error.message == @expected_message
           else
             false
           end
@@ -177,15 +174,24 @@ module RSpec
 
         def attributes_match_if_specified?
           return true if @attributes.empty?
-          return false if @error_subscriber.events.empty?
+          return false unless matching_event
 
-          event_context = @error_subscriber.events.last.attributes[:context]
+          event_context = matching_event.attributes[:context]
           attributes_match?(event_context)
         end
 
-        # Get the actual error that was reported (cached)
         def actual_error
-          @actual_error ||= (@error_subscriber.events.empty? ? nil : @error_subscriber.events.last.error)
+          @actual_error ||= matching_event&.error
+        end
+
+        def matching_event
+          @matching_event ||= find_matching_event
+        end
+
+        def find_matching_event
+          @error_subscriber.events.find do |event|
+            error_class_matches?(event.error) && error_message_matches?(event.error)
+          end
         end
 
         def attributes_match?(actual)

@@ -48,7 +48,7 @@ RSpec.describe "have_reported_error matcher" do
         expect {
           Rails.error.report(AnotherTestError.new("wrong error"))
         }.to have_reported_error(TestError)
-      }.to fail_with(/Expected error to be an instance of TestError, but got AnotherTestError/)
+      }.to fail_with(/Expected error to be an instance of TestError, but got: AnotherTestError/)
     end
   end
 
@@ -70,7 +70,7 @@ RSpec.describe "have_reported_error matcher" do
         expect {
           Rails.error.report(TestError.new("actual message"))
         }.to have_reported_error(TestError, "expected message")
-      }.to fail_with(/Expected error message to be 'expected message', but got: 'actual message'/)
+      }.to fail_with(/Expected error to be an instance of TestError with message 'expected message', but got: TestError/)
     end
   end
 
@@ -86,7 +86,7 @@ RSpec.describe "have_reported_error matcher" do
         expect {
           Rails.error.report(StandardError.new("error without match"))
         }.to have_reported_error(StandardError, /different pattern/)
-      }.to fail_with(/Expected error message to match/)
+      }.to fail_with(/Expected error to be an instance of StandardError with message/)
     end
   end
 
@@ -180,7 +180,7 @@ RSpec.describe "have_reported_error matcher" do
         expect {
           Rails.error.report(StandardError.new("actual message"))
         }.to have_reported_error("expected message")
-      }.to fail_with(/Expected error message to be 'expected message', but got: 'actual message'/)
+      }.to fail_with(/Expected error message to be 'expected message', but got: StandardError/)
     end
 
     it "fails when no error with matching pattern is reported" do
@@ -188,7 +188,7 @@ RSpec.describe "have_reported_error matcher" do
         expect {
           Rails.error.report(StandardError.new("error without match"))
         }.to have_reported_error(/different pattern/)
-      }.to fail_with(/Expected error message to match/)
+      }.to fail_with(/Expected error message to match .+different pattern.+, but got: StandardError/)
     end
   end
 
