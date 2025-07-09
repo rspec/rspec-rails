@@ -17,8 +17,10 @@ RSpec.describe "have_reported_error matcher" do
       expect {Rails.error.report(StandardError.new("test error"))}.to have_reported_error
     end
 
-    it "passes when an error is reported with explicit nil argument" do
-      expect {Rails.error.report(StandardError.new("test error"))}.to have_reported_error(nil)
+    it "fails when an error is reported with explicit nil argument" do
+      expect {
+        expect {Rails.error.report(StandardError.new("test error"))}.to have_reported_error(nil)
+      }.to raise_error(RuntimeError, /Using the `have_reported_error` matcher with a `nil` error is probably unintentional/)
     end
 
     it "fails when no errors are reported" do
@@ -29,7 +31,7 @@ RSpec.describe "have_reported_error matcher" do
 
     it "fails when no errors are reported with explicit nil argument" do
       expect {
-        expect { "no error" }.to have_reported_error(nil)
+        expect { "no error" }.to have_reported_error
       }.to fail_with(/Expected the block to report an error, but none was reported./)
     end
 

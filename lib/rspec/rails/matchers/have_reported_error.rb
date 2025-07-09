@@ -37,9 +37,10 @@ module RSpec
         #   Expected message when first param is a class
         def initialize(expected_error_or_message = UndefinedValue, expected_message = nil)
           @attributes = {}
+          @warn_about_nil_error = expected_error_or_message.nil?
 
           case expected_error_or_message
-          when nil, UndefinedValue
+          when UndefinedValue
             @expected_error = nil
             @expected_message = expected_message
           when String, Regexp
@@ -64,6 +65,8 @@ module RSpec
           if block.nil?
             raise ArgumentError, "this matcher doesn't work with value expectations"
           end
+
+          warn_about_nil_error! if @warn_about_nil_error
 
           @error_subscriber = ErrorSubscriber.new
           ::Rails.error.subscribe(@error_subscriber)
@@ -212,6 +215,18 @@ module RSpec
               actual[key] == value
             end
           end
+        end
+
+        def warn_about_nil_error!
+          RSpec.warn_with("Using the `have_reported_error` matcher with a `nil` error is probably " \
+                         "unintentional, it risks false positives, since `have_reported_error` " \
+                         "will match when any error is reported to Rails.error, potentially " \
+                         "allowing the expectation to pass without the specific error you are " \
+                         "intending to test for being reported. " \
+                         "Instead consider providing a specific error class or message. " \
+                         "This message can be suppressed by setting: " \
+                         "`RSpec::Expectations.configuration.on_potential_false" \
+                         "_positives = :nothing`")
         end
       end
 
