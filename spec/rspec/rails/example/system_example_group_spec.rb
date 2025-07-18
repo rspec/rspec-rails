@@ -91,10 +91,6 @@ module RSpec::Rails
         group = RSpec::Core::ExampleGroup.describe do
           include SystemExampleGroup
 
-          before do
-            driven_by(:selenium)
-          end
-
           def take_screenshot
             puts 'line 1'
             puts 'line 2'
@@ -112,10 +108,6 @@ module RSpec::Rails
         allow(Capybara::Session).to receive(:instance_created?).and_return(true)
         group = RSpec::Core::ExampleGroup.describe do
           include SystemExampleGroup
-
-          before do
-            driven_by(:selenium)
-          end
 
           def page
             instance_double(Capybara::Session, save_screenshot: nil)
@@ -161,10 +153,6 @@ module RSpec::Rails
 
         group = RSpec::Core::ExampleGroup.describe do
           include SystemExampleGroup
-
-          before do
-            driven_by(:selenium)
-          end
 
           after do
             calls_in_order << :after_hook
