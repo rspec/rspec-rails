@@ -3,10 +3,6 @@ require 'active_support/testing/error_reporter_assertions'
 module RSpec
   module Rails
     module Matchers
-      # @api private
-      # Sentinel value to distinguish between no argument passed vs explicitly passed nil.
-      # This follows the same pattern as RSpec's raise_error matcher.
-      UndefinedValue = Object.new.freeze
       ErrorCollector = ActiveSupport::Testing::ErrorReporterAssertions::ErrorCollector
 
       # Matcher class for `have_reported_error`. Should not be instantiated directly.
@@ -16,19 +12,19 @@ module RSpec
       # @api private
       # @see RSpec::Rails::Matchers#have_reported_error
       class HaveReportedError < RSpec::Rails::Matchers::BaseMatcher
-        # Uses UndefinedValue as default to distinguish between no argument
+        # Uses UNDEFINED as default to distinguish between no argument
         # passed vs explicitly passed nil.
         #
         # @param expected_error_or_message [Class, String, Regexp, nil]
         #   Error class, message string, or message pattern
         # @param expected_message [String, Regexp, nil]
         #   Expected message when first param is a class
-        def initialize(expected_error_or_message = UndefinedValue, expected_message = nil)
+        def initialize(expected_error_or_message = UNDEFINED, expected_message = nil)
           @attributes = {}
           @warn_about_nil_error = expected_error_or_message.nil?
 
           case expected_error_or_message
-          when UndefinedValue
+          when UNDEFINED
             @expected_error = nil
             @expected_message = expected_message
           when String, Regexp
@@ -248,7 +244,7 @@ module RSpec
       #
       # @param expected_error_or_message [Class, String, Regexp, nil] the expected error class, message string, or message pattern
       # @param expected_message [String, Regexp, nil] the expected error message to match
-      def have_reported_error(expected_error_or_message = UndefinedValue, expected_message = nil)
+      def have_reported_error(expected_error_or_message = HaveReportedError::UNDEFINED, expected_message = nil)
         HaveReportedError.new(expected_error_or_message, expected_message)
       end
 
