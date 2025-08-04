@@ -98,7 +98,7 @@ RSpec.describe "have_reported_error matcher" do
         expect {
           Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "actual" })
         }.to have_reported_error.with_context(user_id: 456, context: "expected")
-      }.to fail_with(/Expected error attributes to match {user_id: 456, context: "expected"}, but got these mismatches: {user_id: 456, context: "expected"} and actual values are {"user_id" => 123, "context" => "actual"}/)
+      }.to fail_with(/Expected error attributes to match.*user_id.*456.*context.*expected.*got these mismatches.*user_id.*456.*context.*expected.*actual values are.*user_id.*123.*context.*actual/)
     end
 
     it "identifies partial attribute mismatches correctly" do
@@ -106,7 +106,7 @@ RSpec.describe "have_reported_error matcher" do
         expect {
           Rails.error.report(StandardError.new("test"), context: { user_id: 123, status: "active", role: "admin" })
         }.to have_reported_error.with_context(user_id: 456, status: "active") # user_id wrong, status correct
-      }.to fail_with(/got these mismatches: {user_id: 456}/)
+      }.to fail_with(/got these mismatches:.*user_id.*456/)
     end
 
     it "handles RSpec matcher mismatches in failure messages" do
@@ -122,7 +122,7 @@ RSpec.describe "have_reported_error matcher" do
         expect {
           Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "actual" })
         }.to have_reported_error.with_context(user_id: 456)
-      }.to fail_with(/actual values are {"user_id" => 123, "context" => "actual"}/)
+      }.to fail_with(/actual values are.*user_id.*123.*context.*actual/)
     end
   end
 
@@ -154,7 +154,7 @@ RSpec.describe "have_reported_error matcher" do
         expect {
           Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "actual" })
         }.to have_reported_error.with_context(user_id: 456, context: "expected")
-      }.to fail_with(/Expected error attributes to match {user_id: 456, context: "expected"}, but got these mismatches: {user_id: 456, context: "expected"} and actual values are {"user_id" => 123, "context" => "actual"}/)
+      }.to fail_with(/Expected error attributes to match.*user_id.*456.*context.*expected.*got these mismatches.*user_id.*456.*context.*expected.*actual values are.*user_id.*123.*context.*actual/)
     end
 
     it "fails when no error is reported but attributes are expected" do

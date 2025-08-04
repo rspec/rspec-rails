@@ -1,3 +1,5 @@
+require 'active_support/testing/error_reporter_assertions'
+
 module RSpec
   module Rails
     module Matchers
@@ -5,21 +7,7 @@ module RSpec
       # Sentinel value to distinguish between no argument passed vs explicitly passed nil.
       # This follows the same pattern as RSpec's raise_error matcher.
       UndefinedValue = Object.new.freeze
-
-      # @api private
-      class ErrorSubscriber
-        attr_reader :events
-
-        ErrorEvent = Struct.new(:error, :attributes)
-
-        def initialize
-          @events = []
-        end
-
-        def report(error, **attrs)
-          @events << ErrorEvent.new(error, attrs.with_indifferent_access)
-        end
-      end
+      ErrorCollector = ActiveSupport::Testing::ErrorReporterAssertions::ErrorCollector
 
       # Matcher class for `have_reported_error`. Should not be instantiated directly.
       #
@@ -68,17 +56,14 @@ module RSpec
 
           warn_about_nil_error! if @warn_about_nil_error
 
-          @error_subscriber = ErrorSubscriber.new
-          ::Rails.error.subscribe(@error_subscriber)
+          @reports = ErrorCollector.record do
+            block.call
+          end
 
-          block.call
-
-          return false if @error_subscriber.events.empty?
+          return false if @reports.empty?
           return false unless error_matches_expectation?
 
           return attributes_match_if_specified?
-        ensure
-          ::Rails.error.unsubscribe(@error_subscriber)
         end
 
         def supports_block_expectations?
@@ -109,16 +94,16 @@ module RSpec
         end
 
         def failure_message
-          if !@error_subscriber.events.empty? && !@attributes.empty?
-            event_context = @error_subscriber.events.last.attributes[:context]
-            unmatched = unmatched_attributes(event_context)
+          if !@reports.empty? && !@attributes.empty?
+            report_context = @reports.last.context
+            unmatched = unmatched_attributes(report_context)
             unless unmatched.empty?
-              return "Expected error attributes to match #{@attributes}, but got these mismatches: #{unmatched} and actual values are #{event_context}"
+              return "Expected error attributes to match #{@attributes}, but got these mismatches: #{unmatched} and actual values are #{report_context}"
             end
-          elsif @error_subscriber.events.empty?
+          elsif @reports.empty?
             return 'Expected the block to report an error, but none was reported.'
           elsif actual_error.nil?
-            reported_errors = @error_subscriber.events.map { |event| "#{event.error.class}: '#{event.error.message}'" }.join(', ')
+            reported_errors = @reports.map { |report| "#{report.error.class}: '#{report.error.message}'" }.join(', ')
             if @expected_error && @expected_message
               return "Expected error to be an instance of #{@expected_error} with message '#{@expected_message}', but got: #{reported_errors}"
             elsif @expected_error
@@ -140,7 +125,7 @@ module RSpec
         end
 
         def failure_message_when_negated
-          error_count = @error_subscriber.events.count
+          error_count = @reports.count
           error_word = 'error'.pluralize(error_count)
           verb = error_count == 1 ? 'has' : 'have'
 
@@ -150,10 +135,10 @@ module RSpec
         private
 
         def error_matches_expectation?
-          return true if @expected_error.nil? && @expected_message.nil? && @error_subscriber.events.count.positive?
+          return true if @expected_error.nil? && @expected_message.nil? && @reports.count.positive?
 
-          @error_subscriber.events.any? do |event|
-            error_class_matches?(event.error) && error_message_matches?(event.error)
+          @reports.any? do |report|
+            error_class_matches?(report.error) && error_message_matches?(report.error)
           end
         end
 
@@ -177,42 +162,44 @@ module RSpec
 
         def attributes_match_if_specified?
           return true if @attributes.empty?
-          return false unless matching_event
+          return false unless matching_report
 
-          event_context = matching_event.attributes[:context]
-          attributes_match?(event_context)
+          report_context = matching_report.context
+          attributes_match?(report_context)
         end
 
         def actual_error
-          @actual_error ||= matching_event&.error
+          @actual_error ||= matching_report&.error
         end
 
-        def matching_event
-          @matching_event ||= find_matching_event
+        def matching_report
+          @matching_report ||= find_matching_report
         end
 
-        def find_matching_event
-          @error_subscriber.events.find do |event|
-            error_class_matches?(event.error) && error_message_matches?(event.error)
+        def find_matching_report
+          @reports.find do |report|
+            error_class_matches?(report.error) && error_message_matches?(report.error)
           end
         end
 
         def attributes_match?(actual)
           @attributes.all? do |key, value|
+            actual_value = actual[key] || actual[key.to_s] || actual[key.to_sym]
             if value.respond_to?(:matches?)
-              value.matches?(actual[key])
+              value.matches?(actual_value)
             else
-              actual[key] == value
+              actual_value == value
             end
           end
         end
 
         def unmatched_attributes(actual)
           @attributes.reject do |key, value|
+            actual_value = actual[key] || actual[key.to_s] || actual[key.to_sym]
             if value.respond_to?(:matches?)
-              value.matches?(actual[key])
+              value.matches?(actual_value)
             else
-              actual[key] == value
+              actual_value == value
             end
           end
         end
