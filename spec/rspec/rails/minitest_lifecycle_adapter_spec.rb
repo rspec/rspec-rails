@@ -1,4 +1,4 @@
-RSpec.describe RSpec::Rails::MinitestLifecycleAdapter do
+RSpec.describe RSpec::Rails::MinitestLifecycleAdapter, :with_isolated_config do
   it "invokes minitest lifecycle hooks at the appropriate times" do
     invocations = []
     example_group = RSpec::Core::ExampleGroup.describe("MinitestHooks") do

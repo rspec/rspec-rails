@@ -123,7 +123,7 @@ RSpec.describe "Configuration" do
     end
   end
 
-  describe "#infer_spec_type_from_file_location!" do
+  describe "#infer_spec_type_from_file_location!", :with_isolated_config do
     def in_inferring_type_from_location_environment
       in_sub_process do
         RSpec.configuration.infer_spec_type_from_file_location!

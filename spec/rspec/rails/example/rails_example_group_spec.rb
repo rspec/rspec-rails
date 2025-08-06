@@ -1,5 +1,5 @@
 module RSpec::Rails
-  RSpec.describe RailsExampleGroup do
+  RSpec.describe RailsExampleGroup, :with_isolated_config do
     it 'supports tagged_logger' do
       expect(described_class.private_instance_methods).to include(:tagged_logger)
     end

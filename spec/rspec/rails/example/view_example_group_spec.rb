@@ -1,7 +1,7 @@
 require 'support/group_failure_formatter'
 
 module RSpec::Rails
-  RSpec.describe ViewExampleGroup do
+  RSpec.describe ViewExampleGroup, :with_isolated_config do
     it_behaves_like "an rspec-rails example group mixin", :view,
                     './spec/views/', '.\\spec\\views\\'
 
