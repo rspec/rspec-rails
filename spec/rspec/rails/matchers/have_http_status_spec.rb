@@ -502,6 +502,7 @@ RSpec.describe "have_http_status" do
 
   context 'with deprecated rack status codes' do
     it 'supports the original names' do
+      allow(Rack::Utils).to receive(:warn).with(/unprocessable_entity is deprecated/, anything)
       expect(create_response(status: 422)).to have_http_status(:unprocessable_entity)
     end
   end
