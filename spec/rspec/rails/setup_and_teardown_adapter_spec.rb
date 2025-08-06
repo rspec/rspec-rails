@@ -1,4 +1,4 @@
-RSpec.describe RSpec::Rails::SetupAndTeardownAdapter do
+RSpec.describe RSpec::Rails::SetupAndTeardownAdapter, :with_isolated_config do
   describe ".setup" do
     it "registers before hooks in the order setup is received" do
       group = RSpec::Core::ExampleGroup.describe do

@@ -71,9 +71,11 @@ RSpec.configure do |config|
   config.warnings = true
   config.raise_on_warning = true
 
+  config.raise_errors_for_deprecations!
+
   # Execute a provided block with RSpec global objects (configuration,
   # world, current example) reset. This is used to test specs with RSpec.
-  config.around(:example) do |example|
+  config.around(:example, :with_isolated_config) do |example|
     RSpec::Core::Sandbox.sandboxed do |sandbox_config|
       # If there is an example-within-an-example, we want to make sure the inner
       # example does not get a reference to the outer example (the real spec) if
