@@ -1,5 +1,5 @@
 module RSpec::Rails
-  RSpec.describe ViewRendering do
+  RSpec.describe ViewRendering, :with_isolated_config do
     let(:group) do
       RSpec::Core::ExampleGroup.describe do
         def controller

@@ -1,5 +1,5 @@
 module RSpec::Rails
-  RSpec.describe HelperExampleGroup do
+  RSpec.describe HelperExampleGroup, :with_isolated_config do
     module ::FoosHelper
       class InternalClass
       end
