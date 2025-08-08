@@ -18,6 +18,10 @@ module FactoryBot
             'test/factories'
           end
 
+        # Ensure the directory exists
+        FileUtils.mkdir_p(factories_dir)
+
+        # Copy the user factory template to the appropriate directory
         template "users.rb", "#{factories_dir}/users.rb"
       end
     end
