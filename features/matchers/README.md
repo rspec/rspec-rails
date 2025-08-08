@@ -48,6 +48,4 @@ expect { Rails.error.report(StandardError.new("test message")) }.to have_reporte
 
 # passes when error is reported with specific context attributes
 expect { Rails.error.report(StandardError.new, context: { user_id: 123 }) }.to have_reported_error.with_context(user_id: 123)
-
-
 ```
