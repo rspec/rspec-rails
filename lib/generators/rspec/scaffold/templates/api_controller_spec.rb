@@ -79,7 +79,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
     context "with invalid params" do
       it "renders a JSON response with errors for the new <%= singular_table_name %>" do
         post :create, params: {<%= singular_table_name %>: invalid_attributes}, session: valid_session
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(<%= Rack::Utils::SYMBOL_TO_STATUS_CODE.key(422).inspect %>)
         expect(response.content_type).to eq('application/json')
       end
     end
@@ -110,7 +110,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
       it "renders a JSON response with errors for the <%= singular_table_name %>" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         put :update, params: {id: <%= file_name %>.to_param, <%= singular_table_name %>: invalid_attributes}, session: valid_session
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(<%= Rack::Utils::SYMBOL_TO_STATUS_CODE.key(422).inspect %>)
         expect(response.content_type).to eq('application/json')
       end
     end
