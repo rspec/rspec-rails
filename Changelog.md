@@ -1,5 +1,13 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.1...8-0-maintenance)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.2...8-0-maintenance)
+
+### 8.0.2 / 2025-08-12
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.1...v8.0.2)
+
+Bug Fixes:
+
+* Fix scaffold generator producing deprecated Rack http statuses.
+  (Taketo Takashima, rspec/rspec-rails#2860)
 
 ### 8.0.1 / 2025-06-19
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.0...v8.0.1)
