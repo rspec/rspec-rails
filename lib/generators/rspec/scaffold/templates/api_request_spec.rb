@@ -79,7 +79,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
       it "renders a JSON response with errors for the new <%= singular_table_name %>" do
         post <%= index_helper %>_url,
              params: { <%= singular_table_name %>: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(<%= Rack::Utils::SYMBOL_TO_STATUS_CODE.key(422).inspect %>)
         expect(response.content_type).to match(a_string_including("application/json"))
       end
     end
@@ -113,7 +113,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         patch <%= show_helper %>,
               params: { <%= singular_table_name %>: invalid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(<%= Rack::Utils::SYMBOL_TO_STATUS_CODE.key(422).inspect %>)
         expect(response.content_type).to match(a_string_including("application/json"))
       end
     end

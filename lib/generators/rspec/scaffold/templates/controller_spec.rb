@@ -92,7 +92,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
     context "with invalid params" do
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
         post :create, params: {<%= singular_table_name %>: invalid_attributes}, session: valid_session
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(<%= Rack::Utils::SYMBOL_TO_STATUS_CODE.key(422).inspect %>)
       end
     end
   end
@@ -121,7 +121,7 @@ RSpec.describe <%= controller_class_name %>Controller, <%= type_metatag(:control
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         put :update, params: {id: <%= file_name %>.to_param, <%= singular_table_name %>: invalid_attributes}, session: valid_session
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(<%= Rack::Utils::SYMBOL_TO_STATUS_CODE.key(422).inspect %>)
       end
     end
   end

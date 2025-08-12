@@ -85,7 +85,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
 
       it "renders a response with 422 status (i.e. to display the 'new' template)" do
         post <%= index_helper %>_url, params: { <%= singular_table_name %>: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(<%= Rack::Utils::SYMBOL_TO_STATUS_CODE.key(422).inspect %>)
       end
     end
   end
@@ -115,7 +115,7 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
       it "renders a response with 422 status (i.e. to display the 'edit' template)" do
         <%= file_name %> = <%= class_name %>.create! valid_attributes
         patch <%= show_helper %>, params: { <%= singular_table_name %>: invalid_attributes }
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(<%= Rack::Utils::SYMBOL_TO_STATUS_CODE.key(422).inspect %>)
       end
     end
   end

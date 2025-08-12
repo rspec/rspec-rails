@@ -32,6 +32,16 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
           contain(/renders a response with 422 status \(i.e. to display the 'new' template\)/)
             .and(contain(/renders a response with 422 status \(i.e. to display the 'edit' template\)/))
         )
+
+        expect(
+          filename
+        ).to(
+          if Gem::Version.new(Rack::RELEASE) < Gem::Version.new("3.1")
+            contain(/expect\(response\).to have_http_status\(:unprocessable_entity\)/)
+          else
+            contain(/expect\(response\).to have_http_status\(:unprocessable_content\)/)
+          end
+        )
       end
     end
 
@@ -98,6 +108,16 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
 
         expect(filename).to contain(/renders a response with 422 status \(i.e. to display the 'new' template\)/)
                               .and(contain(/renders a response with 422 status \(i.e. to display the 'edit' template\)/))
+
+        expect(
+          filename
+        ).to(
+          if Gem::Version.new(Rack::RELEASE) < Gem::Version.new("3.1")
+            contain(/expect\(response\).to have_http_status\(:unprocessable_entity\)/)
+          else
+            contain(/expect\(response\).to have_http_status\(:unprocessable_content\)/)
+          end
+        )
 
         expect(filename).not_to contain(/"renders a JSON response with the new \w+"/)
         expect(filename).not_to contain(/"renders a JSON response with errors for the new \w+"/)
