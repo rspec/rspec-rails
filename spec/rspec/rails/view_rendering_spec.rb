@@ -1,5 +1,5 @@
 module RSpec::Rails
-  RSpec.describe ViewRendering do
+  RSpec.describe ViewRendering, :with_isolated_config do
     let(:group) do
       RSpec::Core::ExampleGroup.describe do
         def controller
@@ -53,7 +53,7 @@ module RSpec::Rails
           expect(group.new.render_views?).to be_falsey
         end
 
-        it "overrides the global config if render_views is enabled there" do
+        it "overrides the global config if render_views is enabled there", :with_isolated_config do
           allow(RSpec.configuration).to receive(:render_views?).and_return true
           group.render_views false
           expect(group.new.render_views?).to be_falsey
