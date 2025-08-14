@@ -57,6 +57,8 @@ RSpec.configure do |config|
     mocks.verify_doubled_constant_names = true
   end
 
+  Warning[:deprecated] = true
+
   config.filter_run_when_matching :focus
 
   config.order = :random
