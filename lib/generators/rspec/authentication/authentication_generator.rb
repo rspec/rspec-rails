@@ -28,6 +28,12 @@ module Rspec
 
         template 'session_spec.rb', target_path('requests', 'sessions_spec.rb')
       end
+
+      def create_password_request_spec
+        return unless options[:request_specs]
+
+        template 'password_spec.rb', target_path('requests', 'passwords_spec.rb')
+      end
     end
   end
 end
