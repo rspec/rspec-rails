@@ -22,6 +22,12 @@ module Rspec
 
         template 'users.yml', target_path('fixtures', 'users.yml')
       end
+
+      def create_session_request_spec
+        return unless options[:request_specs]
+
+        template 'session_spec.rb', target_path('requests', 'sessions_spec.rb')
+      end
     end
   end
 end
