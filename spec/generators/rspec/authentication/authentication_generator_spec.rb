@@ -12,11 +12,38 @@ RSpec.describe Rspec::Generators::AuthenticationGenerator, type: :generator do
     gen.invoke_all
   end
 
+  it 'runs the request spec tasks' do
+    gen = generator
+    expect(gen).to receive :create_session_request_spec
+    expect(gen).to receive :create_password_request_spec
+    gen.invoke_all
+  end
+
   describe 'the generated files' do
     it 'creates the user spec' do
       run_generator
 
       expect(File.exist?(file('spec/models/user_spec.rb'))).to be true
+    end
+
+    it 'creates the request specs' do
+      run_generator
+
+      expect(File.exist?(file('spec/requests/sessions_spec.rb'))).to be true
+      expect(File.exist?(file('spec/requests/passwords_spec.rb'))).to be true
+    end
+
+    describe 'with request specs disabled' do
+      before do
+        run_generator ['--request-specs=false']
+      end
+
+      describe 'the request specs' do
+        it "will skip the files" do
+          expect(File.exist?(file('spec/requests/sessions_spec.rb'))).to be false
+          expect(File.exist?(file('spec/requests/passwords_spec.rb'))).to be false
+        end
+      end
     end
 
     describe 'with fixture replacement' do
