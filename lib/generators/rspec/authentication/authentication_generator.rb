@@ -4,6 +4,8 @@ module Rspec
   module Generators
     # @private
     class AuthenticationGenerator < Base
+      class_option :request_specs, type: :boolean, default: true, desc: 'Generate request specs'
+
       def initialize(args, *options)
         args.replace(['User'])
         super
