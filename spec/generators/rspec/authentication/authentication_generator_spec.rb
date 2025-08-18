@@ -5,15 +5,10 @@ require 'support/generators'
 RSpec.describe Rspec::Generators::AuthenticationGenerator, type: :generator do
   setup_default_destination
 
-  it 'runs both the model and fixture tasks' do
+  it 'runs the model, fixture, and request spec tasks' do
     gen = generator
     expect(gen).to receive :create_user_spec
     expect(gen).to receive :create_fixture_file
-    gen.invoke_all
-  end
-
-  it 'runs the request spec tasks' do
-    gen = generator
     expect(gen).to receive :create_session_request_spec
     expect(gen).to receive :create_password_request_spec
     gen.invoke_all
