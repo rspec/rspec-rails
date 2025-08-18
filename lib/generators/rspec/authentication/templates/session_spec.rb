@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Sessions", <%= type_metatag(:request) %> do
+  fixtures :users
+
   let(:user) { users(:one) }
 
   describe "GET /new_session" do
@@ -46,7 +48,10 @@ RSpec.describe "Sessions", <%= type_metatag(:request) %> do
 
   def sign_in_as(user)
     # Helper method to simulate user sign in
-    # This would typically set the session or cookie to simulate authentication
-    cookies[:session_id] = "valid_session_id"
+    # Create a real session and set the cookie using Rails cookie signing
+    session = user.sessions.create!(user_agent: "test", ip_address: "127.0.0.1")
+    # Manually sign the cookie value using Rails' message verifier
+    signed_value = Rails.application.message_verifier('signed cookie').generate(session.id)
+    cookies[:session_id] = signed_value
   end
 end

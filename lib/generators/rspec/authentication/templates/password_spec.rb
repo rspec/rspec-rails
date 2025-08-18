@@ -1,11 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe "Passwords", <%= type_metatag(:request) %> do
+  fixtures :users
+
   let(:user) { users(:one) }
 
   describe "GET /password/new" do
     it "returns http success" do
-      get "/password/new"
+      get new_password_path
       expect(response).to have_http_status(:success)
     end
   end
@@ -19,7 +21,7 @@ RSpec.describe "Passwords", <%= type_metatag(:request) %> do
       expect(response).to redirect_to(new_session_path)
 
       follow_redirect!
-      expect(flash[:notice]).to eq("reset instructions sent")
+      expect(flash[:notice]).to eq("Password reset instructions sent (if user with that email address exists).")
     end
 
     it "handles invalid email gracefully" do
@@ -30,7 +32,7 @@ RSpec.describe "Passwords", <%= type_metatag(:request) %> do
       expect(response).to redirect_to(new_session_path)
 
       follow_redirect!
-      expect(flash[:notice]).to eq("reset instructions sent")
+      expect(flash[:notice]).to eq("Password reset instructions sent (if user with that email address exists).")
     end
   end
 
@@ -45,7 +47,7 @@ RSpec.describe "Passwords", <%= type_metatag(:request) %> do
       expect(response).to redirect_to(new_password_path)
 
       follow_redirect!
-      expect(flash[:notice]).to eq("reset link is invalid")
+      expect(flash[:alert]).to eq("Password reset link is invalid or has expired.")
     end
   end
 
@@ -58,7 +60,7 @@ RSpec.describe "Passwords", <%= type_metatag(:request) %> do
       expect(response).to redirect_to(new_session_path)
 
       follow_redirect!
-      expect(flash[:notice]).to eq("Password has been reset")
+      expect(flash[:notice]).to eq("Password has been reset.")
     end
 
     it "rejects non matching passwords" do
@@ -70,7 +72,7 @@ RSpec.describe "Passwords", <%= type_metatag(:request) %> do
       expect(response).to redirect_to(edit_password_path(token))
 
       follow_redirect!
-      expect(flash[:notice]).to eq("Passwords did not match")
+      expect(flash[:alert]).to eq("Passwords did not match.")
     end
   end
 end
