@@ -47,11 +47,11 @@ RSpec.describe "Sessions", <%= type_metatag(:request) %> do
   private
 
   def sign_in_as(user)
-    # Helper method to simulate user sign in
-    # Create a real session and set the cookie using Rails cookie signing
-    session = user.sessions.create!(user_agent: "test", ip_address: "127.0.0.1")
-    # Manually sign the cookie value using Rails' message verifier
-    signed_value = Rails.application.message_verifier('signed cookie').generate(session.id)
-    cookies[:session_id] = signed_value
+    Current.session = user.sessions.create!
+
+    ActionDispatch::TestRequest.create.cookie_jar.tap do |cookie_jar|
+      cookie_jar.signed[:session_id] = Current.session.id
+      cookies[:session_id] = cookie_jar[:session_id]
+    end
   end
 end
