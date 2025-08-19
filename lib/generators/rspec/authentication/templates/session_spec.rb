@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Sessions", <%= type_metatag(:request) %> do
-  fixtures :users
-
-  let(:user) { users(:one) }
+  # TODO: Replace with your factory or model creation method
+  # For example, with FactoryBot: let(:user) { create(:user) }
+  # or with fixtures: let(:user) { users(:one) }
+  let(:user) { User.create!(email_address: "test@example.com", password: "password") }
 
   describe "GET /new_session" do
     it "returns http success" do
