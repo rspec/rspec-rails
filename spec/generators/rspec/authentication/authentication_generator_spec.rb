@@ -45,8 +45,8 @@ RSpec.describe Rspec::Generators::AuthenticationGenerator, type: :generator do
       expect(file('spec/rails_helper.rb')).to contain(
         "  # Include authentication support module for request specs\n  config.include AuthenticationSupport, type: :request\n"
       )
-      expect(file('spec/rails_helper.rb')).not_to contain(
-        "  # Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }\n"
+      expect(file('spec/rails_helper.rb')).to contain(
+        /^#{Regexp.escape("Rails.root.glob('spec/support/**/*.rb').sort_by(&:to_s).each { |f| require f }")}$/
       )
 
       expect(File.exist?(file('spec/support/authentication_support.rb'))).to be true
