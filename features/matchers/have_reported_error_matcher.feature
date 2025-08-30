@@ -24,7 +24,7 @@ Feature: `have_reported_error` matcher
         end
 
         def self.process_with_context
-          Rails.error.report(ArgumentError.new("Invalid input"), context: { context: "user_processing", severity: :error })
+          Rails.error.report(ArgumentError.new("Invalid input"), severity: :error, context: { topic: "user_processing" })
         end
 
         def self.process_custom_error
