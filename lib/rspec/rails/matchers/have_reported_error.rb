@@ -46,10 +46,6 @@ module RSpec
         end
 
         def matches?(block)
-          if block.nil?
-            raise ArgumentError, "this matcher doesn't work with value expectations"
-          end
-
           warn_about_nil_error! if @warn_about_nil_error
 
           @reports = ErrorCollector.record do
@@ -64,6 +60,10 @@ module RSpec
 
         def supports_block_expectations?
           true
+        end
+
+        def supports_value_expectations?
+          false
         end
 
         def description
