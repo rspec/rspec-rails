@@ -12,14 +12,11 @@ module RSpec
       # @api private
       # @see RSpec::Rails::Matchers#have_reported_error
       class HaveReportedError < RSpec::Rails::Matchers::BaseMatcher
-        # Uses UNDEFINED as default to distinguish between no argument
-        # passed vs explicitly passed nil.
-        #
         # @param expected_error_or_message [Class, String, Regexp, nil]
         #   Error class, message string, or message pattern
         # @param expected_message [String, Regexp, nil]
         #   Expected message when first param is a class
-        def initialize(expected_error_or_message = UNDEFINED, expected_message = nil)
+        def initialize(expected_error_or_message, expected_message)
           @attributes = {}
           @warn_about_nil_error = expected_error_or_message.nil?
 
