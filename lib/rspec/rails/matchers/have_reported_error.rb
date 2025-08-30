@@ -34,6 +34,12 @@ module RSpec
         end
 
         def with_context(expected_attributes)
+          conflicting_keys = @attributes.keys & expected_attributes.keys
+          unless conflicting_keys.empty?
+            raise ArgumentError, "Attribute keys #{conflicting_keys.inspect} are already defined. " \
+                                "Chaining with_context calls should not overwrite existing attributes. " \
+                                "Use a single with_context call with all attributes instead."
+          end
           @attributes.merge!(expected_attributes)
           self
         end

@@ -163,6 +163,20 @@ RSpec.describe "have_reported_error matcher" do
         expect { "no error" }.to have_reported_error.with_context(user_id: 123)
       }.to fail_with(/Expected the block to report an error, but none was reported./)
     end
+
+    describe "chaining with_context calls" do
+      it "accumulates attributes when different keys are used in chained calls" do
+        expect {
+          Rails.error.report(StandardError.new("test"), context: { user_id: 123, session_id: "abc123", role: "admin" })
+        }.to have_reported_error.with_context(user_id: 123).with_context(session_id: "abc123")
+      end
+
+      it "raises error when trying to overwrite existing attribute keys" do
+        expect {
+          have_reported_error.with_context(user_id: 123).with_context(user_id: 456)
+        }.to raise_error(ArgumentError, /Attribute keys \[:user_id\] are already defined/)
+      end
+    end
   end
 
   context "constrained by message only" do
