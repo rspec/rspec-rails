@@ -35,10 +35,6 @@ RSpec.describe "have_reported_error matcher" do
         expect { "no error" }.to have_reported_error
       }.to fail_with(/Expected the block to report an error, but none was reported./)
     end
-
-    it "passes when negated and no errors are reported" do
-      expect { "no error" }.not_to have_reported_error
-    end
   end
 
   context "constrained to a specific error class" do
@@ -209,20 +205,64 @@ RSpec.describe "have_reported_error matcher" do
     end
   end
 
-  describe "integration with actual usage patterns" do
-    it "works with multiple error reports in a block" do
-      expect {
-        Rails.error.report(StandardError.new("first error"))
-        Rails.error.report(TestError.new("second error"))
-      }.to have_reported_error(StandardError)
-    end
+  it "works with multiple error reports in a block" do
+    expect {
+      Rails.error.report(StandardError.new("first error"))
+      Rails.error.report(TestError.new("second error"))
+    }.to have_reported_error(StandardError)
+  end
 
-    it "works with matcher chaining" do
+  it "works with matcher chaining" do
+    expect {
+      expect {
+        Rails.error.report(TestError.new("test"))
+      }.to have_reported_error(TestError).and have_reported_error
+    }.to raise_error(ArgumentError, "Chaining is not supported")
+  end
+
+  describe "negation with qualifiers warnings" do
+    it "warns when negated with error class qualifier fails" do
       expect {
         expect {
           Rails.error.report(TestError.new("test"))
-        }.to have_reported_error(TestError).and have_reported_error
-      }.to raise_error(ArgumentError, "Chaining is not supported")
+        }.not_to have_reported_error(TestError)
+      }.to raise_error(RuntimeError, /prone to false positives/)
+    end
+
+    it "warns when negated with message qualifier fails" do
+      expect {
+        expect {
+          Rails.error.report(StandardError.new("specific message"))
+        }.not_to have_reported_error("specific message")
+      }.to raise_error(RuntimeError, /prone to false positives/)
+    end
+
+    it "warns when negated with regex message qualifier fails" do
+      expect {
+        expect {
+          Rails.error.report(StandardError.new("test pattern"))
+        }.not_to have_reported_error(/pattern/)
+      }.to raise_error(RuntimeError, /prone to false positives/)
+    end
+
+    it "warns when negated with context qualifier fails" do
+      expect {
+        expect {
+          Rails.error.report(StandardError.new("test"), context: { user_id: 123 })
+        }.not_to have_reported_error.with_context(user_id: 123)
+      }.to raise_error(RuntimeError, /prone to false positives/)
+    end
+
+    it "warns when negated with both error class and message qualifiers fails" do
+      expect {
+        expect {
+          Rails.error.report(TestError.new("message"))
+        }.not_to have_reported_error(TestError, "message")
+      }.to raise_error(RuntimeError, /prone to false positives/)
+    end
+
+    it "does not warn when negated without any qualifiers" do
+      expect { "no error" }.not_to have_reported_error
     end
   end
 end
