@@ -124,6 +124,8 @@ module RSpec
         end
 
         def failure_message_when_negated
+          warn_about_negated_with_qualifiers! if has_qualifiers?
+
           error_count = @reports.count
           error_word = 'error'.pluralize(error_count)
           verb = error_count == 1 ? 'has' : 'have'
@@ -213,6 +215,19 @@ module RSpec
                          "This message can be suppressed by setting: " \
                          "`RSpec::Expectations.configuration.on_potential_false" \
                          "_positives = :nothing`")
+        end
+
+        def warn_about_negated_with_qualifiers!
+          RSpec.warn_with("Using `expect { }.not_to have_reported_error(error_class_or_message)` " \
+                         "or with `.with_context()` is prone to false positives, since any error " \
+                         "that doesn't match the specific error class, message, or context can " \
+                         "cause the expectation to pass. Instead consider using " \
+                         "`expect { }.not_to have_reported_error` with no qualifiers to ensure " \
+                         "that no errors are reported at all.")
+        end
+
+        def has_qualifiers?
+          !@expected_error.nil? || !@expected_message.nil? || !@attributes.empty?
         end
       end
 
