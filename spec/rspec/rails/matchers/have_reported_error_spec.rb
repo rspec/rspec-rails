@@ -93,8 +93,8 @@ RSpec.describe "have_reported_error matcher" do
     it "provides details about mismatched attributes" do
       expect {
         expect {
-          Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "actual" })
-        }.to have_reported_error.with_context(user_id: 456, context: "expected")
+          Rails.error.report(StandardError.new("test"), context: { user_id: 123, topic: "actual" })
+        }.to have_reported_error.with_context(user_id: 456, topic: "expected")
       }.to fail_with(/Expected error attributes to match/)
     end
 
@@ -117,23 +117,23 @@ RSpec.describe "have_reported_error matcher" do
     it "shows actual context values when attributes don't match" do
       expect {
         expect {
-          Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "actual" })
+          Rails.error.report(StandardError.new("test"), context: { user_id: 123, topic: "actual" })
         }.to have_reported_error.with_context(user_id: 456)
-      }.to fail_with(/actual values are.*user_id.*123.*context.*actual/)
+      }.to fail_with(/actual values are.*user_id.*123.*topic.*actual/)
     end
   end
 
   describe "#with_context" do
     it "passes when attributes match exactly" do
       expect {
-        Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "test" })
-      }.to have_reported_error.with_context(user_id: 123, context: "test")
+        Rails.error.report(StandardError.new("test"), context: { user_id: 123, topic: "test" })
+      }.to have_reported_error.with_context(user_id: 123, topic: "test")
     end
 
     it "passes with partial attribute matching" do
       expect {
         Rails.error.report(
-          StandardError.new("test"), context: { user_id: 123, context: "test", extra: "data" }
+          StandardError.new("test"), context: { user_id: 123, extra: "data" }
         )
       }.to have_reported_error.with_context(user_id: 123)
     end
@@ -149,8 +149,8 @@ RSpec.describe "have_reported_error matcher" do
     it "fails when attributes do not match" do
       expect {
         expect {
-          Rails.error.report(StandardError.new("test"), context: { user_id: 123, context: "actual" })
-        }.to have_reported_error.with_context(user_id: 456, context: "expected")
+          Rails.error.report(StandardError.new("test"), context: { user_id: 123, topic: "actual" })
+        }.to have_reported_error.with_context(user_id: 456, topic: "expected")
       }.to fail_with(/Expected error attributes to match/)
     end
 
