@@ -61,10 +61,12 @@ module RSpec
           return attributes_match_if_specified?
         end
 
+        # @private
         def supports_block_expectations?
           true
         end
 
+        # @private
         def supports_value_expectations?
           false
         end
@@ -93,12 +95,8 @@ module RSpec
         end
 
         def failure_message
-          if !@reports.empty? && !@attributes.empty?
-            report_context = @reports.last.context
-            unmatched = unmatched_attributes(report_context)
-            unless unmatched.empty?
-              return "Expected error attributes to match #{@attributes}, but got these mismatches: #{unmatched} and actual values are #{report_context}"
-            end
+          if @reports.any? && @attributes.any?
+            return "Expected error attributes to match #{@attributes}, but actual values are #{matching_report.context}"
           elsif @reports.empty?
             return 'Expected the block to report an error, but none was reported.'
           elsif actual_error.nil?
@@ -136,7 +134,7 @@ module RSpec
         private
 
         def error_matches_expectation?
-          return true if @expected_error.nil? && @expected_message.nil? && @reports.count.positive?
+          return true if @expected_error.nil? && @expected_message.nil?
 
           @reports.any? do |report|
             error_class_matches?(report.error) && error_message_matches?(report.error)
@@ -170,7 +168,7 @@ module RSpec
         end
 
         def actual_error
-          @actual_error ||= matching_report&.error
+          matching_report&.error
         end
 
         def matching_report
