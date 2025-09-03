@@ -77,6 +77,8 @@ RSpec.configure do |config|
   # world, current example) reset. This is used to test specs with RSpec.
   config.around(:example, :with_isolated_config) do |example|
     RSpec::Core::Sandbox.sandboxed do |sandbox_config|
+      sandbox_config.raise_errors_for_deprecations! # Otherwise, deprecations are swallowed
+
       # If there is an example-within-an-example, we want to make sure the inner
       # example does not get a reference to the outer example (the real spec) if
       # it calls something like `pending`.
