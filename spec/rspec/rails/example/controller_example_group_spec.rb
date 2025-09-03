@@ -3,7 +3,7 @@ class ::ApplicationController
 end
 
 module RSpec::Rails
-  RSpec.describe ControllerExampleGroup do
+  RSpec.describe ControllerExampleGroup, :with_isolated_config do
     it_behaves_like "an rspec-rails example group mixin", :controller,
                     './spec/controllers/', '.\\spec\\controllers\\'
 
