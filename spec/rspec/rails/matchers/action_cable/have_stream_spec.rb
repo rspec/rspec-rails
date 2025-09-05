@@ -158,9 +158,16 @@ RSpec.describe "have_stream matchers", skip: !RSpec::Rails::FeatureCheck.has_act
     it "fails with message" do
       subscribe user: 42
 
+      broadcast_preamble =
+        if Rails.version.to_f < 8.1
+          "broadcast:StreamModel#"
+        else
+          "broadcast:"
+        end
+
       expect {
         expect(subscription).to have_stream_for(StreamModel.new(31_337))
-      }.to raise_error(/expected to have stream "broadcast:StreamModel#31337" started, but have \["broadcast:StreamModel#42"\]/)
+      }.to raise_error(/expected to have stream "#{broadcast_preamble}31337" started, but have \["#{broadcast_preamble}42"\]/)
     end
 
     context "with negated form" do
@@ -173,9 +180,16 @@ RSpec.describe "have_stream matchers", skip: !RSpec::Rails::FeatureCheck.has_act
       it "fails with message" do
         subscribe user: 42
 
+        broadcast_id =
+          if Rails.version.to_f < 8.1
+            "broadcast:StreamModel#42"
+          else
+            "broadcast:42"
+          end
+
         expect {
           expect(subscription).not_to have_stream_for(StreamModel.new(42))
-        }.to raise_error(/expected not to have stream "broadcast:StreamModel#42" started, but have \["broadcast:StreamModel#42"\]/)
+        }.to raise_error(/expected not to have stream "#{broadcast_id}" started, but have \["#{broadcast_id}"\]/)
       end
     end
   end
