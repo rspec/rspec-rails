@@ -264,7 +264,14 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
                              .and(contain(/assign\(:posts, /))
                              .and(contain(/it "renders a list of (.*)"/))
 
-          expect(filename).to contain(/'div>p'/)
+          selector =
+            if Rails.version.to_f < 8.1
+              /'div>p'/
+            else
+              /'div>div>div'/
+            end
+
+          expect(filename).to contain(selector)
         end
       end
 
