@@ -18,7 +18,11 @@ RSpec.describe "<%= ns_table_name %>/index", <%= type_metatag(:view) %> do
 
   it "renders a list of <%= ns_table_name %>" do
     render
+<% if Rails.version.to_f < 8.1 -%>
     cell_selector = 'div>p'
+<% else -%>
+    cell_selector = 'div>div>div'
+<% end -%>
 <% for attribute in output_attributes -%>
     assert_select cell_selector, text: Regexp.new(<%= value_for(attribute) %>.to_s), count: 2
 <% end -%>
