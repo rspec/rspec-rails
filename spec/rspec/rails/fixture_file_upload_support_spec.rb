@@ -1,5 +1,5 @@
 module RSpec::Rails
-  RSpec.describe FixtureFileUploadSupport do
+  RSpec.describe FixtureFileUploadSupport, :with_isolated_config do
     context 'with fixture paths set in config' do
       it 'resolves fixture file' do
         RSpec.configuration.fixture_paths = [File.dirname(__FILE__)]

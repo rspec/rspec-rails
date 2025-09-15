@@ -1,5 +1,5 @@
 module RSpec::Rails
-  RSpec.describe FixtureSupport do
+  RSpec.describe FixtureSupport, :with_isolated_config do
     context "with use_transactional_fixtures set to false" do
       it "still supports fixture_path/fixture_paths" do
         allow(RSpec.configuration).to receive(:use_transactional_fixtures) { false }
