@@ -48,6 +48,10 @@ module RSpec
           raise ArgumentError, "Chaining is not supported"
         end
 
+        def or(_)
+          raise ArgumentError, "Chaining is not supported"
+        end
+
         def matches?(block)
           warn_about_nil_error! if @warn_about_nil_error
 
@@ -225,7 +229,7 @@ module RSpec
         end
 
         def has_qualifiers?
-          !@expected_error.nil? || !@expected_message.nil? || !@attributes.empty?
+          @expected_error || @expected_message || @attributes
         end
       end
 
