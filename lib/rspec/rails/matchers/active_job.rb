@@ -273,7 +273,7 @@ module RSpec
           end
 
           def queue_adapter
-            ::ActiveJob::Base.queue_adapter
+            @job ? @job.queue_adapter : ::ActiveJob::Base.queue_adapter
           end
         end
         # rubocop: enable Metrics/ClassLength
@@ -409,7 +409,7 @@ module RSpec
       #       expect(from).to include "_#{to}"
       #     }
       def have_enqueued_job(job = nil)
-        check_active_job_adapter
+        check_active_job_adapter(job)
         ActiveJob::HaveEnqueuedJob.new(job)
       end
       alias_method :enqueue_job, :have_enqueued_job
@@ -484,7 +484,7 @@ module RSpec
       #       }
       #     }.to have_performed_job.with(42).on_queue("low").at(Date.tomorrow.noon)
       def have_performed_job(job = nil)
-        check_active_job_adapter
+        check_active_job_adapter(job)
         ActiveJob::HavePerformedJob.new(job)
       end
       alias_method :perform_job, :have_performed_job
@@ -524,10 +524,14 @@ module RSpec
     private
 
       # @private
-      def check_active_job_adapter
-        return if ::ActiveJob::QueueAdapters::TestAdapter === ::ActiveJob::Base.queue_adapter
+      def check_active_job_adapter(job = nil)
+        unless ::ActiveJob::QueueAdapters::TestAdapter === ::ActiveJob::Base.queue_adapter
+          raise StandardError, "To use ActiveJob matchers set `ActiveJob::Base.queue_adapter = :test`"
+        end
 
-        raise StandardError, "To use ActiveJob matchers set `ActiveJob::Base.queue_adapter = :test`"
+        if job && !(::ActiveJob::QueueAdapters::TestAdapter === job.queue_adapter)
+          raise StandardError, "To use ActiveJob matchers with #{job.name}, set `#{job.name}.queue_adapter = :test`"
+        end
       end
     end
   end

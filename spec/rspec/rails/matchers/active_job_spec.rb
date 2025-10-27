@@ -467,6 +467,18 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       ActiveJob::Base.queue_adapter = queue_adapter
     end
 
+    it "throws descriptive error when job has non-test adapter" do
+      job_with_inline_adapter = Class.new(ActiveJob::Base) do
+        self.queue_adapter = :inline
+        def perform; end
+        def self.name; "JobWithInlineAdapter"; end
+      end
+
+      expect {
+        expect { job_with_inline_adapter.perform_later }.to have_enqueued_job(job_with_inline_adapter)
+      }.to raise_error(StandardError, /To use ActiveJob matchers with JobWithInlineAdapter, set `JobWithInlineAdapter.queue_adapter = :test`/)
+    end
+
     it "fails with with block with incorrect data" do
       expect {
         expect {
@@ -535,6 +547,47 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       expect {
         hello_job.perform_later(usec_time)
       }.to have_enqueued_job(hello_job).with(usec_time)
+    end
+
+    context "with job subclass having its own queue adapter" do
+      let(:job_with_own_adapter) do
+        Class.new(ActiveJob::Base) do
+          self.queue_adapter = ActiveJob::QueueAdapters::TestAdapter.new
+          def perform; end
+          def self.name; "JobWithOwnAdapter"; end
+        end
+      end
+
+      let(:another_job_with_own_adapter) do
+        Class.new(ActiveJob::Base) do
+          self.queue_adapter = ActiveJob::QueueAdapters::TestAdapter.new
+          def perform; end
+          def self.name; "AnotherJobWithOwnAdapter"; end
+        end
+      end
+
+      it "uses the job's own queue adapter instead of base class adapter" do
+        expect {
+          job_with_own_adapter.perform_later
+        }.to have_enqueued_job(job_with_own_adapter)
+      end
+
+      it "isolates jobs between different adapters" do
+        job_with_own_adapter.perform_later
+        another_job_with_own_adapter.perform_later
+
+        expect {
+          job_with_own_adapter.perform_later
+        }.to have_enqueued_job(job_with_own_adapter).exactly(1)
+      end
+
+      it "does not count jobs from other adapters" do
+        another_job_with_own_adapter.perform_later
+
+        expect {
+          job_with_own_adapter.perform_later
+        }.to have_enqueued_job(job_with_own_adapter).exactly(1)
+      end
     end
   end
 
@@ -622,6 +675,42 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       heavy_lifting_job.set(wait_until: slightly_earlier).perform_later
       expect(heavy_lifting_job)
         .to have_been_enqueued.at(a_value_within(5.seconds).of(future))
+    end
+
+    context "with job subclass having its own queue adapter" do
+      let(:job_with_own_adapter) do
+        Class.new(ActiveJob::Base) do
+          self.queue_adapter = ActiveJob::QueueAdapters::TestAdapter.new
+          def perform; end
+          def self.name; "JobWithOwnAdapter"; end
+        end
+      end
+
+      let(:another_job_with_own_adapter) do
+        Class.new(ActiveJob::Base) do
+          self.queue_adapter = ActiveJob::QueueAdapters::TestAdapter.new
+          def perform; end
+          def self.name; "AnotherJobWithOwnAdapter"; end
+        end
+      end
+
+      it "uses the job's own queue adapter instead of base class adapter" do
+        job_with_own_adapter.perform_later
+        expect(job_with_own_adapter).to have_been_enqueued
+      end
+
+      it "isolates jobs between different adapters" do
+        job_with_own_adapter.perform_later
+        another_job_with_own_adapter.perform_later
+
+        expect(job_with_own_adapter).to have_been_enqueued.exactly(1)
+      end
+
+      it "does not count jobs from other adapters" do
+        another_job_with_own_adapter.perform_later
+
+        expect(job_with_own_adapter).not_to have_been_enqueued
+      end
     end
   end
 
@@ -814,6 +903,20 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       ActiveJob::Base.queue_adapter = queue_adapter
     end
 
+    it "throws descriptive error when job has non-test adapter" do
+      job_with_inline_adapter = Class.new(ActiveJob::Base) do
+        self.queue_adapter = :inline
+        def perform; end
+        def self.name; "JobWithInlineAdapter"; end
+      end
+
+      stub_const('JobWithInlineAdapter', job_with_inline_adapter)
+
+      expect {
+        expect { job_with_inline_adapter.perform_later }.to have_performed_job(job_with_inline_adapter)
+      }.to raise_error(StandardError, /To use ActiveJob matchers with JobWithInlineAdapter, set `JobWithInlineAdapter.queue_adapter = :test`/)
+    end
+
     it "fails with with block with incorrect data" do
       expect {
         expect {
@@ -857,6 +960,53 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
         expect(arg).to eq("asdf")
       }
     end
+
+    context "with job subclass having its own queue adapter" do
+      let(:job_with_own_adapter) do
+        Class.new(ActiveJob::Base) do
+          self.queue_adapter = ActiveJob::QueueAdapters::TestAdapter.new
+          queue_adapter.perform_enqueued_jobs = true
+          queue_adapter.perform_enqueued_at_jobs = true
+          def perform; end
+          def self.name; "JobWithOwnAdapter"; end
+        end
+      end
+
+      let(:another_job_with_own_adapter) do
+        Class.new(ActiveJob::Base) do
+          self.queue_adapter = ActiveJob::QueueAdapters::TestAdapter.new
+          queue_adapter.perform_enqueued_jobs = true
+          queue_adapter.perform_enqueued_at_jobs = true
+          def perform; end
+          def self.name; "AnotherJobWithOwnAdapter"; end
+        end
+      end
+
+      before do
+        stub_const('JobWithOwnAdapter', job_with_own_adapter)
+        stub_const('AnotherJobWithOwnAdapter', another_job_with_own_adapter)
+      end
+
+      it "uses the job's own queue adapter instead of base class adapter" do
+        expect {
+          job_with_own_adapter.perform_later
+        }.to have_performed_job(job_with_own_adapter)
+      end
+
+      it "isolates jobs between different adapters" do
+        expect {
+          job_with_own_adapter.perform_later
+        }.to have_performed_job(job_with_own_adapter).exactly(1)
+      end
+
+      it "does not count jobs from other adapters" do
+        another_job_with_own_adapter.perform_later
+
+        expect {
+          job_with_own_adapter.perform_later
+        }.to have_performed_job(job_with_own_adapter).exactly(1)
+      end
+    end
   end
 
   describe "have_been_performed" do
@@ -892,6 +1042,51 @@ RSpec.describe "ActiveJob matchers", skip: !RSpec::Rails::FeatureCheck.has_activ
       expect {
         expect(heavy_lifting_job).to have_been_performed
       }.to fail_with(/expected to perform exactly 1 jobs, but performed 0/)
+    end
+
+    context "with job subclass having its own queue adapter" do
+      let(:job_with_own_adapter) do
+        Class.new(ActiveJob::Base) do
+          self.queue_adapter = ActiveJob::QueueAdapters::TestAdapter.new
+          queue_adapter.perform_enqueued_jobs = true
+          queue_adapter.perform_enqueued_at_jobs = true
+          def perform; end
+          def self.name; "JobWithOwnAdapter"; end
+        end
+      end
+
+      let(:another_job_with_own_adapter) do
+        Class.new(ActiveJob::Base) do
+          self.queue_adapter = ActiveJob::QueueAdapters::TestAdapter.new
+          queue_adapter.perform_enqueued_jobs = true
+          queue_adapter.perform_enqueued_at_jobs = true
+          def perform; end
+          def self.name; "AnotherJobWithOwnAdapter"; end
+        end
+      end
+
+      before do
+        stub_const('JobWithOwnAdapter', job_with_own_adapter)
+        stub_const('AnotherJobWithOwnAdapter', another_job_with_own_adapter)
+      end
+
+      it "uses the job's own queue adapter instead of base class adapter" do
+        job_with_own_adapter.perform_later
+        expect(job_with_own_adapter).to have_been_performed
+      end
+
+      it "isolates jobs between different adapters" do
+        job_with_own_adapter.perform_later
+        another_job_with_own_adapter.perform_later
+
+        expect(job_with_own_adapter).to have_been_performed.exactly(1)
+      end
+
+      it "does not count jobs from other adapters" do
+        another_job_with_own_adapter.perform_later
+
+        expect(job_with_own_adapter).not_to have_been_performed
+      end
     end
   end
 
