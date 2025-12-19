@@ -43,6 +43,10 @@ module RSpec
         defined?(::ActionMailbox)
       end
 
+      def has_event_reporter?
+        defined?(::ActiveSupport::EventReporter)
+      end
+
       def type_metatag(type)
         "type: :#{type}"
       end

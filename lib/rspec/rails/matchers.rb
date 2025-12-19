@@ -34,3 +34,7 @@ end
 if RSpec::Rails::FeatureCheck.has_action_mailbox?
   require 'rspec/rails/matchers/action_mailbox'
 end
+
+if RSpec::Rails::FeatureCheck.has_event_reporter?
+  require 'rspec/rails/matchers/event_reporter'
+end
