@@ -1,3 +1,18 @@
+module TestEvents
+  class UserCreated
+    attr_reader :id, :name
+
+    def initialize(id:, name:)
+      @id = id
+      @name = name
+    end
+
+    def serialize
+      { id: @id, name: @name }
+    end
+  end
+end
+
 RSpec.describe "have_reported_event", skip: !RSpec::Rails::FeatureCheck.has_event_reporter? do
   describe "without name matching" do
     it "passes when any event is reported" do
@@ -18,6 +33,20 @@ RSpec.describe "have_reported_event", skip: !RSpec::Rails::FeatureCheck.has_even
 
     it "passes with symbol event name" do
       expect { Rails.event.notify(:user_created, { id: 123 }) }.to have_reported_event("user_created")
+    end
+
+    it "passes with class-based event name" do
+      event = TestEvents::UserCreated.new(id: 123, name: "John")
+      expect {
+        Rails.event.notify(event)
+      }.to have_reported_event(TestEvents::UserCreated)
+    end
+
+    it "passes with event object instance as name parameter" do
+      event = TestEvents::UserCreated.new(id: 123, name: "John")
+      expect {
+        Rails.event.notify(event)
+      }.to have_reported_event(event)
     end
 
     it "fails when no events are reported" do
@@ -52,6 +81,13 @@ RSpec.describe "have_reported_event", skip: !RSpec::Rails::FeatureCheck.has_even
       expect {
         Rails.event.notify("user.created", { id: 123, email: "john@example.com" })
       }.to have_reported_event("user.created").with_payload(email: /@example\.com$/)
+    end
+
+    it "passes with event object payload via serialize" do
+      event = TestEvents::UserCreated.new(id: 123, name: "John")
+      expect {
+        Rails.event.notify(event)
+      }.to have_reported_event(TestEvents::UserCreated).with_payload(id: 123)
     end
 
     it "fails when payload doesn't match" do

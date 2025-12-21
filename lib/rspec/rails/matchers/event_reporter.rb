@@ -70,7 +70,7 @@ module RSpec
           end
 
           def matches?(name, payload = nil, tags = nil)
-            return false if name && name.to_s != event_data[:name]
+            return false if name && resolve_name(name) != event_data[:name]
             return false if payload && !matches_payload?(payload)
             return false if tags && !matches_tags?(tags)
 
@@ -78,6 +78,17 @@ module RSpec
           end
 
           private
+
+          def resolve_name(name)
+            case name
+            when String, Symbol
+              name.to_s
+            when Class
+              name.name
+            else
+              name.class.name
+            end
+          end
 
           def matches_payload?(expected_payload)
             matches_hash?(expected_payload, :payload, allow_regexp: true)
@@ -88,7 +99,7 @@ module RSpec
           end
 
           def matches_hash?(expected, key, allow_regexp:)
-            actual = event_data[key]
+            actual = normalize_to_hash(event_data[key])
             return false unless actual.is_a?(Hash)
 
             expected.all? do |k, v|
@@ -100,6 +111,14 @@ module RSpec
               else
                 actual_value == v
               end
+            end
+          end
+
+          def normalize_to_hash(value)
+            if value.respond_to?(:serialize)
+              value.serialize
+            else
+              value
             end
           end
         end
