@@ -66,13 +66,14 @@ module RSpec
           end
 
           def inspect
-            "#{event_data[:name]} (payload: #{event_data[:payload].inspect}, tags: #{event_data[:tags].inspect})"
+            "#{event_data[:name]} (payload: #{event_data[:payload].inspect}, tags: #{event_data[:tags].inspect}, context: #{event_data[:context].inspect})"
           end
 
-          def matches?(name, payload = nil, tags = nil)
+          def matches?(name, payload = nil, tags = nil, context = nil)
             return false if name && resolve_name(name) != event_data[:name]
             return false if payload && !matches_payload?(payload)
             return false if tags && !matches_tags?(tags)
+            return false if context && !matches_context?(context)
 
             true
           end
@@ -96,6 +97,10 @@ module RSpec
 
           def matches_tags?(expected_tags)
             matches_hash?(expected_tags, :tags, allow_regexp: true)
+          end
+
+          def matches_context?(expected_context)
+            matches_hash?(expected_context, :context, allow_regexp: true)
           end
 
           def matches_hash?(expected, key, allow_regexp:)
@@ -130,6 +135,7 @@ module RSpec
             super()
             @expected_payload = nil
             @expected_tags = nil
+            @expected_context = nil
           end
 
           def supports_value_expectations?
@@ -164,6 +170,18 @@ module RSpec
             self
           end
 
+          # @api public
+          # Specifies the expected context
+          #
+          # @param context [Hash] expected context keys and values (values can be regex)
+          # @return [self] self for chaining
+          # @raise [ArgumentError] if context is not a Hash
+          def with_context(context)
+            require_hash_argument(context, :with_context)
+            @expected_context = context
+            self
+          end
+
           private
 
           def require_hash_argument(value, method_name)
@@ -176,16 +194,17 @@ module RSpec
             @events.map { |e| "  #{e.inspect}" }.join("\n")
           end
 
-          def format_event_criteria(name: nil, payload: nil, tags: nil)
+          def format_event_criteria(name: nil, payload: nil, tags: nil, context: nil)
             parts = []
             parts << "name: #{name.inspect}" if name
             parts << "payload: #{payload.inspect}" if payload
             parts << "tags: #{tags.inspect}" if tags
+            parts << "context: #{context.inspect}" if context
             parts.join(", ")
           end
 
-          def find_matching_event(name: @expected_name, payload: @expected_payload, tags: @expected_tags)
-            @events.find { |event| event.matches?(name, payload, tags) }
+          def find_matching_event(name: @expected_name, payload: @expected_payload, tags: @expected_tags, context: @expected_context)
+            @events.find { |event| event.matches?(name, payload, tags, context) }
           end
         end
 
@@ -245,6 +264,7 @@ module RSpec
             desc += " #{@expected_name.inspect}" if @expected_name
             desc += " with payload #{@expected_payload.inspect}" if @expected_payload
             desc += " with tags #{@expected_tags.inspect}" if @expected_tags
+            desc += " with context #{@expected_context.inspect}" if @expected_context
             desc
           end
 
@@ -255,6 +275,7 @@ module RSpec
             details << "  name: #{@expected_name.inspect}" if @expected_name
             details << "  payload: #{@expected_payload.inspect}" if @expected_payload
             details << "  tags: #{@expected_tags.inspect}" if @expected_tags
+            details << "  context: #{@expected_context.inspect}" if @expected_context
             details.join("\n")
           end
         end
@@ -314,14 +335,15 @@ module RSpec
           private
 
           def has_filters?
-            !!(@expected_name || @expected_payload || @expected_tags)
+            !!(@expected_name || @expected_payload || @expected_tags || @expected_context)
           end
 
           def match_description
             format_event_criteria(
               name: @expected_name,
               payload: @expected_payload,
-              tags: @expected_tags
+              tags: @expected_tags,
+              context: @expected_context
             )
           end
         end
@@ -383,7 +405,7 @@ module RSpec
 
             @expected_events.each do |expected|
               match_index = remaining_events.find_index do |event|
-                event.matches?(expected[:name], expected[:payload], expected[:tags])
+                event.matches?(expected[:name], expected[:payload], expected[:tags], expected[:context])
               end
 
               if match_index
@@ -398,7 +420,7 @@ module RSpec
 
           def formatted_missing_events
             @missing_events.map do |e|
-              "  #{format_event_criteria(name: e[:name], payload: e[:payload], tags: e[:tags])}"
+              "  #{format_event_criteria(name: e[:name], payload: e[:payload], tags: e[:tags], context: e[:context])}"
             end.join("\n")
           end
         end
@@ -423,6 +445,13 @@ module RSpec
       #     end
       #   }.to have_reported_event("user.created")
       #     .with_tags(request_id: /[a-z0-9]+/)
+      #
+      # @example With context matching
+      #   Rails.event.set_context(request_id: "abc123")
+      #   expect {
+      #     Rails.event.notify("user.created", { id: 123 })
+      #   }.to have_reported_event("user.created")
+      #     .with_context(request_id: /[a-z0-9]+/)
       #
       # @param name [String, Symbol] the expected event name
       # @return [HaveReportedEvent]

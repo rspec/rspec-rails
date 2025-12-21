@@ -43,3 +43,9 @@ Given /action mailbox is available/ do
     pending "Action Mailbox is not available"
   end
 end
+
+Given /event reporter is available/ do
+  unless RSpec::Rails::FeatureCheck.has_event_reporter?
+    pending "Event Reporter is not available"
+  end
+end

@@ -173,6 +173,58 @@ RSpec.describe "have_reported_event", skip: !RSpec::Rails::FeatureCheck.has_even
     end
   end
 
+  describe "with context matching" do
+    around do |example|
+      example.run
+    ensure
+      Rails.event.clear_context
+    end
+
+    it "passes with matching context" do
+      Rails.event.set_context(request_id: "abc123")
+      expect {
+        Rails.event.notify("user.created", { id: 123 })
+      }.to have_reported_event("user.created").with_context(request_id: "abc123")
+    end
+
+    it "passes with regex context matching" do
+      Rails.event.set_context(request_id: "abc123")
+      expect {
+        Rails.event.notify("user.created", { id: 123 })
+      }.to have_reported_event("user.created").with_context(request_id: /[a-z0-9]+/)
+    end
+
+    it "passes with partial context matching" do
+      Rails.event.set_context(request_id: "abc123", user_id: 456)
+      expect {
+        Rails.event.notify("user.created", { id: 123 })
+      }.to have_reported_event("user.created").with_context(request_id: "abc123")
+    end
+
+    it "fails when context doesn't match" do
+      Rails.event.set_context(request_id: "xyz")
+      expect {
+        expect {
+          Rails.event.notify("user.created", { id: 123 })
+        }.to have_reported_event("user.created").with_context(request_id: "abc123")
+      }.to raise_error(RSpec::Expectations::ExpectationNotMetError, /none of the 1 reported events matched/)
+    end
+
+    it "fails when event has no context" do
+      expect {
+        expect {
+          Rails.event.notify("user.created", { id: 123 })
+        }.to have_reported_event("user.created").with_context(request_id: "abc123")
+      }.to raise_error(RSpec::Expectations::ExpectationNotMetError, /none of the 1 reported events matched/)
+    end
+
+    it "raises ArgumentError when with_context is called with non-Hash" do
+      expect {
+        have_reported_event("user.created").with_context("invalid")
+      }.to raise_error(ArgumentError, /with_context requires a Hash/)
+    end
+  end
+
   describe "negation" do
     it "passes when event is not reported" do
       expect {
