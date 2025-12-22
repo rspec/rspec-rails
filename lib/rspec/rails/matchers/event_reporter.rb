@@ -14,6 +14,8 @@ module RSpec
           @mutex = Mutex.new
 
           class << self
+            # @api private
+            # Receives events from the Rails EventReporter subscriber.
             def emit(event)
               event_recorders&.each do |recorder|
                 recorder << Event.new(event)
@@ -21,6 +23,8 @@ module RSpec
               true
             end
 
+            # @api private
+            # Records events emitted during the block execution.
             def record
               subscribe
               events = []
@@ -59,12 +63,16 @@ module RSpec
         # @api private
         # Wraps event data and provides matching logic.
         class Event
+          # @api private
+          # Returns the raw event data hash.
           attr_reader :event_data
 
           def initialize(event_data)
             @event_data = event_data
           end
 
+          # @api private
+          # Returns a human-readable representation of the event.
           def inspect
             "#{event_data[:name]} (payload: #{event_data[:payload].inspect}, tags: #{event_data[:tags].inspect}, context: #{event_data[:context].inspect})"
           end
@@ -237,6 +245,8 @@ module RSpec
             end
           end
 
+          # @api private
+          # Returns the failure message when the expectation is not met.
           def failure_message
             case @failure_reason
             when :no_events
@@ -251,6 +261,8 @@ module RSpec
             end
           end
 
+          # @api private
+          # Returns the failure message when the negated expectation is not met.
           def failure_message_when_negated
             if @expected_name
               "expected no event matching #{@expected_name.inspect} to be reported, but one was found"
@@ -259,6 +271,8 @@ module RSpec
             end
           end
 
+          # @api private
+          # Returns a description of the matcher.
           def description
             desc = "report event"
             desc += " #{@expected_name.inspect}" if @expected_name
@@ -302,6 +316,8 @@ module RSpec
             end
           end
 
+          # @api private
+          # Returns the failure message when the expectation is not met.
           def failure_message
             if has_filters?
               <<~MSG.chomp
@@ -316,6 +332,8 @@ module RSpec
             end
           end
 
+          # @api private
+          # Returns the failure message when the negated expectation is not met.
           def failure_message_when_negated
             if has_filters?
               "expected an event matching #{match_description} to be reported, but none were found"
@@ -324,6 +342,8 @@ module RSpec
             end
           end
 
+          # @api private
+          # Returns a description of the matcher.
           def description
             if has_filters?
               "report no event matching #{match_description}"
@@ -375,6 +395,8 @@ module RSpec
             end
           end
 
+          # @api private
+          # Returns the failure message when the expectation is not met.
           def failure_message
             case @failure_reason
             when :no_events
@@ -389,10 +411,14 @@ module RSpec
             end
           end
 
+          # @api private
+          # Returns the failure message when the negated expectation is not met.
           def failure_message_when_negated
             "expected events not to be reported, but all were found"
           end
 
+          # @api private
+          # Returns a description of the matcher.
           def description
             "report #{@expected_events.size} events"
           end
