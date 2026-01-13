@@ -8,59 +8,6 @@ module RSpec
       # @api private
       module EventReporter
         # @api private
-        # Internal subscriber that collects events during test execution.
-        module EventCollector
-          @subscribed = false
-          @mutex = Mutex.new
-
-          class << self
-            # @api private
-            # Receives events from the Rails EventReporter subscriber.
-            def emit(event)
-              event_recorders&.each do |recorder|
-                recorder << Event.new(event)
-              end
-              true
-            end
-
-            # @api private
-            # Records events emitted during the block execution.
-            def record
-              subscribe
-              events = []
-              event_recorders << events
-              begin
-                yield
-                events
-              ensure
-                event_recorders.delete_if { |r| events.equal?(r) }
-              end
-            end
-
-            private
-
-            def subscribe
-              return if @subscribed
-
-              @mutex.synchronize do
-                unless @subscribed
-                  if ActiveSupport.event_reporter
-                    ActiveSupport.event_reporter.subscribe(self)
-                    @subscribed = true
-                  else
-                    raise "No event reporter is configured. Ensure Rails.application is initialized."
-                  end
-                end
-              end
-            end
-
-            def event_recorders
-              ActiveSupport::IsolatedExecutionState[:rspec_rails_event_reporter_events] ||= []
-            end
-          end
-        end
-
-        # @api private
         # Wraps event data and provides matching logic.
         class Event
           # @api private
@@ -214,6 +161,11 @@ module RSpec
           def find_matching_event(name: @expected_name, payload: @expected_payload, tags: @expected_tags, context: @expected_context)
             @events.find { |event| event.matches?(name, payload, tags, context) }
           end
+
+          def record_events(&block)
+            rails_events = ActiveSupport::Testing::EventReporterAssertions::EventCollector.record(&block)
+            rails_events.map { |e| Event.new(e.event_data) }
+          end
         end
 
         # @api private
@@ -228,7 +180,7 @@ module RSpec
           end
 
           def matches?(block)
-            @events = EventCollector.record(&block)
+            @events = record_events(&block)
 
             if @events.empty?
               @failure_reason = :no_events
@@ -306,7 +258,7 @@ module RSpec
           end
 
           def matches?(block)
-            @events = EventCollector.record(&block)
+            @events = record_events(&block)
 
             if has_filters?
               @matching_event = find_matching_event
@@ -380,7 +332,7 @@ module RSpec
           end
 
           def matches?(block)
-            @events = EventCollector.record(&block)
+            @events = record_events(&block)
 
             @missing_events = find_missing_events
 
