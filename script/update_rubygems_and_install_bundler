@@ -3,16 +3,8 @@
 
 set -e
 
-function is_ruby_3_plus {
-  if ruby -e "exit(RUBY_VERSION.to_f >= 3.0)"; then
-    return 0
-  else
-    return 1
-  fi
-}
-
-function is_ruby_3_1_plus {
-  if ruby -e "exit(RUBY_VERSION.to_f >= 3.1)"; then
+function is_ruby_3_2_plus {
+  if ruby -e "exit(RUBY_VERSION.to_f >= 3.2)"; then
     return 0
   else
     return 1
@@ -20,13 +12,14 @@ function is_ruby_3_1_plus {
 }
 
 
-if is_ruby_3_1_plus; then
+if is_ruby_3_2_plus; then
   gem update --no-document --system
-  gem install --no-document bundler
-elif is_ruby_3_plus; then
-  gem update --no-document --system '3.5.23'
   gem install --no-document bundler
 else
   gem update --no-document --system '3.4.22'
-  gem install --no-document bundler
+  gem install --no-document bundler -v '2.6.9'
+
+  # Bring this default gem up to last supported manually
+  gem uninstall error_highlight -v 0.3.0
+  gem install error_highlight -v 0.7.0
 fi
