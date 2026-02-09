@@ -112,13 +112,13 @@ function check_binstubs {
     echo "Install missing binstubs using one of the following:"
     echo
     echo "  # Create the missing binstubs"
-    echo "  $ bundle binstubs$gems"
+    echo "  $ bundle binstubs $gems"
     echo
     echo "  # To binstub all gems"
-    echo "  $ bundle install --binstubs"
+    echo "  $ bundle binstubs --all"
     echo
     echo "  # To binstub all gems and avoid loading bundler"
-    echo "  $ bundle install --binstubs --standalone"
+    echo "  $ bundle binstubs --all"
   fi
 
   return $success
