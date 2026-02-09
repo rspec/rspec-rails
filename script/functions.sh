@@ -2,10 +2,6 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 SPECS_HAVE_RUN_FILE=specs.out
 MAINTENANCE_BRANCH=`cat maintenance-branch`
 
-# Don't allow rubygems to pollute what's loaded. Also, things boot faster
-# without the extra load time of rubygems. Only works on MRI Ruby 1.9+
-export RUBYOPT="--disable=gem"
-
 ci_retry() {
   local result=0
   local count=1
