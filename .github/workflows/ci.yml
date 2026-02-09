@@ -25,7 +25,7 @@ jobs:
         with:
           ruby-version: '3.3'
       - run: script/update_rubygems_and_install_bundler
-      - run: bundle install --standalone
+      - run: bundle install
       - run: bundle binstubs --all
       - run: script/run_rubocop
 
@@ -36,14 +36,11 @@ jobs:
       fail-fast: false
       matrix:
        include:
-         # Edge Rails (?) builds >= 3.1
+         # Edge Rails builds >= 3.3
          - ruby: 3.4
            env:
              RAILS_VERSION: 'main'
          - ruby: 3.3
-           env:
-             RAILS_VERSION: 'main'
-         - ruby: 3.2
            env:
              RAILS_VERSION: 'main'
 
@@ -88,6 +85,7 @@ jobs:
           ruby-version: ${{ matrix.ruby }}
       - run: script/update_rubygems_and_install_bundler
       - run: script/clone_all_rspec_repos
-      - run: bundle install --binstubs
+      - run: bundle install
+      - run: bundle binstubs --all
       - run: script/run_build
         continue-on-error: ${{ matrix.allow_failure || false }}
