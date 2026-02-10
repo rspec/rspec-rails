@@ -2,15 +2,7 @@
 # This file is manually managed unlike the rest of core rspec gems because it is independent.
 
 set -e
-
-function is_ruby_3_2_plus {
-  if ruby -e "exit(RUBY_VERSION.to_f >= 3.2)"; then
-    return 0
-  else
-    return 1
-  fi
-}
-
+source script/functions.sh
 
 if is_ruby_3_2_plus; then
   gem update --no-document --system

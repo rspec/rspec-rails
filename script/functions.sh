@@ -2,6 +2,22 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 SPECS_HAVE_RUN_FILE=specs.out
 MAINTENANCE_BRANCH=`cat maintenance-branch`
 
+function is_ruby_3_2_plus {
+  if ruby -e "exit(RUBY_VERSION.to_f >= 3.2)"; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+function is_ruby_3_3_plus {
+  if ruby -e "exit(RUBY_VERSION.to_f >= 3.3)"; then
+    return 0
+  else
+    return 1
+  fi
+}
+
 ci_retry() {
   local result=0
   local count=1

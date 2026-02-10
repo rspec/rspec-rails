@@ -10,7 +10,9 @@ fold "specs" run_specs_and_record_done
 
 fold "acceptance" bin/rake acceptance --trace
 
-fold "snippets" script/run_snippets.sh
+if is_ruby_3_2_plus; then
+  fold "snippets" script/run_snippets.sh
+fi
 
 if documentation_enforced; then
   fold "doc check" check_documentation_coverage
