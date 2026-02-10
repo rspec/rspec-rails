@@ -2,9 +2,21 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 SPECS_HAVE_RUN_FILE=specs.out
 MAINTENANCE_BRANCH=`cat maintenance-branch`
 
-# Don't allow rubygems to pollute what's loaded. Also, things boot faster
-# without the extra load time of rubygems. Only works on MRI Ruby 1.9+
-export RUBYOPT="--disable=gem"
+function is_ruby_3_2_plus {
+  if ruby -e "exit(RUBY_VERSION.to_f >= 3.2)"; then
+    return 0
+  else
+    return 1
+  fi
+}
+
+function is_ruby_3_3_plus {
+  if ruby -e "exit(RUBY_VERSION.to_f >= 3.3)"; then
+    return 0
+  else
+    return 1
+  fi
+}
 
 ci_retry() {
   local result=0
@@ -112,13 +124,13 @@ function check_binstubs {
     echo "Install missing binstubs using one of the following:"
     echo
     echo "  # Create the missing binstubs"
-    echo "  $ bundle binstubs$gems"
+    echo "  $ bundle binstubs $gems"
     echo
     echo "  # To binstub all gems"
-    echo "  $ bundle install --binstubs"
+    echo "  $ bundle binstubs --all"
     echo
     echo "  # To binstub all gems and avoid loading bundler"
-    echo "  $ bundle install --binstubs --standalone"
+    echo "  $ bundle binstubs --all"
   fi
 
   return $success
