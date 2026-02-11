@@ -43,3 +43,9 @@ Given /action mailbox is available/ do
     pending "Action Mailbox is not available"
   end
 end
+
+Given /rails 8 or later is available/ do
+  unless ::Rails::VERSION::STRING >= "8.0.0"
+    pending "Rails 8.0+ is required"
+  end
+end
