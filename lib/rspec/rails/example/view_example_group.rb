@@ -186,7 +186,7 @@ module RSpec
 
         before do
           _include_controller_helpers
-          view.lookup_context.prefixes << _controller_path
+          view.lookup_context.prefixes.prepend(_controller_path)
 
           controller.controller_path = _controller_path
 
