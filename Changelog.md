@@ -1,6 +1,10 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.2...main)
 
+Bug Fixes:
+
+* Fix insertion order of controller prefix in the view `lookup_context`. (Stephen Nelson, #2749)
+
 ### 8.0.2 / 2025-08-12
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.1...v8.0.2)
 
