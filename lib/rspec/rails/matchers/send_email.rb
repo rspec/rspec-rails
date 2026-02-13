@@ -91,7 +91,7 @@ module RSpec
 
         def sent_emails_message
           if @diff.empty?
-            "\n\nThere were no any emails sent inside the expectation block."
+            "\n\nThere were no emails sent inside the expectation block."
           else
             sent_emails =
               @diff.map do |email|
