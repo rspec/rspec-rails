@@ -60,7 +60,7 @@ RSpec.describe "send_email" do
     }.to raise_error(RSpec::Expectations::ExpectationNotMetError, <<~MSG.strip)
       No matching emails were sent.
 
-      There were not any emails sent inside the expectation block.
+      There were no emails sent inside the expectation block.
     MSG
   end
 
