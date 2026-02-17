@@ -41,8 +41,9 @@ Accordingly you should use:
 
 ## Installation
 
-**IMPORTANT** This README / branch refers to the current development build.
-See the [`8-0-maintenance` branch on Github](https://github.com/rspec/rspec-rails/tree/8-0-maintenance) if you want or require the latest stable release.
+**IMPORTANT** This README / branch refers to the 8.1.x stable release series, only bugfixes from this series will
+be added here. See the [`main` branch on Github](https://github.com/rspec/rspec-rails/tree/main) if you want or
+require the latest unstable features.
 
 1. Add `rspec-rails` to **both** the `:development` and `:test` groups
    of your app’s `Gemfile`:
