@@ -4,6 +4,10 @@ module RSpecRails
   class Application < ::Rails::Application
     config.secret_key_base = 'ASecretString'
 
+    # Force this to be considered initialized,
+    # this silences warnings in our specs
+    def initialized? = true
+
     if defined?(ActionCable)
       ActionCable.server.config.cable = { "adapter" => "test" }
       ActionCable.server.config.logger =
