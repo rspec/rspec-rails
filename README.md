@@ -14,9 +14,6 @@ We follow a versioning strategy as defined by [RSpec Rails versioning strategy][
 TL;DR of which is that we support currently supported versions of Rails, and will
 issue a major version change when removing older versions from support.
 
-**Note** Rails 7.1 is supported by the Rails team until October 2025, and thus `rspec-rails`
-will support bug fixes for this version in the `7-2-maintenance` branch until that time.
-
 Accordingly you should use:
 
 * **[`rspec-rails` 8.x][]** for Rails 8.0 or 7.2.
