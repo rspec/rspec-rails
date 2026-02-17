@@ -41,7 +41,7 @@ class RSpec::Core::ExampleGroup
 end
 
 # This behaviour will become the default in Rails 8, for now it silences a deprecation
-if ActiveSupport.respond_to?(:to_time_preserves_timezone)
+if ActiveSupport.respond_to?(:to_time_preserves_timezone) && Rails.version.to_f < 8.2
   ActiveSupport.to_time_preserves_timezone = true
 end
 
