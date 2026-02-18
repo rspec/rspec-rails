@@ -4,6 +4,10 @@ module RSpecRails
   class Application < ::Rails::Application
     config.secret_key_base = 'ASecretString'
 
+    # Force this to be considered initialized,
+    # this silences warnings in our specs
+    def initialized? = true
+
     if defined?(ActionCable)
       ActionCable.server.config.cable = { "adapter" => "test" }
       ActionCable.server.config.logger =
@@ -37,7 +41,7 @@ class RSpec::Core::ExampleGroup
 end
 
 # This behaviour will become the default in Rails 8, for now it silences a deprecation
-if ActiveSupport.respond_to?(:to_time_preserves_timezone)
+if ActiveSupport.respond_to?(:to_time_preserves_timezone) && Rails.version.to_f < 8.2
   ActiveSupport.to_time_preserves_timezone = true
 end
 

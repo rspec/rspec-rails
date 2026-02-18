@@ -214,19 +214,9 @@ RSpec.describe "Configuration" do
   end
 
   it "metadata `type: :request` sets up request example groups" do
-    a_rails_app = double("Rails application")
-    the_rails_module = Module.new {
-      def self.version; end
-      def self.application; end
-    }
-    allow(the_rails_module).to receive(:application) { a_rails_app }
-    version = ::Rails::VERSION
-    stub_const "Rails", the_rails_module
-    stub_const 'Rails::VERSION', version
-
     group = RSpec.describe("Some Request API", type: :request)
 
-    expect(group.new.app).to be(a_rails_app)
+    expect(group.new.app).to be_instance_of(RSpecRails::Application)
     expect(group.new).to be_a(RSpec::Rails::RequestExampleGroup)
   end
 
@@ -251,16 +241,6 @@ RSpec.describe "Configuration" do
   end
 
   it "metadata `type: :feature` sets up feature example groups" do
-    a_rails_app = double("Rails application")
-    the_rails_module = Module.new {
-      def self.version; end
-      def self.application; end
-    }
-    allow(the_rails_module).to receive(:application) { a_rails_app }
-    version = ::Rails::VERSION
-    stub_const "Rails", the_rails_module
-    stub_const 'Rails::VERSION', version
-
     group = RSpec.describe("Some feature description", type: :feature)
     example = group.new
 
