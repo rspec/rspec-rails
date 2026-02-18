@@ -36,6 +36,9 @@ jobs:
       matrix:
        include:
          # Edge Rails (?) builds >= 3.1
+         - ruby: 4.0
+           env:
+             RAILS_VERSION: 'main'
          - ruby: 3.4
            env:
              RAILS_VERSION: 'main'
@@ -44,6 +47,9 @@ jobs:
              RAILS_VERSION: 'main'
 
          # Rails 8.1 builds >= 3.2
+         - ruby: 4.0
+           env:
+             RAILS_VERSION: '~> 8.1.0'
          - ruby: 3.4
            env:
              RAILS_VERSION: '~> 8.1.0'
@@ -55,6 +61,9 @@ jobs:
              RAILS_VERSION: '~> 8.1.0'
 
          # Rails 8.0 builds >= 3.2
+         - ruby: 4.0
+           env:
+             RAILS_VERSION: '~> 8.0.0'
          - ruby: 3.4
            env:
              RAILS_VERSION: '~> 8.0.0'
@@ -66,6 +75,9 @@ jobs:
              RAILS_VERSION: '~> 8.0.0'
 
          # Rails 7.2 builds >= 3.1
+         - ruby: 4.0
+           env:
+             RAILS_VERSION: '~> 7.2.0'
          - ruby: 3.3
            env:
              RAILS_VERSION: '~> 7.2.0'
