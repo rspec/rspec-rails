@@ -142,7 +142,7 @@ module RSpec
           job_args = deserialize_arguments(job)
 
           mailer_method = job_args[0..1].join('.')
-          mailer_args = job_args[3..-1]
+          mailer_args = job_args[3..]
 
           msg_parts = []
           msg_parts << "with #{mailer_args}" if mailer_args.any?
@@ -181,7 +181,7 @@ module RSpec
           mailer_args = args - base_mailer_args
 
           if parameterized_mail?(job)
-            mailer_args = mailer_args[1..-1] # ignore parameterized params
+            mailer_args = mailer_args[1..] # ignore parameterized params
           elsif mailer_args.last.is_a?(Hash) && mailer_args.last.key?(:args)
             mailer_args = args.last[:args]
           end

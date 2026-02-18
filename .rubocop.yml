@@ -3,14 +3,15 @@ inherit_from:
   - .rubocop_todo.yml
 
 AllCops:
-  TargetRubyVersion: 2.5
-  NewCops: disable
   Exclude:
     # Templates are really ERB which Rubocop does not parse
     - bin/**/*
     - bundle/**/*
     - lib/generators/rspec/*/templates/**/*
     - tmp/**/*
+  NewCops: disable
+  SuggestExtensions: false
+  TargetRubyVersion: 3.1
 
 # Over time we'd like to get this down, but this is what we're at now.
 Metrics/CyclomaticComplexity:
@@ -55,8 +56,8 @@ Layout/DotPosition:
   EnforcedStyle: leading
 
 Style/HashSyntax:
+  EnforcedShorthandSyntax: either
   EnforcedStyle: ruby19
 
 Style/Lambda:
   Enabled: true
-
