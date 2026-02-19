@@ -37,6 +37,10 @@ gemfile(false) do
     eval_gemfile 'Gemfile-rails-dependencies'
   end
 
+  if RUBY_VERSION.to_f >= 4.0
+    gem "mini_portile2"
+  end
+
   gem "rspec-rails", path: "../"
 end
 
