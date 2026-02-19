@@ -9,6 +9,16 @@ require 'rubygems'
 
 require "bundler/inline"
 
+if RUBY_VERSION.to_f >= 4
+  # On Ruby 4, on Github, Gem.dir, the default install for gemfile isn't properly
+  # writable, so fake it.
+  module Gem
+    def self.dir
+      File.join(__dir__, "../.bundle/gems")
+    end
+  end
+end
+
 # We pass `false` to `gemfile` to skip the installation of gems,
 # because it may install versions that would conflict with versions
 # from the main `Gemfile.lock`.
