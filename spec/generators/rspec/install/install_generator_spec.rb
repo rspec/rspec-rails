@@ -107,6 +107,47 @@ RSpec.describe Rspec::Generators::InstallGenerator, type: :generator do
     end
   end
 
+  context "with --selenium-container option" do
+    let(:system_test_config) { content_for('spec/support/system_test_configuration.rb') }
+
+    it "generates spec/support/system_test_configuration.rb" do
+      run_generator %w[--selenium-container=selenium]
+      expect(File.exist?(file('spec/support/system_test_configuration.rb'))).to be true
+    end
+
+    it "includes the selenium container hostname" do
+      run_generator %w[--selenium-container=selenium]
+      expect(system_test_config).to match(/SELENIUM_HOST.*selenium/)
+    end
+
+    it "configures served_by for Docker" do
+      run_generator %w[--selenium-container=selenium]
+      expect(system_test_config).to match(/served_by host: "rails-app"/)
+    end
+
+    it "configures driven_by with remote browser" do
+      run_generator %w[--selenium-container=selenium]
+      expect(system_test_config).to match(/browser: :remote/)
+    end
+
+    it "falls back to local headless Chrome without CAPYBARA_SERVER_PORT" do
+      run_generator %w[--selenium-container=selenium]
+      expect(system_test_config).to match(/driven_by :selenium, using: :headless_chrome/)
+    end
+
+    it "uses a custom container name" do
+      run_generator %w[--selenium-container=chrome]
+      expect(system_test_config).to match(/SELENIUM_HOST.*chrome/)
+    end
+  end
+
+  context "without --selenium-container option" do
+    it "does not generate spec/support/system_test_configuration.rb" do
+      run_generator
+      expect(File.exist?(file('spec/support/system_test_configuration.rb'))).to be false
+    end
+  end
+
   context "generates spec/rails_helper.rb", "without ActiveRecord available" do
     before do
       hide_const("ActiveRecord")

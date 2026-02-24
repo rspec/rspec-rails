@@ -1,6 +1,11 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.3...main)
 
+Enhancements:
+
+* Add `--selenium-container` option to `rspec:install` generator for Docker/devcontainer
+  Selenium configuration in system specs. (#2878)
+
 ### 8.0.3 / 2026-02-17
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.2...v8.0.3)
 
