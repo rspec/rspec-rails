@@ -36,6 +36,10 @@ module RSpec
 
         private
 
+          def css_escape(value)
+            value.gsub('\\', '\\\\\\\\').gsub('"', '\\"')
+          end
+
           def extract_body(response)
             if response.respond_to?(:body)
               response.body
@@ -49,7 +53,7 @@ module RSpec
 
             require "nokogiri"
             doc = Nokogiri::HTML::DocumentFragment.parse(body)
-            doc.css("turbo-frame[id=\"#{@id}\"]")
+            doc.css("turbo-frame[id=\"#{css_escape(@id)}\"]")
           end
         end
       end
