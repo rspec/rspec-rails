@@ -9,11 +9,16 @@ on:
   pull_request:
     branches:
       - '*'
+
 permissions:
   contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.github.head_ref || github.run_id }}
   cancel-in-progress: true
+
+env:
+  RSPEC_CI: true
 
 jobs:
   rubocop:
@@ -29,12 +34,19 @@ jobs:
       - run: script/run_rubocop
 
   test:
-    name: 'Ruby: ${{ matrix.ruby }}, Rails: ${{ matrix.env.RAILS_VERSION }}'
+    name: 'Ruby: ${{ matrix.ruby }}, Rails: ${{ matrix.env.RAILS_VERSION }}, RSpec: ${{ matrix.env.RSPEC_VERSION || ''~> 3.13'' }}'
     runs-on: 'ubuntu-latest'
     strategy:
       fail-fast: false
       matrix:
        include:
+         # Compatibility check
+         - ruby: 3.4
+           env:
+             RAILS_VERSION: '~> 8.1.0'
+             RSPEC_VERSION: '~> 4.0.0.beta1'
+             MAINTENANCE_BRANCH: 'main'
+
          # Edge Rails (?) builds >= 3.1
          - ruby: 3.4
            env:
