@@ -43,7 +43,7 @@ jobs:
          # Compatibility check
          - ruby: 3.4
            env:
-             RAILS_VERSION: '~> 8.1.0'
+             RAILS_VERSION: '~> 8.0.0'
              RSPEC_VERSION: '~> 4.0.0.beta1'
              MAINTENANCE_BRANCH: 'main'
 
