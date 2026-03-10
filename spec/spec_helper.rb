@@ -72,7 +72,7 @@ RSpec.configure do |config|
   # Zero monkey patching mode is the default and only mode in RSpec 4
   config.disable_monkey_patching! if config.respond_to?(:disable_monkey_patching!)
 
-  config.warnings = true
+  config.warnings = :all
   config.raise_on_warning = true
 
   config.raise_errors_for_deprecations!
