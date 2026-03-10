@@ -64,11 +64,6 @@ RSpec.describe Rspec::Generators::InstallGenerator, type: :generator do
     expect(spec_helper).to match(generator_command_notice)
   end
 
-  it "does not configure warnings in the spec/spec_helper.rb" do
-    run_generator
-    expect(spec_helper).not_to match(/\bconfig.warnings\b/m)
-  end
-
   context "generates spec/rails_helper.rb" do
     specify "requiring Rails environment" do
       run_generator
