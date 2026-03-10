@@ -1,5 +1,10 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.3...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.4...main)
+
+### 8.0.4 / 2026-03-10
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.3...v8.0.4)
+
+Released to relax version constraint for rspec to allow 4.0.0.beta1.
 
 ### 8.0.3 / 2026-02-17
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.2...v8.0.3)
