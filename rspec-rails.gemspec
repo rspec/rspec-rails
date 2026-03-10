@@ -46,9 +46,9 @@ Gem::Specification.new do |s|
   # get released.
   %w[core expectations mocks support].each do |name|
     if ENV['RSPEC_CI']
-      s.add_runtime_dependency "rspec-#{name}", ENV.fetch('RSPEC_VERSION', '3.14.0.pre')
+      s.add_runtime_dependency "rspec-#{name}", ENV.fetch('RSPEC_VERSION', '~> 3.13.0')
     else
-      s.add_runtime_dependency "rspec-#{name}", "~> 3.13"
+      s.add_runtime_dependency "rspec-#{name}", ">= 3.13.0", "< 5.0.0"
     end
   end
 

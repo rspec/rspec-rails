@@ -1,6 +1,9 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 SPECS_HAVE_RUN_FILE=specs.out
-MAINTENANCE_BRANCH=`cat maintenance-branch`
+
+if [ ! -n "$MAINTENANCE_BRANCH" ]; then
+  MAINTENANCE_BRANCH=`cat maintenance-branch`
+fi
 
 function is_ruby_3_2_plus {
   if ruby -e "exit(RUBY_VERSION.to_f >= 3.2)"; then
