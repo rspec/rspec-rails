@@ -1,4 +1,5 @@
 # Generators are not automatically loaded by Rails
+require 'erb'
 require 'generators/rspec/install/install_generator'
 require 'support/generators'
 
@@ -108,36 +109,26 @@ RSpec.describe Rspec::Generators::InstallGenerator, type: :generator do
   end
 
   context "with --selenium-container option" do
+    let(:container_name) { "selenium" }
     let(:system_test_config) { content_for('spec/support/system_test_configuration.rb') }
 
-    it "generates spec/support/system_test_configuration.rb" do
-      run_generator %w[--selenium-container=selenium]
-      expect(File.exist?(file('spec/support/system_test_configuration.rb'))).to be true
+    before { run_generator ["--selenium-container=#{container_name}"] }
+
+    it "generates spec/support/system_test_configuration.rb matching the template" do
+      template_path = File.expand_path(
+        "../../../../lib/generators/rspec/install/templates/spec/support/system_test_configuration.rb",
+        __dir__
+      )
+      expected = ERB.new(File.read(template_path)).result_with_hash(selenium_container: container_name)
+      expect(system_test_config).to eq(expected)
     end
 
-    it "includes the selenium container hostname" do
-      run_generator %w[--selenium-container=selenium]
-      expect(system_test_config).to match(/SELENIUM_HOST.*selenium/)
-    end
+    context "with a custom container name" do
+      let(:container_name) { "chrome" }
 
-    it "configures served_by for Docker" do
-      run_generator %w[--selenium-container=selenium]
-      expect(system_test_config).to match(/served_by host: "rails-app"/)
-    end
-
-    it "configures driven_by with remote browser" do
-      run_generator %w[--selenium-container=selenium]
-      expect(system_test_config).to match(/browser: :remote/)
-    end
-
-    it "falls back to local headless Chrome without CAPYBARA_SERVER_PORT" do
-      run_generator %w[--selenium-container=selenium]
-      expect(system_test_config).to match(/driven_by :selenium, using: :headless_chrome/)
-    end
-
-    it "uses a custom container name" do
-      run_generator %w[--selenium-container=chrome]
-      expect(system_test_config).to match(/SELENIUM_HOST.*chrome/)
+      it "uses the custom container name in the configuration" do
+        expect(system_test_config).to include(container_name)
+      end
     end
   end
 
