@@ -69,5 +69,25 @@ module RSpec::Rails
       failure_reporter.exceptions.map { |e| raise e }
       expect(result).to be true
     end
+
+    context "with use_active_record set to false" do
+      it "does not support fixture_path/fixture_paths" do
+        allow(RSpec.configuration).to receive(:use_active_record) { false }
+        group = RSpec::Core::ExampleGroup.describe do
+          include FixtureSupport
+        end
+
+        expect(group).not_to respond_to(:fixture_paths)
+      end
+
+      it "does not include ActiveRecord::TestFixtures" do
+        allow(RSpec.configuration).to receive(:use_active_record) { false }
+        group = RSpec::Core::ExampleGroup.describe do
+          include FixtureSupport
+        end
+
+        expect(group).not_to include(ActiveRecord::TestFixtures)
+      end
+    end
   end
 end
