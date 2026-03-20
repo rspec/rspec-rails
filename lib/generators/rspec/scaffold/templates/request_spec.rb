@@ -89,12 +89,14 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
       end
     end
 
-    context "with turbo_stream format", if: defined?(Turbo) do
-      it "creates a new <%= class_name %> and responds with turbo stream" do
-        post <%= index_helper %>_url, params: { <%= singular_table_name %>: valid_attributes }, as: :turbo_stream
-        expect(response).to be_turbo_stream
+    <% if RSpec::Rails::FeatureCheck.has_turbo? -%>
+      context "with turbo_stream format", if: defined?(Turbo) do
+        it "creates a new <%= class_name %> and responds with turbo stream" do
+          post <%= index_helper %>_url, params: { <%= singular_table_name %>: valid_attributes }, as: :turbo_stream
+          expect(response).to be_turbo_stream
+        end
       end
-    end
+    <% end -%>
   end
 
   describe "PATCH /update" do
@@ -126,13 +128,15 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
       end
     end
 
-    context "with turbo_stream format", if: defined?(Turbo) do
-      it "updates the <%= singular_table_name %> and responds with turbo stream" do
-        <%= file_name %> = <%= class_name %>.create! valid_attributes
-        patch <%= show_helper %>, params: { <%= singular_table_name %>: new_attributes }, as: :turbo_stream
-        expect(response).to be_turbo_stream
+    <% if RSpec::Rails::FeatureCheck.has_turbo? -%>
+      context "with turbo_stream format", if: defined?(Turbo) do
+        it "updates the <%= singular_table_name %> and responds with turbo stream" do
+          <%= file_name %> = <%= class_name %>.create! valid_attributes
+          patch <%= show_helper %>, params: { <%= singular_table_name %>: new_attributes }, as: :turbo_stream
+          expect(response).to be_turbo_stream
+        end
       end
-    end
+    <% end -%>
   end
 
   describe "DELETE /destroy" do
@@ -149,13 +153,15 @@ RSpec.describe "/<%= name.underscore.pluralize %>", <%= type_metatag(:request) %
       expect(response).to redirect_to(<%= index_helper %>_url)
     end
 
-    context "with turbo_stream format", if: defined?(Turbo) do
-      it "destroys the <%= singular_table_name %> and responds with turbo stream" do
-        <%= file_name %> = <%= class_name %>.create! valid_attributes
-        delete <%= show_helper %>, as: :turbo_stream
-        expect(response).to be_turbo_stream
+    <% if RSpec::Rails::FeatureCheck.has_turbo? -%>
+      context "with turbo_stream format", if: defined?(Turbo) do
+        it "destroys the <%= singular_table_name %> and responds with turbo stream" do
+          <%= file_name %> = <%= class_name %>.create! valid_attributes
+          delete <%= show_helper %>, as: :turbo_stream
+          expect(response).to be_turbo_stream
+        end
       end
-    end
+    <% end -%>
   end
 end
 <% end -%>

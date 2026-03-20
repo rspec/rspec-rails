@@ -3,8 +3,9 @@ module RSpec
     module Matchers
       module Turbo
         # @private
-        class HaveTurboStream < RSpec::Matchers::BuiltIn::BaseMatcher
-          def initialize(action:, target: nil, targets: nil)
+        class HaveTurboStream < RSpec::Rails::Matchers::BaseMatcher
+          def initialize(scope, action:, target: nil, targets: nil)
+            @scope = scope
             @action = action.to_s
             @target = target&.to_s
             @targets = targets&.to_s
@@ -24,20 +25,14 @@ module RSpec
             self
           end
 
-          def matches?(response)
-            @response = response
-            body = extract_body(response)
-            @matching_elements = find_matching_elements(body)
-
-            if @expected_count
-              @matching_elements.size == @expected_count
-            else
-              @matching_elements.any?
+          def matches?(*)
+            match_unless_raises ActiveSupport::TestCase::Assertion do
+              if @expected_count
+                @scope.assert_select turbo_stream_selector, count: @expected_count
+              else
+                @scope.assert_select turbo_stream_selector
+              end
             end
-          end
-
-          def does_not_match?(response)
-            !matches?(response)
           end
 
           def description
@@ -48,10 +43,7 @@ module RSpec
           end
 
           def failure_message
-            msg = "expected response to #{description}"
-            msg << ", but found #{@matching_elements.size}" if @expected_count
-            msg << ". Found no matching turbo stream elements." if @matching_elements.empty?
-            msg
+            rescued_exception.message
           end
 
           def failure_message_when_negated
@@ -64,28 +56,14 @@ module RSpec
             value.gsub('\\', '\\\\\\\\').gsub('"', '\\"')
           end
 
-          def extract_body(response)
-            if response.respond_to?(:body)
-              response.body
-            else
-              response.to_s
-            end
-          end
-
-          def find_matching_elements(body)
-            return [] if body.nil? || body.empty?
-
-            require "nokogiri"
-            doc = Nokogiri::HTML::DocumentFragment.parse(body)
-
+          def turbo_stream_selector
             selector = "turbo-stream[action=\"#{css_escape(@action)}\"]"
             if @target
               selector << "[target=\"#{css_escape(@target)}\"]"
             elsif @targets
               selector << "[targets=\"#{css_escape(@targets)}\"]"
             end
-
-            doc.css(selector)
+            selector
           end
         end
 

@@ -3,23 +3,16 @@ module RSpec
     module Matchers
       module Turbo
         # @private
-        class HaveTurboFrame < RSpec::Matchers::BuiltIn::BaseMatcher
-          def initialize(id)
+        class HaveTurboFrame < RSpec::Rails::Matchers::BaseMatcher
+          def initialize(scope, id)
+            @scope = scope
             @id = id.to_s
           end
 
-          def matches?(response)
-            @response = response
-            body = extract_body(response)
-            @matching_elements = find_matching_elements(body)
-            @matching_elements.any?
-          end
-
-          def does_not_match?(response)
-            @response = response
-            body = extract_body(response)
-            @matching_elements = find_matching_elements(body)
-            @matching_elements.empty?
+          def matches?(*)
+            match_unless_raises ActiveSupport::TestCase::Assertion do
+              @scope.assert_select turbo_frame_selector
+            end
           end
 
           def description
@@ -27,7 +20,7 @@ module RSpec
           end
 
           def failure_message
-            "expected response to have a <turbo-frame> with id \"#{@id}\", but none was found"
+            rescued_exception.message
           end
 
           def failure_message_when_negated
@@ -40,20 +33,8 @@ module RSpec
             value.gsub('\\', '\\\\\\\\').gsub('"', '\\"')
           end
 
-          def extract_body(response)
-            if response.respond_to?(:body)
-              response.body
-            else
-              response.to_s
-            end
-          end
-
-          def find_matching_elements(body)
-            return [] if body.nil? || body.empty?
-
-            require "nokogiri"
-            doc = Nokogiri::HTML::DocumentFragment.parse(body)
-            doc.css("turbo-frame[id=\"#{css_escape(@id)}\"]")
+          def turbo_frame_selector
+            "turbo-frame[id=\"#{css_escape(@id)}\"]"
           end
         end
       end
