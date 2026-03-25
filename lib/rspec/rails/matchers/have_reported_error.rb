@@ -1,4 +1,4 @@
-require 'active_support/testing/error_reporter_assertions'
+require "active_support/testing/error_reporter_assertions"
 
 module RSpec
   module Rails
@@ -22,8 +22,7 @@ module RSpec
 
           case expected_error_or_message
           when UNDEFINED
-            @expected_error = nil
-            @expected_message = expected_message
+            @expected_error = @expected_message = nil
           when String, Regexp
             @expected_error = nil
             @expected_message = expected_error_or_message
@@ -55,14 +54,18 @@ module RSpec
         def matches?(block)
           warn_about_nil_error! if @warn_about_nil_error
 
-          @reports = ErrorCollector.record do
-            block.call
-          end
+          capture_reports(block)
 
-          return false if @reports.empty?
-          return false unless error_matches_expectation?
+          !matching_report.nil?
+        end
 
-          return attributes_match_if_specified?
+        def does_not_match?(block)
+          warn_about_nil_error! if @warn_about_nil_error
+          warn_about_negated_with_qualifiers! if has_qualifiers?
+
+          capture_reports(block)
+
+          matching_report.nil?
         end
 
         # @private
@@ -93,55 +96,48 @@ module RSpec
                            ""
                          end
 
-          attributes_desc = @attributes.empty? ? "" : " with #{@attributes}"
+          attributes_desc = @attributes.empty? ? "" : " with context #{@attributes}"
 
           base_desc + message_desc + attributes_desc
         end
 
         def failure_message
-          if @reports.any? && @attributes.any?
-            return "Expected error attributes to match #{@attributes}, but actual values are #{matching_report.context}"
-          elsif @reports.empty?
-            return 'Expected the block to report an error, but none was reported.'
-          elsif actual_error.nil?
-            reported_errors = @reports.map { |report| "#{report.error.class}: '#{report.error.message}'" }.join(', ')
-            if @expected_error && @expected_message
-              return "Expected error to be an instance of #{@expected_error} with message '#{@expected_message}', but got: #{reported_errors}"
-            elsif @expected_error
-              return "Expected error to be an instance of #{@expected_error}, but got: #{reported_errors}"
-            elsif @expected_message.is_a?(Regexp)
-              return "Expected error message to match #{@expected_message}, but got: #{reported_errors}"
-            elsif @expected_message.is_a?(String)
-              return "Expected error message to be '#{@expected_message}', but got: #{reported_errors}"
-            end
+          if @reports.empty?
+            "Expected the block to report an error, but none was reported."
+          elsif @attributes.any? && reports_matching_error_expectation.any?
+            "Expected error attributes to match #{formatted(@attributes)}, but actual values are #{actual_context_values}"
+          elsif @expected_error && @expected_message
+            "Expected error to be an instance of #{@expected_error} #{expected_message_requirement}, but got: #{reported_errors}"
+          elsif @expected_error
+            "Expected error to be an instance of #{@expected_error}, but got: #{reported_errors}"
+          elsif @expected_message.is_a?(Regexp)
+            "Expected error message to match #{@expected_message}, but got: #{reported_errors}"
+          elsif @expected_message.is_a?(String)
+            "Expected error message to be '#{@expected_message}', but got: #{reported_errors}"
           else
-            if @expected_error && !actual_error.is_a?(@expected_error)
-              return "Expected error to be an instance of #{@expected_error}, but got #{actual_error.class} with message: '#{actual_error.message}'"
-            elsif @expected_message
-              return "Expected error message to #{@expected_message.is_a?(Regexp) ? "match" : "be" } #{@expected_message}, but got: '#{actual_error.message}'"
-            else
-              return "Expected specific error, but got #{actual_error.class} with message: '#{actual_error.message}'"
-            end
+            "Expected specific error, but got: #{reported_errors}"
           end
         end
 
         def failure_message_when_negated
-          warn_about_negated_with_qualifiers! if has_qualifiers?
-
           error_count = @reports.count
-          error_word = 'error'.pluralize(error_count)
-          verb = error_count == 1 ? 'has' : 'have'
+          error_word = "error".pluralize(error_count)
+          verb = (error_count == 1) ? "has" : "have"
 
           "Expected the block not to report any errors, but #{error_count} #{error_word} #{verb} been reported."
         end
 
         private
 
-        def error_matches_expectation?
-          return true if @expected_error.nil? && @expected_message.nil?
+        def capture_reports(block)
+          @matching_report = nil
+          @reports_matching_error_expectation = nil
+          @reports = ErrorCollector.record(&block)
+        end
 
-          @reports.any? do |report|
-            error_class_matches?(report.error) && error_message_matches?(report.error)
+        def reports_matching_error_expectation
+          @reports_matching_error_expectation ||= @reports.select do |report|
+            report_matches_error_expectation?(report)
           end
         end
 
@@ -155,7 +151,7 @@ module RSpec
 
           case @expected_message
           when Regexp
-            error.message&.match(@expected_message)
+            error.message.match(@expected_message)
           when String
             error.message == @expected_message
           else
@@ -163,48 +159,51 @@ module RSpec
           end
         end
 
-        def attributes_match_if_specified?
-          return true if @attributes.empty?
-          return false unless matching_report
-
-          report_context = matching_report.context
-          attributes_match?(report_context)
-        end
-
-        def actual_error
-          matching_report&.error
-        end
-
         def matching_report
-          @matching_report ||= find_matching_report
+          @matching_report ||= @reports.find do |report|
+            report_matches_expectation?(report)
+          end
         end
 
-        def find_matching_report
-          @reports.find do |report|
-            error_class_matches?(report.error) && error_message_matches?(report.error)
-          end
+        def report_matches_expectation?(report)
+          report_matches_error_expectation?(report) && attributes_match?(report.context)
+        end
+
+        def report_matches_error_expectation?(report)
+          error_class_matches?(report.error) && error_message_matches?(report.error)
         end
 
         def attributes_match?(actual)
+          return true if @attributes.empty?
+          return false unless actual.is_a?(Hash)
+
           @attributes.all? do |key, value|
-            actual_value = actual[key] || actual[key.to_s] || actual[key.to_sym]
-            if value.respond_to?(:matches?)
-              value.matches?(actual_value)
-            else
-              actual_value == value
-            end
+            actual.key?(key) && values_match?(value, actual[key])
           end
         end
 
-        def unmatched_attributes(actual)
-          @attributes.reject do |key, value|
-            actual_value = actual[key] || actual[key.to_s] || actual[key.to_sym]
-            if value.respond_to?(:matches?)
-              value.matches?(actual_value)
-            else
-              actual_value == value
-            end
+        def actual_context_values
+          contexts = reports_matching_error_expectation.map(&:context)
+          formatted(contexts.one? ? contexts.first : contexts)
+        end
+
+        def expected_message_requirement
+          case @expected_message
+          when Regexp
+            "with message matching #{@expected_message}"
+          when String
+            "with message '#{@expected_message}'"
           end
+        end
+
+        def reported_errors
+          @reports.map do |report|
+            "#{report.error.class}: '#{report.error.message}'"
+          end.join(", ")
+        end
+
+        def formatted(object)
+          improve_hash_formatting(RSpec::Support::ObjectFormatter.format(object))
         end
 
         def warn_about_nil_error!
@@ -229,7 +228,7 @@ module RSpec
         end
 
         def has_qualifiers?
-          @expected_error || @expected_message || @attributes
+          !@expected_error.nil? || !@expected_message.nil? || @attributes.any?
         end
       end
 

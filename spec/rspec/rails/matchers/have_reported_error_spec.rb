@@ -3,24 +3,23 @@ RSpec.describe "have_reported_error matcher" do
   class AnotherTestError < StandardError; end
 
   it "is aliased as reports_error" do
-    expect {Rails.error.report(StandardError.new("test error"))}.to reports_error
+    expect { Rails.error.report(StandardError.new("test error")) }.to reports_error
   end
 
-  it "warns when used as a value expectation" do
-    pending("Currently defining supports_value_expectations? to false, doesn't stop request from reaching matches? method. But this should be resolved in future.")
+  it "raises a deprecation when used as a value expectation" do
     expect {
       expect(Rails.error.report(StandardError.new("test error"))).to have_reported_error
-    }.to raise_error(ArgumentError, "this matcher doesn't work with value expectations")
+    }.to raise_error(RSpec::Core::DeprecationError, /implicit block expectation syntax is deprecated/)
   end
 
   context "without constraint" do
     it "passes when an error is reported" do
-      expect {Rails.error.report(StandardError.new("test error"))}.to have_reported_error
+      expect { Rails.error.report(StandardError.new("test error")) }.to have_reported_error
     end
 
     it "fails when an error is reported with explicit nil argument" do
       expect {
-        expect {Rails.error.report(StandardError.new("test error"))}.to have_reported_error(nil)
+        expect { Rails.error.report(StandardError.new("test error")) }.to have_reported_error(nil)
       }.to raise_error(RuntimeError, /Using the `have_reported_error` matcher with a `nil` error is probably unintentional/)
     end
 
@@ -58,6 +57,13 @@ RSpec.describe "have_reported_error matcher" do
       }.to have_reported_error(TestError, "exact message")
     end
 
+    it "passes when a later reported error is the one that matches" do
+      expect {
+        Rails.error.report(AnotherTestError.new("first error"))
+        Rails.error.report(TestError.new("exact message"))
+      }.to have_reported_error(TestError, "exact message")
+    end
+
     it "passes any error of the same class if no message is specified" do
       expect {
         Rails.error.report(TestError.new("any message"))
@@ -76,6 +82,13 @@ RSpec.describe "have_reported_error matcher" do
   context "constrained by regex pattern matching" do
     it "passes when an error message matches the pattern" do
       expect {
+        Rails.error.report(StandardError.new("error with pattern"))
+      }.to have_reported_error(StandardError, /with pattern/)
+    end
+
+    it "passes when one of multiple reported errors matches the pattern" do
+      expect {
+        Rails.error.report(StandardError.new("error without match"))
         Rails.error.report(StandardError.new("error with pattern"))
       }.to have_reported_error(StandardError, /with pattern/)
     end
@@ -119,7 +132,7 @@ RSpec.describe "have_reported_error matcher" do
         expect {
           Rails.error.report(StandardError.new("test"), context: { user_id: 123, topic: "actual" })
         }.to have_reported_error.with_context(user_id: 456)
-      }.to fail_with(/actual values are.*user_id.*123.*topic.*actual/)
+      }.to fail_with(/actual values are.*(user_id.*123.*topic.*actual|topic.*actual.*user_id.*123)/)
     end
   end
 
@@ -144,6 +157,21 @@ RSpec.describe "have_reported_error matcher" do
           StandardError.new("test"), context: { params: { foo: "bar", baz: "qux" } }
         )
       }.to have_reported_error.with_context(params: a_hash_including(foo: "bar"))
+    end
+
+    it "matches the report whose context satisfies the expectation" do
+      expect {
+        Rails.error.report(TestError.new("test"), context: { user_id: 123 })
+        Rails.error.report(TestError.new("test"), context: { user_id: 456 })
+      }.to have_reported_error(TestError, "test").with_context(user_id: 456)
+    end
+
+    it "does not coerce context keys" do
+      expect {
+        expect {
+          Rails.error.report(StandardError.new("test"), context: { "user_id" => 123 })
+        }.to have_reported_error.with_context(user_id: 123)
+      }.to fail_with(/Expected error attributes to match/)
     end
 
     it "fails when attributes do not match" do
@@ -193,7 +221,7 @@ RSpec.describe "have_reported_error matcher" do
         expect {
           Rails.error.report(StandardError.new("actual message"))
         }.to have_reported_error("expected message")
-      }.to fail_with(/Expected error message to be 'expected message', but got: StandardError/)
+      }.to fail_with(/Expected error message to be 'expected message', but got: StandardError: 'actual message'/)
     end
 
     it "fails when no error with matching pattern is reported" do
@@ -201,7 +229,7 @@ RSpec.describe "have_reported_error matcher" do
         expect {
           Rails.error.report(StandardError.new("error without match"))
         }.to have_reported_error(/different pattern/)
-      }.to fail_with(/Expected error message to match .+different pattern.+, but got: StandardError/)
+      }.to fail_with(/Expected error message to match .+different pattern.+, but got: StandardError: 'error without match'/)
     end
   end
 
@@ -221,6 +249,14 @@ RSpec.describe "have_reported_error matcher" do
   end
 
   describe "negation with qualifiers warnings" do
+    it "warns when negated with qualifiers even if the expectation would otherwise pass" do
+      expect {
+        expect {
+          Rails.error.report(AnotherTestError.new("test"))
+        }.not_to have_reported_error(TestError)
+      }.to raise_error(RuntimeError, /prone to false positives/)
+    end
+
     it "warns when negated with error class qualifier fails" do
       expect {
         expect {
