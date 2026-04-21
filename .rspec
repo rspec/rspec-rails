@@ -1,2 +1,3 @@
 --warnings
 --require spec_helper
+--exclude-pattern spec/fixtures/parallel_app/**/*_spec.rb

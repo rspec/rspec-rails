@@ -81,6 +81,8 @@ module RSpec
       #   `RSpec::Rails::FixtureSupport` directly instead
       config.include RSpec::Rails::FixtureSupport
 
+      config.add_setting :parallel_server_port_base, default: 9000
+
       config.add_setting :file_fixture_path, default: 'spec/fixtures/files'
       config.include RSpec::Rails::FileFixtureSupport
 
@@ -122,6 +124,15 @@ module RSpec
           filter_gems_from_backtrace "actionmailer", "actionpack", "actionview"
           filter_gems_from_backtrace "activemodel", "activerecord",
                                      "activesupport", "activejob"
+        end
+
+        # Opts in to Rails' parallel testing integration. When rspec-core
+        # exposes `parallelize_setup` / `parallelize_teardown`, this wires
+        # `ActiveSupport::Testing::Parallelization`'s `after_fork_hooks` and
+        # `run_cleanup_hooks` into RSpec's parallel lifecycle, and assigns a
+        # per-worker Capybara port when Capybara is loaded.
+        def use_rails_parallel!
+          RSpec::Rails::ParallelConfiguration.initialize_parallel_configuration(self)
         end
       end
 
