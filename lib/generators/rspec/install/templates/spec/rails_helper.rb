@@ -53,6 +53,26 @@ RSpec.configure do |config|
   # You can uncomment this line to turn off ActiveRecord support entirely.
   # config.use_active_record = false
 
+  # Run specs in parallel by default when fork is available. Each worker
+  # runs against its own database (<database>_<worker_number>), per-worker
+  # logs land in log/test-<worker_number>.log, and Capybara gets a
+  # per-worker server port. Set to an integer to cap workers, or remove
+  # this line to make `rspec` serial unless `--parallel` is passed on the
+  # CLI.
+  #
+  # Register additional per-worker setup/teardown against
+  # `ActiveSupport::TestCase.parallelize_setup { |worker| ... }` (Redis
+  # namespacing, tmpfile dirs, extra service connections). Inside any spec,
+  # the current worker number is available as `RSpec.parallel_worker_number`
+  # (nil outside parallel runs).
+  config.default_parallel_workers = :number_of_processors if Process.respond_to?(:fork)
+
+  # With `use_transactional_fixtures` on, each example already runs inside
+  # a transaction that rolls back -- so Rails' post-run truncation of every
+  # table in every per-worker DB is redundant and (on large schemas) slow.
+  # Uncomment to skip it:
+  #   ENV['SKIP_TEST_DATABASE_TRUNCATE'] ||= '1'
+
 <% else -%>
   # Remove this line to enable support for ActiveRecord
   config.use_active_record = false
