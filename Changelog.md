@@ -1,6 +1,14 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.4...main)
 
+Bug Fixes:
+
+* Expand `file_fixture_path` against `Rails.root` when applying it to example
+  groups so the value made available is absolute, matching how
+  `ActiveSupport::TestCase` configures it. User-supplied absolute paths pass
+  through unchanged.
+  (Hammad Khan, rspec/rspec-rails#2682)
+
 ### 8.0.4 / 2026-03-10
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.3...v8.0.4)
 
