@@ -56,5 +56,39 @@ module RSpec::Rails
         group.run(failure_reporter) ? true : failure_reporter.exceptions
       ).to be true
     end
+
+    if RSpec::Rails::FeatureCheck.has_active_job?
+      it 'will not leak enqueued ActiveJob jobs between examples' do
+        original_adapter = ActiveJob::Base.queue_adapter
+        ActiveJob::Base.queue_adapter = :test
+        leaky_job = Class.new(ActiveJob::Base) do
+          def perform; end
+
+          def self.name
+            'LeakyJob'
+          end
+        end
+
+        group =
+          RSpec::Core::ExampleGroup.describe("A group", order: :defined) do
+            include RSpec::Rails::RailsExampleGroup
+
+            it 'enqueues a job' do
+              leaky_job.perform_later
+              expect(enqueued_jobs.size).to eq(1)
+            end
+
+            it 'does not see the job enqueued in the prior example' do
+              expect(enqueued_jobs).to be_empty
+            end
+          end
+
+        expect(
+          group.run(failure_reporter) ? true : failure_reporter.exceptions
+        ).to be true
+      ensure
+        ActiveJob::Base.queue_adapter = original_adapter
+      end
+    end
   end
 end
