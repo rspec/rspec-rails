@@ -59,7 +59,9 @@ module RSpec::Rails
 
     it 'will not leak enqueued ActiveJob jobs between examples', skip: !RSpec::Rails::FeatureCheck.has_active_job? do
       original_adapter = ActiveJob::Base.queue_adapter
+      original_logger = ActiveJob::Base.logger
       ActiveJob::Base.queue_adapter = :test
+      ActiveJob::Base.logger = Logger.new(nil)
 
       leaky_job = Class.new(ActiveJob::Base) do
         def perform; end
@@ -88,6 +90,7 @@ module RSpec::Rails
       ).to be true
     ensure
       ActiveJob::Base.queue_adapter = original_adapter
+      ActiveJob::Base.logger = original_logger
     end
   end
 end
