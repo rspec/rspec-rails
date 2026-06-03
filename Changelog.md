@@ -1,6 +1,11 @@
 ### Development
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.4...main)
 
+Bug Fixes:
+
+* Include `ActiveJob::TestHelper` in all rails example groups to ensure jobs are reset
+  between examples matching Rails in-build behaviour. (Hammad Khan, rspec/rspec-rails#2901)
+
 ### 8.0.4 / 2026-03-10
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.3...v8.0.4)
 
