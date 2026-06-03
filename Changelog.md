@@ -3,10 +3,8 @@
 
 Bug Fixes:
 
-* Include `ActiveJob::TestHelper` in `RailsExampleGroup` so enqueued and
-  performed jobs are reset before each example, matching `ActiveJob::TestCase`.
-  Fixes `have_been_enqueued` and `have_been_performed` leaking state between
-  examples. (Hammad Khan, rspec/rspec-rails#2900)
+* Include `ActiveJob::TestHelper` in all rails example groups to ensure jobs are reset
+  between examples matching Rails in-build behaviour. (Hammad Khan, rspec/rspec-rails#2901)
 
 ### 8.0.4 / 2026-03-10
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.3...v8.0.4)
