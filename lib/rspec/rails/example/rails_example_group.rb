@@ -16,9 +16,12 @@ module RSpec
       include RSpec::Rails::MinitestAssertionAdapter
       include RSpec::Rails::FixtureSupport
       include RSpec::Rails::TaggedLoggingAdapter
-      include ActiveJob::TestHelper if RSpec::Rails::FeatureCheck.has_active_job?
       include ActiveSupport::CurrentAttributes::TestHelper
       include ActiveSupport::ExecutionContext::TestHelper
+
+      if RSpec::Rails::FeatureCheck.has_active_job?
+        include ActiveJob::TestHelper
+      end
     end
   end
 end
