@@ -12,6 +12,16 @@ if RSpec::Rails::FeatureCheck.has_active_job?
       new(id)
     end
 
+    # `GlobalID::Locator` looks records up with `where` rather than `find` when
+    # it is allowed to ignore missing ones, which is what ActiveJob does when
+    # deserializing job arguments on newer Rails. Missing records are not worth
+    # modelling here: `find` always succeeds, and the one case we do care
+    # about, an argument that cannot be deserialized, is expressed by
+    # `FailingGlobalIdModel` overriding `find` to raise.
+    def self.where(conditions)
+      Array(conditions.fetch(:id)).map { |id| find(id) }
+    end
+
     def initialize(id)
       @id = id
     end
