@@ -58,9 +58,7 @@ module RSpec::Rails
     end
 
     it 'will not leak enqueued ActiveJob jobs between examples', skip: !RSpec::Rails::FeatureCheck.has_active_job? do
-      original_adapter = ActiveJob::Base.queue_adapter
       original_logger = ActiveJob::Base.logger
-      ActiveJob::Base.queue_adapter = :test
       ActiveJob::Base.logger = Logger.new(nil)
 
       leaky_job = Class.new(ActiveJob::Base) do
@@ -74,6 +72,10 @@ module RSpec::Rails
       group =
         RSpec::Core::ExampleGroup.describe("A group", order: :defined) do
           include RSpec::Rails::RailsExampleGroup
+
+          def queue_adapter_for_test
+            ActiveJob::QueueAdapters::TestAdapter.new
+          end
 
           it 'enqueues a job' do
             leaky_job.perform_later
@@ -89,7 +91,6 @@ module RSpec::Rails
         group.run(failure_reporter) ? true : failure_reporter.exceptions
       ).to be true
     ensure
-      ActiveJob::Base.queue_adapter = original_adapter
       ActiveJob::Base.logger = original_logger
     end
   end
