@@ -5,8 +5,14 @@ set -e
 source script/functions.sh
 
 if is_ruby_3_2_plus; then
-  gem update --no-document --system
-  gem install --no-document bundler
+  # Pinned to the last release before the `bundler/inline` regression that
+  # breaks `script/run_snippets.sh`. Bundler >= 4.0.15 builds the `$LOAD_PATH`
+  # from specs that never learned their real `require_paths`, so a gem whose
+  # gemspec does not use the default `lib` -- `concurrent-ruby` uses
+  # `lib/concurrent-ruby` -- becomes unloadable. Introduced by
+  # https://github.com/ruby/rubygems/pull/9618, still present in 4.0.18.
+  gem update --no-document --system '4.0.14'
+  gem install --no-document bundler -v '4.0.14'
 else
   gem update --no-document --system '3.4.22'
   gem install --no-document bundler -v '2.6.9'
