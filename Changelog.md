@@ -5,6 +5,8 @@ Bug Fixes:
 
 * Include `ActiveJob::TestHelper` in all rails example groups to ensure jobs are reset
   between examples matching Rails in-build behaviour. (Hammad Khan, rspec/rspec-rails#2901)
+* Handle Rails 8.2 having a frozen hash for `default_url_options` by assigning rather than mutating it.
+  (Federico Carrocera, rspec/rspec-rails#2907)
 * Fix `have_stream` (and related) matcher(s) by handling changes to stream test harness in Rails 8.2.
   (Jon Rowe, Phil Pirozhkov, rspec/rspec-rails#2909)
 
