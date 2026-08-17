@@ -27,27 +27,27 @@ if RSpec::Rails::FeatureCheck.has_action_cable_testing?
         include ActionCable::Channel::TestCase::Behavior
 
         # Class-level DSL for channel specs.
+        #
+        # A `type: :channel` group covers both channel and connection specs, so
+        # `described_class` answers only one of the two questions below. Use it
+        # for the one it matches, and leave the other to Rails, which resolves
+        # a default where it can and raises `NonInferrableChannelError` or
+        # `NonInferrableConnectionError` where it cannot.
         module ClassMethods
           # @private
           def channel_class
-            (_channel_class || described_class).tap do |klass|
-              next if klass <= ::ActionCable::Channel::Base
+            klass = _channel_class || described_class
+            return klass if klass && klass <= ::ActionCable::Channel::Base
 
-              raise "Described class is not a channel class.\n" \
-                    "Specify the channel class in the `describe` statement " \
-                    "or set it manually using `tests MyChannelClass`"
-            end
+            super
           end
 
           # @private
           def connection_class
-            (_connection_class || described_class).tap do |klass|
-              next if klass <= ::ActionCable::Connection::Base
+            klass = _connection_class || described_class
+            return klass if klass && klass <= ::ActionCable::Connection::Base
 
-              raise "Described class is not a connection class.\n" \
-                    "Specify the connection class in the `describe` statement " \
-                    "or set it manually using `tests MyConnectionClass`"
-            end
+            super
           end
         end
 

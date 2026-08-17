@@ -5,6 +5,10 @@ Bug Fixes:
 
 * Include `ActiveJob::TestHelper` in all rails example groups to ensure jobs are reset
   between examples matching Rails in-build behaviour. (Hammad Khan, rspec/rspec-rails#2901)
+* Resolve `described_class` in channel specs to whichever of the channel or the
+  connection it actually is, and leave the other for Rails to resolve. Fixes
+  channel specs on Rails `main`, where `stub_connection` asks for a connection
+  class. (Phil Pirozhkov, rspec/rspec-rails#2908)
 
 ### 8.0.4 / 2026-03-10
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.3...v8.0.4)
