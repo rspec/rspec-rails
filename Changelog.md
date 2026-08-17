@@ -9,6 +9,9 @@ Bug Fixes:
   connection it actually is, and leave the other for Rails to resolve. Fixes
   channel specs on Rails `main`, where `stub_connection` asks for a connection
   class. (Phil Pirozhkov, rspec/rspec-rails#2908)
+* Read the streams a channel spec subscription has started from `stream_names`
+  where Rails provides it, keeping `have_streams`, `have_stream_from` and
+  `have_stream_for` working on Rails `main`. (Phil Pirozhkov, rspec/rspec-rails#2908)
 
 ### 8.0.4 / 2026-03-10
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.3...v8.0.4)

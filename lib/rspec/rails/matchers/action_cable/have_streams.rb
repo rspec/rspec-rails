@@ -37,7 +37,15 @@ module RSpec
           def match(subscription)
             case subscription
             when ::ActionCable::Channel::Base
-              @actual = subscription.streams
+              # Rails' channel test stub used to expose the started streams as
+              # a public `streams` array. Newer Rails keeps `streams` private
+              # and exposes the names through `stream_names` instead.
+              @actual =
+                if subscription.respond_to?(:stream_names)
+                  subscription.stream_names
+                else
+                  subscription.streams
+                end
               no_expected? ? actual.any? : actual.any? { |i| expected === i }
             else
               raise ArgumentError, "have_stream, have_stream_from and have_stream_from support expectations on subscription only"
