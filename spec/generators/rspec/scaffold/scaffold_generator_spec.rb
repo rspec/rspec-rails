@@ -76,7 +76,14 @@ RSpec.describe Rspec::Generators::ScaffoldGenerator, type: :generator do
     describe 'in an engine' do
       it 'generates files with Engine url_helpers' do
         in_sub_process do
-          allow_any_instance_of(::Rails::Generators::NamedBase).to receive(:mountable_engine?).and_return(true)
+          # Stubbing defines the method on the class, and Thor registers every
+          # method defined on a generator as a command to run. `no_commands`
+          # keeps `mountable_engine?` out of the command list, which it is not
+          # a member of in the first place.
+          ::Rails::Generators::NamedBase.no_commands do
+            allow_any_instance_of(::Rails::Generators::NamedBase).to receive(:mountable_engine?).and_return(true)
+          end
+
           run_generator %w[posts --request_specs]
 
           expect(filename).to contain('Engine.routes.url_helpers')
