@@ -30,24 +30,32 @@ if RSpec::Rails::FeatureCheck.has_action_cable_testing?
         module ClassMethods
           # @private
           def channel_class
-            (_channel_class || described_class).tap do |klass|
-              next if klass <= ::ActionCable::Channel::Base
-
-              raise "Described class is not a channel class.\n" \
-                    "Specify the channel class in the `describe` statement " \
-                    "or set it manually using `tests MyChannelClass`"
-            end
+            (_channel_class || described_class).tap { |klass| check_class_type!(klass, "channel", ::ActionCable::Channel::Base) }
           end
 
           # @private
-          def connection_class
-            (_connection_class || described_class).tap do |klass|
-              next if klass <= ::ActionCable::Connection::Base
-
-              raise "Described class is not a connection class.\n" \
-                    "Specify the connection class in the `describe` statement " \
-                    "or set it manually using `tests MyConnectionClass`"
+          if ::Rails.version.to_f > 8.1
+            # :nocov:
+            def connection_class
+              (super || described_class).tap { |klass| check_class_type!(klass, "connection", ::ActionCable::Connection::Base) }
             end
+            # :nocov:
+          else
+            # :nocov:
+            def connection_class
+              (_connection_class || described_class).tap { |klass| check_class_type!(klass, "connection", ::ActionCable::Connection::Base) }
+            end
+            # :nocov:
+          end
+
+          private
+
+          def check_class_type!(klass, type, ancestor)
+            return true if klass && klass <= ancestor
+
+            raise "Described class is not a #{type} class.\n" \
+                  "Specify the #{type} class in the `describe` statement " \
+                  "or set it manually using `tests My#{type.capitialize}Class`"
           end
         end
 
