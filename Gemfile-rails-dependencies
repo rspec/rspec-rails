@@ -13,10 +13,7 @@ end
 
 def add_sqlite3_gem_dependency(rails_version)
   # sqlite3 is an optional, unspecified, dependency and Rails 8.0 only supports `~> 2.0`
-  if RUBY_VERSION.to_f < 3
-    # sqlite3 1.7.x doesn't work on all platforms for Ruby 2.x
-    gem 'sqlite3', '~> 1.4', '< 1.7', platforms: [:ruby]
-  elsif rails_version.to_f >= 8
+  if rails_version.to_f >= 8
     gem 'sqlite3', '~> 2.0', platforms: [:ruby]
   else
     gem 'sqlite3', '~> 1.7', platforms: [:ruby]
