@@ -37,7 +37,7 @@ module RSpec
           def match(subscription)
             case subscription
             when ::ActionCable::Channel::Base
-              @actual = subscription.streams
+              @actual = extract_streams(subscription)
               no_expected? ? actual.any? : actual.any? { |i| expected === i }
             else
               raise ArgumentError, "have_stream, have_stream_from and have_stream_from support expectations on subscription only"
@@ -50,6 +50,12 @@ module RSpec
 
           def no_expected?
             !defined?(@expected)
+          end
+
+          if ::Rails.version.to_f > 8.1
+            def extract_streams(subscription) = subscription.stream_names
+          else
+            def extract_streams(subscription) = subscription.streams
           end
         end
       end
