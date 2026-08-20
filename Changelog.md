@@ -5,6 +5,8 @@ Bug Fixes:
 
 * Include `ActiveJob::TestHelper` in all rails example groups to ensure jobs are reset
   between examples matching Rails in-build behaviour. (Hammad Khan, rspec/rspec-rails#2901)
+* Fix `have_stream` (and related) matcher(s) by handling changes to stream test harness in Rails 8.2.
+  (Jon Rowe, Phil Pirozhkov, rspec/rspec-rails#2909)
 
 ### 8.0.4 / 2026-03-10
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.3...v8.0.4)
