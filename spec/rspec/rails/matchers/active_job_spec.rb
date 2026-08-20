@@ -12,6 +12,11 @@ if RSpec::Rails::FeatureCheck.has_active_job?
       new(id)
     end
 
+    if ::Rails.version.to_f > 8.1
+      # Rails 8.2+ changes to using `where` not `find` when "missing records" are allowed.
+      def self.where(conditions) = Array(conditions.fetch(:id)).map { |id| find(id) }
+    end
+
     def initialize(id)
       @id = id
     end
