@@ -86,15 +86,19 @@ module RSpec
 
           def method_missing(name, *args, &block)
             result = @resolver.send(name, *args, &block)
-            nullify_templates(result)
+
+            if result.is_a?(Enumerable) && result.all? { |element| element.is_a?(::ActionView::Template) }
+              nullify_templates(result)
+            elsif result.is_a?(::ActionView::Template)
+              nullify_templates([result]).first
+            else
+              result
+            end
           end
 
         private
 
           def nullify_templates(collection)
-            return collection unless collection.is_a?(Enumerable)
-            return collection unless collection.all? { |element| element.is_a?(::ActionView::Template) }
-
             EmptyTemplateResolver.nullify_template_rendering(collection)
           end
         end
