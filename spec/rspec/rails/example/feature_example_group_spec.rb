@@ -18,6 +18,38 @@ module RSpec::Rails
       expect(group.new.foo_url).to eq("http://www.example.com/foo")
     end
 
+    it "does not mutate a frozen `default_url_options`" do
+      with_isolated_stderr do
+        Rails.application.routes.draw do
+          get "/foo", as: :foo, to: "foo#bar"
+        end
+      end
+
+      group = RSpec::Core::ExampleGroup.describe do
+        include ::Rails.application.routes.url_helpers
+        self.default_url_options = {}.freeze
+        include FeatureExampleGroup
+      end
+
+      expect(group.new.foo_url).to eq("http://www.example.com/foo")
+    end
+
+    it "does not override a host set by the example group" do
+      with_isolated_stderr do
+        Rails.application.routes.draw do
+          get "/foo", as: :foo, to: "foo#bar"
+        end
+      end
+
+      group = RSpec::Core::ExampleGroup.describe do
+        include ::Rails.application.routes.url_helpers
+        self.default_url_options = { host: "example.org" }.freeze
+        include FeatureExampleGroup
+      end
+
+      expect(group.new.foo_url).to eq("http://example.org/foo")
+    end
+
     context "when nested inside a request example group" do
       it "includes Rails route helpers" do
         Rails.application.routes.draw do
