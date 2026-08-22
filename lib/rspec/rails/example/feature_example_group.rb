@@ -9,6 +9,9 @@ module RSpec
       # Default host to be used in Rails route helpers if none is specified.
       DEFAULT_HOST = "www.example.com"
 
+      # Default url options, merged into those of the example group.
+      DEFAULT_OPTIONS = { host: DEFAULT_HOST }.freeze
+
       included do
         app = ::Rails.application
         if app.respond_to?(:routes)
@@ -16,7 +19,7 @@ module RSpec
           include app.routes.mounted_helpers if app.routes.respond_to?(:mounted_helpers)
 
           if respond_to?(:default_url_options)
-            default_url_options[:host] ||= ::RSpec::Rails::FeatureExampleGroup::DEFAULT_HOST
+            self.default_url_options = DEFAULT_OPTIONS.merge(default_url_options)
           end
         end
       end

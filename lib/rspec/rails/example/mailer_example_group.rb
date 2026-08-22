@@ -21,8 +21,8 @@ if defined?(ActionMailer)
 
         included do
           include ::Rails.application.routes.url_helpers
-          options = ::Rails.configuration.action_mailer.default_url_options || {}
-          options.each { |key, value| default_url_options[key] = value }
+          options = ::Rails.configuration.action_mailer.default_url_options
+          self.default_url_options = default_url_options.merge(options) if options.present?
         end
 
         # Class-level DSL for mailer specs.
