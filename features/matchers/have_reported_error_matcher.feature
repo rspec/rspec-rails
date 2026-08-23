@@ -1,0 +1,199 @@
+Feature: `have_reported_error` matcher
+
+  The `have_reported_error` matcher is used to check if an error was reported
+  to Rails error reporting system (`Rails.error`). It can match against error
+  classes, messages, and attributes.
+
+  The matcher supports several matching strategies:
+  * Any error reported
+  * A specific error class
+  * A specific error class with message
+  * Error message patterns using regular expressions
+  * Message-only matching (any class)
+  * Error attributes using `.with_context()`
+
+  The matcher is available in all spec types where Rails error reporting is used.
+
+  Background:
+    Given a file named "app/models/user.rb" with:
+      """ruby
+      class User < ApplicationRecord
+        class ValidationError < StandardError; end
+        def self.process_data
+          Rails.error.report(StandardError.new("Processing failed"))
+        end
+
+        def self.process_with_context
+          Rails.error.report(ArgumentError.new("Invalid input"), severity: :error, context: { topic: "user_processing" })
+        end
+
+        def self.process_custom_error
+          Rails.error.report(ValidationError.new("Email is invalid"))
+        end
+      end
+      """
+
+  Scenario: Checking for any error being reported
+    Given a file named "spec/models/user_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe User do
+        it "reports errors" do
+          expect {
+            User.process_data
+          }.to have_reported_error
+        end
+      end
+      """
+    When I run `rspec spec/models/user_spec.rb`
+    Then the examples should all pass
+
+  Scenario: Checking for message-only matching
+    Given a file named "spec/models/user_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe User do
+        it "reports error with exact message (any class)" do
+          expect {
+            User.process_data
+          }.to have_reported_error("Processing failed")
+        end
+
+        it "reports error with message pattern (any class)" do
+          expect {
+            User.process_custom_error
+          }.to have_reported_error(/Email/)
+        end
+      end
+      """
+    When I run `rspec spec/models/user_spec.rb`
+    Then the examples should all pass
+
+  Scenario: Checking for a specific error class
+    Given a file named "spec/models/user_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe User do
+        it "reports a StandardError" do
+          expect {
+            User.process_data
+          }.to have_reported_error(StandardError)
+        end
+
+        it "reports an ArgumentError" do
+          expect {
+            User.process_with_context
+          }.to have_reported_error(ArgumentError)
+        end
+      end
+      """
+    When I run `rspec spec/models/user_spec.rb`
+    Then the examples should all pass
+
+  Scenario: Checking for specific error class with message
+    Given a file named "spec/models/user_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe User do
+        it "reports error with specific message" do
+          expect {
+            User.process_data
+          }.to have_reported_error(StandardError, "Processing failed")
+        end
+
+        it "reports ArgumentError with specific message" do
+          expect {
+            User.process_with_context
+          }.to have_reported_error(ArgumentError, "Invalid input")
+        end
+      end
+      """
+    When I run `rspec spec/models/user_spec.rb`
+    Then the examples should all pass
+
+  Scenario: Checking error messages using regular expressions
+    Given a file named "spec/models/user_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe User do
+        it "reports errors with a message matching a pattern (any class)" do
+          expect {
+            User.process_data
+          }.to have_reported_error(/Processing/)
+        end
+
+        it "reports specific class with message matching a pattern" do
+          expect {
+            User.process_data
+          }.to have_reported_error(StandardError, /Processing/)
+        end
+      end
+      """
+    When I run `rspec spec/models/user_spec.rb`
+    Then the examples should all pass
+
+  Scenario: Constraining error matches to their attributes using `with_context`
+    Given a file named "spec/models/user_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe User do
+        it "reports error with specific context" do
+          expect {
+            User.process_with_context
+          }.to have_reported_error.with_context(context: "user_processing")
+        end
+
+        it "reports error with multiple attributes" do
+          expect {
+            User.process_with_context
+          }.to have_reported_error(ArgumentError).with_context(context: "user_processing", severity: :error)
+        end
+      end
+      """
+    When I run `rspec spec/models/user_spec.rb`
+    Then the examples should all pass
+
+  Scenario: Checking custom error classes
+    Given a file named "spec/models/user_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe User do
+        it "reports a ValidationError" do
+          expect {
+            User.process_custom_error
+          }.to have_reported_error(User::ValidationError)
+        end
+
+        it "reports ValidationError with specific message" do
+          expect {
+            User.process_custom_error
+          }.to have_reported_error(User::ValidationError, "Email is invalid")
+        end
+      end
+      """
+    When I run `rspec spec/models/user_spec.rb`
+    Then the examples should all pass
+
+  Scenario: Using negation - expecting no errors
+    Given a file named "spec/models/user_spec.rb" with:
+      """ruby
+      require "rails_helper"
+
+      RSpec.describe User do
+        it "does not report any errors for safe operations" do
+          expect {
+            # Safe operation that doesn't report errors
+            "safe code"
+          }.not_to have_reported_error
+        end
+      end
+      """
+    When I run `rspec spec/models/user_spec.rb`
+    Then the examples should all pass
