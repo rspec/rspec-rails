@@ -9,6 +9,8 @@ Bug Fixes:
   (Federico Carrocera, rspec/rspec-rails#2907)
 * Fix `have_stream` (and related) matcher(s) by handling changes to stream test harness in Rails 8.2.
   (Jon Rowe, Phil Pirozhkov, rspec/rspec-rails#2909)
+* Handle Rails 8.2 ViewPaths::ClassMethods#\_prefixes returning a frozen array.
+  (Iliana Hadzhiatanasova, rspec/rspec-rails#2915)
 
 ### 8.0.4 / 2026-03-10
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.3...v8.0.4)
