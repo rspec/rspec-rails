@@ -99,16 +99,19 @@ module RSpec
           end
         end
 
-        # Delegates find_templates to the submitted path set and then returns
-        # templates with modified source
+        # Looks templates up on the file system and then returns them with
+        # modified source
         #
         # @private
         class FileSystemResolver < ::ActionView::FileSystemResolver
-          private
+          def find_all(*args)
+            EmptyTemplateResolver.nullify_template_rendering(super)
+          end
 
-          def find_templates(*args)
-            templates = super
-            EmptyTemplateResolver.nullify_template_rendering(templates)
+          # Rails 8.2 resolves a single template without going through
+          # `find_all`, so decorating `find_all` alone would miss it.
+          def find(*args)
+            find_all(*args).first
           end
         end
       end
