@@ -120,6 +120,50 @@ module RSpec::Rails
       end
     end
 
+    context "when controller is nil in before hook but set in after hook" do
+      it "does not wipe view_paths on the controller class" do
+        original_paths = ActionController::Base.view_paths
+
+        group_with_late_controller = RSpec::Core::ExampleGroup.describe do
+          include ViewRendering
+
+          def controller
+            @_controller
+          end
+
+          before { @_controller = ActionController::Base.new }
+
+          it("runs") { }
+        end
+
+        group_with_late_controller.run(double.as_null_object)
+
+        expect(ActionController::Base.view_paths).to eq(original_paths)
+      end
+    end
+
+    context "when a config-based before hook skips the example (issue #2602)" do
+      it "does not wipe view_paths for subsequent examples" do
+        original_paths = ActionController::Base.view_paths
+
+        RSpec.configuration.before(:each, skip_me_2602: true) { skip "skipped" }
+
+        group_with_skip = RSpec::Core::ExampleGroup.describe do
+          def controller
+            ActionController::Base.new
+          end
+          include ViewRendering
+
+          it("skipped example", skip_me_2602: true) { }
+          it("subsequent example") { }
+        end
+
+        group_with_skip.run(double.as_null_object)
+
+        expect(ActionController::Base.view_paths).to eq(original_paths)
+      end
+    end
+
     context 'when render_views? is false' do
       let(:controller) { ActionController::Base.new }
 
