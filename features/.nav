@@ -1,6 +1,6 @@
 - GettingStarted.md (Start from scratch)
 - Generators.md (Generators)
-- Transactions.md
+- ActiveRecord.md
 - directory_structure.feature
 - backtrace_filtering.feature
 - model_specs:
