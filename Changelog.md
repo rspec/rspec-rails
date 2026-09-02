@@ -9,7 +9,7 @@ Bug Fixes:
   (Federico Carrocera, rspec/rspec-rails#2907)
 * Fix `have_stream` (and related) matcher(s) by handling changes to stream test harness in Rails 8.2.
   (Jon Rowe, Phil Pirozhkov, rspec/rspec-rails#2909)
-  * Fix view specs manipulating a frozen array (for template prefixes) in `actionview` internals in Rails 8.2.
+* Fix view specs manipulating a frozen array (for template prefixes) in `actionview` internals in Rails 8.2.
   (Iliana Hadzhiatanasova, rspec/rspec-rails#2915)
 
 ### 8.0.4 / 2026-03-10
