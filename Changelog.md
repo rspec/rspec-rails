@@ -7,6 +7,8 @@ Bug Fixes:
   between examples matching Rails in-build behaviour. (Hammad Khan, rspec/rspec-rails#2901)
 * Handle Rails 8.2 having a frozen hash for `default_url_options` by assigning rather than mutating it.
   (Federico Carrocera, rspec/rspec-rails#2907)
+* Fix view specs manipulating a frozen array (for template prefixes) in `actionview` internals in Rails 8.2.
+  (Iliana Hadzhiatanasova, rspec/rspec-rails#2915)
 
 ### 8.0.4 / 2026-03-10
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.3...v8.0.4)
