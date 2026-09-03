@@ -65,7 +65,7 @@ module RSpec::Rails
       if ::Rails.version.to_f > 8.1
         # Rails 8.2 started storing test adapters in such a way as to override the settings
         # with a cached version, we need to clear that cache after changing the adapter to
-        # our isolated one. See rspec/rspec-rails#
+        # our isolated one. See rspec/rspec-rails#2919
         ActiveJob::TestHelper::TestQueueAdapter.reset
         expect(ActiveJob::Base.queue_adapter).to eq(test_adapter)
       end
