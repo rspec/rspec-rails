@@ -15,15 +15,14 @@ module RSpec
         initializer "rspec_rails.code_statistics" do
           require 'rails/code_statistics'
 
-          root = ::Rails.root
-          dirs = Dir[root.join('spec', '**', '*_spec.rb').to_s]
-                   .map { |f| f.sub(%r{^#{Regexp.escape(root.to_s)}/(spec/\w+)/.*}, '\\1') }
-                   .uniq
-                   .select { |f| File.directory?(root.join(f)) }
+          Dir[::Rails.root.join('spec', '*').to_s].sort.each do |dir|
+            type = File.basename(dir)
+            next unless type.match?(/\A\w+\z/) && File.directory?(dir) && !File.symlink?(dir)
+            # Check the top level of each directory first, so that the common case doesn't
+            # require walking the directory; only fall back to a full walk if that finds nothing.
+            next if Dir.glob('*_spec.rb', base: dir).empty? && Dir.glob('**/*_spec.rb', base: dir).empty?
 
-          Hash[dirs.map { |d| [d.split('/').last, d] }].each do |type, dir|
-            name = type.singularize.capitalize
-            ::Rails::CodeStatistics.register_directory "#{name} specs", root.join(dir).to_s, test_directory: true
+            ::Rails::CodeStatistics.register_directory "#{type.singularize.capitalize} specs", dir, test_directory: true
           end
         end
       end
