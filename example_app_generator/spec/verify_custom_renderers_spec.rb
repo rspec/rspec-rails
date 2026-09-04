@@ -36,6 +36,12 @@ RSpec.describe "template rendering", type: :controller do
 
         expect(response).to render_template(:bar)
       end
+
+      it "renders an empty string" do
+        get :index
+
+        expect(response.body).to eq("")
+      end
     end
 
     context "with a custom renderer prepended to the view path" do
