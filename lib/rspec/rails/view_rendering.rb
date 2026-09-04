@@ -92,6 +92,10 @@ module RSpec
         private
 
           def nullify_templates(collection)
+            if collection.is_a?(::ActionView::Template)
+              return EmptyTemplateResolver.nullify_template_rendering([collection]).first
+            end
+
             return collection unless collection.is_a?(Enumerable)
             return collection unless collection.all? { |element| element.is_a?(::ActionView::Template) }
 
