@@ -26,7 +26,7 @@ if ::Rails::VERSION::STRING >= "8.0.0"
         FileUtils.touch(full)
       end
 
-      it "registers each `spec` subdirectory containing a spec file, at any depth" do
+      it "registers each `spec` subdirectory containing a spec file, at any depth, relative to the root" do
         touch 'spec/models/user_spec.rb'
         touch 'spec/features/admin/reports/monthly_spec.rb'
         touch 'spec/support/helpers.rb'
@@ -37,8 +37,8 @@ if ::Rails::VERSION::STRING >= "8.0.0"
         initializer.run
 
         expect(registered).to eq([
-          ["Feature specs", @root.join('spec/features').to_s],
-          ["Model specs", @root.join('spec/models').to_s],
+          ["Feature specs", "spec/features"],
+          ["Model specs", "spec/models"],
         ])
       end
 

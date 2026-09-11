@@ -22,7 +22,8 @@ module RSpec
             # require walking the directory; only fall back to a full walk if that finds nothing.
             next if Dir.glob('*_spec.rb', base: dir).empty? && Dir.glob('**/*_spec.rb', base: dir).empty?
 
-            ::Rails::CodeStatistics.register_directory "#{type.singularize.capitalize} specs", dir, test_directory: true
+            # Register relative to the application root, matching Rails.
+            ::Rails::CodeStatistics.register_directory "#{type.singularize.capitalize} specs", "spec/#{type}", test_directory: true
           end
         end
       end
