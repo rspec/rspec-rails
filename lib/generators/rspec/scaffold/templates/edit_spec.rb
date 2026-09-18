@@ -17,7 +17,7 @@ RSpec.describe "<%= ns_table_name %>/edit", <%= type_metatag(:view) %> do
   it "renders the edit <%= ns_file_name %> form" do
     render
 
-    assert_select "form[action=?][method=?]", <%= ns_file_name %>_path(<%= singular_table_name %>), "post" do
+    assert_select "form[action=?][method=?]", <%= show_helper(singular_table_name, type: :path) %>, "post" do
 <% for attribute in output_attributes -%>
       <%- name = attribute.respond_to?(:column_name) ? attribute.column_name : attribute.name %>
       assert_select "<%= attribute.input_type -%>[name=?]", "<%= ns_file_name %>[<%= name %>]"
