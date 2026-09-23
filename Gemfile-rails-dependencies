@@ -38,10 +38,16 @@ when nil, false, ""
     gem 'sqlite3', '~> 1.7', platforms: [:ruby]
   end
 
+  # JSON 3.x.x is a breaking change, needs Rails support.
+  gem "json", "< 3"
+
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
   gem 'selenium-webdriver', require: false
 else
   version_number = version.split(' ').last
+
+  # JSON 3.x.x is a breaking change, needs Rails support.
+  gem "json", "< 3"
 
   gem "rails", version
   gem 'activerecord-jdbcsqlite3-adapter', platforms: [:jruby]
