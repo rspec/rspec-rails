@@ -24,3 +24,10 @@ expect(response).to render_template(template_name)
 # and it is not persisted
 expect(assigns(:widget)).to be_a_new(Widget)
 ```
+
+### error reporting
+
+```ruby
+# passes when any error is reported
+expect { Rails.error.report(StandardError.new) }.to have_reported_error
+```
