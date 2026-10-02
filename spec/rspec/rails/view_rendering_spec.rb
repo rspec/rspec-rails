@@ -165,6 +165,25 @@ module RSpec::Rails
           expect(custom_method_called).to eq(true)
         end
 
+        it "prevents rendering when a custom resolver returns a single template" do
+          template = ActionView::Template.new(
+            "rendered",
+            "custom resolver template",
+            ViewRendering::EmptyTemplateHandler,
+            virtual_path: "custom/template",
+            format: :html,
+            locals: []
+          )
+          resolver = Class.new(ActionView::Resolver) do
+            define_method(:find) { |*| template }
+          end.new
+
+          decorated_template = ViewRendering::EmptyTemplateResolver.build(resolver).find
+
+          expect(decorated_template).to be_an(ActionView::Template)
+          expect(decorated_template.source).to eq("")
+        end
+
         it "works with strings" do
           decorated = false
           ActionController::Base.view_paths = ActionView::PathSet.new(['app/views', 'app/legacy_views'])
