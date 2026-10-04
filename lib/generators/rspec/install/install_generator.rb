@@ -13,6 +13,8 @@ Description:
 DESC
 
       class_option :default_path, type: :string, default: 'spec'
+      class_option :selenium_container, type: :string, default: nil,
+                   desc: "Configure system specs for a Selenium container (provide container hostname, e.g. 'selenium')"
 
       def self.source_root
         @source_root ||= File.expand_path(File.join(File.dirname(__FILE__), 'templates'))
@@ -30,7 +32,18 @@ DESC
         template 'spec/rails_helper.rb', "#{default_path}/rails_helper.rb"
       end
 
+      def copy_system_test_configuration
+        return unless options[:selenium_container]
+
+        template 'spec/support/system_test_configuration.rb',
+                 "#{default_path}/support/system_test_configuration.rb"
+      end
+
     private
+
+      def selenium_container
+        options[:selenium_container]
+      end
 
       def generate_rspec_init(tmpdir)
         initializer = ::RSpec::Core::ProjectInitializer.new(
