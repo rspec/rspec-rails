@@ -18,8 +18,8 @@ Feature: System specs
   `Capybara.server = :webrick`) before attempting to use system specs.
 
   RSpec **does not** use your `ApplicationSystemTestCase` helper. Instead it
-  uses the default `driven_by(:selenium)` from Rails. If you want to override
-  this behaviour you need to call `driven_by` in your specs.
+  uses `driven_by(:selenium_chrome_headless)` by default. If you want to
+  override this behaviour you need to call `driven_by` in your specs.
 
   This can either be done manually in the spec files themselves or
   you can use the configuration helpers to do this for every system spec,
