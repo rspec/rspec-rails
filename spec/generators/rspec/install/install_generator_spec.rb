@@ -1,4 +1,5 @@
 # Generators are not automatically loaded by Rails
+require 'erb'
 require 'generators/rspec/install/install_generator'
 require 'support/generators'
 
@@ -99,6 +100,37 @@ RSpec.describe Rspec::Generators::InstallGenerator, type: :generator do
     specify "checking for maintaining the schema" do
       run_generator
       expect(rails_helper).to maintain_test_schema
+    end
+  end
+
+  context "with --selenium-container option" do
+    let(:container_name) { "selenium" }
+    let(:system_test_config) { content_for('spec/support/system_test_configuration.rb') }
+
+    before { run_generator ["--selenium-container=#{container_name}"] }
+
+    it "generates spec/support/system_test_configuration.rb matching the template" do
+      template_path = File.expand_path(
+        "../../../../lib/generators/rspec/install/templates/spec/support/system_test_configuration.rb",
+        __dir__
+      )
+      expected = ERB.new(File.read(template_path)).result_with_hash(selenium_container: container_name)
+      expect(system_test_config).to eq(expected)
+    end
+
+    context "with a custom container name" do
+      let(:container_name) { "chrome" }
+
+      it "uses the custom container name in the configuration" do
+        expect(system_test_config).to include(container_name)
+      end
+    end
+  end
+
+  context "without --selenium-container option" do
+    it "does not generate spec/support/system_test_configuration.rb" do
+      run_generator
+      expect(File.exist?(file('spec/support/system_test_configuration.rb'))).to be false
     end
   end
 
