@@ -21,6 +21,7 @@ require 'rspec/rails/matchers/relation_match_array'
 require 'rspec/rails/matchers/be_valid'
 require 'rspec/rails/matchers/have_http_status'
 require 'rspec/rails/matchers/send_email'
+require 'rspec/rails/matchers/execute_queries'
 
 if RSpec::Rails::FeatureCheck.has_active_job?
   require 'rspec/rails/matchers/active_job'
