@@ -86,29 +86,35 @@ module RSpec
 
           def method_missing(name, *args, &block)
             result = @resolver.send(name, *args, &block)
-            nullify_templates(result)
+
+            if result.is_a?(Enumerable) && result.all? { |element| element.is_a?(::ActionView::Template) }
+              nullify_templates(result)
+            elsif result.is_a?(::ActionView::Template)
+              nullify_templates([result]).first
+            else
+              result
+            end
           end
 
         private
 
           def nullify_templates(collection)
-            return collection unless collection.is_a?(Enumerable)
-            return collection unless collection.all? { |element| element.is_a?(::ActionView::Template) }
-
             EmptyTemplateResolver.nullify_template_rendering(collection)
           end
         end
 
-        # Delegates find_templates to the submitted path set and then returns
-        # templates with modified source
+        # Looks templates up on the file system and then returns them with
+        # modified source
         #
         # @private
         class FileSystemResolver < ::ActionView::FileSystemResolver
-          private
+          def find_all(*_args)
+            EmptyTemplateResolver.nullify_template_rendering(super)
+          end
 
-          def find_templates(*args)
-            templates = super
-            EmptyTemplateResolver.nullify_template_rendering(templates)
+          # Rails 8.2 resolves a single template without going through `find_all`.
+          def find(...)
+            find_all(...).first
           end
         end
       end

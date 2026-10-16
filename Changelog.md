@@ -11,6 +11,10 @@ Bug Fixes:
   (Jon Rowe, Phil Pirozhkov, rspec/rspec-rails#2909)
 * Fix view specs manipulating a frozen array (for template prefixes) in `actionview` internals in Rails 8.2.
   (Iliana Hadzhiatanasova, rspec/rspec-rails#2915)
+* Handle Rails 8.2 changes to template rendering when nullifying templates.
+  (Saïd M., rspec/rspec-rails#2927)
+* Ensure templates are nullified in Rails 8.2 when added via a string view path.
+  (Phil Pirozhkov, rspec/rspec-rails#2927)
 
 ### 8.0.4 / 2026-03-10
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.3...v8.0.4)
