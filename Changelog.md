@@ -15,6 +15,8 @@ Bug Fixes:
   (Saïd M., rspec/rspec-rails#2927)
 * Ensure templates are nullified in Rails 8.2 when added via a string view path.
   (Phil Pirozhkov, rspec/rspec-rails#2927)
+* Fix `have_enqueued_mail` argument matching for mail enqueued by `ActionMailer.deliver_all_later`
+  without params. (Andrew Fader, rspec/rspec-rails#2931)
 
 ### 8.0.4 / 2026-03-10
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.3...v8.0.4)
