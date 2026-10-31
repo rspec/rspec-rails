@@ -479,6 +479,30 @@ RSpec.describe "HaveEnqueuedMail matchers", skip: !RSpec::Rails::FeatureCheck.ha
         )
       end
 
+      context "when delivered in bulk", skip: !ActionMailer.respond_to?(:deliver_all_later) do
+        it "matches arguments of a non-parameterized mailer" do
+          expect {
+            ActionMailer.deliver_all_later(UnifiedMailer.email_with_args(1, 2))
+          }.to have_enqueued_mail(UnifiedMailer, :email_with_args).with(1, 2)
+        end
+
+        it "fails a negated expectation whose arguments match" do
+          expect {
+            expect {
+              ActionMailer.deliver_all_later(UnifiedMailer.email_with_args(1, 2))
+            }.not_to have_enqueued_mail(UnifiedMailer, :email_with_args).with(1, 2)
+          }.to fail_with(/expected not to enqueue UnifiedMailer.email_with_args/)
+        end
+
+        it "matches params and arguments of a parameterized mailer" do
+          expect {
+            ActionMailer.deliver_all_later(UnifiedMailer.with('foo' => 'bar').email_with_args(1, 2))
+          }.to have_enqueued_mail(UnifiedMailer, :email_with_args).with(
+            a_hash_including(params: { 'foo' => 'bar' }, args: [1, 2])
+          )
+        end
+      end
+
       it "passes when given a global id serialized argument" do
         expect {
           UnifiedMailer.with(inquiry: GlobalIDArgument.new).test_email.deliver_later
