@@ -5,6 +5,8 @@ Bug Fixes:
 
 * Include `ActiveJob::TestHelper` in all rails example groups to ensure jobs are reset
   between examples matching Rails in-build behaviour. (Hammad Khan, rspec/rspec-rails#2901)
+* Fix `have_enqueued_mail` argument matching for mail enqueued by `ActionMailer.deliver_all_later`
+  without params. (Andrew Fader, rspec/rspec-rails#2931)
 
 ### 8.0.4 / 2026-03-10
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.3...v8.0.4)
