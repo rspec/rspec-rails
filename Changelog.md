@@ -10,6 +10,8 @@ Bug Fixes:
 * Fix view specs manipulating a frozen array (for template prefixes) in `actionview` internals in Rails 8.2.
   (Iliana Hadzhiatanasova, rspec/rspec-rails#2915)
 * Refactor template rendering to prepare for future Rails releases (Saïd M., Phil Pirozhkov, rspec/rspec-rails#2927)
+* Fix `have_enqueued_mail` argument matching for mail enqueued by `ActionMailer.deliver_all_later`
+  without params. (Andrew Fader, rspec/rspec-rails#2931)
 
 ### 8.0.4 / 2026-03-10
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.3...v8.0.4)
