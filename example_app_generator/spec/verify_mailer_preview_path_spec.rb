@@ -30,12 +30,12 @@ RSpec.describe 'Action Mailer railtie hook' do
     out = lines
               .reject { |line| line =~ /warning: circular argument reference/ }
               .reject { |line| line =~ /Gem::Specification#rubyforge_project=/ }
-              .reject { |line| line =~ /DEPRECATION WARNING/ }
               .reject { |line| line =~ /warning: previous/ }
               .reject { |line| line =~ /warning: already/ }
               .reject { |line| line =~ /but will no longer be part of the default gems / }
               .reject { |line| line =~ /You can add .* to your Gemfile/ }
               .join
+              .gsub(/DEPRECATION WARNING.*\n( \(called.*\n)*/, '')
               .chomp
     CaptureExec.new(out, $?.exitstatus)
   end
