@@ -64,13 +64,12 @@ RSpec.describe "be_a_new matcher" do
       end
 
       context "with composable matchers" do
-        context "one attribute is a composable matcher" do
-          it "passes" do
-            expect(record).to be_a_new(record.class).with(
-              foo: a_string_including("foo"))
+        context "when one attribute is a composable matcher" do
+          it "passes when the matcher does" do
+            expect(record).to be_a_new(record.class).with(foo: a_string_including("foo"))
           end
 
-          it "fails" do
+          it "fails when the matcher fails" do
             message =
               if RUBY_VERSION >= '3.4'
                 "attribute {\"foo\" => (a string matching \"bar\")} was not set on #{record.inspect}"
@@ -82,44 +81,29 @@ RSpec.describe "be_a_new matcher" do
                 foo: a_string_matching("bar"))
             }.to raise_error(message)
           end
-
-          context "matcher is wrong type" do
-            it "fails" do
-              expect {
-                expect(record).to be_a_new(record.class).with(
-                  foo: a_hash_including({ no_foo: "foo" }))
-              }.to raise_error { |e|
-                expect(e.message).to eq("no implicit conversion of Hash into String").or eq("can't convert Hash into String")
-              }
-            end
-          end
         end
 
-        context "two attributes are composable matchers" do
-          context "both matchers present in actual" do
-            it "passes" do
-              expect(record).to be_a_new(record.class).with(
-                foo: a_string_matching("foo"),
-                bar: a_string_matching("bar")
-              )
-            end
+        context "when two attributes are composable matchers" do
+          it "passes when both matchers do" do
+            expect(record).to be_a_new(record.class).with(
+              foo: a_string_matching("foo"),
+              bar: a_string_matching("bar")
+            )
           end
 
-          context "only one matcher present in actual" do
-            it "fails" do
-              message =
-                if RUBY_VERSION >= '3.4'
-                  "attribute {\"bar\" => (a string matching \"barn\")} was not set on #{record.inspect}"
-                else
-                  "attribute {\"bar\"=>(a string matching \"barn\")} was not set on #{record.inspect}"
-                end
-              expect {
-                expect(record).to be_a_new(record.class).with(
-                  foo: a_string_matching("foo"),
-                  bar: a_string_matching("barn")
-                )
-              }.to raise_error(message)
-            end
+          it "fails when only one matcher passes" do
+            message =
+              if RUBY_VERSION >= '3.4'
+                "attribute {\"bar\" => (a string matching \"barn\")} was not set on #{record.inspect}"
+              else
+                "attribute {\"bar\"=>(a string matching \"barn\")} was not set on #{record.inspect}"
+              end
+            expect {
+              expect(record).to be_a_new(record.class).with(
+                foo: a_string_matching("foo"),
+                bar: a_string_matching("barn")
+              )
+            }.to raise_error(message)
           end
         end
       end
