@@ -1,5 +1,8 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.4...8-0-maintenance)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.5...8-0-maintenance)
+
+### 8.0.4 / 2026-03-10
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.4...v8.0.5)
 
 Bug Fixes:
 
