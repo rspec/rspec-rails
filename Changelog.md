@@ -1,5 +1,5 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.4...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.5...main)
 
 Bug Fixes:
 
@@ -15,6 +15,14 @@ Bug Fixes:
   (Saïd M., rspec/rspec-rails#2927)
 * Ensure templates are nullified in Rails 8.2 when added via a string view path.
   (Phil Pirozhkov, rspec/rspec-rails#2927)
+
+### 8.0.5 / 2026-11-06
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.4...v8.0.5)
+
+Bug Fixes:
+
+* Include `ActiveJob::TestHelper` in all rails example groups to ensure jobs are reset
+  between examples matching Rails in-build behaviour. (Hammad Khan, rspec/rspec-rails#2901)
 * Fix `have_enqueued_mail` argument matching for mail enqueued by `ActionMailer.deliver_all_later`
   without params. (Andrew Fader, rspec/rspec-rails#2931)
 
