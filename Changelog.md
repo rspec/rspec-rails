@@ -1,20 +1,34 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.5...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.1.0...main)
+
+Enhancements:
+
+* Officially support Rails 8.2.
 
 Bug Fixes:
 
-* Include `ActiveJob::TestHelper` in all rails example groups to ensure jobs are reset
-  between examples matching Rails in-build behaviour. (Hammad Khan, rspec/rspec-rails#2901)
-* Handle Rails 8.2 having a frozen hash for `default_url_options` by assigning rather than mutating it.
-  (Federico Carrocera, rspec/rspec-rails#2907)
 * Fix `have_stream` (and related) matcher(s) by handling changes to stream test harness in Rails 8.2.
   (Jon Rowe, Phil Pirozhkov, rspec/rspec-rails#2909)
-* Fix view specs manipulating a frozen array (for template prefixes) in `actionview` internals in Rails 8.2.
-  (Iliana Hadzhiatanasova, rspec/rspec-rails#2915)
 * Handle Rails 8.2 changes to template rendering when nullifying templates.
   (Saïd M., rspec/rspec-rails#2927)
 * Ensure templates are nullified in Rails 8.2 when added via a string view path.
   (Phil Pirozhkov, rspec/rspec-rails#2927)
+
+### 8.1.0 / 2026-11-06
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.5...v8.1.0)
+
+Enhancements:
+
+* Officially support Rails 8.1, there are no changes to the behaviour of Rails 8.1 from rspec-rails 8.0.x
+  this release fulfils our versioning strategy and kepts CI up to date.
+
+Bug Fixes:
+
+* Handle having a frozen hash for `default_url_options` by assigning rather than mutating it.
+  (Federico Carrocera, rspec/rspec-rails#2907)
+* Fix view specs manipulating a frozen array (for template prefixes) in `actionview` internals.
+  (Iliana Hadzhiatanasova, rspec/rspec-rails#2915)
+* Refactor template rendering to prepare for future Rails releases. (Saïd M., Phil Pirozhkov, rspec/rspec-rails#2927)
 
 ### 8.0.5 / 2026-11-06
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.4...v8.0.5)
