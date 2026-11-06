@@ -16,7 +16,7 @@ issue a major version change when removing older versions from support.
 
 Accordingly you should use:
 
-* **[`rspec-rails` 8.x][]** for Rails 8.0 or 7.2.
+* **[`rspec-rails` 8.x][]** for Rails 8.1, 8.0 or 7.2.
 * **[`rspec-rails` 7.x][]** for Rails 7.x.
 * **[`rspec-rails` 6.x][]** for Rails 6.1, 7.0 or 7.1.
 * **[`rspec-rails` 5.x][]** for Rails 5.2 or 6.x.
