@@ -1,15 +1,21 @@
 ### Development
-[Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.4...main)
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.5...main)
 
 Bug Fixes:
 
-* Include `ActiveJob::TestHelper` in all rails example groups to ensure jobs are reset
-  between examples matching Rails in-build behaviour. (Hammad Khan, rspec/rspec-rails#2901)
 * Handle Rails 8.2 having a frozen hash for `default_url_options` by assigning rather than mutating it.
   (Federico Carrocera, rspec/rspec-rails#2907)
 * Fix view specs manipulating a frozen array (for template prefixes) in `actionview` internals in Rails 8.2.
   (Iliana Hadzhiatanasova, rspec/rspec-rails#2915)
 * Refactor template rendering to prepare for future Rails releases (Saïd M., Phil Pirozhkov, rspec/rspec-rails#2927)
+
+### 8.0.5 / 2026-11-06
+[Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.4...v8.0.5)
+
+Bug Fixes:
+
+* Include `ActiveJob::TestHelper` in all rails example groups to ensure jobs are reset
+  between examples matching Rails in-build behaviour. (Hammad Khan, rspec/rspec-rails#2901)
 * Fix `have_enqueued_mail` argument matching for mail enqueued by `ActionMailer.deliver_all_later`
   without params. (Andrew Fader, rspec/rspec-rails#2931)
 
