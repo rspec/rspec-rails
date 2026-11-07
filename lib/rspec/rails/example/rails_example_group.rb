@@ -16,11 +16,23 @@ module RSpec
       include RSpec::Rails::MinitestAssertionAdapter
       include RSpec::Rails::FixtureSupport
       include RSpec::Rails::TaggedLoggingAdapter
-      include ActiveSupport::CurrentAttributes::TestHelper
-      include ActiveSupport::ExecutionContext::TestHelper
 
       if RSpec::Rails::FeatureCheck.has_active_job?
         include ActiveJob::TestHelper
+      end
+
+      included do
+        unless RSpec::Rails::RailsExampleGroup.executor_around_test_case?
+          include ActiveSupport::CurrentAttributes::TestHelper
+          include ActiveSupport::ExecutionContext::TestHelper
+        end
+      end
+
+      # @private
+      def self.executor_around_test_case?
+        return false unless ::Rails.application
+
+        ::Rails.application.config.active_support.executor_around_test_case ? true : false
       end
     end
   end
