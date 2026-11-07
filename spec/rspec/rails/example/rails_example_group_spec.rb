@@ -57,6 +57,116 @@ module RSpec::Rails
       ).to be true
     end
 
+    describe "the Rails executor" do
+      let(:events) { [] }
+
+      let(:executor) do
+        events = self.events
+        Class.new(ActiveSupport::Executor) do
+          to_run { events << :executor_run }
+          to_complete { events << :executor_complete }
+        end
+      end
+
+      before do
+        allow(::Rails.application).to receive(:executor).and_return(executor)
+      end
+
+      context "when executor_around_test_case is off" do
+        before do
+          allow(::Rails.application.config.active_support).to receive(:executor_around_test_case).and_return(false)
+        end
+
+        it "does not wrap examples in the executor" do
+          events = self.events
+          group =
+            RSpec::Core::ExampleGroup.describe("A group") do
+              include RSpec::Rails::RailsExampleGroup
+              it { events << :example }
+            end
+
+          expect(
+            group.run(failure_reporter) ? true : failure_reporter.exceptions
+          ).to be true
+          expect(events).to eq([:example])
+        end
+      end
+
+      context "when executor_around_test_case is on" do
+        before do
+          allow(::Rails.application.config.active_support).to receive(:executor_around_test_case).and_return(true)
+        end
+
+        it "wraps examples and config.around hooks registered before rspec-rails in the executor" do
+          events = self.events
+          result =
+            RSpec::Core::Sandbox.sandboxed do |config|
+              config.around do |example|
+                events << :config_around_start
+                example.run
+                events << :config_around_end
+              end
+              RSpec::Rails.initialize_configuration(config)
+
+              group =
+                RSpec::Core::ExampleGroup.describe("A group") do
+                  include RSpec::Rails::RailsExampleGroup
+                  it { events << :example }
+                end
+              group.run(failure_reporter) ? true : failure_reporter.exceptions
+            end
+
+          expect(result).to be true
+          expect(events).to eq(
+            [:executor_run, :config_around_start, :example, :config_around_end, :executor_complete]
+          )
+        end
+
+        it "keeps current attributes that a config.around hook sets" do
+          stub_const("RSpec::Rails::ExecutorSampleCurrent", Class.new(ActiveSupport::CurrentAttributes) { attribute :request_id })
+          RSpec.configuration.around do |example|
+            ExecutorSampleCurrent.request_id = "123"
+            example.run
+          end
+
+          group =
+            RSpec::Core::ExampleGroup.describe("A group") do
+              include RSpec::Rails::RailsExampleGroup
+              it { expect(ExecutorSampleCurrent.request_id).to eq("123") }
+            end
+
+          expect(
+            group.run(failure_reporter) ? true : failure_reporter.exceptions
+          ).to be true
+        end
+
+        it "wraps examples of non-Rails groups in the executor" do
+          events = self.events
+          group = RSpec::Core::ExampleGroup.describe("A group") { it { events << :example } }
+
+          expect(
+            group.run(failure_reporter) ? true : failure_reporter.exceptions
+          ).to be true
+          expect(events).to eq([:executor_run, :example, :executor_complete])
+        end
+      end
+
+      it "does not wrap examples without a Rails application" do
+        allow(::Rails).to receive(:application).and_return(nil)
+        events = self.events
+        group =
+          RSpec::Core::ExampleGroup.describe("A group") do
+            include RSpec::Rails::RailsExampleGroup
+            it { events << :example }
+          end
+
+        expect(
+          group.run(failure_reporter) ? true : failure_reporter.exceptions
+        ).to be true
+        expect(events).to eq([:example])
+      end
+    end
+
     it 'will not leak enqueued ActiveJob jobs between examples', skip: !RSpec::Rails::FeatureCheck.has_active_job? do
       original_adapter = ActiveJob::Base.queue_adapter
       test_adapter = ActiveJob::QueueAdapters::TestAdapter.new
