@@ -56,6 +56,17 @@ module RSpec
     end
 
     # @private
+    def self.add_executor_around_examples(config)
+      config.hooks.register(:append, :around, :example) do |example|
+        if RSpec::Rails::RailsExampleGroup.executor_around_test_case?
+          ::Rails.application.executor.perform { example.run }
+        else
+          example.run
+        end
+      end
+    end
+
+    # @private
     def self.initialize_configuration(config) # rubocop:disable Metrics/MethodLength
       config.backtrace_exclusion_patterns << /vendor\//
       config.backtrace_exclusion_patterns << %r{lib/rspec/rails}
@@ -126,6 +137,7 @@ module RSpec
       end
 
       add_test_type_configurations(config)
+      add_executor_around_examples(config)
 
       if defined?(::Rails::Controller::Testing)
         [:controller, :view, :request].each do |type|
