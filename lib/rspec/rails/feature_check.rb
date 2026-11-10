@@ -43,6 +43,10 @@ module RSpec
         defined?(::ActionMailbox)
       end
 
+      def has_turbo?
+        defined?(::Turbo)
+      end
+
       def type_metatag(type)
         "type: :#{type}"
       end
