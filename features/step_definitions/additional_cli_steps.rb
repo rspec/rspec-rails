@@ -11,6 +11,10 @@ begin
   require "action_mailbox"
 rescue LoadError # rubocop:disable Lint/SuppressedException
 end
+begin
+  require "turbo-rails"
+rescue LoadError # rubocop:disable Lint/SuppressedException
+end
 
 require "rails/version"
 
@@ -47,5 +51,11 @@ end
 Given /rails 8 or later is available/ do
   unless ::Rails::VERSION::STRING >= "8.0.0"
     pending "Rails 8.0+ is required"
+  end
+end
+
+Given /turbo testing is available/ do
+  unless RSpec::Rails::FeatureCheck.has_turbo?
+    pending "Turbo is not available"
   end
 end
