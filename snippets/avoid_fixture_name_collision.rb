@@ -27,6 +27,10 @@ gemfile(false) do
     eval_gemfile 'Gemfile-rails-dependencies'
   end
 
+  if RUBY_VERSION.to_f < 3.2
+    gem "securerandom", ">= 0.3"
+  end
+
   gem "rspec-rails", path: "../"
 end
 
