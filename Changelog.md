@@ -33,6 +33,11 @@ Bug Fixes:
 ### 8.0.5 / 2026-11-06
 [Full Changelog](https://github.com/rspec/rspec-rails/compare/v8.0.4...v8.0.5)
 
+Enhancements:
+
+* Speed up the `rails stats` initializer by discovering the spec subdirectories directly, rather
+  than enumerating every spec file in `spec/`. (Connor Shea, rspec/rspec-rails#2914)
+
 Bug Fixes:
 
 * Include `ActiveJob::TestHelper` in all rails example groups to ensure jobs are reset
